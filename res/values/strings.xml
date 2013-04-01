@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello amnesty-panic-button!</string>
+    <string name="hello">Hello from PanicButton</string>
     <string name="app_name">PanicButton</string>
 </resources>
