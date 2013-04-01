@@ -9,8 +9,7 @@
     <name>amnesty-panic-button</name>
 
     <properties>
-        <platform.version> 2.3.3
-            </platform.version>
+        <platform.version>2.3.3</platform.version>
     </properties>
 
     <dependencies>
@@ -36,7 +35,7 @@
                     <sdk>
                         <platform>10</platform>
                     </sdk>
-                                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
