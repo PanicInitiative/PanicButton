@@ -4,9 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-public class HelloAndroidActivity extends Activity {
-
-    private static String TAG = "amnesty-panic-button";
+public class SettingsActivity extends Activity {
+    private static String TAG = SettingsActivity.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

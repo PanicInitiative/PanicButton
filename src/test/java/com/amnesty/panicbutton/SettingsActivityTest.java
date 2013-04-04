@@ -8,10 +8,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
-public class HelloAndroidActivityTest {
+public class SettingsActivityTest {
     @Test
     public void shouldHaveHelloWorld(){
-        String appName = new HelloAndroidActivity().getResources().getString(R.string.app_name);
+        String appName = new SettingsActivity().getResources().getString(R.string.app_name);
         assertThat(appName, equalTo("PanicButton"));
     }
 }
