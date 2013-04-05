@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="menu_font_size">22sp</dimen>
+    <dimen name="menu_text_left_padding">15dp</dimen>
+
+    <dimen name="menu_padding_top">20dp</dimen>
+    <dimen name="menu_padding_bottom">20dp</dimen>
+    <dimen name="menu_padding_left_right">5dp</dimen>
+
+    <dimen name="icon_padding_left">5dp</dimen>
+    <dimen name="status_padding_right">15dp</dimen>
+</resources>
