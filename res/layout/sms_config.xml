@@ -23,8 +23,10 @@
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:id="@+id/second_contact"
+                android:tag="second_contact"
                 android:inputType="number"/>
         <ImageButton
+                android:tag="second_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/socialperson"
@@ -36,8 +38,10 @@
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:id="@+id/third_contact"
+                android:tag="third_contact"
                 android:inputType="number"/>
         <ImageButton
+                android:tag="third_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/socialperson"

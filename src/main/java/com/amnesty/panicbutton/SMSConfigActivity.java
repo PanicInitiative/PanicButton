@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import roboguice.activity.RoboActivity;
 
 public class SMSConfigActivity extends RoboActivity {
@@ -24,16 +25,16 @@ public class SMSConfigActivity extends RoboActivity {
     public void launchContactPicker(View view) {
         Intent contactPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-//        currentContactTag = (String)view.getTag();
+        currentContactTag = (String)view.getTag();
         startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if((requestCode == PICK_CONTACT_REQUEST) && (resultCode == RESULT_OK)){
-//            String phoneNumber = getPhoneNumber(data.getData());
-//            EditText contact = (EditText) findViewWithTag(currentContactTag);
-//            contact.setText(phoneNumber);
-//        }
+        if((requestCode == PICK_CONTACT_REQUEST) && (resultCode == RESULT_OK)){
+            String phoneNumber = getPhoneNumber(data.getData());
+            EditText contact = (EditText) findViewById(android.R.id.content).findViewWithTag(currentContactTag);
+            contact.setText(phoneNumber);
+        }
     }
 
     private String getPhoneNumber(Uri contactData){
