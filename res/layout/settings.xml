@@ -7,7 +7,9 @@
              android:paddingLeft="@dimen/menu_padding_left_right">
 
     <TableRow android:paddingTop="@dimen/menu_padding_top"
-              android:paddingBottom="@dimen/menu_padding_bottom">
+              android:paddingBottom="@dimen/menu_padding_bottom"
+              android:clickable="true"
+              android:onClick="launchSmsActivity">
 
         <ImageView android:src="@android:drawable/ic_dialog_email"
                    android:paddingLeft="@dimen/icon_padding_left"

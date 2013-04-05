@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:stretchColumns="0">
+    <TableRow>
+        <EditText
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/first_contact"
+                android:tag="first_contact"
+                android:inputType="number"/>
+        <ImageButton
+                android:tag="first_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/socialperson"
+                android:onClick="launchContactPicker"/>
+    </TableRow>
+
+    <TableRow>
+        <EditText
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/second_contact"
+                android:inputType="number"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/socialperson"
+                android:onClick="launchContactPicker"/>
+    </TableRow>
+
+    <TableRow>
+        <EditText
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:id="@+id/third_contact"
+                android:inputType="number"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/socialperson"
+                android:onClick="launchContactPicker"/>
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <EditText
+                android:id="@+id/sms_message"
+                android:layout_span="2"
+                android:layout_height="match_parent"
+                android:hint="Enter Message"
+                android:inputType="text"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+                android:layout_span="1"
+                android:hint="Characters left : "
+                android:layout_gravity="right"
+                android:inputType="text"/>
+        <TextView
+                android:id="@+id/characters_left"
+                android:hint="100"
+                android:inputType="text"/>
+    </TableRow>
+</TableLayout>

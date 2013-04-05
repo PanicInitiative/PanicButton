@@ -1,8 +1,10 @@
 package com.amnesty.panicbutton;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class SettingsActivity extends Activity {
     private static String TAG = SettingsActivity.class.getSimpleName();
@@ -12,5 +14,9 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         setContentView(R.layout.settings);
+    }
+
+    public void launchSmsActivity(View view) {
+        startActivity(new Intent(this, SMSConfigActivity.class));
     }
 }

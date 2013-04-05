@@ -5,4 +5,5 @@
     <string name="settings_label">Settings</string>
     <string name="sms">SMS</string>
     <string name="twitter">Twitter</string>
+    <string name="sms_settings_label">SMS</string>
 </resources>
