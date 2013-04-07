@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PanicButton</string>
+
     <string name="settings_label">Settings</string>
     <string name="sms">SMS</string>
     <string name="twitter">Twitter</string>
     <string name="sms_settings_label">SMS</string>
+
     <string name="characters_left">Characters left :</string>
-    <string name="enter_message_hint">Enter Message</string>
     <string name="save_text">Save</string>
+
+    <string name="enter_message_hint">Enter Message</string>
+    <string name="first_contact_hint">First Contact</string>
+    <string name="second_contact_hint">Second Contact</string>
+    <string name="third_contact_hint">Third Contact</string>
 </resources>

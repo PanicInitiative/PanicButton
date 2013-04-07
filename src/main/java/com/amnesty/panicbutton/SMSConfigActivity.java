@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -19,7 +20,7 @@ public class SMSConfigActivity extends RoboActivity {
     private static final int MAX_CHARACTER_COUNT = 100;
 
     private String currentContactTag;
-    @InjectView(R.id.sms_message) EditText smsMessage;
+    @InjectView(R.id.sms_message) EditText smsMessageEditText;
     @InjectView(R.id.characters_left) TextView charactersLeft;
 
     @Override
@@ -27,7 +28,13 @@ public class SMSConfigActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sms_config);
 
-        smsMessage.addTextChangedListener(smsMessageWatcher);
+        configureSmsEditText();
+    }
+
+    private void configureSmsEditText() {
+        smsMessageEditText.addTextChangedListener(smsMessageWatcher);
+        smsMessageEditText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(MAX_CHARACTER_COUNT) });
+        charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - smsMessageEditText.getText().length()));
     }
 
     public void launchContactPicker(View view) {
@@ -60,10 +67,8 @@ public class SMSConfigActivity extends RoboActivity {
             ContactsContract.CommonDataKinds.Phone.NUMBER
         };
         Cursor cursor = managedQuery(contactData, projection,null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            return cursor.getString(0);
-        }
-        return "";
+        cursor.moveToFirst();
+        return cursor.getString(0);
     }
 
 }

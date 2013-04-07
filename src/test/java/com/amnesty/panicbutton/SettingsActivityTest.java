@@ -26,7 +26,7 @@ public class SettingsActivityTest {
     }
 
     @Test
-    public void pressingTheSMSRowShouldStartTheSMSConfigActivity() throws Exception {
+    public void shouldStartTheSMSConfigActivityOnSmsRowClick() throws Exception {
         smsRow.performClick();
 
         ShadowActivity shadowActivity = shadowOf(settingsActivity);

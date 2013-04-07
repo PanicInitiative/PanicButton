@@ -2,13 +2,15 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="fill_parent"
              android:layout_height="fill_parent"
-             android:stretchColumns="0">
-    <TableRow>
+             android:stretchColumns="0"
+             android:padding="@dimen/sms_config_padding">
+    <TableRow android:padding="@dimen/sms_config_row_padding">
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:id="@+id/first_contact"
                 android:tag="first_contact"
+                android:hint="@string/first_contact_hint"
                 android:inputType="number"/>
         <ImageButton
                 android:tag="first_contact"
@@ -18,12 +20,13 @@
                 android:onClick="launchContactPicker"/>
     </TableRow>
 
-    <TableRow>
+    <TableRow android:padding="@dimen/sms_config_row_padding">
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:id="@+id/second_contact"
                 android:tag="second_contact"
+                android:hint="@string/second_contact_hint"
                 android:inputType="number"/>
         <ImageButton
                 android:tag="second_contact"
@@ -33,12 +36,13 @@
                 android:onClick="launchContactPicker"/>
     </TableRow>
 
-    <TableRow>
+    <TableRow android:padding="@dimen/sms_config_row_padding">
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:id="@+id/third_contact"
                 android:tag="third_contact"
+                android:hint="@string/third_contact_hint"
                 android:inputType="number"/>
         <ImageButton
                 android:tag="third_contact"
@@ -56,17 +60,17 @@
                   android:gravity="center"/>
     </TableRow>
 
-    <TableRow android:layout_weight="1">
+    <TableRow android:padding="@dimen/sms_config_row_padding"
+              android:layout_weight="1">
         <EditText
                 android:id="@+id/sms_message"
                 android:layout_span="2"
-                android:maxLength="100"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_message_hint"
                 android:gravity="top"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine" android:layout_width="wrap_content"/>
     </TableRow>
-    <TableRow>
+    <TableRow android:padding="@dimen/sms_config_row_padding">
         <Button android:text="@string/save_text"
                 android:layout_span="2"
                 android:id="@+id/save"/>
