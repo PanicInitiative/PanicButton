@@ -48,24 +48,27 @@
                 android:onClick="launchContactPicker"/>
     </TableRow>
 
+    <TableRow>
+        <TextView android:hint="@string/characters_left"
+                  android:layout_gravity="right"/>
+        <TextView android:id="@+id/characters_left"
+                  android:textStyle="bold"
+                  android:gravity="center"/>
+    </TableRow>
+
     <TableRow android:layout_weight="1">
         <EditText
                 android:id="@+id/sms_message"
                 android:layout_span="2"
+                android:maxLength="100"
                 android:layout_height="match_parent"
-                android:hint="Enter Message"
-                android:inputType="text"/>
+                android:hint="@string/enter_message_hint"
+                android:gravity="top"
+                android:inputType="textMultiLine"/>
     </TableRow>
-
     <TableRow>
-        <TextView
-                android:layout_span="1"
-                android:hint="Characters left : "
-                android:layout_gravity="right"
-                android:inputType="text"/>
-        <TextView
-                android:id="@+id/characters_left"
-                android:hint="100"
-                android:inputType="text"/>
+        <Button android:text="@string/save_text"
+                android:layout_span="2"
+                android:id="@+id/save"/>
     </TableRow>
 </TableLayout>

@@ -5,21 +5,29 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectView;
 
 public class SMSConfigActivity extends RoboActivity {
     private static String TAG = SMSConfigActivity.class.getSimpleName();
     private static final int PICK_CONTACT_REQUEST = 100;
+    private static final int MAX_CHARACTER_COUNT = 100;
+
     private String currentContactTag;
+    @InjectView(R.id.sms_message) EditText smsMessage;
+    @InjectView(R.id.characters_left) TextView charactersLeft;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		Log.i(TAG, "onCreate");
         setContentView(R.layout.sms_config);
+
+        smsMessage.addTextChangedListener(smsMessageWatcher);
     }
 
     public void launchContactPicker(View view) {
@@ -36,6 +44,16 @@ public class SMSConfigActivity extends RoboActivity {
             contact.setText(phoneNumber);
         }
     }
+
+    private final TextWatcher smsMessageWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - s.length()));
+        }
+
+        public void afterTextChanged(Editable s) {}
+    };
 
     private String getPhoneNumber(Uri contactData){
         String[] projection = {
