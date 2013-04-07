@@ -6,7 +6,8 @@
              android:paddingRight="@dimen/menu_padding_left_right"
              android:paddingLeft="@dimen/menu_padding_left_right">
 
-    <TableRow android:paddingTop="@dimen/menu_padding_top"
+    <TableRow android:id="@+id/sms_row"
+              android:paddingTop="@dimen/menu_padding_top"
               android:paddingBottom="@dimen/menu_padding_bottom"
               android:clickable="true"
               android:onClick="launchSmsActivity">
