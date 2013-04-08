@@ -16,22 +16,24 @@ import roboguice.inject.InjectView;
 
 public class SMSConfigActivity extends RoboActivity {
     private static String TAG = SMSConfigActivity.class.getSimpleName();
-    private static final int PICK_CONTACT_REQUEST = 100;
+    private static final int PICK_CONTACT_REQUEST_ID = 100;
     private static final int MAX_CHARACTER_COUNT = 100;
 
     private String currentContactTag;
-    @InjectView(R.id.sms_message) EditText smsMessageEditText;
-    @InjectView(R.id.characters_left) TextView charactersLeft;
+    @InjectView(R.id.sms_message)
+    private EditText smsMessageEditText;
+    @InjectView(R.id.characters_left)
+    private TextView charactersLeft;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sms_config);
 
-        configureSmsEditText();
+        initSmsEditText();
     }
 
-    private void configureSmsEditText() {
+    private void initSmsEditText() {
         smsMessageEditText.addTextChangedListener(smsMessageWatcher);
         smsMessageEditText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(MAX_CHARACTER_COUNT) });
         charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - smsMessageEditText.getText().length()));
@@ -41,11 +43,11 @@ public class SMSConfigActivity extends RoboActivity {
         Intent contactPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
         currentContactTag = (String)view.getTag();
-        startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST);
+        startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if((requestCode == PICK_CONTACT_REQUEST) && (resultCode == RESULT_OK)){
+        if((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)){
             String phoneNumber = getPhoneNumber(data.getData());
             EditText contact = (EditText) findViewById(android.R.id.content).findViewWithTag(currentContactTag);
             contact.setText(phoneNumber);
