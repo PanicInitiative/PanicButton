@@ -102,13 +102,13 @@
                         </excludes>
                     </instrumentation>
                     <check>
-                        <branchRate>70</branchRate>
-                        <lineRate>70</lineRate>
+                        <branchRate>95</branchRate>
+                        <lineRate>95</lineRate>
                         <haltOnFailure>true</haltOnFailure>
-                        <totalBranchRate>70</totalBranchRate>
-                        <totalLineRate>70</totalLineRate>
-                        <packageLineRate>70</packageLineRate>
-                        <packageBranchRate>70</packageBranchRate>
+                        <totalBranchRate>95</totalBranchRate>
+                        <totalLineRate>95</totalLineRate>
+                        <packageLineRate>95</packageLineRate>
+                        <packageBranchRate>95</packageBranchRate>
                     </check>
                 </configuration>
                 <executions>

@@ -16,7 +16,11 @@ public class MessageLimitWatcherTest {
     public void shouldUpdateMessageLimitOnMainTextChange() {
         TextView textView = new TextView(new Activity());
         MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, MAX_CHARACTER_COUNT);
+
+        messageLimitWatcher.beforeTextChanged(null,-1,-1,-1);
         messageLimitWatcher.onTextChanged("test", -1, -1, -1);
+        messageLimitWatcher.afterTextChanged(null);
+
         assertEquals("96", Robolectric.shadowOf(textView).getText());
     }
 }
