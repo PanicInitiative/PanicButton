@@ -2,6 +2,7 @@ package com.amnesty.panicbutton;
 
 import android.content.Intent;
 import android.widget.TableRow;
+import com.amnesty.panicbutton.sms.SMSConfigActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +19,7 @@ public class SettingsActivityTest {
     private TableRow smsRow;
 
     @Before
-    public void setUp() {
+    public void setup() {
         settingsActivity = new SettingsActivity();
         settingsActivity.onCreate(null);
 

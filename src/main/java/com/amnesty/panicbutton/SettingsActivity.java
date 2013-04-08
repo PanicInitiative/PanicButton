@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.amnesty.panicbutton.sms.SMSConfigActivity;
 
 public class SettingsActivity extends Activity {
     private static String TAG = SettingsActivity.class.getSimpleName();

@@ -1,42 +1,46 @@
-package com.amnesty.panicbutton;
+package com.amnesty.panicbutton.sms;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
+import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
+
 public class SMSConfigActivity extends RoboActivity {
-    private static String TAG = SMSConfigActivity.class.getSimpleName();
     private static final int PICK_CONTACT_REQUEST_ID = 100;
-    private static final int MAX_CHARACTER_COUNT = 100;
 
     private String currentContactTag;
+    private MessageLimitWatcher messageLimitWatcher;
+
     @InjectView(R.id.sms_message)
-    private EditText smsMessageEditText;
+    private EditText messageEditText;
+
     @InjectView(R.id.characters_left)
-    private TextView charactersLeft;
+    private TextView messageLimitView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sms_config);
-
+        messageLimitWatcher = new MessageLimitWatcher(messageLimitView, MAX_CHARACTER_COUNT);
         initSmsEditText();
     }
 
     private void initSmsEditText() {
-        smsMessageEditText.addTextChangedListener(smsMessageWatcher);
-        smsMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)});
-        charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - smsMessageEditText.getText().length()));
+        messageEditText.addTextChangedListener(messageLimitWatcher);
+        InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
+        messageEditText.setFilters(filters);
+        messageLimitView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
     }
 
     public void launchContactPicker(View view) {
@@ -54,18 +58,6 @@ public class SMSConfigActivity extends RoboActivity {
         }
     }
 
-    private final TextWatcher smsMessageWatcher = new TextWatcher() {
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - s.length()));
-        }
-
-        public void afterTextChanged(Editable s) {
-        }
-    };
-
     private String getPhoneNumber(Uri contactData) {
         String[] projection = {
                 ContactsContract.CommonDataKinds.Phone.NUMBER
@@ -74,5 +66,4 @@ public class SMSConfigActivity extends RoboActivity {
         cursor.moveToFirst();
         return cursor.getString(0);
     }
-
 }
