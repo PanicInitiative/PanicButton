@@ -35,19 +35,19 @@ public class SMSConfigActivity extends RoboActivity {
 
     private void initSmsEditText() {
         smsMessageEditText.addTextChangedListener(smsMessageWatcher);
-        smsMessageEditText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(MAX_CHARACTER_COUNT) });
+        smsMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)});
         charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - smsMessageEditText.getText().length()));
     }
 
     public void launchContactPicker(View view) {
+        currentContactTag = (String) view.getTag();
         Intent contactPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-        currentContactTag = (String)view.getTag();
         startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)){
+        if ((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)) {
             String phoneNumber = getPhoneNumber(data.getData());
             EditText contact = (EditText) findViewById(android.R.id.content).findViewWithTag(currentContactTag);
             contact.setText(phoneNumber);
@@ -55,20 +55,22 @@ public class SMSConfigActivity extends RoboActivity {
     }
 
     private final TextWatcher smsMessageWatcher = new TextWatcher() {
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             charactersLeft.setText(String.valueOf(MAX_CHARACTER_COUNT - s.length()));
         }
 
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s) {
+        }
     };
 
-    private String getPhoneNumber(Uri contactData){
+    private String getPhoneNumber(Uri contactData) {
         String[] projection = {
-            ContactsContract.CommonDataKinds.Phone.NUMBER
+                ContactsContract.CommonDataKinds.Phone.NUMBER
         };
-        Cursor cursor = managedQuery(contactData, projection,null, null, null);
+        Cursor cursor = managedQuery(contactData, projection, null, null, null);
         cursor.moveToFirst();
         return cursor.getString(0);
     }

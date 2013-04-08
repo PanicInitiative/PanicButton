@@ -74,7 +74,6 @@
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
-
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
@@ -83,6 +82,57 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>com/amnesty/panicbutton/R*.class</ignore>
+                            <ignore>com/amnesty/panicbutton/BuildConfig.class</ignore>
+                            <ignore>com/amnesty/panicbutton/SMSConfigActivity*.class</ignore>
+                        </ignores>
+                        <excludes>
+                            <exclude>com/amnesty/panicbutton/R*.class</exclude>
+                            <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
+                            <exclude>com/amnesty/panicbutton/SMSConfigActivity*.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                    <check>
+                        <branchRate>85</branchRate>
+                        <lineRate>85</lineRate>
+                        <haltOnFailure>true</haltOnFailure>
+                        <totalBranchRate>85</totalBranchRate>
+                        <totalLineRate>85</totalLineRate>
+                        <packageLineRate>85</packageLineRate>
+                        <packageBranchRate>85</packageBranchRate>
+                    </check>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
