@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal">
+        <TextView android:hint="@string/characters_left"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_toLeftOf="@+id/characters_left"
+                />
+        <TextView android:id="@+id/characters_left"
+                  android:textStyle="bold"
+                  android:layout_alignParentRight="true"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"/>
+    </RelativeLayout>
+    <EditText
+            android:id="@+id/sms_message"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:hint="@string/enter_message_hint"
+            android:gravity="top"
+            android:inputType="textMultiLine"/>
+</LinearLayout>

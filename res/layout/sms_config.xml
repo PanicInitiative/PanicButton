@@ -52,25 +52,11 @@
                 android:src="@drawable/socialperson"
                 android:onClick="launchContactPicker"/>
     </TableRow>
-
-    <TableRow>
-        <TextView android:hint="@string/characters_left"
-                  android:layout_gravity="right"/>
-        <TextView android:id="@+id/characters_left"
-                  android:textStyle="bold"
-                  android:gravity="center"/>
-    </TableRow>
-
-    <TableRow android:layout_weight="1"
-              android:paddingBottom="@dimen/sms_config_row_padding_bottom">
-        <EditText
-                android:id="@+id/sms_message"
+    <TableRow android:layout_weight="1">
+        <com.amnesty.panicbutton.widget.MessageEditText
                 android:layout_span="2"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:hint="@string/enter_message_hint"
-                android:gravity="top"
-                android:inputType="textMultiLine"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
     </TableRow>
     <TableRow>
         <Button android:text="@string/save_text"

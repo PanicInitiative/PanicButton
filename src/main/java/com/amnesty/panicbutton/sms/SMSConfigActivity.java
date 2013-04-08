@@ -5,42 +5,19 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboActivity;
-import roboguice.inject.InjectView;
-
-import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 
 public class SMSConfigActivity extends RoboActivity {
     private static final int PICK_CONTACT_REQUEST_ID = 100;
-
     private String currentContactTag;
-    private MessageLimitWatcher messageLimitWatcher;
-
-    @InjectView(R.id.sms_message)
-    private EditText messageEditText;
-
-    @InjectView(R.id.characters_left)
-    private TextView messageLimitView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sms_config);
-        messageLimitWatcher = new MessageLimitWatcher(messageLimitView, MAX_CHARACTER_COUNT);
-        initSmsEditText();
-    }
-
-    private void initSmsEditText() {
-        messageEditText.addTextChangedListener(messageLimitWatcher);
-        InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
-        messageEditText.setFilters(filters);
-        messageLimitView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
     }
 
     public void launchContactPicker(View view) {
