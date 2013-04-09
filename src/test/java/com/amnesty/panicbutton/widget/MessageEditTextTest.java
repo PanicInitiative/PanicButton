@@ -2,17 +2,22 @@ package com.amnesty.panicbutton.widget;
 
 import android.app.Activity;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.sms.MessageLimitWatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowEditText;
 
+import java.util.List;
+
 import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -34,8 +39,14 @@ public class MessageEditTextTest {
     public void shouldInitializeTheMessageEditText() {
         ShadowEditText shadowEditText = (ShadowEditText) shadowOf(editText);
 
-        assertEquals(textView.getText(), String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()) );
-        InputFilter inputFilter = shadowEditText.getFilters()[0];
-        assertEquals(inputFilter.getClass(), InputFilter.LengthFilter.class) ;
+        assertEquals(textView.getText(), String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
+
+        InputFilter[] filters = shadowEditText.getFilters();
+        InputFilter inputFilter = filters[0];
+        assertEquals(inputFilter.getClass(), InputFilter.LengthFilter.class);
+
+        List<TextWatcher> watchers = shadowEditText.getWatchers();
+        assertEquals(1, watchers.size());
+        assertTrue(watchers.get(0).getClass().equals(MessageLimitWatcher.class));
     }
 }

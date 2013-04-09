@@ -14,7 +14,7 @@ import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 
 public class MessageEditText extends LinearLayout {
     private TextView charactersLeftView;
-    private EditText messageEditText;
+    private EditText editText;
     private MessageLimitWatcher messageLimitWatcher;
 
     public MessageEditText(Context context) {
@@ -34,12 +34,13 @@ public class MessageEditText extends LinearLayout {
 
         messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, MAX_CHARACTER_COUNT);
 
-        messageEditText = (EditText) findViewById(R.id.message_edit_text);
-        messageEditText.addTextChangedListener(messageLimitWatcher);
+        editText = (EditText) findViewById(R.id.message_edit_text);
+        editText.addTextChangedListener(messageLimitWatcher);
+
         InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
-        messageEditText.setFilters(filters);
+        editText.setFilters(filters);
 
         charactersLeftView = (TextView) findViewById(R.id.characters_left_view);
-        charactersLeftView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
+        charactersLeftView.setText(String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
     }
 }
