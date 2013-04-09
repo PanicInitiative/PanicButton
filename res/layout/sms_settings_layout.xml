@@ -3,9 +3,9 @@
              android:layout_height="match_parent"
              android:layout_width="wrap_content"
              android:stretchColumns="0"
-             android:padding="@dimen/sms_config_padding">
+             android:padding="@dimen/sms_settings_padding">
 
-    <TableRow android:paddingBottom="@dimen/sms_config_row_padding_bottom">
+    <TableRow>
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
                 android:onClick="launchContactPicker"/>
     </TableRow>
 
-    <TableRow android:paddingBottom="@dimen/sms_config_row_padding_bottom">
+    <TableRow>
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                 android:onClick="launchContactPicker"/>
     </TableRow>
 
-    <TableRow android:paddingBottom="@dimen/sms_config_row_padding_bottom">
+    <TableRow>
         <EditText
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
@@ -52,12 +52,15 @@
                 android:src="@drawable/socialperson"
                 android:onClick="launchContactPicker"/>
     </TableRow>
+
     <TableRow android:layout_weight="1">
         <com.amnesty.panicbutton.widget.MessageEditText
+                android:padding="@dimen/sms_message_widget_padding"
                 android:layout_span="2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
     </TableRow>
+
     <TableRow>
         <Button android:text="@string/save_text"
                 android:layout_height="match_parent"

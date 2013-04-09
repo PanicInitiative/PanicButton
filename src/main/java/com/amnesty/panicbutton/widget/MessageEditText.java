@@ -31,16 +31,14 @@ public class MessageEditText extends LinearLayout {
         String service = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(service);
         layoutInflater.inflate(R.layout.message_edit_text, this, true);
+        charactersLeftView = (TextView) findViewById(R.id.characters_left_view);
+        editText = (EditText) findViewById(R.id.message_edit_text);
 
         messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, MAX_CHARACTER_COUNT);
-
-        editText = (EditText) findViewById(R.id.message_edit_text);
         editText.addTextChangedListener(messageLimitWatcher);
-
         InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
         editText.setFilters(filters);
 
-        charactersLeftView = (TextView) findViewById(R.id.characters_left_view);
         charactersLeftView.setText(String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
     }
 }

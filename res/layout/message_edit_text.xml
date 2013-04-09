@@ -16,7 +16,8 @@
                   android:textStyle="bold"
                   android:layout_alignParentRight="true"
                   android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"/>
+                  android:layout_width="wrap_content"
+                  android:paddingRight="@dimen/message_widget_characters_right_padding"/>
     </RelativeLayout>
     <EditText
             android:id="@+id/message_edit_text"

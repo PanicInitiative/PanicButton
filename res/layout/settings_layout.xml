@@ -3,50 +3,50 @@
              android:layout_width="fill_parent"
              android:layout_height="fill_parent"
              android:stretchColumns="1"
-             android:paddingRight="@dimen/menu_padding_left_right"
-             android:paddingLeft="@dimen/menu_padding_left_right">
+             android:paddingRight="@dimen/menu_padding_horizontal"
+             android:paddingLeft="@dimen/menu_padding_horizontal">
 
     <TableRow android:id="@+id/sms_row"
-              android:paddingTop="@dimen/menu_padding_top"
-              android:paddingBottom="@dimen/menu_padding_bottom"
+              android:paddingTop="@dimen/menu_padding_vertical"
+              android:paddingBottom="@dimen/menu_padding_vertical"
               android:clickable="true"
               android:onClick="launchSmsActivity">
 
         <ImageView android:src="@android:drawable/ic_dialog_email"
-                   android:paddingLeft="@dimen/icon_padding_left"
+                   android:paddingLeft="@dimen/menu_icon_padding_left"
                    android:layout_height="match_parent"
                    android:gravity="center_vertical"/>
 
         <TextView android:text="@string/sms"
-                  android:textSize="@dimen/menu_font_size"
+                  android:textSize="@dimen/menu_text_size"
                   android:textColor="@android:color/primary_text_dark"
-                  android:paddingLeft="@dimen/menu_text_left_padding"
+                  android:paddingLeft="@dimen/menu_text_padding_left"
                   android:layout_height="match_parent"
                   android:gravity="center_vertical"/>
 
         <ImageView android:src="@android:drawable/ic_delete"
-                   android:paddingRight="@dimen/status_padding_right"/>
+                   android:paddingRight="@dimen/menu_status_icon_padding_right"/>
     </TableRow>
 
     <View android:layout_height="1sp" android:background="#FF909090" />
 
-    <TableRow android:paddingTop="@dimen/menu_padding_top"
-              android:paddingBottom="@dimen/menu_padding_bottom">
+    <TableRow android:paddingTop="@dimen/menu_padding_vertical"
+              android:paddingBottom="@dimen/menu_padding_vertical">
 
         <ImageView android:src="@android:drawable/ic_dialog_dialer"
-                   android:paddingLeft="@dimen/icon_padding_left"
+                   android:paddingLeft="@dimen/menu_icon_padding_left"
                    android:layout_height="match_parent"
                    android:gravity="center_vertical"/>
 
         <TextView android:text="@string/twitter"
-                  android:textSize="@dimen/menu_font_size"
+                  android:textSize="@dimen/menu_text_size"
                   android:textColor="@android:color/primary_text_dark"
-                  android:paddingLeft="@dimen/menu_text_left_padding"
+                  android:paddingLeft="@dimen/menu_text_padding_left"
                   android:layout_height="match_parent"
                   android:gravity="center_vertical"/>
 
         <CheckBox android:id="@+id/twitter_checkbox"
-                  android:paddingRight="@dimen/status_padding_right"/>
+                  android:paddingRight="@dimen/menu_status_icon_padding_right"/>
     </TableRow>
 
     <View android:layout_height="1sp" android:background="#FF909090" />
