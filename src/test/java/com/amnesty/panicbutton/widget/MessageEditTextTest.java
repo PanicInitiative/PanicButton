@@ -26,8 +26,8 @@ public class MessageEditTextTest {
         messageEditText = new MessageEditText(new Activity());
         MessageEditText messageEditText2 = new MessageEditText(new Activity(), null);
 
-        editText = (EditText) messageEditText.findViewById(R.id.sms_message);
-        textView = (TextView) messageEditText.findViewById(R.id.characters_left);
+        editText = (EditText) messageEditText.findViewById(R.id.message_edit_text);
+        textView = (TextView) messageEditText.findViewById(R.id.characters_left_view);
     }
 
     @Test

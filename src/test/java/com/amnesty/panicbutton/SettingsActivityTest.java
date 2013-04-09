@@ -2,7 +2,7 @@ package com.amnesty.panicbutton;
 
 import android.content.Intent;
 import android.widget.TableRow;
-import com.amnesty.panicbutton.sms.SMSConfigActivity;
+import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +33,6 @@ public class SettingsActivityTest {
         ShadowActivity shadowActivity = shadowOf(settingsActivity);
         Intent startedIntent = shadowActivity.getNextStartedActivity();
 
-        assertThat(startedIntent.getComponent().getClassName(), equalTo(SMSConfigActivity.class.getName()));
+        assertThat(startedIntent.getComponent().getClassName(), equalTo(SMSSettingsActivity.class.getName()));
     }
 }

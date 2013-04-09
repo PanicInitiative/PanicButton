@@ -91,13 +91,13 @@
                         <ignores>
                             <ignore>com/amnesty/panicbutton/R*.class</ignore>
                             <ignore>com/amnesty/panicbutton/BuildConfig.class</ignore>
-                            <ignore>com/amnesty/panicbutton/sms/SMSConfigActivity*.class</ignore>
+                            <ignore>com/amnesty/panicbutton/sms/SMSSettingsActivity.class</ignore>
                             <ignore>com/amnesty/panicbutton/AppConstants*.class</ignore>
                         </ignores>
                         <excludes>
                             <exclude>com/amnesty/panicbutton/R*.class</exclude>
                             <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
-                            <exclude>com/amnesty/panicbutton/sms/SMSConfigActivity*.class</exclude>
+                            <exclude>com/amnesty/panicbutton/sms/SMSSettingsActivity.class</exclude>
                             <exclude>com/amnesty/panicbutton/AppConstants*.class</exclude>
                         </excludes>
                     </instrumentation>

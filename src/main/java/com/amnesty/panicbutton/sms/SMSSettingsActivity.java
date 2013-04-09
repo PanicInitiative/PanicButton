@@ -10,14 +10,14 @@ import android.widget.EditText;
 import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboActivity;
 
-public class SMSConfigActivity extends RoboActivity {
+public class SMSSettingsActivity extends RoboActivity {
     private static final int PICK_CONTACT_REQUEST_ID = 100;
     private String currentContactTag;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sms_config);
+        setContentView(R.layout.sms_settings_layout);
     }
 
     public void launchContactPicker(View view) {

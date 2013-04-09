@@ -10,18 +10,18 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowTextView;
 
 @RunWith(RobolectricTestRunner.class)
-public class SMSConfigActivityTest {
-    private SMSConfigActivity smsConfigActivity;
+public class SMSSettingsActivityTest {
+    private SMSSettingsActivity smsSettingsActivity;
 
     @Before
     public void setup() {
-        smsConfigActivity = new SMSConfigActivity();
-        smsConfigActivity.onCreate(null);
+        smsSettingsActivity = new SMSSettingsActivity();
+        smsSettingsActivity.onCreate(null);
     }
 
     @Test
     public void shouldLimitTheSMSEditTextOnCreate() {
-        EditText smsEditText = (EditText) smsConfigActivity.findViewById(R.id.sms_message);
+        EditText smsEditText = (EditText) smsSettingsActivity.findViewById(R.id.message_edit_text);
         ShadowTextView shadowTextView = Robolectric.shadowOf(smsEditText);
     }
 }

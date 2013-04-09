@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".sms.SMSConfigActivity"
+        <activity android:name=".sms.SMSSettingsActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/sms_settings_label"/>
     </application>

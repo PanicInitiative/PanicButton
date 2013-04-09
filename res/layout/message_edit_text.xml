@@ -10,16 +10,16 @@
         <TextView android:hint="@string/characters_left"
                   android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
-                  android:layout_toLeftOf="@+id/characters_left"
+                  android:layout_toLeftOf="@+id/characters_left_view"
                 />
-        <TextView android:id="@+id/characters_left"
+        <TextView android:id="@+id/characters_left_view"
                   android:textStyle="bold"
                   android:layout_alignParentRight="true"
                   android:layout_height="wrap_content"
                   android:layout_width="wrap_content"/>
     </RelativeLayout>
     <EditText
-            android:id="@+id/sms_message"
+            android:id="@+id/message_edit_text"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:hint="@string/enter_message_hint"

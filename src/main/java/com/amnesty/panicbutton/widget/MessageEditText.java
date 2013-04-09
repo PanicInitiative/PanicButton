@@ -13,8 +13,8 @@ import com.amnesty.panicbutton.sms.MessageLimitWatcher;
 import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 
 public class MessageEditText extends LinearLayout {
+    private TextView charactersLeftView;
     private EditText messageEditText;
-    private TextView messageLimitView;
     private MessageLimitWatcher messageLimitWatcher;
 
     public MessageEditText(Context context) {
@@ -29,17 +29,17 @@ public class MessageEditText extends LinearLayout {
 
     private void initializeView() {
         String service = Context.LAYOUT_INFLATER_SERVICE;
-        LayoutInflater li = (LayoutInflater)getContext().getSystemService(service);
-        li.inflate(R.layout.message_edit_text, this, true);
+        LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(service);
+        layoutInflater.inflate(R.layout.message_edit_text, this, true);
 
-        messageLimitView = (TextView) findViewById(R.id.characters_left);
-        messageEditText = (EditText) findViewById(R.id.sms_message);
+        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, MAX_CHARACTER_COUNT);
 
-        messageLimitWatcher = new MessageLimitWatcher(messageLimitView, MAX_CHARACTER_COUNT);
+        messageEditText = (EditText) findViewById(R.id.message_edit_text);
         messageEditText.addTextChangedListener(messageLimitWatcher);
-
         InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
         messageEditText.setFilters(filters);
-        messageLimitView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
+
+        charactersLeftView = (TextView) findViewById(R.id.characters_left_view);
+        charactersLeftView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
     }
 }
