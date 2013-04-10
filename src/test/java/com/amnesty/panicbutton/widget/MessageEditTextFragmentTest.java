@@ -1,6 +1,7 @@
 package com.amnesty.panicbutton.widget;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowEditText;
+import roboguice.activity.RoboFragmentActivity;
 
 import java.util.List;
 
@@ -21,18 +23,21 @@ import static junit.framework.Assert.assertTrue;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-public class MessageEditTextTest {
-    private MessageEditText messageEditText;
+public class MessageEditTextFragmentTest {
+    private MessageEditTextFragment messageEditTextFragment;
     private EditText editText;
     private TextView textView;
 
     @Before
     public void setup() {
-        messageEditText = new MessageEditText(new Activity());
-        MessageEditText messageEditText2 = new MessageEditText(new Activity(), null);
+        messageEditTextFragment = new MessageEditTextFragment();
+        FragmentManager fragmentManager = new RoboFragmentActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(messageEditTextFragment, null);
+        fragmentTransaction.commit();
 
-        editText = (EditText) messageEditText.findViewById(R.id.message_edit_text);
-        textView = (TextView) messageEditText.findViewById(R.id.characters_left_view);
+        editText = (EditText) messageEditTextFragment.getView().findViewById(R.id.message_edit_text);
+        textView = (TextView) messageEditTextFragment.getView().findViewById(R.id.characters_left_view);
     }
 
     @Test

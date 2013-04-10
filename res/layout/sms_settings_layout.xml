@@ -22,7 +22,7 @@
     </TableRow>
 
     <TableRow android:layout_weight="1">
-        <com.amnesty.panicbutton.widget.MessageEditText
+        <fragment android:name="com.amnesty.panicbutton.widget.MessageEditTextFragment"
                 android:padding="@dimen/sms_message_widget_padding"
                 android:layout_span="2"
                 android:layout_width="wrap_content"
