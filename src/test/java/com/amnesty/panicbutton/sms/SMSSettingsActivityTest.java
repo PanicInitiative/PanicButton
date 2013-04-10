@@ -1,13 +1,13 @@
 package com.amnesty.panicbutton.sms;
 
-import android.widget.EditText;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowTextView;
+
+import static org.junit.Assert.assertEquals;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class SMSSettingsActivityTest {
@@ -20,8 +20,7 @@ public class SMSSettingsActivityTest {
     }
 
     @Test
-    public void shouldLimitTheSMSEditTextOnCreate() {
-        EditText smsEditText = (EditText) smsSettingsActivity.findViewById(R.id.message_edit_text);
-        ShadowTextView shadowTextView = Robolectric.shadowOf(smsEditText);
+    public void shouldLoadTheSMSSettingsLayoutOnCreate() {
+        assertEquals(R.id.sms_settings_layout_root, shadowOf(smsSettingsActivity).getContentView().getId());
     }
 }

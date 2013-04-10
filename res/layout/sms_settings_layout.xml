@@ -1,56 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/sms_settings_layout_root"
              android:layout_height="match_parent"
              android:layout_width="wrap_content"
              android:stretchColumns="0"
              android:padding="@dimen/sms_settings_padding">
 
     <TableRow>
-        <EditText
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/first_contact"
-                android:tag="first_contact"
-                android:hint="@string/first_contact_hint"
-                android:inputType="number"/>
-        <ImageButton
-                android:tag="first_contact"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/socialperson"
-                android:onClick="launchContactPicker"/>
+        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+                  android:id="@+id/first_contact"/>
     </TableRow>
 
     <TableRow>
-        <EditText
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/second_contact"
-                android:tag="second_contact"
-                android:hint="@string/second_contact_hint"
-                android:inputType="number"/>
-        <ImageButton
-                android:tag="second_contact"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/socialperson"
-                android:onClick="launchContactPicker"/>
+        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+                  android:id="@+id/second_contact"/>
     </TableRow>
 
     <TableRow>
-        <EditText
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/third_contact"
-                android:tag="third_contact"
-                android:hint="@string/third_contact_hint"
-                android:inputType="number"/>
-        <ImageButton
-                android:tag="third_contact"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/socialperson"
-                android:onClick="launchContactPicker"/>
+        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+                  android:id="@+id/third_contact"/>
     </TableRow>
 
     <TableRow android:layout_weight="1">
