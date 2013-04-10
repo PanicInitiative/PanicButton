@@ -1,7 +1,8 @@
-package com.amnesty.panicbutton.sms;
+package com.amnesty.panicbutton.fragment;
 
 import android.app.Activity;
 import android.widget.TextView;
+import com.amnesty.panicbutton.fragment.MessageLimitWatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;

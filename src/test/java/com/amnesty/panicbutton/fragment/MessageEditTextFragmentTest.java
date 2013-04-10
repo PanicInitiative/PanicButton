@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.widget;
+package com.amnesty.panicbutton.fragment;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.sms.MessageLimitWatcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

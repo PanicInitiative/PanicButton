@@ -1,16 +1,13 @@
-package com.amnesty.panicbutton.widget;
+package com.amnesty.panicbutton.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.sms.MessageLimitWatcher;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 

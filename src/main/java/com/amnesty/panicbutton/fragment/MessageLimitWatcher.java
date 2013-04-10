@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.sms;
+package com.amnesty.panicbutton.fragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
