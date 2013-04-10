@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragments;
+package com.amnesty.panicbutton.fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
