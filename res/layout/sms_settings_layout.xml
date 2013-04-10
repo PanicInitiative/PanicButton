@@ -7,17 +7,17 @@
              android:padding="@dimen/sms_settings_padding">
 
     <TableRow>
-        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
                   android:id="@+id/first_contact"/>
     </TableRow>
 
     <TableRow>
-        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
                   android:id="@+id/second_contact"/>
     </TableRow>
 
     <TableRow>
-        <fragment android:name="com.amnesty.panicbutton.fragments.ContactPickerFragment"
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
                   android:id="@+id/third_contact"/>
     </TableRow>
 
