@@ -26,3 +26,4 @@ out/
 **.DS_Store
 target/
 tmp/
+coverage.ec
