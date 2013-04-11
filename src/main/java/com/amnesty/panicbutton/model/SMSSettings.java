@@ -14,7 +14,7 @@ public class SMSSettings {
     public static final String SMS_MESSAGE = "SMS_MESSAGE";
 
     private List<String> phoneNumbers = new ArrayList<String>();
-    private String message;
+    private String message="";
 
     public SMSSettings(List<String> phoneNumbers, String message) {
         this.phoneNumbers = phoneNumbers;
@@ -49,5 +49,13 @@ public class SMSSettings {
             }
         }
         return retrievedPhoneNumbers;
+    }
+
+    public String getPhoneNumber(int index) {
+        return phoneNumbers.size() > index ? phoneNumbers.get(index) : "";
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

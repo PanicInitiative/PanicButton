@@ -22,7 +22,8 @@
     </TableRow>
 
     <TableRow android:layout_weight="1">
-        <fragment android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
+        <fragment android:id="@+id/sms_message"
+                android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
                 android:padding="@dimen/sms_message_widget_padding"
                 android:layout_span="2"
                 android:layout_width="wrap_content"
@@ -34,6 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:layout_span="2"
+                android:onClick="save"
                 android:id="@+id/save_button"/>
     </TableRow>
 </TableLayout>

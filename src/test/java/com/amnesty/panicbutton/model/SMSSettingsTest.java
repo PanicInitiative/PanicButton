@@ -6,11 +6,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.codehaus.plexus.util.ReflectionUtils.getFieldByNameIncludingSuperclasses;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
@@ -23,7 +21,6 @@ public class SMSSettingsTest {
         List<String> expectedPhoneNumbers = new ArrayList<String>();
         expectedPhoneNumbers.add("123456789");
         expectedPhoneNumbers.add("987654321");
-
         String expectedMessage = "Test Message";
 
         SMSSettings smsSettings = new SMSSettings(expectedPhoneNumbers, expectedMessage);
@@ -31,12 +28,14 @@ public class SMSSettingsTest {
         SMSSettings.save(context, smsSettings);
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(context);
 
-        Field messageField = getFieldByNameIncludingSuperclasses("message", SMSSettings.class);
-        messageField.setAccessible(true);
-        assertEquals(expectedMessage, messageField.get(retrievedSMSSettings));
+        assertEquals(expectedMessage, retrievedSMSSettings.getMessage());
+        assertEquals(expectedPhoneNumbers.get(0), retrievedSMSSettings.getPhoneNumber(0));
+        assertEquals(expectedPhoneNumbers.get(1), retrievedSMSSettings.getPhoneNumber(1));
+    }
 
-        Field phoneNumbersField = getFieldByNameIncludingSuperclasses("phoneNumbers", SMSSettings.class);
-        phoneNumbersField.setAccessible(true);
-        assertEquals(expectedPhoneNumbers, phoneNumbersField.get(retrievedSMSSettings));
+    @Test
+    public void shouldReturnEmptyPhoneNumberForNonExistentIndex() {
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "msg");
+        assertEquals("", smsSettings.getPhoneNumber(1));
     }
 }

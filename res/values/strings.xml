@@ -11,7 +11,5 @@
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
-    <string name="first_contact_hint">First Contact</string>
-    <string name="second_contact_hint">Second Contact</string>
-    <string name="third_contact_hint">Third Contact</string>
+    <string name="successfully_saved">SMS settings saved successfully.</string>
 </resources>
