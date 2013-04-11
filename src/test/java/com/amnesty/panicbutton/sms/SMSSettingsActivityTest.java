@@ -32,6 +32,10 @@ public class SMSSettingsActivityTest {
     private EditText thirdContactEditText;
 
     private String alreadySavedMessage;
+    private String number1;
+    private String number2;
+    private String number3;
+    private String expectedMessage;
 
     @Before
     public void setup() {
@@ -51,6 +55,11 @@ public class SMSSettingsActivityTest {
         firstContactEditText = (EditText) firstContact.getView().findViewById(R.id.contact_edit_text);
         secondContactEditText = (EditText) secondContact.getView().findViewById(R.id.contact_edit_text);
         thirdContactEditText = (EditText) thirdContact.getView().findViewById(R.id.contact_edit_text);
+
+        number1 = "123-456-789";
+        number2 = "9874641321";
+        number3 = "4564523423";
+        expectedMessage = "Help! I am in trouble";
     }
 
     private void setupExistingSettings() {
@@ -71,29 +80,39 @@ public class SMSSettingsActivityTest {
 
     @Test
     public void shouldSaveSMSSettingsOnSaveClickAndMaskPhoneNumbers() throws Exception {
-        String expectedMessage = "Help! I am in trouble";
-        String number1 = "123-456-789";
-        String number2 = "9874641321";
-        String number3 = "4564523423";
-
-        smsEditText.setText(expectedMessage);
-        firstContactEditText.setText(number1);
-        secondContactEditText.setText(number2);
-        thirdContactEditText.setText(number3);
-
+        setViewData();
         saveButton.performClick();
+        assertSavedSMSSettings();
+    }
 
+    @Test
+    public void shouldNotUpdateMaskedPhoneNumbers() {
+        setViewData();
+        saveButton.performClick();
+        saveButton.performClick();
+        assertSavedSMSSettings();
+    }
+
+    private void assertSavedSMSSettings() {
         ShadowHandler.idleMainLooper();
         assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
 
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(Robolectric.application);
-        assertEquals(expectedMessage, retrievedSMSSettings.getMessage());
-        assertEquals(number1, retrievedSMSSettings.getPhoneNumber(0));
-        assertEquals(number2, retrievedSMSSettings.getPhoneNumber(1));
-        assertEquals(number3, retrievedSMSSettings.getPhoneNumber(2));
 
-        assertEquals("*********89",firstContactEditText.getText().toString());
-        assertEquals("********21",secondContactEditText.getText().toString());
-        assertEquals("********23",thirdContactEditText.getText().toString());
+        assertEquals(expectedMessage, retrievedSMSSettings.message());
+        assertEquals(number1, retrievedSMSSettings.phoneNumber(0));
+        assertEquals(number2, retrievedSMSSettings.phoneNumber(1));
+        assertEquals(number3, retrievedSMSSettings.phoneNumber(2));
+
+        assertEquals("*********89", firstContactEditText.getText().toString());
+        assertEquals("********21", secondContactEditText.getText().toString());
+        assertEquals("********23", thirdContactEditText.getText().toString());
+    }
+
+    private void setViewData() {
+        smsEditText.setText(expectedMessage);
+        firstContactEditText.setText(number1);
+        secondContactEditText.setText(number2);
+        thirdContactEditText.setText(number3);
     }
 }

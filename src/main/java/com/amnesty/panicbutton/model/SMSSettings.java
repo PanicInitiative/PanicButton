@@ -3,6 +3,7 @@ package com.amnesty.panicbutton.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.amnesty.panicbutton.util.PhoneNumberUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,11 +52,15 @@ public class SMSSettings {
         return retrievedPhoneNumbers;
     }
 
-    public String getPhoneNumber(int index) {
+    public String phoneNumber(int index) {
         return phoneNumbers.size() > index ? phoneNumbers.get(index) : "";
     }
 
-    public String getMessage() {
+    public String message() {
         return message;
+    }
+
+    public String getMaskedPhoneNumber(int index) {
+        return new PhoneNumberUtil().mask(phoneNumber(index));
     }
 }

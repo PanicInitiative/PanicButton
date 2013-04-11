@@ -27,7 +27,7 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
 
         SMSSettings currentSettings = SMSSettings.retrieve(getApplicationContext());
         initializeViews();
-        applyCurrentSettings(currentSettings);
+        displaySettings(currentSettings);
     }
 
     private void initializeViews() {
@@ -39,27 +39,40 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
 
     public void save(View view) {
         String message = smsEditText.getText().toString();
-        List<String> phoneNumbers = getPhoneNumbersFromView();
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, message);
-        SMSSettings.save(getApplicationContext(), smsSettings);
+        SMSSettings currentSMSSettings = SMSSettings.retrieve(getApplication());
+
+        List<String> phoneNumbers = getPhoneNumbersFromView(currentSMSSettings);
+        SMSSettings newSMSSettings = new SMSSettings(phoneNumbers, message);
+
+        SMSSettings.save(getApplicationContext(), newSMSSettings);
         Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
-        applyCurrentSettings(smsSettings);
+        displaySettings(newSMSSettings);
     }
 
-    private List<String> getPhoneNumbersFromView() {
+    private List<String> getPhoneNumbersFromView(SMSSettings currentSMSSettings) {
+        currentSMSSettings.getMaskedPhoneNumber(0);
+
         List<String> phoneNumbers = new ArrayList<String>();
-        phoneNumbers.add(firstContact.getText().toString());
-        phoneNumbers.add(secondContact.getText().toString());
-        phoneNumbers.add(thirdContact.getText().toString());
+        phoneNumbers.add(getPhoneNumber(currentSMSSettings, 0, firstContact.getText().toString()));
+        phoneNumbers.add(getPhoneNumber(currentSMSSettings, 1, secondContact.getText().toString()));
+        phoneNumbers.add(getPhoneNumber(currentSMSSettings, 2, thirdContact.getText().toString()));
+
         return phoneNumbers;
     }
 
-    private void applyCurrentSettings(SMSSettings currentSettings) {
+    private String getPhoneNumber(SMSSettings currentSMSSettings, int index, String contactNumberInView) {
+        if (currentSMSSettings.getMaskedPhoneNumber(index).equals(contactNumberInView)) {
+            return currentSMSSettings.phoneNumber(index);
+        }
+        return contactNumberInView;
+    }
+
+    private void displaySettings(SMSSettings settings) {
         PhoneNumberUtil phoneNumberUtil = new PhoneNumberUtil();
-        smsEditText.setText(currentSettings.getMessage());
-        firstContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(0)));
-        secondContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(1)));
-        thirdContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(2)));
+        smsEditText.setText(settings.message());
+        firstContact.setText(phoneNumberUtil.mask(settings.phoneNumber(0)));
+        secondContact.setText(phoneNumberUtil.mask(settings.phoneNumber(1)));
+        thirdContact.setText(phoneNumberUtil.mask(settings.phoneNumber(2)));
     }
 
     private View findViewInFragmentById(int fragmentId, int viewId) {

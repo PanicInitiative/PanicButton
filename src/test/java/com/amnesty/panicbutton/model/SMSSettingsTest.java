@@ -28,14 +28,14 @@ public class SMSSettingsTest {
         SMSSettings.save(context, smsSettings);
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(context);
 
-        assertEquals(expectedMessage, retrievedSMSSettings.getMessage());
-        assertEquals(expectedPhoneNumbers.get(0), retrievedSMSSettings.getPhoneNumber(0));
-        assertEquals(expectedPhoneNumbers.get(1), retrievedSMSSettings.getPhoneNumber(1));
+        assertEquals(expectedMessage, retrievedSMSSettings.message());
+        assertEquals(expectedPhoneNumbers.get(0), retrievedSMSSettings.phoneNumber(0));
+        assertEquals(expectedPhoneNumbers.get(1), retrievedSMSSettings.phoneNumber(1));
     }
 
     @Test
     public void shouldReturnEmptyPhoneNumberForNonExistentIndex() {
         SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "msg");
-        assertEquals("", smsSettings.getPhoneNumber(1));
+        assertEquals("", smsSettings.phoneNumber(1));
     }
 }
