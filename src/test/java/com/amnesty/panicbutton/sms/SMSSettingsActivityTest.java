@@ -100,9 +100,9 @@ public class SMSSettingsActivityTest {
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(Robolectric.application);
 
         assertEquals(expectedMessage, retrievedSMSSettings.message());
-        assertEquals(number1, retrievedSMSSettings.phoneNumber(0));
-        assertEquals(number2, retrievedSMSSettings.phoneNumber(1));
-        assertEquals(number3, retrievedSMSSettings.phoneNumber(2));
+        assertEquals(number1, retrievedSMSSettings.phoneNumberAt(0));
+        assertEquals(number2, retrievedSMSSettings.phoneNumberAt(1));
+        assertEquals(number3, retrievedSMSSettings.phoneNumberAt(2));
 
         assertEquals("*********89", firstContactEditText.getText().toString());
         assertEquals("********21", secondContactEditText.getText().toString());

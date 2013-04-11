@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
-import com.amnesty.panicbutton.util.PhoneNumberUtil;
 import roboguice.activity.RoboFragmentActivity;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
     }
 
     private List<String> getPhoneNumbersFromView(SMSSettings currentSMSSettings) {
-        currentSMSSettings.getMaskedPhoneNumber(0);
+        currentSMSSettings.maskedPhoneNumberAt(0);
 
         List<String> phoneNumbers = new ArrayList<String>();
         phoneNumbers.add(getPhoneNumber(currentSMSSettings, 0, firstContact.getText().toString()));
@@ -61,18 +60,17 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
     }
 
     private String getPhoneNumber(SMSSettings currentSMSSettings, int index, String contactNumberInView) {
-        if (currentSMSSettings.getMaskedPhoneNumber(index).equals(contactNumberInView)) {
-            return currentSMSSettings.phoneNumber(index);
+        if (currentSMSSettings.maskedPhoneNumberAt(index).equals(contactNumberInView)) {
+            return currentSMSSettings.phoneNumberAt(index);
         }
         return contactNumberInView;
     }
 
     private void displaySettings(SMSSettings settings) {
-        PhoneNumberUtil phoneNumberUtil = new PhoneNumberUtil();
         smsEditText.setText(settings.message());
-        firstContact.setText(phoneNumberUtil.mask(settings.phoneNumber(0)));
-        secondContact.setText(phoneNumberUtil.mask(settings.phoneNumber(1)));
-        thirdContact.setText(phoneNumberUtil.mask(settings.phoneNumber(2)));
+        firstContact.setText(settings.maskedPhoneNumberAt(0));
+        secondContact.setText(settings.maskedPhoneNumberAt(1));
+        thirdContact.setText(settings.maskedPhoneNumberAt(2));
     }
 
     private View findViewInFragmentById(int fragmentId, int viewId) {
