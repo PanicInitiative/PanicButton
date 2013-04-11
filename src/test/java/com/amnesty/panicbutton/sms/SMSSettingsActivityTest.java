@@ -10,12 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowHandler;
+import org.robolectric.shadows.ShadowToast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -81,8 +84,10 @@ public class SMSSettingsActivityTest {
 
         saveButton.performClick();
 
-        SMSSettings retrievedSMSSettings = SMSSettings.retrieve(Robolectric.application);
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
 
+        SMSSettings retrievedSMSSettings = SMSSettings.retrieve(Robolectric.application);
         assertEquals(expectedMessage, retrievedSMSSettings.getMessage());
         assertEquals(number1, retrievedSMSSettings.getPhoneNumber(0));
         assertEquals(number2, retrievedSMSSettings.getPhoneNumber(1));

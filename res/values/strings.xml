@@ -11,5 +11,5 @@
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
-    <string name="successfully_saved">SMS settings saved successfully.</string>
+    <string name="successfully_saved">SMS settings saved successfully</string>
 </resources>
