@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.util.PhoneNumberUtil;
 import roboguice.activity.RoboFragmentActivity;
 
 import java.util.ArrayList;
@@ -36,23 +37,29 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
         smsEditText = (EditText) findViewInFragmentById(R.id.sms_message, R.id.message_edit_text);
     }
 
-    private void applyCurrentSettings(SMSSettings currentSettings) {
-        smsEditText.setText(currentSettings.getMessage());
-        firstContact.setText(currentSettings.getPhoneNumber(0));
-        secondContact.setText(currentSettings.getPhoneNumber(1));
-        thirdContact.setText(currentSettings.getPhoneNumber(2));
-    }
-
     public void save(View view) {
         String message = smsEditText.getText().toString();
+        List<String> phoneNumbers = getPhoneNumbersFromView();
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, message);
+        SMSSettings.save(getApplicationContext(), smsSettings);
+        Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
+        applyCurrentSettings(smsSettings);
+    }
+
+    private List<String> getPhoneNumbersFromView() {
         List<String> phoneNumbers = new ArrayList<String>();
         phoneNumbers.add(firstContact.getText().toString());
         phoneNumbers.add(secondContact.getText().toString());
         phoneNumbers.add(thirdContact.getText().toString());
+        return phoneNumbers;
+    }
 
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, message);
-        SMSSettings.save(getApplicationContext(), smsSettings);
-        Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
+    private void applyCurrentSettings(SMSSettings currentSettings) {
+        PhoneNumberUtil phoneNumberUtil = new PhoneNumberUtil();
+        smsEditText.setText(currentSettings.getMessage());
+        firstContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(0)));
+        secondContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(1)));
+        thirdContact.setText(phoneNumberUtil.mask(currentSettings.getPhoneNumber(2)));
     }
 
     private View findViewInFragmentById(int fragmentId, int viewId) {

@@ -32,7 +32,6 @@ public class SMSSettingsActivityTest {
     private EditText thirdContactEditText;
 
     private String alreadySavedMessage;
-    private List<String> alreadySavedPhoneNumbers;
 
     @Before
     public void setup() {
@@ -56,7 +55,7 @@ public class SMSSettingsActivityTest {
 
     private void setupExistingSettings() {
         alreadySavedMessage = "Already saved message";
-        alreadySavedPhoneNumbers = Arrays.asList("123245697", "345665-5656", "45234234345");
+        List<String> alreadySavedPhoneNumbers = Arrays.asList("123245697", "345665-5656", "45234234345");
         SMSSettings smsSettings = new SMSSettings(alreadySavedPhoneNumbers, alreadySavedMessage);
         SMSSettings.save(Robolectric.application, smsSettings);
     }
@@ -65,13 +64,13 @@ public class SMSSettingsActivityTest {
     public void shouldLoadTheSMSSettingsLayoutOnCreateWithExistingSettings() {
         assertEquals(R.id.sms_settings_layout_root, shadowOf(smsSettingsActivity).getContentView().getId());
         assertEquals(alreadySavedMessage, smsEditText.getText().toString());
-        assertEquals(alreadySavedPhoneNumbers.get(0), firstContactEditText.getText().toString());
-        assertEquals(alreadySavedPhoneNumbers.get(1), secondContactEditText.getText().toString());
-        assertEquals(alreadySavedPhoneNumbers.get(2), thirdContactEditText.getText().toString());
+        assertEquals("*******97", firstContactEditText.getText().toString());
+        assertEquals("*********56", secondContactEditText.getText().toString());
+        assertEquals("*********45", thirdContactEditText.getText().toString());
     }
 
     @Test
-    public void shouldSaveSMSSettingsOnSaveClick() throws Exception {
+    public void shouldSaveSMSSettingsOnSaveClickAndMaskPhoneNumbers() throws Exception {
         String expectedMessage = "Help! I am in trouble";
         String number1 = "123-456-789";
         String number2 = "9874641321";
@@ -92,5 +91,9 @@ public class SMSSettingsActivityTest {
         assertEquals(number1, retrievedSMSSettings.getPhoneNumber(0));
         assertEquals(number2, retrievedSMSSettings.getPhoneNumber(1));
         assertEquals(number3, retrievedSMSSettings.getPhoneNumber(2));
+
+        assertEquals("*********89",firstContactEditText.getText().toString());
+        assertEquals("********21",secondContactEditText.getText().toString());
+        assertEquals("********23",thirdContactEditText.getText().toString());
     }
 }
