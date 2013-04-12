@@ -4,6 +4,7 @@
 
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17"/>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:icon="@drawable/icon">
 
