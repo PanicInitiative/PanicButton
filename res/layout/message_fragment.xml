@@ -7,11 +7,6 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal">
-        <TextView android:hint="@string/characters_left"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:layout_toLeftOf="@+id/characters_left_view"
-                />
         <TextView android:id="@+id/characters_left_view"
                   android:textStyle="bold"
                   android:layout_alignParentRight="true"

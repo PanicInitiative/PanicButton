@@ -12,6 +12,7 @@ import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
 import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
+import static java.lang.String.valueOf;
 
 public class MessageEditTextFragment extends RoboFragment {
     @InjectView(R.id.characters_left_view)
@@ -30,12 +31,13 @@ public class MessageEditTextFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        String prefix = getString(R.string.characters_left);
 
-        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, MAX_CHARACTER_COUNT);
+        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, prefix, MAX_CHARACTER_COUNT);
         messageEditText.addTextChangedListener(messageLimitWatcher);
         InputFilter[] filters = {new InputFilter.LengthFilter(MAX_CHARACTER_COUNT)};
         messageEditText.setFilters(filters);
 
-        charactersLeftView.setText(String.valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
+        charactersLeftView.setText(prefix + valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
     }
 }

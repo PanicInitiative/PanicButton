@@ -2,7 +2,6 @@ package com.amnesty.panicbutton.fragment;
 
 import android.app.Activity;
 import android.widget.TextView;
-import com.amnesty.panicbutton.fragment.MessageLimitWatcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -16,12 +15,12 @@ public class MessageLimitWatcherTest {
     @Test
     public void shouldUpdateMessageLimitOnMainTextChange() {
         TextView textView = new TextView(new Activity());
-        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, MAX_CHARACTER_COUNT);
+        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, "Characters left : ", MAX_CHARACTER_COUNT);
 
         messageLimitWatcher.beforeTextChanged(null,-1,-1,-1);
         messageLimitWatcher.onTextChanged("test", -1, -1, -1);
         messageLimitWatcher.afterTextChanged(null);
 
-        assertEquals("96", Robolectric.shadowOf(textView).getText());
+        assertEquals("Characters left : 96", Robolectric.shadowOf(textView).getText());
     }
 }
