@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class SMSSettingsTest {
@@ -53,5 +52,43 @@ public class SMSSettingsTest {
         assertEquals("22", smsSettings.maskedPhoneNumberAt(4));
         assertEquals("", smsSettings.maskedPhoneNumberAt(5));
         assertNull(smsSettings.maskedPhoneNumberAt(6));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenAnyOfThePhoneNumbersIsPresent() {
+        List<String> phoneNumbers = new ArrayList<String>();
+        phoneNumbers.add("123-123-1222");
+        phoneNumbers.add("");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message");
+        assertTrue(smsSettings.isConfigured());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenAnyOfThePhoneNumbersIsPresentEvenWhenMessageIsNull() {
+        List<String> phoneNumbers = new ArrayList<String>();
+        phoneNumbers.add("");
+        phoneNumbers.add("123-123-1222");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, null);
+        assertTrue(smsSettings.isConfigured());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenPhoneNumbersAreEmpty() {
+        List<String> phoneNumbers = new ArrayList<String>();
+        phoneNumbers.add("");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message");
+        assertFalse(smsSettings.isConfigured());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenPhoneNumbersAreNotPresent() {
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "some-message");
+        assertFalse(smsSettings.isConfigured());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenPhoneNumbersAreNull() {
+        SMSSettings smsSettings = new SMSSettings(null, "some-message");
+        assertFalse(smsSettings.isConfigured());
     }
 }

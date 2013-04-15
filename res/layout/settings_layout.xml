@@ -28,7 +28,7 @@
                    android:paddingRight="@dimen/menu_status_icon_padding_right"/>
     </TableRow>
 
-    <View android:layout_height="1sp" android:background="#FF909090" />
+    <View android:layout_height="1sp" android:background="#FF909090"/>
 
     <TableRow android:paddingTop="@dimen/menu_padding_vertical"
               android:paddingBottom="@dimen/menu_padding_vertical">
@@ -49,5 +49,16 @@
                   android:paddingRight="@dimen/menu_status_icon_padding_right"/>
     </TableRow>
 
-    <View android:layout_height="1sp" android:background="#FF909090" />
+    <View android:layout_height="1sp" android:background="#FF909090"/>
+
+    <TableRow android:paddingTop="@dimen/menu_padding_vertical"
+              android:paddingBottom="@dimen/menu_padding_vertical">
+        <Button android:id="@+id/activate_alert"
+                android:text="@string/activate_alert"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_span="3"
+                android:layout_gravity="center"
+                android:onClick="activateAlert"/>
+    </TableRow>
 </TableLayout>

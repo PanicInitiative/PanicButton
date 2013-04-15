@@ -15,7 +15,7 @@ public class SMSSettings {
     private static final int MASK_LIMIT = 2;
 
     private List<String> phoneNumbers = new ArrayList<String>();
-    private String message = "";
+    private String message;
 
     public SMSSettings(List<String> phoneNumbers, String message) {
         this.phoneNumbers = phoneNumbers;
@@ -69,5 +69,15 @@ public class SMSSettings {
         int length = phoneNumber.length();
         String prefix = phoneNumber.substring(0, length - MASK_LIMIT).replaceAll(".", "*");
         return prefix + phoneNumber.substring(length - MASK_LIMIT);
+    }
+
+    public boolean isConfigured() {
+        if (phoneNumbers == null || phoneNumbers.isEmpty()) return false;
+        for (String phoneNumber : phoneNumbers) {
+            if (!phoneNumber.equals("")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
