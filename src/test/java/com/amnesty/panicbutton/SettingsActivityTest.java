@@ -5,11 +5,11 @@ import android.telephony.SmsManager;
 import android.widget.Button;
 import android.widget.TableRow;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.shadow.ShadowCustomSmsManager;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowSmsManager;
 
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(CustomRobolectricTestRunner.class)
 public class SettingsActivityTest {
     private SettingsActivity settingsActivity;
 
@@ -49,21 +49,21 @@ public class SettingsActivityTest {
     @Test
     public void shouldDisplayActivationButtonGrayedWhenSettingsNotConfigured() {
         settingsActivity.onResume();
-        assertFalse(activateButton.isClickable());
+        assertFalse(activateButton.isEnabled());
     }
 
     @Test
     public void shouldDisplayActivationButtonClickableWhenSettingsConfigured() {
         SMSSettings.save(application, new SMSSettings(asList("123-123-1222"), ""));
         settingsActivity.onResume();
-        assertTrue(activateButton.isClickable());
+        assertTrue(activateButton.isEnabled());
     }
 
     @Test
-    public void shouldSendAnSMSToAllConfiguredPhoneNumbers() {
+    public void shouldSendSMSToAllConfiguredPhoneNumbersIgnoringInValidNumbers() {
         String message = "Help! I am in trouble";
         String mobile1 = "123-123-1222";
-        String mobile2 = "234-456-1222";
+        String mobile2 = "";
         String mobile3 = "6786786789";
 
         List<String> phoneNumbers = asList(mobile1, mobile2, mobile3);
@@ -71,10 +71,15 @@ public class SettingsActivityTest {
         SMSSettings.save(application, new SMSSettings(phoneNumbers, message));
         activateButton.performClick();
 
-        ShadowSmsManager shadowSmsManager = shadowOf(SmsManager.getDefault());
-        ShadowSmsManager.TextSmsParams lastSentTextMessageParams = shadowSmsManager.getLastSentTextMessageParams();
+        ShadowCustomSmsManager shadowSmsManager = (ShadowCustomSmsManager) shadowOf(SmsManager.getDefault());
+        List<ShadowSmsManager.TextSmsParams> allSentTextSmsParams = shadowSmsManager.getAllSentTextMessageParams();
 
-        assertEquals(mobile1, lastSentTextMessageParams.getDestinationAddress());
-        assertEquals(message, lastSentTextMessageParams.getText());
+        assertEquals(2, allSentTextSmsParams.size());
+
+        assertEquals(mobile1, allSentTextSmsParams.get(0).getDestinationAddress());
+        assertEquals(message, allSentTextSmsParams.get(0).getText());
+
+        assertEquals(mobile3, allSentTextSmsParams.get(1).getDestinationAddress());
+        assertEquals(message, allSentTextSmsParams.get(1).getText());
     }
 }

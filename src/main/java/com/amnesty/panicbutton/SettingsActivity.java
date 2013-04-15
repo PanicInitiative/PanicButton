@@ -31,9 +31,9 @@ public class SettingsActivity extends Activity {
         SMSSettings smsSettings = SMSSettings.retrieve(this);
 
         if (smsSettings.isConfigured()) {
-            activateButton.setClickable(true);
+            activateButton.setEnabled(true);
         } else {
-            activateButton.setClickable(false);
+            activateButton.setEnabled(false);
         }
     }
 
@@ -44,7 +44,8 @@ public class SettingsActivity extends Activity {
     public void activateAlert(View view) {
         SmsManager smsManager = SmsManager.getDefault();
         SMSSettings smsSettings = SMSSettings.retrieve(this);
-        String phoneNumber = smsSettings.phoneNumberAt(0);
-        smsManager.sendTextMessage(phoneNumber, null, smsSettings.message(), null, null);
+        for(String phoneNumber: smsSettings.validPhoneNumbers()) {
+            smsManager.sendTextMessage(phoneNumber, null, smsSettings.message(), null, null);
+        }
     }
 }

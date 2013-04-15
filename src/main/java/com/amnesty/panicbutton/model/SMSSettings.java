@@ -3,6 +3,7 @@ package com.amnesty.panicbutton.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ public class SMSSettings {
     public static final String PHONE_NUMBER = "PHONE_NUMBER_";
     public static final String SMS_MESSAGE = "SMS_MESSAGE";
     private static final int MASK_LIMIT = 2;
+    public static final String BLANK = "";
 
     private List<String> phoneNumbers = new ArrayList<String>();
     private String message;
@@ -57,7 +59,15 @@ public class SMSSettings {
     }
 
     public String phoneNumberAt(int index) {
-        return phoneNumbers.size() > index ? phoneNumbers.get(index) : "";
+        return phoneNumbers.size() > index ? phoneNumbers.get(index) : BLANK;
+    }
+
+    public List<String> validPhoneNumbers() {
+        List<String> validNumbers = new ArrayList<String>();
+        for(String phoneNumber : phoneNumbers) {
+            if(!TextUtils.isEmpty(phoneNumber)) validNumbers.add(phoneNumber);
+        }
+        return validNumbers;
     }
 
     public String maskedPhoneNumberAt(int index) {
@@ -74,7 +84,7 @@ public class SMSSettings {
     public boolean isConfigured() {
         if (phoneNumbers == null || phoneNumbers.isEmpty()) return false;
         for (String phoneNumber : phoneNumbers) {
-            if (!phoneNumber.equals("")) {
+            if (!TextUtils.isEmpty(phoneNumber)) {
                 return true;
             }
         }

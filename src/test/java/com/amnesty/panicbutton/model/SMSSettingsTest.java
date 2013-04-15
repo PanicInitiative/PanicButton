@@ -91,4 +91,16 @@ public class SMSSettingsTest {
         SMSSettings smsSettings = new SMSSettings(null, "some-message");
         assertFalse(smsSettings.isConfigured());
     }
+
+    @Test
+    public void shouldReturnValidPhoneNumbers() {
+        List<String> phoneNumbers = Arrays.asList("1233244235", "", "154-345-345", null);
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message");
+
+        List<String> validPhoneNumbers = smsSettings.validPhoneNumbers();
+
+        assertEquals(2, validPhoneNumbers.size());
+        assertEquals("1233244235", validPhoneNumbers.get(0));
+        assertEquals("154-345-345", validPhoneNumbers.get(1));
+    }
 }
