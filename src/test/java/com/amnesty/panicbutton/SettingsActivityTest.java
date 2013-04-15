@@ -1,6 +1,7 @@
 package com.amnesty.panicbutton;
 
 import android.content.Intent;
+import android.telephony.SmsManager;
 import android.widget.Button;
 import android.widget.TableRow;
 import com.amnesty.panicbutton.model.SMSSettings;
@@ -10,6 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowSmsManager;
+
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -53,5 +57,24 @@ public class SettingsActivityTest {
         SMSSettings.save(application, new SMSSettings(asList("123-123-1222"), ""));
         settingsActivity.onResume();
         assertTrue(activateButton.isClickable());
+    }
+
+    @Test
+    public void shouldSendAnSMSToAllConfiguredPhoneNumbers() {
+        String message = "Help! I am in trouble";
+        String mobile1 = "123-123-1222";
+        String mobile2 = "234-456-1222";
+        String mobile3 = "6786786789";
+
+        List<String> phoneNumbers = asList(mobile1, mobile2, mobile3);
+
+        SMSSettings.save(application, new SMSSettings(phoneNumbers, message));
+        activateButton.performClick();
+
+        ShadowSmsManager shadowSmsManager = shadowOf(SmsManager.getDefault());
+        ShadowSmsManager.TextSmsParams lastSentTextMessageParams = shadowSmsManager.getLastSentTextMessageParams();
+
+        assertEquals(mobile1, lastSentTextMessageParams.getDestinationAddress());
+        assertEquals(message, lastSentTextMessageParams.getText());
     }
 }
