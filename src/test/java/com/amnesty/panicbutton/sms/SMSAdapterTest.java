@@ -8,6 +8,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowSmsManager;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -31,5 +32,23 @@ public class SMSAdapterTest {
 
         assertEquals(phoneNumber, lastSentTextMessageParams.getDestinationAddress());
         assertEquals(message, lastSentTextMessageParams.getText());
+    }
+
+    @Test
+    public void shouldIgnoreErrorsWhileSendingSMS() {
+        String phoneNumber = "---";
+        String message = "Test Message";
+        final SmsManager mockSmsManager = mock(SmsManager.class);
+        doThrow(new RuntimeException("Test Exception")).when(mockSmsManager).sendTextMessage(phoneNumber, null, message, null, null);
+
+        smsAdapter = new SMSAdapter() {
+            SmsManager getSmsManager() {
+                return mockSmsManager;
+            }
+        };
+
+        smsAdapter.sendSMS(phoneNumber, message);
+
+        verify(mockSmsManager).sendTextMessage(phoneNumber, null, message, null, null);
     }
 }
