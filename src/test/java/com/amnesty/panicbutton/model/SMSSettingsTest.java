@@ -103,4 +103,26 @@ public class SMSSettingsTest {
         assertEquals("1233244235", validPhoneNumbers.get(0));
         assertEquals("154-345-345", validPhoneNumbers.get(1));
     }
+
+    @Test
+    public void shouldReturnMessageWithoutTrailingDot() {
+        String messageWithDot = "some message.";
+        String messageWithoutDot = "some message";
+        String messageWithSpaceAtEnd = "some message ";
+
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), messageWithDot);
+        assertEquals("some message",smsSettings.trimmedMessage());
+
+        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithoutDot);
+        assertEquals("some message",smsSettings.trimmedMessage());
+
+        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithSpaceAtEnd);
+        assertEquals("some message",smsSettings.trimmedMessage());
+    }
+
+    @Test
+    public void shouldReturnEmptyStringWhenMessageIsNull() {
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), null);
+        assertEquals("",smsSettings.message());
+    }
 }

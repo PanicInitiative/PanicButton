@@ -55,7 +55,15 @@ public class SMSSettings {
     }
 
     public String message() {
-        return message;
+        return message == null? BLANK : message.trim();
+    }
+
+    public String trimmedMessage() {
+        String trimmedMessage = message();
+        if(trimmedMessage.endsWith(".")) {
+            return trimmedMessage.substring(0, trimmedMessage.length()-1);
+        }
+        return trimmedMessage;
     }
 
     public String phoneNumberAt(int index) {
