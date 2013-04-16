@@ -11,7 +11,7 @@ public class SMSAdapter {
         try {
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
         } catch (Exception exception) {
-            Log.e(LOG_TAG, exception.getMessage());
+            Log.e(LOG_TAG, "Sending SMS failed " + exception.getMessage());
         }
     }
 
