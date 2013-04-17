@@ -8,10 +8,12 @@ import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.ContentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ContentView(R.layout.sms_settings_layout)
 public class SMSSettingsActivity extends RoboFragmentActivity {
 
     private EditText firstContact;
@@ -22,7 +24,6 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sms_settings_layout);
 
         SMSSettings currentSettings = SMSSettings.retrieve(getApplicationContext());
         initializeViews();
