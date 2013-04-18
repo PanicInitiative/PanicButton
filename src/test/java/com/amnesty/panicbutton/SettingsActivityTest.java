@@ -116,11 +116,13 @@ public class SettingsActivityTest {
 
     @Test
     public void shouldReturnSMSAdapter(){
+        SettingsActivity settingsActivity = new SettingsActivity();
         assertNotNull(settingsActivity.getSMSAdapter());
     }
 
     @Test
     public void shouldReturnLocationProvider(){
+        SettingsActivity settingsActivity = new SettingsActivity();
         assertNotNull(settingsActivity.getLocationProvider());
     }
 }
