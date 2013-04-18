@@ -5,33 +5,62 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
+import java.util.List;
+
 public class LocationProvider {
+    private static final float MIN_DISTANCE = 0;
+    private static final long MIN_TIME = 0;
+    private static long MIN_UPDATE_INTERVAL = 1000 * 60;
+
     private Context context;
-    private Location lastKnowLocation;
+    private long minUpdateInterval;
 
-    public LocationProvider(Context context) {
-        this.context = context;
-        initLocationListener();
-    }
-
-    private void initLocationListener() {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-    }
-
-    private void updateLocation(Location location) {
-        lastKnowLocation = location;
-    }
-
-    public Location getLastKnowLocation() throws InterruptedException {
-        return lastKnowLocation;
-    }
-
-    private LocationListener locationListener = new SimpleLocationListener() {
+    private Location currentBestLocation;
+    private LocationListener locationListener = new LocationListenerAdapter() {
         @Override
         public void onLocationChanged(Location location) {
-            updateLocation(location);
+            if (isBetterLocation(location, currentBestLocation)) {
+                currentBestLocation = location;
+            }
         }
     };
 
+    public LocationProvider(Context context) {
+        this(context, MIN_UPDATE_INTERVAL);
+    }
+
+    public LocationProvider(Context context, long minUpdateInterval) {
+        this.context = context;
+        this.minUpdateInterval = minUpdateInterval;
+        initLocationListener();
+    }
+
+
+    private void initLocationListener() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        List<String> allProviders = locationManager.getAllProviders();
+        for (String provider : allProviders) {
+            locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE, locationListener);
+        }
+    }
+
+    public Location currentBestLocation() {
+        return currentBestLocation;
+    }
+
+    protected boolean isBetterLocation(Location location, Location currentBestLocation) {
+        if (currentBestLocation == null) {
+            return true;
+        }
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isNewer = timeDelta > 0;
+
+        if (timeDelta > minUpdateInterval) {
+            return true;
+        } else if (timeDelta < -minUpdateInterval) {
+            return false;
+        }
+
+        return false;
+    }
 }
