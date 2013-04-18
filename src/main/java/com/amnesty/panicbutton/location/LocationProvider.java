@@ -11,10 +11,9 @@ public class LocationProvider {
     private static final float MIN_DISTANCE = 0;
     private static final long MIN_TIME = 0;
     private static long MIN_UPDATE_INTERVAL = 1000 * 60;
+    public static final int ACCURACY_THRESHOLD = 200;
 
     private Context context;
-    private long minUpdateInterval;
-
     private Location currentBestLocation;
     private LocationListener locationListener = new LocationListenerAdapter() {
         @Override
@@ -26,15 +25,9 @@ public class LocationProvider {
     };
 
     public LocationProvider(Context context) {
-        this(context, MIN_UPDATE_INTERVAL);
-    }
-
-    public LocationProvider(Context context, long minUpdateInterval) {
         this.context = context;
-        this.minUpdateInterval = minUpdateInterval;
         initLocationListener();
     }
-
 
     private void initLocationListener() {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -55,22 +48,30 @@ public class LocationProvider {
         long timeDelta = location.getTime() - currentBestLocation.getTime();
         boolean isNewer = timeDelta > 0;
 
-        if (timeDelta > minUpdateInterval) {
+        if (timeDelta > MIN_UPDATE_INTERVAL) {
             return true;
-        } else if (timeDelta < -minUpdateInterval) {
+        } else if (timeDelta < -MIN_UPDATE_INTERVAL) {
             return false;
         }
 
         int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
         boolean isMoreAccurate = accuracyDelta < 0;
         boolean isAlmostSame = accuracyDelta == 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > ACCURACY_THRESHOLD;
+        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
 
         if (isMoreAccurate) {
             return true;
-        } else if (isNewer && isAlmostSame) {
+        } else if (isAlmostSame && isNewer) {
+            return true;
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
             return true;
         }
 
         return false;
+    }
+
+    private boolean isSameProvider(String provider1, String provider2) {
+        return provider1.equals(provider2);
     }
 }
