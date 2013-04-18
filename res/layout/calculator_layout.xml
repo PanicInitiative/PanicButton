@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        android:orientation="vertical">
+    <TextView style="@style/calculator_display" android:hint="0" android:textColor="#ffff00"></TextView>
+
+
+    <LinearLayout style="@style/calculator_btn_container">
+        <Button style="@style/calculator_btn" android:text="/" android:hint="/"></Button>
+        <Button style="@style/calculator_btn" android:text="7" android:hint="7"></Button>
+        <Button style="@style/calculator_btn" android:text="8"></Button>
+        <Button style="@style/calculator_btn" android:text="9"></Button>
+    </LinearLayout>
+
+    <LinearLayout style="@style/calculator_btn_container">
+        <Button style="@style/calculator_btn" android:text="X" android:hint="/"></Button>
+        <Button style="@style/calculator_btn" android:text="4" android:hint="7"></Button>
+        <Button style="@style/calculator_btn" android:text="5"></Button>
+        <Button style="@style/calculator_btn" android:text="6"></Button>
+    </LinearLayout>
+
+    <LinearLayout style="@style/calculator_btn_container">
+        <Button style="@style/calculator_btn" android:text="-" android:hint="/"></Button>
+        <Button style="@style/calculator_btn" android:text="1" android:hint="7"></Button>
+        <Button style="@style/calculator_btn" android:text="2"></Button>
+        <Button style="@style/calculator_btn" android:text="3"></Button>
+    </LinearLayout>
+
+    <LinearLayout style="@style/calculator_btn_container">
+        <Button style="@style/calculator_btn" android:text="+" android:hint="/" android:layout_weight="1"></Button>
+        <Button style="@style/calculator_btn" android:text="0" android:hint="7" android:layout_weight="1"></Button>
+        <Button style="@style/calculator_btn" android:text="=" android:layout_weight="0.66"></Button>
+    </LinearLayout>
+
+
+</LinearLayout>
