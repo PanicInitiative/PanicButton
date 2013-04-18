@@ -111,6 +111,8 @@
                             <exclude>com/amnesty/panicbutton/Manifest.class</exclude>
                             <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
                             <exclude>com/amnesty/panicbutton/AppConstants*.class</exclude>
+                            <exclude>com/amnesty/panicbutton/location/*</exclude>
+                            <exclude>com/amnesty/panicbutton/AppConstants*.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
