@@ -113,7 +113,7 @@ public class LocationProviderTest {
         assertEquals(lessAccurateButNewLocation, actualLocation);
     }
 
-    private Location location(String provider, double latitude, double longitude, long time, float accuracy) {
+    public static Location location(String provider, double latitude, double longitude, long time, float accuracy) {
         Location location = new Location(provider);
         location.setLatitude(latitude);
         location.setLongitude(longitude);
