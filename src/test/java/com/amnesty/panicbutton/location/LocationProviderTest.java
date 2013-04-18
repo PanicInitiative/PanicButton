@@ -20,6 +20,7 @@ import static org.robolectric.Robolectric.shadowOf;
 @RunWith(RobolectricTestRunner.class)
 public class LocationProviderTest {
     public static final float LESS_ACCURATE = 3.0f;
+    public static final float LESS_ACCURATE_2 = 3.1f;
     private static final float MORE_ACCURATE = 0.60f;
 
     private ShadowLocationManager shadowLocationManager;
@@ -52,13 +53,11 @@ public class LocationProviderTest {
         Location oldLocation1 = location(NETWORK_PROVIDER, 12.0, 20.0, offsetCurrentTimeBy(-90), LESS_ACCURATE);
         Location oldLocation2 = location(NETWORK_PROVIDER, 10.0, 20.0, offsetCurrentTimeBy(-80), LESS_ACCURATE);
         Location newLocation = location(NETWORK_PROVIDER, 11.0, 20.0, currentTimeMillis(), LESS_ACCURATE);
-        Location newLocation2 = location(NETWORK_PROVIDER, 13.0, 20.0, offsetCurrentTimeBy(30), LESS_ACCURATE);
 
         shadowLocationManager.simulateLocation(oldLocation1);
         shadowLocationManager.simulateLocation(newLocation);
         shadowLocationManager.simulateLocation(oldLocation1);
         shadowLocationManager.simulateLocation(oldLocation2);
-        shadowLocationManager.simulateLocation(newLocation2);
 
         Location actualLocation = locationProvider.currentBestLocation();
 
@@ -84,8 +83,15 @@ public class LocationProviderTest {
     }
 
     @Test
-    @Ignore
-    public void shouldProvideLocationWhenLessAccurateAndRelativelyNew() {
+    public void shouldProvideLocationWhenOfSameAccuracyAndRelativelyNew() {
+        Location oldLocation = location(NETWORK_PROVIDER, 12.0, 20.0, currentTimeMillis(), LESS_ACCURATE);
+        Location newLocation = location(NETWORK_PROVIDER, 12.0, 20.0, offsetCurrentTimeBy(10), LESS_ACCURATE_2);
+
+        shadowLocationManager.simulateLocation(oldLocation);
+        shadowLocationManager.simulateLocation(newLocation);
+
+        Location actualLocation = locationProvider.currentBestLocation();
+        assertEquals(newLocation, actualLocation);
     }
 
     @Test
