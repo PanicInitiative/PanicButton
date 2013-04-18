@@ -1,6 +1,5 @@
 package com.amnesty.panicbutton;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,16 +7,17 @@ import android.widget.Button;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 
-public class SettingsActivity extends Activity {
-    private static String TAG = SettingsActivity.class.getSimpleName();
-
-    private Button activateButton;
+@ContentView(R.layout.settings_layout)
+public class SettingsActivity extends RoboActivity {
+    @InjectView(R.id.activate_alert) private Button activateButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_layout);
     }
 
     @Override
@@ -27,7 +27,6 @@ public class SettingsActivity extends Activity {
     }
 
     private void initActivateButton() {
-        activateButton = (Button) findViewById(R.id.activate_alert);
         SMSSettings smsSettings = SMSSettings.retrieve(this);
 
         if (smsSettings.isConfigured()) {
