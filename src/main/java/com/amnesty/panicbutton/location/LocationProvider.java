@@ -53,12 +53,18 @@ public class LocationProvider {
             return true;
         }
         long timeDelta = location.getTime() - currentBestLocation.getTime();
-        boolean isNewer = timeDelta > 0;
 
         if (timeDelta > minUpdateInterval) {
             return true;
         } else if (timeDelta < -minUpdateInterval) {
             return false;
+        }
+
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isMoreAccurate = accuracyDelta < 0;
+
+        if (isMoreAccurate) {
+            return true;
         }
 
         return false;
