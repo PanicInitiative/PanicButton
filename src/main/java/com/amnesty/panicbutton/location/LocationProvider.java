@@ -16,13 +16,6 @@ public class LocationProvider {
 
     private void initLocationListener() {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        LocationListener locationListener = new SimpleLocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                updateLocation(location);
-            }
-        };
-
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 
@@ -33,5 +26,12 @@ public class LocationProvider {
     public Location getLastKnowLocation() throws InterruptedException {
         return lastKnowLocation;
     }
+
+    private LocationListener locationListener = new SimpleLocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            updateLocation(location);
+        }
+    };
 
 }
