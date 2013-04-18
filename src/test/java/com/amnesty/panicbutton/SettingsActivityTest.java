@@ -113,4 +113,14 @@ public class SettingsActivityTest {
         verify(mockSMSAdapter).sendSMS(mobile3, messageWithLocation);
         verifyNoMoreInteractions(mockSMSAdapter);
     }
+
+    @Test
+    public void shouldReturnSMSAdapter(){
+        assertNotNull(settingsActivity.getSMSAdapter());
+    }
+
+    @Test
+    public void shouldReturnLocationProvider(){
+        assertNotNull(settingsActivity.getLocationProvider());
+    }
 }
