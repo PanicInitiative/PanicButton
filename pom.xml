@@ -106,6 +106,7 @@
                             <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
                             <exclude>com/amnesty/panicbutton/AppConstants*.class</exclude>
                             <exclude>com/amnesty/panicbutton/location/LocationListenerAdapter.class</exclude>
+                            <exclude>com/amnesty/panicbutton/CalculatorActivity.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>

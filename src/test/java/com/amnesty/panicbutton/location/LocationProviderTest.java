@@ -33,11 +33,12 @@ public class LocationProviderTest {
     private LocationProvider locationProvider;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         LocationManager locationManager = (LocationManager) robolectricContext.getSystemService(Context.LOCATION_SERVICE);
         shadowLocationManager = shadowOf(locationManager);
         locationProvider = new LocationProvider(robolectricContext);
         locationProvider.start();
+        Thread.sleep(2000);
     }
 
     @Test

@@ -63,7 +63,7 @@ public class SettingsActivity extends RoboActivity {
                     retryCount++;
                     Thread.sleep(LOCATION_WAIT_TIME);
                 } catch (InterruptedException e) {
-                    Log.e("SettingsActivity", "InterruptedException", e);
+                    Log.e("SettingsActivity", "Location wait InterruptedException", e);
                 }
             }
         }
