@@ -12,6 +12,7 @@ import org.robolectric.shadows.ShadowLocationManager;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
+import static com.amnesty.panicbutton.location.LocationTestUtil.location;
 import static java.lang.System.currentTimeMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -36,6 +37,7 @@ public class LocationProviderTest {
         LocationManager locationManager = (LocationManager) robolectricContext.getSystemService(Context.LOCATION_SERVICE);
         shadowLocationManager = shadowOf(locationManager);
         locationProvider = new LocationProvider(robolectricContext);
+        locationProvider.start();
     }
 
     @Test
@@ -113,14 +115,6 @@ public class LocationProviderTest {
         assertEquals(lessAccurateButNewLocation, actualLocation);
     }
 
-    public static Location location(String provider, double latitude, double longitude, long time, float accuracy) {
-        Location location = new Location(provider);
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
-        location.setTime(time);
-        location.setAccuracy(accuracy);
-        return location;
-    }
 
     private long offsetCurrentTimeBy(int seconds) {
         return currentTimeMillis() + (1000 * seconds);

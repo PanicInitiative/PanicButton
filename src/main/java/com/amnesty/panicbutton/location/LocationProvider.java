@@ -2,12 +2,12 @@ package com.amnesty.panicbutton.location;
 
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Looper;
 
 import java.util.List;
 
-public class LocationProvider {
+public class LocationProvider extends LocationListenerAdapter {
     private static final float MIN_DISTANCE = 0;
     private static final long MIN_TIME = 0;
     private static long MIN_UPDATE_INTERVAL = 1000 * 60;
@@ -15,25 +15,30 @@ public class LocationProvider {
 
     private Context context;
     private Location currentBestLocation;
-    private LocationListener locationListener = new LocationListenerAdapter() {
-        @Override
-        public void onLocationChanged(Location location) {
-            if (isBetterLocation(location, currentBestLocation)) {
-                currentBestLocation = location;
-            }
-        }
-    };
 
     public LocationProvider(Context context) {
         this.context = context;
+    }
+
+    @Override
+    public void run() {
+        Looper.prepare();
         initLocationListener();
+        Looper.loop();
     }
 
     private void initLocationListener() {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         List<String> allProviders = locationManager.getAllProviders();
         for (String provider : allProviders) {
-            locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE, locationListener);
+            locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE, this);
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if (isBetterLocation(location, currentBestLocation)) {
+            currentBestLocation = location;
         }
     }
 
