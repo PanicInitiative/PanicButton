@@ -41,8 +41,8 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:drawableLeft">@drawable/back</item>
         <item name="android:layout_weight">0</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingRight">15dp</item>
     </style>
 
     <style name="save_button">
@@ -50,6 +50,15 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">0</item>
         <item name="android:drawableLeft">@drawable/save</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="next_button">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:drawableRight">@drawable/next</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:padding">5dp</item>
     </style>
@@ -74,4 +83,19 @@
         <item name="android:textSize">18dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
+    <style name="geolocation_panel">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">#cccccc</item>
+    </style>
+
+    <style name="text">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="link">
+        <item name="android:textColor">#3070cf</item>
+    </style>
+
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        android:orientation="vertical">
+    <View style="@style/top_bar"></View>
+    <LinearLayout style="@style/custom_action_bar">
+        <Button style="@style/back_button"  android:background="@drawable/topbar_button"></Button>
+        <View style="@style/ver_line"></View>
+        <TextView style="@style/page_title" android:text="page title"></TextView>
+        <View style="@style/ver_line"></View>
+        <Button style="@style/next_button" android:background="@drawable/topbar_button" android:text="Next"></Button>
+    </LinearLayout>
+    <View style="@style/hor_line"></View>
+</LinearLayout>
