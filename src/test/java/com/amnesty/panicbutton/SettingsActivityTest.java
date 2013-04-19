@@ -88,7 +88,7 @@ public class SettingsActivityTest {
         when(mockLocationProvider.currentBestLocation()).thenReturn(location);
 
         String message = "Help! I am in trouble";
-        String messageWithLocation = message + ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude;
+        String messageWithLocation = message + ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
         String mobile1 = "123-123-1222";
         String mobile2 = "";
         String mobile3 = "6786786789";
@@ -107,7 +107,6 @@ public class SettingsActivityTest {
         when(mockLocationProvider.currentBestLocation()).thenReturn(null);
 
         String message = "Help! I am in trouble";
-        String messageWithLocation = message + ". I'm at UNKNOWN LOCATION";
         String mobile1 = "123-123-1222";
         String mobile2 = "";
         String mobile3 = "6786786789";
@@ -116,8 +115,8 @@ public class SettingsActivityTest {
 
         activateButton.performClick();
 
-        verify(mockSMSAdapter).sendSMS(mobile1, messageWithLocation);
-        verify(mockSMSAdapter).sendSMS(mobile3, messageWithLocation);
+        verify(mockSMSAdapter).sendSMS(mobile1, message);
+        verify(mockSMSAdapter).sendSMS(mobile3, message);
         verifyNoMoreInteractions(mockSMSAdapter);
     }
 

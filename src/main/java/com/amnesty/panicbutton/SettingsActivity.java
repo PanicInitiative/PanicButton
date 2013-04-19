@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import com.amnesty.panicbutton.location.LocationFormatter;
 import com.amnesty.panicbutton.location.LocationProvider;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
@@ -16,12 +17,7 @@ import roboguice.inject.InjectView;
 
 @ContentView(R.layout.settings_layout)
 public class SettingsActivity extends RoboActivity {
-    public static final String GOOGLE_MAP_URL = "http://maps.google.com/maps?q=";
-    public static final String URL_PREFIX = ". I'm at ";
-    public static final String TAG = "SettingsActivity";
-    public static final int LOCATION_WAIT_TIME = 1000;
-    public static final String UNKNOWN_LOCATION = "UNKNOWN LOCATION";
-    public static final int MAX_RETRIES = 5;
+
     @InjectView(R.id.activate_alert)
     private Button activateButton;
 
@@ -38,12 +34,7 @@ public class SettingsActivity extends RoboActivity {
 
     private void initActivateButton() {
         SMSSettings smsSettings = SMSSettings.retrieve(this);
-
-        if (smsSettings.isConfigured()) {
-            activateButton.setEnabled(true);
-        } else {
-            activateButton.setEnabled(false);
-        }
+        activateButton.setEnabled(smsSettings.isConfigured());
     }
 
     public void launchSmsActivity(View view) {
@@ -61,10 +52,10 @@ public class SettingsActivity extends RoboActivity {
     }
 
     private String location() {
-        LocationProvider locationProvider = startLocationProviderInBackground();
         Location location = null;
         int retryCount = 0;
 
+        LocationProvider locationProvider = startLocationProviderInBackground();
         while (retryCount < MAX_RETRIES && location == null) {
             location = locationProvider.currentBestLocation();
             if (location == null) {
@@ -72,18 +63,11 @@ public class SettingsActivity extends RoboActivity {
                     retryCount++;
                     Thread.sleep(LOCATION_WAIT_TIME);
                 } catch (InterruptedException e) {
-                    Log.e(TAG, "InterruptedException", e);
+                    Log.e("SettingsActivity", "InterruptedException", e);
                 }
             }
         }
-
-        String finalURL = URL_PREFIX;
-        if (location == null) {
-            finalURL += UNKNOWN_LOCATION;
-        } else {
-            finalURL += GOOGLE_MAP_URL + location.getLatitude() + "," + location.getLongitude();
-        }
-        return finalURL;
+        return new LocationFormatter(location).format();
     }
 
     LocationProvider startLocationProviderInBackground() {
@@ -95,4 +79,7 @@ public class SettingsActivity extends RoboActivity {
     SMSAdapter getSMSAdapter() {
         return new SMSAdapter();
     }
+
+    public static final int LOCATION_WAIT_TIME = 1000;
+    public static final int MAX_RETRIES = 5;
 }
