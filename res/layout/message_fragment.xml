@@ -23,9 +23,20 @@
             android:gravity="top"
             android:inputType="textMultiLine"/>
     </LinearLayout>
-    <LinearLayout style="@style/geolocation_panel" android:layout_weight="1">
-    <ImageView android:src="@drawable/plus" android:layout_height="30dp" android:layout_width="30dp" android:padding="3dp"></ImageView>
-    <TextView style="@style/text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="I'm at "></TextView>
-    <TextView style="@style/link" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="@string/geolocation_link"></TextView>
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  style="@style/geolocation_panel">
+        <ImageView android:src="@drawable/plus"
+                   android:layout_height="30dp"
+                   android:layout_width="30dp"
+                   android:padding="3dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/i_am_at"
+                  style="@style/text"/>
+        <TextView style="@style/link"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:text="@string/geolocation_link"/>
     </LinearLayout>
 </LinearLayout>

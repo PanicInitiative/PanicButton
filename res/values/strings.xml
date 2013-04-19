@@ -16,4 +16,5 @@
     <string name="calculator_label">Calculator</string>
 
     <string name="geolocation_link"><u>http://maps.google.com/yourlocation</u></string>
+    <string name="i_am_at">I\'m at</string>
 </resources>
