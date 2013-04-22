@@ -54,7 +54,39 @@
 
     <LinearLayout
             android:layout_height="30dp"
-            android:layout_width="fill_parent">
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <ImageView android:src="@drawable/wizard_inactive"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                android:layout_margin="3dp"/>
+
+        <ImageView android:src="@drawable/wizard_inactive"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="3dp"/>
+
+        <ImageView android:src="@drawable/wizard_active"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="3dp"/>
+
+        <ImageView android:src="@drawable/wizard_inactive"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="3dp"/>
+
+        <ImageView android:src="@drawable/wizard_inactive"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="3dp"/>
+
+        <ImageView android:src="@drawable/wizard_inactive"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="3dp"/>
 
 
     </LinearLayout>
