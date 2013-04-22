@@ -3,6 +3,7 @@ package com.amnesty.panicbutton.trigger;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -29,5 +30,13 @@ public class TriggersTest {
         triggers.add(currentTime);
         triggers.add(currentTime + 5500);
         assertFalse(triggers.isActive());
+    }
+
+    @Test
+    public void shouldNotAddTimestampWhenTriggerIsActive() {
+        for (int i = 0; i < 6; i++) {
+            triggers.add(currentTime + (i * 500));
+        }
+        assertEquals(5, triggers.count());
     }
 }

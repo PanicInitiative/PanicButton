@@ -32,7 +32,7 @@ public class Triggers {
         return timestamps.size() == TRIGGER_THRESHOLD;
     }
 
-    public void reset() {
-        this.timestamps = new ArrayList<Long>();
+    int count() {
+        return this.timestamps.size();
     }
 }
