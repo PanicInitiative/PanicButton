@@ -29,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <service android:name="com.amnesty.panicbutton.trigger.HardwareTriggerService" android:process=":remote"/>
     </application>
 </manifest>
 
