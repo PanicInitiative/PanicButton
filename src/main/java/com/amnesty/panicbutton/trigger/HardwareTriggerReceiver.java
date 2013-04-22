@@ -8,11 +8,11 @@ import com.amnesty.panicbutton.MessageAlerter;
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_SCREEN_ON;
 
-public class HardwareTrigger extends BroadcastReceiver {
+public class HardwareTriggerReceiver extends BroadcastReceiver {
     private Triggers triggers;
     private MessageAlerter messageAlerter;
 
-    public HardwareTrigger(MessageAlerter messageAlerter, Triggers triggers) {
+    public HardwareTriggerReceiver(MessageAlerter messageAlerter, Triggers triggers) {
         this.messageAlerter = messageAlerter;
         this.triggers = triggers;
     }

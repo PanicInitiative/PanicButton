@@ -15,9 +15,9 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-public class HardwareTriggerTest {
+public class HardwareTriggerReceiverTest {
     private Application context;
-    private HardwareTrigger hardwareTrigger;
+    private HardwareTriggerReceiver hardwareTriggerReceiver;
     @Mock
     private Triggers mockTriggers;
     @Mock
@@ -26,34 +26,34 @@ public class HardwareTriggerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        hardwareTrigger = new HardwareTrigger(mockMessageAlerter, mockTriggers);
+        hardwareTriggerReceiver = new HardwareTriggerReceiver(mockMessageAlerter, mockTriggers);
         context = Robolectric.application;
     }
 
     @Test
     public void shouldActivateAlertForScreenOnIntentAndWhenTriggersThresholdIsReached() {
         when(mockTriggers.isActive()).thenReturn(true);
-        hardwareTrigger.onReceive(context, new Intent(ACTION_SCREEN_ON));
+        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
         verify(mockMessageAlerter).start();
     }
 
     @Test
     public void shouldActivateAlertForScreenOffIntentAndWhenTriggersThresholdIsReached() {
         when(mockTriggers.isActive()).thenReturn(true);
-        hardwareTrigger.onReceive(context, new Intent(ACTION_SCREEN_OFF));
+        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
         verify(mockMessageAlerter).start();
     }
 
     @Test
     public void shouldNotActivateAlertWhenTriggersThresholdIsNotReached() {
         when(mockTriggers.isActive()).thenReturn(false);
-        hardwareTrigger.onReceive(context, new Intent(ACTION_SCREEN_ON));
+        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
         verifyNoMoreInteractions(mockMessageAlerter);
     }
 
     @Test
     public void shouldNotActivateAlertForOtherIntents() {
-        hardwareTrigger.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
+        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
         verifyNoMoreInteractions(mockMessageAlerter);
     }
 }
