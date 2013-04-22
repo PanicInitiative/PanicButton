@@ -53,7 +53,6 @@ public class HardwareTriggerTest {
 
     @Test
     public void shouldNotActivateAlertForOtherIntents() {
-        when(mockTriggers.isActive()).thenReturn(false);
         hardwareTrigger.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
         verifyNoMoreInteractions(mockMessageAlerter);
     }
