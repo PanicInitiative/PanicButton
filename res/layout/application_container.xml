@@ -4,13 +4,41 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical">
-    <View style="@style/top_bar"></View>
-    <LinearLayout style="@style/custom_action_bar">
-    <Button style="@style/back_button"  android:background="@drawable/topbar_button"></Button>
-    <View style="@style/ver_line"></View>
-    <TextView style="@style/page_title" android:text="page title"></TextView>
-    <View style="@style/ver_line"></View>
-    <Button style="@style/save_button" android:background="@drawable/topbar_button" android:text="Save"></Button>
+    <View
+            style="@style/top_bar"
+            android:layout_height="5dp"
+            android:layout_width="fill_parent"/>
+    <LinearLayout
+            style="@style/custom_action_bar"
+            android:layout_height="40dp"
+            android:layout_width="fill_parent">
+        <Button
+                style="@style/back_button"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:background="@drawable/topbar_button"/>
+        <View
+                style="@style/line"
+                android:layout_height="fill_parent"
+                android:layout_width="1dp"/>
+        <TextView
+                style="@style/page_title"
+                android:text="page title"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"/>
+        <View
+                style="@style/line"
+                android:layout_height="fill_parent"
+                android:layout_width="1dp"/>
+        <Button
+                style="@style/save_button"
+                android:background="@drawable/topbar_button"
+                android:text="Save"
+                android:layout_height="fill_parent"
+                android:layout_width="70dp"/>
     </LinearLayout>
-    <View style="@style/hor_line"></View>
+    <View
+            style="@style/line"
+            android:layout_height="1dp"
+            android:layout_width="fill_parent"/>
 </LinearLayout>

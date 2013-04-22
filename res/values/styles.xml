@@ -24,21 +24,15 @@
     </style>
 
     <style name="custom_action_bar">
-        <item name="android:layout_height">40dp</item>
-        <item name="android:layout_width">fill_parent</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">#222222</item>
     </style>
 
     <style name="top_bar">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">5dp</item>
         <item name="android:background">#d49602</item>
     </style>
 
     <style name="back_button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">fill_parent</item>
         <item name="android:drawableLeft">@drawable/back</item>
         <item name="android:layout_weight">0</item>
         <item name="android:paddingLeft">15dp</item>
@@ -55,25 +49,16 @@
     </style>
 
     <style name="next_button">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">0</item>
         <item name="android:drawableRight">@drawable/next</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:paddingRight">10dp</item>
     </style>
 
-    <style name="ver_line">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">fill_parent</item>
+    <style name="line">
         <item name="android:background">#444444</item>
     </style>
 
-    <style name="hor_line">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">#444444</item>
-    </style>
 
     <style name="page_title">
         <item name="android:layout_width">wrap_content</item>
