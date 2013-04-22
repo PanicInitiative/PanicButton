@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent">
-    <LinearLayout android:layout_weight="1" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal">
-        <TextView android:id="@+id/characters_left_view"
-                  android:textStyle="bold"
-                  android:layout_alignParentRight="true"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:paddingRight="@dimen/message_widget_characters_right_padding"/>
-    </RelativeLayout>
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent">
+
+
+
+    <TextView android:id="@+id/characters_left_view"
+              android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              style="@style/char_count"
+              />
+
     <EditText
             android:id="@+id/message_edit_text"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_width="fill_parent"
             android:hint="@string/enter_message_hint"
-            android:gravity="top"
-            android:inputType="textMultiLine"/>
-    </LinearLayout>
+            android:inputType="textMultiLine"
+            style="@style/message_box"/>
+
+
     <LinearLayout android:layout_height="wrap_content"
-                  android:layout_width="fill_parent"
-                  style="@style/geolocation_panel">
-        <ImageView android:src="@drawable/plus"
-                   android:layout_height="30dp"
-                   android:layout_width="30dp"
-                   android:padding="3dp"/>
+                  android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+
+
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/i_am_at"
                   style="@style/text"/>
+
         <TextView style="@style/link"
                   android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
                   android:text="@string/geolocation_link"/>
+
     </LinearLayout>
 </LinearLayout>

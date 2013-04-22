@@ -85,15 +85,24 @@
     </style>
 
     <style name="geolocation_panel">
-        <item name="android:background">#cccccc</item>
+
     </style>
 
     <style name="text">
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">#cccccc</item>
     </style>
 
     <style name="link">
-        <item name="android:textColor">#3070cf</item>
+        <item name="android:textColor">#78c7fe</item>
+    </style>
+
+    <style name="char_count">
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="message_box">
+        <item name="android:gravity">top|left</item>
+        <item name="android:layout_margin">0dp</item>
     </style>
 
 </resources>
