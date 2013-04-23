@@ -20,9 +20,12 @@ public class MessageAlerter extends Thread {
 
     @Override
     public void run() {
-        startLocationProviderInBackground();
-        vibrate();
-        activateAlert();
+        SMSSettings smsSettings = SMSSettings.retrieve(context);
+        if(smsSettings.isConfigured()) {
+            startLocationProviderInBackground();
+            vibrate();
+            activateAlert(smsSettings);
+        }
     }
 
     private void startLocationProviderInBackground() {
@@ -35,8 +38,7 @@ public class MessageAlerter extends Thread {
         vibrator.vibrate(HAPTIC_FEEDBACK_DURATION);
     }
 
-    private void activateAlert() {
-        SMSSettings smsSettings = SMSSettings.retrieve(context);
+    private void activateAlert(SMSSettings smsSettings) {
         SMSAdapter smsAdapter = getSMSAdapter();
         String message = smsSettings.trimmedMessage() + location();
 

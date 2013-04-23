@@ -12,42 +12,50 @@ import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import static android.content.Intent.ACTION_SCREEN_OFF;
+import static android.content.Intent.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
 public class HardwareTriggerReceiverTest {
     private Application context;
-    private HardwareTriggerReceiver hardwareTriggerReceiver;
+    private HardwareTriggerReceiver spyHardwareTriggerReceiver;
     @Mock
     private MultiClickEvent mockMultiClickEvent;
 
     @Before
     public void setUp() throws IllegalAccessException {
         initMocks(this);
-        hardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
-        ReflectionUtils.setVariableValueInObject(hardwareTriggerReceiver, "multiClickEvent", mockMultiClickEvent);
+        spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
+        ReflectionUtils.setVariableValueInObject(spyHardwareTriggerReceiver, "multiClickEvent", mockMultiClickEvent);
         context = Robolectric.application;
     }
 
     @Test
     public void shouldActivateAlertWhenTheMultiClickEventIsActivatedAndResetTheEvent() throws IllegalAccessException {
         when(mockMultiClickEvent.isActivated()).thenReturn(true);
-        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
+        spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
 
         verify(mockMultiClickEvent).registerClick();
-        verify(hardwareTriggerReceiver).activateAlert(any(MessageAlerter.class));
-        MultiClickEvent actualEvent = (MultiClickEvent) ReflectionUtils.getValueIncludingSuperclasses("multiClickEvent", hardwareTriggerReceiver);
+        verify(spyHardwareTriggerReceiver).activateAlert(any(MessageAlerter.class));
+        MultiClickEvent actualEvent = (MultiClickEvent) ReflectionUtils.getValueIncludingSuperclasses("multiClickEvent", spyHardwareTriggerReceiver);
         Assert.assertNotSame(mockMultiClickEvent, actualEvent);
     }
 
     @Test
     public void shouldNotActivateAlertWhenTheMultiClickEventIsNotActivated() {
         when(mockMultiClickEvent.isActivated()).thenReturn(false);
-        hardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
+        spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verify(mockMultiClickEvent).registerClick();
-        verify(hardwareTriggerReceiver, never()).activateAlert(any(MessageAlerter.class));
+        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(MessageAlerter.class));
+    }
+
+    @Test
+    public void shouldNotProcessAnyThingForIntentsOtherThanScreenOnAndOff() {
+        spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
+
+        verifyNoMoreInteractions(mockMultiClickEvent);
+        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(MessageAlerter.class));
     }
 }

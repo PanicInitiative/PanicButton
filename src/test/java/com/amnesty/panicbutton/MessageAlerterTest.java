@@ -85,6 +85,13 @@ public class MessageAlerterTest {
     }
 
     @Test
+    public void shouldNotSendSMSAndNoHapticFeedbackIfSettingsNotConfigured() {
+        messageAlerter.run();
+        assertEquals(0, shadowVibrator.getMilliseconds());
+        verifyZeroInteractions(mockSMSAdapter);
+    }
+
+    @Test
     public void shouldSendSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailableWithHapticFeedback() {
         when(mockLocationProvider.currentBestLocation()).thenReturn(null);
         SMSSettings.save(application, new SMSSettings(asList(mobile1, mobile2, mobile3), message));
