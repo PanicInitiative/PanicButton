@@ -1,8 +1,6 @@
 package com.amnesty.panicbutton;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
 import android.widget.Button;
 import android.widget.TableRow;
 import com.amnesty.panicbutton.model.SMSSettings;
@@ -13,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowVibrator;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -71,11 +68,13 @@ public class SettingsActivityTest {
     }
 
     @Test
-    public void shouldActivateAlertAndProvideHapticFeedback() {
-        ShadowVibrator shadowVibrator = shadowOf((Vibrator) settingsActivity.getSystemService(Context.VIBRATOR_SERVICE));
-
+    public void shouldActivateAlertOnActivation() {
         activateButton.performClick();
-        assertEquals(3000, shadowVibrator.getMilliseconds());
         verify(mockMessageAlerter).start();
+    }
+
+    @Test
+    public void shouldReturnNewMessageAlerter() {
+        assertNotNull(settingsActivity.getMessageAlerter());
     }
 }
