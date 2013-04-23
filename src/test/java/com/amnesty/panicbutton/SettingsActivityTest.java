@@ -3,6 +3,7 @@ package com.amnesty.panicbutton;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TableRow;
+import com.amnesty.panicbutton.alert.MessageAlerter;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import org.junit.Before;

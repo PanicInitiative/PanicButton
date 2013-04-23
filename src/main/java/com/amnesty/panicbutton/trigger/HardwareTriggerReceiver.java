@@ -3,7 +3,7 @@ package com.amnesty.panicbutton.trigger;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.amnesty.panicbutton.MessageAlerter;
+import com.amnesty.panicbutton.alert.MessageAlerter;
 
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_SCREEN_ON;

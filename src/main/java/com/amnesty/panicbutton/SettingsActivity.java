@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.amnesty.panicbutton.alert.MessageAlerter;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import roboguice.activity.RoboActivity;

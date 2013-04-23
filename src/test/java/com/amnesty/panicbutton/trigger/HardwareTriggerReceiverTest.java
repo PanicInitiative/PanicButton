@@ -2,7 +2,7 @@ package com.amnesty.panicbutton.trigger;
 
 import android.app.Application;
 import android.content.Intent;
-import com.amnesty.panicbutton.MessageAlerter;
+import com.amnesty.panicbutton.alert.MessageAlerter;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Assert;
 import org.junit.Before;

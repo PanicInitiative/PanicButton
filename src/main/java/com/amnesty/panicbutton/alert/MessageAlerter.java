@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton;
+package com.amnesty.panicbutton.alert;
 
 import android.content.Context;
 import android.location.Location;
