@@ -9,12 +9,12 @@ import com.amnesty.panicbutton.location.LocationProvider;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
 
-public class MessageAlerter extends Thread {
+public class PanicAlert extends Thread {
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
     private Context context;
     private LocationProvider locationProvider;
 
-    public MessageAlerter(Context context) {
+    public PanicAlert(Context context) {
         this.context = context;
     }
 

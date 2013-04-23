@@ -3,7 +3,7 @@ package com.amnesty.panicbutton;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TableRow;
-import com.amnesty.panicbutton.alert.MessageAlerter;
+import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import org.junit.Before;
@@ -28,15 +28,15 @@ public class SettingsActivityTest {
     private Button activateButton;
 
     @Mock
-    private MessageAlerter mockMessageAlerter;
+    private PanicAlert mockPanicAlert;
 
     @Before
     public void setup() {
         initMocks(this);
 
         settingsActivity = new SettingsActivity() {
-            MessageAlerter getMessageAlerter() {
-                return mockMessageAlerter;
+            PanicAlert getPanicAlert() {
+                return mockPanicAlert;
             }
         };
         settingsActivity.onCreate(null);
@@ -71,11 +71,11 @@ public class SettingsActivityTest {
     @Test
     public void shouldActivateAlertOnActivation() {
         activateButton.performClick();
-        verify(mockMessageAlerter).start();
+        verify(mockPanicAlert).start();
     }
 
     @Test
-    public void shouldReturnNewMessageAlerter() {
-        assertNotNull(settingsActivity.getMessageAlerter());
+    public void shouldReturnNewPanicAlert() {
+        assertNotNull(settingsActivity.getPanicAlert());
     }
 }

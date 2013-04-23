@@ -2,7 +2,7 @@ package com.amnesty.panicbutton.trigger;
 
 import android.app.Application;
 import android.content.Intent;
-import com.amnesty.panicbutton.alert.MessageAlerter;
+import com.amnesty.panicbutton.alert.PanicAlert;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
 
         verify(mockMultiClickEvent).registerClick();
-        verify(spyHardwareTriggerReceiver).activateAlert(any(MessageAlerter.class));
+        verify(spyHardwareTriggerReceiver).activateAlert(any(PanicAlert.class));
         MultiClickEvent actualEvent = (MultiClickEvent) ReflectionUtils.getValueIncludingSuperclasses("multiClickEvent", spyHardwareTriggerReceiver);
         Assert.assertNotSame(mockMultiClickEvent, actualEvent);
     }
@@ -48,7 +48,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verify(mockMultiClickEvent).registerClick();
-        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(MessageAlerter.class));
+        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(PanicAlert.class));
     }
 
     @Test
@@ -56,6 +56,6 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
 
         verifyNoMoreInteractions(mockMultiClickEvent);
-        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(MessageAlerter.class));
+        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(PanicAlert.class));
     }
 }

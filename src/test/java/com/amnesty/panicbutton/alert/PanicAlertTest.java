@@ -27,8 +27,8 @@ import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-public class MessageAlerterTest {
-    private MessageAlerter messageAlerter;
+public class PanicAlertTest {
+    private PanicAlert panicAlert;
 
     @Mock
     public SMSAdapter mockSMSAdapter;
@@ -57,7 +57,7 @@ public class MessageAlerterTest {
         shadowVibrator = shadowOf((Vibrator) application.getSystemService(Context.VIBRATOR_SERVICE));
 
         context = Robolectric.application;
-        messageAlerter = new MessageAlerter(context) {
+        panicAlert = new PanicAlert(context) {
             SMSAdapter getSMSAdapter() {
                 return mockSMSAdapter;
             }
@@ -75,7 +75,7 @@ public class MessageAlerterTest {
 
         when(mockLocationProvider.currentBestLocation()).thenReturn(location);
 
-        messageAlerter.run();
+        panicAlert.run();
 
         String messageWithLocation = message + ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude + " via network";
         assertEquals(3000, shadowVibrator.getMilliseconds());
@@ -86,7 +86,7 @@ public class MessageAlerterTest {
 
     @Test
     public void shouldNotSendSMSAndNoHapticFeedbackIfSettingsNotConfigured() {
-        messageAlerter.run();
+        panicAlert.run();
         assertEquals(0, shadowVibrator.getMilliseconds());
         verifyZeroInteractions(mockSMSAdapter);
     }
@@ -96,7 +96,7 @@ public class MessageAlerterTest {
         when(mockLocationProvider.currentBestLocation()).thenReturn(null);
         SMSSettings.save(application, new SMSSettings(asList(mobile1, mobile2, mobile3), message));
 
-        messageAlerter.run();
+        panicAlert.run();
 
         assertEquals(3000, shadowVibrator.getMilliseconds());
         verify(mockSMSAdapter).sendSMS(mobile1, message);
@@ -106,11 +106,11 @@ public class MessageAlerterTest {
 
     @Test
     public void shouldReturnSMSAdapter() {
-        assertNotNull(new MessageAlerter(context).getSMSAdapter());
+        assertNotNull(new PanicAlert(context).getSMSAdapter());
     }
 
     @Test
     public void shouldReturnLocationProvider() {
-        assertNotNull(new MessageAlerter(context).getLocationProvider());
+        assertNotNull(new PanicAlert(context).getLocationProvider());
     }
 }

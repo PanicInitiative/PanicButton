@@ -3,7 +3,7 @@ package com.amnesty.panicbutton.trigger;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.amnesty.panicbutton.alert.MessageAlerter;
+import com.amnesty.panicbutton.alert.PanicAlert;
 
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_SCREEN_ON;
@@ -26,13 +26,13 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     private void process(Context context) {
         multiClickEvent.registerClick();
         if (multiClickEvent.isActivated()) {
-            activateAlert(new MessageAlerter(context));
+            activateAlert(new PanicAlert(context));
             resetEvent();
         }
     }
 
-    void activateAlert(MessageAlerter messageAlerter) {
-        messageAlerter.start();
+    void activateAlert(PanicAlert panicAlert) {
+        panicAlert.start();
     }
 
     private void resetEvent() {
