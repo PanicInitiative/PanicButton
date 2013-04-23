@@ -8,13 +8,17 @@ public class MultiClickEvent {
     private int clickCount=0;
 
     public void registerClick() {
-        long currentTime = System.currentTimeMillis();
+        long currentTime = currentTime();
         if (isFirstClick() || notWithinLimit(currentTime)) {
             startTimestamp = currentTime;
             clickCount=1;
             return;
         }
         clickCount++;
+    }
+
+    long currentTime() {
+        return System.currentTimeMillis();
     }
 
     private boolean notWithinLimit(long current) {
