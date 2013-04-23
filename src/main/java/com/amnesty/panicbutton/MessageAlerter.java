@@ -10,6 +10,7 @@ import com.amnesty.panicbutton.sms.SMSAdapter;
 
 public class MessageAlerter extends Thread {
     private Context context;
+    private LocationProvider locationProvider;
 
     public MessageAlerter(Context context) {
         this.context = context;
@@ -17,6 +18,7 @@ public class MessageAlerter extends Thread {
 
     @Override
     public void run() {
+        startLocationProviderInBackground();
         activateAlert();
     }
 
@@ -34,7 +36,6 @@ public class MessageAlerter extends Thread {
         Location location = null;
         int retryCount = 0;
 
-        LocationProvider locationProvider = startLocationProviderInBackground();
         while (retryCount < MAX_RETRIES && location == null) {
             location = locationProvider.currentBestLocation();
             if (location == null) {
@@ -49,10 +50,13 @@ public class MessageAlerter extends Thread {
         return new LocationFormatter(location).format();
     }
 
-    LocationProvider startLocationProviderInBackground() {
-        LocationProvider locationProvider = new LocationProvider(context);
+    private void startLocationProviderInBackground() {
+        locationProvider = getLocationProvider();
         locationProvider.start();
-        return locationProvider;
+    }
+
+    LocationProvider getLocationProvider() {
+        return new LocationProvider(context);
     }
 
     SMSAdapter getSMSAdapter() {

@@ -55,7 +55,7 @@ public class MessageAlerterTest {
                 return mockSMSAdapter;
             }
 
-            LocationProvider startLocationProviderInBackground() {
+            LocationProvider getLocationProvider() {
                 return mockLocationProvider;
             }
         };
@@ -95,6 +95,6 @@ public class MessageAlerterTest {
 
     @Test
     public void shouldReturnLocationProvider() {
-        assertNotNull(new MessageAlerter(context).startLocationProviderInBackground());
+        assertNotNull(new MessageAlerter(context).getLocationProvider());
     }
 }
