@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import com.amnesty.panicbutton.MessageAlerter;
 
 public class HardwareTriggerService extends Service {
     @Override
@@ -14,8 +13,7 @@ public class HardwareTriggerService extends Service {
         filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
 
-        HardwareTriggerReceiver receiver = new HardwareTriggerReceiver(new MessageAlerter(this), new Triggers());
-        registerReceiver(receiver, filter);
+        registerReceiver(new HardwareTriggerReceiver(), filter);
     }
 
     @Override
