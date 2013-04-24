@@ -76,6 +76,6 @@ public class SettingsActivityTest {
 
     @Test
     public void shouldReturnNewPanicAlert() {
-        assertNotNull(settingsActivity.getPanicAlert());
+        assertNotNull(new SettingsActivity().getPanicAlert());
     }
 }
