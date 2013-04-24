@@ -14,16 +14,19 @@ public class CalculatorActivity extends RoboActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bindLongPress();
+        startService(new Intent(this, HardwareTriggerService.class));
+    }
 
+    private void bindLongPress() {
         Button equalsButton = (Button) findViewById(R.id.equals_sign);
         equalsButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 startActivity(new Intent(CalculatorActivity.this, SettingsActivity.class));
+                overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 return true;
             }
         });
-
-        startService(new Intent(this, HardwareTriggerService.class));
     }
 }
