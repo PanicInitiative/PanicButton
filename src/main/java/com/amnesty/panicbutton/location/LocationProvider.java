@@ -3,6 +3,7 @@ package com.amnesty.panicbutton.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.Looper;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class LocationProvider extends LocationListenerAdapter {
     private static long MIN_UPDATE_INTERVAL = 1000 * 60;
     public static final int ACCURACY_THRESHOLD = 200;
 
+    private Handler handler;
     private Context context;
     private Location currentBestLocation;
 
@@ -23,12 +25,13 @@ public class LocationProvider extends LocationListenerAdapter {
     @Override
     public void run() {
         Looper.prepare();
+        handler = new Handler();
         initLocationListener();
         Looper.loop();
     }
 
     private void initLocationListener() {
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = locationManager();
         List<String> allProviders = locationManager.getAllProviders();
         for (String provider : allProviders) {
             locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE, this);
@@ -78,5 +81,14 @@ public class LocationProvider extends LocationListenerAdapter {
 
     private boolean isSameProvider(String provider1, String provider2) {
         return provider1.equals(provider2);
+    }
+
+    public void terminate() {
+        locationManager().removeUpdates(this);
+        handler.getLooper().quit();
+    }
+
+    private LocationManager locationManager() {
+        return (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 }

@@ -3,19 +3,23 @@ package com.amnesty.panicbutton.location;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
+import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowLocationManager;
+import org.robolectric.shadows.ShadowLooper;
+
+import java.util.Collection;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static com.amnesty.panicbutton.location.LocationTestUtil.location;
 import static java.lang.System.currentTimeMillis;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -116,6 +120,16 @@ public class LocationProviderTest {
         assertEquals(lessAccurateButNewLocation, actualLocation);
     }
 
+    @Test
+    public void shouldRemoveLocationUpdatesAndStopTheLooper() throws IllegalAccessException {
+        locationProvider.terminate();
+        Handler handler = (Handler) ReflectionUtils.getValueIncludingSuperclasses("handler", locationProvider);
+
+        Collection<String> providersForListener = shadowLocationManager.getProvidersForListener(locationProvider);
+        assertEquals(0, providersForListener.size());
+        ShadowLooper shadowLooper = shadowOf(handler.getLooper());
+        assertTrue(shadowLooper.hasQuit());
+    }
 
     private long offsetCurrentTimeBy(int seconds) {
         return currentTimeMillis() + (1000 * seconds);
