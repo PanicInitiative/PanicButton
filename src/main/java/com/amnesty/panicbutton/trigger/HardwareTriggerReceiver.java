@@ -24,7 +24,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     }
 
     private void process(Context context) {
-        multiClickEvent.registerClick();
+        multiClickEvent.registerClick(System.currentTimeMillis());
         if (multiClickEvent.isActivated()) {
             activateAlert(new PanicAlert(context));
             resetEvent();

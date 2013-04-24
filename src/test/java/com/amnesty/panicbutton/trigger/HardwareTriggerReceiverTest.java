@@ -36,7 +36,7 @@ public class HardwareTriggerReceiverTest {
         when(mockMultiClickEvent.isActivated()).thenReturn(true);
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
 
-        verify(mockMultiClickEvent).registerClick();
+        verify(mockMultiClickEvent).registerClick(anyLong());
         verify(spyHardwareTriggerReceiver).activateAlert(any(PanicAlert.class));
         MultiClickEvent actualEvent = (MultiClickEvent) ReflectionUtils.getValueIncludingSuperclasses("multiClickEvent", spyHardwareTriggerReceiver);
         Assert.assertNotSame(mockMultiClickEvent, actualEvent);
@@ -47,7 +47,7 @@ public class HardwareTriggerReceiverTest {
         when(mockMultiClickEvent.isActivated()).thenReturn(false);
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
-        verify(mockMultiClickEvent).registerClick();
+        verify(mockMultiClickEvent).registerClick(anyLong());
         verify(spyHardwareTriggerReceiver, never()).activateAlert(any(PanicAlert.class));
     }
 

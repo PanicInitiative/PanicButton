@@ -5,43 +5,38 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 public class MultiClickEventTest {
     private MultiClickEvent multiClickEvent;
 
     @Before
     public void setUp() {
-        multiClickEvent = spy(new MultiClickEvent());
+        multiClickEvent = new MultiClickEvent();
     }
 
     @Test
     public void shouldBeActivatedWhenEventsAreFiredWithInTheTimeLimit() {
-        when(multiClickEvent.currentTime()).thenReturn(15000l,15001l,15002l,15003l,15004l);
-        registerClick(5);
+        registerClick(5, 15000l,15001l,15002l,15003l,15004l);
         assertTrue(multiClickEvent.isActivated());
     }
 
     @Test
     public void shouldBeActivatedWhenEventsAreFiredWithInTheTimeLimitAfterDelayInFirstTry() {
-        when(multiClickEvent.currentTime()).thenReturn(15000l,15001l,15002l,25000l,25001l,25002l,25003l,25004l);
-        registerClick(3);
+        registerClick(3, 15000l, 15001l, 15002l);
         assertFalse(multiClickEvent.isActivated());
-        registerClick(5);
+        registerClick(5, 25000l, 25001l, 25002l, 25003l, 25004l);
         assertTrue(multiClickEvent.isActivated());
     }
 
     @Test
     public void shouldNotBeActivatedWhenEventsAreNotFiredWithInThTimeLimit() throws InterruptedException {
-        when(multiClickEvent.currentTime()).thenReturn(15000l,15001l,25002l,25003l,25004l);
-        registerClick(5);
+        registerClick(5, 15000l, 15001l, 25002l, 25003l, 25004l);
         assertFalse(multiClickEvent.isActivated());
     }
 
-    private void registerClick(int times) {
-        for (int i = 0; i < times; i++) {
-            multiClickEvent.registerClick();
+    private void registerClick(int noOfTimes, long... eventTimes) {
+        for (int i = 0; i < noOfTimes; i++) {
+            multiClickEvent.registerClick(eventTimes[i]);
         }
     }
 }
