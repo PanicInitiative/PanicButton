@@ -16,11 +16,12 @@
             android:layout_height="40dp"
             android:layout_width="fill_parent">
 
-        <Button
+        <Button android:id="@+id/previous_button"
                 style="@style/back_button"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"
-                android:background="@drawable/topbar_button"/>
+                android:background="@drawable/topbar_button"
+                android:onClick="previous"/>
 
         <View
                 style="@style/line"
@@ -38,12 +39,13 @@
                 android:layout_height="fill_parent"
                 android:layout_width="1dp"/>
 
-        <Button
+        <Button android:id="@+id/next_button"
                 style="@style/next_button"
                 android:background="@drawable/topbar_button"
                 android:text="Next"
                 android:layout_height="fill_parent"
-                android:layout_width="70dp"/>
+                android:layout_width="70dp"
+                android:onClick="next"/>
 
     </LinearLayout>
 
