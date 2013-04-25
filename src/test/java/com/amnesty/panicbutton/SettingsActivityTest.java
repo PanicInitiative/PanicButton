@@ -14,7 +14,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -52,7 +51,7 @@ public class SettingsActivityTest {
         ShadowActivity shadowActivity = shadowOf(settingsActivity);
         Intent startedIntent = shadowActivity.getNextStartedActivity();
 
-        assertThat(startedIntent.getComponent().getClassName(), equalTo(SMSSettingsActivity.class.getName()));
+        assertEquals(SMSSettingsActivity.class.getName(), startedIntent.getComponent().getClassName());
     }
 
     @Test

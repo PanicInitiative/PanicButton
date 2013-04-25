@@ -13,23 +13,26 @@
 
     <application android:icon="@drawable/icon" android:theme="@android:style/Theme.Black.NoTitleBar">
 
-        <activity android:name=".SettingsActivity"
+        <activity android:name=".wizard.WelcomeActivity"
                   android:screenOrientation="portrait"
-                  android:label="@string/settings_label">
-
-        </activity>
-
-        <activity android:name=".sms.SMSSettingsActivity"
-                  android:screenOrientation="portrait"
-                  android:label="@string/sms_settings_label"/>
-        <activity android:name=".CalculatorActivity"
-                  android:screenOrientation="portrait"
-                  android:label="@string/sms_settings_label">
-            <intent-filter android:label="@string/app_name">
+                  android:label="@string/panic_button_label">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".wizard.WizardActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".CalculatorActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity"
+                  android:screenOrientation="portrait"
+                  android:label="@string/settings_label"/>
+        <activity android:name=".sms.SMSSettingsActivity"
+                  android:screenOrientation="portrait"
+                  android:label="@string/sms_settings_label"/>
+
         <service android:name="com.amnesty.panicbutton.trigger.HardwareTriggerService"/>
     </application>
 </manifest>
