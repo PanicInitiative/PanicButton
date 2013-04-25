@@ -8,6 +8,14 @@
     <packaging>apk</packaging>
     <name>amnesty-panic-button</name>
 
+    <repositories>
+        <repository>
+            <id>android-support-local</id>
+            <name>Android support v4 local repo</name>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <properties>
         <platform.version>2.3.3</platform.version>
     </properties>
@@ -21,9 +29,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>support-v4</artifactId>
-            <version>r7</version>
+            <version>r12</version>
         </dependency>
 
         <dependency>
