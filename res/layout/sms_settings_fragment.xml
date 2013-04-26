@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/sms_settings_fragment_root"
+             android:layout_height="match_parent"
+             android:layout_width="wrap_content"
+             android:stretchColumns="0"
+             android:padding="@dimen/sms_settings_padding">
+
+    <TableRow>
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+                  android:id="@+id/first_contact"/>
+    </TableRow>
+
+    <TableRow>
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+                  android:id="@+id/second_contact"/>
+    </TableRow>
+
+    <TableRow>
+        <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+                  android:id="@+id/third_contact"/>
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <fragment android:id="@+id/sms_message"
+                android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
+                android:padding="@dimen/sms_message_widget_padding"
+                android:layout_span="2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+    </TableRow>
+</TableLayout>
