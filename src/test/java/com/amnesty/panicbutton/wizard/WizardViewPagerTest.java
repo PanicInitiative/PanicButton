@@ -11,16 +11,16 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricTestRunner.class)
-public class ViewPagerWithoutSwipeTest {
+public class WizardViewPagerTest {
     @Test
     public void shouldHaveTouchDisabled() {
-        ViewPagerWithoutSwipe viewPagerWithoutSwipe = new ViewPagerWithoutSwipe(Robolectric.application);
-        assertFalse(viewPagerWithoutSwipe.onTouchEvent(mock(MotionEvent.class)));
+        WizardViewPager wizardViewPager = new WizardViewPager(Robolectric.application);
+        assertFalse(wizardViewPager.onTouchEvent(mock(MotionEvent.class)));
     }
 
     @Test
     public void shouldNotInterceptTouchEvent() {
-        ViewPagerWithoutSwipe viewPagerWithoutSwipe = new ViewPagerWithoutSwipe(Robolectric.application, mock(AttributeSet.class));
-        assertFalse(viewPagerWithoutSwipe.onInterceptTouchEvent(mock(MotionEvent.class)));
+        WizardViewPager wizardViewPager = new WizardViewPager(Robolectric.application, mock(AttributeSet.class));
+        assertFalse(wizardViewPager.onInterceptTouchEvent(mock(MotionEvent.class)));
     }
 }

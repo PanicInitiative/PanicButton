@@ -1,6 +1,7 @@
 package com.amnesty.panicbutton.wizard;
 
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -13,21 +14,30 @@ import static android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 
 @ContentView(R.layout.wizard_layout)
 public class WizardActivity extends RoboFragmentActivity {
-    private ViewPagerWithoutSwipe viewPager;
-    @InjectView(R.id.previous_button) Button previousButton;
+    private WizardViewPager viewPager;
+
+    @InjectView(R.id.previous_button)
+    Button previousButton;
+
+    @InjectView(R.id.next_button)
+    Button nextButton;
+
+    private PagerAdapter pageAdapter;
 
     private SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             previousButton.setEnabled(position != 0);
+            nextButton.setEnabled(position != (pageAdapter.getCount() - 1));
         }
     };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewPager = (ViewPagerWithoutSwipe) findViewById(R.id.pager);
+        viewPager = (WizardViewPager) findViewById(R.id.pager);
+        pageAdapter = new WizardPageAdapter(getSupportFragmentManager());
         previousButton.setEnabled(false);
         viewPager.setOnPageChangeListener(pageChangeListener);
     }

@@ -5,12 +5,12 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class ViewPagerWithoutSwipe extends ViewPager {
-    public ViewPagerWithoutSwipe(Context context) {
+public class WizardViewPager extends ViewPager {
+    public WizardViewPager(Context context) {
         super(context);
     }
 
-    public ViewPagerWithoutSwipe(Context context, AttributeSet attrs) {
+    public WizardViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

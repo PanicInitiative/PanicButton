@@ -55,7 +55,7 @@
             android:layout_height="1dp"
             android:layout_width="fill_parent"/>
 
-    <com.amnesty.panicbutton.wizard.ViewPagerWithoutSwipe
+    <com.amnesty.panicbutton.wizard.WizardViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
