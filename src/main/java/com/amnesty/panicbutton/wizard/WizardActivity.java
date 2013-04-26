@@ -22,14 +22,14 @@ public class WizardActivity extends RoboFragmentActivity {
     @InjectView(R.id.next_button)
     Button nextButton;
 
-    private PagerAdapter pageAdapter;
+    private PagerAdapter pagerAdapter;
 
     private SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             previousButton.setEnabled(position != 0);
-            nextButton.setEnabled(position != (pageAdapter.getCount() - 1));
+            nextButton.setEnabled(position != (pagerAdapter.getCount() - 1));
         }
     };
 
@@ -37,7 +37,8 @@ public class WizardActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
 
         viewPager = (WizardViewPager) findViewById(R.id.pager);
-        pageAdapter = new WizardPageAdapter(getSupportFragmentManager());
+        pagerAdapter = getWizardPagerAdapter();
+        viewPager.setAdapter(pagerAdapter);
         previousButton.setEnabled(false);
         viewPager.setOnPageChangeListener(pageChangeListener);
     }
@@ -48,5 +49,9 @@ public class WizardActivity extends RoboFragmentActivity {
 
     public void previous(View view) {
         viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+    }
+
+    PagerAdapter getWizardPagerAdapter() {
+        return new WizardPageAdapter(getSupportFragmentManager());
     }
 }
