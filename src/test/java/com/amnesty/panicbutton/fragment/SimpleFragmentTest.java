@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class SimpleFragmentTest {
@@ -22,5 +23,10 @@ public class SimpleFragmentTest {
         fragmentTransaction.commit();
 
         assertEquals(R.id.wizard_start_root, simpleFragment.getView().getId());
+    }
+
+    @Test
+    public void shouldInstantiateSimpleFragment() {
+        assertNotNull(new SimpleFragment());
     }
 }

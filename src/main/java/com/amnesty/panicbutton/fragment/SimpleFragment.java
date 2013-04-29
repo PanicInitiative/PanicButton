@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 public class SimpleFragment extends Fragment {
     private int layoutId;
 
+    public SimpleFragment() {
+    }
+
     public SimpleFragment(int layoutId) {
         this.layoutId = layoutId;
     }
