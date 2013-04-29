@@ -40,13 +40,13 @@
                 android:layout_height="fill_parent"
                 android:layout_width="1dp"/>
 
-        <Button android:id="@+id/next_button"
+        <Button android:id="@+id/action_button"
                 style="@style/next_button"
                 android:background="@drawable/topbar_button"
                 android:text="Next"
                 android:layout_height="fill_parent"
                 android:layout_width="70dp"
-                android:onClick="next"/>
+                android:onClick="performAction"/>
 
     </LinearLayout>
 
