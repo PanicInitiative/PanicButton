@@ -18,7 +18,7 @@ import static org.robolectric.Robolectric.shadowOf;
 public class WizardActivityTest {
     private WizardActivity wizardActivity;
     private Button previousButton;
-    private Button nextButton;
+    private Button actionButton;
     private WizardViewPager viewPager;
     @Mock
     private PagerAdapter mockPagerAdapter;
@@ -35,7 +35,7 @@ public class WizardActivityTest {
 
         when(mockPagerAdapter.getCount()).thenReturn(3);
         previousButton = (Button) wizardActivity.findViewById(R.id.previous_button);
-        nextButton = (Button) wizardActivity.findViewById(R.id.next_button);
+        actionButton = (Button) wizardActivity.findViewById(R.id.action_button);
         viewPager = (WizardViewPager) wizardActivity.findViewById(R.id.pager);
     }
 
@@ -46,23 +46,23 @@ public class WizardActivityTest {
     }
 
     @Test
-    public void shouldHavePreviousDisabledOnFirstScreen() {
-        assertFalse(previousButton.isEnabled());
+    public void shouldHavePreviousHiddenForFirstScreen() {
+        assertFalse(previousButton.isShown());
         assertEquals(0, viewPager.getCurrentItem());
     }
 
     @Test
-    public void shouldNavigateToNextScreenAndEnablePreviousButton() {
+    public void shouldNavigateToNextScreenAndShowPreviousButton() {
         moveNext(1);
         assertEquals(1, viewPager.getCurrentItem());
-        assertTrue(previousButton.isEnabled());
+        assertTrue(previousButton.isShown());
     }
 
     @Test
-    public void shouldHavePreviousDisabledOnNavigatingBackToFirstScreen() {
+    public void shouldHavePreviousHiddenOnNavigatingBackToFirstScreen() {
         moveNext(1);
         movePrevious(1);
-        assertFalse(previousButton.isEnabled());
+        assertFalse(previousButton.isShown());
     }
 
     @Test
@@ -73,19 +73,13 @@ public class WizardActivityTest {
     }
 
     @Test
-    public void shouldHaveNextDisabledOnLastScreen() {
-        moveNext(2);
-        assertFalse(nextButton.isEnabled());
-    }
-
-    @Test
     public void shouldCreateWizardPagerAdapter() {
         assertNotNull(new WizardActivity().getWizardPagerAdapter());
     }
 
     private void moveNext(int times) {
         for (int i = 0; i < times; i++) {
-            nextButton.performClick();
+            actionButton.performClick();
         }
     }
 

@@ -11,6 +11,8 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 import static android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 @ContentView(R.layout.wizard_layout)
 public class WizardActivity extends RoboFragmentActivity {
@@ -19,8 +21,8 @@ public class WizardActivity extends RoboFragmentActivity {
     @InjectView(R.id.previous_button)
     Button previousButton;
 
-    @InjectView(R.id.next_button)
-    Button nextButton;
+    @InjectView(R.id.action_button)
+    Button actionButton;
 
     private PagerAdapter pagerAdapter;
 
@@ -28,22 +30,21 @@ public class WizardActivity extends RoboFragmentActivity {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
-            previousButton.setEnabled(position != 0);
-            nextButton.setEnabled(position != (pagerAdapter.getCount() - 1));
+            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
         }
     };
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        previousButton.setVisibility(INVISIBLE);
 
         viewPager = (WizardViewPager) findViewById(R.id.pager);
         pagerAdapter = getWizardPagerAdapter();
         viewPager.setAdapter(pagerAdapter);
-        previousButton.setEnabled(false);
         viewPager.setOnPageChangeListener(pageChangeListener);
     }
 
-    public void next(View view) {
+    public void performAction(View view) {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
     }
 
