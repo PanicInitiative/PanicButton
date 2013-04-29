@@ -38,18 +38,18 @@ public class WizardActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
         previousButton.setVisibility(INVISIBLE);
 
-        viewPager = (WizardViewPager) findViewById(R.id.pager);
+        viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
         pagerAdapter = getWizardPagerAdapter();
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(pageChangeListener);
     }
 
     public void performAction(View view) {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+        viewPager.performAction();
     }
 
     public void previous(View view) {
-        viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        viewPager.previous();
     }
 
     PagerAdapter getWizardPagerAdapter() {

@@ -23,5 +23,13 @@ public class WizardViewPager extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return false;
     }
+
+    public void performAction() {
+        setCurrentItem(getCurrentItem() + 1);
+    }
+
+    public void previous() {
+        setCurrentItem(getCurrentItem() - 1);
+    }
 }
 

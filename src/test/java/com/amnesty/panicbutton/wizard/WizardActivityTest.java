@@ -36,7 +36,7 @@ public class WizardActivityTest {
         when(mockPagerAdapter.getCount()).thenReturn(3);
         previousButton = (Button) wizardActivity.findViewById(R.id.previous_button);
         actionButton = (Button) wizardActivity.findViewById(R.id.action_button);
-        viewPager = (WizardViewPager) wizardActivity.findViewById(R.id.pager);
+        viewPager = (WizardViewPager) wizardActivity.findViewById(R.id.wizard_view_pager);
     }
 
     @Test
