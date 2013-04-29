@@ -9,13 +9,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class SimpleFragmentTest {
     @Test
     public void shouldCreateFragmentWithGivenLayout() {
-        SimpleFragment simpleFragment = new SimpleFragment(R.layout.wizard_start_screen);
+        SimpleFragment simpleFragment = SimpleFragment.create(R.layout.wizard_start_screen);
 
         FragmentManager fragmentManager = new FragmentActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -23,10 +22,5 @@ public class SimpleFragmentTest {
         fragmentTransaction.commit();
 
         assertEquals(R.id.wizard_start_root, simpleFragment.getView().getId());
-    }
-
-    @Test
-    public void shouldInstantiateSimpleFragment() {
-        assertNotNull(new SimpleFragment());
     }
 }
