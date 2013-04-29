@@ -19,4 +19,5 @@
     <string name="i_am_at">+ I\'m at </string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
+    <string name="setup_wizard">setup wizard</string>
 </resources>

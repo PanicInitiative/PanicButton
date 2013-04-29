@@ -1,7 +1,9 @@
 package com.amnesty.panicbutton.wizard;
 
 import android.support.v4.app.FragmentManager;
+import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.fragment.SMSSettingsFragment;
+import com.amnesty.panicbutton.fragment.SimpleFragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,8 @@ public class WizardPageAdapterTest {
 
     @Test
     public void shouldReturnTheFragmentsInWizard() {
-        assertEquals(1, wizardPageAdapter.getCount());
-        assertEquals(wizardPageAdapter.getItem(0).getClass(), SMSSettingsFragment.class);
+        assertEquals(2, wizardPageAdapter.getCount());
+        assertEquals(R.layout.wizard_start_screen, ((SimpleFragment) wizardPageAdapter.getItem(0)).getLayoutId());
+        assertEquals(SMSSettingsFragment.class, wizardPageAdapter.getItem(1).getClass());
     }
 }
