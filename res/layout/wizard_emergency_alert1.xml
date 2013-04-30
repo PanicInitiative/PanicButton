@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/wizard_start_root"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              style="@style/wizard_static_panel"
+              android:orientation="vertical"
+        >
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_emergency_title"
+              style="@style/wizard_page_title" />
+
+    <View android:layout_height="1sp"
+          android:layout_width="match_parent"
+          android:background="#FF909090"/>
+</LinearLayout>

@@ -4,17 +4,61 @@
               android:id="@+id/wizard_start_root"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              style="@style/wizard_static_panel"
               android:orientation="vertical"
         >
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:text="@string/panic_button_label"
               android:textSize="32dp"
-              android:text="@string/panic_button_label"/>
+              android:paddingBottom="5dp"/>
+
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:text="@string/setup_wizard"
               android:textSize="24dp"
-              android:text="@string/setup_wizard"/>
+            android:textStyle="italic"
+            android:paddingBottom="5dp"
+            />
+
+
+
     <View android:layout_height="1sp"
           android:layout_width="match_parent"
           android:background="#FF909090"/>
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_what_is_PB"
+              style="@style/welcome_screen_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature1"
+              style="@style/bulleted_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature2"
+              style="@style/bulleted_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature3"
+              style="@style/bulleted_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature4"
+              style="@style/bulleted_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature5"
+              style="@style/bulleted_text" />
+
+    <TextView android:layout_height="wrap_content"
+              android:layout_width="fill_parent"
+              android:text="@string/wizard_PB_feature6"
+              style="@style/bulleted_text" />
 </LinearLayout>
