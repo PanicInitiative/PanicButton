@@ -25,7 +25,8 @@
 
     <View android:layout_height="1sp"
           android:layout_width="match_parent"
-          android:background="#FF909090"/>
+          style="@style/wizard_title_sep"
+          />
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="fill_parent"

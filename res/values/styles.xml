@@ -28,6 +28,10 @@
         <item name="android:background">#222222</item>
     </style>
 
+    <style name="custom_action_bar_sep">
+        <item name="android:background">#666666</item>
+    </style>
+
     <style name="top_bar">
         <item name="android:background">#d49602</item>
     </style>
@@ -35,8 +39,10 @@
     <style name="back_button">
         <item name="android:drawableLeft">@drawable/back</item>
         <item name="android:layout_weight">0</item>
-        <item name="android:paddingLeft">15dp</item>
-        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
 
     <style name="save_button">
@@ -91,7 +97,10 @@
     </style>
 
     <style name="wizard_static_panel">
-        <item name="android:padding">10dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">15dp</item>
     </style>
 
     <style name="welcome_screen_text">
@@ -110,7 +119,30 @@
     <style name="wizard_page_title">
         <item name="android:textSize">17dp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="wizard_sub_title">
+        <item name="android:textSize">17dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="wizard_text">
+        <item name="android:textSize">15dp</item>
+        <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">#aaaaaa</item>
+    </style>
+
+    <style name="wizard_image">
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="wizard_title_sep">
+        <item name="android:background">#d59900</item>
     </style>
 
 </resources>

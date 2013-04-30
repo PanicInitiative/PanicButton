@@ -18,16 +18,16 @@
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:text="@string/wizard_emergency_option1_subtitle"
+              android:text="@string/wizard_emergency_option3_subtitle"
               style="@style/wizard_sub_title" />
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:text="@string/wizard_emergency_option1_text"
+              android:text="@string/wizard_emergency_option3_text"
               style="@style/wizard_text" />
 
     <ImageView android:layout_height="wrap_content"
                android:layout_width="fill_parent"
-               android:src="@drawable/activate1"
-            style="@style/wizard_image"/>
+               android:src="@drawable/activate3"
+               style="@style/wizard_image"/>
 </LinearLayout>
