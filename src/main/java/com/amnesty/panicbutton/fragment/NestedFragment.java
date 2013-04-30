@@ -8,6 +8,8 @@ import android.util.Log;
 public abstract class NestedFragment extends Fragment implements WizardFragment {
     private static String TAG = NestedFragment.class.getSimpleName();
 
+    protected abstract int[] getFragmentIds();
+
     @Override
     public void onDestroyView() {
         try {
@@ -23,6 +25,4 @@ public abstract class NestedFragment extends Fragment implements WizardFragment 
         }
         super.onDestroyView();
     }
-
-    protected abstract int[] getFragmentIds();
 }

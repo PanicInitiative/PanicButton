@@ -32,4 +32,8 @@ public class SimpleFragment extends Fragment implements WizardFragment {
     public String action() {
         return getString(getArguments().getInt(ACTION_ID));
     }
+
+    @Override
+    public void performAction() {
+    }
 }

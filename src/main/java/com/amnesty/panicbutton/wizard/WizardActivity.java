@@ -48,7 +48,7 @@ public class WizardActivity extends RoboFragmentActivity {
     }
 
     public void performAction(View view) {
-        viewPager.performAction();
+        viewPager.next();
     }
 
     private void setActionButtonText() {
