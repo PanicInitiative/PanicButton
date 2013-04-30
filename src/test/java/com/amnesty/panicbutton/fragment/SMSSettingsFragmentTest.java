@@ -42,6 +42,11 @@ public class SMSSettingsFragmentTest {
     }
 
     @Test
+    public void shouldReturnTheActionText() {
+        assertEquals("Save", smsSettingsFragment.action());
+    }
+
+    @Test
     public void shouldRemoveFragmentsOnViewDestroy() {
         TestFragmentManager testFragmentManager = (TestFragmentManager) fragmentManager;
         smsSettingsFragment.onDestroyView();
