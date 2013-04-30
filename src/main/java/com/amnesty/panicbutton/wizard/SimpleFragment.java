@@ -35,5 +35,6 @@ public class SimpleFragment extends Fragment implements WizardFragment {
 
     @Override
     public void performAction() {
+        //No action
     }
 }

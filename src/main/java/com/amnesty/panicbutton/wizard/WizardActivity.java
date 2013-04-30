@@ -47,12 +47,16 @@ public class WizardActivity extends RoboFragmentActivity {
     }
 
     public void performAction(View view) {
+        getCurrentWizardFragment().performAction();
         viewPager.next();
     }
 
     private void setActionButtonText() {
-        WizardFragment currentFragment = (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
-        actionButton.setText(currentFragment.action());
+        actionButton.setText(getCurrentWizardFragment().action());
+    }
+
+    private WizardFragment getCurrentWizardFragment() {
+        return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
     }
 
     public void previous(View view) {

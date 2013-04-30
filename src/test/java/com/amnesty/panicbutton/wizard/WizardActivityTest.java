@@ -11,6 +11,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.shadowOf;
@@ -67,10 +68,11 @@ public class WizardActivityTest {
         when(mockFragment.action()).thenReturn("Save");
         moveNext(1);
         assertEquals("Save", actionButton.getText());
+        verify(mockFragment).performAction();
     }
 
     @Test
-    public void shouldNavigateToNextScreenAndShowPreviousButton() {
+    public void shouldPerformActionAndNavigateToNextScreenAndShowPreviousButton() {
         moveNext(1);
         assertEquals(1, viewPager.getCurrentItem());
         assertTrue(previousButton.isShown());
