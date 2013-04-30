@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,16 +43,17 @@ public class SMSSettingsFragmentTest {
     private String number2;
     private String number3;
     private String expectedMessage;
+    private TestFragmentActivity testFragmentActivity;
 
     @Before
     public void setUp() {
         setupExistingSettings();
         smsSettingsFragment = new SMSSettingsFragment();
-        fragmentManager = new RoboFragmentActivity().getSupportFragmentManager();
+        testFragmentActivity = new TestFragmentActivity();
+        fragmentManager = testFragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(smsSettingsFragment, null);
         fragmentTransaction.commit();
-
 
         Fragment firstContact = fragmentManager.findFragmentById(R.id.first_contact);
         Fragment secondContact = fragmentManager.findFragmentById(R.id.second_contact);
@@ -127,6 +129,7 @@ public class SMSSettingsFragmentTest {
         assertEquals("*******97", firstContactEditText.getText().toString());
         assertEquals("*********56", secondContactEditText.getText().toString());
         assertEquals("*********45", thirdContactEditText.getText().toString());
+        assertTrue(testFragmentActivity.state);
     }
 
     @Test
@@ -142,6 +145,22 @@ public class SMSSettingsFragmentTest {
         smsSettingsFragment.performAction();
         smsSettingsFragment.performAction();
         assertSavedSMSSettings();
+    }
+
+    @Test
+    public void shouldEnableActionStateOnPhoneNumberExceedingLimit() {
+        firstContactEditText.setText("12345");
+        secondContactEditText.setText("123");
+        thirdContactEditText.setText("");
+        assertTrue(testFragmentActivity.state);
+    }
+
+    @Test
+    public void shouldDisableActionStateOnPhoneNumberLesserThanLimit() {
+        firstContactEditText.setText("1234");
+        secondContactEditText.setText("");
+        thirdContactEditText.setText("");
+        assertFalse(testFragmentActivity.state);
     }
 
     private void setViewData() {
@@ -165,5 +184,14 @@ public class SMSSettingsFragmentTest {
         assertEquals("*********89", firstContactEditText.getText().toString());
         assertEquals("********21", secondContactEditText.getText().toString());
         assertEquals("********23", thirdContactEditText.getText().toString());
+    }
+
+    private class TestFragmentActivity extends RoboFragmentActivity implements ActionButtonStateListener {
+        private boolean state;
+
+        @Override
+        public void onActionStateChanged(boolean state) {
+            this.state = state;
+        }
     }
 }

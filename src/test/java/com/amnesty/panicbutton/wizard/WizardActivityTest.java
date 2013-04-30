@@ -97,6 +97,14 @@ public class WizardActivityTest {
         assertNotNull(new WizardActivity().getWizardPagerAdapter());
     }
 
+    @Test
+    public void shouldChangeStateOfActionButton() {
+        wizardActivity.onActionStateChanged(true);
+        assertTrue(actionButton.isEnabled());
+        wizardActivity.onActionStateChanged(false);
+        assertTrue(!actionButton.isEnabled());
+    }
+
     private void moveNext(int times) {
         for (int i = 0; i < times; i++) {
             actionButton.performClick();

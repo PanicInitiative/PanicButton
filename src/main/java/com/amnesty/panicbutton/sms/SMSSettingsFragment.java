@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import com.amnesty.panicbutton.wizard.NestedFragment;
 import com.amnesty.panicbutton.wizard.WizardAction;
 
@@ -20,16 +23,25 @@ import java.util.List;
 import static com.amnesty.panicbutton.R.id.*;
 
 public class SMSSettingsFragment extends NestedFragment {
+    public static final int PHONE_NUMBER_LIMIT = 4;
     private EditText firstContact;
     private EditText secondContact;
     private EditText thirdContact;
+
     private EditText smsEditText;
     private Context context;
+    private ActionButtonStateListener actionButtonStateListener;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        context = activity.getApplicationContext();
+        this.context = activity.getApplicationContext();
+        setActionButtonStateListener(activity);
+    }
+
+    private void setActionButtonStateListener(Activity activity) {
+        if (activity instanceof ActionButtonStateListener)
+            this.actionButtonStateListener = (ActionButtonStateListener) activity;
     }
 
     @Override
@@ -49,15 +61,18 @@ public class SMSSettingsFragment extends NestedFragment {
     }
 
     private void initializeViews() {
-        firstContact = (EditText) findViewInFragmentById(R.id.first_contact, R.id.contact_edit_text);
-        secondContact = (EditText) findViewInFragmentById(R.id.second_contact, R.id.contact_edit_text);
-        thirdContact = (EditText) findViewInFragmentById(R.id.third_contact, R.id.contact_edit_text);
-        smsEditText = (EditText) findViewInFragmentById(R.id.sms_message, R.id.message_edit_text);
+        firstContact = findEditText(R.id.first_contact, R.id.contact_edit_text);
+        firstContact.addTextChangedListener(phoneNumberWatcher);
+        secondContact = findEditText(R.id.second_contact, R.id.contact_edit_text);
+        secondContact.addTextChangedListener(phoneNumberWatcher);
+        thirdContact = findEditText(R.id.third_contact, R.id.contact_edit_text);
+        thirdContact.addTextChangedListener(phoneNumberWatcher);
+        smsEditText = findEditText(R.id.sms_message, R.id.message_edit_text);
     }
 
-    private View findViewInFragmentById(int fragmentId, int viewId) {
+    private EditText findEditText(int fragmentId, int viewId) {
         Fragment fragment = getFragmentManager().findFragmentById(fragmentId);
-        return fragment.getView().findViewById(viewId);
+        return (EditText) fragment.getView().findViewById(viewId);
     }
 
     @Override
@@ -99,5 +114,27 @@ public class SMSSettingsFragment extends NestedFragment {
             return currentSMSSettings.phoneNumberAt(index);
         }
         return contactNumberInView;
+    }
+
+    private TextWatcher phoneNumberWatcher = new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (actionButtonStateListener != null)
+                actionButtonStateListener.onActionStateChanged(hasAtleastOneValidPhoneNumber());
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+    };
+
+    private boolean hasAtleastOneValidPhoneNumber() {
+        return firstContact.getText().length() > PHONE_NUMBER_LIMIT ||
+                secondContact.getText().length() > PHONE_NUMBER_LIMIT ||
+                thirdContact.getText().length() > PHONE_NUMBER_LIMIT;
     }
 }
