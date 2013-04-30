@@ -2,8 +2,7 @@ package com.amnesty.panicbutton.wizard;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import com.amnesty.panicbutton.fragment.SMSSettingsFragment;
-import com.amnesty.panicbutton.fragment.SimpleFragment;
+import com.amnesty.panicbutton.sms.SMSSettingsFragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

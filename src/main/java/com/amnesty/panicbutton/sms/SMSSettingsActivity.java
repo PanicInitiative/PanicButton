@@ -3,7 +3,6 @@ package com.amnesty.panicbutton.sms;
 import android.os.Bundle;
 import android.view.View;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.SMSSettingsFragment;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
 

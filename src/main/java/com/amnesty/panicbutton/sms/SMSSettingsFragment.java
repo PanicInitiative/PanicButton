@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.sms;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.wizard.NestedFragment;
 import com.amnesty.panicbutton.wizard.WizardAction;
 
 import java.util.ArrayList;

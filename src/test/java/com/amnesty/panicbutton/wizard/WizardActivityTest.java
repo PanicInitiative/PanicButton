@@ -3,7 +3,6 @@ package com.amnesty.panicbutton.wizard;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Button;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.SimpleFragment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

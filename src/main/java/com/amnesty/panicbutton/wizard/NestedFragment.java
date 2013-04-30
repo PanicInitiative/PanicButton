@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.wizard;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

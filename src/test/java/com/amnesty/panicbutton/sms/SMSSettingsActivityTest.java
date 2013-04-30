@@ -2,15 +2,12 @@ package com.amnesty.panicbutton.sms;
 
 import android.widget.Button;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.SMSSettingsFragment;
-import com.amnesty.panicbutton.model.SMSSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
