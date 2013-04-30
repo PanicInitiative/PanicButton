@@ -1,6 +1,6 @@
 package com.amnesty.panicbutton.wizard;
 
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Button;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.shadowOf;
@@ -21,19 +23,24 @@ public class WizardActivityTest {
     private Button actionButton;
     private WizardViewPager viewPager;
     @Mock
-    private PagerAdapter mockPagerAdapter;
+    private FragmentStatePagerAdapter mockPagerAdapter;
+    @Mock
+    private SimpleFragment mockFragment;
 
     @Before
     public void setUp() throws IllegalAccessException {
         initMocks(this);
         wizardActivity = new WizardActivity() {
-            PagerAdapter getWizardPagerAdapter() {
+            FragmentStatePagerAdapter getWizardPagerAdapter() {
                 return mockPagerAdapter;
             }
         };
         wizardActivity.onCreate(null);
 
+        when(mockFragment.action()).thenReturn("Action");
+        when(mockPagerAdapter.getItem(anyInt())).thenReturn(mockFragment);
         when(mockPagerAdapter.getCount()).thenReturn(3);
+
         previousButton = (Button) wizardActivity.findViewById(R.id.previous_button);
         actionButton = (Button) wizardActivity.findViewById(R.id.action_button);
         viewPager = (WizardViewPager) wizardActivity.findViewById(R.id.wizard_view_pager);
@@ -52,7 +59,20 @@ public class WizardActivityTest {
     }
 
     @Test
-    public void shouldNavigateToNextScreenAndShowPreviousButton() {
+    public void shouldSetActionButtonTextForFirstScreen() {
+        assertEquals("Start", actionButton.getText());
+    }
+
+    @Test
+    public void shouldUpdateActionButtonTextOnNavigationToNextScreen() {
+        when(mockFragment.action()).thenReturn("Save");
+        moveNext(1);
+        assertEquals("Save", actionButton.getText());
+        verify(mockFragment).performAction();
+    }
+
+    @Test
+    public void shouldPerformActionAndNavigateToNextScreenAndShowPreviousButton() {
         moveNext(1);
         assertEquals(1, viewPager.getCurrentItem());
         assertTrue(previousButton.isShown());

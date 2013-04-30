@@ -24,7 +24,7 @@ public class WizardViewPager extends ViewPager {
         return false;
     }
 
-    public void performAction() {
+    public void next() {
         setCurrentItem(getCurrentItem() + 1);
     }
 

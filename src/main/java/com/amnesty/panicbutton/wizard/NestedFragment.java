@@ -1,13 +1,14 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.wizard;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import roboguice.fragment.RoboFragment;
 
-public abstract class AbstractWizardFragment extends RoboFragment {
-    private static String TAG = AbstractWizardFragment.class.getSimpleName();
+public abstract class NestedFragment extends Fragment implements WizardFragment {
+    private static String TAG = NestedFragment.class.getSimpleName();
+
+    protected abstract int[] getFragmentIds();
 
     @Override
     public void onDestroyView() {
@@ -24,6 +25,4 @@ public abstract class AbstractWizardFragment extends RoboFragment {
         }
         super.onDestroyView();
     }
-
-    protected abstract int[] getFragmentIds();
 }
