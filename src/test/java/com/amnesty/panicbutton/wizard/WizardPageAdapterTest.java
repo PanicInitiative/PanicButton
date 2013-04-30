@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import roboguice.activity.RoboFragmentActivity;
 
-import static com.amnesty.panicbutton.R.layout.wizard_start_screen;
+import static com.amnesty.panicbutton.R.layout.*;
+import static com.amnesty.panicbutton.R.string.next_action;
 import static com.amnesty.panicbutton.R.string.start_action;
 import static org.junit.Assert.assertEquals;
 
@@ -25,10 +26,13 @@ public class WizardPageAdapterTest {
 
     @Test
     public void shouldReturnTheFragmentsInWizard() {
-        assertEquals(2, wizardPageAdapter.getCount());
+        assertEquals(5, wizardPageAdapter.getCount());
 
         assertSimpleFragment(0, wizard_start_screen, start_action);
         assertEquals(SMSSettingsFragment.class, wizardPageAdapter.getItem(1).getClass());
+        assertSimpleFragment(2, wizard_emergency_alert1, next_action);
+        assertSimpleFragment(3, wizard_emergency_alert2, next_action);
+        assertSimpleFragment(4, wizard_emergency_alert3, next_action);
     }
 
     private void assertSimpleFragment(int screenIndex, int layoutId, int actionId) {

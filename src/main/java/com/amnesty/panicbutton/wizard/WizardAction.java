@@ -4,6 +4,7 @@ import com.amnesty.panicbutton.R;
 
 public enum WizardAction {
     START(R.string.start_action),
+    NEXT(R.string.next_action),
     SAVE(R.string.save_action);
 
     private int actionId;

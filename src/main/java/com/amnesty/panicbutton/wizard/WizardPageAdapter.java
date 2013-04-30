@@ -8,7 +8,8 @@ import com.amnesty.panicbutton.sms.SMSSettingsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.amnesty.panicbutton.R.layout.wizard_start_screen;
+import static com.amnesty.panicbutton.R.layout.*;
+import static com.amnesty.panicbutton.R.string.next_action;
 import static com.amnesty.panicbutton.R.string.start_action;
 import static com.amnesty.panicbutton.wizard.SimpleFragment.create;
 
@@ -19,6 +20,9 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
         super(fm);
         fragments.add(create(wizard_start_screen, start_action));
         fragments.add(new SMSSettingsFragment());
+        fragments.add(create(wizard_emergency_alert1, next_action));
+        fragments.add(create(wizard_emergency_alert2, next_action));
+        fragments.add(create(wizard_emergency_alert3, next_action));
     }
 
     @Override
