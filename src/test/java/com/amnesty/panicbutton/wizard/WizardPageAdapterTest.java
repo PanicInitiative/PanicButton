@@ -33,7 +33,7 @@ public class WizardPageAdapterTest {
         assertSimpleFragment(2, wizard_emergency_alert1, next_action);
         assertSimpleFragment(3, wizard_emergency_alert2, next_action);
         assertSimpleFragment(4, wizard_emergency_alert3, next_action);
-        assertEquals(FinishWizardFragment.class, wizardPageAdapter.getItem(5).getClass());
+        assertEquals(WizardFinishFragment.class, wizardPageAdapter.getItem(5).getClass());
     }
 
     private void assertSimpleFragment(int screenIndex, int layoutId, int actionId) {

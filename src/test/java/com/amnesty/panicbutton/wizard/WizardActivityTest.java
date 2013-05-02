@@ -42,6 +42,7 @@ public class WizardActivityTest {
         wizardActivity.onCreate(null);
 
         when(mockFragment.action()).thenReturn("Action");
+        when(mockFragment.getView()).thenReturn(mock(EditText.class));
         when(mockPagerAdapter.getItem(anyInt())).thenReturn(mockFragment);
         when(mockPagerAdapter.getCount()).thenReturn(3);
 
@@ -60,9 +61,8 @@ public class WizardActivityTest {
     public void shouldHideKeyboardOnNavigation() {
         ShadowInputMethodManager shadowInputMethodManager = shadowOf((InputMethodManager)
                 application.getSystemService(Activity.INPUT_METHOD_SERVICE));
-        when(mockFragment.getView()).thenReturn(mock(EditText.class));
-
         shadowInputMethodManager.showSoftInput(mockFragment.getView(), 0);
+
         assertTrue(shadowInputMethodManager.isSoftInputVisible());
         moveNext(1);
         assertFalse(shadowInputMethodManager.isSoftInputVisible());

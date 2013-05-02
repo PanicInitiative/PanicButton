@@ -23,7 +23,7 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
         fragments.add(create(wizard_emergency_alert1, next_action));
         fragments.add(create(wizard_emergency_alert2, next_action));
         fragments.add(create(wizard_emergency_alert3, next_action));
-        fragments.add(new FinishWizardFragment());
+        fragments.add(new WizardFinishFragment());
     }
 
     @Override

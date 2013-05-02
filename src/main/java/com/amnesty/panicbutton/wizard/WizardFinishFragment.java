@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.amnesty.panicbutton.CalculatorActivity;
 import com.amnesty.panicbutton.R;
 
-public class FinishWizardFragment extends WizardFragment {
+public class WizardFinishFragment extends WizardFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wizard_finish_screen, container, false);
@@ -17,6 +17,7 @@ public class FinishWizardFragment extends WizardFragment {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ApplicationSettings.completeFirstRun(context);
                 startActivity(new Intent(context, CalculatorActivity.class));
             }
         });
