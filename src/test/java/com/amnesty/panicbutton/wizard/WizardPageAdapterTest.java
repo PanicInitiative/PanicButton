@@ -26,13 +26,14 @@ public class WizardPageAdapterTest {
 
     @Test
     public void shouldReturnTheFragmentsInWizard() {
-        assertEquals(5, wizardPageAdapter.getCount());
+        assertEquals(6, wizardPageAdapter.getCount());
 
         assertSimpleFragment(0, wizard_start_screen, start_action);
         assertEquals(SMSSettingsFragment.class, wizardPageAdapter.getItem(1).getClass());
         assertSimpleFragment(2, wizard_emergency_alert1, next_action);
         assertSimpleFragment(3, wizard_emergency_alert2, next_action);
         assertSimpleFragment(4, wizard_emergency_alert3, next_action);
+        assertEquals(FinishWizardFragment.class, wizardPageAdapter.getItem(5).getClass());
     }
 
     private void assertSimpleFragment(int screenIndex, int layoutId, int actionId) {

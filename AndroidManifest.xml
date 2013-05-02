@@ -15,14 +15,16 @@
 
         <activity android:name=".wizard.WelcomeActivity"
                   android:screenOrientation="portrait"
-                  android:label="@string/panic_button_label">
+                  android:label="@string/panic_button_label"
+                  android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".wizard.WizardActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:noHistory="true"/>
 
         <activity android:name=".CalculatorActivity"
                   android:screenOrientation="portrait"/>

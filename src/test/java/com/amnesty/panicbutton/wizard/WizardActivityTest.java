@@ -98,6 +98,12 @@ public class WizardActivityTest {
     }
 
     @Test
+    public void shouldHideNextOnNavigatingToFinishScreen() {
+        moveNext(2);
+        assertFalse(actionButton.isShown());
+    }
+
+    @Test
     public void shouldChangeStateOfActionButton() {
         wizardActivity.onActionStateChanged(true);
         assertTrue(actionButton.isEnabled());
