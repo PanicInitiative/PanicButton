@@ -76,7 +76,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
         SMSSettings newSMSSettings = new SMSSettings(phoneNumbers, message);
 
         SMSSettings.save(context, newSMSSettings);
-        Toast.makeText(context, R.string.successfully_saved, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.successfully_saved, Toast.LENGTH_SHORT).show();
         displaySettings(newSMSSettings);
     }
 
