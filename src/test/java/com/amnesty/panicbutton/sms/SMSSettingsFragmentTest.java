@@ -13,9 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowHandler;
 import org.robolectric.shadows.ShadowLog;
-import org.robolectric.shadows.ShadowToast;
 import org.robolectric.tester.android.util.TestFragmentManager;
 import org.robolectric.tester.android.util.TestFragmentTransaction;
 import roboguice.activity.RoboFragmentActivity;
@@ -25,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.amnesty.panicbutton.R.id.*;
-import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
@@ -181,9 +178,6 @@ public class SMSSettingsFragmentTest {
     }
 
     private void assertSavedSMSSettings() {
-        ShadowHandler.idleMainLooper();
-        assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
-
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(Robolectric.application);
 
         assertEquals(expectedMessage, retrievedSMSSettings.message());

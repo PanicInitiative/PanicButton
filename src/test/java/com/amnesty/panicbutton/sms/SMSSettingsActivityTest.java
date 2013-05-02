@@ -7,8 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowHandler;
+import org.robolectric.shadows.ShadowToast;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -35,6 +39,8 @@ public class SMSSettingsActivityTest {
     public void shouldSaveSettingsOnSave() {
         saveButton.performClick();
         verify(mockSMSSettingsFragment).performAction();
+        ShadowHandler.idleMainLooper();
+        assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
     }
 
     @Test

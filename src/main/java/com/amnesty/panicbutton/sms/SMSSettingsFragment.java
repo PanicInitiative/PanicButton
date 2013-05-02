@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.wizard.NestedWizardFragment;
@@ -76,7 +75,6 @@ public class SMSSettingsFragment extends NestedWizardFragment {
         SMSSettings newSMSSettings = new SMSSettings(phoneNumbers, message);
 
         SMSSettings.save(context, newSMSSettings);
-        Toast.makeText(context, R.string.successfully_saved, Toast.LENGTH_SHORT).show();
         displaySettings(newSMSSettings);
     }
 
