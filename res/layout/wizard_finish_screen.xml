@@ -10,8 +10,7 @@
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/finish_label"
-              android:textSize="18dp"
-              android:paddingBottom="5dp"/>
+              style="@style/wizard_page_title" />
 
     <View android:layout_height="1sp"
           android:layout_width="match_parent"
@@ -20,7 +19,7 @@
     <TextView android:layout_height="wrap_content"
               android:layout_width="fill_parent"
               android:text="@string/finish_detail"
-              style="@style/welcome_screen_text"/>
+              style="@style/wizard_text"/>
 
     <ImageView android:layout_width="fill_parent"
                android:layout_height="wrap_content"
