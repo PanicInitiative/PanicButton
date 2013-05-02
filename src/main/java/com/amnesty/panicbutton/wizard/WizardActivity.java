@@ -29,6 +29,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
+            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
             actionButton.setText(getCurrentWizardFragment().action());
             getCurrentWizardFragment().onFragmentSelected();
         }
