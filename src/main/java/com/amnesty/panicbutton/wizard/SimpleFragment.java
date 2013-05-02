@@ -1,12 +1,11 @@
 package com.amnesty.panicbutton.wizard;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SimpleFragment extends Fragment implements WizardFragment {
+public class SimpleFragment extends WizardFragment {
     private static final String LAYOUT_ID = "layout_id";
     private static final String ACTION_ID = "action_id";
 
@@ -31,10 +30,5 @@ public class SimpleFragment extends Fragment implements WizardFragment {
     @Override
     public String action() {
         return getString(getArguments().getInt(ACTION_ID));
-    }
-
-    @Override
-    public void performAction() {
-        //No action
     }
 }

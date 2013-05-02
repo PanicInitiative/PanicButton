@@ -29,7 +29,8 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
-            setActionButtonText();
+            actionButton.setText(getCurrentWizardFragment().action());
+            getCurrentWizardFragment().onFragmentSelected();
         }
     };
 
@@ -51,16 +52,12 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         viewPager.next();
     }
 
-    private void setActionButtonText() {
-        actionButton.setText(getCurrentWizardFragment().action());
+    public void previous(View view) {
+        viewPager.previous();
     }
 
     private WizardFragment getCurrentWizardFragment() {
         return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
-    }
-
-    public void previous(View view) {
-        viewPager.previous();
     }
 
     FragmentStatePagerAdapter getWizardPagerAdapter() {
