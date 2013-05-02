@@ -101,12 +101,14 @@
         <item name="android:paddingRight">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingTop">15dp</item>
+        <item name="android:isScrollContainer">true</item>
     </style>
 
     <style name="welcome_screen_text">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="bulleted_text">
@@ -120,7 +122,7 @@
         <item name="android:textSize">17dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingBottom">15dp</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>
 
     <style name="wizard_sub_title">
@@ -133,7 +135,7 @@
         <item name="android:textSize">15dp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-        <item name="android:textColor">#aaaaaa</item>
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
     </style>
 
     <style name="wizard_image">
@@ -143,6 +145,19 @@
 
     <style name="wizard_title_sep">
         <item name="android:background">#d59900</item>
+    </style>
+
+    <style name="wizard_panic_button">
+        <item name="android:background">#ff0072bc</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginTop">120dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:textSize">60dp</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="setup_wizard_image">
+        <item name="android:padding">10dp</item>
     </style>
 
 </resources>

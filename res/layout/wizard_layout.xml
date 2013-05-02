@@ -41,10 +41,10 @@
 
     </LinearLayout>
       <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>
+
     <com.amnesty.panicbutton.wizard.WizardViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/wizard_view_pager"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"/>
-
 </LinearLayout>

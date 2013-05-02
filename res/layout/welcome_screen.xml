@@ -1,15 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#ff000000"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+    <LinearLayout
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:orientation="vertical">
+        <TextView style="@style/calculator_display" android:hint="0" android:textColor="#ffff00"/>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="/" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="7" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="8" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="9" android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="X" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="4" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="5" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="6" android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="-" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="1" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="2" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="3" android:clickable="false" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="+" android:layout_weight="1" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="0" android:layout_weight="1" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="=" android:layout_weight="0.66" android:clickable="false"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_height="fill_parent"
+                  android:layout_width="fill_parent"
+                  android:background="#aa000000"
+                  >
     <TextView android:id="@+id/panic_button_text"
-              android:layout_width="wrap_content"
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:layout_alignParentRight="true"
               android:clickable="true"
-              android:textSize="60dp"
-              android:gravity="right"
               android:onClick="startWizard"
-              android:text="@string/panic_button"/>
-</RelativeLayout>
+              android:text="@string/panic_button"
+            style="@style/wizard_panic_button"
+            />
+    </LinearLayout>
+</FrameLayout>

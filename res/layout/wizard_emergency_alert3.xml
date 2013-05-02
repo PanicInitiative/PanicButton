@@ -16,10 +16,7 @@
           android:layout_width="match_parent"
           style="@style/wizard_title_sep"/>
 
-    <TextView android:layout_height="wrap_content"
-              android:layout_width="wrap_content"
-              android:text="@string/wizard_emergency_option3_subtitle"
-              style="@style/wizard_sub_title" />
+
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="wrap_content"
