@@ -101,7 +101,6 @@
         <item name="android:paddingRight">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingTop">15dp</item>
-        <item name="android:isScrollContainer">true</item>
     </style>
 
     <style name="welcome_screen_text">

@@ -22,6 +22,11 @@
               android:text="@string/finish_detail"
               style="@style/welcome_screen_text"/>
 
+    <ImageView android:layout_height="wrap_content"
+               android:layout_width="fill_parent"
+               android:src="@drawable/wizard_disguise"
+               style="@style/wizard_image"/>
+
     <Button android:text="@string/finish_button_text"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
