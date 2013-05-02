@@ -19,6 +19,7 @@
     <string name="i_am_at">+ I\'m at </string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
+    <string name="finish_label">Panic Button will now disguise itself</string>
     <string name="setup_wizard">setup wizard</string>
     <string name="save_action">Save</string>
     <string name="start_action">Start</string>
@@ -43,4 +44,6 @@
     <string name="wizard_emergency_option3_text">#3: Press the power button five time fast...</string>
 
     <string name="wizard_emergency_feedback_text">A long vibrate confirms the alert is sent.</string>
+    <string name="finish_detail">You can change your contacts or alert message from the app's Settings screen.</string>
+    <string name="finish_button_text">Finish &amp; activate disguise</string>
 </resources>
