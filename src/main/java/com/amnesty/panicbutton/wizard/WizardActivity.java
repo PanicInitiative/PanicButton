@@ -1,9 +1,11 @@
 package com.amnesty.panicbutton.wizard;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboFragmentActivity;
@@ -28,6 +30,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
+            hideKeyboard();
             previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
             actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
             actionButton.setText(getCurrentWizardFragment().action());
@@ -55,6 +58,11 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
 
     public void previous(View view) {
         viewPager.previous();
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentWizardFragment().getView().getWindowToken(), 0);
     }
 
     private WizardFragment getCurrentWizardFragment() {

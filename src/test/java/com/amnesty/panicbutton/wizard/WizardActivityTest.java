@@ -1,19 +1,23 @@
 package com.amnesty.panicbutton.wizard;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowInputMethodManager;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -50,6 +54,17 @@ public class WizardActivityTest {
     public void shouldLoadTheWizardLayoutAndInitializeViewPagerOnCreate() {
         assertEquals(R.id.wizard_layout_root, shadowOf(wizardActivity).getContentView().getId());
         assertEquals(mockPagerAdapter, viewPager.getAdapter());
+    }
+
+    @Test
+    public void shouldHideKeyboardOnNavigation() {
+        ShadowInputMethodManager shadowInputMethodManager = shadowOf((InputMethodManager) application.getSystemService(Activity.INPUT_METHOD_SERVICE));
+        when(mockFragment.getView()).thenReturn(mock(EditText.class));
+
+        shadowInputMethodManager.showSoftInput(mockFragment.getView(),0);
+        assertTrue(shadowInputMethodManager.isSoftInputVisible());
+        moveNext(1);
+        assertFalse(shadowInputMethodManager.isSoftInputVisible());
     }
 
     @Test
