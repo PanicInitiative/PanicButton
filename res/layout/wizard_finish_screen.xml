@@ -30,5 +30,5 @@
     <Button android:text="@string/finish_button_text"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:id="@+id/save_button"/>
+            android:id="@+id/finish_wizard_button"/>
 </LinearLayout>
