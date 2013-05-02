@@ -15,7 +15,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 @ContentView(R.layout.wizard_layout)
-public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener{
+public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 

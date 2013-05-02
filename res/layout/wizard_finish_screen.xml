@@ -22,8 +22,8 @@
               android:text="@string/finish_detail"
               style="@style/welcome_screen_text"/>
 
-    <Button android:text="@string/finish_button_text"
+    <Button android:id="@+id/finish_wizard_button"
+            android:text="@string/finish_button_text"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/save_button"/>
+            android:layout_width="match_parent"/>
 </LinearLayout>

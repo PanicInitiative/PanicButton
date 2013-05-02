@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Button;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -95,6 +96,11 @@ public class WizardActivityTest {
     @Test
     public void shouldCreateWizardPagerAdapter() {
         assertNotNull(new WizardActivity().getWizardPagerAdapter());
+    }
+
+    @Test
+    @Ignore
+    public void shouldHideNextOnNavigatingToFinishScreen() {
     }
 
     @Test
