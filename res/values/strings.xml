@@ -44,6 +44,6 @@
     <string name="wizard_emergency_option3_text">#3. Using the phone’s Power button...</string>
 
     <string name="wizard_emergency_feedback_text">A long vibrate confirms the alert is sent.</string>
-    <string name="finish_detail">You can change your contacts or alert message from the app's Settings screen.</string>
+    <string name="finish_detail">You can change your contacts or alert message from the app\'s Settings screen.</string>
     <string name="finish_button_text">Finish &amp; activate disguise</string>
 </resources>
