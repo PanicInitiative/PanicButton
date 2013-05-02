@@ -62,11 +62,11 @@ public class SMSSettingsFragment extends NestedFragment {
 
     private void initializeViews() {
         firstContact = findEditText(R.id.first_contact, R.id.contact_edit_text);
-        firstContact.addTextChangedListener(phoneNumberWatcher);
+        firstContact.addTextChangedListener(phoneNumberTextWatcher);
         secondContact = findEditText(R.id.second_contact, R.id.contact_edit_text);
-        secondContact.addTextChangedListener(phoneNumberWatcher);
+        secondContact.addTextChangedListener(phoneNumberTextWatcher);
         thirdContact = findEditText(R.id.third_contact, R.id.contact_edit_text);
-        thirdContact.addTextChangedListener(phoneNumberWatcher);
+        thirdContact.addTextChangedListener(phoneNumberTextWatcher);
         smsEditText = findEditText(R.id.sms_message, R.id.message_edit_text);
     }
 
@@ -116,19 +116,25 @@ public class SMSSettingsFragment extends NestedFragment {
         return contactNumberInView;
     }
 
-    private TextWatcher phoneNumberWatcher = new TextWatcher() {
+    private TextWatcher phoneNumberTextWatcher = new TextWatcher() {
+        private String currentText;
+
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            if (actionButtonStateListener != null)
-                actionButtonStateListener.onActionStateChanged(hasAtleastOneValidPhoneNumber());
         }
 
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            currentText = charSequence.toString();
         }
 
         @Override
         public void afterTextChanged(Editable editable) {
+            String newText = editable.toString();
+            if (actionButtonStateListener != null && !newText.equals(currentText)) {
+                currentText = newText;
+                actionButtonStateListener.onActionStateChanged(hasAtleastOneValidPhoneNumber());
+            }
         }
     };
 
