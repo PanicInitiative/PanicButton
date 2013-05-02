@@ -5,8 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.fragment.TestFragmentActivity;
 import com.amnesty.panicbutton.model.SMSSettings;
-import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
+import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -129,7 +130,7 @@ public class SMSSettingsFragmentTest {
         assertEquals("*******97", firstContactEditText.getText().toString());
         assertEquals("*********56", secondContactEditText.getText().toString());
         assertEquals("*********45", thirdContactEditText.getText().toString());
-        assertTrue(testFragmentActivity.state);
+        assertTrue(testFragmentActivity.getState());
     }
 
     @Test
@@ -152,7 +153,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("12345");
         secondContactEditText.setText("123");
         thirdContactEditText.setText("");
-        assertTrue(testFragmentActivity.state);
+        assertTrue(testFragmentActivity.getState());
     }
 
     @Test
@@ -160,7 +161,16 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("1234");
         secondContactEditText.setText("");
         thirdContactEditText.setText("");
-        assertFalse(testFragmentActivity.state);
+        assertFalse(testFragmentActivity.getState());
+    }
+
+    @Test
+    public void shouldNotDisableOrEnableWhenChangedTextIsSame() {
+        secondContactEditText.setText("");
+        thirdContactEditText.setText("");
+        firstContactEditText.setText("1234");
+        firstContactEditText.setText("1234");
+        assertFalse(testFragmentActivity.getState());
     }
 
     private void setViewData() {
@@ -186,12 +196,16 @@ public class SMSSettingsFragmentTest {
         assertEquals("********23", thirdContactEditText.getText().toString());
     }
 
-    private class TestFragmentActivity extends RoboFragmentActivity implements ActionButtonStateListener {
-        private boolean state;
+    @Test
+    public void shouldNotRegisterListenerWhenActivityIsNotOfTypeActionButtonStateListener() throws IllegalAccessException {
+        RoboFragmentActivity activity = new RoboFragmentActivity();
+        SMSSettingsFragment fragment = new SMSSettingsFragment();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
 
-        @Override
-        public void onActionStateChanged(boolean state) {
-            this.state = state;
-        }
+        fragment.onFragmentSelected();
+        assertNull(ReflectionUtils.getValueIncludingSuperclasses("actionButtonStateListener", fragment));
     }
 }

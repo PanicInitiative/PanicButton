@@ -1,7 +1,5 @@
 package com.amnesty.panicbutton.sms;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -13,8 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
-import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
-import com.amnesty.panicbutton.wizard.NestedFragment;
+import com.amnesty.panicbutton.wizard.NestedWizardFragment;
 import com.amnesty.panicbutton.wizard.WizardAction;
 
 import java.util.ArrayList;
@@ -22,27 +19,12 @@ import java.util.List;
 
 import static com.amnesty.panicbutton.R.id.*;
 
-public class SMSSettingsFragment extends NestedFragment {
+public class SMSSettingsFragment extends NestedWizardFragment {
     public static final int PHONE_NUMBER_LIMIT = 4;
     private EditText firstContact;
     private EditText secondContact;
     private EditText thirdContact;
-
     private EditText smsEditText;
-    private Context context;
-    private ActionButtonStateListener actionButtonStateListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.context = activity.getApplicationContext();
-        setActionButtonStateListener(activity);
-    }
-
-    private void setActionButtonStateListener(Activity activity) {
-        if (activity instanceof ActionButtonStateListener)
-            this.actionButtonStateListener = (ActionButtonStateListener) activity;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -142,5 +124,12 @@ public class SMSSettingsFragment extends NestedFragment {
         return firstContact.getText().length() > PHONE_NUMBER_LIMIT ||
                 secondContact.getText().length() > PHONE_NUMBER_LIMIT ||
                 thirdContact.getText().length() > PHONE_NUMBER_LIMIT;
+    }
+
+    @Override
+    public void onFragmentSelected() {
+        if (actionButtonStateListener != null) {
+            actionButtonStateListener.onActionStateChanged(hasAtleastOneValidPhoneNumber());
+        }
     }
 }
