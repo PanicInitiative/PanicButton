@@ -7,7 +7,7 @@
     <string name="twitter">Twitter</string>
     <string name="sms_settings_label">SMS</string>
 
-    <string name="characters_left">Characters left : </string>
+    <string name="characters_left">Characters left :</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
@@ -15,8 +15,10 @@
     <string name="activate_alert">&#160;&#160;Send emergency alert</string>
     <string name="calculator_label">Calculator</string>
 
-    <string name="geolocation_link"> <u>http://maps.google.com/yourlocation</u></string>
-    <string name="i_am_at">+ I\'m at </string>
+    <string name="geolocation_link">
+        <u>http://maps.google.com/yourlocation</u>
+    </string>
+    <string name="i_am_at">+ I\'m at</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
     <string name="finish_label">Panic Button will now disguise itself</string>
@@ -35,17 +37,31 @@
 
     <string name="wizard_emergency_title">3 ways to send an emergency alert</string>
     <string name="wizard_emergency_option1_subtitle">There are three ways to send an alert:</string>
-    <string name="wizard_emergency_option1_text"><b>#1.</b> The Emergency Alert button in Settings...</string>
+    <string name="wizard_emergency_option1_text">
+        <b>#1.</b>
+        The Emergency Alert button in Settings...
+    </string>
 
-    <string name="wizard_emergency_option2_subtitle">To avoid discovery, the app is disguised to look like a calculator.</string>
-    <string name="wizard_emergency_option2_text"><b>#2.</b> From any button on the app’s disguise...</string>
+    <string name="wizard_emergency_option2_subtitle">To avoid discovery, the app is disguised to look like a
+        calculator.
+    </string>
+    <string name="wizard_emergency_option2_text">
+        <b>#2.</b>
+        From any button on the app’s disguise...
+    </string>
 
-    <string name="wizard_emergency_option3_subtitle">If the app is running, you can send an alert at any time without opening it:</string>
-    <string name="wizard_emergency_option3_text"><b>#3.</b> Using the phone’s Power button...</string>
+    <string name="wizard_emergency_option3_subtitle">If the app is running, you can send an alert at any time without
+        opening it:
+    </string>
+    <string name="wizard_emergency_option3_text">
+        <b>#3.</b>
+        Using the phone’s Power button...
+    </string>
 
     <string name="wizard_emergency_feedback_text">A long vibrate confirms the alert is sent.</string>
     <string name="finish_detail">You can change your contacts or alert message from the app\'s Settings screen.</string>
     <string name="finish_button_text">Finish &amp; activate disguise</string>
-
     <string name="alert_status">Alert is in standby</string>
+    <string name="sms_settings_header">SMS alert settings</string>
+    <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
 </resources>

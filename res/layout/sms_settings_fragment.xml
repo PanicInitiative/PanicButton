@@ -7,6 +7,17 @@
              android:padding="@dimen/sms_settings_padding">
 
     <TableRow>
+        <TextView android:id="@+id/sms_settings_header"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  style="@style/wizard_page_title"/>
+
+    </TableRow>
+    <View android:layout_height="1sp"
+          android:layout_width="match_parent"
+          style="@style/wizard_title_sep"/>
+
+    <TableRow>
         <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
                   android:id="@+id/first_contact"/>
     </TableRow>
@@ -23,10 +34,10 @@
 
     <TableRow android:layout_weight="1">
         <fragment android:id="@+id/sms_message"
-                android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
-                android:padding="@dimen/sms_message_widget_padding"
-                android:layout_span="2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                  android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
+                  android:padding="@dimen/sms_message_widget_padding"
+                  android:layout_span="2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="match_parent"/>
     </TableRow>
 </TableLayout>

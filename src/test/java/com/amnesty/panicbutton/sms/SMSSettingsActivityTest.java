@@ -11,7 +11,6 @@ import org.robolectric.shadows.ShadowHandler;
 import org.robolectric.shadows.ShadowToast;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -41,12 +40,5 @@ public class SMSSettingsActivityTest {
         verify(mockSMSSettingsFragment).performAction();
         ShadowHandler.idleMainLooper();
         assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
-    }
-
-    @Test
-    public void shouldReturnSMSSettingsFragmentObject() {
-        SMSSettingsActivity activity = new SMSSettingsActivity();
-        activity.onCreate(null);
-        assertNotNull(activity.getSMSSettingsFragment());
     }
 }

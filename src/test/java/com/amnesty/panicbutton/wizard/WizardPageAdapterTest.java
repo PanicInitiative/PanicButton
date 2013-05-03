@@ -2,6 +2,7 @@ package com.amnesty.panicbutton.wizard;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.sms.SMSSettingsFragment;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,8 @@ public class WizardPageAdapterTest {
         assertEquals(6, wizardPageAdapter.getCount());
 
         assertSimpleFragment(0, wizard_start_screen, start_action);
-        assertEquals(SMSSettingsFragment.class, wizardPageAdapter.getItem(1).getClass());
+        SMSSettingsFragment smsSettingsFragment = (SMSSettingsFragment) wizardPageAdapter.getItem(1);
+        assertEquals(R.string.sms_settings_wizard_header, smsSettingsFragment.getArguments().getInt("HEADER_TEXT_ID"));
         assertSimpleFragment(2, wizard_emergency_alert1, next_action);
         assertSimpleFragment(3, wizard_emergency_alert2, next_action);
         assertSimpleFragment(4, wizard_emergency_alert3, next_action);

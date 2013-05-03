@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.wizard.NestedWizardFragment;
@@ -20,16 +21,26 @@ import static com.amnesty.panicbutton.R.id.*;
 
 public class SMSSettingsFragment extends NestedWizardFragment {
     public static final int PHONE_NUMBER_LIMIT = 4;
+    public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
     private EditText firstContact;
     private EditText secondContact;
     private EditText thirdContact;
     private EditText smsEditText;
 
+    public static SMSSettingsFragment create(int headerTextId) {
+        SMSSettingsFragment smsSettingsFragment = new SMSSettingsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(HEADER_TEXT_ID, headerTextId);
+        smsSettingsFragment.setArguments(bundle);
+
+        return smsSettingsFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.sms_settings_fragment, container, false);
         SMSSettings currentSettings = SMSSettings.retrieve(context);
-        initializeViews();
+        initializeViews(inflate);
         displaySettings(currentSettings);
         return inflate;
     }
@@ -41,7 +52,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
         thirdContact.setText(settings.maskedPhoneNumberAt(2));
     }
 
-    private void initializeViews() {
+    private void initializeViews(View inflate) {
         firstContact = findEditText(R.id.first_contact, R.id.contact_edit_text);
         firstContact.addTextChangedListener(phoneNumberTextWatcher);
         secondContact = findEditText(R.id.second_contact, R.id.contact_edit_text);
@@ -49,6 +60,9 @@ public class SMSSettingsFragment extends NestedWizardFragment {
         thirdContact = findEditText(R.id.third_contact, R.id.contact_edit_text);
         thirdContact.addTextChangedListener(phoneNumberTextWatcher);
         smsEditText = findEditText(R.id.sms_message, R.id.message_edit_text);
+
+        TextView headerTextView = (TextView) inflate.findViewById(R.id.sms_settings_header);
+        headerTextView.setText(getString(getArguments().getInt(HEADER_TEXT_ID)));
     }
 
     private EditText findEditText(int fragmentId, int viewId) {

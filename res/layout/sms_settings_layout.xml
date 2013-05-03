@@ -11,9 +11,4 @@
             android:layout_width="match_parent"
             android:onClick="save"
             android:id="@+id/save_button"/>
-
-    <fragment android:name="com.amnesty.panicbutton.sms.SMSSettingsFragment"
-              android:layout_height="match_parent"
-              android:layout_width="match_parent"
-              android:id="@+id/sms_settings_fragment"/>
 </LinearLayout>

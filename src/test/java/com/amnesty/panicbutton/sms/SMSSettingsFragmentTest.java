@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.fragment.TestFragmentActivity;
 import com.amnesty.panicbutton.model.SMSSettings;
@@ -35,6 +36,7 @@ public class SMSSettingsFragmentTest {
     private EditText firstContactEditText;
     private EditText secondContactEditText;
     private EditText thirdContactEditText;
+    private TextView headerTextView;
 
     private String alreadySavedMessage;
     private String number1;
@@ -46,7 +48,7 @@ public class SMSSettingsFragmentTest {
     @Before
     public void setUp() {
         setupExistingSettings();
-        smsSettingsFragment = new SMSSettingsFragment();
+        smsSettingsFragment = SMSSettingsFragment.create(R.string.sms_settings_header);
         testFragmentActivity = new TestFragmentActivity();
         fragmentManager = testFragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -62,6 +64,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText = (EditText) firstContact.getView().findViewById(R.id.contact_edit_text);
         secondContactEditText = (EditText) secondContact.getView().findViewById(R.id.contact_edit_text);
         thirdContactEditText = (EditText) thirdContact.getView().findViewById(R.id.contact_edit_text);
+        headerTextView = (TextView) smsSettingsFragment.getView().findViewById(R.id.sms_settings_header);
 
         number1 = "123-456-789";
         number2 = "9874641321";
@@ -170,6 +173,24 @@ public class SMSSettingsFragmentTest {
         assertFalse(testFragmentActivity.getState());
     }
 
+    @Test
+    public void shouldNotRegisterListenerWhenActivityIsNotOfTypeActionButtonStateListener() throws IllegalAccessException {
+        RoboFragmentActivity activity = new RoboFragmentActivity();
+        SMSSettingsFragment fragment = SMSSettingsFragment.create(R.string.sms_settings_header);
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+
+        fragment.onFragmentSelected();
+        assertNull(ReflectionUtils.getValueIncludingSuperclasses("actionButtonStateListener", fragment));
+    }
+
+    @Test
+    public void shouldSetHeaderForFragment() {
+        assertEquals("SMS alert settings", headerTextView.getText().toString());
+    }
+
     private void setViewData() {
         smsEditText.setText(expectedMessage);
         firstContactEditText.setText(number1);
@@ -188,18 +209,5 @@ public class SMSSettingsFragmentTest {
         assertEquals("*********89", firstContactEditText.getText().toString());
         assertEquals("********21", secondContactEditText.getText().toString());
         assertEquals("********23", thirdContactEditText.getText().toString());
-    }
-
-    @Test
-    public void shouldNotRegisterListenerWhenActivityIsNotOfTypeActionButtonStateListener() throws IllegalAccessException {
-        RoboFragmentActivity activity = new RoboFragmentActivity();
-        SMSSettingsFragment fragment = new SMSSettingsFragment();
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
-
-        fragment.onFragmentSelected();
-        assertNull(ReflectionUtils.getValueIncludingSuperclasses("actionButtonStateListener", fragment));
     }
 }
