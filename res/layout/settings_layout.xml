@@ -1,64 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="fill_parent"
-             android:layout_height="fill_parent"
-             android:stretchColumns="1"
-             android:paddingRight="@dimen/menu_padding_horizontal"
-             android:paddingLeft="@dimen/menu_padding_horizontal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+                style="@style/settings_page">
+    <Button android:id="@+id/activate_alert"
+            android:text="@string/activate_alert"
+            android:layout_height="70dp"
+            android:layout_width="fill_parent"
+            android:onClick="activateAlert"
+            style="@style/alert_button"/>
 
-    <TableRow android:id="@+id/sms_row"
-              android:paddingTop="@dimen/menu_padding_vertical"
-              android:paddingBottom="@dimen/menu_padding_vertical"
-              android:clickable="true"
-              android:onClick="launchSmsActivity">
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="@string/alert_status"
+              style="@style/alert_status" />
 
-        <ImageView android:src="@android:drawable/ic_dialog_email"
-                   android:paddingLeft="@dimen/menu_icon_padding_left"
-                   android:layout_height="match_parent"
-                   android:gravity="center_vertical"/>
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:gravity="bottom"
+            style="@style/settings_list">
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <View android:layout_height="1sp"
+              android:layout_width="fill_parent"
+              style="@style/line"/>
+        <TableRow android:id="@+id/sms_row"
+                  android:clickable="true"
+                  android:onClick="launchSmsActivity"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                    style="@style/settings_list_item">
 
-        <TextView android:text="@string/sms"
-                  android:textSize="@dimen/menu_text_size"
-                  android:textColor="@android:color/primary_text_dark"
-                  android:paddingLeft="@dimen/menu_text_padding_left"
-                  android:layout_height="match_parent"
-                  android:gravity="center_vertical"/>
 
-        <ImageView android:src="@android:drawable/ic_delete"
-                   android:paddingRight="@dimen/menu_status_icon_padding_right"/>
-    </TableRow>
+            <TextView android:text="@string/sms"
+                      android:layout_height="wrap_content"
+                      android:layout_width="fill_parent"
+                      style="@style/settings_list_item_text"/>
 
-    <View android:layout_height="1sp" android:background="#FF909090"/>
+            <ImageView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/settings_list_arrow"/>
+        </TableRow>
 
-    <TableRow android:paddingTop="@dimen/menu_padding_vertical"
-              android:paddingBottom="@dimen/menu_padding_vertical">
+        <View android:layout_height="1sp"
+                android:layout_width="fill_parent"
+                style="@style/line"/>
 
-        <ImageView android:src="@android:drawable/ic_dialog_dialer"
-                   android:paddingLeft="@dimen/menu_icon_padding_left"
-                   android:layout_height="match_parent"
-                   android:gravity="center_vertical"/>
+        <TableRow android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  style="@style/settings_list_item">
 
-        <TextView android:text="@string/twitter"
-                  android:textSize="@dimen/menu_text_size"
-                  android:textColor="@android:color/primary_text_dark"
-                  android:paddingLeft="@dimen/menu_text_padding_left"
-                  android:layout_height="match_parent"
-                  android:gravity="center_vertical"/>
 
-        <CheckBox android:id="@+id/twitter_checkbox"
-                  android:paddingRight="@dimen/menu_status_icon_padding_right"/>
-    </TableRow>
+            <TextView android:text="@string/twitter"
+                      android:layout_height="wrap_content"
+                      android:layout_width="fill_parent"
+                      style="@style/settings_list_item_text"/>
 
-    <View android:layout_height="1sp" android:background="#FF909090"/>
+            <ImageView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       style="@style/settings_list_arrow"/>
+        </TableRow>
 
-    <TableRow android:paddingTop="@dimen/menu_padding_vertical"
-              android:paddingBottom="@dimen/menu_padding_vertical">
-        <Button android:id="@+id/activate_alert"
-                android:text="@string/activate_alert"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:layout_span="3"
-                android:layout_gravity="center"
-                android:onClick="activateAlert"/>
-    </TableRow>
-</TableLayout>
+        <View android:layout_height="1sp"
+              android:layout_width="fill_parent"
+              style="@style/line"/>
+
+        <TableRow android:paddingTop="@dimen/menu_padding_vertical"
+                  android:paddingBottom="@dimen/menu_padding_vertical">
+
+        </TableRow>
+    </TableLayout>
+    </LinearLayout>
+</LinearLayout>

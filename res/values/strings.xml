@@ -12,7 +12,7 @@
 
     <string name="enter_message_hint">Enter Message</string>
     <string name="successfully_saved">SMS settings saved successfully</string>
-    <string name="activate_alert">Activate Alert</string>
+    <string name="activate_alert">&#160;&#160;Send emergency alert</string>
     <string name="calculator_label">Calculator</string>
 
     <string name="geolocation_link"> <u>http://maps.google.com/yourlocation</u></string>
@@ -46,4 +46,6 @@
     <string name="wizard_emergency_feedback_text">A long vibrate confirms the alert is sent.</string>
     <string name="finish_detail">You can change your contacts or alert message from the app\'s Settings screen.</string>
     <string name="finish_button_text">Finish &amp; activate disguise</string>
+
+    <string name="alert_status">Alert is in standby</string>
 </resources>

@@ -161,4 +161,41 @@
         <item name="android:padding">10dp</item>
     </style>
 
+    <style name="settings_page">
+        <item name="android:padding">10dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+
+    <style name="alert_button">
+        <item name="android:drawableLeft">@drawable/icon_alarm</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="settings_list">
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="settings_list_item">
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="settings_list_item_text">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+
+    <style name="settings_list_arrow">
+        <item name="android:src">@drawable/icon_arrow</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_marginTop">3dp</item>
+    </style>
+
+    <style name="alert_status">
+        <item name="android:textColor">@android:color/secondary_text_dark</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
 </resources>
