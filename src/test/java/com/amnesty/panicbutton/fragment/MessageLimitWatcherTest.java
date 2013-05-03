@@ -21,6 +21,6 @@ public class MessageLimitWatcherTest {
         messageLimitWatcher.onTextChanged("test", -1, -1, -1);
         messageLimitWatcher.afterTextChanged(null);
 
-        assertEquals("Characters left : 96", Robolectric.shadowOf(textView).getText());
+        assertEquals("Characters left : 84", Robolectric.shadowOf(textView).getText());
     }
 }
