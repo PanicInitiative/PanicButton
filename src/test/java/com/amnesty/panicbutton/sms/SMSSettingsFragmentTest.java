@@ -72,13 +72,6 @@ public class SMSSettingsFragmentTest {
         expectedMessage = "Help! I am in trouble";
     }
 
-    private void setupExistingSettings() {
-        alreadySavedMessage = "Already saved message";
-        List<String> alreadySavedPhoneNumbers = Arrays.asList("123245697", "345665-5656", "45234234345");
-        SMSSettings smsSettings = new SMSSettings(alreadySavedPhoneNumbers, alreadySavedMessage);
-        SMSSettings.save(Robolectric.application, smsSettings);
-    }
-
     @Test
     public void shouldSetTheFragmentLayoutOnCreate() {
         assertEquals(R.id.sms_settings_fragment_root, smsSettingsFragment.getView().getId());
@@ -175,20 +168,34 @@ public class SMSSettingsFragmentTest {
 
     @Test
     public void shouldNotRegisterListenerWhenActivityIsNotOfTypeActionButtonStateListener() throws IllegalAccessException {
-        RoboFragmentActivity activity = new RoboFragmentActivity();
-        SMSSettingsFragment fragment = SMSSettingsFragment.create(R.string.sms_settings_header);
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
+        SMSSettingsFragment fragment = createSMSSettingsFragment();
 
         fragment.onFragmentSelected();
         assertNull(ReflectionUtils.getValueIncludingSuperclasses("actionButtonStateListener", fragment));
     }
 
     @Test
+    public void shouldLoadTheDefaultTextWhenSettingsNotConfigured() {
+        clearSMSSettings();
+        SMSSettingsFragment fragment = createSMSSettingsFragment();
+        EditText messageEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
+
+        assertEquals("Help me, I\\'m in danger", messageEditText.getText().toString());
+    }
+
+    @Test
     public void shouldSetHeaderForFragment() {
         assertEquals("SMS alert settings", headerTextView.getText().toString());
+    }
+
+    private SMSSettingsFragment createSMSSettingsFragment() {
+        RoboFragmentActivity activity = new RoboFragmentActivity();
+        SMSSettingsFragment fragment = SMSSettingsFragment.create(R.string.sms_settings_header);
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+        return fragment;
     }
 
     private void setViewData() {
@@ -209,5 +216,17 @@ public class SMSSettingsFragmentTest {
         assertEquals("*********89", firstContactEditText.getText().toString());
         assertEquals("********21", secondContactEditText.getText().toString());
         assertEquals("********23", thirdContactEditText.getText().toString());
+    }
+
+    private void setupExistingSettings() {
+        alreadySavedMessage = "Already saved message";
+        List<String> alreadySavedPhoneNumbers = Arrays.asList("123245697", "345665-5656", "45234234345");
+        SMSSettings smsSettings = new SMSSettings(alreadySavedPhoneNumbers, alreadySavedMessage);
+        SMSSettings.save(Robolectric.application, smsSettings);
+    }
+
+    private void clearSMSSettings() {
+        SMSSettings smsSettings = new SMSSettings(Arrays.asList("", "", ""), null);
+        SMSSettings.save(Robolectric.application, smsSettings);
     }
 }

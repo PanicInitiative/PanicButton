@@ -39,9 +39,11 @@ public class SMSSettingsFragment extends NestedWizardFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.sms_settings_fragment, container, false);
-        SMSSettings currentSettings = SMSSettings.retrieve(context);
         initializeViews(inflate);
-        displaySettings(currentSettings);
+        SMSSettings currentSettings = SMSSettings.retrieve(context);
+        if(currentSettings.isConfigured()) {
+            displaySettings(currentSettings);
+        }
         return inflate;
     }
 
