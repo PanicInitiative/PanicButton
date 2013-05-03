@@ -43,7 +43,7 @@ public class MessageEditTextFragmentTest {
     public void shouldInitializeTheMessageEditText() {
         ShadowEditText shadowEditText = (ShadowEditText) shadowOf(editText);
 
-        assertEquals(textView.getText(), "Characters left : " + String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
+        assertEquals(textView.getText(), "Characters left :" + String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
 
         InputFilter[] filters = shadowEditText.getFilters();
         InputFilter inputFilter = filters[0];
