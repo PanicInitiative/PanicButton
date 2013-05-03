@@ -40,7 +40,7 @@ public class PanicAlert extends Thread {
 
     private void activateAlert(SMSSettings smsSettings) {
         SMSAdapter smsAdapter = getSMSAdapter();
-        String message = smsSettings.trimmedMessage() + location();
+        String message = new PanicAlertMessage(smsSettings.trimmedMessage(), location()).getSMSText();
 
         for (String phoneNumber : smsSettings.validPhoneNumbers()) {
             smsAdapter.sendSMS(phoneNumber, message);
