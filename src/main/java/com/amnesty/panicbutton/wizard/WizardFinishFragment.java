@@ -19,6 +19,7 @@ public class WizardFinishFragment extends WizardFragment {
             public void onClick(View view) {
                 ApplicationSettings.completeFirstRun(context);
                 startActivity(new Intent(context, CalculatorActivity.class));
+                getActivity().finish();
             }
         });
         return view;

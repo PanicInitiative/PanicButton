@@ -16,8 +16,7 @@ import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowPreferenceManager;
 import roboguice.activity.RoboFragmentActivity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -37,14 +36,16 @@ public class WizardFinishFragmentTest {
     }
 
     @Test
-    public void shouldSetFirstRunFlagAndNavigateToFacadeOnClickingFinish() {
+    public void shouldUpdateFirstRunFlagAndNavigateToFacadeOnClickingFinish() {
         finishButton.performClick();
+
         ShadowActivity shadowActivity = shadowOf(roboFragmentActivity);
+        SharedPreferences sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(Robolectric.application);
         Intent startedIntent = shadowActivity.getNextStartedActivity();
 
         assertEquals(CalculatorActivity.class.getName(), startedIntent.getComponent().getClassName());
-        SharedPreferences sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(Robolectric.application);
         assertFalse(sharedPreferences.getBoolean("FIRST_RUN", true));
+        assertTrue(shadowActivity.isFinishing());
     }
 
     @Test
