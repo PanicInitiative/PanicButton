@@ -64,4 +64,8 @@
     <string name="alert_status">Alert is in standby</string>
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
+    <string name="sms_settings_subtitle">Add upto three emergency contacts</string>
+    <string name="contact_hint">enter emergency contact</string>
+    <string name="default_emergency_message">Help me, I\'m in danger</string>
+    <string name="emergency_message_header">Emergency message</string>
 </resources>

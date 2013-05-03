@@ -5,26 +5,35 @@
               android:layout_width="fill_parent">
 
 
-
-    <TextView android:id="@+id/characters_left_view"
-              android:layout_height="wrap_content"
-              android:layout_width="fill_parent"
-              style="@style/char_count"
-              />
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <TextView android:id="@+id/emergency_message_header"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentLeft="true"
+                  android:text="@string/emergency_message_header"
+                >
+        </TextView>
+        <TextView android:id="@+id/characters_left_view"
+                  android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_alignParentRight="true"
+                />
+    </RelativeLayout>
 
     <EditText
             android:id="@+id/message_edit_text"
             android:layout_height="100dp"
             android:layout_width="fill_parent"
             android:hint="@string/enter_message_hint"
+            android:text="@string/default_emergency_message"
             android:inputType="textMultiLine"
             style="@style/message_box"/>
 
 
     <LinearLayout android:layout_height="wrap_content"
                   android:layout_width="match_parent"
-                android:orientation="horizontal">
-
+                  android:orientation="horizontal">
 
 
         <TextView android:layout_width="wrap_content"

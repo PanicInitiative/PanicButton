@@ -21,6 +21,12 @@
               style="@style/wizard_title_sep"/>
 
         <TableRow>
+            <TextView android:text="@string/sms_settings_subtitle"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      style="@style/wizard_text"/>
+        </TableRow>
+        <TableRow>
             <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
                       android:id="@+id/first_contact"/>
         </TableRow>

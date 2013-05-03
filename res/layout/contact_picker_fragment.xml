@@ -7,6 +7,7 @@
               android:layout_height="wrap_content"
               android:layout_width="match_parent"
               android:layout_toLeftOf="@+id/contact_picker_button"
+              android:hint="@string/contact_hint"
               android:inputType="phone"/>
 
     <ImageButton android:id="@id/contact_picker_button"
