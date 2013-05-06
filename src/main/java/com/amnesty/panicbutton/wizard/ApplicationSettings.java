@@ -3,6 +3,8 @@ package com.amnesty.panicbutton.wizard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import com.amnesty.panicbutton.AlertStatus;
+import com.amnesty.panicbutton.model.SMSSettings;
 
 public class ApplicationSettings {
     public static final String FIRST_RUN = "FIRST_RUN";
@@ -20,5 +22,12 @@ public class ApplicationSettings {
 
     private static SharedPreferences sharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public static AlertStatus getAlertStatus(Context context) {
+        SMSSettings smsSettings = SMSSettings.retrieve(context);
+        if (!smsSettings.isConfigured())
+            return AlertStatus.NOT_CONFIGURED;
+        return AlertStatus.STANDBY;
     }
 }

@@ -63,7 +63,7 @@
     <string name="finish_button_text">Finish &amp; activate disguise</string>
 
     <string name="alert_status_standby">Alert is in standby</string>
-    <string name="alert_status_error">Alert cannot be sent. please choose contacts</string>
+    <string name="alert_status_not_configured">Alert cannot be sent. please choose contacts</string>
 
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>

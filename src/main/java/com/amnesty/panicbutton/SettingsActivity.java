@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.amnesty.panicbutton.alert.PanicAlert;
-import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
+import com.amnesty.panicbutton.wizard.ApplicationSettings;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -31,13 +31,9 @@ public class SettingsActivity extends RoboActivity {
     }
 
     private void setAlertStatus() {
-        SMSSettings smsSettings = SMSSettings.retrieve(this);
-        activateButton.setEnabled(smsSettings.isConfigured());
-        if(smsSettings.isConfigured()) {
-            alertStatusText.setText(R.string.alert_status_standby);
-        } else {
-            alertStatusText.setText(R.string.alert_status_error);
-        }
+        AlertStatus alertStatus = ApplicationSettings.getAlertStatus(this);
+        activateButton.setEnabled(alertStatus.canAlert());
+        alertStatusText.setText(alertStatus.getDescription());
     }
 
     public void launchSmsActivity(View view) {
