@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.SoftKeyboard;
 import roboguice.activity.RoboFragmentActivity;
 
 public class SMSSettingsActivity extends RoboFragmentActivity {
@@ -25,6 +26,7 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
 
     public void save(View view) {
         smsSettingsFragment.performAction();
+        SoftKeyboard.hide(this, this.findViewById(android.R.id.content));
         Toast.makeText(this, R.string.successfully_saved, Toast.LENGTH_SHORT).show();
     }
 }
