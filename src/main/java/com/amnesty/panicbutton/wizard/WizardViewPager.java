@@ -31,5 +31,9 @@ public class WizardViewPager extends ViewPager {
     public void previous() {
         setCurrentItem(getCurrentItem() - 1);
     }
+
+    public boolean isFirstPage() {
+        return getCurrentItem() == 0;
+    }
 }
 

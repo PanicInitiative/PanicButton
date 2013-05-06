@@ -109,6 +109,19 @@ public class WizardActivityTest {
     }
 
     @Test
+    public void shouldNavigateToPreviousScreenOnHardwareBack() {
+        moveNext(2);
+        wizardActivity.onBackPressed();
+        assertEquals(1, viewPager.getCurrentItem());
+    }
+
+    @Test
+    public void shouldFinishActivityOnHardwareBackFromFirstScreen() {
+        wizardActivity.onBackPressed();
+        assertTrue(wizardActivity.isFinishing());
+    }
+
+    @Test
     public void shouldCreateWizardPagerAdapter() {
         assertNotNull(new WizardActivity().getWizardPagerAdapter());
     }
