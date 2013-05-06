@@ -46,10 +46,7 @@
     </style>
 
     <style name="save_button">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">0</item>
-        <item name="android:drawableLeft">@drawable/save</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:padding">5dp</item>
     </style>
@@ -192,6 +189,20 @@
     <style name="alert_status">
         <item name="android:textColor">@android:color/secondary_text_dark</item>
         <item name="android:paddingTop">10dp</item>
+    </style>
+
+    <style name="contact_number">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="contact_number_textbox">
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="contact_select_button">
+        <item name="android:layout_marginLeft">-5dp</item>
     </style>
 
 </resources>

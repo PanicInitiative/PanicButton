@@ -7,7 +7,7 @@
     <string name="twitter">Twitter</string>
     <string name="sms_settings_label">SMS</string>
 
-    <string name="characters_left">Characters left :</string>
+    <string name="characters_left">Characters left:&#160;</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
@@ -18,7 +18,7 @@
     <string name="geolocation_link">
         <u>http://maps.google.com/yourlocation</u>
     </string>
-    <string name="i_am_at">+ I\'m at</string>
+    <string name="i_am_at">&#160;+ I\'m at&#160;</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
     <string name="finish_label">Panic Button will now disguise itself</string>

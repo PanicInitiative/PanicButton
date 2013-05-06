@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_height="wrap_content"
-              android:layout_width="fill_parent">
+              android:layout_width="fill_parent"
+        android:paddingTop="10dp">
 
 
     <RelativeLayout android:layout_width="match_parent"
@@ -33,6 +34,12 @@
 
     <LinearLayout android:layout_height="wrap_content"
                   android:layout_width="match_parent"
+                  android:background="#444444"
+                  android:layout_marginTop="-5dp"
+                  android:layout_marginLeft="2dp"
+                  android:layout_marginRight="2dp"
+                  android:paddingTop="5dp"
+                  android:paddingBottom="5dp"
                   android:orientation="horizontal">
 
 
@@ -41,9 +48,11 @@
                   android:text="@string/i_am_at"
                   style="@style/text"/>
 
+
         <TextView style="@style/link"
                   android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
+
                   android:text="@string/geolocation_link"/>
 
     </LinearLayout>

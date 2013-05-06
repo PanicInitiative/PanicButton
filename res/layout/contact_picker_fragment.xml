@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent">
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+        >
 
     <EditText android:id="@+id/contact_edit_text"
               android:layout_height="wrap_content"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_toLeftOf="@+id/contact_picker_button"
               android:hint="@string/contact_hint"
-              android:inputType="phone"/>
+              android:inputType="phone"
+            style="@style/contact_number_textbox"
+            />
 
     <ImageButton android:id="@id/contact_picker_button"
                  android:layout_height="wrap_content"
                  android:layout_width="wrap_content"
                  android:layout_alignParentRight="true"
-                 android:src="@drawable/socialperson"/>
-</RelativeLayout>
+                 android:src="@drawable/socialperson"
+                 android:layout_marginLeft="-5dp"
+            style="@style/contact_select_button"/>
+</LinearLayout>
