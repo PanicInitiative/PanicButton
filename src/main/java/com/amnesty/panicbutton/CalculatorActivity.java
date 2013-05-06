@@ -49,7 +49,7 @@ public class CalculatorActivity extends RoboActivity {
         @Override
         public boolean onLongClick(View view) {
             startActivity(new Intent(CalculatorActivity.this, SettingsActivity.class));
-            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+            overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
             return true;
         }
     };
