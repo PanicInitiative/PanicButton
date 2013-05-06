@@ -19,6 +19,7 @@ import java.util.List;
 import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -43,7 +44,7 @@ public class MessageEditTextFragmentTest {
     public void shouldInitializeTheMessageEditText() {
         ShadowEditText shadowEditText = (ShadowEditText) shadowOf(editText);
 
-        assertEquals(textView.getText(), "Characters left :" + String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()));
+        assertEquals(application.getString(R.string.characters_left) + String.valueOf(MAX_CHARACTER_COUNT - editText.getText().length()), textView.getText());
 
         InputFilter[] filters = shadowEditText.getFilters();
         InputFilter inputFilter = filters[0];
