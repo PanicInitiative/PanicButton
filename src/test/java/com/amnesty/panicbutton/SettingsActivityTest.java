@@ -3,6 +3,7 @@ package com.amnesty.panicbutton;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.TextView;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
@@ -28,6 +29,7 @@ public class SettingsActivityTest {
 
     @Mock
     private PanicAlert mockPanicAlert;
+    private TextView alertStatusText;
 
     @Before
     public void setup() {
@@ -42,6 +44,7 @@ public class SettingsActivityTest {
 
         smsRow = (TableRow) settingsActivity.findViewById(R.id.sms_row);
         activateButton = (Button) settingsActivity.findViewById(R.id.activate_alert);
+        alertStatusText = (TextView) settingsActivity.findViewById(R.id.alert_status_text);
     }
 
     @Test
@@ -55,16 +58,20 @@ public class SettingsActivityTest {
     }
 
     @Test
-    public void shouldDisplayActivationButtonGrayedWhenSettingsNotConfigured() {
+    public void shouldDisableActivationButtonWhenSettingsNotConfigured() {
         settingsActivity.onResume();
+
         assertFalse(activateButton.isEnabled());
+        assertEquals("Alert cannot be sent. please choose contacts", alertStatusText.getText().toString());
     }
 
     @Test
-    public void shouldDisplayActivationButtonClickableWhenSettingsConfigured() {
+    public void shouldEnableActivationButtonWhenSettingsConfigured() {
         SMSSettings.save(application, new SMSSettings(asList("123-123-1222"), ""));
         settingsActivity.onResume();
+
         assertTrue(activateButton.isEnabled());
+        assertEquals("Alert is in standby", alertStatusText.getText().toString());
     }
 
     @Test
