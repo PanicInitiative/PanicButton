@@ -1,6 +1,5 @@
 package com.amnesty.panicbutton.trigger;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import org.junit.Test;
@@ -12,6 +11,7 @@ import org.robolectric.shadows.ShadowApplication;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -25,13 +25,16 @@ public class HardwareTriggerServiceTest {
         ShadowApplication shadowApplication = shadowOf(Robolectric.application);
         List<ShadowApplication.Wrapper> registeredReceivers = shadowApplication.getRegisteredReceivers();
 
-        assertEquals(1, registeredReceivers.size());
+        ShadowApplication.Wrapper hardwareReceiverWrapper = null;
+        for (ShadowApplication.Wrapper registeredReceiver : registeredReceivers) {
+            if (registeredReceiver.getBroadcastReceiver().getClass().equals(HardwareTriggerReceiver.class)) {
+                hardwareReceiverWrapper = registeredReceiver;
+            }
+        }
 
-        ShadowApplication.Wrapper wrapper = registeredReceivers.get(0);
-        BroadcastReceiver broadcastReceiver = wrapper.getBroadcastReceiver();
-        assertEquals(HardwareTriggerReceiver.class.getName(), broadcastReceiver.getClass().getName());
+        assertNotNull(hardwareReceiverWrapper);
 
-        IntentFilter intentFilter = wrapper.getIntentFilter();
+        IntentFilter intentFilter = hardwareReceiverWrapper.getIntentFilter();
         assertEquals(Intent.ACTION_SCREEN_ON, intentFilter.getAction(0));
         assertEquals(Intent.ACTION_SCREEN_OFF, intentFilter.getAction(1));
     }
