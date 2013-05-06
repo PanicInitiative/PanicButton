@@ -20,6 +20,10 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
         fragmentTransaction.add(R.id.sms_settings_layout_root, smsSettingsFragment).commit();
     }
 
+    public void showSettings(View view){
+        this.finish();
+    }
+
     SMSSettingsFragment getSMSSettingsFragment() {
         return SMSSettingsFragment.create(R.string.sms_settings_header);
     }

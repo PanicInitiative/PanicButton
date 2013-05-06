@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/sms_settings_layout_root"
-             android:orientation="vertical"
-             android:layout_height="fill_parent"
-             android:layout_width="fill_parent">
+              android:id="@+id/sms_settings_layout_root"
+              android:orientation="vertical"
+              android:layout_height="fill_parent"
+              android:layout_width="fill_parent">
 
     <LinearLayout
             style="@style/custom_action_bar"
             android:layout_height="50dp"
             android:layout_width="fill_parent">
 
-        <Button android:id="@+id/previous_button"
+        <Button android:id="@+id/sms_previous_button"
                 style="@style/back_button"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"
                 android:background="@drawable/back_button"
+                android:onClick="showSettings"
                 />
-
-
 
         <TextView
                 style="@style/page_title"
                 android:text=""
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"/>
-
 
 
         <Button android:id="@+id/save_button"
@@ -36,8 +34,7 @@
                 android:onClick="save"/>
 
     </LinearLayout>
-    <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>
-
-
-
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dp"
+          style="@style/custom_action_bar_sep"></View>
 </LinearLayout>
