@@ -38,6 +38,7 @@ public class SMSSettingsActivityTest {
     public void shouldSaveSettingsOnSave() {
         saveButton.performClick();
         verify(mockSMSSettingsFragment).performAction();
+
         ShadowHandler.idleMainLooper();
         assertThat(ShadowToast.getTextOfLatestToast(), equalTo("SMS settings saved successfully"));
     }

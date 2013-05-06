@@ -74,5 +74,5 @@ public class PanicAlert extends Thread {
     }
     public static final int LOCATION_WAIT_TIME = 1000;
 
-    public static final int MAX_RETRIES = 5;
+    public static final int MAX_RETRIES = 10;
 }
