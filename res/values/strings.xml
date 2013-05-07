@@ -14,10 +14,8 @@
     <string name="activate_alert">&#160;&#160;Send emergency alert</string>
     <string name="calculator_label">Calculator</string>
 
-    <string name="geolocation_link">
-        <u>http://maps.google.com/yourlocation</u>
-    </string>
-    <string name="i_am_at">&#160;+ I\'m at&#160;</string>
+    <string name="geolocation_link">http://maps.google.com/GPS-location</string>
+    <string name="i_am_at">I\'m at&#160;</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
     <string name="finish_label">Panic Button will now disguise itself</string>
