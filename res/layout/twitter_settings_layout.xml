@@ -34,4 +34,19 @@
     <View android:layout_width="fill_parent"
           android:layout_height="1dp"
           style="@style/custom_action_bar_sep"/>
+    <CheckBox android:id="@+id/opt_twitter_checkbox"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:onClick="toggleCountryAndService"
+              android:text="@string/opt_twitter_text"/>
+    <Spinner
+            android:id="@+id/country_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+    <Spinner
+            android:id="@+id/phone_service_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
 </LinearLayout>
