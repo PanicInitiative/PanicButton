@@ -3,9 +3,8 @@
     <string name="app_name">PanicButton</string>
 
     <string name="settings_label">SETTINGS</string>
-    <string name="sms">SMS</string>
-    <string name="twitter">Twitter</string>
-    <string name="sms_settings_label">SMS</string>
+    <string name="sms">SMS settings</string>
+    <string name="twitter">Twitter settings</string>
 
     <string name="characters_left">Characters left:&#160;</string>
     <string name="save_text">Save</string>
