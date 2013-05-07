@@ -83,12 +83,15 @@
                 android:layout_width="fill_parent"
                 style="@style/line"/>
 
-        <TableRow android:layout_width="fill_parent"
+        <TableRow android:id="@+id/twitter_row"
+                  android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   style="@style/settings_list_item">
 
 
             <TextView android:text="@string/twitter"
+                      android:clickable="true"
+                      android:onClick="launchTwitterActivity"
                       android:layout_height="wrap_content"
                       android:layout_width="fill_parent"
                       style="@style/settings_list_item_text"/>
