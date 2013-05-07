@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
+import com.amnesty.panicbutton.twitter.TwitterSettingsActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,8 +26,9 @@ import static org.robolectric.Robolectric.shadowOf;
 public class SettingsActivityTest {
     private SettingsActivity settingsActivity;
     private TableRow smsRow;
-    private Button activateButton;
+    private TableRow twitterRow;
 
+    private Button activateButton;
     @Mock
     private PanicAlert mockPanicAlert;
     private TextView alertStatusText;
@@ -43,18 +45,21 @@ public class SettingsActivityTest {
         settingsActivity.onCreate(null);
 
         smsRow = (TableRow) settingsActivity.findViewById(R.id.sms_row);
+        twitterRow = (TableRow) settingsActivity.findViewById(R.id.twitter_row);
         activateButton = (Button) settingsActivity.findViewById(R.id.activate_alert);
         alertStatusText = (TextView) settingsActivity.findViewById(R.id.alert_status_text);
     }
 
     @Test
-    public void shouldStartTheSMSConfigActivityOnSmsRowClick() throws Exception {
+    public void shouldStartSMSSettingsActivityOnSmsClick() throws Exception {
         smsRow.performClick();
+        assertNextStartedActivity(SMSSettingsActivity.class);
+    }
 
-        ShadowActivity shadowActivity = shadowOf(settingsActivity);
-        Intent startedIntent = shadowActivity.getNextStartedActivity();
-
-        assertEquals(SMSSettingsActivity.class.getName(), startedIntent.getComponent().getClassName());
+    @Test
+    public void shouldStartTwitterSettingsActivityOnTwitterClick() throws Exception {
+        twitterRow.performClick();
+        assertNextStartedActivity(TwitterSettingsActivity.class);
     }
 
     @Test
@@ -83,5 +88,11 @@ public class SettingsActivityTest {
     @Test
     public void shouldReturnNewPanicAlert() {
         assertNotNull(new SettingsActivity().getPanicAlert());
+    }
+
+    private void assertNextStartedActivity(Class expectedActivity) {
+        ShadowActivity shadowActivity = shadowOf(settingsActivity);
+        Intent startedIntent = shadowActivity.getNextStartedActivity();
+        assertEquals(expectedActivity.getName(), startedIntent.getComponent().getClassName());
     }
 }

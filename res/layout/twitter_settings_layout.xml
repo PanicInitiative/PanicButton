@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/twitter_settings_layout_root"
+              android:orientation="vertical"
+              android:layout_height="fill_parent"
+              android:layout_width="fill_parent">
+
+    <LinearLayout
+            style="@style/custom_action_bar"
+            android:layout_height="50dp"
+            android:layout_width="fill_parent">
+
+        <Button android:id="@+id/twitter_previous_button"
+                style="@style/back_button"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:background="@drawable/back_button"/>
+
+        <TextView
+                style="@style/page_title"
+                android:text=""
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"/>
+
+
+        <Button android:id="@+id/twitter_save_button"
+                style="@style/save_button"
+                android:background="@drawable/topbar_button"
+                android:text="@string/save_text"
+                android:layout_height="fill_parent"
+                android:layout_width="70dp"/>
+
+    </LinearLayout>
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dp"
+          style="@style/custom_action_bar_sep"/>
+</LinearLayout>

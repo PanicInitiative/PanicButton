@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
+import com.amnesty.panicbutton.twitter.TwitterSettingsActivity;
 import com.amnesty.panicbutton.wizard.ApplicationSettings;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -38,6 +39,10 @@ public class SettingsActivity extends RoboActivity {
 
     public void launchSmsActivity(View view) {
         startActivity(new Intent(this, SMSSettingsActivity.class));
+    }
+
+    public void launchTwitterActivity(View view) {
+        startActivity(new Intent(this, TwitterSettingsActivity.class));
     }
 
     public void activateAlert(View view) {

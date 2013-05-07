@@ -33,7 +33,10 @@
                   android:label="@string/settings_label"/>
         <activity android:name=".sms.SMSSettingsActivity"
                   android:screenOrientation="portrait"
-                  android:label="@string/sms_settings_label"/>
+                  android:label="@string/sms"/>
+        <activity android:name=".twitter.TwitterSettingsActivity"
+                  android:screenOrientation="portrait"
+                  android:label="@string/twitter"/>
 
         <service android:name=".trigger.HardwareTriggerService"/>
 
