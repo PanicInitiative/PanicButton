@@ -25,11 +25,18 @@
 
     <style name="custom_action_bar">
         <item name="android:orientation">horizontal</item>
-        <item name="android:background">#cccccc</item>
+        <item name="android:background">#eeeeee</item>
     </style>
 
     <style name="custom_action_bar_sep">
-        <item name="android:background">#666666</item>
+        <item name="android:background">#767272</item>
+    </style>
+
+    <style name="custom_action_bar_title">
+        <item name="android:textColor">#c0c0c0</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">5dp</item>
     </style>
 
     <style name="top_bar">
@@ -49,6 +56,7 @@
         <item name="android:layout_weight">0</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:padding">5dp</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="next_button">
@@ -164,6 +172,8 @@
         <item name="android:paddingLeft">20dp</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
     <style name="settings_list">

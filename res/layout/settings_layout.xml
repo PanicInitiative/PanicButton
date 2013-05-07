@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/sms_settings_layout_root"
+              android:orientation="vertical"
+              android:layout_height="fill_parent"
+              android:layout_width="fill_parent">
+
+    <LinearLayout
+            style="@style/custom_action_bar"
+            android:layout_height="50dp"
+            android:layout_width="fill_parent">
+
+        <Button
+                style="@style/back_button"
+                android:layout_height="fill_parent"
+                android:layout_width="wrap_content"
+                android:background="@drawable/back_button"
+                />
+
+
+
+        <TextView android:layout_height="fill_parent"
+                  android:layout_width="fill_parent"
+                  android:text="@string/settings_label"
+                  style="@style/custom_action_bar_title" />
+
+
+    </LinearLayout>
+    <View android:layout_width="fill_parent"
+          android:layout_height="1dp"
+          style="@style/custom_action_bar_sep"></View>
+
+<LinearLayout
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
                 style="@style/settings_page">
+
+
     <Button android:id="@+id/activate_alert"
             android:text="@string/activate_alert"
             android:layout_height="70dp"
             android:layout_width="fill_parent"
             android:onClick="activateAlert"
+            android:background="@drawable/send_alert_button"
             style="@style/alert_button"/>
-
+    <View android:layout_height="1sp"
+          android:layout_width="fill_parent"
+          style="@style/line"/>
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:id="@+id/alert_status_text"
@@ -73,4 +109,5 @@
         </TableRow>
     </TableLayout>
     </LinearLayout>
+</LinearLayout>
 </LinearLayout>
