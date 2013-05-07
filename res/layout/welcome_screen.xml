@@ -41,7 +41,7 @@
     </LinearLayout>
     <LinearLayout android:layout_height="fill_parent"
                   android:layout_width="fill_parent"
-                  android:background="#aa000000"
+                  android:background="#66ffffff"
                   >
     <TextView android:id="@+id/panic_button_text"
               android:layout_width="fill_parent"

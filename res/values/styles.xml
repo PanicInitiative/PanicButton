@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="calculator_display">
-        <item name="android:textSize">60sp</item>
+        <item name="android:textSize">80sp</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>
@@ -64,6 +64,7 @@
         <item name="android:drawableRight">@drawable/next</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="line">
@@ -152,10 +153,11 @@
     <style name="wizard_panic_button">
         <item name="android:background">#ff0072bc</item>
         <item name="android:padding">10dp</item>
-        <item name="android:layout_marginTop">120dp</item>
+        <item name="android:layout_marginTop">80dp</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:textSize">60dp</item>
         <item name="android:gravity">right</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
     <style name="setup_wizard_image">
@@ -213,6 +215,12 @@
 
     <style name="contact_select_button">
         <item name="android:layout_marginLeft">-5dp</item>
+    </style>
+
+    <style name="activate_disguise_button">
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
 </resources>
