@@ -13,14 +13,14 @@
         <TextView style="@style/calculator_display" android:hint="0" android:textColor="#ffff00"/>
 
         <LinearLayout style="@style/calculator_btn_container">
-            <Button style="@style/calculator_btn" android:text="/" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="&#247;" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="7" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="8" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="9" android:clickable="false" />
         </LinearLayout>
 
         <LinearLayout style="@style/calculator_btn_container">
-            <Button style="@style/calculator_btn" android:text="X" android:clickable="false" />
+            <Button style="@style/calculator_btn" android:text="*" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="4" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="5" android:clickable="false" />
             <Button style="@style/calculator_btn" android:text="6" android:clickable="false" />

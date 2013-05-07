@@ -7,14 +7,14 @@
     <TextView style="@style/calculator_display" android:hint="0" android:textColor="#ffff00"/>
 
     <LinearLayout style="@style/calculator_btn_container">
-        <Button android:id="@+id/divide" style="@style/calculator_btn" android:text="/" />
+        <Button android:id="@+id/divide" style="@style/calculator_btn" android:text="&#247;" />
         <Button android:id="@+id/seven" style="@style/calculator_btn" android:text="7" />
         <Button android:id="@+id/eight" style="@style/calculator_btn" android:text="8" />
         <Button android:id="@+id/nine" style="@style/calculator_btn" android:text="9" />
     </LinearLayout>
 
     <LinearLayout style="@style/calculator_btn_container">
-        <Button android:id="@+id/multiply" style="@style/calculator_btn" android:text="X" />
+        <Button android:id="@+id/multiply" style="@style/calculator_btn" android:text="*" />
         <Button android:id="@+id/four" style="@style/calculator_btn" android:text="4" />
         <Button android:id="@+id/five" style="@style/calculator_btn" android:text="5" />
         <Button android:id="@+id/six" style="@style/calculator_btn" android:text="6" />
