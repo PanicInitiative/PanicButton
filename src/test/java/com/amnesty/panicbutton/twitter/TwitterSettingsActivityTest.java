@@ -19,7 +19,7 @@ public class TwitterSettingsActivityTest {
     private TwitterSettingsActivity twitterSettingsActivity;
     private CheckBox optTwitterCheckbox;
     private Spinner countrySpinner;
-    private Spinner phoneServiceSpinner;
+    private Spinner serviceProviderSpinner;
 
     @Before
     public void setup() {
@@ -32,14 +32,14 @@ public class TwitterSettingsActivityTest {
 
         optTwitterCheckbox = (CheckBox) twitterSettingsActivity.findViewById(R.id.opt_twitter_checkbox);
         countrySpinner = (Spinner) twitterSettingsActivity.findViewById(R.id.country_spinner);
-        phoneServiceSpinner = (Spinner) twitterSettingsActivity.findViewById(R.id.phone_service_spinner);
+        serviceProviderSpinner = (Spinner) twitterSettingsActivity.findViewById(R.id.service_provider_spinner);
     }
 
     @Test
     public void shouldLoadTwitterLayoutOnCreate() {
         assertEquals(R.id.twitter_settings_layout_root, shadowOf(twitterSettingsActivity).getContentView().getId());
         assertFalse(countrySpinner.isShown());
-        assertFalse(phoneServiceSpinner.isShown());
+        assertFalse(serviceProviderSpinner.isShown());
     }
 
     @Test
@@ -48,17 +48,17 @@ public class TwitterSettingsActivityTest {
     }
 
     @Test
-    public void shouldShowCountryAndPhoneServiceListOnEnablingTwitterAlert() {
+    public void shouldShowCountryAndServiceProviderListOnEnablingTwitterAlert() {
         optTwitterCheckbox.performClick();
         assertTrue(countrySpinner.isShown());
-        assertTrue(phoneServiceSpinner.isShown());
+        assertTrue(serviceProviderSpinner.isShown());
     }
 
     @Test
-    public void shouldHideCountryAndPhoneServiceListOnDisablingTwitterAlert() {
+    public void shouldHideCountryAndServiceProviderListOnDisablingTwitterAlert() {
         optTwitterCheckbox.setChecked(true);
         optTwitterCheckbox.performClick();
         assertFalse(countrySpinner.isShown());
-        assertFalse(phoneServiceSpinner.isShown());
+        assertFalse(serviceProviderSpinner.isShown());
     }
 }

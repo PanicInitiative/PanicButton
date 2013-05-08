@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"/>
     <Spinner
-            android:id="@+id/phone_service_spinner"
+            android:id="@+id/service_provider_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"/>

@@ -34,7 +34,7 @@
 
     <style name="custom_action_bar_title">
         <item name="android:textColor">#c0c0c0</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">5dp</item>
     </style>
@@ -56,7 +56,7 @@
         <item name="android:layout_weight">0</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:padding">5dp</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="next_button">
@@ -64,7 +64,7 @@
         <item name="android:drawableRight">@drawable/next</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:paddingRight">10dp</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="line">
@@ -77,7 +77,7 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:paddingLeft">5dp</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -86,7 +86,7 @@
     </style>
 
     <style name="text">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="link">
@@ -106,21 +106,21 @@
     </style>
 
     <style name="welcome_screen_text">
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="bulleted_text">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:drawableLeft">@drawable/wizard_active</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingLeft">5dp</item>
     </style>
 
     <style name="wizard_page_title">
-        <item name="android:textSize">17dp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:textColor">@android:color/primary_text_light</item>
@@ -128,13 +128,13 @@
     </style>
 
     <style name="wizard_sub_title">
-        <item name="android:textSize">17dp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
 
     <style name="wizard_text">
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
         <item name="android:textColor">@android:color/secondary_text_light</item>
@@ -155,7 +155,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_marginTop">80dp</item>
         <item name="android:layout_marginLeft">40dp</item>
-        <item name="android:textSize">60dp</item>
+        <item name="android:textSize">60sp</item>
         <item name="android:gravity">right</item>
         <item name="android:textColor">#ffffff</item>
     </style>
@@ -173,7 +173,7 @@
         <item name="android:drawableLeft">@drawable/icon_alarm</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
@@ -187,7 +187,7 @@
     </style>
 
     <style name="settings_list_item_text">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:layout_weight">2</item>
     </style>
 
@@ -220,7 +220,7 @@
     <style name="activate_disguise_button">
         <item name="android:padding">15dp</item>
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

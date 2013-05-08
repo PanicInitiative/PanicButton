@@ -19,8 +19,8 @@ public class TwitterSettingsActivity extends RoboFragmentActivity {
     @InjectView(R.id.country_spinner)
     private Spinner countrySpinner;
 
-    @InjectView(R.id.phone_service_spinner)
-    private Spinner phoneServiceSpinner;
+    @InjectView(R.id.service_provider_spinner)
+    private Spinner serviceProviderSpinner;
 
     @InjectView(R.id.opt_twitter_checkbox)
     private CheckBox optTwitterCheckbox;
@@ -37,11 +37,11 @@ public class TwitterSettingsActivity extends RoboFragmentActivity {
     }
 
     List<String> countries() {
-        return TwitterShortCodeReader.getInstance(getApplicationContext()).countries();
+        return TwitterShortCodes.getInstance(getApplicationContext()).countries();
     }
 
     public void toggleCountryAndService(View view) {
         countrySpinner.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
-        phoneServiceSpinner.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
+        serviceProviderSpinner.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
     }
 }
