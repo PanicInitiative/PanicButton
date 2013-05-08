@@ -10,7 +10,6 @@ import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static android.view.View.INVISIBLE;
@@ -33,9 +32,12 @@ public class TwitterSettingsActivity extends RoboFragmentActivity {
     }
 
     private void initCountryList() {
-        List<String> countryList = Arrays.asList("India", "USA");
-        SpinnerAdapter countrySpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, countryList);
+        SpinnerAdapter countrySpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countries());
         countrySpinner.setAdapter(countrySpinnerAdapter);
+    }
+
+    List<String> countries() {
+        return TwitterShortCodeReader.getInstance(getApplicationContext()).countries();
     }
 
     public void toggleCountryAndService(View view) {

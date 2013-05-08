@@ -4,10 +4,12 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
@@ -21,7 +23,11 @@ public class TwitterSettingsActivityTest {
 
     @Before
     public void setup() {
-        twitterSettingsActivity = new TwitterSettingsActivity();
+        twitterSettingsActivity = new TwitterSettingsActivity() {
+            List<String> countries() {
+                return Arrays.asList("India", "UK");
+            }
+        };
         twitterSettingsActivity.onCreate(null);
 
         optTwitterCheckbox = (CheckBox) twitterSettingsActivity.findViewById(R.id.opt_twitter_checkbox);
@@ -37,9 +43,8 @@ public class TwitterSettingsActivityTest {
     }
 
     @Test
-    @Ignore
     public void shouldLoadCountrySpinnerOnCreate() {
-        assertEquals(25, countrySpinner.getCount());
+        assertEquals(2, countrySpinner.getCount());
     }
 
     @Test
