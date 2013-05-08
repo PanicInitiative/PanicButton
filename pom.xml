@@ -125,12 +125,19 @@
                     </instrumentation>
                     <check>
                         <haltOnFailure>true</haltOnFailure>
+                        <regexes>
+                            <regex>
+                                <pattern>com.amnesty.panicbutton.twitter.*</pattern>
+                                <branchRate>88</branchRate>
+                                <lineRate>88</lineRate>
+                            </regex>
+                        </regexes>
                         <branchRate>90</branchRate>
                         <lineRate>90</lineRate>
                         <totalBranchRate>90</totalBranchRate>
                         <totalLineRate>90</totalLineRate>
-                        <packageLineRate>90</packageLineRate>
-                        <packageBranchRate>90</packageBranchRate>
+                        <packageLineRate>88</packageLineRate>
+                        <packageBranchRate>88</packageBranchRate>
                     </check>
                 </configuration>
                 <executions>

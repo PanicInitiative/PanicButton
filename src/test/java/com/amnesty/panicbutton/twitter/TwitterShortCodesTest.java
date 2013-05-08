@@ -7,16 +7,11 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterShortCodesTest {
-    @Test
-    public void shouldReturnNullInstanceOnError() {
-        TwitterShortCodes instance = TwitterShortCodes.getInstance(null);
-        assertNull(instance);
-    }
-
     @Test
     public void shouldReturnTheSingletonInstance() {
         TwitterShortCodes instance = TwitterShortCodes.getInstance(Robolectric.application);
@@ -41,10 +36,10 @@ public class TwitterShortCodesTest {
     }
 
     @Test
-    public void shouldReturnShortCodeForCountryAndServiceProvider(){
+    public void shouldReturnShortCodeForCountryAndServiceProvider() {
         TwitterShortCodes twitterShortCodes = TwitterShortCodes.getInstance(Robolectric.application);
 
-        assertEquals("53000", twitterShortCodes.shortCode("India","Bharti Airtel"));
+        assertEquals("53000", twitterShortCodes.shortCode("India", "Bharti Airtel"));
 
     }
 }
