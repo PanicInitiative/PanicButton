@@ -4,6 +4,7 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import com.amnesty.panicbutton.R;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -33,6 +34,12 @@ public class TwitterSettingsActivityTest {
         assertEquals(R.id.twitter_settings_layout_root, shadowOf(twitterSettingsActivity).getContentView().getId());
         assertFalse(countrySpinner.isShown());
         assertFalse(phoneServiceSpinner.isShown());
+    }
+
+    @Test
+    @Ignore
+    public void shouldLoadCountrySpinnerOnCreate() {
+        assertEquals(25, countrySpinner.getCount());
     }
 
     @Test
