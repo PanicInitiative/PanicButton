@@ -37,31 +37,16 @@
     <CheckBox android:id="@+id/opt_twitter_checkbox"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:onClick="toggleCountryAndService"
               android:text="@string/opt_twitter_text"/>
-    <Spinner
-            android:id="@+id/country_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"/>
-    <Spinner
-            android:id="@+id/service_provider_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"/>
 
-    <LinearLayout android:id="@+id/twitter_short_code_layout"
-                  android:orientation="vertical"
-                  android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:visibility="invisible">
-        <TextView android:id="@+id/twitter_help_text"
-                  android:text="@string/twitter_help_text"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"/>
-        <TextView android:id="@+id/twitter_short_code"
-                  android:textSize="32sp"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"/>
-    </LinearLayout>
+    <fragment android:id="@+id/twitter_short_code_fragment"
+              android:name="com.amnesty.panicbutton.twitter.TwitterShortCodeFragment"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+
+    <fragment android:id="@+id/twitter_message_fragment"
+              android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+
 </LinearLayout>
