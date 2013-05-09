@@ -17,19 +17,24 @@ public class HomeActivity extends RoboActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!isFirstRun(this)) {
-            startActivity(new Intent(this, CalculatorActivity.class));
+        if (isFirstRun(this)) {
+            scheduleTimer();
+            return;
         }
-
-        new Timer().schedule(timerTask(), SPLASH_TIME);
+        startFacade();
     }
 
-    private TimerTask timerTask() {
-        return new TimerTask() {
+    private void startFacade() {
+        startActivity(new Intent(this, CalculatorActivity.class));
+    }
+
+    private void scheduleTimer() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 startActivity(new Intent(HomeActivity.this, WizardActivity.class));
             }
-        };
+        }, SPLASH_TIME);
     }
+
 }
