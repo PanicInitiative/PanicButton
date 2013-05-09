@@ -14,7 +14,7 @@
 
     <application android:icon="@drawable/icon" android:theme="@android:style/Theme.Light.NoTitleBar">
 
-        <activity android:name=".wizard.WelcomeActivity"
+        <activity android:name=".HomeActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/panic_button_label"
                   android:noHistory="true">

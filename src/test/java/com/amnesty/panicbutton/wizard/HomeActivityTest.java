@@ -2,9 +2,8 @@ package com.amnesty.panicbutton.wizard;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.TextView;
 import com.amnesty.panicbutton.CalculatorActivity;
-import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.HomeActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,31 +16,20 @@ import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-public class WelcomeActivityTest {
-    private WelcomeActivity welcomeActivity;
+public class HomeActivityTest {
+    private HomeActivity homeActivity;
     private ShadowActivity shadowActivity;
 
     @Before
     public void setUp() {
-        welcomeActivity = new WelcomeActivity();
-        shadowActivity = shadowOf(welcomeActivity);
-    }
-
-    @Test
-    public void shouldStartTheWizardOnPressingPanicButtonTextView() {
-        welcomeActivity.onCreate(null);
-        TextView panicButtonText = (TextView) welcomeActivity.findViewById(R.id.panic_button_text);
-
-        panicButtonText.performClick();
-
-        Intent nextStartedActivity = shadowActivity.getNextStartedActivity();
-        assertEquals(WizardActivity.class.getName(), nextStartedActivity.getComponent().getClassName());
+        homeActivity = new HomeActivity();
+        shadowActivity = shadowOf(homeActivity);
     }
 
     @Test
     public void shouldDisplayWizardWhenUserHasNotFinishedTheWizard() {
         setFirstRun(true);
-        welcomeActivity.onCreate(null);
+        homeActivity.onCreate(null);
 
         assertNull(shadowActivity.getNextStartedActivity());
     }
@@ -49,7 +37,7 @@ public class WelcomeActivityTest {
     @Test
     public void shouldStartCalculatorFacadeWhenUserCompletedWizard() {
         setFirstRun(false);
-        welcomeActivity.onCreate(null);
+        homeActivity.onCreate(null);
 
         Intent startedIntent = shadowActivity.getNextStartedActivity();
         assertEquals(CalculatorActivity.class.getName(), startedIntent.getComponent().getClassName());
