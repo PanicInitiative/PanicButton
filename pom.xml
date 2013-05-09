@@ -129,8 +129,8 @@
                         <regexes>
                             <regex>
                                 <pattern>com.amnesty.panicbutton.twitter.*</pattern>
-                                <branchRate>88</branchRate>
-                                <lineRate>88</lineRate>
+                                <branchRate>85</branchRate>
+                                <lineRate>85</lineRate>
                             </regex>
                         </regexes>
                         <branchRate>90</branchRate>
