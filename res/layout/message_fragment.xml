@@ -22,9 +22,14 @@
                 />
     </RelativeLayout>
 
+    <RelativeLayout android:layout_width="fill_parent"
+                  android:layout_height="130dp"
+
+                  >
+
     <EditText
             android:id="@+id/message_edit_text"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:layout_width="fill_parent"
             android:hint="@string/enter_message_hint"
             android:text="@string/default_emergency_message"
@@ -32,28 +37,15 @@
             style="@style/message_box"/>
 
 
-    <LinearLayout android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:background="#cccccc"
-                  android:layout_marginTop="-5dp"
-                  android:layout_marginLeft="2dp"
-                  android:layout_marginRight="2dp"
-                  android:paddingTop="5dp"
-                  android:paddingBottom="5dp"
-                  android:orientation="horizontal">
 
-
-        <TextView android:layout_width="wrap_content"
+        <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:text="@string/i_am_at"
-                  style="@style/text"/>
+                  style="@style/i_am_at_text"/>
 
 
-        <TextView style="@style/text"
-                  android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
 
-                  android:text="@string/geolocation_link"/>
+    </RelativeLayout>
 
-    </LinearLayout>
+
 </LinearLayout>
