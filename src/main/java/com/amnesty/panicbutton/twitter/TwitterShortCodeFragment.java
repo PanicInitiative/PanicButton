@@ -65,7 +65,9 @@ public class TwitterShortCodeFragment extends RoboFragment {
             String currentCountry = (String) parent.getItemAtPosition(position);
             selectedCountryMap = new CountryServiceProviderMap(currentCountry, allCountriesShortCodeMap.get(currentCountry));
 
-            SpinnerAdapter serviceProviderAdapter = new HintSpinnerAdapter(getString(R.string.select_phone_service_hint), selectedCountryMap.getServiceProviders(), getActivity());
+            List<String> serviceProviders = selectedCountryMap.getServiceProviders();
+            serviceProviders.add(getString(R.string.other_phone_service));
+            HintSpinnerAdapter serviceProviderAdapter = new HintSpinnerAdapter(getString(R.string.select_phone_service_hint), serviceProviders, getActivity());
             serviceProviderSpinner.setAdapter(serviceProviderAdapter);
             serviceProviderSpinner.setSelection(serviceProviderAdapter.getCount());
             serviceProviderSpinner.setOnItemSelectedListener(serviceProviderOnSelectListener);
@@ -79,11 +81,21 @@ public class TwitterShortCodeFragment extends RoboFragment {
             if(isHintTextSelected(position, serviceProviderSpinner)) {
                 return;
             }
-            String shortCode = selectedCountryMap.getShortCode((String) parent.getItemAtPosition(position));
+            String selectedServiceProvider = (String) parent.getItemAtPosition(position);
+            updateShortCodeHelpText(selectedServiceProvider);
+            String shortCode = selectedCountryMap.getShortCode(selectedServiceProvider);
             shortCodeTextView.setText(shortCode);
             shortCodeLayout.setVisibility(VISIBLE);
         }
     };
+
+    private void updateShortCodeHelpText(String selectedServiceProvider) {
+        if(selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
+            shortCodeHelpText.setText(getString(R.string.twitter_provider_not_supported_text));
+        } else {
+            shortCodeHelpText.setText(getString(R.string.twitter_help_text));
+        }
+    }
 
     private boolean isHintTextSelected(int currentPosition, Spinner spinner) {
         return currentPosition == spinner.getAdapter().getCount();
@@ -97,7 +109,8 @@ public class TwitterShortCodeFragment extends RoboFragment {
 
     @InjectView(R.id.twitter_short_code)
     private TextView shortCodeTextView;
-
+    @InjectView(R.id.twitter_help_text)
+    private TextView shortCodeHelpText;
     @InjectView(R.id.twitter_short_code_layout)
     private ViewGroup shortCodeLayout;
 
