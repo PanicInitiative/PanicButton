@@ -7,10 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+import android.widget.*;
 import com.amnesty.panicbutton.R;
 import com.google.gson.Gson;
 import roboguice.fragment.RoboFragment;
@@ -22,28 +19,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.R.layout.simple_spinner_item;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.amnesty.panicbutton.R.string.select_phone_service_hint;
 
 public class TwitterShortCodeFragment extends RoboFragment {
-    private Map<String, Map<String, String>> allCountriesShortCodeMap = new HashMap<String, Map<String, String>>();
-    private CountryServiceProviderMap selectedCountryMap;
-
-    private Spinner countrySpinner;
-    private Spinner serviceProviderSpinner;
-
-    @InjectView(R.id.twitter_short_code)
-    private TextView shortCodeTextView;
-    @InjectView(R.id.twitter_help_text)
-    private TextView shortCodeHelpText;
-    @InjectView(R.id.twitter_short_code_layout)
-    private ViewGroup shortCodeLayout;
-    private ShortCodeSelectedListener callback;
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if(activity instanceof ShortCodeSelectedListener) {
+        if (activity instanceof ShortCodeSelectedListener) {
             callback = (ShortCodeSelectedListener) activity;
         }
     }
@@ -69,7 +54,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
         }
     }
 
-    private void initCountrySpinner() {
+    public void initCountrySpinner() {
         List<String> countries = new ArrayList<String>(allCountriesShortCodeMap.keySet());
         SpinnerAdapter countrySpinnerAdapter = new HintSpinnerAdapter(getString(R.string.select_country_hint), countries, getActivity());
 
@@ -81,7 +66,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
     private AdapterView.OnItemSelectedListener countryOnSelectListener = new OnItemSelectedListenerAdapter() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(isHintTextSelected(position, countrySpinner)) {
+            if (isHintTextSelected(position, countrySpinner)) {
                 return;
             }
             String currentCountry = (String) parent.getItemAtPosition(position);
@@ -89,7 +74,8 @@ public class TwitterShortCodeFragment extends RoboFragment {
 
             List<String> serviceProviders = selectedCountryMap.getServiceProviders();
             serviceProviders.add(getString(R.string.other_phone_service));
-            HintSpinnerAdapter serviceProviderAdapter = new HintSpinnerAdapter(getString(R.string.select_phone_service_hint), serviceProviders, getActivity());
+            HintSpinnerAdapter serviceProviderAdapter = new HintSpinnerAdapter(getString(select_phone_service_hint),
+                    serviceProviders, getActivity());
             serviceProviderSpinner.setAdapter(serviceProviderAdapter);
             serviceProviderSpinner.setSelection(serviceProviderAdapter.getCount());
             serviceProviderSpinner.setOnItemSelectedListener(serviceProviderOnSelectListener);
@@ -100,7 +86,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
     private AdapterView.OnItemSelectedListener serviceProviderOnSelectListener = new OnItemSelectedListenerAdapter() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(isHintTextSelected(position, serviceProviderSpinner)) {
+            if (isHintTextSelected(position, serviceProviderSpinner)) {
                 shortCodeSelected(false);
                 return;
             }
@@ -113,7 +99,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
     };
 
     private void processShortCodeChange(String selectedServiceProvider) {
-        if(selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
+        if (selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
             shortCodeHelpText.setText(getString(R.string.twitter_provider_not_supported_text));
             shortCodeSelected(false);
 
@@ -124,7 +110,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
     }
 
     void shortCodeSelected(boolean successFlag) {
-        if(callback != null) {
+        if (callback != null) {
             callback.onShortCodeSelection(successFlag);
         }
     }
@@ -133,9 +119,35 @@ public class TwitterShortCodeFragment extends RoboFragment {
         return currentPosition == spinner.getAdapter().getCount();
     }
 
-    private static final String FILE_NAME = "twitter_short_codes.json";
+    public void reset() {
+        countrySpinner.setSelection(countrySpinner.getAdapter().getCount(), true);
+        serviceProviderSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), simple_spinner_item));
+        shortCodeHelpText.setText("");
+        shortCodeTextView.setText("");
+        shortCodeLayout.setVisibility(INVISIBLE);
+    }
 
     public interface ShortCodeSelectedListener {
         public void onShortCodeSelection(boolean successFlag);
+
     }
+
+    private static final String FILE_NAME = "twitter_short_codes.json";
+
+    private Map<String, Map<String, String>> allCountriesShortCodeMap = new HashMap<String, Map<String, String>>();
+    private CountryServiceProviderMap selectedCountryMap;
+
+    private Spinner countrySpinner;
+    private Spinner serviceProviderSpinner;
+
+    @InjectView(R.id.twitter_short_code)
+    private TextView shortCodeTextView;
+
+    @InjectView(R.id.twitter_help_text)
+    private TextView shortCodeHelpText;
+
+    @InjectView(R.id.twitter_short_code_layout)
+    private ViewGroup shortCodeLayout;
+
+    private ShortCodeSelectedListener callback;
 }

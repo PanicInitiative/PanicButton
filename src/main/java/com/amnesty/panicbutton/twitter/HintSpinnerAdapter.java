@@ -30,7 +30,6 @@ public class HintSpinnerAdapter extends ArrayAdapter<String> {
             hintView.setText("");
             hintView.setHint(getItem(getCount()));
         }
-
         return view;
     }
 

@@ -132,5 +132,4 @@ public class TwitterShortCodeFragmentTest {
         twitterShortCodeFragment.shortCodeSelected(true);
         assertNull(ReflectionUtils.getValueIncludingSuperclasses("callback", twitterShortCodeFragment));
     }
-
 }

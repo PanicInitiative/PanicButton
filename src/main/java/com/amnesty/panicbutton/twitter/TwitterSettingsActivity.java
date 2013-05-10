@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import com.amnesty.panicbutton.R;
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectFragment;
 import roboguice.inject.InjectView;
 
 import static android.view.View.INVISIBLE;
@@ -22,17 +23,25 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Twi
     @InjectView(R.id.twitter_message_layout)
     private ViewGroup messageLayout;
 
+    @InjectFragment(R.id.twitter_short_code_fragment)
+    private TwitterShortCodeFragment twitterShortCodeFragment;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.twitter_settings_layout);
     }
 
     public void toggleTwitterSettings(View view) {
-        boolean twitterEnabled = optTwitterCheckbox.isChecked();
-        if(!twitterEnabled) {
-            messageLayout.setVisibility(INVISIBLE);
+        messageLayout.setVisibility(INVISIBLE);
+        resetTwitterShortCodeFragment();
+    }
+
+    private void resetTwitterShortCodeFragment() {
+        boolean isTwitterOpted = optTwitterCheckbox.isChecked();
+        if (!isTwitterOpted) {
+            twitterShortCodeFragment.reset();
         }
-        shortCodeLayout.setVisibility(twitterEnabled ? VISIBLE : INVISIBLE);
+        shortCodeLayout.setVisibility(isTwitterOpted ? VISIBLE : INVISIBLE);
     }
 
     @Override

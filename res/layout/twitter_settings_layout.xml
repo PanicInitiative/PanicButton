@@ -34,11 +34,12 @@
     <View android:layout_width="fill_parent"
           android:layout_height="1dp"
           style="@style/custom_action_bar_sep"/>
+
     <CheckBox android:id="@+id/opt_twitter_checkbox"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/opt_twitter_text"
-            android:onClick="toggleTwitterSettings"/>
+              android:onClick="toggleTwitterSettings"/>
 
     <LinearLayout android:id="@+id/twitter_short_code_layout"
                   android:layout_width="match_parent"
@@ -49,7 +50,6 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
-
     <LinearLayout android:id="@+id/twitter_message_layout"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
