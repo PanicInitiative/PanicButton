@@ -28,7 +28,11 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Twi
     }
 
     public void toggleTwitterSettings(View view) {
-        shortCodeLayout.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
+        boolean twitterEnabled = optTwitterCheckbox.isChecked();
+        if(!twitterEnabled) {
+            messageLayout.setVisibility(INVISIBLE);
+        }
+        shortCodeLayout.setVisibility(twitterEnabled ? VISIBLE : INVISIBLE);
     }
 
     @Override
