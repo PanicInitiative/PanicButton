@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.TestFragmentActivity;
+import com.amnesty.panicbutton.common.TestFragmentActivity;
 import com.amnesty.panicbutton.model.SMSSettings;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;

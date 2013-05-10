@@ -32,7 +32,7 @@
                       android:layout_width="wrap_content"
                       android:text=" 1. "
                       style="@style/contact_number" />
-            <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+            <fragment android:name="com.amnesty.panicbutton.common.ContactPickerFragment"
                       android:layout_height="wrap_content"
                       android:layout_width="fill_parent"
                       android:id="@+id/first_contact"/>
@@ -46,7 +46,7 @@
                       android:layout_width="wrap_content"
                       android:text=" 2. "
                       style="@style/contact_number" />
-            <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+            <fragment android:name="com.amnesty.panicbutton.common.ContactPickerFragment"
                       android:layout_height="wrap_content"
                       android:layout_width="fill_parent"
                       android:id="@+id/second_contact"/>
@@ -60,7 +60,7 @@
                       android:layout_width="wrap_content"
                       android:text=" 3. "
                       style="@style/contact_number" />
-            <fragment android:name="com.amnesty.panicbutton.fragment.ContactPickerFragment"
+            <fragment android:name="com.amnesty.panicbutton.common.ContactPickerFragment"
                       android:layout_height="wrap_content"
                       android:layout_width="fill_parent"
                       android:id="@+id/third_contact"/>
@@ -70,7 +70,7 @@
                       android:layout_height="wrap_content"
                 android:layout_weight="1">
             <fragment android:id="@+id/sms_message"
-                      android:name="com.amnesty.panicbutton.fragment.MessageEditTextFragment"
+                      android:name="com.amnesty.panicbutton.common.MessageFragment"
                       android:padding="@dimen/sms_message_widget_padding"
                       android:layout_width="wrap_content"
                       android:layout_height="match_parent"/>

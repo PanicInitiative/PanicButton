@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.common;
 
 import com.amnesty.panicbutton.twitter.TwitterShortCodeFragment;
 import com.amnesty.panicbutton.wizard.ActionButtonStateListener;

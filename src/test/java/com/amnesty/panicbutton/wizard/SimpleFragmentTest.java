@@ -3,7 +3,7 @@ package com.amnesty.panicbutton.wizard;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.TestFragmentActivity;
+import com.amnesty.panicbutton.common.TestFragmentActivity;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;

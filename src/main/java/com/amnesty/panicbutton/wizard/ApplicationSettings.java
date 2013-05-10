@@ -3,7 +3,7 @@ package com.amnesty.panicbutton.wizard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.amnesty.panicbutton.AlertStatus;
+import com.amnesty.panicbutton.alert.AlertStatus;
 import com.amnesty.panicbutton.model.SMSSettings;
 
 public class ApplicationSettings {

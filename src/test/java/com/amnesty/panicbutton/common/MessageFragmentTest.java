@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.common;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,21 +22,21 @@ import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-public class MessageEditTextFragmentTest {
-    private MessageEditTextFragment messageEditTextFragment;
+public class MessageFragmentTest {
+    private MessageFragment messageFragment;
     private EditText editText;
     private TextView textView;
 
     @Before
     public void setup() {
-        messageEditTextFragment = new MessageEditTextFragment();
+        messageFragment = new MessageFragment();
         FragmentManager fragmentManager = new RoboFragmentActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(messageEditTextFragment, null);
+        fragmentTransaction.add(messageFragment, null);
         fragmentTransaction.commit();
 
-        editText = (EditText) messageEditTextFragment.getView().findViewById(R.id.message_edit_text);
-        textView = (TextView) messageEditTextFragment.getView().findViewById(R.id.characters_left_view);
+        editText = (EditText) messageFragment.getView().findViewById(R.id.message_edit_text);
+        textView = (TextView) messageFragment.getView().findViewById(R.id.characters_left_view);
     }
 
     @Test

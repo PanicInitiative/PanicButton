@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.TestFragmentActivity;
+import com.amnesty.panicbutton.common.TestFragmentActivity;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
