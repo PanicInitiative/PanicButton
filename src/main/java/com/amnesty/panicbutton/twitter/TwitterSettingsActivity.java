@@ -42,6 +42,11 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Sho
     }
 
     public void onSave(View view) {
+        if(!optTwitterCheckbox.isChecked()) {
+            TwitterSettings.disable(this);
+            return;
+        }
+        TwitterSettings.enable(this);
         ShortCodeSettings shortCodeSettings = twitterShortCodeFragment.getShortCodeSettings();
         TwitterSettings twitterSettings = new TwitterSettings(shortCodeSettings, twitterMessageFragment.getMessage());
         TwitterSettings.save(this, twitterSettings);

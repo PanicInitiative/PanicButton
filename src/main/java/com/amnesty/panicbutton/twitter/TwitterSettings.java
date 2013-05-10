@@ -11,6 +11,7 @@ public class TwitterSettings {
     public static final String TWITTER_SERVICE_PROVIDER = "TWITTER_SERVICE_PROVIDER";
     public static final String TWITTER_SHORT_CODE = "TWITTER_SHORT_CODE";
     public static final String TWITTER_MESSAGE = "TWITTER_MESSAGE";
+    public static final String TWITTER_ENABLED = "TWITTER_ENABLED";
     private ShortCodeSettings shortCodeSettings;
     private String message;
 
@@ -19,6 +20,7 @@ public class TwitterSettings {
         this.shortCodeSettings = shortCodeSettings;
         this.message = message;
     }
+
 
     public String getMessage() {
         return message;
@@ -50,5 +52,25 @@ public class TwitterSettings {
         shortCodeSettings.setServiceProvider(allPreferences.get(TWITTER_SERVICE_PROVIDER));
         shortCodeSettings.setShortCode(allPreferences.get(TWITTER_SHORT_CODE));
         return shortCodeSettings;
+    }
+
+    public static boolean isEnabled(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean(TWITTER_ENABLED, false);
+    }
+
+    public static void enable(Context context) {
+        setTwitterStatus(context, true);
+    }
+
+    public static void disable(Context context) {
+        setTwitterStatus(context, false);
+    }
+
+    private static void setTwitterStatus(Context context, boolean status) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(TWITTER_ENABLED, status);
+        editor.commit();
     }
 }

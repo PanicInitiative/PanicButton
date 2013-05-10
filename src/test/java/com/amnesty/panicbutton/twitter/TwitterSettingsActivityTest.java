@@ -1,5 +1,6 @@
 package com.amnesty.panicbutton.twitter;
 
+import android.app.Application;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,10 +38,13 @@ public class TwitterSettingsActivityTest {
     private String country;
     private String serviceProvider;
     private String shortCode;
+    private Application context;
 
     @Before
     public void setup() throws IllegalAccessException {
         initMocks(this);
+        context = Robolectric.application;
+
         country = "India";
         serviceProvider = "Airtel";
         shortCode = "53000";
@@ -104,17 +108,26 @@ public class TwitterSettingsActivityTest {
     @Test
     public void shouldSaveTwitterSettings() {
         String testMessage = "Test Message";
+        optTwitterCheckbox.setChecked(true);
 
         when(mockTwitterShortCodeFragment.getShortCodeSettings()).thenReturn(shortCodeSettings);
         when(mockTwitterMessageFragment.getMessage()).thenReturn(testMessage);
 
         saveButton.performClick();
 
-        TwitterSettings twitterSettings = TwitterSettings.retrieve(Robolectric.application);
+        assertTrue(TwitterSettings.isEnabled(context));
+        TwitterSettings twitterSettings = TwitterSettings.retrieve(context);
         ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
         assertEquals(testMessage, twitterSettings.getMessage());
         assertEquals(country, shortCodeSettings.getCountry());
         assertEquals(serviceProvider, shortCodeSettings.getServiceProvider());
         assertEquals(shortCode, shortCodeSettings.getShortCode());
+    }
+
+    @Test
+    public void shouldSaveThatTwitterSettingsIsDisabled() {
+        optTwitterCheckbox.setChecked(false);
+        saveButton.performClick();
+        assertFalse(TwitterSettings.isEnabled(context));
     }
 }
