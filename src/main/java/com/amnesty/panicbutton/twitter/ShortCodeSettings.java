@@ -1,11 +1,11 @@
 package com.amnesty.panicbutton.twitter;
 
-public class TwitterSettings {
+public class ShortCodeSettings {
     private String country;
     private String serviceProvider;
     private String shortCode;
 
-    public TwitterSettings(String country) {
+    public ShortCodeSettings(String country) {
         this.country = country;
     }
 

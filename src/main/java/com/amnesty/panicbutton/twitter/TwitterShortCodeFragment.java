@@ -54,7 +54,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
                 return;
             }
             String currentCountry = (String) parent.getItemAtPosition(position);
-            twitterSettings = new TwitterSettings(currentCountry);
+            shortCodeSettings = new ShortCodeSettings(currentCountry);
 
             List<String> serviceProviders = twitterSeedData.getServiceProviders(currentCountry);
             serviceProviders.add(getString(R.string.other_phone_service));
@@ -75,9 +75,9 @@ public class TwitterShortCodeFragment extends RoboFragment {
                 return;
             }
             String selectedServiceProvider = (String) parent.getItemAtPosition(position);
-            String shortCode = twitterSeedData.getShortCode(twitterSettings.getCountry(),selectedServiceProvider);
-            twitterSettings.setServiceProvider(selectedServiceProvider);
-            twitterSettings.setShortCode(shortCode);
+            String shortCode = twitterSeedData.getShortCode(shortCodeSettings.getCountry(), selectedServiceProvider);
+            shortCodeSettings.setServiceProvider(selectedServiceProvider);
+            shortCodeSettings.setShortCode(shortCode);
 
             processShortCodeChange(selectedServiceProvider);
             shortCodeTextView.setText(shortCode);
@@ -111,7 +111,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
     }
 
     private TwitterSeedData twitterSeedData;
-    private TwitterSettings twitterSettings;
+    private ShortCodeSettings shortCodeSettings;
 
     private Spinner countrySpinner;
     private Spinner serviceProviderSpinner;
