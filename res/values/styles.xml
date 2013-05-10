@@ -208,13 +208,9 @@
         <item name="android:padding">2dp</item>
     </style>
 
-    <style name="contact_number_textbox">
-        <item name="android:layout_marginRight">0dp</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
     <style name="contact_select_button">
-        <item name="android:layout_marginLeft">-5dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginTop">2dp</item>
     </style>
 
     <style name="activate_disguise_button">

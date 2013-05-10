@@ -20,14 +20,14 @@
         </LinearLayout>
 
         <LinearLayout style="@style/calculator_btn_container">
-            <Button style="@style/calculator_btn" android:text="*" android:clickable="false"/>
+            <Button style="@style/calculator_btn" android:text="&#215;" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="4" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="5" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="6" android:clickable="false"/>
         </LinearLayout>
 
         <LinearLayout style="@style/calculator_btn_container">
-            <Button style="@style/calculator_btn" android:text="-" android:clickable="false"/>
+            <Button style="@style/calculator_btn" android:text="&#8722;" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="1" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="2" android:clickable="false"/>
             <Button style="@style/calculator_btn" android:text="3" android:clickable="false"/>

@@ -6,7 +6,7 @@
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
 
-    <string name="characters_left">Characters left:&#160;</string>
+    <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
