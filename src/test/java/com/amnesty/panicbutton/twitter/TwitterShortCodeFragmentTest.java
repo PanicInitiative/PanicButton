@@ -16,12 +16,16 @@ import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterShortCodeFragmentTest {
+    public static final int COUNTRIES_COUNT = 99;
+    public static final int INDIA_INDEX = 38;
+    public static final int INDIA_SERVICE_PROVIDERS_COUNT = 4;
     private TwitterShortCodeFragment twitterShortCodeFragment;
 
     private Spinner countrySpinner;
     private Spinner serviceProviderSpinner;
     private ViewGroup shortCodeLayout;
     private TextView shortCodeTextView;
+    private TextView shortCodeHelpText;
 
     @Before
     public void setup() {
@@ -35,6 +39,7 @@ public class TwitterShortCodeFragmentTest {
         serviceProviderSpinner = (Spinner) twitterShortCodeFragment.getView().findViewById(R.id.service_provider_spinner);
         shortCodeLayout = (ViewGroup) twitterShortCodeFragment.getView().findViewById(R.id.twitter_short_code_layout);
         shortCodeTextView = (TextView) twitterShortCodeFragment.getView().findViewById(R.id.twitter_short_code);
+        shortCodeHelpText = (TextView) twitterShortCodeFragment.getView().findViewById(R.id.twitter_help_text);
     }
 
     @Test
@@ -46,23 +51,54 @@ public class TwitterShortCodeFragmentTest {
 
     @Test
     public void shouldLoadCountrySpinnerOnCreate() {
-        assertEquals(99, countrySpinner.getCount());
+        assertEquals(COUNTRIES_COUNT, countrySpinner.getCount());
+        assertEquals("Select country", countrySpinner.getSelectedItem());
         assertFalse(shortCodeLayout.isShown());
     }
 
     @Test
-    public void shouldShowServiceProvidersOnCountrySelection() {
-        countrySpinner.setSelection(38);
-        assertEquals(3, serviceProviderSpinner.getCount());
+    public void shouldShowServiceProvidersOnCountrySelectionWithHintAndOtherService() {
+        countrySpinner.setSelection(INDIA_INDEX);
+
+        assertEquals(INDIA_SERVICE_PROVIDERS_COUNT, serviceProviderSpinner.getCount());
+        assertEquals("Select phone service", serviceProviderSpinner.getSelectedItem());
+        assertEquals("Other phone service", serviceProviderSpinner.getItemAtPosition(INDIA_SERVICE_PROVIDERS_COUNT - 1));
+        assertFalse(shortCodeLayout.isShown());
+    }
+
+    @Test
+    public void shouldNotProcessAnythingOnCountryHintSelection() {
+        countrySpinner.setSelection(COUNTRIES_COUNT);
+
+        assertEquals(0, serviceProviderSpinner.getCount());
         assertFalse(shortCodeLayout.isShown());
     }
 
     @Test
     public void shouldShowShortCodeInfoOnServiceProviderSelection() {
-        countrySpinner.setSelection(38);
+        countrySpinner.setSelection(INDIA_INDEX);
         serviceProviderSpinner.setSelection(1);
 
         assertTrue(shortCodeLayout.isShown());
         assertEquals("53000", shortCodeTextView.getText().toString());
+        assertEquals("To connect your phone to Twitter by SMS, send a text with the word START to:", shortCodeHelpText.getText().toString());
+    }
+
+    @Test
+    public void shouldShowErrorTextOnOtherPhoneServiceSelection() {
+        countrySpinner.setSelection(INDIA_INDEX);
+        serviceProviderSpinner.setSelection(INDIA_SERVICE_PROVIDERS_COUNT - 1);
+
+        assertTrue(shortCodeLayout.isShown());
+        assertEquals("", shortCodeTextView.getText().toString());
+        assertEquals("We are only able to connect with phone service providers supported by Twitter.", shortCodeHelpText.getText().toString());
+    }
+
+    @Test
+    public void shouldNotProcessAnythingOnServiceProviderHintSelection() {
+        countrySpinner.setSelection(INDIA_INDEX);
+        serviceProviderSpinner.setSelection(INDIA_SERVICE_PROVIDERS_COUNT);
+
+        assertFalse(shortCodeLayout.isShown());
     }
 }

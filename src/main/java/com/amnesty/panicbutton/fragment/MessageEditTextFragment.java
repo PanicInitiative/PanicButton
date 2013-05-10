@@ -11,10 +11,10 @@ import com.amnesty.panicbutton.R;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
-import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 import static java.lang.String.valueOf;
 
 public class MessageEditTextFragment extends RoboFragment {
+    private static final int MAX_CHARACTER_COUNT = 85;
     @InjectView(R.id.characters_left_view)
     private TextView charactersLeftView;
 

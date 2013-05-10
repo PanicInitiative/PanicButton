@@ -121,24 +121,19 @@
                             <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
                             <exclude>com/amnesty/panicbutton/AppConstants*.class</exclude>
                             <exclude>com/amnesty/panicbutton/location/LocationListenerAdapter.class</exclude>
+                            <exclude>com/amnesty/panicbutton/twitter/OnItemSelectedListenerAdapter.class</exclude>
+                            <exclude>com/amnesty/panicbutton/twitter/HintSpinnerAdapter.class</exclude>
                             <exclude>com/amnesty/panicbutton/HomeActivity*.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
                         <haltOnFailure>true</haltOnFailure>
-                        <regexes>
-                            <regex>
-                                <pattern>com.amnesty.panicbutton.twitter.*</pattern>
-                                <branchRate>80</branchRate>
-                                <lineRate>80</lineRate>
-                            </regex>
-                        </regexes>
                         <branchRate>90</branchRate>
                         <lineRate>90</lineRate>
                         <totalBranchRate>90</totalBranchRate>
                         <totalLineRate>90</totalLineRate>
-                        <packageLineRate>88</packageLineRate>
-                        <packageBranchRate>88</packageBranchRate>
+                        <packageLineRate>90</packageLineRate>
+                        <packageBranchRate>90</packageBranchRate>
                     </check>
                 </configuration>
                 <executions>
