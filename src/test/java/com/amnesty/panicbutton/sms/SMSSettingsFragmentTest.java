@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.fragment.TestFragmentActivity;
+import com.amnesty.panicbutton.common.TestFragmentActivity;
 import com.amnesty.panicbutton.model.SMSSettings;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
@@ -123,7 +123,7 @@ public class SMSSettingsFragmentTest {
         assertEquals("*******97", firstContactEditText.getText().toString());
         assertEquals("*********56", secondContactEditText.getText().toString());
         assertEquals("*********45", thirdContactEditText.getText().toString());
-        assertTrue(testFragmentActivity.getState());
+        assertTrue(testFragmentActivity.getActionButtonState());
     }
 
     @Test
@@ -146,7 +146,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("12345");
         secondContactEditText.setText("123");
         thirdContactEditText.setText("");
-        assertTrue(testFragmentActivity.getState());
+        assertTrue(testFragmentActivity.getActionButtonState());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("1234");
         secondContactEditText.setText("");
         thirdContactEditText.setText("");
-        assertFalse(testFragmentActivity.getState());
+        assertFalse(testFragmentActivity.getActionButtonState());
     }
 
     @Test
@@ -163,7 +163,7 @@ public class SMSSettingsFragmentTest {
         thirdContactEditText.setText("");
         firstContactEditText.setText("1234");
         firstContactEditText.setText("1234");
-        assertFalse(testFragmentActivity.getState());
+        assertFalse(testFragmentActivity.getActionButtonState());
     }
 
     @Test

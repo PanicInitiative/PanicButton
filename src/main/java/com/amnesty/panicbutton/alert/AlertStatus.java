@@ -1,4 +1,6 @@
-package com.amnesty.panicbutton;
+package com.amnesty.panicbutton.alert;
+
+import com.amnesty.panicbutton.R;
 
 public enum AlertStatus {
     STANDBY(R.string.alert_status_standby, true),

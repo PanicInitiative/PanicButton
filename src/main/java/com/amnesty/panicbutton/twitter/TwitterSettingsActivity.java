@@ -11,7 +11,16 @@ import roboguice.inject.InjectView;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class TwitterSettingsActivity extends RoboFragmentActivity {
+public class TwitterSettingsActivity extends RoboFragmentActivity implements TwitterShortCodeFragment.ShortCodeSelectedListener {
+
+    @InjectView(R.id.opt_twitter_checkbox)
+    private CheckBox optTwitterCheckbox;
+
+    @InjectView(R.id.twitter_short_code_layout)
+    private ViewGroup shortCodeLayout;
+
+    @InjectView(R.id.twitter_message_layout)
+    private ViewGroup messageLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,12 +28,15 @@ public class TwitterSettingsActivity extends RoboFragmentActivity {
     }
 
     public void toggleTwitterSettings(View view) {
-        shortCodeLayout.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
+        boolean twitterEnabled = optTwitterCheckbox.isChecked();
+        if(!twitterEnabled) {
+            messageLayout.setVisibility(INVISIBLE);
+        }
+        shortCodeLayout.setVisibility(twitterEnabled ? VISIBLE : INVISIBLE);
     }
 
-    @InjectView(R.id.twitter_short_code_layout)
-    private ViewGroup shortCodeLayout;
-
-    @InjectView(R.id.opt_twitter_checkbox)
-    private CheckBox optTwitterCheckbox;
+    @Override
+    public void onShortCodeSelection(boolean successFlag) {
+        messageLayout.setVisibility(successFlag ? VISIBLE : INVISIBLE);
+    }
 }

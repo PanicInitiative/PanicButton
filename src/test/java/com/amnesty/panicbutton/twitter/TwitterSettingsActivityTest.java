@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import static android.view.View.VISIBLE;
 import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
@@ -39,13 +40,30 @@ public class TwitterSettingsActivityTest {
     public void shouldShowShortCodeFragmentOnEnablingTwitter() {
         optTwitterCheckbox.performClick();
         assertTrue(shortCodeLayout.isShown());
+        assertFalse(messageLayout.isShown());
     }
 
     @Test
     public void shouldHideShortCodeFragmentAndMessageFragmentOnDisablingTwitter() {
         optTwitterCheckbox.setChecked(true);
+        shortCodeLayout.setVisibility(VISIBLE);
+        messageLayout.setVisibility(VISIBLE);
+
         optTwitterCheckbox.performClick();
+
         assertFalse(shortCodeLayout.isShown());
+        assertFalse(messageLayout.isShown());
+    }
+
+    @Test
+    public void shouldShowTwitterEditTextOnSuccessfulShortCodeSelection() {
+        twitterSettingsActivity.onShortCodeSelection(true);
+        assertTrue(messageLayout.isShown());
+    }
+
+    @Test
+    public void shouldHideTwitterEditTextOnUnSuccessfulShortCodeSelection() {
+        twitterSettingsActivity.onShortCodeSelection(false);
         assertFalse(messageLayout.isShown());
     }
 }

@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.fragment;
+package com.amnesty.panicbutton.common;
 
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -13,7 +13,7 @@ import roboguice.inject.InjectView;
 
 import static java.lang.String.valueOf;
 
-public class MessageEditTextFragment extends RoboFragment {
+public class MessageFragment extends RoboFragment {
     private static final int MAX_CHARACTER_COUNT = 85;
     @InjectView(R.id.characters_left_view)
     private TextView charactersLeftView;

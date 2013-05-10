@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.amnesty.panicbutton.alert.AlertStatus;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import com.amnesty.panicbutton.twitter.TwitterSettingsActivity;
