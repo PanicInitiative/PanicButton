@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TwitterShortCodeMap {
+public class CountryServiceProviderMap {
     private String country;
     private Map<String, String> serviceProviders = new HashMap<String, String>();
 
-    public TwitterShortCodeMap(String country, Map<String, String> serviceProviders) {
+    public CountryServiceProviderMap(String country, Map<String, String> serviceProviderShortCodeMap) {
         this.country = country;
-        this.serviceProviders = serviceProviders;
+        this.serviceProviders = serviceProviderShortCodeMap;
     }
 
     public List<String> getServiceProviders() {

@@ -71,4 +71,6 @@
 
     <string name="opt_twitter_text">Post alert to Twitter via SMS</string>
     <string name="twitter_help_text">To connect your phone to Twitter by SMS, send a text with the word START to:</string>
+    <string name="select_country_hint">Select country</string>
+    <string name="select_phone_service_hint">Select phone service</string>
 </resources>

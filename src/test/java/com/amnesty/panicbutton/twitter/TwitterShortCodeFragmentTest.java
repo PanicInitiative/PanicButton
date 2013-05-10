@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterShortCodeFragmentTest {
+    public static final int COUNTRIES_COUNT = 99;
+    public static final int INDIA_INDEX = 38;
+    public static final int INDIA_SERVICE_PROVIDERS_COUNT = 3;
     private TwitterShortCodeFragment twitterShortCodeFragment;
 
     private Spinner countrySpinner;
@@ -46,20 +49,39 @@ public class TwitterShortCodeFragmentTest {
 
     @Test
     public void shouldLoadCountrySpinnerOnCreate() {
-        assertEquals(99, countrySpinner.getCount());
+        assertEquals(COUNTRIES_COUNT, countrySpinner.getCount());
+        assertEquals("Select country", countrySpinner.getSelectedItem());
         assertFalse(shortCodeLayout.isShown());
     }
 
     @Test
     public void shouldShowServiceProvidersOnCountrySelection() {
-        countrySpinner.setSelection(38);
-        assertEquals(3, serviceProviderSpinner.getCount());
+        countrySpinner.setSelection(INDIA_INDEX);
+
+        assertEquals(INDIA_SERVICE_PROVIDERS_COUNT, serviceProviderSpinner.getCount());
+        assertEquals("Select phone service", serviceProviderSpinner.getSelectedItem());
+        assertFalse(shortCodeLayout.isShown());
+    }
+
+    @Test
+    public void shouldNotProcessAnythingOnCountryHintSelection() {
+        countrySpinner.setSelection(COUNTRIES_COUNT);
+
+        assertEquals(0, serviceProviderSpinner.getCount());
+        assertFalse(shortCodeLayout.isShown());
+    }
+
+    @Test
+    public void shouldNotProcessAnythingOnServiceProviderHintSelection() {
+        countrySpinner.setSelection(INDIA_INDEX);
+        serviceProviderSpinner.setSelection(INDIA_SERVICE_PROVIDERS_COUNT);
+
         assertFalse(shortCodeLayout.isShown());
     }
 
     @Test
     public void shouldShowShortCodeInfoOnServiceProviderSelection() {
-        countrySpinner.setSelection(38);
+        countrySpinner.setSelection(INDIA_INDEX);
         serviceProviderSpinner.setSelection(1);
 
         assertTrue(shortCodeLayout.isShown());

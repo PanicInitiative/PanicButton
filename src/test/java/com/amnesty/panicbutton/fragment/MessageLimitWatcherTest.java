@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import static com.amnesty.panicbutton.AppConstants.MAX_CHARACTER_COUNT;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
@@ -15,7 +14,7 @@ public class MessageLimitWatcherTest {
     @Test
     public void shouldUpdateMessageLimitOnMainTextChange() {
         TextView textView = new TextView(new Activity());
-        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, "Characters left : ", MAX_CHARACTER_COUNT);
+        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, "Characters left : ", 85);
 
         messageLimitWatcher.beforeTextChanged(null,-1,-1,-1);
         messageLimitWatcher.onTextChanged("test", -1, -1, -1);
