@@ -1,5 +1,6 @@
 package com.amnesty.panicbutton.twitter;
 
+import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,27 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 public class TwitterShortCodeFragment extends RoboFragment {
+    private Map<String, Map<String, String>> allCountriesShortCodeMap = new HashMap<String, Map<String, String>>();
+    private CountryServiceProviderMap selectedCountryMap;
+
+    private Spinner countrySpinner;
+    private Spinner serviceProviderSpinner;
+
+    @InjectView(R.id.twitter_short_code)
+    private TextView shortCodeTextView;
+    @InjectView(R.id.twitter_help_text)
+    private TextView shortCodeHelpText;
+    @InjectView(R.id.twitter_short_code_layout)
+    private ViewGroup shortCodeLayout;
+    private ShortCodeSelectedListener callback;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ShortCodeSelectedListener) {
+            callback = (ShortCodeSelectedListener) activity;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,21 +101,31 @@ public class TwitterShortCodeFragment extends RoboFragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if(isHintTextSelected(position, serviceProviderSpinner)) {
+                shortCodeSelected(false);
                 return;
             }
             String selectedServiceProvider = (String) parent.getItemAtPosition(position);
-            updateShortCodeHelpText(selectedServiceProvider);
+            processShortCodeChange(selectedServiceProvider);
             String shortCode = selectedCountryMap.getShortCode(selectedServiceProvider);
             shortCodeTextView.setText(shortCode);
             shortCodeLayout.setVisibility(VISIBLE);
         }
     };
 
-    private void updateShortCodeHelpText(String selectedServiceProvider) {
+    private void processShortCodeChange(String selectedServiceProvider) {
         if(selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
             shortCodeHelpText.setText(getString(R.string.twitter_provider_not_supported_text));
+            shortCodeSelected(false);
+
         } else {
             shortCodeHelpText.setText(getString(R.string.twitter_help_text));
+            shortCodeSelected(true);
+        }
+    }
+
+    void shortCodeSelected(boolean successFlag) {
+        if(callback != null) {
+            callback.onShortCodeSelection(successFlag);
         }
     }
 
@@ -101,18 +133,9 @@ public class TwitterShortCodeFragment extends RoboFragment {
         return currentPosition == spinner.getAdapter().getCount();
     }
 
-    private CountryServiceProviderMap selectedCountryMap;
-    private Map<String, Map<String, String>> allCountriesShortCodeMap = new HashMap<String, Map<String, String>>();
-
-    private Spinner countrySpinner;
-    private Spinner serviceProviderSpinner;
-
-    @InjectView(R.id.twitter_short_code)
-    private TextView shortCodeTextView;
-    @InjectView(R.id.twitter_help_text)
-    private TextView shortCodeHelpText;
-    @InjectView(R.id.twitter_short_code_layout)
-    private ViewGroup shortCodeLayout;
-
     private static final String FILE_NAME = "twitter_short_codes.json";
+
+    public interface ShortCodeSelectedListener {
+        public void onShortCodeSelection(boolean successFlag);
+    }
 }

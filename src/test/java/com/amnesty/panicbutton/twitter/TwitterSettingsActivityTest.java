@@ -48,5 +48,17 @@ public class TwitterSettingsActivityTest {
         assertFalse(shortCodeLayout.isShown());
         assertFalse(messageLayout.isShown());
     }
+
+    @Test
+    public void shouldShowTwitterEditTextOnSuccessfulShortCodeSelection() {
+        twitterSettingsActivity.onShortCodeSelection(true);
+        assertTrue(messageLayout.isShown());
+    }
+
+    @Test
+    public void shouldHideTwitterEditTextOnUnSuccessfulShortCodeSelection() {
+        twitterSettingsActivity.onShortCodeSelection(false);
+        assertFalse(messageLayout.isShown());
+    }
 }
 
