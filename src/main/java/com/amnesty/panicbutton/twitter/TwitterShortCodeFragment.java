@@ -1,25 +1,20 @@
 package com.amnesty.panicbutton.twitter;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import com.amnesty.panicbutton.R;
-import com.google.gson.Gson;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static android.R.layout.simple_spinner_item;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.amnesty.panicbutton.R.string.select_phone_service_hint;
@@ -38,24 +33,13 @@ public class TwitterShortCodeFragment extends RoboFragment {
         View view = inflater.inflate(R.layout.twitter_short_code_fragment, container, false);
         countrySpinner = (Spinner) view.findViewById(R.id.country_spinner);
         serviceProviderSpinner = (Spinner) view.findViewById(R.id.service_provider_spinner);
-
-        initAllCountriesShortCodeMap();
+        twitterSeedData = new TwitterSeedData(this.getActivity());
         initCountrySpinner();
         return view;
     }
 
-    private void initAllCountriesShortCodeMap() {
-        try {
-            AssetManager assetManager = this.getActivity().getApplicationContext().getAssets();
-            InputStreamReader inputStreamReader = new InputStreamReader(assetManager.open(FILE_NAME));
-            allCountriesShortCodeMap = new Gson().fromJson(inputStreamReader, Map.class);
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "Error reading shortCodes : " + e.getMessage());
-        }
-    }
-
     public void initCountrySpinner() {
-        List<String> countries = new ArrayList<String>(allCountriesShortCodeMap.keySet());
+        List<String> countries = twitterSeedData.getCountries();
         SpinnerAdapter countrySpinnerAdapter = new HintSpinnerAdapter(getString(R.string.select_country_hint), countries, getActivity());
 
         countrySpinner.setAdapter(countrySpinnerAdapter);
@@ -70,9 +54,9 @@ public class TwitterShortCodeFragment extends RoboFragment {
                 return;
             }
             String currentCountry = (String) parent.getItemAtPosition(position);
-            selectedCountryMap = new CountryServiceProviderMap(currentCountry, allCountriesShortCodeMap.get(currentCountry));
+            twitterSettings = new TwitterSettings(currentCountry);
 
-            List<String> serviceProviders = selectedCountryMap.getServiceProviders();
+            List<String> serviceProviders = twitterSeedData.getServiceProviders(currentCountry);
             serviceProviders.add(getString(R.string.other_phone_service));
             HintSpinnerAdapter serviceProviderAdapter = new HintSpinnerAdapter(getString(select_phone_service_hint),
                     serviceProviders, getActivity());
@@ -91,8 +75,11 @@ public class TwitterShortCodeFragment extends RoboFragment {
                 return;
             }
             String selectedServiceProvider = (String) parent.getItemAtPosition(position);
+            String shortCode = twitterSeedData.getShortCode(twitterSettings.getCountry(),selectedServiceProvider);
+            twitterSettings.setServiceProvider(selectedServiceProvider);
+            twitterSettings.setShortCode(shortCode);
+
             processShortCodeChange(selectedServiceProvider);
-            String shortCode = selectedCountryMap.getShortCode(selectedServiceProvider);
             shortCodeTextView.setText(shortCode);
             shortCodeLayout.setVisibility(VISIBLE);
         }
@@ -119,23 +106,12 @@ public class TwitterShortCodeFragment extends RoboFragment {
         return currentPosition == spinner.getAdapter().getCount();
     }
 
-    public void reset() {
-        countrySpinner.setSelection(countrySpinner.getAdapter().getCount(), true);
-        serviceProviderSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), simple_spinner_item));
-        shortCodeHelpText.setText("");
-        shortCodeTextView.setText("");
-        shortCodeLayout.setVisibility(INVISIBLE);
-    }
-
     public interface ShortCodeSelectedListener {
         public void onShortCodeSelection(boolean successFlag);
-
     }
 
-    private static final String FILE_NAME = "twitter_short_codes.json";
-
-    private Map<String, Map<String, String>> allCountriesShortCodeMap = new HashMap<String, Map<String, String>>();
-    private CountryServiceProviderMap selectedCountryMap;
+    private TwitterSeedData twitterSeedData;
+    private TwitterSettings twitterSettings;
 
     private Spinner countrySpinner;
     private Spinner serviceProviderSpinner;

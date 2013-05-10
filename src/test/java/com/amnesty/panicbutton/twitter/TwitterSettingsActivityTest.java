@@ -80,16 +80,4 @@ public class TwitterSettingsActivityTest {
         twitterSettingsActivity.onShortCodeSelection(false);
         assertFalse(messageLayout.isShown());
     }
-
-    @Test
-    public void shouldResetTwitterShortCodeFragmentOnTwitterOption() {
-        optTwitterCheckbox.setChecked(false);
-        optTwitterCheckbox.performClick();
-        countrySpinner.setSelection(5);
-        serviceProviderSpinner.setSelection(0);
-
-        optTwitterCheckbox.performClick();
-
-        assertEquals("Select country", countrySpinner.getSelectedItem());
-    }
 }
