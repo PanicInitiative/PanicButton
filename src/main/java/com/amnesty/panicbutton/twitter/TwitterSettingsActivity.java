@@ -5,14 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.common.MessageFragment;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectFragment;
 import roboguice.inject.InjectView;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.amnesty.panicbutton.twitter.TwitterShortCodeFragment.ShortCodeSelectedListener;
 
-public class TwitterSettingsActivity extends RoboFragmentActivity implements TwitterShortCodeFragment.ShortCodeSelectedListener {
+public class TwitterSettingsActivity extends RoboFragmentActivity implements ShortCodeSelectedListener {
 
     @InjectView(R.id.opt_twitter_checkbox)
     private CheckBox optTwitterCheckbox;
@@ -26,6 +28,9 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Twi
     @InjectFragment(R.id.twitter_short_code_fragment)
     private TwitterShortCodeFragment twitterShortCodeFragment;
 
+    @InjectFragment(R.id.twitter_message_fragment)
+    private MessageFragment twitterMessageFragment;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.twitter_settings_layout);
@@ -34,6 +39,12 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Twi
     public void toggleTwitterSettings(View view) {
         messageLayout.setVisibility(INVISIBLE);
         shortCodeLayout.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
+    }
+
+    public void onSave(View view) {
+        ShortCodeSettings shortCodeSettings = twitterShortCodeFragment.getShortCodeSettings();
+        TwitterSettings twitterSettings = new TwitterSettings(shortCodeSettings, twitterMessageFragment.getMessage());
+        TwitterSettings.save(this, twitterSettings);
     }
 
     @Override

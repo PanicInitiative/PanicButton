@@ -25,6 +25,7 @@
 
         <Button android:id="@+id/twitter_save_button"
                 style="@style/save_button"
+                android:onClick="onSave"
                 android:background="@drawable/topbar_button"
                 android:text="@string/save_text"
                 android:layout_height="fill_parent"

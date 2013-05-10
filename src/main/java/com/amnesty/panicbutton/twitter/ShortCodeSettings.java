@@ -20,4 +20,12 @@ public class ShortCodeSettings {
     public void setServiceProvider(String serviceProvider) {
         this.serviceProvider = serviceProvider;
     }
+
+    public String getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public String getShortCode() {
+        return shortCode;
+    }
 }

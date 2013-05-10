@@ -40,4 +40,8 @@ public class MessageFragment extends RoboFragment {
 
         charactersLeftView.setText(prefix + valueOf(MAX_CHARACTER_COUNT - messageEditText.getText().length()));
     }
+
+    public String getMessage() {
+        return messageEditText.getText().toString();
+    }
 }

@@ -1,46 +1,66 @@
 package com.amnesty.panicbutton.twitter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.common.MessageFragment;
+import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import static android.view.View.VISIBLE;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterSettingsActivityTest {
     private TwitterSettingsActivity twitterSettingsActivity;
     private CheckBox optTwitterCheckbox;
+    private Button saveButton;
     private ViewGroup shortCodeLayout;
     private ViewGroup messageLayout;
-    private Spinner countrySpinner;
-    private Spinner serviceProviderSpinner;
+
+    private ShortCodeSettings shortCodeSettings;
+
+    @Mock
+    private TwitterShortCodeFragment mockTwitterShortCodeFragment;
+
+    @Mock
+    private MessageFragment mockTwitterMessageFragment;
+    private String country;
+    private String serviceProvider;
+    private String shortCode;
 
     @Before
-    public void setup() {
+    public void setup() throws IllegalAccessException {
+        initMocks(this);
+        country = "India";
+        serviceProvider = "Airtel";
+        shortCode = "53000";
+        setShortCodeSettings();
+
         twitterSettingsActivity = new TwitterSettingsActivity();
         twitterSettingsActivity.onCreate(null);
+        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "twitterShortCodeFragment", mockTwitterShortCodeFragment);
+        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "twitterMessageFragment", mockTwitterMessageFragment);
 
         optTwitterCheckbox = (CheckBox) twitterSettingsActivity.findViewById(R.id.opt_twitter_checkbox);
+        saveButton = (Button) twitterSettingsActivity.findViewById(R.id.twitter_save_button);
         shortCodeLayout = (ViewGroup) twitterSettingsActivity.findViewById(R.id.twitter_short_code_layout);
         messageLayout = (ViewGroup) twitterSettingsActivity.findViewById(R.id.twitter_message_layout);
-        countrySpinner = (Spinner) findViewInFragment(R.id.twitter_short_code_fragment, R.id.country_spinner);
-        serviceProviderSpinner = (Spinner) findViewInFragment(R.id.twitter_short_code_fragment, R.id.service_provider_spinner);
     }
 
-    private View findViewInFragment(int fragmentId, int viewId) {
-        FragmentManager fragmentManager = twitterSettingsActivity.getSupportFragmentManager();
-        Fragment twitterShortCodeFragment = fragmentManager.findFragmentById(fragmentId);
-        return twitterShortCodeFragment.getView().findViewById(viewId);
+    private void setShortCodeSettings() {
+        shortCodeSettings = new ShortCodeSettings(country);
+        shortCodeSettings.setServiceProvider(serviceProvider);
+        shortCodeSettings.setShortCode(shortCode);
     }
 
     @Test
@@ -79,5 +99,22 @@ public class TwitterSettingsActivityTest {
     public void shouldHideTwitterEditTextOnUnSuccessfulShortCodeSelection() {
         twitterSettingsActivity.onShortCodeSelection(false);
         assertFalse(messageLayout.isShown());
+    }
+
+    @Test
+    public void shouldSaveTwitterSettings() {
+        String testMessage = "Test Message";
+
+        when(mockTwitterShortCodeFragment.getShortCodeSettings()).thenReturn(shortCodeSettings);
+        when(mockTwitterMessageFragment.getMessage()).thenReturn(testMessage);
+
+        saveButton.performClick();
+
+        TwitterSettings twitterSettings = TwitterSettings.retrieve(Robolectric.application);
+        ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
+        assertEquals(testMessage, twitterSettings.getMessage());
+        assertEquals(country, shortCodeSettings.getCountry());
+        assertEquals(serviceProvider, shortCodeSettings.getServiceProvider());
+        assertEquals(shortCode, shortCodeSettings.getShortCode());
     }
 }

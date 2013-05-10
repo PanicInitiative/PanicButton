@@ -106,6 +106,10 @@ public class TwitterShortCodeFragment extends RoboFragment {
         return currentPosition == spinner.getAdapter().getCount();
     }
 
+    public ShortCodeSettings getShortCodeSettings() {
+        return shortCodeSettings;
+    }
+
     public interface ShortCodeSelectedListener {
         public void onShortCodeSelection(boolean successFlag);
     }
