@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.common.TestFragmentActivity;
 import com.amnesty.panicbutton.model.SMSSettings;
+import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,8 @@ import java.util.List;
 
 import static com.amnesty.panicbutton.R.id.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -175,6 +178,26 @@ public class SMSSettingsFragmentTest {
     }
 
     @Test
+    public void shouldInvokeActionStateChangeOnActionButtonStateListener() throws IllegalAccessException {
+        SMSSettingsFragment fragment = createSMSSettingsFragment();
+        ActionButtonStateListener mockActionButtonStateListener = mock(ActionButtonStateListener.class);
+        ReflectionUtils.setVariableValueInObject(fragment, "actionButtonStateListener", mockActionButtonStateListener);
+
+        fragment.onFragmentSelected();
+        verify(mockActionButtonStateListener).onActionStateChanged(true);
+    }
+
+    private SMSSettingsFragment createSMSSettingsFragment() {
+        RoboFragmentActivity activity = new RoboFragmentActivity();
+        SMSSettingsFragment fragment = SMSSettingsFragment.create(R.string.sms_settings_header);
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(fragment, null);
+        fragmentTransaction.commit();
+        return fragment;
+    }
+
+    @Test
     public void shouldLoadTheDefaultTextWhenSettingsNotConfigured() {
         clearSMSSettings();
         SMSSettingsFragment fragment = createSMSSettingsFragment();
@@ -186,16 +209,6 @@ public class SMSSettingsFragmentTest {
     @Test
     public void shouldSetHeaderForFragment() {
         assertEquals("SMS alert settings", headerTextView.getText().toString());
-    }
-
-    private SMSSettingsFragment createSMSSettingsFragment() {
-        RoboFragmentActivity activity = new RoboFragmentActivity();
-        SMSSettingsFragment fragment = SMSSettingsFragment.create(R.string.sms_settings_header);
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragment, null);
-        fragmentTransaction.commit();
-        return fragment;
     }
 
     private void setViewData() {
