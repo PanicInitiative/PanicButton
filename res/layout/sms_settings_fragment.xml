@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:custom="http://schemas.android.com/apk/res/com.amnesty.panicbutton"
             android:id="@+id/sms_settings_fragment_root"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
@@ -72,6 +73,8 @@
             <fragment android:id="@+id/sms_message"
                       android:name="com.amnesty.panicbutton.common.MessageFragment"
                       android:padding="@dimen/sms_message_widget_padding"
+                      custom:max_characters="85"
+                      custom:message_header="@string/emergency_message_header"
                       android:layout_width="wrap_content"
                       android:layout_height="match_parent"/>
         </LinearLayout>

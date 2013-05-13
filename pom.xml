@@ -93,6 +93,7 @@
                         <platform>10</platform>
                     </sdk>
                     <lint>
+                        <config>${project.basedir}/lint.xml</config>
                         <skip>false</skip>
                         <failOnError>true</failOnError>
                         <enableHtml>true</enableHtml>

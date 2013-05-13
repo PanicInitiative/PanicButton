@@ -67,6 +67,7 @@
     <string name="contact_hint">enter emergency contact</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
+    <string name="twitter_emergency_message_header">Emergency tweet</string>
 
     <string name="opt_twitter_text">Post alert to Twitter via SMS</string>
     <string name="twitter_help_text">To connect your phone to Twitter by SMS, send a text with the word START to:</string>
