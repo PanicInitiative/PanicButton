@@ -36,7 +36,12 @@
     <View android:layout_width="fill_parent"
           android:layout_height="1dp"
           style="@style/custom_action_bar_sep"/>
-
+    <ScrollView android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+        <LinearLayout android:layout_height="wrap_content"
+                      android:layout_width="fill_parent"
+                      android:orientation="vertical"
+                      style="@style/wizard_static_panel">
     <CheckBox android:id="@+id/opt_twitter_checkbox"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -46,7 +51,8 @@
     <LinearLayout android:id="@+id/twitter_short_code_layout"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:visibility="invisible">
+                  android:visibility="invisible"
+            >
         <fragment android:id="@+id/twitter_short_code_fragment"
                   android:name="com.amnesty.panicbutton.twitter.TwitterShortCodeFragment"
                   android:layout_width="match_parent"
@@ -55,7 +61,8 @@
     <LinearLayout android:id="@+id/twitter_message_layout"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:visibility="invisible">
+                  android:visibility="invisible"
+                  >
         <fragment android:id="@+id/twitter_message_fragment"
                   android:name="com.amnesty.panicbutton.common.MessageFragment"
                   custom:max_characters="65"
@@ -63,5 +70,6 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"/>
     </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
