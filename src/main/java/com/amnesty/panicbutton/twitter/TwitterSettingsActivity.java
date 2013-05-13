@@ -20,6 +20,11 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Sho
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.twitter_settings_layout);
+        loadSettings();
+    }
+
+    private void loadSettings() {
+        optTwitterCheckbox.setChecked(TwitterSettings.isEnabled(this));
     }
 
     public void toggleTwitterSettings(View view) {

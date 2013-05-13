@@ -139,4 +139,20 @@ public class TwitterSettingsActivityTest {
         saveButton.performClick();
         assertFalse(TwitterSettings.isEnabled(context));
     }
+
+    @Test
+    public void shouldLoadTheSavedSettingsAndEnableOrDisableTwitterOnCreate() {
+        TwitterSettings.enable(context);
+        assertOptTwitterStatus(true);
+
+        TwitterSettings.disable(context);
+        assertOptTwitterStatus(false);
+    }
+
+    private void assertOptTwitterStatus(boolean status) {
+        TwitterSettingsActivity activity = new TwitterSettingsActivity();
+        activity.onCreate(null);
+        CheckBox checkBox = (CheckBox) activity.findViewById(R.id.opt_twitter_checkbox);
+        assertEquals(status, checkBox.isChecked());
+    }
 }
