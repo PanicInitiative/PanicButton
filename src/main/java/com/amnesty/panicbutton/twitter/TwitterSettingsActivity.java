@@ -15,21 +15,7 @@ import static android.view.View.VISIBLE;
 import static com.amnesty.panicbutton.twitter.TwitterShortCodeFragment.ShortCodeSelectedListener;
 
 public class TwitterSettingsActivity extends RoboFragmentActivity implements ShortCodeSelectedListener {
-
-    @InjectView(R.id.opt_twitter_checkbox)
-    private CheckBox optTwitterCheckbox;
-
-    @InjectView(R.id.twitter_short_code_layout)
-    private ViewGroup shortCodeLayout;
-
-    @InjectView(R.id.twitter_message_layout)
-    private ViewGroup messageLayout;
-
-    @InjectFragment(R.id.twitter_short_code_fragment)
-    private TwitterShortCodeFragment twitterShortCodeFragment;
-
-    @InjectFragment(R.id.twitter_message_fragment)
-    private MessageFragment twitterMessageFragment;
+    private boolean isShortCodeConfigured;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +23,9 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Sho
     }
 
     public void toggleTwitterSettings(View view) {
-        messageLayout.setVisibility(INVISIBLE);
-        shortCodeLayout.setVisibility(optTwitterCheckbox.isChecked() ? VISIBLE : INVISIBLE);
+        boolean checked = optTwitterCheckbox.isChecked();
+        messageLayout.setVisibility(checked && isShortCodeConfigured ? VISIBLE : INVISIBLE);
+        shortCodeLayout.setVisibility(checked ? VISIBLE : INVISIBLE);
     }
 
     public void onSave(View view) {
@@ -54,6 +41,22 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Sho
 
     @Override
     public void onShortCodeSelection(boolean successFlag) {
+        isShortCodeConfigured = successFlag;
         messageLayout.setVisibility(successFlag ? VISIBLE : INVISIBLE);
     }
+
+    @InjectView(R.id.opt_twitter_checkbox)
+    private CheckBox optTwitterCheckbox;
+
+    @InjectView(R.id.twitter_short_code_layout)
+    private ViewGroup shortCodeLayout;
+
+    @InjectView(R.id.twitter_message_layout)
+    private ViewGroup messageLayout;
+
+    @InjectFragment(R.id.twitter_short_code_fragment)
+    private TwitterShortCodeFragment twitterShortCodeFragment;
+
+    @InjectFragment(R.id.twitter_message_fragment)
+    private MessageFragment twitterMessageFragment;
 }

@@ -75,10 +75,19 @@ public class TwitterSettingsActivityTest {
     }
 
     @Test
-    public void shouldShowShortCodeFragmentOnEnablingTwitter() {
+    public void shouldOnlyShowShortCodeFragmentOnEnablingTwitterAndShortCodeNotConfigured() throws IllegalAccessException {
+        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "isShortCodeConfigured", false);
         optTwitterCheckbox.performClick();
         assertTrue(shortCodeLayout.isShown());
         assertFalse(messageLayout.isShown());
+    }
+
+    @Test
+    public void shouldShowShortCodeFragmentAndMessageIfShortCodeIsAlreadyConfigured() throws IllegalAccessException {
+        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "isShortCodeConfigured", true);
+        optTwitterCheckbox.performClick();
+        assertTrue(shortCodeLayout.isShown());
+        assertTrue(messageLayout.isShown());
     }
 
     @Test
