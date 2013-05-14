@@ -62,4 +62,10 @@ public class MessageFragment extends RoboFragment {
     public String getMessage() {
         return messageEditText.getText().toString();
     }
+
+    public void setMessage(String message) {
+        if (message != null) {
+            messageEditText.setText(message);
+        }
+    }
 }

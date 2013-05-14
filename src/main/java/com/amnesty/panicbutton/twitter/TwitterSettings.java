@@ -15,7 +15,6 @@ public class TwitterSettings {
     private ShortCodeSettings shortCodeSettings;
     private String message;
 
-
     public TwitterSettings(ShortCodeSettings shortCodeSettings, String message) {
         this.shortCodeSettings = shortCodeSettings;
         this.message = message;
@@ -72,5 +71,9 @@ public class TwitterSettings {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(TWITTER_ENABLED, status);
         editor.commit();
+    }
+
+    public boolean isValid() {
+        return this.getShortCodeSettings().getShortCode() != null;
     }
 }

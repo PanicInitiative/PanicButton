@@ -1,158 +1,104 @@
 package com.amnesty.panicbutton.twitter;
 
 import android.app.Application;
-import android.view.ViewGroup;
+import android.support.v4.app.FragmentManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import com.amnesty.panicbutton.R;
-import com.amnesty.panicbutton.common.MessageFragment;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import static android.view.View.VISIBLE;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterSettingsActivityTest {
     private TwitterSettingsActivity twitterSettingsActivity;
+    private TwitterSettingsFragment twitterSettingsFragment;
     private CheckBox optTwitterCheckbox;
-    private Button saveButton;
-    private ViewGroup shortCodeLayout;
-    private ViewGroup messageLayout;
-
-    private ShortCodeSettings shortCodeSettings;
-
-    @Mock
-    private TwitterShortCodeFragment mockTwitterShortCodeFragment;
-
-    @Mock
-    private MessageFragment mockTwitterMessageFragment;
-    private String country;
-    private String serviceProvider;
-    private String shortCode;
     private Application context;
+
+    private Button saveButton;
 
     @Before
     public void setup() throws IllegalAccessException {
         initMocks(this);
         context = Robolectric.application;
-
-        country = "India";
-        serviceProvider = "Airtel";
-        shortCode = "53000";
-        setShortCodeSettings();
-
         twitterSettingsActivity = new TwitterSettingsActivity();
         twitterSettingsActivity.onCreate(null);
-        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "twitterShortCodeFragment", mockTwitterShortCodeFragment);
-        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "twitterMessageFragment", mockTwitterMessageFragment);
 
         optTwitterCheckbox = (CheckBox) twitterSettingsActivity.findViewById(R.id.opt_twitter_checkbox);
         saveButton = (Button) twitterSettingsActivity.findViewById(R.id.twitter_save_button);
-        shortCodeLayout = (ViewGroup) twitterSettingsActivity.findViewById(R.id.twitter_short_code_layout);
-        messageLayout = (ViewGroup) twitterSettingsActivity.findViewById(R.id.twitter_message_layout);
-    }
 
-    private void setShortCodeSettings() {
-        shortCodeSettings = new ShortCodeSettings(country);
-        shortCodeSettings.setServiceProvider(serviceProvider);
-        shortCodeSettings.setShortCode(shortCode);
+        FragmentManager supportFragmentManager = twitterSettingsActivity.getSupportFragmentManager();
+        twitterSettingsFragment = (TwitterSettingsFragment) supportFragmentManager.findFragmentById(R.id.twitter_settings_fragment);
     }
 
     @Test
-    public void shouldLoadTwitterLayoutOnCreate() {
-        assertEquals(R.id.twitter_settings_layout_root, shadowOf(twitterSettingsActivity).getContentView().getId());
-        assertFalse(shortCodeLayout.isShown());
-        assertFalse(messageLayout.isShown());
+    public void shouldHideTwitterSettingsFragmentOnCreateWhenTwitterConfigured() {
+        TwitterSettings.disable(Robolectric.application);
+        twitterSettingsActivity = new TwitterSettingsActivity();
+        twitterSettingsActivity.onCreate(null);
+
+        FragmentManager supportFragmentManager = twitterSettingsActivity.getSupportFragmentManager();
+        twitterSettingsFragment = (TwitterSettingsFragment) supportFragmentManager.findFragmentById(R.id.twitter_settings_fragment);
+
+        assertEquals(R.id.twitter_settings_layout_root,
+                shadowOf(twitterSettingsActivity).getContentView().getId());
     }
 
     @Test
-    public void shouldOnlyShowShortCodeFragmentOnEnablingTwitterAndShortCodeNotConfigured() throws IllegalAccessException {
-        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "isShortCodeConfigured", false);
+    public void shouldShowTwitterSettingsFragmentOnCreateWhenTwitterConfigured() {
+        TwitterSettings.enable(Robolectric.application);
+        twitterSettingsActivity = new TwitterSettingsActivity();
+        twitterSettingsActivity.onCreate(null);
+
+        FragmentManager supportFragmentManager = twitterSettingsActivity.getSupportFragmentManager();
+        twitterSettingsFragment = (TwitterSettingsFragment) supportFragmentManager.findFragmentById(R.id.twitter_settings_fragment);
+
+        assertTrue(twitterSettingsFragment.isVisible());
+    }
+
+    @Test
+    public void shouldShowTwitterSettingsOnEnablingCheckbox() {
+        optTwitterCheckbox.setChecked(false);
         optTwitterCheckbox.performClick();
-        assertTrue(shortCodeLayout.isShown());
-        assertFalse(messageLayout.isShown());
+        assertTrue(twitterSettingsFragment.isVisible());
     }
 
     @Test
-    public void shouldShowShortCodeFragmentAndMessageIfShortCodeIsAlreadyConfigured() throws IllegalAccessException {
-        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "isShortCodeConfigured", true);
-        optTwitterCheckbox.performClick();
-        assertTrue(shortCodeLayout.isShown());
-        assertTrue(messageLayout.isShown());
-    }
-
-    @Test
-    public void shouldHideShortCodeFragmentAndMessageFragmentOnDisablingTwitter() {
-        optTwitterCheckbox.setChecked(true);
-        shortCodeLayout.setVisibility(VISIBLE);
-        messageLayout.setVisibility(VISIBLE);
-
-        optTwitterCheckbox.performClick();
-
-        assertFalse(shortCodeLayout.isShown());
-        assertFalse(messageLayout.isShown());
-    }
-
-    @Test
-    public void shouldShowTwitterEditTextOnSuccessfulShortCodeSelection() {
-        twitterSettingsActivity.onShortCodeSelection(true);
-        assertTrue(messageLayout.isShown());
-    }
-
-    @Test
-    public void shouldHideTwitterEditTextOnUnSuccessfulShortCodeSelection() {
-        twitterSettingsActivity.onShortCodeSelection(false);
-        assertFalse(messageLayout.isShown());
-    }
-
-    @Test
-    public void shouldSaveTwitterSettings() {
-        String testMessage = "Test Message";
-        optTwitterCheckbox.setChecked(true);
-
-        when(mockTwitterShortCodeFragment.getShortCodeSettings()).thenReturn(shortCodeSettings);
-        when(mockTwitterMessageFragment.getMessage()).thenReturn(testMessage);
-
-        saveButton.performClick();
-
-        assertTrue(TwitterSettings.isEnabled(context));
-        TwitterSettings twitterSettings = TwitterSettings.retrieve(context);
-        ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
-        assertEquals(testMessage, twitterSettings.getMessage());
-        assertEquals(country, shortCodeSettings.getCountry());
-        assertEquals(serviceProvider, shortCodeSettings.getServiceProvider());
-        assertEquals(shortCode, shortCodeSettings.getShortCode());
-    }
-
-    @Test
-    public void shouldSaveThatTwitterSettingsIsDisabled() {
+    @Ignore
+    public void shouldHideTwitterSettingsOnDisablingCheckbox() {
         optTwitterCheckbox.setChecked(false);
         saveButton.performClick();
+        assertTrue(twitterSettingsFragment.isHidden());
+    }
+
+    @Test
+    public void shouldDisableTwitterSettings() {
+        optTwitterCheckbox.setChecked(false);
+        saveButton.performClick();
+
         assertFalse(TwitterSettings.isEnabled(context));
     }
 
     @Test
-    public void shouldLoadTheSavedSettingsAndEnableOrDisableTwitterOnCreate() {
-        TwitterSettings.enable(context);
-        assertOptTwitterStatus(true);
+    public void shouldEnableAndSaveTwitterSettings() throws IllegalAccessException {
+        TwitterSettingsFragment mock = mock(TwitterSettingsFragment.class);
+        ReflectionUtils.setVariableValueInObject(twitterSettingsActivity, "twitterSettingsFragment", mock);
 
-        TwitterSettings.disable(context);
-        assertOptTwitterStatus(false);
-    }
+        optTwitterCheckbox.setChecked(true);
+        saveButton.performClick();
 
-    private void assertOptTwitterStatus(boolean status) {
-        TwitterSettingsActivity activity = new TwitterSettingsActivity();
-        activity.onCreate(null);
-        CheckBox checkBox = (CheckBox) activity.findViewById(R.id.opt_twitter_checkbox);
-        assertEquals(status, checkBox.isChecked());
+        assertTrue(TwitterSettings.isEnabled(context));
+        verify(mock).save();
     }
 }

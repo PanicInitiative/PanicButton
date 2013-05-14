@@ -1,75 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:custom="http://schemas.android.com/apk/res/com.amnesty.panicbutton"
               android:id="@+id/twitter_settings_layout_root"
               android:orientation="vertical"
               android:layout_height="fill_parent"
               android:layout_width="fill_parent">
-
-    <LinearLayout
-            style="@style/custom_action_bar"
-            android:layout_height="50dp"
-            android:layout_width="fill_parent">
-
-        <Button android:id="@+id/twitter_previous_button"
-                style="@style/back_button"
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"
-                android:background="@drawable/back_button"/>
-
-        <TextView
-                style="@style/page_title"
-                android:text=""
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"/>
-
-
-        <Button android:id="@+id/twitter_save_button"
-                style="@style/save_button"
-                android:onClick="onSave"
-                android:background="@drawable/topbar_button"
-                android:text="@string/save_text"
-                android:layout_height="fill_parent"
-                android:layout_width="70dp"/>
-
-    </LinearLayout>
+    <include layout="@layout/twitter_settings_header"/>
     <View android:layout_width="fill_parent"
           android:layout_height="1dp"
           style="@style/custom_action_bar_sep"/>
+
     <ScrollView android:layout_height="wrap_content"
                 android:layout_width="fill_parent">
         <LinearLayout android:layout_height="wrap_content"
                       android:layout_width="fill_parent"
                       android:orientation="vertical"
                       style="@style/wizard_static_panel">
-    <CheckBox android:id="@+id/opt_twitter_checkbox"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/opt_twitter_text"
-              android:onClick="toggleTwitterSettings"/>
+            <CheckBox android:id="@+id/opt_twitter_checkbox"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="@string/opt_twitter_text"
+                      android:onClick="toggleTwitterSettings"/>
 
-    <LinearLayout android:id="@+id/twitter_short_code_layout"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:visibility="invisible"
-            >
-        <fragment android:id="@+id/twitter_short_code_fragment"
-                  android:name="com.amnesty.panicbutton.twitter.TwitterShortCodeFragment"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout android:id="@+id/twitter_message_layout"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:visibility="invisible"
-                  >
-        <fragment android:id="@+id/twitter_message_fragment"
-                  android:name="com.amnesty.panicbutton.common.MessageFragment"
-                  custom:max_characters="65"
-                  custom:message_header="@string/twitter_emergency_message_header"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"/>
-    </LinearLayout>
+            <fragment android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:id="@+id/twitter_settings_fragment"
+                      android:name="com.amnesty.panicbutton.twitter.TwitterSettingsFragment"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -8,12 +8,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.common.TestFragmentActivity;
-import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import roboguice.activity.RoboFragmentActivity;
 
 import static org.junit.Assert.*;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -30,11 +28,12 @@ public class TwitterShortCodeFragmentTest {
     private TextView shortCodeTextView;
     private TextView shortCodeHelpText;
     private TestFragmentActivity testFragmentActivity = new TestFragmentActivity();
+    private TwitterShortCodeFragment twitterShortCodeFragment;
 
     @Before
     public void setup() {
         initMocks(this);
-        TwitterShortCodeFragment twitterShortCodeFragment = createFragment(testFragmentActivity);
+        twitterShortCodeFragment = createFragment(testFragmentActivity);
 
         countrySpinner = (Spinner) twitterShortCodeFragment.getView().findViewById(R.id.country_spinner);
         serviceProviderSpinner = (Spinner) twitterShortCodeFragment.getView().findViewById(R.id.service_provider_spinner);
@@ -114,22 +113,15 @@ public class TwitterShortCodeFragmentTest {
     }
 
     @Test
-    public void shouldNotifyActivityOnShortCodeSelection() {
-        countrySpinner.setSelection(INDIA_INDEX);
-        serviceProviderSpinner.setSelection(INDIA_SERVICE_PROVIDERS_COUNT - 1);
-        assertFalse(testFragmentActivity.getShortCodeFlag());
+    public void shouldDisplayTheGivenSettings() {
+        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("UK");
+        shortCodeSettings.setServiceProvider("O2");
+        shortCodeSettings.setShortCode("86444");
 
-        serviceProviderSpinner.setSelection(1);
-        assertTrue(testFragmentActivity.getShortCodeFlag());
+        twitterShortCodeFragment.displaySettings(shortCodeSettings);
 
-        countrySpinner.setSelection(39);
-        assertFalse(testFragmentActivity.getShortCodeFlag());
-    }
-
-    @Test
-    public void shouldNotRegisterListenerWhenActivityIsNotOfTypeShortCodeChangeListener() throws IllegalAccessException {
-        TwitterShortCodeFragment twitterShortCodeFragment = createFragment(new RoboFragmentActivity());
-        twitterShortCodeFragment.shortCodeSelected(true);
-        assertNull(ReflectionUtils.getValueIncludingSuperclasses("callback", twitterShortCodeFragment));
+        assertEquals("UK", countrySpinner.getSelectedItem());
+        assertEquals("O2", serviceProviderSpinner.getSelectedItem());
+        assertEquals("86444", shortCodeTextView.getText().toString());
     }
 }

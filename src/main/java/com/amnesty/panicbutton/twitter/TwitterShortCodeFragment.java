@@ -1,14 +1,11 @@
 package com.amnesty.panicbutton.twitter;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+import android.widget.*;
 import com.amnesty.panicbutton.R;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
@@ -20,14 +17,6 @@ import static android.view.View.VISIBLE;
 import static com.amnesty.panicbutton.R.string.select_phone_service_hint;
 
 public class TwitterShortCodeFragment extends RoboFragment {
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof ShortCodeSelectedListener) {
-            callback = (ShortCodeSelectedListener) activity;
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.twitter_short_code_fragment, container, false);
@@ -71,7 +60,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             if (isHintTextSelected(position, serviceProviderSpinner)) {
-                shortCodeSelected(false);
+                sendBroadCast(false);
                 return;
             }
             String selectedServiceProvider = (String) parent.getItemAtPosition(position);
@@ -85,20 +74,47 @@ public class TwitterShortCodeFragment extends RoboFragment {
         }
     };
 
-    private void processShortCodeChange(String selectedServiceProvider) {
-        if (selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
-            shortCodeHelpText.setText(getString(R.string.twitter_provider_not_supported_text));
-            shortCodeSelected(false);
+    public void displaySettings(ShortCodeSettings shortCodeSettings) {
+        if(shortCodeSettings.getCountry() == null) {
+            reset();
+            return;
+        }
+        setSelection(countrySpinner, shortCodeSettings.getCountry());
+        setSelection(serviceProviderSpinner, shortCodeSettings.getServiceProvider());
+        this.shortCodeSettings = shortCodeSettings;
+    }
 
-        } else {
-            shortCodeHelpText.setText(getString(R.string.twitter_help_text));
-            shortCodeSelected(true);
+    public void reset() {
+        countrySpinner.setSelection(countrySpinner.getAdapter().getCount(), true);
+        serviceProviderSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item));
+        shortCodeHelpText.setText("");
+        shortCodeTextView.setText("");
+        shortCodeLayout.setVisibility(INVISIBLE);
+    }
+
+    private void setSelection(Spinner spinner, String value) {
+        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
+        if (adapter != null) {
+            spinner.setSelection(adapter.getPosition(value), true);
         }
     }
 
-    void shortCodeSelected(boolean successFlag) {
-        if (callback != null) {
-            callback.onShortCodeSelection(successFlag);
+    private void processShortCodeChange(String selectedServiceProvider) {
+        if (selectedServiceProvider.equals(getString(R.string.other_phone_service))) {
+            shortCodeHelpText.setText(getString(R.string.twitter_provider_not_supported_text));
+            sendBroadCast(false);
+
+        } else {
+            shortCodeHelpText.setText(getString(R.string.twitter_help_text));
+            sendBroadCast(true);
+        }
+    }
+
+    void sendBroadCast(boolean isShortCodeValid) {
+        if (isShortCodeValid) {
+            getActivity().sendBroadcast(new Intent(TwitterIntentAction.VALID_SHORT_CODE.getAction()));
+        } else {
+            getActivity().sendBroadcast(new Intent(TwitterIntentAction.INVALID_SHORT_CODE.getAction()));
         }
     }
 
@@ -108,10 +124,6 @@ public class TwitterShortCodeFragment extends RoboFragment {
 
     public ShortCodeSettings getShortCodeSettings() {
         return shortCodeSettings;
-    }
-
-    public interface ShortCodeSelectedListener {
-        public void onShortCodeSelection(boolean successFlag);
     }
 
     private TwitterSeedData twitterSeedData;
@@ -128,6 +140,4 @@ public class TwitterShortCodeFragment extends RoboFragment {
 
     @InjectView(R.id.twitter_short_code_layout)
     private ViewGroup shortCodeLayout;
-
-    private ShortCodeSelectedListener callback;
 }

@@ -1,12 +1,9 @@
 package com.amnesty.panicbutton.common;
 
-import com.amnesty.panicbutton.twitter.TwitterShortCodeFragment;
 import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import roboguice.activity.RoboFragmentActivity;
 
-public class TestFragmentActivity extends RoboFragmentActivity
-        implements ActionButtonStateListener,
-        TwitterShortCodeFragment.ShortCodeSelectedListener {
+public class TestFragmentActivity extends RoboFragmentActivity implements ActionButtonStateListener {
     private boolean actionButtonState;
     private boolean shortCodeFlag;
 
@@ -17,11 +14,6 @@ public class TestFragmentActivity extends RoboFragmentActivity
 
     public boolean getActionButtonState() {
         return actionButtonState;
-    }
-
-    @Override
-    public void onShortCodeSelection(boolean successFlag) {
-        this.shortCodeFlag = successFlag;
     }
 
     public boolean getShortCodeFlag() {

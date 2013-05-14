@@ -74,8 +74,24 @@ public class MessageFragmentTest {
 
     @Test
     public void shouldSetTheMessageHeaderAndCharsLeftTextOnCreate() {
-        String expectedMessage = application.getString(R.string.characters_left) + String.valueOf(85 - messageEditText.getText().length());
+        String message = messageFragment.getMessage();
+        String expectedMessage = application.getString(R.string.characters_left) + String.valueOf(85 - message.length());
         assertEquals(expectedMessage, charsLeftTextView.getText());
         assertEquals("Emergency Message", messageHeaderView.getText());
+    }
+
+    @Test
+    public void shouldSetTheGivenTextInMessageBox() {
+        String testMessage = "Test Message";
+        messageFragment.setMessage(testMessage);
+        assertEquals(testMessage, messageFragment.getMessage());
+    }
+
+    @Test
+    public void shouldIgnoreMessageModificationIfTheInputIsNull() {
+        String testMessage = "Test Message";
+        messageFragment.setMessage(testMessage);
+        messageFragment.setMessage(null);
+        assertEquals(testMessage, messageFragment.getMessage());
     }
 }

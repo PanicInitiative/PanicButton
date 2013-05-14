@@ -9,8 +9,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterSettingsTest {
@@ -21,6 +22,32 @@ public class TwitterSettingsTest {
     public void setUp() {
         context = Robolectric.application;
         sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    @Test
+    public void shouldSaveTwitterSettings() {
+        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("India");
+        shortCodeSettings.setServiceProvider("Airtel");
+        shortCodeSettings.setShortCode("53000");
+        TwitterSettings twitterSettings  = new TwitterSettings(shortCodeSettings, "Test Message");
+
+        TwitterSettings.save(context, twitterSettings);
+
+        Map<String, String> allPreferences = (Map<String, String>) sharedPreferences.getAll();
+        assertEquals("Test Message", allPreferences.get("TWITTER_MESSAGE"));
+        assertEquals("India", allPreferences.get("TWITTER_COUNTRY"));
+        assertEquals("Airtel", allPreferences.get("TWITTER_SERVICE_PROVIDER"));
+        assertEquals("53000", allPreferences.get("TWITTER_SHORT_CODE"));
+    }
+
+    @Test
+    public void shouldReturnValidOnlyIfShortCodeIsConfiguredProperly() {
+        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("India");
+        TwitterSettings settings = new TwitterSettings(shortCodeSettings,"Test Message");
+        assertFalse(settings.isValid());
+
+        shortCodeSettings.setShortCode("53000");
+        assertTrue(settings.isValid());
     }
 
     @Test
