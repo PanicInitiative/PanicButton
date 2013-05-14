@@ -4,7 +4,8 @@
               android:layout_height="50dp"
               android:layout_width="fill_parent">
 
-    <Button android:id="@+id/twitter_previous_button"
+    <Button android:id="@+id/twitter_back_button"
+            android:onClick="goBack"
             style="@style/back_button"
             android:layout_height="fill_parent"
             android:layout_width="wrap_content"

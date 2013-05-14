@@ -32,6 +32,7 @@ public class SettingsActivityTest {
     @Mock
     private PanicAlert mockPanicAlert;
     private TextView alertStatusText;
+    private Button backButton;
 
     @Before
     public void setup() {
@@ -47,6 +48,7 @@ public class SettingsActivityTest {
         smsRow = (TableRow) settingsActivity.findViewById(R.id.sms_row);
         twitterRow = (TableRow) settingsActivity.findViewById(R.id.twitter_row);
         activateButton = (Button) settingsActivity.findViewById(R.id.activate_alert);
+        backButton = (Button) settingsActivity.findViewById(R.id.settings_back_button);
         alertStatusText = (TextView) settingsActivity.findViewById(R.id.alert_status_text);
     }
 
@@ -83,6 +85,12 @@ public class SettingsActivityTest {
     public void shouldActivateAlertOnActivation() {
         activateButton.performClick();
         verify(mockPanicAlert).start();
+    }
+
+    @Test
+    public void shouldGoBackToFacadeOnClickingBack() {
+        backButton.performClick();
+        assertTrue(shadowOf(settingsActivity).isFinishing());
     }
 
     @Test

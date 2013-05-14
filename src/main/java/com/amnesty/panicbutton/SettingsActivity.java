@@ -50,6 +50,10 @@ public class SettingsActivity extends RoboActivity {
         getPanicAlert().start();
     }
 
+    public void goBack(View view) {
+        this.finish();
+    }
+
     PanicAlert getPanicAlert() {
         return new PanicAlert(this);
     }

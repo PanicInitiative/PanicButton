@@ -10,19 +10,17 @@
             android:layout_height="50dp"
             android:layout_width="fill_parent">
 
-        <Button
+        <Button android:id="@+id/settings_back_button"
                 style="@style/back_button"
+                android:onClick="goBack"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"
-                android:background="@drawable/back_button"
-                />
-
-
+                android:background="@drawable/back_button"/>
 
         <TextView android:layout_height="fill_parent"
                   android:layout_width="fill_parent"
                   android:text="@string/settings_label"
-                  style="@style/custom_action_bar_title" />
+                  style="@style/custom_action_bar_title"/>
 
 
     </LinearLayout>
@@ -30,86 +28,85 @@
           android:layout_height="1dp"
           style="@style/custom_action_bar_sep"></View>
 
-<LinearLayout
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
-                style="@style/settings_page">
-
-
-    <Button android:id="@+id/activate_alert"
-            android:text="@string/activate_alert"
-            android:layout_height="70dp"
+    <LinearLayout
             android:layout_width="fill_parent"
-            android:onClick="activateAlert"
-            android:background="@drawable/send_alert_button"
-            style="@style/alert_button"/>
-    <View android:layout_height="1sp"
-          android:layout_width="fill_parent"
-          style="@style/line"/>
-    <TextView android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/alert_status_text"
-              style="@style/alert_status" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            style="@style/settings_page">
 
-    <LinearLayout android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
-                  style="@style/settings_list">
-    <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        <View android:layout_height="1sp"
-              android:layout_width="fill_parent"
-              style="@style/line"/>
-        <TableRow android:id="@+id/sms_row"
-                  android:clickable="true"
-                  android:onClick="launchSmsActivity"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                    style="@style/settings_list_item">
-
-
-            <TextView android:text="@string/sms"
-                      android:layout_height="wrap_content"
-                      android:layout_width="fill_parent"
-                      style="@style/settings_list_item_text"/>
-
-            <ImageView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/settings_list_arrow"/>
-        </TableRow>
-
-        <View android:layout_height="1sp"
+        <Button android:id="@+id/activate_alert"
+                android:text="@string/activate_alert"
+                android:layout_height="70dp"
                 android:layout_width="fill_parent"
-                style="@style/line"/>
-
-        <TableRow android:id="@+id/twitter_row"
-                  android:clickable="true"
-                  android:onClick="launchTwitterActivity"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/settings_list_item">
-
-
-            <TextView android:text="@string/twitter"
-                      android:layout_height="wrap_content"
-                      android:layout_width="fill_parent"
-                      style="@style/settings_list_item_text"/>
-
-            <ImageView android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       style="@style/settings_list_arrow"/>
-        </TableRow>
-
+                android:onClick="activateAlert"
+                android:background="@drawable/send_alert_button"
+                style="@style/alert_button"/>
         <View android:layout_height="1sp"
               android:layout_width="fill_parent"
               style="@style/line"/>
+        <TextView android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/alert_status_text"
+                  style="@style/alert_status"/>
 
-        <TableRow android:paddingTop="@dimen/menu_padding_vertical"
-                  android:paddingBottom="@dimen/menu_padding_vertical">
+        <LinearLayout android:layout_width="fill_parent"
+                      android:layout_height="fill_parent"
+                      style="@style/settings_list">
+            <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                <View android:layout_height="1sp"
+                      android:layout_width="fill_parent"
+                      style="@style/line"/>
+                <TableRow android:id="@+id/sms_row"
+                          android:clickable="true"
+                          android:onClick="launchSmsActivity"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/settings_list_item">
 
-        </TableRow>
-    </TableLayout>
+
+                    <TextView android:text="@string/sms"
+                              android:layout_height="wrap_content"
+                              android:layout_width="fill_parent"
+                              style="@style/settings_list_item_text"/>
+
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               style="@style/settings_list_arrow"/>
+                </TableRow>
+
+                <View android:layout_height="1sp"
+                      android:layout_width="fill_parent"
+                      style="@style/line"/>
+
+                <TableRow android:id="@+id/twitter_row"
+                          android:clickable="true"
+                          android:onClick="launchTwitterActivity"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                          style="@style/settings_list_item">
+
+
+                    <TextView android:text="@string/twitter"
+                              android:layout_height="wrap_content"
+                              android:layout_width="fill_parent"
+                              style="@style/settings_list_item_text"/>
+
+                    <ImageView android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               style="@style/settings_list_arrow"/>
+                </TableRow>
+
+                <View android:layout_height="1sp"
+                      android:layout_width="fill_parent"
+                      style="@style/line"/>
+
+                <TableRow android:paddingTop="@dimen/menu_padding_vertical"
+                          android:paddingBottom="@dimen/menu_padding_vertical">
+
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </LinearLayout>

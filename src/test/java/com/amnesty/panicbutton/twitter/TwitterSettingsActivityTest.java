@@ -27,6 +27,7 @@ public class TwitterSettingsActivityTest {
     private Application context;
 
     private Button saveButton;
+    private Button backButton;
 
     @Before
     public void setup() throws IllegalAccessException {
@@ -37,6 +38,7 @@ public class TwitterSettingsActivityTest {
 
         optTwitterCheckbox = (CheckBox) twitterSettingsActivity.findViewById(R.id.opt_twitter_checkbox);
         saveButton = (Button) twitterSettingsActivity.findViewById(R.id.twitter_save_button);
+        backButton = (Button) twitterSettingsActivity.findViewById(R.id.twitter_back_button);
 
         FragmentManager supportFragmentManager = twitterSettingsActivity.getSupportFragmentManager();
         twitterSettingsFragment = (TwitterSettingsFragment) supportFragmentManager.findFragmentById(R.id.twitter_settings_fragment);
@@ -100,5 +102,11 @@ public class TwitterSettingsActivityTest {
 
         assertTrue(TwitterSettings.isEnabled(context));
         verify(mock).save();
+    }
+
+    @Test
+    public void shouldGoBackToSettingOnClickingBack() {
+        backButton.performClick();
+        assertTrue(shadowOf(twitterSettingsActivity).isFinishing());
     }
 }

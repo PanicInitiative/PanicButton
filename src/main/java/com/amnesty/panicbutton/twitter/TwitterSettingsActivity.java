@@ -34,6 +34,10 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Act
         twitterSettingsFragment.save();
     }
 
+    public void goBack(View view) {
+        this.finish();
+    }
+
     @Override
     public void onActionStateChanged(boolean state) {
         saveButton.setEnabled(state);
