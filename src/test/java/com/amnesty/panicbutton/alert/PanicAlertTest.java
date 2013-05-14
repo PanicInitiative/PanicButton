@@ -8,6 +8,8 @@ import com.amnesty.panicbutton.location.LocationProvider;
 import com.amnesty.panicbutton.location.LocationTestUtil;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
+import com.amnesty.panicbutton.twitter.ShortCodeSettings;
+import com.amnesty.panicbutton.twitter.TwitterSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,6 +104,19 @@ public class PanicAlertTest {
         verify(mockSMSAdapter).sendSMS(mobile1, message);
         verify(mockSMSAdapter).sendSMS(mobile3, message);
         verifyNoMoreInteractions(mockSMSAdapter);
+    }
+
+    @Test
+    public void shouldSendTwitterSMSIfEnabled() {
+        String tweet = "Test Message";
+        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("India", "Airtel", "53000");
+        TwitterSettings twitterSettings = new TwitterSettings(shortCodeSettings, tweet);
+        TwitterSettings.enable(context);
+        TwitterSettings.save(context, twitterSettings);
+
+        panicAlert.run();
+
+        verify(mockSMSAdapter).sendSMS("53000", tweet);
     }
 
     @Test

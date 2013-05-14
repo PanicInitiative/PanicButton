@@ -9,6 +9,12 @@ public class ShortCodeSettings {
         this.country = country;
     }
 
+    public ShortCodeSettings(String country, String serviceProvider, String shortCode) {
+        this.country = country;
+        this.serviceProvider = serviceProvider;
+        this.shortCode = shortCode;
+    }
+
     public String getCountry() {
         return country;
     }

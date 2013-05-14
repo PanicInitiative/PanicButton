@@ -3,6 +3,7 @@ package com.amnesty.panicbutton.alert;
 import static android.telephony.SmsMessage.MAX_USER_DATA_SEPTETS;
 
 public class PanicAlertMessage {
+    public static final int TWITTER_MAX_LENGTH = 140;
     private String message;
     private String location;
 
@@ -11,10 +12,18 @@ public class PanicAlertMessage {
         this.location = location;
     }
 
-    public String getSMSText() {
+    public String getSMSText() {        
+        return trimMessage(MAX_USER_DATA_SEPTETS);
+    }
+
+    public String getTwitterText() {
+        return trimMessage(TWITTER_MAX_LENGTH);
+    }
+
+    private String trimMessage(int maxLength) {
         String smsText = message + location;
-        if(smsText.length() > MAX_USER_DATA_SEPTETS) {
-            smsText = message.substring(0, (MAX_USER_DATA_SEPTETS - location.length()) ) + location;
+        if(smsText.length() > maxLength) {
+            smsText = message.substring(0, (maxLength - location.length()) ) + location;
         }
         return smsText;
     }

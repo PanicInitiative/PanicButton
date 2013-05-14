@@ -8,6 +8,10 @@ import com.amnesty.panicbutton.location.LocationFormatter;
 import com.amnesty.panicbutton.location.LocationProvider;
 import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
+import com.amnesty.panicbutton.twitter.ShortCodeSettings;
+import com.amnesty.panicbutton.twitter.TwitterSettings;
+
+import static com.amnesty.panicbutton.twitter.TwitterSettings.retrieve;
 
 public class PanicAlert extends Thread {
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
@@ -21,11 +25,25 @@ public class PanicAlert extends Thread {
     @Override
     public void run() {
         SMSSettings smsSettings = SMSSettings.retrieve(context);
-        if(smsSettings.isConfigured()) {
+        boolean isSMSConfigured = smsSettings.isConfigured();
+        boolean isTwitterEnabled = TwitterSettings.isEnabled(context);
+        if (isSMSConfigured || isTwitterEnabled) {
             startLocationProviderInBackground();
             vibrate();
-            activateAlert(smsSettings);
         }
+        if (isSMSConfigured) {
+            sendSMS(smsSettings);
+        }
+        if (isTwitterEnabled) {
+            tweet(retrieve(context));
+        }
+    }
+
+    private void tweet(TwitterSettings twitterSettings) {
+        SMSAdapter smsAdapter = getSMSAdapter();
+        ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
+        String message = new PanicAlertMessage(twitterSettings.getMessage(), location()).getTwitterText();
+        smsAdapter.sendSMS(shortCodeSettings.getShortCode(), message);
     }
 
     private void startLocationProviderInBackground() {
@@ -38,7 +56,7 @@ public class PanicAlert extends Thread {
         vibrator.vibrate(HAPTIC_FEEDBACK_DURATION);
     }
 
-    private void activateAlert(SMSSettings smsSettings) {
+    private void sendSMS(SMSSettings smsSettings) {
         SMSAdapter smsAdapter = getSMSAdapter();
         String message = new PanicAlertMessage(smsSettings.trimmedMessage(), location()).getSMSText();
 
@@ -72,6 +90,7 @@ public class PanicAlert extends Thread {
     SMSAdapter getSMSAdapter() {
         return new SMSAdapter();
     }
+
     public static final int LOCATION_WAIT_TIME = 1000;
 
     public static final int MAX_RETRIES = 10;
