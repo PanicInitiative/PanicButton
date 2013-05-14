@@ -44,7 +44,7 @@ public class TwitterSettingsFragmentTest {
         twitterSettingsFragment = createFragment(activity);
 
         shortCodeSettings = new ShortCodeSettings("India");
-        shortCodeSettings.setServiceProvider("Airtel");
+        shortCodeSettings.setServiceProvider("Bharti Airtel");
         shortCodeSettings.setShortCode("53000");
 
         twitterMessageFragment = (MessageFragment) activity.getSupportFragmentManager().findFragmentById(R.id.twitter_message_fragment);
@@ -71,7 +71,7 @@ public class TwitterSettingsFragmentTest {
         Map<String, String> allPreferences = (Map<String, String>) sharedPreferences.getAll();
         assertEquals(testMessage, allPreferences.get("TWITTER_MESSAGE"));
         assertEquals("India", allPreferences.get("TWITTER_COUNTRY"));
-        assertEquals("Airtel", allPreferences.get("TWITTER_SERVICE_PROVIDER"));
+        assertEquals("Bharti Airtel", allPreferences.get("TWITTER_SERVICE_PROVIDER"));
         assertEquals("53000", allPreferences.get("TWITTER_SHORT_CODE"));
     }
 
