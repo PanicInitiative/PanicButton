@@ -6,10 +6,12 @@
               android:layout_width="fill_parent">
     <Spinner
             android:id="@+id/country_spinner"
+            android:contentDescription="@string/country_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
     <Spinner
             android:id="@+id/service_provider_spinner"
+            android:contentDescription = "@string/service_provider_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
 

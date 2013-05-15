@@ -85,4 +85,6 @@
     <string name="set_password_help">Minimum 8 characters, something easy to remember and quick to enter - you cannot change it.</string>
     <string name="create_password_hint">create a password</string>
     <string name="invalid_password">Password must contain at least one lowercase, one uppercase, one number, and one space</string>
+    <string name="country_spinner">CountrySpinner</string>
+    <string name="service_provider_spinner">ServiceProviderSpinner</string>
 </resources>
