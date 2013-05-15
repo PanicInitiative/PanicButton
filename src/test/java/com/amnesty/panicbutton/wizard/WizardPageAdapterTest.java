@@ -11,8 +11,7 @@ import org.robolectric.RobolectricTestRunner;
 import roboguice.activity.RoboFragmentActivity;
 
 import static com.amnesty.panicbutton.R.layout.*;
-import static com.amnesty.panicbutton.R.string.next_action;
-import static com.amnesty.panicbutton.R.string.start_action;
+import static com.amnesty.panicbutton.R.string.*;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
@@ -27,15 +26,16 @@ public class WizardPageAdapterTest {
 
     @Test
     public void shouldReturnTheFragmentsInWizard() {
-        assertEquals(6, wizardPageAdapter.getCount());
+        assertEquals(7, wizardPageAdapter.getCount());
 
         assertSimpleFragment(0, wizard_start_screen, start_action);
-        SMSSettingsFragment smsSettingsFragment = (SMSSettingsFragment) wizardPageAdapter.getItem(1);
+        assertSimpleFragment(1, wizard_password_screen, save_action);
+        SMSSettingsFragment smsSettingsFragment = (SMSSettingsFragment) wizardPageAdapter.getItem(2);
         assertEquals(R.string.sms_settings_wizard_header, smsSettingsFragment.getArguments().getInt("HEADER_TEXT_ID"));
-        assertSimpleFragment(2, wizard_emergency_alert1, next_action);
-        assertSimpleFragment(3, wizard_emergency_alert2, next_action);
-        assertSimpleFragment(4, wizard_emergency_alert3, next_action);
-        assertEquals(WizardFinishFragment.class, wizardPageAdapter.getItem(5).getClass());
+        assertSimpleFragment(3, wizard_emergency_alert1, next_action);
+        assertSimpleFragment(4, wizard_emergency_alert2, next_action);
+        assertSimpleFragment(5, wizard_emergency_alert3, next_action);
+        assertEquals(WizardFinishFragment.class, wizardPageAdapter.getItem(6).getClass());
     }
 
     private void assertSimpleFragment(int screenIndex, int layoutId, int actionId) {
