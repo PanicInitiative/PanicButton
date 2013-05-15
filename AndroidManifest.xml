@@ -32,9 +32,11 @@
                   android:screenOrientation="portrait"
                   android:label="@string/settings_label"/>
         <activity android:name=".sms.SMSSettingsActivity"
+                  android:windowSoftInputMode="stateHidden"
                   android:screenOrientation="portrait"
                   android:label="@string/sms"/>
         <activity android:name=".twitter.TwitterSettingsActivity"
+                  android:windowSoftInputMode="stateHidden"
                   android:screenOrientation="portrait"
                   android:label="@string/twitter"/>
 
