@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.SoftKeyboard;
 import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectFragment;
@@ -26,6 +28,12 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Act
 
 
     public void onSave(View view) {
+        saveSettings();
+        SoftKeyboard.hide(this, this.findViewById(android.R.id.content));
+        Toast.makeText(this, R.string.twitter_save_successful, Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveSettings() {
         if (!optTwitterCheckbox.isChecked()) {
             TwitterSettings.disable(this);
             return;

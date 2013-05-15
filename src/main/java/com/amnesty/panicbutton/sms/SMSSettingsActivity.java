@@ -31,6 +31,6 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
     public void save(View view) {
         smsSettingsFragment.performAction();
         SoftKeyboard.hide(this, this.findViewById(android.R.id.content));
-        Toast.makeText(this, R.string.successfully_saved, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.sms_save_successful, Toast.LENGTH_SHORT).show();
     }
 }

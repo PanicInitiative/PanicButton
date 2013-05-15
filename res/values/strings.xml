@@ -10,7 +10,8 @@
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
-    <string name="successfully_saved">SMS settings saved successfully</string>
+    <string name="sms_save_successful">SMS settings saved successfully</string>
+    <string name="twitter_save_successful">Twitter settings saved successfully</string>
     <string name="activate_alert">&#160;&#160;Send emergency alert</string>
     <string name="calculator_label">Calculator</string>
 
