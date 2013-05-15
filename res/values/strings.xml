@@ -76,4 +76,12 @@
     <string name="select_country_hint">Select country</string>
     <string name="select_phone_service_hint">Select phone service</string>
     <string name="other_phone_service">Other phone service</string>
+
+    <string name="set_password_label">First, set a password</string>
+    <string name="set_password_detail">Setting a password helps secure the app,
+        you must enter it to access the Settings screen hidden behind the calculator disguise.
+        \n\nYou do not need to enter it to send an alert
+    </string>
+    <string name="set_password_help">Minimum 8 characters, something easy to remember and quick to enter - you cannot change it.</string>
+    <string name="create_password_hint">create a password</string>
 </resources>
