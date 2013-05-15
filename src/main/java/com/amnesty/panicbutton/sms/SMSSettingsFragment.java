@@ -67,7 +67,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
     }
 
     @Override
-    public void performAction() {
+    public boolean performAction() {
         String message = smsEditText.getText().toString();
 
         List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
@@ -75,6 +75,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
 
         SMSSettings.save(context, newSMSSettings);
         displaySettings(newSMSSettings);
+        return true;
     }
 
     @Override

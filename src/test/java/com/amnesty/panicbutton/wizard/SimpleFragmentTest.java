@@ -41,7 +41,7 @@ public class SimpleFragmentTest {
     @Test
     public void shouldAlwaysEnableActionForSimpleFragments(){
         simpleFragment.onFragmentSelected();
-        assertTrue(testFragmentActivity.getActionButtonState());
+        assertTrue(testFragmentActivity.isActionButtonEnabled());
     }
 
     @Test

@@ -23,10 +23,11 @@ import static org.robolectric.Robolectric.shadowOf;
 public class WizardFinishFragmentTest {
     private Button finishButton;
     private RoboFragmentActivity roboFragmentActivity;
+    private WizardFinishFragment wizardFinishFragment;
 
     @Before
     public void setUp() {
-        WizardFinishFragment wizardFinishFragment = new WizardFinishFragment();
+        wizardFinishFragment = new WizardFinishFragment();
         roboFragmentActivity = new RoboFragmentActivity();
         FragmentManager fragmentManager = roboFragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -49,8 +50,12 @@ public class WizardFinishFragmentTest {
     }
 
     @Test
-    public void shouldReturnEmptyAction() {
-        WizardFragment fragment = new WizardFragment();
-        assertEquals("", fragment.action());
+    public void shouldReturnTheDefaultAction() {
+        assertEquals("Next", wizardFinishFragment.action());
+    }
+
+    @Test
+    public void shouldReturnTheDefaultActionResult() {
+        assertTrue(wizardFinishFragment.performAction());
     }
 }

@@ -51,8 +51,9 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void performAction(View view) {
-        getCurrentWizardFragment().performAction();
-        viewPager.next();
+        if(getCurrentWizardFragment().performAction()) {
+            viewPager.next();
+        }
     }
 
     public void previous(View view) {

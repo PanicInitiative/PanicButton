@@ -2,17 +2,18 @@ package com.amnesty.panicbutton.wizard;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import roboguice.fragment.RoboFragment;
 
-public class WizardFragment extends Fragment {
+public class WizardFragment extends RoboFragment {
     protected ActionButtonStateListener actionButtonStateListener;
     protected Context context;
 
     public String action() {
-        return "";
+        return getString(WizardAction.NEXT.actionId());
     }
 
-    public void performAction() {
+    public boolean performAction() {
+        return true;
     }
 
     @Override

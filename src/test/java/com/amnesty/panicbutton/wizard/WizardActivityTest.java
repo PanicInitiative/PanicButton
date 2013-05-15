@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.amnesty.panicbutton.R;
+import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,7 @@ public class WizardActivityTest {
         wizardActivity.onCreate(null);
 
         when(mockFragment.action()).thenReturn("Action");
+        when(mockFragment.performAction()).thenReturn(true);
         when(mockFragment.getView()).thenReturn(mock(EditText.class));
         when(mockPagerAdapter.getItem(anyInt())).thenReturn(mockFragment);
         when(mockPagerAdapter.getCount()).thenReturn(3);
@@ -138,6 +140,16 @@ public class WizardActivityTest {
         assertTrue(actionButton.isEnabled());
         wizardActivity.onActionStateChanged(false);
         assertTrue(!actionButton.isEnabled());
+    }
+
+    @Test
+    public void shouldNotMoveNextIfPerformActionFails() throws IllegalAccessException {
+        when(mockFragment.performAction()).thenReturn(false);
+        WizardViewPager mockWizardViewPager = mock(WizardViewPager.class);
+        ReflectionUtils.setVariableValueInObject(wizardActivity, "viewPager", mockWizardViewPager);
+
+        wizardActivity.performAction(null);
+        verify(mockWizardViewPager, never()).next();
     }
 
     private void moveNext(int times) {

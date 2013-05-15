@@ -4,20 +4,15 @@ import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import roboguice.activity.RoboFragmentActivity;
 
 public class TestFragmentActivity extends RoboFragmentActivity implements ActionButtonStateListener {
-    private boolean actionButtonState;
-    private boolean shortCodeFlag;
+    private boolean actionButtonEnabled;
 
     @Override
     public void onActionStateChanged(boolean state) {
-        this.actionButtonState = state;
+        this.actionButtonEnabled = state;
     }
 
-    public boolean getActionButtonState() {
-        return actionButtonState;
-    }
-
-    public boolean getShortCodeFlag() {
-        return shortCodeFlag;
+    public boolean isActionButtonEnabled() {
+        return actionButtonEnabled;
     }
 }
 

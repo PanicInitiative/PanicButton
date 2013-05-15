@@ -126,7 +126,7 @@ public class SMSSettingsFragmentTest {
         assertEquals("*******97", firstContactEditText.getText().toString());
         assertEquals("*********56", secondContactEditText.getText().toString());
         assertEquals("*********45", thirdContactEditText.getText().toString());
-        assertTrue(testFragmentActivity.getActionButtonState());
+        assertTrue(testFragmentActivity.isActionButtonEnabled());
     }
 
     @Test
@@ -149,7 +149,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("12345");
         secondContactEditText.setText("123");
         thirdContactEditText.setText("");
-        assertTrue(testFragmentActivity.getActionButtonState());
+        assertTrue(testFragmentActivity.isActionButtonEnabled());
     }
 
     @Test
@@ -157,7 +157,7 @@ public class SMSSettingsFragmentTest {
         firstContactEditText.setText("1234");
         secondContactEditText.setText("");
         thirdContactEditText.setText("");
-        assertFalse(testFragmentActivity.getActionButtonState());
+        assertFalse(testFragmentActivity.isActionButtonEnabled());
     }
 
     @Test
@@ -166,7 +166,7 @@ public class SMSSettingsFragmentTest {
         thirdContactEditText.setText("");
         firstContactEditText.setText("1234");
         firstContactEditText.setText("1234");
-        assertFalse(testFragmentActivity.getActionButtonState());
+        assertFalse(testFragmentActivity.isActionButtonEnabled());
     }
 
     @Test
