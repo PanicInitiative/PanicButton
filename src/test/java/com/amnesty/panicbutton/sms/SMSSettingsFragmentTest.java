@@ -211,6 +211,18 @@ public class SMSSettingsFragmentTest {
         assertEquals("SMS alert settings", headerTextView.getText().toString());
     }
 
+    @Test
+    public void shouldReturnTrueWhenSettingsModified(){
+        firstContactEditText.setText("888-888-888");
+        assertTrue(smsSettingsFragment.hasSettingsChanged());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenSettingsIsNotModified(){
+        assertFalse(smsSettingsFragment.hasSettingsChanged());
+    }
+
+
     private void setViewData() {
         smsEditText.setText(expectedMessage);
         firstContactEditText.setText(number1);

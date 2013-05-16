@@ -53,7 +53,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
 
     private void displaySettings(SMSSettings settings) {
         smsEditText.setText(settings.message());
-        contactEditTexts.displaySettings();
+        contactEditTexts.maskPhoneNumbers();
     }
 
     @Override
@@ -68,14 +68,17 @@ public class SMSSettingsFragment extends NestedWizardFragment {
 
     @Override
     public boolean performAction() {
-        String message = smsEditText.getText().toString();
-
-        List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
-        SMSSettings newSMSSettings = new SMSSettings(phoneNumbers, message);
+        SMSSettings newSMSSettings = getSMSSettingsFromView();
 
         SMSSettings.save(context, newSMSSettings);
         displaySettings(newSMSSettings);
         return true;
+    }
+
+    private SMSSettings getSMSSettingsFromView() {
+        String message = smsEditText.getText().toString();
+        List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
+        return new SMSSettings(phoneNumbers, message);
     }
 
     @Override
@@ -83,5 +86,10 @@ public class SMSSettingsFragment extends NestedWizardFragment {
         if (actionButtonStateListener != null) {
             actionButtonStateListener.onActionStateChanged(contactEditTexts.hasAtleastOneValidPhoneNumber());
         }
+    }
+
+    public boolean hasSettingsChanged() {
+        SMSSettings existingSettings = SMSSettings.retrieve(getActivity());
+        return !existingSettings.equals(getSMSSettingsFromView());
     }
 }

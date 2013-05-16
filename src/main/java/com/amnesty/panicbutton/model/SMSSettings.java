@@ -98,4 +98,24 @@ public class SMSSettings {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SMSSettings that = (SMSSettings) o;
+
+        if (!message.equals(that.message)) return false;
+        if (!phoneNumbers.equals(that.phoneNumbers)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = phoneNumbers.hashCode();
+        result = 31 * result + message.hashCode();
+        return result;
+    }
 }

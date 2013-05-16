@@ -111,18 +111,28 @@ public class SMSSettingsTest {
         String messageWithSpaceAtEnd = "some message ";
 
         SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), messageWithDot);
-        assertEquals("some message",smsSettings.trimmedMessage());
+        assertEquals("some message", smsSettings.trimmedMessage());
 
         smsSettings = new SMSSettings(new ArrayList<String>(), messageWithoutDot);
-        assertEquals("some message",smsSettings.trimmedMessage());
+        assertEquals("some message", smsSettings.trimmedMessage());
 
         smsSettings = new SMSSettings(new ArrayList<String>(), messageWithSpaceAtEnd);
-        assertEquals("some message",smsSettings.trimmedMessage());
+        assertEquals("some message", smsSettings.trimmedMessage());
     }
 
     @Test
     public void shouldReturnEmptyStringWhenMessageIsNull() {
         SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), null);
-        assertEquals("",smsSettings.message());
+        assertEquals("", smsSettings.message());
+    }
+
+    @Test
+    public void shouldCheckEquality() {
+        SMSSettings settings1 = new SMSSettings(Arrays.asList("12345"), "some message");
+        SMSSettings settings2 = new SMSSettings(Arrays.asList("1234" + "5"), "some message");
+        SMSSettings settings3 = new SMSSettings(Arrays.asList("1234" + "5"), "some other message");
+        assertTrue(settings1.equals(settings2));
+        assertFalse(settings1.equals(null));
+        assertFalse(settings1.equals(settings3));
     }
 }

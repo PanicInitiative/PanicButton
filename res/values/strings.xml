@@ -92,4 +92,8 @@
     <string name="login_header">Settings</string>
     <string name="enter_password_hint">enter password</string>
     <string name="incorrect_password">Please enter the correct password</string>
+    <string name="settings_changed_alert_title">Settings Modified</string>
+    <string name="settings_changed_alert_message">Do you want to save the changes?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

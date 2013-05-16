@@ -39,7 +39,7 @@ public class ContactEditTexts {
         return (EditText) fragment.getView().findViewById(R.id.contact_edit_text);
     }
 
-    public void displaySettings() {
+    public void maskPhoneNumbers() {
         SMSSettings currentSettings = SMSSettings.retrieve(context);
         if (currentSettings.isConfigured()) {
             for (int i = 0, contactsSize = contacts.size(); i < contactsSize; i++) {
