@@ -5,7 +5,7 @@
             android:id="@+id/sms_settings_fragment_root"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-        style="@style/wizard_static_panel">
+            style="@style/wizard_static_panel">
     <LinearLayout
                  android:layout_height="fill_parent"
                  android:layout_width="fill_parent"

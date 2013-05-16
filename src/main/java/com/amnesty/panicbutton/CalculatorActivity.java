@@ -48,7 +48,7 @@ public class CalculatorActivity extends RoboActivity {
     private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
-            startActivity(new Intent(CalculatorActivity.this, SettingsActivity.class));
+            startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
             overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
             return true;
         }

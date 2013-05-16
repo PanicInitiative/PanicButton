@@ -42,11 +42,11 @@ public class CalculatorActivityTest {
     }
 
     @Test
-    public void shouldNavigateToSettingsScreenOnEqualSignLongPress() {
+    public void shouldNavigateToLoginScreenOnEqualSignLongPress() {
         equalsButton.performLongClick();
 
         Intent startedIntent = shadowActivity.getNextStartedActivity();
-        assertThat(startedIntent.getComponent().getClassName(), equalTo(SettingsActivity.class.getName()));
+        assertThat(startedIntent.getComponent().getClassName(), equalTo(LoginActivity.class.getName()));
     }
 
     @Test

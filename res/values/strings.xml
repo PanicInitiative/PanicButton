@@ -87,4 +87,9 @@
     <string name="invalid_password">Password must contain at least one lowercase, one uppercase, one number, and one space</string>
     <string name="country_spinner">CountrySpinner</string>
     <string name="service_provider_spinner">ServiceProviderSpinner</string>
+
+    <string name="enter_text">Enter</string>
+    <string name="login_header">Settings</string>
+    <string name="enter_password_hint">enter password</string>
+    <string name="incorrect_password">Please enter the correct password</string>
 </resources>

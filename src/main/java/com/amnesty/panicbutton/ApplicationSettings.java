@@ -34,6 +34,12 @@ public class ApplicationSettings {
         editor.commit();
     }
 
+    public static boolean passwordMatches(Context context, String otherPassword) {
+        SharedPreferences sharedPreferences = sharedPreferences(context);
+        String actualPassword = sharedPreferences.getString(PASS_CODE, "");
+        return actualPassword.equals(otherPassword);
+    }
+
     private static SharedPreferences sharedPreferences(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }

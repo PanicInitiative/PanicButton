@@ -28,6 +28,9 @@
 
         <activity android:name=".CalculatorActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".LoginActivity"
+                  android:noHistory="true"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".SettingsActivity"
                   android:screenOrientation="portrait"
                   android:label="@string/settings_label"/>
