@@ -77,4 +77,12 @@ public class CreatePasswordFragmentTest {
         createPasswordFragment.onFragmentSelected();
         assertTrue(testActivity.isActionButtonEnabled());
     }
+
+    @Test
+    public void shouldResetPasswordErrorOnNavigatingBack() {
+        passwordEditText.setError("Test Error");
+
+        createPasswordFragment.onBackPressed();
+        assertNull(passwordEditText.getError());
+    }
 }

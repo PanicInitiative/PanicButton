@@ -27,7 +27,7 @@ public class CreatePasswordFragment extends WizardFragment {
 
     @Override
     public void onFragmentSelected() {
-        actionButtonStateListener.onActionStateChanged(isValidPassword());
+        actionButtonStateListener.onActionStateChanged(hasMinimumCharacters());
     }
 
     @Override
@@ -50,6 +50,15 @@ public class CreatePasswordFragment extends WizardFragment {
         return pattern.matcher(password).matches();
     }
 
+    private boolean hasMinimumCharacters() {
+        return passwordEditText.getText().length() >= MIN_CHARACTERS;
+    }
+
+    @Override
+    public void onBackPressed() {
+        passwordEditText.setError(null);
+    }
+
     private TextWatcher passwordTextChangeListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,11 +66,11 @@ public class CreatePasswordFragment extends WizardFragment {
 
         @Override
         public void onTextChanged(CharSequence text, int start, int before, int count) {
-            actionButtonStateListener.onActionStateChanged(text.length() >= MIN_CHARACTERS);
         }
 
         @Override
         public void afterTextChanged(Editable text) {
+            actionButtonStateListener.onActionStateChanged(hasMinimumCharacters());
         }
     };
 }

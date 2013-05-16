@@ -57,6 +57,16 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void previous(View view) {
+        getCurrentWizardFragment().onBackPressed();
+        viewPager.previous();
+    }
+
+    @Override
+    public void onBackPressed() {
+        getCurrentWizardFragment().onBackPressed();
+        if(viewPager.isFirstPage()) {
+            this.finish();
+        }
         viewPager.previous();
     }
 
@@ -71,13 +81,5 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     @Override
     public void onActionStateChanged(boolean state) {
         actionButton.setEnabled(state);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(viewPager.isFirstPage()) {
-            this.finish();
-        }
-        viewPager.previous();
     }
 }

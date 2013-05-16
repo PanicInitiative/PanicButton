@@ -33,4 +33,7 @@ public class WizardFragment extends RoboFragment {
             actionButtonStateListener.onActionStateChanged(true);
         }
     }
+
+    public void onBackPressed() {
+    }
 }
