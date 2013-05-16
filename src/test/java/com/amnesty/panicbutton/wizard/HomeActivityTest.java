@@ -2,6 +2,7 @@ package com.amnesty.panicbutton.wizard;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import com.amnesty.panicbutton.ApplicationSettings;
 import com.amnesty.panicbutton.CalculatorActivity;
 import com.amnesty.panicbutton.HomeActivity;
 import org.junit.Before;

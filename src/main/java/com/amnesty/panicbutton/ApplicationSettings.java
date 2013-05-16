@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.wizard;
+package com.amnesty.panicbutton;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.amnesty.panicbutton.wizard;
+package com.amnesty.panicbutton;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -9,8 +9,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
-import static com.amnesty.panicbutton.wizard.ApplicationSettings.completeFirstRun;
-import static com.amnesty.panicbutton.wizard.ApplicationSettings.isFirstRun;
+import static com.amnesty.panicbutton.ApplicationSettings.completeFirstRun;
+import static com.amnesty.panicbutton.ApplicationSettings.isFirstRun;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

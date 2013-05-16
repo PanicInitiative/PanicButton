@@ -9,7 +9,6 @@ import com.amnesty.panicbutton.alert.AlertStatus;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import com.amnesty.panicbutton.twitter.TwitterSettingsActivity;
-import com.amnesty.panicbutton.wizard.ApplicationSettings;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;

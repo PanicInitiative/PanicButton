@@ -9,7 +9,7 @@ import roboguice.inject.ContentView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.amnesty.panicbutton.wizard.ApplicationSettings.isFirstRun;
+import static com.amnesty.panicbutton.ApplicationSettings.isFirstRun;
 
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
