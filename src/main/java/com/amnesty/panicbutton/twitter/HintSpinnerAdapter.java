@@ -19,6 +19,7 @@ public class HintSpinnerAdapter extends ArrayAdapter<String> {
             this.add(value);
         }
         this.add(hintText);
+        this.setDropDownViewResource(R.layout.simple_list_item_1);
     }
 
     @Override

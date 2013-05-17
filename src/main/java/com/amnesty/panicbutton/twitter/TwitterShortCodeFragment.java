@@ -17,9 +17,7 @@ import static android.view.View.VISIBLE;
 
 public class TwitterShortCodeFragment extends RoboFragment {
     private String selectedCountry;
-
     private String selectedServiceProvider;
-
     private String selectedShortCode;
 
     @Override
@@ -77,6 +75,7 @@ public class TwitterShortCodeFragment extends RoboFragment {
                 return;
             }
             selectedCountry = (String) parent.getItemAtPosition(position);
+            serviceProviderSpinner.setVisibility(VISIBLE);
             serviceProviderSpinner.setAdapter(getServiceProviderSpinnerAdapter());
             serviceProviderSpinner.setSelection(getSelectedServiceProvider(), true);
             serviceProviderSpinner.setOnItemSelectedListener(serviceProviderOnSelectListener);
@@ -134,7 +133,6 @@ public class TwitterShortCodeFragment extends RoboFragment {
         this.selectedShortCode = null;
         this.savedShortCodeSettings = null;
         countrySpinner.setSelection(getSelectedCountry(), true);
-        serviceProviderSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item));
         shortCodeHelpText.setText("");
         shortCodeTextView.setText("");
         shortCodeLayout.setVisibility(INVISIBLE);

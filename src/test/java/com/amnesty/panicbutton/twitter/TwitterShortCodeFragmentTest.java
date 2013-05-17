@@ -53,9 +53,9 @@ public class TwitterShortCodeFragmentTest {
     }
 
     @Test
-    public void shouldHaveSpinnersAndShortCodeHiddenOnCreate() {
+    public void shouldHaveServiceProviderSpinnerAndShortCodeHiddenOnCreate() {
         assertTrue(countrySpinner.isShown());
-        assertTrue(serviceProviderSpinner.isShown());
+        assertFalse(serviceProviderSpinner.isShown());
         assertFalse(shortCodeLayout.isShown());
     }
 
