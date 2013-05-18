@@ -47,8 +47,8 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Act
     }
 
     @Override
-    public void onActionStateChanged(boolean state) {
-        saveButton.setEnabled(state);
+    public void enableActionButton(boolean isEnabled) {
+        saveButton.setEnabled(isEnabled);
     }
 
     @InjectView(R.id.twitter_save_button)

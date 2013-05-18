@@ -91,7 +91,7 @@ public class ContactEditTexts {
                 String newText = editable.toString();
                 if (actionButtonStateListener != null && !newText.equals(currentText)) {
                     currentText = newText;
-                    actionButtonStateListener.onActionStateChanged(hasAtleastOneValidPhoneNumber());
+                    actionButtonStateListener.enableActionButton(hasAtleastOneValidPhoneNumber());
                 }
             }
         };

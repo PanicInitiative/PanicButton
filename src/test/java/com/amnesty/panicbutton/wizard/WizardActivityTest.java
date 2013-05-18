@@ -136,9 +136,9 @@ public class WizardActivityTest {
 
     @Test
     public void shouldChangeStateOfActionButton() {
-        wizardActivity.onActionStateChanged(true);
+        wizardActivity.enableActionButton(true);
         assertTrue(actionButton.isEnabled());
-        wizardActivity.onActionStateChanged(false);
+        wizardActivity.enableActionButton(false);
         assertTrue(!actionButton.isEnabled());
     }
 

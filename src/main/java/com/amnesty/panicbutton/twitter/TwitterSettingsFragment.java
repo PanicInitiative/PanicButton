@@ -54,7 +54,7 @@ public class TwitterSettingsFragment extends RoboFragment {
             loadSettings(twitterSettings);
             return;
         }
-        callback.onActionStateChanged(twitterSettings.isValid());
+        callback.enableActionButton(twitterSettings.isValid());
     }
 
     private void loadSettings(TwitterSettings twitterSettings) {
@@ -81,7 +81,7 @@ public class TwitterSettingsFragment extends RoboFragment {
             String action = intent.getAction();
             TwitterIntentAction twitterIntentAction = TwitterIntentAction.get(action);
             setFragmentVisibility(twitterMessageFragment, twitterIntentAction.getState());
-            callback.onActionStateChanged(twitterIntentAction.getState());
+            callback.enableActionButton(twitterIntentAction.getState());
         }
     };
 

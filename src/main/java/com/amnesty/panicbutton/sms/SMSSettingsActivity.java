@@ -81,7 +81,7 @@ public class SMSSettingsActivity extends RoboFragmentActivity implements ActionB
     }
 
     @Override
-    public void onActionStateChanged(boolean state) {
-        saveButton.setEnabled(state);
+    public void enableActionButton(boolean isEnabled) {
+        saveButton.setEnabled(isEnabled);
     }
 }

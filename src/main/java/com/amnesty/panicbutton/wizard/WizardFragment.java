@@ -30,7 +30,7 @@ public class WizardFragment extends RoboFragment {
 
     public void onFragmentSelected() {
         if (actionButtonStateListener != null) {
-            actionButtonStateListener.onActionStateChanged(true);
+            actionButtonStateListener.enableActionButton(true);
         }
     }
 

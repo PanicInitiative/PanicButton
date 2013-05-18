@@ -28,7 +28,7 @@ public class CreatePasswordFragment extends WizardFragment {
 
     @Override
     public void onFragmentSelected() {
-        actionButtonStateListener.onActionStateChanged(hasMinimumCharacters());
+        actionButtonStateListener.enableActionButton(hasMinimumCharacters());
     }
 
     @Override
@@ -71,7 +71,7 @@ public class CreatePasswordFragment extends WizardFragment {
 
         @Override
         public void afterTextChanged(Editable text) {
-            actionButtonStateListener.onActionStateChanged(hasMinimumCharacters());
+            actionButtonStateListener.enableActionButton(hasMinimumCharacters());
         }
     };
 }

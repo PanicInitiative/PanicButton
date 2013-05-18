@@ -79,7 +79,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     @Override
-    public void onActionStateChanged(boolean state) {
-        actionButton.setEnabled(state);
+    public void enableActionButton(boolean isEnabled) {
+        actionButton.setEnabled(isEnabled);
     }
 }

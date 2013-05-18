@@ -110,4 +110,12 @@ public class SMSSettingsActivityTest {
         smsSettingsActivity.onBackPressed();
         assertTrue(shadowOf(smsSettingsActivity).isFinishing());
     }
+
+    @Test
+    public void shouldEnableOrDisableSaveButton() {
+        smsSettingsActivity.enableActionButton(true);
+        assertTrue(saveButton.isEnabled());
+        smsSettingsActivity.enableActionButton(false);
+        assertTrue(!saveButton.isEnabled());
+    }
 }

@@ -7,8 +7,8 @@ public class TestFragmentActivity extends RoboFragmentActivity implements Action
     private boolean actionButtonEnabled;
 
     @Override
-    public void onActionStateChanged(boolean state) {
-        this.actionButtonEnabled = state;
+    public void enableActionButton(boolean isEnabled) {
+        this.actionButtonEnabled = isEnabled;
     }
 
     public boolean isActionButtonEnabled() {

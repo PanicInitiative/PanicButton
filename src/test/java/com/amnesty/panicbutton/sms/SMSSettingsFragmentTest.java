@@ -184,7 +184,7 @@ public class SMSSettingsFragmentTest {
         ReflectionUtils.setVariableValueInObject(fragment, "actionButtonStateListener", mockActionButtonStateListener);
 
         fragment.onFragmentSelected();
-        verify(mockActionButtonStateListener).onActionStateChanged(true);
+        verify(mockActionButtonStateListener).enableActionButton(true);
     }
 
     private SMSSettingsFragment createSMSSettingsFragment() {

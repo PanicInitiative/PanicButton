@@ -84,7 +84,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
     @Override
     public void onFragmentSelected() {
         if (actionButtonStateListener != null) {
-            actionButtonStateListener.onActionStateChanged(contactEditTexts.hasAtleastOneValidPhoneNumber());
+            actionButtonStateListener.enableActionButton(contactEditTexts.hasAtleastOneValidPhoneNumber());
         }
     }
 
