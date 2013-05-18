@@ -36,7 +36,7 @@ public class SMSSettingsActivityTest {
         };
         smsSettingsActivity.onCreate(null);
 
-        saveButton = (Button) smsSettingsActivity.findViewById(R.id.save_button);
+        saveButton = (Button) smsSettingsActivity.findViewById(R.id.sms_save_button);
         previousButton = (Button) smsSettingsActivity.findViewById(R.id.sms_previous_button);
     }
 
@@ -56,8 +56,9 @@ public class SMSSettingsActivityTest {
     }
 
     @Test
-    public void shouldAlertUserOnBackPressedWhenSMSSettingsHaveChanged() {
+    public void shouldAlertUserOnBackPressedWhenSMSSettingsHaveChangedAndSaveEnabled() {
         when(mockSMSSettingsFragment.hasSettingsChanged()).thenReturn(true);
+        saveButton.setEnabled(true);
 
         smsSettingsActivity.onBackPressed();
 
@@ -65,6 +66,16 @@ public class SMSSettingsActivityTest {
         assertEquals("Settings Modified", shadowAlertDialog.getTitle());
         assertEquals("Do you want to save the changes?", shadowAlertDialog.getMessage());
         assertTrue(shadowAlertDialog.isShowing());
+    }
+
+    @Test
+    public void shouldCloseTheScreenWithoutAlertingTheUserOnInvalidSMSSettingsChanges() {
+        when(mockSMSSettingsFragment.hasSettingsChanged()).thenReturn(true);
+        saveButton.setEnabled(false);
+
+        smsSettingsActivity.onBackPressed();
+
+        assertTrue(shadowOf(smsSettingsActivity).isFinishing());
     }
 
     @Test

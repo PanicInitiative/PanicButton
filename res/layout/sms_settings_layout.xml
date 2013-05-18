@@ -23,7 +23,7 @@
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"/>
 
-        <Button android:id="@+id/save_button"
+        <Button android:id="@+id/sms_save_button"
                 style="@style/save_button"
                 android:background="@drawable/topbar_button"
                 android:text="@string/save_text"

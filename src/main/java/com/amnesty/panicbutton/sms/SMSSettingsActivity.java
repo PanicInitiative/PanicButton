@@ -5,12 +5,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import com.amnesty.panicbutton.R;
 import com.amnesty.panicbutton.SoftKeyboard;
+import com.amnesty.panicbutton.wizard.ActionButtonStateListener;
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectView;
 
-public class SMSSettingsActivity extends RoboFragmentActivity {
+public class SMSSettingsActivity extends RoboFragmentActivity implements ActionButtonStateListener {
+    @InjectView(R.id.sms_save_button)
+    private Button saveButton;
     private SMSSettingsFragment smsSettingsFragment;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,7 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (smsSettingsFragment.hasSettingsChanged()) {
+        if (smsSettingsFragment.hasSettingsChanged() && saveButton.isEnabled()) {
             displayDialog();
             return;
         }
@@ -73,5 +78,10 @@ public class SMSSettingsActivity extends RoboFragmentActivity {
 
     public void onSave(View view) {
         save();
+    }
+
+    @Override
+    public void onActionStateChanged(boolean state) {
+        saveButton.setEnabled(state);
     }
 }
