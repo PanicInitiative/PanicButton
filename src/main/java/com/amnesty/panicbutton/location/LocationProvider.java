@@ -5,12 +5,20 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
-import java.util.List;
+import static android.location.LocationManager.GPS_PROVIDER;
+import static android.location.LocationManager.NETWORK_PROVIDER;
 
 public class LocationProvider extends LocationListenerAdapter {
-    private static final float MIN_DISTANCE = 0;
-    private static final long MIN_TIME = 0;
+    private static final String TAG = LocationProvider.class.getSimpleName();
+
+    private static final float GPS_MIN_DISTANCE = 0;
+    private static final long GPS_MIN_TIME = 1000 * 30;
+
+    private static final float NETWORK_MIN_DISTANCE = 0;
+    private static final long NETWORK_MIN_TIME = 1000 * 1;
+
     private static long MIN_UPDATE_INTERVAL = 1000 * 60;
     public static final int ACCURACY_THRESHOLD = 200;
 
@@ -32,15 +40,19 @@ public class LocationProvider extends LocationListenerAdapter {
 
     private void initLocationListener() {
         LocationManager locationManager = locationManager();
-        List<String> allProviders = locationManager.getAllProviders();
-        for (String provider : allProviders) {
-            locationManager.requestLocationUpdates(provider, MIN_TIME, MIN_DISTANCE, this);
-        }
+        locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME, NETWORK_MIN_DISTANCE, this);
+        locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME, GPS_MIN_DISTANCE, this);
+        Log.i(TAG, "registered for location updates");
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        if (isBetterLocation(location, currentBestLocation)) {
+        final boolean isBetterLocation = isBetterLocation(location, currentBestLocation);
+        Log.i(TAG, "Location received : " + location.getProvider() +
+                   ", Accuracy : " + location.getAccuracy());
+        Log.i(TAG, "isBetter : " + isBetterLocation);
+
+        if (isBetterLocation) {
             currentBestLocation = location;
         }
     }

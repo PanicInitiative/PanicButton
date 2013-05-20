@@ -22,13 +22,16 @@ public class HardwareTriggerReceiverTest {
     private HardwareTriggerReceiver spyHardwareTriggerReceiver;
     @Mock
     private MultiClickEvent mockMultiClickEvent;
+    @Mock
+    private PanicAlert mockPanicAlert;
 
     @Before
     public void setUp() throws IllegalAccessException {
         initMocks(this);
-        spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
-        ReflectionUtils.setVariableValueInObject(spyHardwareTriggerReceiver, "multiClickEvent", mockMultiClickEvent);
         context = Robolectric.application;
+        spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
+        when(spyHardwareTriggerReceiver.getPanicAlert(context)).thenReturn(mockPanicAlert);
+        ReflectionUtils.setVariableValueInObject(spyHardwareTriggerReceiver, "multiClickEvent", mockMultiClickEvent);
     }
 
     @Test
@@ -37,7 +40,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_OFF));
 
         verify(mockMultiClickEvent).registerClick(anyLong());
-        verify(spyHardwareTriggerReceiver).activateAlert(any(PanicAlert.class));
+        verify(mockPanicAlert).activate();
         MultiClickEvent actualEvent = (MultiClickEvent) ReflectionUtils.getValueIncludingSuperclasses("multiClickEvent", spyHardwareTriggerReceiver);
         Assert.assertNotSame(mockMultiClickEvent, actualEvent);
     }
@@ -48,7 +51,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verify(mockMultiClickEvent).registerClick(anyLong());
-        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(PanicAlert.class));
+        verify(mockPanicAlert, never()).activate();
     }
 
     @Test
@@ -56,6 +59,6 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
 
         verifyNoMoreInteractions(mockMultiClickEvent);
-        verify(spyHardwareTriggerReceiver, never()).activateAlert(any(PanicAlert.class));
+        verify(mockPanicAlert, never()).activate();
     }
 }

@@ -46,7 +46,7 @@ public class SettingsActivity extends RoboActivity {
     }
 
     public void activateAlert(View view) {
-        getPanicAlert().start();
+        getPanicAlert().activate();
     }
 
     public void goBack(View view) {
@@ -54,6 +54,6 @@ public class SettingsActivity extends RoboActivity {
     }
 
     PanicAlert getPanicAlert() {
-        return new PanicAlert(this);
+        return PanicAlert.getInstance(this);
     }
 }

@@ -39,7 +39,7 @@ public class CalculatorActivity extends RoboActivity {
             }
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {
-                getPanicAlert().start();
+                getPanicAlert().activate();
                 resetEvent(view);
             }
         }
@@ -61,6 +61,6 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     PanicAlert getPanicAlert() {
-        return new PanicAlert(this);
+        return PanicAlert.getInstance(this);
     }
 }

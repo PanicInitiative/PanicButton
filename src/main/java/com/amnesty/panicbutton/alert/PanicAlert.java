@@ -11,30 +11,66 @@ import com.amnesty.panicbutton.sms.SMSAdapter;
 import com.amnesty.panicbutton.twitter.ShortCodeSettings;
 import com.amnesty.panicbutton.twitter.TwitterSettings;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import static com.amnesty.panicbutton.twitter.TwitterSettings.retrieve;
 
-public class PanicAlert extends Thread {
-    public static final int HAPTIC_FEEDBACK_DURATION = 3000;
+public class PanicAlert {
+    public static PanicAlert panicAlert;
+
+    private ScheduledExecutorService executorService;
     private Context context;
     private LocationProvider locationProvider;
+    private boolean isActive;
 
-    public PanicAlert(Context context) {
+    private PanicAlert(Context context) {
         this.context = context;
+        executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
-    @Override
-    public void run() {
-        SMSSettings smsSettings = SMSSettings.retrieve(context);
-        boolean isSMSConfigured = smsSettings.isConfigured();
-        boolean isTwitterEnabled = TwitterSettings.isEnabled(context);
-        if (isSMSConfigured || isTwitterEnabled) {
-            startLocationProviderInBackground();
-            vibrate();
+    public static PanicAlert getInstance(Context context) {
+        panicAlert = (panicAlert == null) ? new PanicAlert(context) : panicAlert;
+        return panicAlert;
+    }
+
+    public void activate() {
+        if(isActive) {
+            return;
         }
-        if (isSMSConfigured) {
+        startLocationProviderInBackground();
+        vibrate();
+        scheduleAlert();
+    }
+
+    private void scheduleAlert() {
+        executorService.scheduleAtFixedRate(
+            new Runnable() {
+                @Override
+                public void run() {
+                    activateAlert();
+                }
+            },
+            0, ALERT_FREQUENCY_IN_SECS, TimeUnit.SECONDS
+        );
+    }
+
+    public void deActivate() {
+        executorService.shutdown();
+        if(locationProvider != null) {
+            locationProvider.terminate();
+        }
+        panicAlert = null;
+    }
+
+    void activateAlert() {
+        isActive = true;
+        SMSSettings smsSettings = SMSSettings.retrieve(context);
+        if (smsSettings.isConfigured()) {
             sendSMS(smsSettings);
         }
-        if (isTwitterEnabled) {
+        if (TwitterSettings.isEnabled(context)) {
             tweet(retrieve(context));
         }
     }
@@ -47,7 +83,7 @@ public class PanicAlert extends Thread {
     }
 
     private void startLocationProviderInBackground() {
-        locationProvider = getLocationProvider();
+        locationProvider = new LocationProvider(context);
         locationProvider.start();
     }
 
@@ -83,15 +119,12 @@ public class PanicAlert extends Thread {
         return new LocationFormatter(location).format();
     }
 
-    LocationProvider getLocationProvider() {
-        return new LocationProvider(context);
-    }
-
     SMSAdapter getSMSAdapter() {
         return new SMSAdapter();
     }
 
     public static final int LOCATION_WAIT_TIME = 1000;
-
     public static final int MAX_RETRIES = 10;
+    public static final int HAPTIC_FEEDBACK_DURATION = 3000;
+    public static final int ALERT_FREQUENCY_IN_SECS = 60 * 5;
 }

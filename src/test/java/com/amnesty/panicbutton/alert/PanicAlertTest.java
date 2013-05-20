@@ -10,6 +10,7 @@ import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSAdapter;
 import com.amnesty.panicbutton.twitter.ShortCodeSettings;
 import com.amnesty.panicbutton.twitter.TwitterSettings;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +19,18 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowVibrator;
 
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static java.lang.System.currentTimeMillis;
 import static java.util.Arrays.asList;
+import static org.codehaus.plexus.util.ReflectionUtils.getValueIncludingSuperclasses;
+import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.application;
@@ -34,9 +42,10 @@ public class PanicAlertTest {
 
     @Mock
     public SMSAdapter mockSMSAdapter;
-
     @Mock
     public LocationProvider mockLocationProvider;
+    @Mock
+    ScheduledExecutorService mockExecutor;
 
     private String message;
     private String mobile1, mobile2, mobile3;
@@ -46,7 +55,7 @@ public class PanicAlertTest {
     private ShadowVibrator shadowVibrator;
 
     @Before
-    public void setUp() throws InterruptedException {
+    public void setUp() throws Exception {
         initMocks(this);
         message = "Help! I am in trouble";
         mobile1 = "123-123-1222";
@@ -59,48 +68,45 @@ public class PanicAlertTest {
         shadowVibrator = shadowOf((Vibrator) application.getSystemService(Context.VIBRATOR_SERVICE));
 
         context = Robolectric.application;
-        panicAlert = new PanicAlert(context) {
-            SMSAdapter getSMSAdapter() {
-                return mockSMSAdapter;
-            }
+        panicAlert = spy(PanicAlert.getInstance(context));
+        when(panicAlert.getSMSAdapter()).thenReturn(mockSMSAdapter);
+        setVariableValueInObject(panicAlert, "executorService", mockExecutor);
+        setVariableValueInObject(panicAlert, "locationProvider", mockLocationProvider);
+    }
 
-            LocationProvider getLocationProvider() {
-                return mockLocationProvider;
-            }
-        };
+    @After
+    public void afterTest() {
+        panicAlert.deActivate();
     }
 
     @Test
-    public void shouldSendSMSWithLocationToAllConfiguredPhoneNumbersIgnoringInValidNumbersWithHapticFeedback() {
+    public void shouldSendSMSWithLocationToAllConfiguredPhoneNumbersIgnoringInValidNumbers() {
         SMSSettings smsSettings = new SMSSettings(asList(mobile1, mobile2, mobile3), message);
         SMSSettings.save(application, smsSettings);
 
         when(mockLocationProvider.currentBestLocation()).thenReturn(location);
 
-        panicAlert.run();
+        panicAlert.activateAlert();
 
         String messageWithLocation = message + ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude + " via network";
-        assertEquals(3000, shadowVibrator.getMilliseconds());
         verify(mockSMSAdapter).sendSMS(mobile1, messageWithLocation);
         verify(mockSMSAdapter).sendSMS(mobile3, messageWithLocation);
         verifyNoMoreInteractions(mockSMSAdapter);
     }
 
     @Test
-    public void shouldNotSendSMSAndNoHapticFeedbackIfSettingsNotConfigured() {
-        panicAlert.run();
-        assertEquals(0, shadowVibrator.getMilliseconds());
+    public void shouldNotSendSMSIfSettingsNotConfigured() {
+        panicAlert.activateAlert();
         verifyZeroInteractions(mockSMSAdapter);
     }
 
     @Test
-    public void shouldSendSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailableWithHapticFeedback() {
+    public void shouldSendSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailable() {
         when(mockLocationProvider.currentBestLocation()).thenReturn(null);
         SMSSettings.save(application, new SMSSettings(asList(mobile1, mobile2, mobile3), message));
 
-        panicAlert.run();
+        panicAlert.activateAlert();
 
-        assertEquals(3000, shadowVibrator.getMilliseconds());
         verify(mockSMSAdapter).sendSMS(mobile1, message);
         verify(mockSMSAdapter).sendSMS(mobile3, message);
         verifyNoMoreInteractions(mockSMSAdapter);
@@ -114,18 +120,42 @@ public class PanicAlertTest {
         TwitterSettings.enable(context);
         TwitterSettings.save(context, twitterSettings);
 
-        panicAlert.run();
+        panicAlert.activateAlert();
 
         verify(mockSMSAdapter).sendSMS("53000", tweet);
     }
 
     @Test
-    public void shouldReturnSMSAdapter() {
-        assertNotNull(new PanicAlert(context).getSMSAdapter());
+    public void shouldActiveTheAlertWithHapticFeedback() throws IllegalAccessException {
+        setVariableValueInObject(panicAlert, "executorService", new TestExecutorService());
+        panicAlert.activate();
+        assertEquals(3000, shadowVibrator.getMilliseconds());
+        assertTrue((Boolean) getValueIncludingSuperclasses("isActive", panicAlert));
     }
 
     @Test
-    public void shouldReturnLocationProvider() {
-        assertNotNull(new PanicAlert(context).getLocationProvider());
+    public void shouldScheduleTheAlertAtFixedRate() throws IllegalAccessException {
+        panicAlert.activate();
+        verify(mockExecutor).scheduleAtFixedRate(any(Runnable.class), eq(0L), eq(300L), eq(TimeUnit.SECONDS));
+    }
+
+    @Test
+    public void shouldNotActiveAgainIfItIsAlreadyActive() throws IllegalAccessException {
+        setVariableValueInObject(panicAlert, "isActive", true);
+        panicAlert.activate();
+        assertEquals(0, shadowVibrator.getMilliseconds());
+        verifyZeroInteractions(mockExecutor);
+    }
+
+    private class TestExecutorService extends ScheduledThreadPoolExecutor {
+        public TestExecutorService() {
+            super(1);
+        }
+
+        @Override
+        public ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long l, long l2, TimeUnit timeUnit) {
+            runnable.run();
+            return null;
+        }
     }
 }

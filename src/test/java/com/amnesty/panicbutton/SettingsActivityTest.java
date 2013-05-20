@@ -84,7 +84,7 @@ public class SettingsActivityTest {
     @Test
     public void shouldActivateAlertOnActivation() {
         activateButton.performClick();
-        verify(mockPanicAlert).start();
+        verify(mockPanicAlert).activate();
     }
 
     @Test

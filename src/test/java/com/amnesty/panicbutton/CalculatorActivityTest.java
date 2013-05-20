@@ -54,7 +54,7 @@ public class CalculatorActivityTest {
         for (int i = 0; i < 5; i++) {
             equalsButton.performClick();
         }
-        verify(mockPanicAlert).start();
+        verify(mockPanicAlert).activate();
     }
 
     @Test
