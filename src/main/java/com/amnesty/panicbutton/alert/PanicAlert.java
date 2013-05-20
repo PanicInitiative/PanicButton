@@ -30,15 +30,16 @@ public class PanicAlert {
         executorService = Executors.newSingleThreadScheduledExecutor();
     }
 
-    public static PanicAlert getInstance(Context context) {
+    public static synchronized PanicAlert getInstance(Context context) {
         panicAlert = (panicAlert == null) ? new PanicAlert(context) : panicAlert;
         return panicAlert;
     }
 
-    public void activate() {
+    public synchronized void activate() {
         if(isActive) {
             return;
         }
+        isActive = true;
         startLocationProviderInBackground();
         vibrate();
         scheduleAlert();
@@ -56,16 +57,25 @@ public class PanicAlert {
         );
     }
 
-    public void deActivate() {
+    public synchronized void deActivate() {
         executorService.shutdown();
-        if(locationProvider != null) {
-            locationProvider.terminate();
-        }
+        locationProvider.terminate();
         panicAlert = null;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public AlertStatus getAlertStatus() {
+        if(isActive()) {
+            return AlertStatus.ACTIVE;
+        }
+        return AlertStatus.STANDBY;
+    }
+
+
     void activateAlert() {
-        isActive = true;
         SMSSettings smsSettings = SMSSettings.retrieve(context);
         if (smsSettings.isConfigured()) {
             sendSMS(smsSettings);
@@ -122,7 +132,6 @@ public class PanicAlert {
     SMSAdapter getSMSAdapter() {
         return new SMSAdapter();
     }
-
     public static final int LOCATION_WAIT_TIME = 1000;
     public static final int MAX_RETRIES = 10;
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;

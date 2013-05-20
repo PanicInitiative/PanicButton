@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
+import com.amnesty.panicbutton.alert.AlertStatus;
 import com.amnesty.panicbutton.alert.PanicAlert;
-import com.amnesty.panicbutton.model.SMSSettings;
 import com.amnesty.panicbutton.sms.SMSSettingsActivity;
 import com.amnesty.panicbutton.twitter.TwitterSettingsActivity;
 import org.junit.Before;
@@ -15,11 +15,10 @@ import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 
-import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -65,26 +64,33 @@ public class SettingsActivityTest {
     }
 
     @Test
-    public void shouldDisableActivationButtonWhenSettingsNotConfigured() {
+    public void shouldShowStandbyInfoWhenAlertIsNotActive() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.STANDBY);
         settingsActivity.onResume();
-
-        assertFalse(activateButton.isEnabled());
-        assertEquals("Alert cannot be sent. please choose contacts", alertStatusText.getText().toString());
-    }
-
-    @Test
-    public void shouldEnableActivationButtonWhenSettingsConfigured() {
-        SMSSettings.save(application, new SMSSettings(asList("123-123-1222"), ""));
-        settingsActivity.onResume();
-
-        assertTrue(activateButton.isEnabled());
         assertEquals("Alert is in standby", alertStatusText.getText().toString());
     }
 
     @Test
-    public void shouldActivateAlertOnActivation() {
+    public void shouldShowStopAlertInfoWhenAlertIsActive() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
+        settingsActivity.onResume();
+        assertEquals("Alert is active and Sending every five minutes", alertStatusText.getText().toString());
+    }
+
+    @Test
+    public void shouldActivateAlert() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
+        when(mockPanicAlert.isActive()).thenReturn(false);
         activateButton.performClick();
         verify(mockPanicAlert).activate();
+    }
+
+    @Test
+    public void shouldDeActivateAlert() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.STANDBY);
+        when(mockPanicAlert.isActive()).thenReturn(true);
+        activateButton.performClick();
+        verify(mockPanicAlert).deActivate();
     }
 
     @Test

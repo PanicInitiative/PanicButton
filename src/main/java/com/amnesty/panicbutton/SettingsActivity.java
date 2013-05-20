@@ -28,13 +28,7 @@ public class SettingsActivity extends RoboActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setAlertStatus();
-    }
-
-    private void setAlertStatus() {
-        AlertStatus alertStatus = ApplicationSettings.getAlertStatus(this);
-        activateButton.setEnabled(alertStatus.canAlert());
-        alertStatusText.setText(alertStatus.getDescription());
+        updateAlertStatus();
     }
 
     public void launchSmsActivity(View view) {
@@ -45,12 +39,29 @@ public class SettingsActivity extends RoboActivity {
         startActivity(new Intent(this, TwitterSettingsActivity.class));
     }
 
-    public void activateAlert(View view) {
-        getPanicAlert().activate();
-    }
-
     public void goBack(View view) {
         this.finish();
+    }
+
+    public void performAlertAction(View view) {
+        toggleAlert();
+        updateAlertStatus();
+    }
+
+    private void toggleAlert() {
+        PanicAlert panicAlert = getPanicAlert();
+        if(panicAlert.isActive()) {
+            panicAlert.deActivate();
+            return;
+        }
+        panicAlert.activate();
+    }
+
+    private void updateAlertStatus() {
+        AlertStatus alertStatus = getPanicAlert().getAlertStatus();
+        activateButton.setText(alertStatus.getAction());
+        activateButton.setBackgroundResource(alertStatus.getStyle());
+        alertStatusText.setText(alertStatus.getDescription());
     }
 
     PanicAlert getPanicAlert() {

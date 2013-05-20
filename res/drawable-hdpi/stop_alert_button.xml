@@ -2,5 +2,5 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true" android:drawable="@drawable/alert_button_focused" />
-    <item android:drawable="@drawable/alert_button_stand_by" />
+    <item android:drawable="@drawable/alert_button_stop" />
 </selector>

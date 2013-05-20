@@ -147,6 +147,18 @@ public class PanicAlertTest {
         verifyZeroInteractions(mockExecutor);
     }
 
+    @Test
+    public void shouldReturnActiveAlertStatus() throws Exception {
+        setVariableValueInObject(panicAlert, "isActive", true);
+        assertEquals(AlertStatus.ACTIVE, panicAlert.getAlertStatus());
+    }
+
+    @Test
+    public void shouldReturnStandByAlertStatus() throws Exception {
+        setVariableValueInObject(panicAlert, "isActive", false);
+        assertEquals(AlertStatus.STANDBY, panicAlert.getAlertStatus());
+    }
+
     private class TestExecutorService extends ScheduledThreadPoolExecutor {
         public TestExecutorService() {
             super(1);

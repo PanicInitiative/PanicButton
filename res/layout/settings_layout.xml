@@ -35,10 +35,9 @@
             style="@style/settings_page">
 
         <Button android:id="@+id/activate_alert"
-                android:text="@string/activate_alert"
                 android:layout_height="70dp"
                 android:layout_width="fill_parent"
-                android:onClick="activateAlert"
+                android:onClick="performAlertAction"
                 android:background="@drawable/send_alert_button"
                 style="@style/alert_button"/>
         <View android:layout_height="1sp"

@@ -12,7 +12,6 @@
     <string name="enter_message_hint">Enter Message</string>
     <string name="sms_save_successful">SMS settings saved successfully</string>
     <string name="twitter_save_successful">Twitter settings saved successfully</string>
-    <string name="activate_alert">&#160;&#160;Send emergency alert</string>
     <string name="calculator_label">Calculator</string>
 
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
@@ -59,8 +58,10 @@
     <string name="finish_detail">You can change your contacts or alert message from the app\'s Settings screen.</string>
     <string name="finish_button_text">Finish &amp; activate disguise</string>
 
+    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
+    <string name="stop_alert">&#160;&#160;Stop alert</string>
     <string name="alert_status_standby">Alert is in standby</string>
-    <string name="alert_status_not_configured">Alert cannot be sent. please choose contacts</string>
+    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
 
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
