@@ -24,8 +24,8 @@ import static org.robolectric.Robolectric.shadowOf;
 @RunWith(RobolectricTestRunner.class)
 public class SettingsActivityTest {
     private SettingsActivity settingsActivity;
-    private TableRow smsRow;
-    private TableRow twitterRow;
+    private TextView smsRow;
+    private TextView twitterRow;
 
     private Button activateButton;
     @Mock
@@ -44,8 +44,8 @@ public class SettingsActivityTest {
         };
         settingsActivity.onCreate(null);
 
-        smsRow = (TableRow) settingsActivity.findViewById(R.id.sms_row);
-        twitterRow = (TableRow) settingsActivity.findViewById(R.id.twitter_row);
+        smsRow = (TextView) settingsActivity.findViewById(R.id.sms_row);
+        twitterRow = (TextView) settingsActivity.findViewById(R.id.twitter_row);
         activateButton = (Button) settingsActivity.findViewById(R.id.activate_alert);
         backButton = (Button) settingsActivity.findViewById(R.id.settings_back_button);
         alertStatusText = (TextView) settingsActivity.findViewById(R.id.alert_status_text);

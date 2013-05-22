@@ -72,7 +72,6 @@
                 android:layout_weight="1">
             <fragment android:id="@+id/sms_message"
                       android:name="com.amnesty.panicbutton.common.MessageFragment"
-                      android:padding="@dimen/sms_message_widget_padding"
                       custom:max_characters="85"
                       custom:message_header="@string/emergency_message_header"
                       android:layout_width="wrap_content"

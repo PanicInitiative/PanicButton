@@ -29,22 +29,14 @@
               style="@style/wizard_title_sep"
                 />
 
-        <LinearLayout android:layout_height="wrap_content"
-                      android:layout_width="fill_parent"
-                      android:orientation="horizontal">
 
-            <ImageView android:layout_height="wrap_content"
-                       android:layout_width="wrap_content"
-                       android:src="@drawable/setup_wizard"
-                       style="@style/setup_wizard_image"
-                    />
 
-            <TextView android:layout_height="fill_parent"
+            <TextView android:layout_height="200dp"
                       android:layout_width="fill_parent"
                       android:text="@string/wizard_what_is_PB"
+                      android:drawableLeft="@drawable/setup_wizard"
                       style="@style/welcome_screen_text"/>
 
-        </LinearLayout>
 
         <TextView android:layout_height="wrap_content"
                   android:layout_width="fill_parent"
