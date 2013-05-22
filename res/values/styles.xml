@@ -190,7 +190,7 @@
         <item name="android:textSize">20sp</item>
         <item name="android:layout_weight">2</item>
         <item name="android:drawableRight">@drawable/icon_arrow</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">20dp</item>
     </style>
 
 
