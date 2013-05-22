@@ -12,13 +12,13 @@
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/panic_button_label"
-                  android:textSize="32dp"
+                  android:textSize="32sp"
                   android:paddingBottom="5dp"/>
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="@string/setup_wizard"
-                  android:textSize="24dp"
+                  android:textSize="24sp"
                   android:textStyle="italic"
                   android:paddingBottom="5dp"
                 />
