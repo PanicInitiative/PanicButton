@@ -122,6 +122,7 @@
                             <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
 
                             <exclude>com/amnesty/panicbutton/location/LocationListenerAdapter.class</exclude>
+                            <exclude>com/amnesty/panicbutton/common/Intents.class</exclude>
                             <exclude>com/amnesty/panicbutton/twitter/OnItemSelectedListenerAdapter.class</exclude>
                             <exclude>com/amnesty/panicbutton/twitter/HintSpinnerAdapter.class</exclude>
                             <exclude>com/amnesty/panicbutton/HomeActivity*.class</exclude>

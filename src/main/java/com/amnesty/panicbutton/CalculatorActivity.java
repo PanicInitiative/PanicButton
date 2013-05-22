@@ -61,6 +61,6 @@ public class CalculatorActivity extends RoboActivity {
     }
 
     PanicAlert getPanicAlert() {
-        return PanicAlert.getInstance(this);
+        return new PanicAlert(this);
     }
 }

@@ -32,7 +32,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     }
 
     PanicAlert getPanicAlert(Context context) {
-        return PanicAlert.getInstance(context);
+        return new PanicAlert(context);
     }
 
     private void resetEvent() {

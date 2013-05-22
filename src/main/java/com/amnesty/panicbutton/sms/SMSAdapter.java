@@ -4,7 +4,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 
 public class SMSAdapter {
-    private static final String LOG_TAG = SMSAdapter.class.getSimpleName();
+    private static final String LOG_TAG = SMSAdapter.class.getName();
 
     public void sendSMS(String phoneNumber, String message) {
         SmsManager smsManager = getSmsManager();
