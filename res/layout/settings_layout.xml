@@ -42,7 +42,7 @@
                 android:onClick="performAlertAction"
                 android:background="@drawable/send_alert_button"
                 style="@style/alert_button"/>
-        <View android:layout_height="1sp"
+        <View android:layout_height="1dp"
               android:layout_width="fill_parent"
               style="@style/line"/>
         <TextView android:layout_width="fill_parent"
@@ -57,7 +57,7 @@
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
                 >
-            <View android:layout_height="1sp"
+            <View android:layout_height="1dp"
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 
@@ -72,7 +72,7 @@
                     style="@style/settings_list_item_text"/>
 
 
-            <View android:layout_height="1sp"
+            <View android:layout_height="1dp"
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 
@@ -87,7 +87,7 @@
                     style="@style/settings_list_item_text"/>
 
 
-            <View android:layout_height="1sp"
+            <View android:layout_height="1dp"
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 

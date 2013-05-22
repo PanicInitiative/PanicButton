@@ -13,7 +13,7 @@
                   android:text="@string/wizard_emergency_title"
                   style="@style/wizard_page_title"/>
 
-        <View android:layout_height="1sp"
+        <View android:layout_height="1dp"
               android:layout_width="match_parent"
               style="@style/wizard_title_sep"/>
 
