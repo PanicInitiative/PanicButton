@@ -91,4 +91,22 @@
     <string name="no">No</string>
 
     <string name="twitter_shortcode_label">Find your Twitter SMS shortcode</string>
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="addition">+</string>
+    <string name="subtraction">&#8722;</string>
+    <string name="multiplication">&#215;</string>
+    <string name="division">&#247;</string>
+    <string name="equal_to">=</string>
+
+
 </resources>
