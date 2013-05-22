@@ -50,6 +50,18 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".location.LocationUpdateReceiver" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="com.amnesty.panicbutton.LOCATION_UPDATE_ACTION"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".alert.AlarmReceiver" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="com.amnesty.panicbutton.SEND_ALERT_ACTION"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
 

@@ -3,171 +3,135 @@ package com.amnesty.panicbutton.alert;
 import android.app.Application;
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Vibrator;
-import com.amnesty.panicbutton.location.LocationProvider;
-import com.amnesty.panicbutton.location.LocationTestUtil;
-import com.amnesty.panicbutton.model.SMSSettings;
-import com.amnesty.panicbutton.sms.SMSAdapter;
-import com.amnesty.panicbutton.twitter.ShortCodeSettings;
-import com.amnesty.panicbutton.twitter.TwitterSettings;
-import org.junit.After;
+import com.amnesty.panicbutton.ApplicationSettings;
+import com.amnesty.panicbutton.location.CurrentLocationProvider;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowLocationManager;
 import org.robolectric.shadows.ShadowVibrator;
 
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import static android.location.LocationManager.NETWORK_PROVIDER;
-import static java.lang.System.currentTimeMillis;
-import static java.util.Arrays.asList;
-import static org.codehaus.plexus.util.ReflectionUtils.getValueIncludingSuperclasses;
-import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class PanicAlertTest {
     private PanicAlert panicAlert;
 
-    @Mock
-    public SMSAdapter mockSMSAdapter;
-    @Mock
-    public LocationProvider mockLocationProvider;
-    @Mock
-    ScheduledExecutorService mockExecutor;
-
-    private String message;
-    private String mobile1, mobile2, mobile3;
-    private Location location;
-    private double latitude, longitude;
     private Application context;
     private ShadowVibrator shadowVibrator;
+    @Mock private ExecutorService mockExecutor;
+    @Mock private PanicMessage mockPanicMessage;
+    @Mock private CurrentLocationProvider mockCurrentLocationProvider;
+    @Mock private Location mockLocation;
+    private ShadowLocationManager shadowLocationManager;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        message = "Help! I am in trouble";
-        mobile1 = "123-123-1222";
-        mobile2 = "";
-        mobile3 = "6786786789";
-        latitude = -183.123456;
-        longitude = 78.654321;
-
-        location = LocationTestUtil.location(NETWORK_PROVIDER, latitude, longitude, currentTimeMillis(), 10.0f);
-        shadowVibrator = shadowOf((Vibrator) application.getSystemService(Context.VIBRATOR_SERVICE));
-
         context = Robolectric.application;
-        panicAlert = spy(PanicAlert.getInstance(context));
-        when(panicAlert.getSMSAdapter()).thenReturn(mockSMSAdapter);
-        setVariableValueInObject(panicAlert, "executorService", mockExecutor);
-        setVariableValueInObject(panicAlert, "locationProvider", mockLocationProvider);
-    }
 
-    @After
-    public void afterTest() {
-        panicAlert.deActivate();
-    }
-
-    @Test
-    public void shouldSendSMSWithLocationToAllConfiguredPhoneNumbersIgnoringInValidNumbers() {
-        SMSSettings smsSettings = new SMSSettings(asList(mobile1, mobile2, mobile3), message);
-        SMSSettings.save(application, smsSettings);
-
-        when(mockLocationProvider.currentBestLocation()).thenReturn(location);
-
-        panicAlert.activateAlert();
-
-        String messageWithLocation = message + ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude + " via network";
-        verify(mockSMSAdapter).sendSMS(mobile1, messageWithLocation);
-        verify(mockSMSAdapter).sendSMS(mobile3, messageWithLocation);
-        verifyNoMoreInteractions(mockSMSAdapter);
-    }
-
-    @Test
-    public void shouldNotSendSMSIfSettingsNotConfigured() {
-        panicAlert.activateAlert();
-        verifyZeroInteractions(mockSMSAdapter);
-    }
-
-    @Test
-    public void shouldSendSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailable() {
-        when(mockLocationProvider.currentBestLocation()).thenReturn(null);
-        SMSSettings.save(application, new SMSSettings(asList(mobile1, mobile2, mobile3), message));
-
-        panicAlert.activateAlert();
-
-        verify(mockSMSAdapter).sendSMS(mobile1, message);
-        verify(mockSMSAdapter).sendSMS(mobile3, message);
-        verifyNoMoreInteractions(mockSMSAdapter);
-    }
-
-    @Test
-    public void shouldSendTwitterSMSIfEnabled() {
-        String tweet = "Test Message";
-        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("India", "Airtel", "53000");
-        TwitterSettings twitterSettings = new TwitterSettings(shortCodeSettings, tweet);
-        TwitterSettings.enable(context);
-        TwitterSettings.save(context, twitterSettings);
-
-        panicAlert.activateAlert();
-
-        verify(mockSMSAdapter).sendSMS("53000", tweet);
+        panicAlert = getPanicAlert(mockExecutor);
+        shadowVibrator = shadowOf((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
+        ApplicationSettings.setAlertActive(context, false);
+        shadowLocationManager = shadowOf((LocationManager)context.getSystemService(Context.LOCATION_SERVICE));
+        shadowLocationManager.setProviderEnabled(LocationManager.NETWORK_PROVIDER, true);
+        shadowLocationManager.setProviderEnabled(LocationManager.GPS_PROVIDER, true);
     }
 
     @Test
     public void shouldActiveTheAlertWithHapticFeedback() throws IllegalAccessException {
-        setVariableValueInObject(panicAlert, "executorService", new TestExecutorService());
         panicAlert.activate();
         assertEquals(3000, shadowVibrator.getMilliseconds());
-        assertTrue((Boolean) getValueIncludingSuperclasses("isActive", panicAlert));
-    }
-
-    @Test
-    public void shouldScheduleTheAlertAtFixedRate() throws IllegalAccessException {
-        panicAlert.activate();
-        verify(mockExecutor).scheduleAtFixedRate(any(Runnable.class), eq(0L), eq(300L), eq(TimeUnit.SECONDS));
+        assertTrue(panicAlert.isActive());
+        verify(mockExecutor).execute(any(Runnable.class));
     }
 
     @Test
     public void shouldNotActiveAgainIfItIsAlreadyActive() throws IllegalAccessException {
-        setVariableValueInObject(panicAlert, "isActive", true);
+        ApplicationSettings.setAlertActive(context, true);
         panicAlert.activate();
-        assertEquals(0, shadowVibrator.getMilliseconds());
+        assertEquals(3000, shadowVibrator.getMilliseconds());
         verifyZeroInteractions(mockExecutor);
     }
 
     @Test
     public void shouldReturnActiveAlertStatus() throws Exception {
-        setVariableValueInObject(panicAlert, "isActive", true);
+        ApplicationSettings.setAlertActive(context, true);
         assertEquals(AlertStatus.ACTIVE, panicAlert.getAlertStatus());
     }
 
     @Test
     public void shouldReturnStandByAlertStatus() throws Exception {
-        setVariableValueInObject(panicAlert, "isActive", false);
         assertEquals(AlertStatus.STANDBY, panicAlert.getAlertStatus());
     }
 
+    @Test
+    public void shouldSendTheFirstAlertOnActivation() {
+        panicAlert = getPanicAlert(new TestExecutorService());
+        when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
+
+        panicAlert.activate();
+
+        verify(mockPanicMessage).send(mockLocation);
+    }
+
+    @Test
+    public void shouldSendAlertWithOutLocationIfLocationNotAvaiable() {
+        panicAlert = getPanicAlert(new TestExecutorService());
+        when(mockCurrentLocationProvider.getLocation()).thenReturn(null);
+
+        panicAlert.activate();
+
+        verify(mockPanicMessage).send(null);
+    }
+
+    @Test
+    public void shouldDeactivateTheAlert() {
+        panicAlert = getPanicAlert(new TestExecutorService());
+        when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
+        panicAlert.activate();
+        panicAlert.deActivate();
+
+        assertFalse(ApplicationSettings.isAlertActive(context));
+    }
+
     private class TestExecutorService extends ScheduledThreadPoolExecutor {
+
         public TestExecutorService() {
             super(1);
         }
 
         @Override
-        public ScheduledFuture<?> scheduleAtFixedRate(Runnable runnable, long l, long l2, TimeUnit timeUnit) {
+        public void execute(Runnable runnable) {
             runnable.run();
-            return null;
         }
+
+    }
+    private PanicAlert getPanicAlert(final ExecutorService executorService) {
+        return new PanicAlert(context) {
+            ExecutorService getExecutorService() {
+                return executorService;
+            }
+
+            PanicMessage createPanicMessage() {
+                return mockPanicMessage;
+            }
+
+            CurrentLocationProvider getCurrentLocationProvider() {
+                return mockCurrentLocationProvider;
+            }
+        };
     }
 }

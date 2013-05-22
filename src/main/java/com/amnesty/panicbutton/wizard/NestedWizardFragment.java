@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 public abstract class NestedWizardFragment extends WizardFragment {
-    private static String TAG = NestedWizardFragment.class.getSimpleName();
+    private static String TAG = NestedWizardFragment.class.getName();
 
     protected abstract int[] getFragmentIds();
 
