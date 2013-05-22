@@ -20,7 +20,8 @@
                   android:orientation="vertical"
                   android:layout_height="wrap_content"
                   android:layout_width="match_parent"
-                  android:visibility="invisible">
+                  android:visibility="invisible"
+                    style="@style/twitter_short_code">
         <TextView android:id="@+id/twitter_help_text"
                   android:text="@string/twitter_help_text"
                   android:layout_height="wrap_content"

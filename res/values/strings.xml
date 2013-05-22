@@ -97,4 +97,6 @@
     <string name="settings_changed_alert_message">Do you want to save the changes?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="twitter_shortcode_label">Find your Twitter SMS shortcode</string>
 </resources>

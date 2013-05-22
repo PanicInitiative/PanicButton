@@ -28,7 +28,7 @@
                 android:background="@drawable/topbar_button"
                 android:text="@string/enter_text"
                 android:layout_height="fill_parent"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:onClick="onEnterPressed"/>
 
     </LinearLayout>
