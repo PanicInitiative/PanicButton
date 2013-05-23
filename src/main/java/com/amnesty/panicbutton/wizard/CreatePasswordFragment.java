@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import com.amnesty.panicbutton.ApplicationSettings;
 import com.amnesty.panicbutton.R;
+import com.amnesty.panicbutton.common.AppUtil;
 
 import java.util.regex.Pattern;
 
@@ -42,7 +43,7 @@ public class CreatePasswordFragment extends WizardFragment {
             ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
             return true;
         }
-        passwordEditText.setError(getString(R.string.invalid_password));
+        AppUtil.setError(getActivity(), passwordEditText, R.string.invalid_password);
         return false;
     }
 

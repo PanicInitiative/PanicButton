@@ -1,6 +1,5 @@
 package com.amnesty.panicbutton.twitter;
 
-import android.R;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ public class HintSpinnerAdapter extends ArrayAdapter<String> {
             this.add(value);
         }
         this.add(hintText);
-        this.setDropDownViewResource(R.layout.simple_list_item_1);
+        this.setDropDownViewResource(android.R.layout.simple_list_item_1);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class HintSpinnerAdapter extends ArrayAdapter<String> {
 
         View view = super.getView(position, convertView, parent);
         if (position == getCount()) {
-            TextView hintView = (TextView) view.findViewById(R.id.text1);
+            TextView hintView = (TextView) view.findViewById(android.R.id.text1);
             hintView.setText("");
             hintView.setHint(getItem(getCount()));
         }

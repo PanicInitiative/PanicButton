@@ -11,7 +11,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -50,7 +51,7 @@ public class LoginActivityTest {
     public void shouldShowErrorOnPressingNextAfterEnteringInCorrectPassword() {
         passwordEditText.setText("abcd1234");
         enterButton.performClick();
-        assertEquals("Please enter the correct password", passwordEditText.getError());
+        assertTrue(passwordEditText.getError().toString().contains("Please enter the correct password"));
     }
 
     @Test

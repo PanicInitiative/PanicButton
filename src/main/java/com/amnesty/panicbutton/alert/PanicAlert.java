@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
+import com.amnesty.panicbutton.AppConstants;
 import com.amnesty.panicbutton.ApplicationSettings;
 import com.amnesty.panicbutton.location.CurrentLocationProvider;
 
@@ -74,13 +75,13 @@ public class PanicAlert {
 
     private void scheduleFutureAlert() {
         PendingIntent alarmPendingIntent = alarmPendingIntent(context);
-        long timeFromNow = SystemClock.elapsedRealtime() + ALERT_FREQUENCY_IN_SECS;
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeFromNow, ALERT_FREQUENCY_IN_SECS, alarmPendingIntent);
+        long timeFromNow = SystemClock.elapsedRealtime() + AppConstants.ALERT_FREQUENCY;
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeFromNow, AppConstants.ALERT_FREQUENCY, alarmPendingIntent);
     }
 
     private void registerLocationUpdate() {
-        locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME, NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-        locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME, GPS_MIN_DISTANCE, locationPendingIntent(context));
+        locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+        locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
     }
 
     public boolean isActive() {
@@ -89,7 +90,7 @@ public class PanicAlert {
 
     private void vibrate() {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(HAPTIC_FEEDBACK_DURATION);
+        vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
     }
 
     private Location getLocation(CurrentLocationProvider currentLocationProvider) {
@@ -123,13 +124,4 @@ public class PanicAlert {
 
     public static final int MAX_RETRIES = 10;
     public static final int LOCATION_WAIT_TIME = 1000;
-    public static final int HAPTIC_FEEDBACK_DURATION = 3000;
-
-    private static final float GPS_MIN_DISTANCE = 0;
-    private static final long GPS_MIN_TIME = 1000 * 60 * 2;
-
-    private static final float NETWORK_MIN_DISTANCE = 0;
-    private static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
-
-    private static final long ALERT_FREQUENCY_IN_SECS = 1000 * 60 * 5;
 }

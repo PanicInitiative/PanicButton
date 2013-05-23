@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import com.amnesty.panicbutton.common.AppUtil;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -28,6 +29,6 @@ public class LoginActivity extends RoboActivity {
             startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             return;
         }
-        passwordEditText.setError(getString(R.string.incorrect_password));
+        AppUtil.setError(this, passwordEditText, R.string.incorrect_password);
     }
 }

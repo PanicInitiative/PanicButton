@@ -59,7 +59,7 @@ public class CreatePasswordFragmentTest {
 
         assertFalse(createPasswordFragment.performAction());
         String expectedError = "Password must contain at least one lowercase, one uppercase, one number, and one space";
-        assertEquals(expectedError, passwordEditText.getError());
+        assertTrue(passwordEditText.getError().toString().contains(expectedError));
     }
 
     @Test

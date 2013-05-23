@@ -6,6 +6,8 @@ import android.location.Location;
 import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 
+import static com.amnesty.panicbutton.AppConstants.ALERT_FREQUENCY;
+
 public class ApplicationSettings {
     public static final String FIRST_RUN = "FIRST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
@@ -39,7 +41,13 @@ public class ApplicationSettings {
 
     public static Location getCurrentBestLocation(Context context) {
         String locationJson = sharedPreferences(context).getString(BEST_LOCATION, null);
-        return (locationJson == null) ? null : new Gson().fromJson(locationJson, Location.class);
+        return (locationJson == null ) ? null : constructLocation(locationJson);
+    }
+
+    private static Location constructLocation(String locationJson) {
+        Location location = new Gson().fromJson(locationJson, Location.class);
+        long timeDelta = System.currentTimeMillis() - location.getTime();
+        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
     }
 
     public static void setCurrentBestLocation(Context context, Location location) {

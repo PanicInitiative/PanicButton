@@ -1,6 +1,8 @@
 package com.amnesty.panicbutton.trigger;
 
 import android.app.Application;
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import com.amnesty.panicbutton.alert.PanicAlert;
 import org.codehaus.plexus.util.ReflectionUtils;
@@ -11,10 +13,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowKeyguardManager;
 
 import static android.content.Intent.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class HardwareTriggerReceiverTest {
@@ -24,6 +28,7 @@ public class HardwareTriggerReceiverTest {
     private MultiClickEvent mockMultiClickEvent;
     @Mock
     private PanicAlert mockPanicAlert;
+    private ShadowKeyguardManager shadowKeyguardManager;
 
     @Before
     public void setUp() throws IllegalAccessException {
@@ -32,6 +37,8 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
         when(spyHardwareTriggerReceiver.getPanicAlert(context)).thenReturn(mockPanicAlert);
         ReflectionUtils.setVariableValueInObject(spyHardwareTriggerReceiver, "multiClickEvent", mockMultiClickEvent);
+        shadowKeyguardManager = shadowOf((KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE));
+        shadowKeyguardManager.setinRestrictedInputMode(true);
     }
 
     @Test
@@ -57,6 +64,15 @@ public class HardwareTriggerReceiverTest {
     @Test
     public void shouldNotProcessAnyThingForIntentsOtherThanScreenOnAndOff() {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
+
+        verifyNoMoreInteractions(mockMultiClickEvent);
+        verify(mockPanicAlert, never()).activate();
+    }
+
+    @Test
+    public void shouldNotProcessAnyThingIfScreenIsUnlocked() {
+        shadowKeyguardManager.setinRestrictedInputMode(false);
+        spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verifyNoMoreInteractions(mockMultiClickEvent);
         verify(mockPanicAlert, never()).activate();
