@@ -24,6 +24,7 @@
     <ImageView android:layout_width="fill_parent"
                android:layout_height="wrap_content"
                android:src="@drawable/wizard_disguise"
+               android:contentDescription="@string/long_press"
             style="@style/wizard_image"/>
 
     <Button android:text="@string/finish_button_text"

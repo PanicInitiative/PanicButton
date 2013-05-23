@@ -26,6 +26,7 @@
         <ImageView android:layout_height="wrap_content"
                    android:layout_width="fill_parent"
                    android:src="@drawable/activate1"
+                   android:contentDescription="@string/tap_once"
                    style="@style/wizard_image"/>
     </LinearLayout>
 </ScrollView>

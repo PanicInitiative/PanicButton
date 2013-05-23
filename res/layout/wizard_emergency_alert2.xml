@@ -26,6 +26,7 @@
         <ImageView android:layout_height="wrap_content"
                    android:layout_width="fill_parent"
                    android:src="@drawable/activate2"
+                   android:contentDescription="@string/tap_five_times"
                    style="@style/wizard_image"/>
     </LinearLayout>
 </ScrollView>

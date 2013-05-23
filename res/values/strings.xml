@@ -112,5 +112,9 @@
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
 
+    <string name="choose_contact">Choose your emergency contact</string>
+    <string name="tap_once">Tap once to send alert</string>
+    <string name="tap_five_times">Tap five times fast to send alert</string>
+    <string name="long_press">Long press to access settings</string>
 
 </resources>
