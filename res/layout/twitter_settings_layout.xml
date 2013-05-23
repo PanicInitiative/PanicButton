@@ -39,7 +39,7 @@
             <fragment android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:id="@+id/twitter_settings_fragment"
-                      android:name="com.apb.panicbutton.twitter.TwitterSettingsFragment"/>
+                      android:name="com.apb.beacon.twitter.TwitterSettingsFragment"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
