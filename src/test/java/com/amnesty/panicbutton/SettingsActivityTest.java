@@ -2,7 +2,6 @@ package com.amnesty.panicbutton;
 
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.TableRow;
 import android.widget.TextView;
 import com.amnesty.panicbutton.alert.AlertStatus;
 import com.amnesty.panicbutton.alert.PanicAlert;
@@ -75,6 +74,24 @@ public class SettingsActivityTest {
         when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
         settingsActivity.onResume();
         assertEquals("Alert is active and Sending every five minutes", alertStatusText.getText().toString());
+    }
+
+    @Test
+    public void shouldDisableLinksWhenAlertIsActive() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.STANDBY);
+        settingsActivity.onResume();
+
+        assertTrue(smsRow.isEnabled());
+        assertTrue(twitterRow.isEnabled());
+    }
+
+    @Test
+    public void shouldEnableLinksWhenAlertIsNotActive() {
+        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
+        settingsActivity.onResume();
+
+        assertFalse(smsRow.isEnabled());
+        assertFalse(twitterRow.isEnabled());
     }
 
     @Test

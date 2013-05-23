@@ -19,6 +19,10 @@ public class SettingsActivity extends RoboActivity {
     private Button activateButton;
     @InjectView(R.id.alert_status_text)
     private TextView alertStatusText;
+    @InjectView(R.id.sms_row)
+    private TextView smsSettingsLink;
+    @InjectView(R.id.twitter_row)
+    private TextView twitterSettingsLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class SettingsActivity extends RoboActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateAlertStatus();
+        updateView();
     }
 
     public void launchSmsActivity(View view) {
@@ -45,7 +49,7 @@ public class SettingsActivity extends RoboActivity {
 
     public void performAlertAction(View view) {
         toggleAlert();
-        updateAlertStatus();
+        updateView();
     }
 
     private void toggleAlert() {
@@ -57,11 +61,13 @@ public class SettingsActivity extends RoboActivity {
         panicAlert.activate();
     }
 
-    private void updateAlertStatus() {
+    private void updateView() {
         AlertStatus alertStatus = getPanicAlert().getAlertStatus();
         activateButton.setText(alertStatus.getAction());
         activateButton.setBackgroundResource(alertStatus.getStyle());
         alertStatusText.setText(alertStatus.getDescription());
+        smsSettingsLink.setEnabled(alertStatus.isSettingsEnabled());
+        twitterSettingsLink.setEnabled(alertStatus.isSettingsEnabled());
     }
 
     PanicAlert getPanicAlert() {
