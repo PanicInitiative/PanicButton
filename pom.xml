@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.amnesty.panicbutton</groupId>
+    <groupId>com.apb.panicbutton</groupId>
     <artifactId>amnesty-panic-button</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>apk</packaging>
@@ -117,20 +117,20 @@
                 <configuration>
                     <instrumentation>
                         <excludes>
-                            <exclude>com/amnesty/panicbutton/R*.class</exclude>
-                            <exclude>com/amnesty/panicbutton/Manifest.class</exclude>
-                            <exclude>com/amnesty/panicbutton/BuildConfig.class</exclude>
+                            <exclude>com/apb/panicbutton/R*.class</exclude>
+                            <exclude>com/apb/panicbutton/Manifest.class</exclude>
+                            <exclude>com/apb/panicbutton/BuildConfig.class</exclude>
 
-                            <exclude>com/amnesty/panicbutton/location/LocationListenerAdapter.class</exclude>
-                            <exclude>com/amnesty/panicbutton/common/Intents.class</exclude>
-                            <exclude>com/amnesty/panicbutton/common/AppUtil.class</exclude>
-                            <exclude>com/amnesty/panicbutton/AppConstants.class</exclude>
-                            <exclude>com/amnesty/panicbutton/twitter/OnItemSelectedListenerAdapter.class</exclude>
-                            <exclude>com/amnesty/panicbutton/twitter/HintSpinnerAdapter.class</exclude>
+                            <exclude>com/apb/panicbutton/location/LocationListenerAdapter.class</exclude>
+                            <exclude>com/apb/panicbutton/common/Intents.class</exclude>
+                            <exclude>com/apb/panicbutton/common/AppUtil.class</exclude>
+                            <exclude>com/apb/panicbutton/AppConstants.class</exclude>
+                            <exclude>com/apb/panicbutton/twitter/OnItemSelectedListenerAdapter.class</exclude>
+                            <exclude>com/apb/panicbutton/twitter/HintSpinnerAdapter.class</exclude>
 
 
-                            <exclude>com/amnesty/panicbutton/HomeActivity*.class</exclude>
-                            <exclude>com/amnesty/panicbutton/ApplicationSettings.class</exclude>
+                            <exclude>com/apb/panicbutton/HomeActivity*.class</exclude>
+                            <exclude>com/apb/panicbutton/ApplicationSettings.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>

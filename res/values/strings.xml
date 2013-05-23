@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name">PBCalc</string>
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
@@ -116,5 +116,4 @@
     <string name="tap_once">Tap once to send alert</string>
     <string name="tap_five_times">Tap five times fast to send alert</string>
     <string name="long_press">Long press to access settings</string>
-
 </resources>

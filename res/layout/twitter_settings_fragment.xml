@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:custom="http://schemas.android.com/apk/res/com.amnesty.panicbutton"
+              xmlns:custom="http://schemas.android.com/apk/res/com.apb.panicbutton"
               android:id="@+id/twitter_settings_fragment_root"
               android:orientation="vertical"
               android:layout_height="fill_parent"
               android:layout_width="fill_parent">
 
     <fragment android:id="@+id/twitter_short_code_fragment"
-              android:name="com.amnesty.panicbutton.twitter.TwitterShortCodeFragment"
+              android:name="com.apb.panicbutton.twitter.TwitterShortCodeFragment"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>
     <fragment android:id="@+id/twitter_message_fragment"
-              android:name="com.amnesty.panicbutton.common.MessageFragment"
+              android:name="com.apb.panicbutton.common.MessageFragment"
               custom:max_characters="65"
               custom:message_header="@string/twitter_emergency_message_header"
               android:layout_width="match_parent"
