@@ -1,6 +1,8 @@
 package com.apb.beacon.alert;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,12 +15,18 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowAlarmManager;
 import org.robolectric.shadows.ShadowLocationManager;
 import org.robolectric.shadows.ShadowVibrator;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
+import static android.location.LocationManager.GPS_PROVIDER;
+import static android.location.LocationManager.NETWORK_PROVIDER;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -36,6 +44,7 @@ public class PanicAlertTest {
     @Mock private CurrentLocationProvider mockCurrentLocationProvider;
     @Mock private Location mockLocation;
     private ShadowLocationManager shadowLocationManager;
+    private ShadowAlarmManager shadowAlarmManager;
 
     @Before
     public void setUp() throws Exception {
@@ -46,8 +55,10 @@ public class PanicAlertTest {
         shadowVibrator = shadowOf((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
         ApplicationSettings.setAlertActive(context, false);
         shadowLocationManager = shadowOf((LocationManager)context.getSystemService(Context.LOCATION_SERVICE));
-        shadowLocationManager.setProviderEnabled(LocationManager.NETWORK_PROVIDER, true);
-        shadowLocationManager.setProviderEnabled(LocationManager.GPS_PROVIDER, true);
+        shadowAlarmManager = shadowOf((AlarmManager)context.getSystemService(Context.ALARM_SERVICE));
+
+        shadowLocationManager.setProviderEnabled(NETWORK_PROVIDER, true);
+        shadowLocationManager.setProviderEnabled(GPS_PROVIDER, true);
     }
 
     @Test
@@ -98,13 +109,35 @@ public class PanicAlertTest {
     }
 
     @Test
+    public void shouldScheduleForContinuousAlertOnActivation() {
+        panicAlert = getPanicAlert(new TestExecutorService());
+        when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
+
+        panicAlert.activate();
+
+        Map<PendingIntent,String> requestLocationUpdates= shadowLocationManager.getRequestLocationUdpateProviderPendingIntents();
+        List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();
+        ShadowAlarmManager.ScheduledAlarm alarm = scheduledAlarms.get(0);
+
+        assertEquals(2, requestLocationUpdates.size());
+        assertTrue(requestLocationUpdates.values().containsAll(Arrays.asList(NETWORK_PROVIDER, GPS_PROVIDER)));
+
+        assertEquals(1, scheduledAlarms.size());
+        assertEquals(5 * 1000 * 60, alarm.interval);
+        assertEquals(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarm.type);
+    }
+
+    @Test
     public void shouldDeactivateTheAlert() {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
         panicAlert.activate();
         panicAlert.deActivate();
 
+        List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();
+
         assertFalse(ApplicationSettings.isAlertActive(context));
+        assertEquals(0, scheduledAlarms.size());
     }
 
     private class TestExecutorService extends ScheduledThreadPoolExecutor {
