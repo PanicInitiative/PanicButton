@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
@@ -39,10 +40,14 @@ public class PanicAlertTest {
 
     private Application context;
     private ShadowVibrator shadowVibrator;
-    @Mock private ExecutorService mockExecutor;
-    @Mock private PanicMessage mockPanicMessage;
-    @Mock private CurrentLocationProvider mockCurrentLocationProvider;
-    @Mock private Location mockLocation;
+    @Mock
+    private ExecutorService mockExecutor;
+    @Mock
+    private PanicMessage mockPanicMessage;
+    @Mock
+    private CurrentLocationProvider mockCurrentLocationProvider;
+    @Mock
+    private Location mockLocation;
     private ShadowLocationManager shadowLocationManager;
     private ShadowAlarmManager shadowAlarmManager;
 
@@ -54,8 +59,8 @@ public class PanicAlertTest {
         panicAlert = getPanicAlert(mockExecutor);
         shadowVibrator = shadowOf((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
         ApplicationSettings.setAlertActive(context, false);
-        shadowLocationManager = shadowOf((LocationManager)context.getSystemService(Context.LOCATION_SERVICE));
-        shadowAlarmManager = shadowOf((AlarmManager)context.getSystemService(Context.ALARM_SERVICE));
+        shadowLocationManager = shadowOf((LocationManager) context.getSystemService(Context.LOCATION_SERVICE));
+        shadowAlarmManager = shadowOf((AlarmManager) context.getSystemService(Context.ALARM_SERVICE));
 
         shadowLocationManager.setProviderEnabled(NETWORK_PROVIDER, true);
         shadowLocationManager.setProviderEnabled(GPS_PROVIDER, true);
@@ -109,13 +114,17 @@ public class PanicAlertTest {
     }
 
     @Test
-    public void shouldScheduleForContinuousAlertOnActivation() {
+    public void shouldScheduleForContinuousAlertOnActivationAndGoToHomeScreen() {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
 
         panicAlert.activate();
 
-        Map<PendingIntent,String> requestLocationUpdates= shadowLocationManager.getRequestLocationUdpateProviderPendingIntents();
+        Intent startedIntent = shadowOf(context).getNextStartedActivity();
+        assertEquals(1, startedIntent.getCategories().size());
+        assertEquals(Intent.CATEGORY_HOME, startedIntent.getCategories().iterator().next());
+
+        Map<PendingIntent, String> requestLocationUpdates = shadowLocationManager.getRequestLocationUdpateProviderPendingIntents();
         List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();
         ShadowAlarmManager.ScheduledAlarm alarm = scheduledAlarms.get(0);
 
@@ -152,6 +161,7 @@ public class PanicAlertTest {
         }
 
     }
+
     private PanicAlert getPanicAlert(final ExecutorService executorService) {
         return new PanicAlert(context) {
             ExecutorService getExecutorService() {
