@@ -39,6 +39,7 @@ public class CalculatorActivity extends RoboActivity {
             }
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {
+                CalculatorActivity.this.finish();
                 getPanicAlert().activate();
                 resetEvent(view);
             }
@@ -48,6 +49,7 @@ public class CalculatorActivity extends RoboActivity {
     private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
+            CalculatorActivity.this.finish();
             startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
             overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
             return true;

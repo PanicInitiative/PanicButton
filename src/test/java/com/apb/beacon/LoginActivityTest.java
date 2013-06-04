@@ -11,8 +11,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -55,8 +54,22 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void shouldGoBackToSettingOnClickingBack() {
+    public void shouldGoBackToFacadeOnClickingBack() {
         backButton.performClick();
-        assertTrue(shadowOf(loginActivity).isFinishing());
+        assertFacadeStart();
+    }
+
+    @Test
+    public void shouldGoBackToFacadeOnHardwareBack() {
+        loginActivity.onBackPressed();
+        assertFacadeStart();
+    }
+
+    private void assertFacadeStart() {
+        ShadowActivity shadowActivity = shadowOf(loginActivity);
+        Intent startedIntent = shadowActivity.getNextStartedActivity();
+        assertEquals(CalculatorActivity.class.getName(), startedIntent.getComponent().getClassName());
+        assertEquals(Intent.FLAG_ACTIVITY_CLEAR_TOP, startedIntent.getFlags());
+        assertTrue(loginActivity.isFinishing());
     }
 }

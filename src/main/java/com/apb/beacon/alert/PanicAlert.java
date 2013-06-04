@@ -3,7 +3,6 @@ package com.apb.beacon.alert;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
@@ -50,17 +49,9 @@ public class PanicAlert {
     }
 
     private void activateAlert() {
-        goHome();
         sendFirstAlert();
         registerLocationUpdate();
         scheduleFutureAlert();
-    }
-
-    private void goHome() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(startMain);
     }
 
     public void deActivate() {

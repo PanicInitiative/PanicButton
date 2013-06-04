@@ -100,6 +100,7 @@ public class SettingsActivityTest {
         when(mockPanicAlert.isActive()).thenReturn(false);
         activateButton.performClick();
         verify(mockPanicAlert).activate();
+        assertTrue(settingsActivity.isFinishing());
     }
 
     @Test
@@ -113,7 +114,21 @@ public class SettingsActivityTest {
     @Test
     public void shouldGoBackToFacadeOnClickingBack() {
         backButton.performClick();
-        assertTrue(shadowOf(settingsActivity).isFinishing());
+        assertFacadeStart();
+    }
+
+    @Test
+    public void shouldGoBackToFacadeOnHardwareBack() {
+       settingsActivity.onBackPressed();
+        assertFacadeStart();
+    }
+
+    private void assertFacadeStart() {
+        ShadowActivity shadowActivity = shadowOf(settingsActivity);
+        Intent startedIntent = shadowActivity.getNextStartedActivity();
+        assertEquals(CalculatorActivity.class.getName(), startedIntent.getComponent().getClassName());
+        assertEquals(Intent.FLAG_ACTIVITY_CLEAR_TOP, startedIntent.getFlags());
+        assertTrue(settingsActivity.isFinishing());
     }
 
     @Test

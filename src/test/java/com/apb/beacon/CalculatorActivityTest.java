@@ -55,6 +55,7 @@ public class CalculatorActivityTest {
             equalsButton.performClick();
         }
         verify(mockPanicAlert).activate();
+        assertTrue(shadowActivity.isFinishing());
     }
 
     @Test

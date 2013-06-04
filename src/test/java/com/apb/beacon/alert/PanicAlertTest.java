@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
@@ -119,10 +118,6 @@ public class PanicAlertTest {
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
 
         panicAlert.activate();
-
-        Intent startedIntent = shadowOf(context).getNextStartedActivity();
-        assertEquals(1, startedIntent.getCategories().size());
-        assertEquals(Intent.CATEGORY_HOME, startedIntent.getCategories().iterator().next());
 
         Map<PendingIntent, String> requestLocationUpdates = shadowLocationManager.getRequestLocationUdpateProviderPendingIntents();
         List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();

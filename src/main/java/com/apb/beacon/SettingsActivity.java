@@ -43,8 +43,16 @@ public class SettingsActivity extends RoboActivity {
         startActivity(new Intent(this, TwitterSettingsActivity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        goBack(null);
+    }
+
     public void goBack(View view) {
         this.finish();
+        Intent intent = new Intent(this, CalculatorActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public void performAlertAction(View view) {
@@ -59,6 +67,7 @@ public class SettingsActivity extends RoboActivity {
             return;
         }
         panicAlert.activate();
+        SettingsActivity.this.finish();
     }
 
     private void updateView() {
