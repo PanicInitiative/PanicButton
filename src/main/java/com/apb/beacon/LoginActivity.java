@@ -19,16 +19,8 @@ public class LoginActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onBackPressed() {
-        goBack(null);
-    }
-
     public void goBack(View view) {
         this.finish();
-        Intent intent = new Intent(this, CalculatorActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 
     public void onEnterPressed(View view) {

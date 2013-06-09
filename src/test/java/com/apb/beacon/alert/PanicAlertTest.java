@@ -4,6 +4,10 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
@@ -16,9 +20,11 @@ import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowAlarmManager;
+import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowLocationManager;
 import org.robolectric.shadows.ShadowVibrator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -49,11 +55,14 @@ public class PanicAlertTest {
     private Location mockLocation;
     private ShadowLocationManager shadowLocationManager;
     private ShadowAlarmManager shadowAlarmManager;
+    @Mock
+    private PackageManager mockPackageManager;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
         context = Robolectric.application;
+        setupPackageManager();
 
         panicAlert = getPanicAlert(mockExecutor);
         shadowVibrator = shadowOf((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
@@ -65,12 +74,32 @@ public class PanicAlertTest {
         shadowLocationManager.setProviderEnabled(GPS_PROVIDER, true);
     }
 
+    private void setupPackageManager() {
+        ShadowApplication shadowApplication = shadowOf(Robolectric.application);
+        shadowApplication.setPackageManager(mockPackageManager);
+        List<ResolveInfo> activities = new ArrayList<ResolveInfo>();
+        activities.add(resolveInfo("com.test.package.Class1"));
+        activities.add(resolveInfo("com.test.package.Class2"));
+        when(mockPackageManager.queryIntentActivities(any(Intent.class), anyInt())).thenReturn(activities);
+    }
+
+    private ResolveInfo resolveInfo(String packageName) {
+        ResolveInfo resolveInfo = new ResolveInfo();
+        ActivityInfo activityInfo = new ActivityInfo();
+        activityInfo.packageName = packageName;
+        resolveInfo.activityInfo = activityInfo;
+        return resolveInfo;
+    }
+
     @Test
     public void shouldActiveTheAlertWithHapticFeedback() throws IllegalAccessException {
         panicAlert.activate();
         assertEquals(3000, shadowVibrator.getMilliseconds());
         assertTrue(panicAlert.isActive());
         verify(mockExecutor).execute(any(Runnable.class));
+
+        Intent startedIntent = shadowOf(context).peekNextStartedActivity();
+        assertEquals(startedIntent.getPackage(), "com.test.package.Class1");
     }
 
     @Test
@@ -129,6 +158,10 @@ public class PanicAlertTest {
         assertEquals(1, scheduledAlarms.size());
         assertEquals(5 * 1000 * 60, alarm.interval);
         assertEquals(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarm.type);
+        Intent startedIntent = shadowOf(context).peekNextStartedActivity();
+        List<String> categories = new ArrayList<String>(startedIntent.getCategories());
+        assertEquals(categories.get(0), Intent.CATEGORY_HOME);
+        assertEquals(startedIntent.getPackage(), "com.test.package.Class1");
     }
 
     @Test

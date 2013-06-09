@@ -10,6 +10,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.location.CurrentLocationProvider;
 
 import java.util.concurrent.ExecutorService;
@@ -33,6 +34,7 @@ public class PanicAlert {
     }
 
     public void activate() {
+        AppUtil.close(context);
         vibrate();
         if (isActive()) {
             return;
