@@ -7,6 +7,11 @@ public class MultiClickEvent {
     private Long firstEventTime;
     private int clickCount = 0;
 
+    public void reset() {
+    	firstEventTime = null;
+    	clickCount = 0;
+    }
+
     public void registerClick(Long eventTime) {
         if (isFirstClick() || notWithinLimit(eventTime)) {
             firstEventTime = eventTime;

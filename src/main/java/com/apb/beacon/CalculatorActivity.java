@@ -104,16 +104,13 @@ public class CalculatorActivity extends RoboActivity {
 				handleButtonPress(Calculator.Button.DIVIDE);
 				break;
 			}
-			// Don't activate multi-click if different buttons are clicked
-			if(id != lastClickId) {
-				boolean firstClickEver = lastClickId == -1;
-				lastClickId = id;
-				if(!firstClickEver) return;
-			}
 			MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
 			if (multiClickEvent == null) {
 				multiClickEvent = resetEvent(view);
 			}
+			// Don't activate multi-click if different buttons are clicked
+			if(id != lastClickId) multiClickEvent.reset();
+			lastClickId = id;
 			multiClickEvent.registerClick(System.currentTimeMillis());
 			if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();

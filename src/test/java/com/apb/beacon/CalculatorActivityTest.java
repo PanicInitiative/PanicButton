@@ -57,7 +57,7 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldNavigateToLoginScreenOnEqualSignLongPress() {
+	public void shouldNavigateToLoginScreenOnButtonLongPress() {
 		equalsButton.performLongClick();
 
 		Intent startedIntent = shadowActivity.getNextStartedActivity();
@@ -65,7 +65,7 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldActivateAlertOnPressingEqualSignRepeatedlyFiveTimes() {
+	public void shouldActivateAlertOnPressingButtonRepeatedlyFiveTimes() {
 		for (int i = 0; i < 5; i++) {
 			equalsButton.performClick();
 		}
@@ -74,7 +74,17 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldNotActivateAlertOnPressingEqualSignRepeatedlyLessThanFiveTimes() {
+	public void shouldActivateAlertOnPressingButtonRepeatedlyFiveTimesAfterOtherButtons() {
+		zeroButton.performClick();
+		for (int i = 0; i < 5; i++) {
+			equalsButton.performClick();
+		}
+		verify(mockPanicAlert).activate();
+		assertTrue(shadowActivity.isFinishing());
+	}
+
+	@Test
+	public void shouldNotActivateAlertOnPressingButtonRepeatedlyLessThanFiveTimes() {
 		for (int i = 0; i < 4; i++) {
 			equalsButton.performClick();
 		}
@@ -82,12 +92,20 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldNotActivateAlertOnPressingEqualSignRepeatedlyMixedWithOtherButtons() {
+	public void shouldNotActivateAlertOnPressingButtonRepeatedlyLessThanFiveTimesAfterOtherButtons() {
+		zeroButton.performClick();
 		for (int i = 0; i < 4; i++) {
 			equalsButton.performClick();
 		}
-		zeroButton.performClick();
-		equalsButton.performClick();
+		verifyNoMoreInteractions(mockPanicAlert);
+	}
+
+	@Test
+	public void shouldNotActivateAlertOnPressingButtonRepeatedlyMixedWithOtherButtons() {
+		for (int i = 0; i < 5; i++) {
+			equalsButton.performClick();
+			zeroButton.performClick();
+		}
 		verifyNoMoreInteractions(mockPanicAlert);
 	}
 
