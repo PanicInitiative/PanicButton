@@ -56,7 +56,7 @@
         <EditText android:id="@+id/pin_edit_text"
                   android:layout_height="wrap_content"
                   android:layout_width="fill_parent"
-                  android:hint="@string/enter_password_hint"
+                  android:hint="@string/enter_pin_hint"
                   android:inputType="number"
                   android:maxLength="4"
                   android:password="true"/>

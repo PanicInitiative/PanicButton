@@ -40,7 +40,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void shouldNavigateToSettingsScreenOnPressingNextAfterEnteringCorrectPassword() {
+    public void shouldNavigateToSettingsScreenOnPressingNextAfterEnteringCorrectPin() {
         pinEditText.setText(pin);
         enterButton.performClick();
         Intent startedIntent = shadowActivity.getNextStartedActivity();
@@ -48,7 +48,7 @@ public class LoginActivityTest {
     }
 
     @Test
-    public void shouldShowErrorOnPressingNextAfterEnteringInCorrectPassword() {
+    public void shouldShowErrorOnPressingNextAfterEnteringInCorrectPin() {
         pinEditText.setText("9999");
         enterButton.performClick();
         assertTrue(pinEditText.getError().toString().contains("Please enter the correct pin"));

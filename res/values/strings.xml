@@ -70,18 +70,18 @@
     <string name="select_phone_service_hint">Select phone service</string>
     <string name="other_phone_service">Other phone service</string>
 
-    <string name="set_password_label">First, set a password</string>
-    <string name="set_password_detail">Setting a password helps secure the app,
+    <string name="set_pin_label">First, set a pin</string>
+    <string name="set_pin_detail">Setting a pin helps secure the app,
         you must enter it to access the Settings screen hidden behind the calculator disguise.
         \n\nYou do not need to enter it to send an alert
     </string>
-    <string name="set_password_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
+    <string name="set_pin_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
     <string name="country_spinner">CountrySpinner</string>
     <string name="service_provider_spinner">ServiceProviderSpinner</string>
 
     <string name="enter_text">Enter</string>
     <string name="login_header">Settings</string>
-    <string name="enter_password_hint">enter password</string>
+    <string name="enter_pin_hint">enter pin</string>
     <string name="incorrect_pin">Please enter the correct pin</string>
     <string name="settings_changed_alert_title">Settings Modified</string>
     <string name="settings_changed_alert_message">Do you want to save the changes?</string>
