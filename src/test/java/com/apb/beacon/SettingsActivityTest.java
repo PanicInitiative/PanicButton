@@ -42,6 +42,7 @@ public class SettingsActivityTest {
             }
         };
         settingsActivity.onCreate(null);
+        settingsActivity.onPostCreate(null);
 
         smsRow = (TextView) settingsActivity.findViewById(R.id.sms_row);
         twitterRow = (TextView) settingsActivity.findViewById(R.id.twitter_row);

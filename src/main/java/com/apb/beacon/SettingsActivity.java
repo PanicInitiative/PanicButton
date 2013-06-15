@@ -14,7 +14,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.settings_layout)
-public class SettingsActivity extends RoboActivity {
+public class SettingsActivity extends PanicButtonActivity {
     @InjectView(R.id.activate_alert)
     private Button activateButton;
     @InjectView(R.id.alert_status_text)

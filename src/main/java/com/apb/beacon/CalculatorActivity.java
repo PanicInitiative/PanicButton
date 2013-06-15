@@ -16,14 +16,13 @@ import com.apb.beacon.trigger.MultiClickEvent;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.calculator_layout)
-public class CalculatorActivity extends RoboActivity {
+public class CalculatorActivity extends PanicButtonActivity {
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
 		R.id.divide};
 
 	@Inject private Calculator calculator;
-	private View alertStatusStrip;
 	private int lastClickId = -1;
 
 	@Override
@@ -31,7 +30,6 @@ public class CalculatorActivity extends RoboActivity {
 		super.onCreate(savedInstanceState);
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
-		alertStatusStrip = findViewById(R.id.alert_status_strip);
 	}
 
 	private void registerButtonEvents() {
@@ -40,17 +38,6 @@ public class CalculatorActivity extends RoboActivity {
 			equalsButton.setOnLongClickListener(longClickListener);
 			equalsButton.setOnClickListener(clickListener);
 		}
-	}
-
-	@Override
-	protected void onResume() {
-		super.onResume();
-		alertStatusStrip.setBackgroundColor(alertStatusStripColor());
-	}
-
-	private int alertStatusStripColor() {
-		return getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE) ?
-				getResources().getColor(R.color.active_color) : getResources().getColor(R.color.standby_color);
 	}
 
 	private View.OnClickListener clickListener = new View.OnClickListener() {

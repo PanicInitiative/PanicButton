@@ -10,7 +10,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.login_screen_layout)
-public class LoginActivity extends RoboActivity {
+public class LoginActivity extends PanicButtonActivity {
     @InjectView(R.id.password_edit_text)
     private EditText passwordEditText;
 
