@@ -41,6 +41,7 @@
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
         <activity android:name=".SettingsActivity"
+                  android:noHistory="true"
                   android:screenOrientation="portrait"
                   android:label="@string/settings_label"
                   android:excludeFromRecents="true"/>
