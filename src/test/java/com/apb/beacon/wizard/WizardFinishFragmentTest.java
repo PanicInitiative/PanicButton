@@ -36,6 +36,7 @@ public class WizardFinishFragmentTest {
         finishButton = (Button) wizardFinishFragment.getView().findViewById(R.id.finish_wizard_button);
     }
 
+    // LP this test is potentially flaky, try rerunning
     @Test
     public void shouldUpdateFirstRunFlagAndNavigateToFacadeOnClickingFinish() {
         finishButton.performClick();

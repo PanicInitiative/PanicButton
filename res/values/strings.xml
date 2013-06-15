@@ -75,9 +75,7 @@
         you must enter it to access the Settings screen hidden behind the calculator disguise.
         \n\nYou do not need to enter it to send an alert
     </string>
-    <string name="set_password_help">Minimum 8 characters, something easy to remember and quick to enter - you cannot change it.</string>
-    <string name="create_password_hint">create a password</string>
-    <string name="invalid_password">Password must contain at least one lowercase, one uppercase, one number, and one space</string>
+    <string name="set_password_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
     <string name="country_spinner">CountrySpinner</string>
     <string name="service_provider_spinner">ServiceProviderSpinner</string>
 
