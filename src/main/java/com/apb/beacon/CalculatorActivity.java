@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
@@ -14,12 +15,25 @@ import roboguice.inject.ContentView;
 public class CalculatorActivity extends RoboActivity {
     private int[] buttons = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight,
                              R.id.nine, R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply, R.id.divide};
+    private View alertStatusStrip;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registerButtonEvents();
         startService(new Intent(this, HardwareTriggerService.class));
+        alertStatusStrip = findViewById(R.id.alert_status_strip);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        alertStatusStrip.setBackgroundColor(alertStatusStripColor());
+    }
+
+    private int alertStatusStripColor() {
+        return getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE) ?
+                getResources().getColor(R.color.active_color) : getResources().getColor(R.color.standby_color);
     }
 
     private void registerButtonEvents() {

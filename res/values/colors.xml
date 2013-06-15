@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="active_color">#fc2d2d</color>
+    <color name="standby_color">#fcc542</color>
+</resources>

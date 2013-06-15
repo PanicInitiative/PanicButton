@@ -4,6 +4,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical">
+    <RelativeLayout style="@style/alert_strip_on" android:id="@+id/alert_status_strip"/>
     <TextView style="@style/calculator_display" android:hint="@string/zero" android:textColor="#ffff00"/>
 
     <LinearLayout style="@style/calculator_btn_container">
