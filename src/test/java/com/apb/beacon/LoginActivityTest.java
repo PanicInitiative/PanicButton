@@ -17,23 +17,23 @@ import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class LoginActivityTest {
-    private EditText passwordEditText;
+    private EditText pinEditText;
     private Button enterButton;
     private Button backButton;
 
     private LoginActivity loginActivity;
     private ShadowActivity shadowActivity;
-    private String password;
+    private String pin;
 
     @Before
     public void setUp() {
         loginActivity = new LoginActivity();
         loginActivity.onCreate(null);
 
-        password = "Hel 1234";
-        ApplicationSettings.savePassword(Robolectric.application, password);
+        pin = "1234";
+        ApplicationSettings.savePassword(Robolectric.application, pin);
 
-        passwordEditText = (EditText) loginActivity.findViewById(R.id.password_edit_text);
+        pinEditText = (EditText) loginActivity.findViewById(R.id.pin_edit_text);
         enterButton = (Button) loginActivity.findViewById(R.id.enter_button);
         backButton = (Button) loginActivity.findViewById(R.id.login_back_button);
         shadowActivity = shadowOf(loginActivity);
@@ -41,7 +41,7 @@ public class LoginActivityTest {
 
     @Test
     public void shouldNavigateToSettingsScreenOnPressingNextAfterEnteringCorrectPassword() {
-        passwordEditText.setText(password);
+        pinEditText.setText(pin);
         enterButton.performClick();
         Intent startedIntent = shadowActivity.getNextStartedActivity();
         assertThat(startedIntent.getComponent().getClassName(), equalTo(SettingsActivity.class.getName()));
@@ -49,9 +49,9 @@ public class LoginActivityTest {
 
     @Test
     public void shouldShowErrorOnPressingNextAfterEnteringInCorrectPassword() {
-        passwordEditText.setText("abcd1234");
+        pinEditText.setText("9999");
         enterButton.performClick();
-        assertTrue(passwordEditText.getError().toString().contains("Please enter the correct password"));
+        assertTrue(pinEditText.getError().toString().contains("Please enter the correct pin"));
     }
 
     @Test

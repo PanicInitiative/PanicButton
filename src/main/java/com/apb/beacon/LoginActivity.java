@@ -11,8 +11,8 @@ import roboguice.inject.InjectView;
 
 @ContentView(R.layout.login_screen_layout)
 public class LoginActivity extends RoboActivity {
-    @InjectView(R.id.password_edit_text)
-    private EditText passwordEditText;
+    @InjectView(R.id.pin_edit_text)
+    private EditText pinEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,11 @@ public class LoginActivity extends RoboActivity {
     }
 
     public void onEnterPressed(View view) {
-        String password = passwordEditText.getText().toString();
+        String password = pinEditText.getText().toString();
         if (ApplicationSettings.passwordMatches(getApplicationContext(), password)) {
             startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             return;
         }
-        AppUtil.setError(this, passwordEditText, R.string.incorrect_password);
+        AppUtil.setError(this, pinEditText, R.string.incorrect_pin);
     }
 }

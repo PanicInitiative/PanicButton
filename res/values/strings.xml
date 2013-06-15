@@ -82,7 +82,7 @@
     <string name="enter_text">Enter</string>
     <string name="login_header">Settings</string>
     <string name="enter_password_hint">enter password</string>
-    <string name="incorrect_password">Please enter the correct password</string>
+    <string name="incorrect_pin">Please enter the correct pin</string>
     <string name="settings_changed_alert_title">Settings Modified</string>
     <string name="settings_changed_alert_message">Do you want to save the changes?</string>
     <string name="yes">Yes</string>
