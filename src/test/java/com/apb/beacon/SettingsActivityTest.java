@@ -6,13 +6,16 @@ import android.widget.TextView;
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.sms.SMSSettingsActivity;
+import com.apb.beacon.test.support.PanicButtonRobolectricTestRunner;
 import com.apb.beacon.twitter.TwitterSettingsActivity;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowActivity;
+import org.robolectric.shadows.ShadowView;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
@@ -20,7 +23,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.robolectric.Robolectric.shadowOf;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(PanicButtonRobolectricTestRunner.class)
 public class SettingsActivityTest {
     private SettingsActivity settingsActivity;
     private TextView smsRow;
@@ -42,6 +45,7 @@ public class SettingsActivityTest {
             }
         };
         settingsActivity.onCreate(null);
+        settingsActivity.onPostCreate(null);
 
         smsRow = (TextView) settingsActivity.findViewById(R.id.sms_row);
         twitterRow = (TextView) settingsActivity.findViewById(R.id.twitter_row);
@@ -100,6 +104,8 @@ public class SettingsActivityTest {
         when(mockPanicAlert.isActive()).thenReturn(false);
         activateButton.performClick();
         verify(mockPanicAlert).activate();
+
+        assertAlertStatusStripColor(R.color.active_color);
     }
 
     @Test
@@ -108,6 +114,8 @@ public class SettingsActivityTest {
         when(mockPanicAlert.isActive()).thenReturn(true);
         activateButton.performClick();
         verify(mockPanicAlert).deActivate();
+
+        assertAlertStatusStripColor(R.color.standby_color);
     }
 
     @Test
@@ -119,6 +127,11 @@ public class SettingsActivityTest {
     @Test
     public void shouldReturnNewPanicAlert() {
         assertNotNull(new SettingsActivity().getPanicAlert());
+    }
+
+    private void assertAlertStatusStripColor(int color) {
+        ShadowView alertStatusStrip = shadowOf(settingsActivity.findViewById(R.id.alert_status_strip));
+        assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(color)));
     }
 
     private void assertNextStartedActivity(Class expectedActivity) {

@@ -13,15 +13,13 @@ import com.apb.beacon.common.AppUtil;
 
 import java.util.regex.Pattern;
 
-public class CreatePasswordFragment extends WizardFragment {
-    private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[ ]).{8,})";
-    private static final int MIN_CHARACTERS = 8;
-    private static Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+public class CreatePinFragment extends WizardFragment {
+    private static final int EXACT_CHARACTERS = 4;
     private EditText passwordEditText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.wizard_password_screen, container, false);
-        passwordEditText = (EditText) inflatedView.findViewById(R.id.create_password_edittext);
+        passwordEditText = (EditText) inflatedView.findViewById(R.id.create_pin_edittext);
         passwordEditText.addTextChangedListener(passwordTextChangeListener);
 
         return inflatedView;
@@ -29,7 +27,7 @@ public class CreatePasswordFragment extends WizardFragment {
 
     @Override
     public void onFragmentSelected() {
-        actionButtonStateListener.enableActionButton(hasMinimumCharacters());
+        actionButtonStateListener.enableActionButton(isComplete());
     }
 
     @Override
@@ -39,21 +37,12 @@ public class CreatePasswordFragment extends WizardFragment {
 
     @Override
     public boolean performAction() {
-        if(isValidPassword()) {
-            ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
-            return true;
-        }
-        AppUtil.setError(getActivity(), passwordEditText, R.string.invalid_password);
-        return false;
+        ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
+        return true;
     }
 
-    private boolean isValidPassword() {
-        String password = passwordEditText.getText().toString();
-        return pattern.matcher(password).matches();
-    }
-
-    private boolean hasMinimumCharacters() {
-        return passwordEditText.getText().length() >= MIN_CHARACTERS;
+    private boolean isComplete() {
+        return passwordEditText.getText().length() == EXACT_CHARACTERS;
     }
 
     @Override
@@ -72,7 +61,7 @@ public class CreatePasswordFragment extends WizardFragment {
 
         @Override
         public void afterTextChanged(Editable text) {
-            actionButtonStateListener.enableActionButton(hasMinimumCharacters());
+            actionButtonStateListener.enableActionButton(isComplete());
         }
     };
 }

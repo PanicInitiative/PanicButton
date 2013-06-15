@@ -30,7 +30,7 @@ public class WizardPageAdapterTest {
         assertEquals(7, wizardPageAdapter.getCount());
 
         assertSimpleFragment(0, wizard_start_screen, start_action);
-        assertEquals(CreatePasswordFragment.class, wizardPageAdapter.getItem(1).getClass());
+        assertEquals(CreatePinFragment.class, wizardPageAdapter.getItem(1).getClass());
         SMSSettingsFragment smsSettingsFragment = (SMSSettingsFragment) wizardPageAdapter.getItem(2);
         assertEquals(R.string.sms_settings_wizard_header, smsSettingsFragment.getArguments().getInt("HEADER_TEXT_ID"));
         assertSimpleFragment(3, wizard_emergency_alert1, next_action);
