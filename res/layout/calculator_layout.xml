@@ -4,7 +4,7 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical">
-    <TextView style="@style/calculator_display" android:hint="@string/zero" android:textColor="#ffff00"/>
+    <TextView android:id="@+id/display" style="@style/calculator_display" android:text="@string/zero"/>
 
     <LinearLayout style="@style/calculator_btn_container">
         <Button android:id="@+id/divide" style="@style/calculator_btn" android:text="@string/division" />

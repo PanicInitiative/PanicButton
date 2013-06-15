@@ -1,9 +1,15 @@
 package com.apb.beacon;
 
-import android.content.Intent;
-import android.widget.Button;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.trigger.HardwareTriggerService;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,17 +18,16 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.content.Intent;
+import android.widget.Button;
+
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 @RunWith(RobolectricTestRunner.class)
 public class CalculatorActivityTest {
     private CalculatorActivity calculatorActivity;
-    private Button equalsButton;
+    private Button equalsButton, zeroButton;
     private ShadowActivity shadowActivity;
     @Mock
     private PanicAlert mockPanicAlert;
@@ -38,6 +43,7 @@ public class CalculatorActivityTest {
         };
         calculatorActivity.onCreate(null);
         equalsButton = (Button) calculatorActivity.findViewById(R.id.equals_sign);
+        zeroButton = (Button) calculatorActivity.findViewById(R.id.zero);
         shadowActivity = shadowOf(calculatorActivity);
     }
 
@@ -59,10 +65,20 @@ public class CalculatorActivityTest {
     }
 
     @Test
-    public void shouldNotActivateAlertOnPressingEqualSignRepeatedlyLesserThanFiveTimes() {
-        for (int i = 0; i < 3; i++) {
+    public void shouldNotActivateAlertOnPressingEqualSignRepeatedlyLessThanFiveTimes() {
+        for (int i = 0; i < 4; i++) {
             equalsButton.performClick();
         }
+        verifyNoMoreInteractions(mockPanicAlert);
+    }
+
+    @Test
+    public void shouldNotActivateAlertOnPressingEqualSignRepeatedlyMixedWithOtherButtons() {
+        for (int i = 0; i < 4; i++) {
+            equalsButton.performClick();
+        }
+        zeroButton.performClick();
+        equalsButton.performClick();
         verifyNoMoreInteractions(mockPanicAlert);
     }
 
