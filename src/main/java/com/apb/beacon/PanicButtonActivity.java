@@ -3,7 +3,6 @@ package com.apb.beacon;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import roboguice.activity.RoboActivity;
@@ -31,6 +30,10 @@ public abstract class PanicButtonActivity extends RoboActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        updateAlertStatusStrip();
+    }
+
+    protected void updateAlertStatusStrip() {
         findViewById(R.id.alert_status_strip).setBackgroundColor(alertStatusStripColor());
     }
 

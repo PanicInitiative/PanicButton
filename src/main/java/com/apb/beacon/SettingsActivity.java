@@ -69,6 +69,7 @@ public class SettingsActivity extends PanicButtonActivity {
         alertStatusText.setText(alertStatus.getDescription());
         smsSettingsLink.setEnabled(alertStatus.isSettingsEnabled());
         twitterSettingsLink.setEnabled(alertStatus.isSettingsEnabled());
+        updateAlertStatusStrip();
     }
 
     PanicAlert getPanicAlert() {
