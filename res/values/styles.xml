@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="alert_strip_on">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">5dp</item>
+    </style>
+
     <style name="calculator_display">
         <item name="android:textSize">80sp</item>
         <item name="android:layout_width">fill_parent</item>

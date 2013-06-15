@@ -1,10 +1,16 @@
 package com.apb.beacon.twitter;
 
-import android.app.Application;
-import android.support.v4.app.FragmentManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import com.apb.beacon.R;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
+
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -12,15 +18,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowFragmentActivity;
 import org.robolectric.shadows.ShadowHandler;
 import org.robolectric.shadows.ShadowToast;
 
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.app.Application;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+
+import com.apb.beacon.R;
+import com.apb.beacon.SettingsActivity;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterSettingsActivityTest {
@@ -113,6 +122,12 @@ public class TwitterSettingsActivityTest {
     @Test
     public void shouldGoBackToSettingOnClickingBack() {
         backButton.performClick();
-        assertTrue(shadowOf(twitterSettingsActivity).isFinishing());
+        ShadowFragmentActivity shadow = shadowOf(twitterSettingsActivity);
+		assertTrue(shadow.isFinishing());
+        
+		Intent nextStartedActivity = shadow.getNextStartedActivity();
+		assertNotNull("Settings activity has not been started", nextStartedActivity);
+        assertThat(nextStartedActivity.getComponent().getClassName(), equalTo(SettingsActivity.class.getName()));
     }
+  
 }

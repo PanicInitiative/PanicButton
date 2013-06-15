@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.calculator.Calculator;
 import com.apb.beacon.trigger.HardwareTriggerService;
@@ -22,6 +23,7 @@ public class CalculatorActivity extends RoboActivity {
 		R.id.divide};
 
 	@Inject private Calculator calculator;
+	private View alertStatusStrip;
 	private int lastClickId = -1;
 
 	@Override
@@ -29,6 +31,7 @@ public class CalculatorActivity extends RoboActivity {
 		super.onCreate(savedInstanceState);
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
+		alertStatusStrip = findViewById(R.id.alert_status_strip);
 	}
 
 	private void registerButtonEvents() {
@@ -37,6 +40,17 @@ public class CalculatorActivity extends RoboActivity {
 			equalsButton.setOnLongClickListener(longClickListener);
 			equalsButton.setOnClickListener(clickListener);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		alertStatusStrip.setBackgroundColor(alertStatusStripColor());
+	}
+
+	private int alertStatusStripColor() {
+		return getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE) ?
+				getResources().getColor(R.color.active_color) : getResources().getColor(R.color.standby_color);
 	}
 
 	private View.OnClickListener clickListener = new View.OnClickListener() {
