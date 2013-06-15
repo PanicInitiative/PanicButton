@@ -120,10 +120,6 @@ public class CalculatorActivity extends PanicButtonActivity {
 		return multiClickEvent;
 	}
 
-	PanicAlert getPanicAlert() {
-		return new PanicAlert(this);
-	}
-
 	private void handleButtonPress(Calculator.Button button) {
 		TextView display = (TextView) findViewById(R.id.display);
 		display.setText(calculator.handleButtonPress(button));

@@ -71,8 +71,4 @@ public class SettingsActivity extends PanicButtonActivity {
         twitterSettingsLink.setEnabled(alertStatus.isSettingsEnabled());
         updateAlertStatusStrip();
     }
-
-    PanicAlert getPanicAlert() {
-        return new PanicAlert(this);
-    }
 }
