@@ -1,13 +1,20 @@
 package com.apb.beacon.twitter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
+import com.apb.beacon.CalculatorActivity;
+import com.apb.beacon.HomeActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.SettingsActivity;
 import com.apb.beacon.SoftKeyboard;
 import com.apb.beacon.wizard.ActionButtonStateListener;
+import com.apb.beacon.wizard.WizardActivity;
+
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectFragment;
 import roboguice.inject.InjectView;
@@ -44,6 +51,7 @@ public class TwitterSettingsActivity extends RoboFragmentActivity implements Act
 
     public void goBack(View view) {
         this.finish();
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     @Override
