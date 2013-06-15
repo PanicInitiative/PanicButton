@@ -1,29 +1,35 @@
 package com.apb.beacon;
 
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.TextView;
-import com.apb.beacon.alert.AlertStatus;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.sms.SMSSettingsActivity;
-import com.apb.beacon.test.support.PanicButtonRobolectricTestRunner;
-import com.apb.beacon.twitter.TwitterSettingsActivity;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
+
 import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowView;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.TextView;
 
-@RunWith(PanicButtonRobolectricTestRunner.class)
+import com.apb.beacon.alert.AlertStatus;
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.sms.SMSSettingsActivity;
+import com.apb.beacon.twitter.TwitterSettingsActivity;
+
+@RunWith(RobolectricTestRunner.class)
 public class SettingsActivityTest {
     private SettingsActivity settingsActivity;
     private TextView smsRow;
