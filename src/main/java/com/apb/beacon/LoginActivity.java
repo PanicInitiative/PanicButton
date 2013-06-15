@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import com.apb.beacon.common.AppUtil;
-import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.login_screen_layout)
-public class LoginActivity extends RoboActivity {
+public class LoginActivity extends PanicButtonActivity {
     @InjectView(R.id.pin_edit_text)
     private EditText pinEditText;
 

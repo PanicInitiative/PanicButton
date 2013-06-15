@@ -1,34 +1,23 @@
 package com.apb.beacon;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
-
-import org.hamcrest.core.Is;
+import android.content.Intent;
+import android.widget.Button;
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.trigger.HardwareTriggerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
-import org.robolectric.shadows.ShadowViewGroup;
 
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-
-import com.apb.beacon.alert.AlertStatus;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.trigger.HardwareTriggerService;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class CalculatorActivityTest {
@@ -37,7 +26,6 @@ public class CalculatorActivityTest {
 	private ShadowActivity shadowActivity;
 	@Mock
 	private PanicAlert mockPanicAlert;
-	private ShadowViewGroup alertStatusStrip;
 
 	@Before
 	public void setUp() {
@@ -52,8 +40,6 @@ public class CalculatorActivityTest {
 		equalsButton = (Button) calculatorActivity.findViewById(R.id.equals_sign);
 		zeroButton = (Button) calculatorActivity.findViewById(R.id.zero);
 		shadowActivity = shadowOf(calculatorActivity);
-		RelativeLayout alertStatusStripOrig = (RelativeLayout) calculatorActivity.findViewById(R.id.alert_status_strip);
-		alertStatusStrip = shadowOf(alertStatusStripOrig);
 	}
 
 	@Test
@@ -120,19 +106,5 @@ public class CalculatorActivityTest {
 	@Test
 	public void shouldCreateNewPanicAlert() {
 		assertNotNull(new CalculatorActivity().getPanicAlert());
-	}
-
-	@Test
-	public void shouldShowRedAlertStripWhenAlertStatusIsActive(){
-		when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
-		calculatorActivity.onResume();
-		assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.active_color)));
-	}
-
-	@Test
-	public void shouldShowAmberAlertStripWhenAlertStatusIsStandby(){
-		when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.STANDBY);
-		calculatorActivity.onResume();
-		assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.standby_color)));
 	}
 }
