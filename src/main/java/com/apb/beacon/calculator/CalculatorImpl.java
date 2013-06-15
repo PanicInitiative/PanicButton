@@ -46,8 +46,9 @@ class CalculatorImpl implements Calculator {
 			return pushOperation(Operation.MULTIPLY) ? "\u00d7" : "0";
 		case DIVIDE:
 			return pushOperation(Operation.DIVIDE) ? "\u00f7" : "0";
+		default:
+			throw new IllegalStateException();
 		}
-		throw new IllegalStateException(); // Unreachable
 	}
 
 	private BigDecimal pushDigit(int digit) {
@@ -118,8 +119,9 @@ class CalculatorImpl implements Calculator {
 				result = ZERO;
 			}
 			break;
+		default:
+			throw new IllegalStateException();
 		}
-		assert result != null;
 		clearOnDigit = true;
 		negativeNumber = false;
 		operand1 = result;

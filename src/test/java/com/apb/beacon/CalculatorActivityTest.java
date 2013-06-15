@@ -25,6 +25,7 @@ import org.robolectric.shadows.ShadowViewGroup;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
@@ -107,6 +108,21 @@ public class CalculatorActivityTest {
 			zeroButton.performClick();
 		}
 		verifyNoMoreInteractions(mockPanicAlert);
+	}
+
+	@Test
+	public void testPressingCalculatorButtonsAffectsDisplay() {
+		// 123 + 456 - 78 * 90 = 45090
+		int[] ids = { R.id.one, R.id.two, R.id.three, R.id.plus, R.id.four,
+				R.id.five, R.id.six, R.id.minus, R.id.seven, R.id.eight,
+				R.id.multiply, R.id.nine, R.id.zero, R.id.equals_sign
+		};
+		for(int id : ids) {
+			Button button = (Button) calculatorActivity.findViewById(id);
+			button.performClick();
+		}
+		TextView display = (TextView) calculatorActivity.findViewById(R.id.display);
+		assertEquals("45090", display.getText());
 	}
 
 	@Test
