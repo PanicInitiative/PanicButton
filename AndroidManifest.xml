@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
     <application android:icon="@drawable/icon"
                  android:theme="@android:style/Theme.Light.NoTitleBar"
@@ -75,6 +76,11 @@
         <receiver android:name=".alert.AlarmReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="com.apb.beacon.SEND_ALERT_ACTION"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".trigger.DialBroadcastReceiver" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
     </application>
