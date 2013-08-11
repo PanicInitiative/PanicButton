@@ -56,11 +56,23 @@
                 android:orientation="vertical"
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
-                >
+                android:id="@+id/linearLayout">
             <View android:layout_height="1dp"
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 
+            <TextView
+                    android:id="@+id/dialer_row"
+                    android:clickable="true"
+                    android:onClick="launchDialerSettingsActivity"
+                    android:text="@string/dialerLaunch"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    style="@style/settings_list_item_text"/>
+
+            <View android:layout_height="1dp"
+                  android:layout_width="fill_parent"
+                  style="@style/line"/>
 
             <TextView
                     android:id="@+id/sms_row"
@@ -93,6 +105,8 @@
 
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

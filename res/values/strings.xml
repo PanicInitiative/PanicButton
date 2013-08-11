@@ -4,12 +4,14 @@
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
+    <string name="dialerLaunch">Dialer Launch settings</string>
 
     <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
     <string name="sms_save_successful">SMS settings saved successfully</string>
+    <string name="dialer_save_successful">Dialer settings saved successfully</string>
     <string name="twitter_save_successful">Twitter settings saved successfully</string>
 
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
@@ -58,6 +60,9 @@
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
     <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="dialer_settings_header">Dialer launch settings</string>
+    <string name="dialer_settings_wizard_header">Next, setup the dialer launch code</string>
+    <string name="dialer_settings_subtitle">Enter a number to dial as a launch trigger</string>
     <string name="contact_hint">enter emergency contact</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
@@ -109,6 +114,7 @@
     <string name="first_contact">&#160;1.&#160;</string>
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
+    <string name="first_code">Launch Trigger</string>
 
     <string name="choose_contact">Choose your emergency contact</string>
     <string name="tap_once">Tap once to send alert</string>

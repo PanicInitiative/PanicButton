@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.dialer.DialerSettingsActivity;
 import com.apb.beacon.sms.SMSSettingsActivity;
 import com.apb.beacon.twitter.TwitterSettingsActivity;
 import roboguice.activity.RoboActivity;
@@ -19,6 +20,8 @@ public class SettingsActivity extends PanicButtonActivity {
     private Button activateButton;
     @InjectView(R.id.alert_status_text)
     private TextView alertStatusText;
+    @InjectView(R.id.dialer_row)
+    private TextView dialerSettingsLink;
     @InjectView(R.id.sms_row)
     private TextView smsSettingsLink;
     @InjectView(R.id.twitter_row)
@@ -37,6 +40,10 @@ public class SettingsActivity extends PanicButtonActivity {
 
     public void launchSmsActivity(View view) {
         startActivity(new Intent(this, SMSSettingsActivity.class));
+    }
+
+    public void launchDialerSettingsActivity(View view) {
+        startActivity(new Intent(this, DialerSettingsActivity.class));
     }
 
     public void launchTwitterActivity(View view) {
