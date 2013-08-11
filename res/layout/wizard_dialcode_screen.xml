@@ -3,7 +3,7 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent">
 <LinearLayout
-              android:id="@+id/wizard_pin_root"
+              android:id="@+id/wizard_dialcode_root"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               style="@style/wizard_static_panel"
@@ -11,14 +11,14 @@
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="@string/set_pin_label"
+              android:text="@string/set_dialcode_label"
               style="@style/wizard_page_title"/>
 
     <View android:layout_height="1dp"
           android:layout_width="match_parent"
           style="@style/wizard_title_sep"/>
 
-    <EditText android:id="@+id/create_pin_edittext"
+    <EditText android:id="@+id/create_dialcode_edittext"
               android:layout_height="wrap_content"
               android:inputType="number"
               android:password="true"
@@ -28,12 +28,12 @@
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="fill_parent"
-              android:text="@string/set_pin_help"
+              android:text="@string/set_dialcode_help"
               style="@style/wizard_text"/>
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="fill_parent"
-              android:text="@string/set_pin_detail"
+              android:text="@string/set_dialcode_detail"
               style="@style/wizard_text"/>
 </LinearLayout>
     </ScrollView>

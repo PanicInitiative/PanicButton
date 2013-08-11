@@ -13,6 +13,7 @@ public class ApplicationSettings {
     private static final String PASS_CODE = "PASS_CODE";
     private static final String IS_ALERT_ACTIVE = "IS_ALERT_ACTIVE";
     public static final String BEST_LOCATION = "BEST_LOCATION";
+    private static final String LAUNCH_CODE = "LAUNCH_CODE";
 
     public static void completeFirstRun(Context context) {
         saveBoolean(context, FIRST_RUN, false);
@@ -24,6 +25,10 @@ public class ApplicationSettings {
 
     public static void savePassword(Context context, String password) {
         saveString(context, PASS_CODE, password);
+    }
+
+    public static void saveLaunchCode(Context context, String code) {
+        saveString(context, LAUNCH_CODE, code);
     }
 
     public static boolean passwordMatches(Context context, String otherPassword) {

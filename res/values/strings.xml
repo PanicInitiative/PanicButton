@@ -24,7 +24,8 @@
     <string name="next_action">Next</string>
 
     <string name="wizard_what_is_PB">Panic Button is an emergency alert app for people at risk.</string>
-    <string name="wizard_PB_feature1">&#160;&#160;App disguises itself to avoid discovery</string>
+    <string name="wizard_PB_feature0">&#160;&#160;App hides itself to avoid discovery</string>
+    <string name="wizard_PB_feature1">&#160;&#160;Opens only when a specific code is dialed</string>
     <string name="wizard_PB_feature2">&#160;&#160;Alerts are sent via SMS every 5 minutes</string>
     <string name="wizard_PB_feature3">&#160;&#160;Current location is automatically added</string>
     <string name="wizard_PB_feature4">&#160;&#160;Phone message logs are erased</string>
@@ -75,12 +76,17 @@
     <string name="select_phone_service_hint">Select phone service</string>
     <string name="other_phone_service">Other phone service</string>
 
-    <string name="set_pin_label">First, set a pin</string>
+    <string name="set_pin_label">Next, set a pin</string>
     <string name="set_pin_detail">Setting a pin helps secure the app,
         you must enter it to access the Settings screen hidden behind the calculator disguise.
         \n\nYou do not need to enter it to send an alert
     </string>
-    <string name="set_pin_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
+    <string name="set_pin_help">Enter a four or more digit pin, something easy to remember - you cannot change it.</string>
+
+    <string name="set_dialcode_label">First, set a dial code</string>
+    <string name="set_dialcode_detail">Setting a dial code will allow you to launch the app from the phone dialer by "calling" this number.
+    </string>
+    <string name="set_dialcode_help">Enter a four or mode digit dial code, something easy to remember. You can change this at any time though the Dial Launcher settings menu.</string>
     <string name="country_spinner">CountrySpinner</string>
     <string name="service_provider_spinner">ServiceProviderSpinner</string>
 

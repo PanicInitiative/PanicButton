@@ -58,7 +58,6 @@
                   android:layout_width="fill_parent"
                   android:hint="@string/enter_pin_hint"
                   android:inputType="number"
-                  android:maxLength="4"
                   android:password="true"/>
     </LinearLayout>
 </LinearLayout>
