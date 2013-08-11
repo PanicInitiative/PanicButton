@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PBCalc</string>
+    <string name="app_name">Package Validator</string>
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
@@ -17,7 +17,7 @@
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
-    <string name="finish_label">Panic Button will now disguise itself</string>
+    <string name="finish_label">Panic Button will now hide itself</string>
     <string name="setup_wizard">setup wizard</string>
     <string name="save_action">Save</string>
     <string name="start_action">Start</string>
