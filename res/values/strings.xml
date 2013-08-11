@@ -5,6 +5,7 @@
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
     <string name="dialerLaunch">Dialer Launch settings</string>
+    <string name="guardian">Guardian settings</string>
 
     <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
@@ -12,6 +13,7 @@
     <string name="enter_message_hint">Enter Message</string>
     <string name="sms_save_successful">SMS settings saved successfully</string>
     <string name="dialer_save_successful">Dialer settings saved successfully</string>
+    <string name="guardian_save_successful">Guardian settings saved successfully</string>
     <string name="twitter_save_successful">Twitter settings saved successfully</string>
 
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
@@ -64,6 +66,10 @@
     <string name="dialer_settings_header">Dialer launch settings</string>
     <string name="dialer_settings_wizard_header">Next, setup the dialer launch code</string>
     <string name="dialer_settings_subtitle">Enter a number to dial as a launch trigger</string>
+
+    <string name="guardian_settings_header">Guardian settings</string>
+    <string name="guardian_settings_wizard_header">Next, setup the default time span (in seconds) to wait before triggering guardian</string>
+    <string name="guardian_settings_subtitle">Enter the time span (in seconds) to wait before triggering guardian</string>
     <string name="contact_hint">enter emergency contact</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
@@ -126,4 +132,7 @@
     <string name="tap_once">Tap once to send alert</string>
     <string name="tap_five_times">Tap five times fast to send alert</string>
     <string name="long_press">Long press to access settings</string>
+
+    <string name="guardian_active">Guardian mode is active</string>
+    <string name="guardian_inactive">Activate Guardian mode</string>
 </resources>
