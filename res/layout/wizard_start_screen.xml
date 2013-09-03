@@ -40,6 +40,11 @@
 
         <TextView android:layout_height="wrap_content"
                   android:layout_width="fill_parent"
+                  android:text="@string/wizard_PB_feature0"
+                  style="@style/bulleted_text"/>
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
                   android:text="@string/wizard_PB_feature1"
                   style="@style/bulleted_text"/>
 

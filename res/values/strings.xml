@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PBCalc</string>
+    <string name="app_name">Package Validator</string>
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
+    <string name="dialerLaunch">Dialer Launch settings</string>
+    <string name="guardian">Guardian settings</string>
 
     <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
     <string name="sms_save_successful">SMS settings saved successfully</string>
+    <string name="dialer_save_successful">Dialer settings saved successfully</string>
+    <string name="guardian_save_successful">Guardian settings saved successfully</string>
     <string name="twitter_save_successful">Twitter settings saved successfully</string>
 
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="panic_button_label">Panic Button</string>
-    <string name="finish_label">Panic Button will now disguise itself</string>
+    <string name="finish_label">Panic Button will now hide itself</string>
     <string name="setup_wizard">setup wizard</string>
     <string name="save_action">Save</string>
     <string name="start_action">Start</string>
     <string name="next_action">Next</string>
 
     <string name="wizard_what_is_PB">Panic Button is an emergency alert app for people at risk.</string>
-    <string name="wizard_PB_feature1">&#160;&#160;App disguises itself to avoid discovery</string>
+    <string name="wizard_PB_feature0">&#160;&#160;App hides itself to avoid discovery</string>
+    <string name="wizard_PB_feature1">&#160;&#160;Opens only when a specific code is dialed</string>
     <string name="wizard_PB_feature2">&#160;&#160;Alerts are sent via SMS every 5 minutes</string>
     <string name="wizard_PB_feature3">&#160;&#160;Current location is automatically added</string>
     <string name="wizard_PB_feature4">&#160;&#160;Phone message logs are erased</string>
@@ -58,6 +63,13 @@
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
     <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="dialer_settings_header">Dialer launch settings</string>
+    <string name="dialer_settings_wizard_header">Next, setup the dialer launch code</string>
+    <string name="dialer_settings_subtitle">Enter a number to dial as a launch trigger</string>
+
+    <string name="guardian_settings_header">Guardian settings</string>
+    <string name="guardian_settings_wizard_header">Next, setup the default time span (in seconds) to wait before triggering guardian</string>
+    <string name="guardian_settings_subtitle">Enter the time span (in seconds) to wait before triggering guardian</string>
     <string name="contact_hint">enter emergency contact</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
@@ -70,12 +82,17 @@
     <string name="select_phone_service_hint">Select phone service</string>
     <string name="other_phone_service">Other phone service</string>
 
-    <string name="set_pin_label">First, set a pin</string>
+    <string name="set_pin_label">Next, set a pin</string>
     <string name="set_pin_detail">Setting a pin helps secure the app,
         you must enter it to access the Settings screen hidden behind the calculator disguise.
         \n\nYou do not need to enter it to send an alert
     </string>
-    <string name="set_pin_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
+    <string name="set_pin_help">Enter a four or more digit pin, something easy to remember - you cannot change it.</string>
+
+    <string name="set_dialcode_label">First, set a dial code</string>
+    <string name="set_dialcode_detail">Setting a dial code will allow you to launch the app from the phone dialer by "calling" this number.
+    </string>
+    <string name="set_dialcode_help">Enter a four or mode digit dial code, something easy to remember. You can change this at any time though the Dial Launcher settings menu.</string>
     <string name="country_spinner">CountrySpinner</string>
     <string name="service_provider_spinner">ServiceProviderSpinner</string>
 
@@ -109,9 +126,13 @@
     <string name="first_contact">&#160;1.&#160;</string>
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
+    <string name="first_code">Launch Trigger</string>
 
     <string name="choose_contact">Choose your emergency contact</string>
     <string name="tap_once">Tap once to send alert</string>
     <string name="tap_five_times">Tap five times fast to send alert</string>
     <string name="long_press">Long press to access settings</string>
+
+    <string name="guardian_active">Guardian mode is active</string>
+    <string name="guardian_inactive">Activate Guardian mode</string>
 </resources>

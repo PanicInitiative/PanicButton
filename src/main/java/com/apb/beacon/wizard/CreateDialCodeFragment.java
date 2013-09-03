@@ -7,19 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
-import com.apb.beacon.common.AppUtil;
 
-import java.util.regex.Pattern;
-
-public class CreatePinFragment extends WizardFragment {
+public class CreateDialCodeFragment extends WizardFragment {
     private static final int EXACT_CHARACTERS = 4;
     private EditText passwordEditText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.wizard_password_screen, container, false);
-        passwordEditText = (EditText) inflatedView.findViewById(R.id.create_pin_edittext);
+        View inflatedView = inflater.inflate(R.layout.wizard_dialcode_screen, container, false);
+        passwordEditText = (EditText) inflatedView.findViewById(R.id.create_dialcode_edittext);
         passwordEditText.addTextChangedListener(passwordTextChangeListener);
 
         return inflatedView;
@@ -37,7 +35,7 @@ public class CreatePinFragment extends WizardFragment {
 
     @Override
     public boolean performAction() {
-        ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
+        ApplicationSettings.saveLaunchCode(getActivity(), passwordEditText.getText().toString());
         return true;
     }
 

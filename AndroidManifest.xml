@@ -9,12 +9,16 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
-    <application android:icon="@drawable/icon"
+    //android:icon="@drawable/icon"
+    <application
+                 android:debuggable="true"
                  android:theme="@android:style/Theme.Light.NoTitleBar"
                  android:label="@string/app_name"
                  android:allowBackup="true">
@@ -26,7 +30,7 @@
                   android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
 
@@ -45,6 +49,12 @@
                   android:screenOrientation="portrait"
                   android:label="@string/settings_label"
                   android:excludeFromRecents="true"/>
+        <activity android:name=".dialer.DialerSettingsActivity"
+                  android:windowSoftInputMode="stateHidden"
+                  android:screenOrientation="portrait"
+                  android:label="@string/sms"
+                  android:noHistory="true"
+                  android:excludeFromRecents="true"/>
         <activity android:name=".sms.SMSSettingsActivity"
                   android:windowSoftInputMode="stateHidden"
                   android:screenOrientation="portrait"
@@ -56,6 +66,12 @@
                   android:screenOrientation="portrait"
                   android:noHistory="true"
                   android:label="@string/twitter"
+                  android:excludeFromRecents="true"/>
+        <activity android:name=".guardian.GuardianSettingsActivity"
+                  android:windowSoftInputMode="stateHidden"
+                  android:screenOrientation="portrait"
+                  android:noHistory="true"
+                  android:label="@string/guardian"
                   android:excludeFromRecents="true"/>
 
         <service android:name=".trigger.HardwareTriggerService"/>
@@ -75,6 +91,12 @@
         <receiver android:name=".alert.AlarmReceiver" android:enabled="true" android:exported="false">
             <intent-filter>
                 <action android:name="com.apb.beacon.SEND_ALERT_ACTION"/>
+                <action android:name="com.apb.beacon.ACTIVATE_ALERT_ACTION"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".trigger.DialBroadcastReceiver" android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
     </application>

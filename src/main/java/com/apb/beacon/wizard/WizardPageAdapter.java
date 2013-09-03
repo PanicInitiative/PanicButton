@@ -20,6 +20,7 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
     public WizardPageAdapter(FragmentManager fm) {
         super(fm);
         fragments.add(create(wizard_start_screen, start_action));
+        fragments.add(new CreateDialCodeFragment());
         fragments.add(new CreatePinFragment());
         fragments.add(SMSSettingsFragment.create(R.string.sms_settings_wizard_header));
         fragments.add(create(wizard_emergency_alert1, next_action));
