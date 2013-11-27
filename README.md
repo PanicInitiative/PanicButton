@@ -15,11 +15,11 @@ Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without
 * You need to install the below lib for 64-bit OS   
 ```sudo apt-get install ia32-libs```
 * Download and extract Oracle JDK to any location  
-  For example : I download the sdk and extracted to the folder ```/home/ckarthik/Apps/jdk1.7.0_45```
+  For example : I download the jdk and extracted to the folder ```/home/ckarthik/Apps/jdk1.7.0_45```
 * Download and extract Android SDK to any location  
   For example : I download the sdk and extracted to the folder ```/home/ckarthik/Apps/android-sdk-linux```
 * Update your .bash_profile or .bashrc  with the below details
-```sh
+```
 export JAVA_HOME=/home/ckarthik/Apps/jdk1.7.0_45
 export ANDROID_HOME=/home/ckarthik/Apps/android-sdk-linux
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
