@@ -5,7 +5,7 @@
  * Build tool : **maven**
  * Unit Testing : **robolectric**
 
-###Setup instruction  
+###Setup instructions
 Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without any change)
 
 * Install git  
