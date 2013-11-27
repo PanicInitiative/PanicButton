@@ -37,7 +37,7 @@ Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without
     * ```cd /opt/android-sdk-linux```  
     * ```./tools/android```
     * Select and Install Android 2.3.3 Api
-* Download and extract Android Studio to any location
+* Download and extract Android Studio to any location.
   For example : I extracted to ```/opt/android-studio```
 
 * Clone panic button source code  
