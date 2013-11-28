@@ -21,9 +21,11 @@ Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without
   For example : I download the sdk and extracted to the folder ```/opt/android-sdk-linux```
 
 * Update your .bash_profile or .bashrc  with the below details  
-```export JAVA_HOME=/opt/jdk1.7.0_45```  
-```export ANDROID_HOME=/opt/android-sdk-linux```  
-```export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools```
+```
+export JAVA_HOME=/opt/jdk1.7.0_45  
+export ANDROID_HOME=/opt/android-sdk-linux  
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+```
 * Execute the below command to update your current shell  
     * ```cd ~```  
     * ```. ~/.bashrc```
