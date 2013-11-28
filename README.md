@@ -5,7 +5,7 @@
  * Build tool : **maven**
  * Unit Testing : **robolectric**
 
-###Setup instructions
+###Machine Setup instructions
 Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without any change)
 
 * Install git  
@@ -47,6 +47,7 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 * Run maven compile to download necessary libs and compile
     * ```cd ./PanicButton```
     * ```mvn compile```
-
+  
+Check the instructions to setup IDE [here](https://github.com/PanicButton/PanicButton/wiki/IDE-Setup-Instructions)
 
 THAT'S ALL FOLKS :-)
