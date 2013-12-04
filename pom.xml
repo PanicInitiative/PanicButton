@@ -17,7 +17,8 @@
     </repositories>
 
     <properties>
-        <platform.version>2.3.3</platform.version>
+        <platform.version>4.1.1.4</platform.version>
+        <skipCoverage>false</skipCoverage>
     </properties>
 
     <dependencies>
@@ -74,7 +75,7 @@
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.8.0</version>
                 <executions>
                     <execution>
                         <id>lint</id>
@@ -90,7 +91,7 @@
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
                     <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
                     <sdk>
-                        <platform>10</platform>
+                        <platform>18</platform>
                     </sdk>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
@@ -115,6 +116,7 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.2</version>
                 <configuration>
+                    <skip>${skipCoverage}</skip>
                     <instrumentation>
                         <excludes>
                             <exclude>com/apb/beacon/R*.class</exclude>
@@ -160,6 +162,7 @@
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.2</version>
                 <configuration>
+                    <skip>${skipCoverage}</skip>
                     <formats>
                         <format>html</format>
                     </formats>
