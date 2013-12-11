@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wizard_start_root"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/wizard_static_panel"
+        android:orientation="vertical"
+        >
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wizard_training_contacts_title"
+            style="@style/wizard_page_title"
+            />
+
+
+        <View android:layout_height="1dp"
+            android:layout_width="match_parent"
+            style="@style/wizard_title_sep"
+            />
+
+
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/wizard_training_contacts_details_intro"
+            style="@style/welcome_screen_text"
+            android:paddingTop="0dp"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/wizard_contact_q1"
+            style="@style/bulleted_text"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/wizard_contact_q2"
+            style="@style/bulleted_text"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/wizard_contact_q3"
+            style="@style/bulleted_text"/>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:id="@+id/b_learn_more"
+            android:text="@string/learn_more"
+            android:textColor="@color/blue"/>
+
+
+        <Button android:text="@string/i_understand_contacts_action"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:background="@drawable/topbar_button"
+            android:layout_marginTop="10dp"
+            style="@style/activate_disguise_button"
+            android:id="@+id/i_understand"/>
+
+    </LinearLayout>
+</ScrollView>

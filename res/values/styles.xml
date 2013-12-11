@@ -69,8 +69,10 @@
     <style name="next_button">
         <item name="android:layout_weight">0</item>
         <item name="android:drawableRight">@drawable/next</item>
+        <item name="android:drawablePadding">5dp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">5dp</item>
         <item name="android:textSize">20sp</item>
     </style>
 
@@ -115,13 +117,14 @@
     <style name="welcome_screen_text">
         <item name="android:textSize">18sp</item>
         <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
     <style name="bulleted_text">
         <item name="android:textSize">15sp</item>
         <item name="android:drawableLeft">@drawable/wizard_active</item>
+        <item name="android:drawablePadding">5dp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingLeft">5dp</item>
     </style>

@@ -19,6 +19,11 @@ public class SMSSettings {
     private List<String> phoneNumbers = new ArrayList<String>();
     private String message;
 
+    public SMSSettings(List<String> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+        this.message = null;
+    }
+
     public SMSSettings(List<String> phoneNumbers, String message) {
         this.phoneNumbers = phoneNumbers;
         this.message = message;
@@ -32,6 +37,13 @@ public class SMSSettings {
             editor.putString(PHONE_NUMBER + i++, phoneNumber);
         }
         editor.putString(SMS_MESSAGE, smsSettings.message);
+        editor.commit();
+    }
+
+    public static void saveMessage(Context context, String msg){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(SMS_MESSAGE, msg);
         editor.commit();
     }
 

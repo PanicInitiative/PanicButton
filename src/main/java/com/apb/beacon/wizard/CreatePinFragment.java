@@ -18,7 +18,7 @@ public class CreatePinFragment extends WizardFragment {
     private EditText passwordEditText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.wizard_password_screen, container, false);
+        View inflatedView = inflater.inflate(R.layout.wizard_traning_pin, container, false);
         passwordEditText = (EditText) inflatedView.findViewById(R.id.create_pin_edittext);
         passwordEditText.addTextChangedListener(passwordTextChangeListener);
 
@@ -32,7 +32,7 @@ public class CreatePinFragment extends WizardFragment {
 
     @Override
     public String action() {
-        return getString(WizardAction.SAVE.actionId());
+        return getString(WizardAction.NEXT.actionId());
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CreatePinFragment extends WizardFragment {
     }
 
     private boolean isComplete() {
-        return passwordEditText.getText().length() >= EXACT_CHARACTERS;
+        return passwordEditText.getText().length() == EXACT_CHARACTERS;
     }
 
     @Override

@@ -14,6 +14,14 @@ public class SimpleFragment extends WizardFragment {
         return inflater.inflate(this.getLayoutId(), container, false);
     }
 
+    public static SimpleFragment create(int layoutId) {
+        SimpleFragment simpleFragment = new SimpleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(LAYOUT_ID, layoutId);
+        simpleFragment.setArguments(bundle);
+        return simpleFragment;
+    }
+
     public static SimpleFragment create(int layoutId, int actionId) {
         SimpleFragment simpleFragment = new SimpleFragment();
         Bundle bundle = new Bundle();

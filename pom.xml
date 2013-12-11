@@ -91,6 +91,7 @@
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
                     <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
                     <sdk>
+						<path>/C:\Program Files (x86)\Android\android-studio\sdk</path>
                         <platform>18</platform>
                     </sdk>
                     <lint>

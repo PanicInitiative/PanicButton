@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wizard_start_root"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/wizard_static_panel"
+        android:orientation="vertical"
+        >
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/panic_button_label"
+            android:textSize="32sp"
+            android:paddingBottom="5dp"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wizard_welcome_title"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            android:paddingBottom="5dp"/>
+
+
+        <View android:layout_height="1dp"
+            android:layout_width="match_parent"
+            style="@style/wizard_title_sep"
+            />
+
+
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/wizard_welcome_body"
+            style="@style/welcome_screen_text"/>
+
+
+        <Button android:text="@string/choose_language_settings"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:background="@drawable/topbar_button"
+            style="@style/activate_disguise_button"
+            android:id="@+id/change_language_settings"/>
+
+    </LinearLayout>
+</ScrollView>

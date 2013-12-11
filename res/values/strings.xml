@@ -24,6 +24,8 @@
     <string name="save_action">Save</string>
     <string name="start_action">Start</string>
     <string name="next_action">Next</string>
+    <string name="i_understand_contacts_action">I understand, set-up my trusted contacts now</string>
+    <string name="i_understand_message_action">I understand, write my message now</string>
 
     <string name="wizard_what_is_PB">Panic Button is an emergency alert app for people at risk.</string>
     <string name="wizard_PB_feature0">&#160;&#160;App hides itself to avoid discovery</string>
@@ -135,4 +137,22 @@
 
     <string name="guardian_active">Guardian mode is active</string>
     <string name="guardian_inactive">Activate Guardian mode</string>
+
+    <string name="take_me_to_training">Take me to the training</string>
+
+    <string name="wizard_welcome_body">Panic Button turns your mobile phone into a secret alarm so that your trusted contacts can respond quickly if you are in trouble.\n\nOnce you have set-off the \'Panic\' alarm, your trusted three contacts will receive an SMS and a map link with your location every five minutes.\n\nPanic Button is disguised so that aggressors cannot detect that the alarm has been set-off, helping to ensure your trusted contacts get critical updates about your location.</string>
+    <string name="wizard_welcome_title">Welcome</string>
+    <string name="choose_language_settings">Choose language settings</string>
+    <string name="panic_button_training">Panic Button Training</string>
+    <string name="wizard_training_details">For Panic Button to help you when you need it the most, we recommend taking the time to create a security plan with your trusted contacts.\n\nThis training will show you how to use the app and offer security tips about creating a security plan.\n\nThe training will take approx. 10 minutes so make sure you are somewhere quiet and safe.</string>
+    <string name="wizard_training_pin_title">Step 1: Set a pin</string>
+    <string name="wizard_training_pin_details">Enter a four digit pin, something easy to remember - you cannot change it.\n\nThis pin helps prevent unauthorized access to your settings.\n\nYou don\'t need this pin to send an emergency message.</string>
+    <string name="wizard_training_contacts_title">Step 2: Set-up your trusted contacts</string>
+    <string name="wizard_training_contacts_details_intro">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.\n\nQuestions to ask:</string>
+    <string name="learn_more">Learn more</string>
+    <string name="wizard_training_message_title">Step 3: Create an emergency message</string>
+    <string name="wizard_training_message_details">Think first! Your emergency message needs to clearly communicate that you need help in only a few words. Questions to ask: - Does your message work for all situations? - How often should you review and change it? - Would it be wise to create a code message with your contacts? - Do you want to enable GPS tracking from your phone settings so that your location sends with your emergency message?</string>
+    <string name="wizard_contact_q1">Who in my network can practically help me in an emergency?</string>
+    <string name="wizard_contact_q2">Have I told these people they are a trusted contact?</string>
+    <string name="wizard_contact_q3">Have I created a security plan so my trusted contacts know what to do when they receive the Panic message?</string><string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string>
 </resources>
