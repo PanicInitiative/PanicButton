@@ -12,9 +12,8 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wizard_training_contacts_title"
-            style="@style/wizard_page_title"
-            />
+            android:text="@string/wizard_training_message_title"
+            style="@style/wizard_page_title"/>
 
 
         <View android:layout_height="1dp"
@@ -26,7 +25,7 @@
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="@string/wizard_training_contacts_details_intro"
+            android:text="@string/wizard_training_message_details_intro"
             style="@style/welcome_screen_text"
             android:paddingTop="0dp"/>
 
@@ -34,21 +33,28 @@
             android:layout_width="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="@string/wizard_contact_q1"
+            android:text="@string/wizard_message_q1"
             style="@style/bulleted_text"/>
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="@string/wizard_contact_q2"
+            android:text="@string/wizard_message_q2"
             style="@style/bulleted_text"/>
+
+        <TextView android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/wizard_message_q3"
+        style="@style/bulleted_text"/>
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="@string/wizard_contact_q3"
+            android:text="@string/wizard_message_q4"
             style="@style/bulleted_text"/>
 
         <TextView android:layout_height="wrap_content"
@@ -62,7 +68,7 @@
             android:textColor="@color/blue"/>
 
 
-        <Button android:text="@string/i_understand_contacts_action"
+        <Button android:text="@string/i_understand_message_action"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:background="@drawable/topbar_button"

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.apb.beacon.R;
+import com.apb.beacon.wizard.ActionButtonStateListener;
+
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -29,6 +31,7 @@ public class MessageFragment extends RoboFragment {
     private MessageLimitWatcher messageLimitWatcher;
     private int maxCharacters;
     private String messageHeader;
+    private ActionButtonStateListener actionButtonStateListener;
 
     @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
@@ -48,12 +51,18 @@ public class MessageFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String prefix = getString(R.string.characters_left);
 
-        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, prefix, maxCharacters);
+    }
+
+    public void setActionButtonStateListener(ActionButtonStateListener actionButtonStateListener){
+        this.actionButtonStateListener = actionButtonStateListener;
+
+        String prefix = getString(R.string.characters_left);
+        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, prefix, maxCharacters, actionButtonStateListener);
         messageEditText.addTextChangedListener(messageLimitWatcher);
         InputFilter[] filters = {new InputFilter.LengthFilter(maxCharacters)};
         messageEditText.setFilters(filters);
+        messageEditText.setSelection(messageEditText.getText().length());
 
         charactersLeftView.setText(prefix + valueOf(maxCharacters - messageEditText.getText().length()));
         messageHeaderView.setText(messageHeader);

@@ -151,8 +151,10 @@
     <string name="wizard_training_contacts_details_intro">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.\n\nQuestions to ask:</string>
     <string name="learn_more">Learn more</string>
     <string name="wizard_training_message_title">Step 3: Create an emergency message</string>
-    <string name="wizard_training_message_details">Think first! Your emergency message needs to clearly communicate that you need help in only a few words. Questions to ask: - Does your message work for all situations? - How often should you review and change it? - Would it be wise to create a code message with your contacts? - Do you want to enable GPS tracking from your phone settings so that your location sends with your emergency message?</string>
+    <string name="wizard_training_message_details_intro">Think first! Your emergency message needs to clearly communicate that you need help in only a few words.\n\nQuestions to ask:</string>
+    <string name="wizard_training_message_details">Think first! Your emergency message needs to clearly communicate that you need help in only a few words.</string>
     <string name="wizard_contact_q1">Who in my network can practically help me in an emergency?</string>
     <string name="wizard_contact_q2">Have I told these people they are a trusted contact?</string>
-    <string name="wizard_contact_q3">Have I created a security plan so my trusted contacts know what to do when they receive the Panic message?</string><string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string>
+    <string name="wizard_contact_q3">Have I created a security plan so my trusted contacts know what to do when they receive the Panic message?</string>
+    <string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string><string name="wizard_message_q1">Does your message work for all situations?</string><string name="wizard_message_q2">How often should you review and change it?</string><string name="wizard_message_q3">Would it be wise to create a code message with your contacts?</string><string name="wizard_message_q4">Do you want to enable GPS tracking from your phone settings so that your location sends with your emergency message?</string>
 </resources>

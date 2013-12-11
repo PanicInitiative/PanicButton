@@ -2,6 +2,9 @@ package com.apb.beacon.common;
 
 import android.app.Activity;
 import android.widget.TextView;
+
+import com.apb.beacon.wizard.WizardActivity;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -14,7 +17,7 @@ public class MessageLimitWatcherTest {
     @Test
     public void shouldUpdateMessageLimitOnMainTextChange() {
         TextView textView = new TextView(new Activity());
-        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, "Characters left : ", 85);
+        MessageLimitWatcher messageLimitWatcher = new MessageLimitWatcher(textView, "Characters left : ", 85, null);
 
         messageLimitWatcher.beforeTextChanged(null,-1,-1,-1);
         messageLimitWatcher.onTextChanged("test", -1, -1, -1);

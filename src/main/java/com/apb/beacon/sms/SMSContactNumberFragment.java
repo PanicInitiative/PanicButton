@@ -100,10 +100,4 @@ public class SMSContactNumberFragment extends NestedWizardFragment {
         SMSSettings existingSettings = SMSSettings.retrieve(getActivity());
         return !existingSettings.equals(getSMSSettingsFromView());
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        ((WizardActivity)getActivity()).previousWithSkip();
-//    }
 }

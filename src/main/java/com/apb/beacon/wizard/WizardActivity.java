@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.apb.beacon.Constants;
 import com.apb.beacon.R;
@@ -35,6 +36,9 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
             previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
 //            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
             setActionButtonVisibility(position);
+            if(position == Constants.PAGE_NUMBER_TRAINING_MESSAGE)
+                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
+
             actionButton.setText(getCurrentWizardFragment().action());
             getCurrentWizardFragment().onFragmentSelected();
         }
@@ -57,9 +61,11 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     public void setActionButtonVisibility(int pageNumber){
         if(pageNumber == Constants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
             actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == Constants.PAGE_NUMBER_SETUP_CONTACTS_INTRO)
+        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
             actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == Constants.PAGE_NUMBER_SETUP_CONTACTS_LEARN_MORE)
+        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE)
+            actionButton.setVisibility(View.INVISIBLE);
+        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
             actionButton.setVisibility(View.INVISIBLE);
         else if(pageNumber == pagerAdapter.getCount() -1)
             actionButton.setVisibility(View.INVISIBLE);
@@ -81,7 +87,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void previous(View view) {
-        if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_SETUP_CONTACTS){
+        if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_TRAINING_CONTACTS){
             viewPager.previousWithSkip();
         }
 //        getCurrentWizardFragment().onBackPressed();
@@ -101,7 +107,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         if(viewPager.isFirstPage()) {
             this.finish();
         }
-        else if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_SETUP_CONTACTS){
+        else if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_TRAINING_CONTACTS){
             viewPager.previousWithSkip();
         }
         else{

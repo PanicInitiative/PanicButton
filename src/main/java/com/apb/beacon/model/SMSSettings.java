@@ -66,6 +66,13 @@ public class SMSSettings {
         return retrievedPhoneNumbers;
     }
 
+    public static String retrieveMessage(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, String> allPreferences = (Map<String, String>) sharedPreferences.getAll();
+        List<String> retrievedPhoneNumbers = retrievePhoneNumbers(allPreferences);
+        return allPreferences.get(SMS_MESSAGE);
+    }
+
     public String message() {
         return message == null? BLANK : message.trim();
     }
