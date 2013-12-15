@@ -45,15 +45,6 @@
         <View android:layout_height="1dp"
               android:layout_width="fill_parent"
               style="@style/line"/>
-        <Button android:id="@+id/activate_guardian"
-               android:layout_height="70dp"
-               android:layout_width="fill_parent"
-               android:onClick="performGuardianAction"
-               android:background="@drawable/send_alert_button"
-               style="@style/alert_button"/>
-        <View android:layout_height="1dp"
-              android:layout_width="fill_parent"
-              style="@style/line"/>
         <TextView android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                   android:id="@+id/alert_status_text"
@@ -65,23 +56,11 @@
                 android:orientation="vertical"
                 android:gravity="bottom"
                 android:layout_alignParentBottom="true"
-                android:id="@+id/linearLayout">
+                >
             <View android:layout_height="1dp"
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 
-            <TextView
-                    android:id="@+id/dialer_row"
-                    android:clickable="true"
-                    android:onClick="launchDialerSettingsActivity"
-                    android:text="@string/dialerLaunch"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    style="@style/settings_list_item_text"/>
-
-            <View android:layout_height="1dp"
-                  android:layout_width="fill_parent"
-                  style="@style/line"/>
 
             <TextView
                     android:id="@+id/sms_row"
@@ -112,24 +91,8 @@
                   android:layout_width="fill_parent"
                   style="@style/line"/>
 
-            <TextView
-                    android:id="@+id/guardian_row"
-                    android:clickable="true"
-                    android:onClick="launchGuardianActivity"
-                    android:text="@string/guardian"
-                    android:layout_height="wrap_content"
-                    android:layout_width="fill_parent"
-                    style="@style/settings_list_item_text"/>
-
-
-            <View android:layout_height="1dp"
-                  android:layout_width="fill_parent"
-                  style="@style/line"/>
-
 
         </LinearLayout>
-
-
 
     </RelativeLayout>
 
