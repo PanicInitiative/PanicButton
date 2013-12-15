@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
     <artifactId>amnesty-panic-button</artifactId>
-    <version>1.0</version>
+    <version>1.1.0</version>
     <packaging>apk</packaging>
     <name>amnesty-panic-button</name>
 
@@ -19,6 +19,8 @@
     <properties>
         <platform.version>4.1.1.4</platform.version>
         <skipCoverage>false</skipCoverage>
+        <app.version.prefix>dev</app.version.prefix>
+        <app.version.name>${project.version}${app.version.prefix}</app.version.name>
     </properties>
 
     <dependencies>
@@ -71,11 +73,35 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!-- filter manifest and put filtered file in target/filtered-manifest/ -->
+            <resource>
+                <directory>${project.basedir}</directory>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/filtered-manifest</targetPath>
+                <includes>
+                    <include>AndroidManifest.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <executions>
                     <execution>
                         <id>lint</id>
@@ -86,12 +112,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+                    <androidManifestFile>${project.build.directory}/filtered-manifest/AndroidManifest.xml</androidManifestFile>
                     <assetsDirectory>${project.basedir}/assets</assetsDirectory>
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
                     <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
                     <sdk>
-						<path>/C:\Program Files (x86)\Android\android-studio\sdk</path>
                         <platform>18</platform>
                     </sdk>
                     <lint>
