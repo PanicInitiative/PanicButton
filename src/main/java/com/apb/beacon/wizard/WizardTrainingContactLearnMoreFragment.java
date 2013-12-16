@@ -17,7 +17,7 @@ public class WizardTrainingContactLearnMoreFragment extends WizardFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.wizard_training_contacts_learn_more, container, false);
 
-        Button bIUnderstand = (Button) view.findViewById(R.id.i_understand);
+        Button bIUnderstand = (Button) view.findViewById(R.id.option);
         bIUnderstand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

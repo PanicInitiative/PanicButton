@@ -17,10 +17,11 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wizard_welcome_title"
+            android:text="title"
             android:textSize="24sp"
             android:textStyle="italic"
-            android:paddingBottom="5dp"/>
+            android:paddingBottom="5dp"
+            android:id="@+id/title" />
 
 
         <View android:layout_height="1dp"
@@ -32,16 +33,17 @@
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="@string/wizard_welcome_body"
-            style="@style/welcome_screen_text"/>
+            android:text="content"
+            style="@style/welcome_screen_text"
+            android:id="@+id/content_body" />
 
 
-        <Button android:text="@string/choose_language_settings"
+        <Button android:text="option"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:background="@drawable/topbar_button"
             style="@style/activate_disguise_button"
-            android:id="@+id/change_language_settings"/>
+            android:id="@+id/option"/>
 
     </LinearLayout>
 </ScrollView>

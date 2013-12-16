@@ -11,8 +11,9 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wizard_training_pin_title"
-            style="@style/wizard_page_title"/>
+            android:text="title"
+            style="@style/wizard_page_title"
+            android:id="@+id/title" />
 
         <View android:layout_height="1dp"
             android:layout_width="match_parent"
@@ -29,8 +30,9 @@
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_margin="15dp"
-            android:text="@string/wizard_training_pin_details"
-            style="@style/wizard_text"/>
+            android:text="content"
+            style="@style/wizard_text"
+            android:id="@+id/content_body" />
 
     </LinearLayout>
 </ScrollView>

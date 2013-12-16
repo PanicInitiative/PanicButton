@@ -12,10 +12,11 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/panic_button_training"
+            android:text="title"
             android:textSize="24sp"
             android:textStyle="italic"
-            android:paddingBottom="5dp"/>
+            android:paddingBottom="5dp"
+            android:id="@+id/title" />
 
 
         <View android:layout_height="1dp"
@@ -28,15 +29,9 @@
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_margin="20dp"
-            android:text="@string/wizard_training_details"
-            style="@style/welcome_screen_text"/>
-
-        <Button android:text="@string/take_me_to_training"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:background="@drawable/topbar_button"
-            style="@style/activate_disguise_button"
-            android:id="@+id/take_me_to_training"/>
+            android:text="content"
+            style="@style/welcome_screen_text"
+            android:id="@+id/content_body" />
 
     </LinearLayout>
 </ScrollView>

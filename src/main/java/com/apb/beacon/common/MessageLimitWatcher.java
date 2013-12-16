@@ -6,7 +6,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.apb.beacon.Constants;
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.wizard.ActionButtonStateListener;
 import com.apb.beacon.wizard.WizardActivity;
 
@@ -26,7 +26,7 @@ public class MessageLimitWatcher implements TextWatcher {
     }
 
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if ((maxCount - s.length()) < Constants.WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER)
+        if ((maxCount - s.length()) < AppConstants.WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER)
             textView.setTextColor(Color.RED);
         else
             textView.setTextColor(Color.BLACK);
