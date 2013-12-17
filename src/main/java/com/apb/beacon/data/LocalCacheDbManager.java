@@ -6,10 +6,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.apb.beacon.model.LocalCachePage;
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by aoe on 12/12/13.
