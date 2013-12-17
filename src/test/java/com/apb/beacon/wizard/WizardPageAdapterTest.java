@@ -2,15 +2,21 @@ package com.apb.beacon.wizard;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+
 import com.apb.beacon.R;
 import com.apb.beacon.sms.SMSSettingsFragment;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+
 import roboguice.activity.RoboFragmentActivity;
 
-import static com.apb.beacon.R.layout.*;
+import static com.apb.beacon.R.layout.wizard_emergency_alert1;
+import static com.apb.beacon.R.layout.wizard_emergency_alert2;
+import static com.apb.beacon.R.layout.wizard_emergency_alert3;
+import static com.apb.beacon.R.layout.wizard_start_screen;
 import static com.apb.beacon.R.string.next_action;
 import static com.apb.beacon.R.string.start_action;
 import static org.junit.Assert.assertEquals;

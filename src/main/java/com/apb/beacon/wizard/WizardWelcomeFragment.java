@@ -1,9 +1,7 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,8 @@ import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
-import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
-import com.apb.beacon.model.MarkDownResponse;
-import com.apb.beacon.parser.JsonParser;
 
 /**
  * Created by aoe on 12/13/13.

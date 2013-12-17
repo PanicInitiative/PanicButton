@@ -1,6 +1,7 @@
 package com.apb.beacon.common;
 
 import com.apb.beacon.wizard.ActionButtonStateListener;
+
 import roboguice.activity.RoboFragmentActivity;
 
 public class TestFragmentActivity extends RoboFragmentActivity implements ActionButtonStateListener {

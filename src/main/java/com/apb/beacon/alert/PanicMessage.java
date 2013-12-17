@@ -2,6 +2,7 @@ package com.apb.beacon.alert;
 
 import android.content.Context;
 import android.location.Location;
+
 import com.apb.beacon.location.LocationFormatter;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.sms.SMSAdapter;

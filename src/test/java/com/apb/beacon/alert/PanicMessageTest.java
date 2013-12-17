@@ -3,11 +3,13 @@ package com.apb.beacon.alert;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+
 import com.apb.beacon.location.LocationTestUtil;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.sms.SMSAdapter;
 import com.apb.beacon.twitter.ShortCodeSettings;
 import com.apb.beacon.twitter.TwitterSettings;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

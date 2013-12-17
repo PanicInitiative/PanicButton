@@ -7,13 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
 import com.apb.beacon.R;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.tester.android.database.SimpleTestCursor;
+
 import roboguice.activity.RoboFragmentActivity;
 
 import static android.app.Activity.RESULT_CANCELED;

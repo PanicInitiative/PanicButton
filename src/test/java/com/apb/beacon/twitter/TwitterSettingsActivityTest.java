@@ -1,15 +1,13 @@
 package com.apb.beacon.twitter;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.app.Application;
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+
+import com.apb.beacon.R;
+import com.apb.beacon.SettingsActivity;
 
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
@@ -22,14 +20,16 @@ import org.robolectric.shadows.ShadowFragmentActivity;
 import org.robolectric.shadows.ShadowHandler;
 import org.robolectric.shadows.ShadowToast;
 
-import android.app.Application;
-import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-
-import com.apb.beacon.R;
-import com.apb.beacon.SettingsActivity;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class TwitterSettingsActivityTest {

@@ -13,11 +13,8 @@ import android.widget.TextView;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
-import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
-
-import java.util.regex.Pattern;
 
 public class CreatePinFragment extends WizardFragment {
 

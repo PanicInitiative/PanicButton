@@ -1,11 +1,10 @@
 package com.apb.beacon.parser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import android.util.Log;
+
+import com.apb.beacon.AppConstants;
+import com.apb.beacon.model.MarkDownResponse;
+import com.apb.beacon.model.ServerResponse;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,11 +21,12 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.MarkDownResponse;
-import com.apb.beacon.model.ServerResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class JsonParser {
 

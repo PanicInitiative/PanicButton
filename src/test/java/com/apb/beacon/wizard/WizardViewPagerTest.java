@@ -2,6 +2,7 @@ package com.apb.beacon.wizard;
 
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;

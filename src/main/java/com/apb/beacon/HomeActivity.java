@@ -13,11 +13,11 @@ import com.apb.beacon.model.MarkDownResponse;
 import com.apb.beacon.parser.JsonParser;
 import com.apb.beacon.wizard.WizardActivity;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-
 import java.util.Timer;
 import java.util.TimerTask;
+
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
 
 import static com.apb.beacon.ApplicationSettings.getHardcodeInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;

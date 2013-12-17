@@ -1,17 +1,17 @@
 package com.apb.beacon;
 
-import roboguice.inject.ContentView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.calculator.Calculator;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
 import com.google.inject.Inject;
+
+import roboguice.inject.ContentView;
 
 @ContentView(R.layout.calculator_layout)
 public class CalculatorActivity extends PanicButtonActivity {

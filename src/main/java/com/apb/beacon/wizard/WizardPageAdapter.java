@@ -10,8 +10,9 @@ import com.apb.beacon.sms.SMSMessageFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.apb.beacon.R.layout.*;
-import static com.apb.beacon.R.string.i_understand_message_action;
+import static com.apb.beacon.R.layout.wizard_emergency_alert1;
+import static com.apb.beacon.R.layout.wizard_emergency_alert2;
+import static com.apb.beacon.R.layout.wizard_emergency_alert3;
 import static com.apb.beacon.R.string.next_action;
 import static com.apb.beacon.wizard.SimpleFragment.create;
 

@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
+
 import roboguice.activity.RoboActivity;
 
 public abstract class PanicButtonActivity extends RoboActivity {

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.wizard.ActionButtonStateListener;
-import com.apb.beacon.wizard.WizardActivity;
 
 import static java.lang.String.valueOf;
 

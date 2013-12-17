@@ -6,14 +6,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.apb.beacon.R;
 import com.apb.beacon.common.TestFragmentActivity;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)

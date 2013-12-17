@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
+
 import com.google.gson.Gson;
 
 import static com.apb.beacon.AppConstants.ALERT_FREQUENCY;

@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
 import com.apb.beacon.R;
+
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 

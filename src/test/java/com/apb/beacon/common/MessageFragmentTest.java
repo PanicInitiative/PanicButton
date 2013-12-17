@@ -8,16 +8,19 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.apb.beacon.R;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowEditText;
-import roboguice.activity.RoboFragmentActivity;
 
 import java.util.List;
+
+import roboguice.activity.RoboFragmentActivity;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;

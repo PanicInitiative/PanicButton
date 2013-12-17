@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.sms.SMSSettingsActivity;
 import com.apb.beacon.twitter.TwitterSettingsActivity;
-import roboguice.activity.RoboActivity;
+
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 

@@ -2,9 +2,9 @@ package com.apb.beacon.test.support;
 
 
 import android.widget.RelativeLayout;
+
 import org.robolectric.internal.Implementation;
 import org.robolectric.internal.Implements;
-import org.robolectric.internal.RealObject;
 import org.robolectric.shadows.ShadowRelativeLayout;
 
 @Implements(RelativeLayout.class)

@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
 import com.apb.beacon.R;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.wizard.ActionButtonStateListener;
@@ -14,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.apb.beacon.R.id.*;
+import static com.apb.beacon.R.id.first_contact;
+import static com.apb.beacon.R.id.second_contact;
+import static com.apb.beacon.R.id.third_contact;
 
 public class ContactEditTexts {
     public static final int PHONE_NUMBER_LIMIT = 4;
