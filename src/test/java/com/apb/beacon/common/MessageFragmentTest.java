@@ -60,6 +60,8 @@ public class MessageFragmentTest {
         messageEditText = (EditText) messageFragment.getView().findViewById(R.id.message_edit_text);
         charsLeftTextView = (TextView) messageFragment.getView().findViewById(R.id.characters_left_view);
         messageHeaderView = (TextView) messageFragment.getView().findViewById(R.id.message_fragment_header);
+
+        messageFragment.setActionButtonStateListener(null);
     }
 
     @Test

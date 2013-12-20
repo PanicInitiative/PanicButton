@@ -63,4 +63,8 @@ public class PBDatabase {
     public LocalCachePage retrievePage(int pageNumber){
         return LocalCacheDbManager.retrievePage(this.db, pageNumber);
     }
+
+    public int deletePage(int pageNumber){
+        return LocalCacheDbManager.deletePage(this.db, pageNumber);
+    }
 }

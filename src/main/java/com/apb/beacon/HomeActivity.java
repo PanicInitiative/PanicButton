@@ -28,22 +28,29 @@ public class HomeActivity extends RoboActivity {
     public static final int SPLASH_TIME = 1000;
 
     ProgressDialog pDialog;
-    JsonParser jsonParser;
+//    JsonParser jsonParser;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
-        jsonParser = new JsonParser();
-
         /*
         hard-code initial data to the database.
          */
+        checkIfDataInitializationNeeded();
+
+        checkIfUpdateNeeded();
+
+    }
+
+    private void checkIfDataInitializationNeeded(){
         if (!getHardcodeInsertion(HomeActivity.this)) {
             insertHardcodedDataToDatabase();
             setHardcodeInsertion(HomeActivity.this, true);
         }
+    }
 
+    private void checkIfUpdateNeeded(){
+        long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
         if (!AppUtil.isToday(lastRunTimeInMillis)) {
             Log.e(">>>>", "last run not today");
             new GetUpdate().execute();
@@ -55,7 +62,6 @@ public class HomeActivity extends RoboActivity {
                 startFacade();
             }
         }
-
     }
 
     private void startFacade() {
@@ -84,6 +90,7 @@ public class HomeActivity extends RoboActivity {
         protected Void doInBackground(Void... params) {
             for (int i = 0; i < AppConstants.RELATIVE_URLS.length; i++) {
                 String url = AppConstants.BASE_URL + AppConstants.RELATIVE_URLS[i];
+                JsonParser jsonParser = new JsonParser();
                 MarkDownResponse response = jsonParser.retrieveMarkDownData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null);
                 if (response.getStatus() == 200) {
                     Log.d(">>>><<<<", "success in retrieving markdown info for url = " + url);

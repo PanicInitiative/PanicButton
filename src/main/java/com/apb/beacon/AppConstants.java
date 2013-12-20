@@ -21,7 +21,8 @@ public class AppConstants {
     public static final int PAGE_NUMBER_TRAINING_MESSAGE = 7;
 //    public static final int PAGE_NUMBER_FINISH_WIZARD = 3;
 
-    public static final int PAGE_COUNT_TO_INSERT_INTO_DB = 8;
+    public static final int WIZARD_PAGE_COUNT_TO_INSERT_INTO_DB = 8;
+    public static final int WIZARD_TOTAL_PAGE_COUNT = 12;
 
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 

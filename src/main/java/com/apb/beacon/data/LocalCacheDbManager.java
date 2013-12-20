@@ -107,4 +107,8 @@ public class LocalCacheDbManager {
             insert(db, page);
         }
     }
+
+    public static int deletePage(SQLiteDatabase db, int pageNumber){
+        return db.delete(TABLE_LOCAL_CACHE, PAGE_NUMBER + "=" + pageNumber, null);
+    }
 }

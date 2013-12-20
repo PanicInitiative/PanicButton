@@ -1,18 +1,23 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
+import android.app.Application;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
+import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.LocalCachePage;
 
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowInputMethodManager;
 
@@ -35,6 +40,8 @@ public class WizardActivityTest {
     private Button previousButton;
     private Button actionButton;
     private WizardViewPager viewPager;
+    private static Application context;
+
     @Mock
     private FragmentStatePagerAdapter mockPagerAdapter;
     @Mock
@@ -42,6 +49,7 @@ public class WizardActivityTest {
 
     @Before
     public void setUp() throws IllegalAccessException {
+        context = Robolectric.application;
         initMocks(this);
         wizardActivity = new WizardActivity() {
             FragmentStatePagerAdapter getWizardPagerAdapter() {
@@ -86,7 +94,17 @@ public class WizardActivityTest {
 
     @Test
     public void shouldSetActionButtonTextForFirstScreen() {
-        assertEquals("Start", actionButton.getText());
+
+        LocalCachePage page = new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Wizard Welcome",
+                "Take me to the training", "Choose language settings", "page contents");
+        PBDatabase dbInstance = new PBDatabase(context);
+        dbInstance.open();
+        dbInstance.insertOrUpdateLocalCachePage(page);
+
+        page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
+        dbInstance.close();
+
+        assertEquals("Take me to the training", page.getPageAction());
     }
 
     @Test
