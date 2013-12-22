@@ -132,20 +132,25 @@ public class HomeActivity extends RoboActivity {
                 "loren epsum - will add later",
                 getResources().getString(R.string.wizard_training_contacts_details),
                 getResources().getString(R.string.wizard_training_message_details_intro),
-                getResources().getString(R.string.wizard_training_message_details)
+                getResources().getString(R.string.wizard_training_message_details),
+                "emergency alert 1",
+                "emergency alert 2",
+                "emergency alert 3",
+                getResources().getString(R.string.wizard__training_disguise_intro)
         };
 
         PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
         dbInstance.open();
 
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(0, "Wizard Welcome", "Welcome", "action", "option", initial_page_content[0]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(1, "Wizard Training", "Welcome", "action", "option", initial_page_content[1]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(2, "Wizard Training Pin", "Welcome", "action", "option", initial_page_content[2]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(3, "Wizard Contact Intro", "Welcome", "action", "option", initial_page_content[3]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(4, "Wizard Contact Learn More", "Welcome", "action", "option", initial_page_content[4]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(5, "Wizard Contact", "Welcome", "action", "option", initial_page_content[5]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(6, "Wizard Message Intro", "Welcome", "action", "option", initial_page_content[6]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(7, "Wizard Message", "Welcome", "action", "option", initial_page_content[7]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_WIZARD_WELCOME]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING, "Wizard Training", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN, "Wizard Training Pin", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO, "Wizard Contact Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE, "Wizard Contact Learn More", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS, "Wizard Contact", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO, "Wizard Message Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE, "Wizard Message", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE]));
+        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_DISGUISE_INTRO, "Wizard Disguise Intro", "Step 5: Activate Disguise", "Try it now", "option", initial_page_content[AppConstants.PAGE_NUMBER_DISGUISE_INTRO]));
 
         dbInstance.close();
     }
