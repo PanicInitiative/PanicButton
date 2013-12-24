@@ -34,7 +34,8 @@ public class AppConstants {
     public static final int HTTP_REQUEST_TYPE_POST = 2;
     public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
-    public static final String BASE_URL = "https://rawgithub.com/TeamPanicButton/Content/latest/Mobile/";
+//    public static final String BASE_URL = "https://rawgithub.com/TeamPanicButton/Content/latest/Mobile/";
+    public static final String BASE_URL = "http://teampanicbutton.github.io/api/mobile.json";
 
     public static final String[] RELATIVE_URLS = {
       "Wizard_Welcome.md", "Wizard_Training.md", "Wizard_Training_Pin.md", "Wizard_Training_Contacts.md", "Wizard_Training_Message.md"

@@ -9,7 +9,7 @@ import android.util.Log;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
-import com.apb.beacon.model.MarkDownResponse;
+import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.parser.JsonParser;
 import com.apb.beacon.wizard.WizardActivity;
 
@@ -88,23 +88,31 @@ public class HomeActivity extends RoboActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            for (int i = 0; i < AppConstants.RELATIVE_URLS.length; i++) {
-                String url = AppConstants.BASE_URL + AppConstants.RELATIVE_URLS[i];
-                JsonParser jsonParser = new JsonParser();
-                MarkDownResponse response = jsonParser.retrieveMarkDownData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null);
-                if (response.getStatus() == 200) {
-                    Log.d(">>>><<<<", "success in retrieving markdown info for url = " + url);
+            String url = AppConstants.BASE_URL;
+            JsonParser jsonParser = new JsonParser();
+            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
+            if (response.getStatus() == 200) {
+                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
                     ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
-                    String mdContent = response.getMdData();
-                    LocalCachePage page = AppUtil.parseMarkDown(AppConstants.PAGE_NUMBER_FOR_DATA[i], AppConstants.PAGE_NAME_FOR_DATA[i], mdContent);
-
-                    PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-                    dbInstance.open();
-                    dbInstance.insertOrUpdateLocalCachePage(page);
-                    dbInstance.close();
-
-                }
             }
+
+//            for (int i = 0; i < AppConstants.RELATIVE_URLS.length; i++) {
+//                String url = AppConstants.BASE_URL + AppConstants.RELATIVE_URLS[i];
+//                JsonParser jsonParser = new JsonParser();
+//                MarkDownResponse response = jsonParser.retrieveMarkDownData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null);
+//                if (response.getStatus() == 200) {
+//                    Log.d(">>>><<<<", "success in retrieving markdown info for url = " + url);
+//                    ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+//                    String mdContent = response.getMdData();
+//                    LocalCachePage page = AppUtil.parseMarkDown(AppConstants.PAGE_NUMBER_FOR_DATA[i], AppConstants.PAGE_NAME_FOR_DATA[i], mdContent);
+//
+//                    PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+//                    dbInstance.open();
+//                    dbInstance.insertOrUpdateLocalCachePage(page);
+//                    dbInstance.close();
+//
+//                }
+//            }
             return null;
         }
 
