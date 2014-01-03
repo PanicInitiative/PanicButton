@@ -12,6 +12,7 @@
     <LinearLayout
             style="@style/custom_action_bar"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:layout_width="fill_parent">
 
         <Button android:id="@+id/previous_button"
@@ -40,12 +41,16 @@
                 android:onClick="performAction"/>
 
     </LinearLayout>
-      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>
+<!--      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>-->
 
-    <com.apb.beacon.wizard.WizardViewPager
+<!--    <com.apb.beacon.wizard.WizardViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/wizard_view_pager"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            />
+            />-->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 </LinearLayout>

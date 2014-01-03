@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wizard_start_root"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/wizard_static_panel">
+
+        <TextView
+            android:id="@+id/fragment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/panic_button_label"
+            android:textSize="32sp"
+            android:paddingBottom="5dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/fragment_contents"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_title"
+            android:text="@string/wizard_training_contacts_details"
+            style="@style/welcome_screen_text" />
+
+        <Button
+            android:id="@+id/fragment_action"
+            android:text="@string/finish_button_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/topbar_button"
+            style="@style/activate_disguise_button"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/fragment_contents"
+            android:layout_centerHorizontal="true" />
+
+        <ListView
+            android:id="@+id/fragment_item_list"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/fragment_action" />
+    </RelativeLayout>
+</ScrollView>

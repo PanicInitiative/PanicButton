@@ -10,9 +10,15 @@ import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.ServerResponse;
+import com.apb.beacon.model.WizardSimplePage;
 import com.apb.beacon.parser.JsonParser;
 import com.apb.beacon.wizard.WizardActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +32,8 @@ import static com.apb.beacon.ApplicationSettings.setHardcodeInsertion;
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
     public static final int SPLASH_TIME = 1000;
+
+    public static WizardSimplePage FirstPage;
 
     ProgressDialog pDialog;
 //    JsonParser jsonParser;
@@ -92,8 +100,26 @@ public class HomeActivity extends RoboActivity {
             JsonParser jsonParser = new JsonParser();
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
-                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
-                    ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+                Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
+//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+
+                try {
+                    JSONObject responseObj = response.getjObj();
+//                    Log.e(">>>>>>>>>>>>", "responseObj = " + responseObj);
+                    JSONObject mobObj = responseObj.getJSONObject("mobile");
+                    JSONArray dataArray = mobObj.getJSONArray("data");
+                    List<WizardSimplePage> pageList = WizardSimplePage.parsePages(dataArray);
+                    for(int i = 0; i< pageList.size(); i++){
+                        String id = pageList.get(i).getId();
+                        if(id.equals("home-not-configured")){
+                            FirstPage = pageList.get(i);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
 //            for (int i = 0; i < AppConstants.RELATIVE_URLS.length; i++) {

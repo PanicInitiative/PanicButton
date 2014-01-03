@@ -1,7 +1,11 @@
 package com.apb.beacon.wizard;
 
+
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,19 +14,14 @@ import android.widget.Toast;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.SoftKeyboard;
-import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 import static android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-@ContentView(R.layout.wizard_layout)
-public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener{
+public class WizardActivity extends FragmentActivity{
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -51,21 +50,30 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.wizard_layout);
 
-        previousButton.setVisibility(INVISIBLE);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        NewSimpleFragment fragment = new NewSimpleFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
 
-        PBDatabase dbInstance = new PBDatabase(WizardActivity.this);
-        dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
-        dbInstance.close();
-        Log.e(">>>>>>", "setting action text from onCreate -> " + page.getPageAction());
-        actionButton.setText(page.getPageAction());
 
-        viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
-        pagerAdapter = getWizardPagerAdapter();
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setOnPageChangeListener(pageChangeListener);
+
+//        previousButton.setVisibility(INVISIBLE);
+//
+//        PBDatabase dbInstance = new PBDatabase(WizardActivity.this);
+//        dbInstance.open();
+//        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
+//        dbInstance.close();
+//        Log.e(">>>>>>", "setting action text from onCreate -> " + page.getPageAction());
+//        actionButton.setText(page.getPageAction());
+//
+//        viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
+//        pagerAdapter = getWizardPagerAdapter();
+//        viewPager.setAdapter(pagerAdapter);
+//        viewPager.setOffscreenPageLimit(2);
+//        viewPager.setOnPageChangeListener(pageChangeListener);
     }
 
     public void setActionButtonVisibility(int pageNumber){
@@ -83,14 +91,14 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
             actionButton.setVisibility(View.VISIBLE);
     }
 
-    public void performAction(View view) {
-        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
-            viewPager.nextWithSkip();
-        }
-        else if(getCurrentWizardFragment().performAction()){
-            viewPager.next();
-        }
-    }
+//    public void performAction(View view) {
+//        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
+//            viewPager.nextWithSkip();
+//        }
+//        else if(getCurrentWizardFragment().performAction()){
+//            viewPager.next();
+//        }
+//    }
 
     /*
     skip one fragment in the middle
@@ -136,10 +144,10 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         return new WizardPageAdapter(getSupportFragmentManager());
     }
 
-    @Override
-    public void enableActionButton(boolean isEnabled) {
-        actionButton.setEnabled(isEnabled);
-    }
+//    @Override
+//    public void enableActionButton(boolean isEnabled) {
+//        actionButton.setEnabled(isEnabled);
+//    }
 
 //    @Override
 //    public void setText(String buttonText) {

@@ -121,7 +121,7 @@ public class JsonParser {
                 sb.append(line + "\n");
             }
             is.close();
-            Log.e(TAG, "sb = " + sb.toString());
+//            Log.e(TAG, "sb = " + sb.toString());
             json = sb.toString();
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
