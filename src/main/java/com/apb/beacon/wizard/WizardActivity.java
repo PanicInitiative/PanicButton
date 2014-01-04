@@ -6,46 +6,36 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
-import com.apb.beacon.SoftKeyboard;
-
-import roboguice.inject.InjectView;
-
-import static android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class WizardActivity extends FragmentActivity{
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
-    @InjectView(R.id.previous_button)
-    Button previousButton;
-    @InjectView(R.id.action_button)
-    public Button actionButton;
+//    @InjectView(R.id.previous_button)
+//    Button previousButton;
+//    @InjectView(R.id.action_button)
+//    public Button actionButton;
 
-    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
-        @Override
-        public void onPageSelected(int position) {
-            super.onPageSelected(position);
-            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
-            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
-//            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
-            setActionButtonVisibility(position);
-            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
-                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
-
-            Log.e(">>>>>>", "setting action text from pageChangeListener");
-            actionButton.setText(getCurrentWizardFragment().action());
-            getCurrentWizardFragment().onFragmentSelected();
-        }
-    };
+//    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
+//        @Override
+//        public void onPageSelected(int position) {
+//            super.onPageSelected(position);
+//            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
+//            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
+////            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
+//            setActionButtonVisibility(position);
+//            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
+//                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
+//
+//            Log.e(">>>>>>", "setting action text from pageChangeListener");
+//            actionButton.setText(getCurrentWizardFragment().action());
+//            getCurrentWizardFragment().onFragmentSelected();
+//        }
+//    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,10 +75,10 @@ public class WizardActivity extends FragmentActivity{
 //            actionButton.setVisibility(View.INVISIBLE);
 //        if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
 //            actionButton.setVisibility(View.INVISIBLE);
-        if(pageNumber == pagerAdapter.getCount() -1)
-            actionButton.setVisibility(View.INVISIBLE);
-        else
-            actionButton.setVisibility(View.VISIBLE);
+//        if(pageNumber == pagerAdapter.getCount() -1)
+//            actionButton.setVisibility(View.INVISIBLE);
+//        else
+//            actionButton.setVisibility(View.VISIBLE);
     }
 
 //    public void performAction(View view) {

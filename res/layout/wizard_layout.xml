@@ -9,7 +9,7 @@
 
 
 
-    <LinearLayout
+<!--    <LinearLayout
             style="@style/custom_action_bar"
             android:layout_height="50dp"
             android:visibility="gone"
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:onClick="performAction"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 <!--      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>-->
 
 <!--    <com.apb.beacon.wizard.WizardViewPager
