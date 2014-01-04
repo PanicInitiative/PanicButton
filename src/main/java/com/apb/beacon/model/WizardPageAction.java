@@ -16,13 +16,15 @@ import java.util.List;
 public class WizardPageAction {
     private String title;
     private String link;
+    private String status;
 
     public WizardPageAction() {
     }
 
-    public WizardPageAction(String title, String link) {
+    public WizardPageAction(String title, String link, String status) {
         this.title = title;
         this.link = link;
+        this.status = status;
     }
 
     public static List<WizardPageAction> parsePageItems(JSONArray actionArray){
@@ -77,5 +79,13 @@ public class WizardPageAction {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

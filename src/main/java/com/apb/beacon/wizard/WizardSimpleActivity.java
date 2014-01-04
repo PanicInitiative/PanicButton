@@ -5,14 +5,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,65 +20,40 @@ import com.apb.beacon.model.WizardSimplePage;
 
 import java.util.HashMap;
 
-
 /**
- * Created by aoe on 1/3/14.
+ * Created by aoe on 1/5/14.
  */
-public class NewSimpleFragment extends Fragment {
+public class WizardSimpleActivity extends Activity{
 
-    private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
-    private Activity activity;
 
     DisplayMetrics metrics;
-//    private String mDescription = "...your html here...";
 
     TextView tvTitle, tvContent;
     Button bAction;
     ListView lvItems;
 
-
-    public static NewSimpleFragment newInstance(String pageId) {
-        NewSimpleFragment f = new NewSimpleFragment();
-        Bundle args = new Bundle();
-        args.putString(PAGE_ID, pageId);
-        f.setArguments(args);
-        return(f);
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_simple_fragment, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.wizard_simple_fragment);
 
-        tvTitle = (TextView) view.findViewById(R.id.fragment_title);
-        tvContent = (TextView) view.findViewById(R.id.fragment_contents);
-        bAction = (Button) view.findViewById(R.id.fragment_action);
-        lvItems = (ListView) view.findViewById(R.id.fragment_item_list);
+        tvTitle = (TextView) findViewById(R.id.fragment_title);
+        tvContent = (TextView) findViewById(R.id.fragment_contents);
+        bAction = (Button) findViewById(R.id.fragment_action);
+        lvItems = (ListView) findViewById(R.id.fragment_item_list);
 
-        return view;
-    }
+        metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        WizardSimplePage thisPage = HomeActivity.FirstPage;
 
-        activity = getActivity();
-        if (activity != null) {
-            metrics = new DisplayMetrics();
-            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        tvTitle.setText(thisPage.getTitle());
+        tvContent.setText(thisPage.getContent());
 
-            String pageId = getArguments().getString(PAGE_ID);
+        bAction.setText(thisPage.getAction().get(0).getTitle());
 
-            WizardSimplePage thisPage = HomeActivity.FirstPage;
-
-            tvTitle.setText(thisPage.getTitle());
-            tvContent.setText(thisPage.getContent());
-
-            bAction.setText(thisPage.getAction().get(0).getTitle());
-
-            updateImages(true, thisPage.getContent());
-        }
+        updateImages(true, thisPage.getContent());
     }
 
 
@@ -93,9 +64,6 @@ public class NewSimpleFragment extends Fragment {
                     @Override
                     public Drawable getDrawable(final String source) {
                         Log.e(">>>>>>", "image src = " + source);
-//                        if(!source.startsWith("http")){
-//                            source = "http://teampanicbutton.github.io/" + source;
-//                        }
                         Drawable drawable = mImageCache.get(source);
                         if (drawable != null) {
                             return drawable;
@@ -135,5 +103,4 @@ public class NewSimpleFragment extends Fragment {
                 }, null);
         tvContent.setText(spanned);
     }
-
 }

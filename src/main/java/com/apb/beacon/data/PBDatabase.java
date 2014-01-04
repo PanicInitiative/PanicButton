@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.apb.beacon.model.LocalCachePage;
+import com.apb.beacon.model.WizardPageAction;
+import com.apb.beacon.model.WizardPageItem;
+import com.apb.beacon.model.WizardPageStatus;
+
+import java.util.List;
 
 /**
  * Created by aoe on 12/12/13.
@@ -19,7 +24,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -30,11 +35,17 @@ public class PBDatabase {
         @Override
         public void onCreate(SQLiteDatabase db) {
             LocalCacheDbManager.createTable(db);
+            WizardPageActionDbManager.createTable(db);
+            WizardPageItemDbManager.createTable(db);
+            WizardPageActionDbManager.createTable(db);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             LocalCacheDbManager.dropTable(db);
+            WizardPageActionDbManager.dropTable(db);
+            WizardPageItemDbManager.dropTable(db);
+            WizardPageActionDbManager.dropTable(db);
 
             onCreate(db);
         }
@@ -67,4 +78,32 @@ public class PBDatabase {
     public int deletePage(int pageNumber){
         return LocalCacheDbManager.deletePage(this.db, pageNumber);
     }
+
+
+
+    public void insertOrUpdateWizardPageAction(WizardPageAction action, String pageId, String lang){
+        WizardPageActionDbManager.insertOrUpdate(this.db, action, pageId, lang);
+    }
+
+    public List<WizardPageAction> retrieveWizardPageAction(String pageId, String lang){
+        return WizardPageActionDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public void insertOrUpdateWizardPageItem(WizardPageItem item, String pageId, String lang){
+        WizardPageItemDbManager.insertOrUpdate(this.db, item, pageId, lang);
+    }
+
+    public List<WizardPageItem> retrieveWizardPageItem(String pageId, String lang){
+        return WizardPageItemDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public void insertOrUpdateWizardPageStatus(WizardPageStatus status, String pageId, String lang){
+        WizardPageStatusDbManager.insertOrUpdate(this.db, status, pageId, lang);
+    }
+
+    public List<WizardPageStatus> retrieveWizardPageStatus(String pageId, String lang){
+        return WizardPageStatusDbManager.retrieve(this.db, pageId, lang);
+    }
+
+
 }

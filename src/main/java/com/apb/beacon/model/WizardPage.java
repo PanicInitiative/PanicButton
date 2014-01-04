@@ -15,30 +15,20 @@ import java.util.List;
  */
 public class WizardPage {
     private String id;
+    private String lang;
     private String type;
     private String title;
     private String introduction;
     private String warning;
     private String component;
-    private WizardPageAction action;
+    private List<WizardPageStatus> status;
+    private List<WizardPageAction> action;
     private List<WizardPageItem> items;
     private String content;
 
     public WizardPage() {
     }
 
-    public WizardPage(String id, String type, String title, String introduction, String warning,
-                      String component, WizardPageAction action, List<WizardPageItem> items, String content) {
-        this.id = id;
-        this.type = type;
-        this.title = title;
-        this.introduction = introduction;
-        this.warning = warning;
-        this.component = component;
-        this.action = action;
-        this.items = items;
-        this.content = content;
-    }
 
 
     public static List<WizardPage> parsePages(JSONArray pageArray){
@@ -65,13 +55,20 @@ public class WizardPage {
 
     }
 
-
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getType() {
@@ -114,11 +111,19 @@ public class WizardPage {
         this.component = component;
     }
 
-    public WizardPageAction getAction() {
+    public List<WizardPageStatus> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<WizardPageStatus> status) {
+        this.status = status;
+    }
+
+    public List<WizardPageAction> getAction() {
         return action;
     }
 
-    public void setAction(WizardPageAction action) {
+    public void setAction(List<WizardPageAction> action) {
         this.action = action;
     }
 
