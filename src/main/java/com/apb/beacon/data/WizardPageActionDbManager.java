@@ -64,6 +64,7 @@ public class WizardPageActionDbManager {
                 String actionStatus = c.getString(c.getColumnIndex(ACTION_STATUS));
                 WizardPageAction action = new WizardPageAction(actionTitle, actionLink, actionStatus);
                 actionList.add(action);
+                c.moveToNext();
             }
         }
         c.close();

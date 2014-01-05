@@ -61,6 +61,7 @@ public class WizardPageItemDbManager {
                 String itemLink = c.getString(c.getColumnIndex(ITEM_LINK));
                 WizardPageItem item = new WizardPageItem(itemTitle, itemLink);
                 statusList.add(item);
+                c.moveToNext();
             }
         }
         c.close();
@@ -102,7 +103,7 @@ public class WizardPageItemDbManager {
     }
 
 
-    public static int deleteStatus(SQLiteDatabase db, String pageId, String lang){
+    public static int delete(SQLiteDatabase db, String pageId, String lang){
         return db.delete(TABLE_WIZARD_PAGE_ITEM, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 }

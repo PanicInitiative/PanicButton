@@ -29,7 +29,31 @@ public class WizardPage {
     public WizardPage() {
     }
 
+    public WizardPage(String id, String lang, String type, String title, String introduction, String warning, String component, String content) {
+        this.id = id;
+        this.lang = lang;
+        this.type = type;
+        this.title = title;
+        this.introduction = introduction;
+        this.warning = warning;
+        this.component = component;
+        this.content = content;
+    }
 
+    public WizardPage(String id, String lang, String type, String title, String introduction, String warning, String component,
+                      List<WizardPageStatus> status, List<WizardPageAction> action, List<WizardPageItem> items, String content) {
+        this.id = id;
+        this.lang = lang;
+        this.type = type;
+        this.title = title;
+        this.introduction = introduction;
+        this.warning = warning;
+        this.component = component;
+        this.status = status;
+        this.action = action;
+        this.items = items;
+        this.content = content;
+    }
 
     public static List<WizardPage> parsePages(JSONArray pageArray){
         List<WizardPage> pageList = new ArrayList<WizardPage>();

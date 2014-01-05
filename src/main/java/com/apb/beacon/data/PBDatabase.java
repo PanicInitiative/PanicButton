@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.apb.beacon.model.LocalCachePage;
+import com.apb.beacon.model.WizardPage;
 import com.apb.beacon.model.WizardPageAction;
 import com.apb.beacon.model.WizardPageItem;
 import com.apb.beacon.model.WizardPageStatus;
@@ -34,7 +35,8 @@ public class PBDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            LocalCacheDbManager.createTable(db);
+//            LocalCacheDbManager.createTable(db);
+            WizardPageDbManager.createTable(db);
             WizardPageActionDbManager.createTable(db);
             WizardPageItemDbManager.createTable(db);
             WizardPageActionDbManager.createTable(db);
@@ -42,7 +44,8 @@ public class PBDatabase {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            LocalCacheDbManager.dropTable(db);
+//            LocalCacheDbManager.dropTable(db);
+            WizardPageDbManager.dropTable(db);
             WizardPageActionDbManager.dropTable(db);
             WizardPageItemDbManager.dropTable(db);
             WizardPageActionDbManager.dropTable(db);
@@ -79,7 +82,27 @@ public class PBDatabase {
         return LocalCacheDbManager.deletePage(this.db, pageNumber);
     }
 
+    public void insertOrUpdateWizardPage(WizardPage page){
+        WizardPageDbManager.insertOrUpdate(this.db, page);
 
+        for(WizardPageStatus status : page.getStatus())
+            insertOrUpdateWizardPageStatus(status, page.getId(), page.getLang());
+
+        for(WizardPageAction action : page.getAction())
+            insertOrUpdateWizardPageAction(action, page.getId(), page.getLang());
+
+        for(WizardPageItem item : page.getItems())
+            insertOrUpdateWizardPageItem(item, page.getId(), page.getLang());
+    }
+
+
+    public WizardPage retrievePage(String pageId, String lang){
+        return WizardPageDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public List<WizardPage> retrievePages(String lang){
+        return WizardPageDbManager.retrieve(this.db, lang);
+    }
 
     public void insertOrUpdateWizardPageAction(WizardPageAction action, String pageId, String lang){
         WizardPageActionDbManager.insertOrUpdate(this.db, action, pageId, lang);

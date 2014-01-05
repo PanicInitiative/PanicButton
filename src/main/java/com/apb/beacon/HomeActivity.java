@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.apb.beacon.common.AppUtil;
-import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.model.WizardSimplePage;
 import com.apb.beacon.parser.JsonParser;
@@ -173,20 +171,20 @@ public class HomeActivity extends RoboActivity {
                 getResources().getString(R.string.wizard__training_disguise_intro)
         };
 
-        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-        dbInstance.open();
-
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_WIZARD_WELCOME]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING, "Wizard Training", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN, "Wizard Training Pin", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO, "Wizard Contact Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE, "Wizard Contact Learn More", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS, "Wizard Contact", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO, "Wizard Message Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE, "Wizard Message", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE]));
-        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_DISGUISE_INTRO, "Wizard Disguise Intro", "Step 5: Activate Disguise", "Try it now", "option", initial_page_content[AppConstants.PAGE_NUMBER_DISGUISE_INTRO]));
-
-        dbInstance.close();
+//        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+//        dbInstance.open();
+//
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_WIZARD_WELCOME]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING, "Wizard Training", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN, "Wizard Training Pin", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO, "Wizard Contact Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE, "Wizard Contact Learn More", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS, "Wizard Contact", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO, "Wizard Message Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE, "Wizard Message", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE]));
+//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_DISGUISE_INTRO, "Wizard Disguise Intro", "Step 5: Activate Disguise", "Try it now", "option", initial_page_content[AppConstants.PAGE_NUMBER_DISGUISE_INTRO]));
+//
+//        dbInstance.close();
     }
 
 }

@@ -65,6 +65,7 @@ public class WizardPageStatusDbManager {
                 String statusLink = c.getString(c.getColumnIndex(STATUS_LINK));
                 WizardPageStatus status = new WizardPageStatus(statusTitle, statusColor, statusLink);
                 statusList.add(status);
+                c.moveToNext();
             }
         }
         c.close();
