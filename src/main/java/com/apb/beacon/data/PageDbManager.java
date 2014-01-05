@@ -6,10 +6,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.WizardPage;
-import com.apb.beacon.model.WizardPageAction;
-import com.apb.beacon.model.WizardPageItem;
-import com.apb.beacon.model.WizardPageStatus;
+import com.apb.beacon.model.Page;
+import com.apb.beacon.model.PageAction;
+import com.apb.beacon.model.PageItem;
+import com.apb.beacon.model.PageStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 /**
  * Created by aoe on 1/5/14.
  */
-public class WizardPageDbManager {
+public class PageDbManager {
 
-    private static final String TAG = WizardPageDbManager.class.getSimpleName();
+    private static final String TAG = PageDbManager.class.getSimpleName();
 
     private static final String TABLE_WIZARD_PAGE = "wizard_page_table";
 
@@ -46,7 +46,7 @@ public class WizardPageDbManager {
     }
 
 
-    public static long insert(SQLiteDatabase db, WizardPage page) throws SQLException {
+    public static long insert(SQLiteDatabase db, Page page) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -63,8 +63,8 @@ public class WizardPageDbManager {
     }
 
 
-    public static WizardPage retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
-        WizardPage page = new WizardPage();
+    public static Page retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
+        Page page = new Page();
 
         Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
@@ -76,18 +76,18 @@ public class WizardPageDbManager {
             String pageComponent = c.getString(c.getColumnIndex(PAGE_COMPONENT));
             String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
 
-            List<WizardPageStatus> statusList = WizardPageStatusDbManager.retrieve(db, pageId, lang);
-            List<WizardPageAction> actionList = WizardPageActionDbManager.retrieve(db, pageId, lang);
-            List<WizardPageItem> itemList = WizardPageItemDbManager.retrieve(db, pageId, lang);
+            List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
+            List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
+            List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
 
-            page = new WizardPage(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
+            page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
         }
         c.close();
         return page;
     }
 
-    public static List<WizardPage> retrieve(SQLiteDatabase db, String lang) throws SQLException {
-        List<WizardPage> pageList = new ArrayList<WizardPage>();
+    public static List<Page> retrieve(SQLiteDatabase db, String lang) throws SQLException {
+        List<Page> pageList = new ArrayList<Page>();
 
         Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_LANGUAGE + "=?", new String[]{lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
@@ -101,11 +101,11 @@ public class WizardPageDbManager {
                 String pageComponent = c.getString(c.getColumnIndex(PAGE_COMPONENT));
                 String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
 
-                List<WizardPageStatus> statusList = WizardPageStatusDbManager.retrieve(db, pageId, lang);
-                List<WizardPageAction> actionList = WizardPageActionDbManager.retrieve(db, pageId, lang);
-                List<WizardPageItem> itemList = WizardPageItemDbManager.retrieve(db, pageId, lang);
+                List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
+                List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
+                List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
 
-                WizardPage page = new WizardPage(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
+                Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
                 pageList.add(page);
                 c.moveToNext();
             }
@@ -115,7 +115,7 @@ public class WizardPageDbManager {
     }
 
 
-    public static long update(SQLiteDatabase db, WizardPage page) throws SQLException {
+    public static long update(SQLiteDatabase db, Page page) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -143,7 +143,7 @@ public class WizardPageDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, WizardPage page){
+    public static void insertOrUpdate(SQLiteDatabase db, Page page){
         if(isExist(db, page.getId(), page.getLang())){
             update(db, page);
         }

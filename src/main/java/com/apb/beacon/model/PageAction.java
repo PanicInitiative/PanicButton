@@ -13,22 +13,22 @@ import java.util.List;
 /**
  * Created by aoe on 12/24/13.
  */
-public class WizardPageAction {
+public class PageAction {
     private String title;
     private String link;
     private String status;
 
-    public WizardPageAction() {
+    public PageAction() {
     }
 
-    public WizardPageAction(String title, String link, String status) {
+    public PageAction(String title, String link, String status) {
         this.title = title;
         this.link = link;
         this.status = status;
     }
 
-    public static List<WizardPageAction> parsePageItems(JSONArray actionArray){
-        List<WizardPageAction> actionList = new ArrayList<WizardPageAction>();
+    public static List<PageAction> parsePageItems(JSONArray actionArray){
+        List<PageAction> actionList = new ArrayList<PageAction>();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -39,7 +39,7 @@ public class WizardPageAction {
                 JSONObject thisActionItem = actionArray.getJSONObject(i);
                 if(thisActionItem != null){
                     String jsonString = thisActionItem.toString();
-                    WizardPageAction item = gson.fromJson(jsonString, WizardPageAction.class);
+                    PageAction item = gson.fromJson(jsonString, PageAction.class);
                     actionList.add(item);
                 }
             }
@@ -50,14 +50,14 @@ public class WizardPageAction {
         return actionList;
     }
 
-    public static WizardPageAction parsePageAction(JSONObject actionObj) {
+    public static PageAction parsePageAction(JSONObject actionObj) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
 
         if (actionObj != null) {
             String jsonString = actionObj.toString();
-            WizardPageAction action = gson.fromJson(jsonString, WizardPageAction.class);
+            PageAction action = gson.fromJson(jsonString, PageAction.class);
             return action;
         }
 

@@ -6,7 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.WizardPageItem;
+import com.apb.beacon.model.PageItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * Created by aoe on 1/5/14.
  */
-public class WizardPageItemDbManager {
+public class PageItemDbManager {
 
-    private static final String TAG = WizardPageItemDbManager.class.getSimpleName();
+    private static final String TAG = PageItemDbManager.class.getSimpleName();
 
     private static final String TABLE_WIZARD_PAGE_ITEM = "wizard_page_item_table";
 
@@ -37,7 +37,7 @@ public class WizardPageItemDbManager {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIZARD_PAGE_ITEM);
     }
 
-    public static long insert(SQLiteDatabase db, WizardPageItem item, String pageId, String lang) throws SQLException {
+    public static long insert(SQLiteDatabase db, PageItem item, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -50,8 +50,8 @@ public class WizardPageItemDbManager {
     }
 
 
-    public static List<WizardPageItem> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
-        List<WizardPageItem> statusList = new ArrayList<WizardPageItem>();
+    public static List<PageItem> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
+        List<PageItem> statusList = new ArrayList<PageItem>();
 
         Cursor c = db.query(TABLE_WIZARD_PAGE_ITEM, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
@@ -59,7 +59,7 @@ public class WizardPageItemDbManager {
             while (!c.isAfterLast()) {
                 String itemTitle = c.getString(c.getColumnIndex(ITEM_TITLE));
                 String itemLink = c.getString(c.getColumnIndex(ITEM_LINK));
-                WizardPageItem item = new WizardPageItem(itemTitle, itemLink);
+                PageItem item = new PageItem(itemTitle, itemLink);
                 statusList.add(item);
                 c.moveToNext();
             }
@@ -69,7 +69,7 @@ public class WizardPageItemDbManager {
     }
 
 
-    public static long update(SQLiteDatabase db, WizardPageItem item, String pageId, String lang) throws SQLException {
+    public static long update(SQLiteDatabase db, PageItem item, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -93,7 +93,7 @@ public class WizardPageItemDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, WizardPageItem item, String pageId, String lang){
+    public static void insertOrUpdate(SQLiteDatabase db, PageItem item, String pageId, String lang){
         if(isExist(db, pageId, lang)){
             update(db, item, pageId, lang);
         }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by aoe on 12/24/13.
  */
-public class WizardPage {
+public class Page {
     private String id;
     private String lang;
     private String type;
@@ -21,15 +21,15 @@ public class WizardPage {
     private String introduction;
     private String warning;
     private String component;
-    private List<WizardPageStatus> status;
-    private List<WizardPageAction> action;
-    private List<WizardPageItem> items;
+    private List<PageStatus> status;
+    private List<PageAction> action;
+    private List<PageItem> items;
     private String content;
 
-    public WizardPage() {
+    public Page() {
     }
 
-    public WizardPage(String id, String lang, String type, String title, String introduction, String warning, String component, String content) {
+    public Page(String id, String lang, String type, String title, String introduction, String warning, String component, String content) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -40,8 +40,8 @@ public class WizardPage {
         this.content = content;
     }
 
-    public WizardPage(String id, String lang, String type, String title, String introduction, String warning, String component,
-                      List<WizardPageStatus> status, List<WizardPageAction> action, List<WizardPageItem> items, String content) {
+    public Page(String id, String lang, String type, String title, String introduction, String warning, String component,
+                List<PageStatus> status, List<PageAction> action, List<PageItem> items, String content) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -55,8 +55,8 @@ public class WizardPage {
         this.content = content;
     }
 
-    public static List<WizardPage> parsePages(JSONArray pageArray){
-        List<WizardPage> pageList = new ArrayList<WizardPage>();
+    public static List<Page> parsePages(JSONArray pageArray){
+        List<Page> pageList = new ArrayList<Page>();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -67,7 +67,7 @@ public class WizardPage {
                 JSONObject thisItem = pageArray.getJSONObject(i);
                 if(thisItem != null){
                     String jsonString = thisItem.toString();
-                    WizardPage page = gson.fromJson(jsonString, WizardPage.class);
+                    Page page = gson.fromJson(jsonString, Page.class);
                     pageList.add(page);
                 }
             }
@@ -135,27 +135,27 @@ public class WizardPage {
         this.component = component;
     }
 
-    public List<WizardPageStatus> getStatus() {
+    public List<PageStatus> getStatus() {
         return status;
     }
 
-    public void setStatus(List<WizardPageStatus> status) {
+    public void setStatus(List<PageStatus> status) {
         this.status = status;
     }
 
-    public List<WizardPageAction> getAction() {
+    public List<PageAction> getAction() {
         return action;
     }
 
-    public void setAction(List<WizardPageAction> action) {
+    public void setAction(List<PageAction> action) {
         this.action = action;
     }
 
-    public List<WizardPageItem> getItems() {
+    public List<PageItem> getItems() {
         return items;
     }
 
-    public void setItems(List<WizardPageItem> items) {
+    public void setItems(List<PageItem> items) {
         this.items = items;
     }
 

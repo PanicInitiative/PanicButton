@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.HomeActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.ImageDownloader;
-import com.apb.beacon.model.WizardSimplePage;
+import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.Page;
 
 import java.util.HashMap;
 
@@ -46,7 +46,13 @@ public class WizardSimpleActivity extends Activity{
         metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        WizardSimplePage thisPage = HomeActivity.FirstPage;
+        String pageId = getIntent().getExtras().getString("page_id");
+        String defaultLang = "en";
+
+        PBDatabase dbInstance = new PBDatabase(this);
+        dbInstance.open();
+        Page thisPage = dbInstance.retrievePage(pageId, defaultLang);
+        dbInstance.close();
 
         tvTitle.setText(thisPage.getTitle());
         tvContent.setText(thisPage.getContent());

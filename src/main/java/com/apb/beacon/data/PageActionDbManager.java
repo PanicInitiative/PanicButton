@@ -6,7 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.WizardPageAction;
+import com.apb.beacon.model.PageAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * Created by aoe on 1/5/14.
  */
-public class WizardPageActionDbManager {
+public class PageActionDbManager {
 
-    private static final String TAG = WizardPageActionDbManager.class.getSimpleName();
+    private static final String TAG = PageActionDbManager.class.getSimpleName();
 
     private static final String TABLE_WIZARD_PAGE_ACTION = "wizard_page_action_table";
 
@@ -38,7 +38,7 @@ public class WizardPageActionDbManager {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIZARD_PAGE_ACTION);
     }
 
-    public static long insert(SQLiteDatabase db, WizardPageAction action, String pageId, String lang) throws SQLException {
+    public static long insert(SQLiteDatabase db, PageAction action, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -52,8 +52,8 @@ public class WizardPageActionDbManager {
     }
 
 
-    public static List<WizardPageAction> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
-        List<WizardPageAction> actionList = new ArrayList<WizardPageAction>();
+    public static List<PageAction> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
+        List<PageAction> actionList = new ArrayList<PageAction>();
 
         Cursor c = db.query(TABLE_WIZARD_PAGE_ACTION, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
@@ -62,7 +62,7 @@ public class WizardPageActionDbManager {
                 String actionTitle = c.getString(c.getColumnIndex(ACTION_TITLE));
                 String actionLink = c.getString(c.getColumnIndex(ACTION_LINK));
                 String actionStatus = c.getString(c.getColumnIndex(ACTION_STATUS));
-                WizardPageAction action = new WizardPageAction(actionTitle, actionLink, actionStatus);
+                PageAction action = new PageAction(actionTitle, actionLink, actionStatus);
                 actionList.add(action);
                 c.moveToNext();
             }
@@ -72,7 +72,7 @@ public class WizardPageActionDbManager {
     }
 
 
-    public static long update(SQLiteDatabase db, WizardPageAction action, String pageId, String lang) throws SQLException {
+    public static long update(SQLiteDatabase db, PageAction action, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -97,7 +97,7 @@ public class WizardPageActionDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, WizardPageAction action, String pageId, String lang){
+    public static void insertOrUpdate(SQLiteDatabase db, PageAction action, String pageId, String lang){
         if(isExist(db, pageId, lang)){
             update(db, action, pageId, lang);
         }

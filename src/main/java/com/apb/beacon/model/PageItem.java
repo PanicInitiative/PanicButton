@@ -13,20 +13,20 @@ import java.util.List;
 /**
  * Created by aoe on 12/24/13.
  */
-public class WizardPageItem {
+public class PageItem {
     private String title;
     private String link;
 
-    public WizardPageItem() {
+    public PageItem() {
     }
 
-    public WizardPageItem(String title, String link) {
+    public PageItem(String title, String link) {
         this.title = title;
         this.link = link;
     }
 
-    public static List<WizardPageItem> parsePageItems(JSONArray itemArray){
-        List<WizardPageItem> itemList = new ArrayList<WizardPageItem>();
+    public static List<PageItem> parsePageItems(JSONArray itemArray){
+        List<PageItem> itemList = new ArrayList<PageItem>();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
@@ -37,7 +37,7 @@ public class WizardPageItem {
                 JSONObject thisItem = itemArray.getJSONObject(i);
                 if(thisItem != null){
                     String jsonString = thisItem.toString();
-                    WizardPageItem item = gson.fromJson(jsonString, WizardPageItem.class);
+                    PageItem item = gson.fromJson(jsonString, PageItem.class);
                     itemList.add(item);
                 }
             }

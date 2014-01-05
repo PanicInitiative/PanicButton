@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.apb.beacon.R;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.WizardPage;
+import com.apb.beacon.model.Page;
 
 import java.util.HashMap;
 
@@ -77,10 +77,8 @@ public class NewSimpleFragment extends Fragment {
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            WizardPage thisPage = dbInstance.retrievePage(pageId, defaultLang);
+            Page thisPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
-
-//            WizardSimplePage thisPage = HomeActivity.FirstPage;
 
             tvTitle.setText(thisPage.getTitle());
             tvContent.setText(thisPage.getContent());

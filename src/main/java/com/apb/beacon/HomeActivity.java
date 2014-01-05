@@ -8,9 +8,8 @@ import android.util.Log;
 
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.Page;
 import com.apb.beacon.model.ServerResponse;
-import com.apb.beacon.model.WizardPage;
-import com.apb.beacon.model.WizardSimplePage;
 import com.apb.beacon.parser.JsonParser;
 import com.apb.beacon.wizard.WizardActivity;
 
@@ -32,8 +31,6 @@ import static com.apb.beacon.ApplicationSettings.setHardcodeInsertion;
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
     public static final int SPLASH_TIME = 1000;
-
-    public static WizardSimplePage FirstPage;
 
     ProgressDialog pDialog;
 //    JsonParser jsonParser;
@@ -108,7 +105,7 @@ public class HomeActivity extends RoboActivity {
 //                    Log.e(">>>>>>>>>>>>", "responseObj = " + responseObj);
                     JSONObject mobObj = responseObj.getJSONObject("mobile");
                     JSONArray dataArray = mobObj.getJSONArray("data");
-                    List<WizardPage> pageList = WizardPage.parsePages(dataArray);
+                    List<Page> pageList = Page.parsePages(dataArray);
 
                     PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
                     dbInstance.open();

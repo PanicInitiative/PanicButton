@@ -6,7 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.WizardPageStatus;
+import com.apb.beacon.model.PageStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * Created by aoe on 1/5/14.
  */
-public class WizardPageStatusDbManager {
+public class PageStatusDbManager {
 
-    private static final String TAG = WizardPageStatusDbManager.class.getSimpleName();
+    private static final String TAG = PageStatusDbManager.class.getSimpleName();
 
     private static final String TABLE_WIZARD_PAGE_STATUS = "wizard_page_status_table";
 
@@ -39,7 +39,7 @@ public class WizardPageStatusDbManager {
     }
 
 
-    public static long insert(SQLiteDatabase db, WizardPageStatus status, String pageId, String lang) throws SQLException {
+    public static long insert(SQLiteDatabase db, PageStatus status, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -53,8 +53,8 @@ public class WizardPageStatusDbManager {
     }
 
 
-    public static List<WizardPageStatus> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
-        List<WizardPageStatus> statusList = new ArrayList<WizardPageStatus>();
+    public static List<PageStatus> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
+        List<PageStatus> statusList = new ArrayList<PageStatus>();
 
         Cursor c = db.query(TABLE_WIZARD_PAGE_STATUS, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
@@ -63,7 +63,7 @@ public class WizardPageStatusDbManager {
                 String statusTitle = c.getString(c.getColumnIndex(STATUS_TITLE));
                 String statusColor = c.getString(c.getColumnIndex(STATUS_COLOR));
                 String statusLink = c.getString(c.getColumnIndex(STATUS_LINK));
-                WizardPageStatus status = new WizardPageStatus(statusTitle, statusColor, statusLink);
+                PageStatus status = new PageStatus(statusTitle, statusColor, statusLink);
                 statusList.add(status);
                 c.moveToNext();
             }
@@ -73,7 +73,7 @@ public class WizardPageStatusDbManager {
     }
 
 
-    public static long update(SQLiteDatabase db, WizardPageStatus status, String pageId, String lang) throws SQLException {
+    public static long update(SQLiteDatabase db, PageStatus status, String pageId, String lang) throws SQLException {
 
         ContentValues cv = new ContentValues();
 
@@ -98,7 +98,7 @@ public class WizardPageStatusDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, WizardPageStatus status, String pageId, String lang){
+    public static void insertOrUpdate(SQLiteDatabase db, PageStatus status, String pageId, String lang){
         if(isExist(db, pageId, lang)){
             update(db, status, pageId, lang);
         }
