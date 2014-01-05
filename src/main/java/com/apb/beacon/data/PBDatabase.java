@@ -87,19 +87,23 @@ public class PBDatabase {
     public void insertOrUpdateWizardPage(Page page) {
         PageDbManager.insertOrUpdate(this.db, page);
 
+        deletePageActions(page.getId(), page.getLang());
+        deletePageItems(page.getId(), page.getLang());
+        deletePageStatus(page.getId(), page.getLang());
+
         if (page.getStatus() != null) {
             for (PageStatus status : page.getStatus())
-                insertOrUpdateWizardPageStatus(status, page.getId(), page.getLang());
+                insertPageStatus(status, page.getId(), page.getLang());
         }
 
         if (page.getAction() != null) {
             for (PageAction action : page.getAction())
-                insertOrUpdateWizardPageAction(action, page.getId(), page.getLang());
+                insertPageAction(action, page.getId(), page.getLang());
         }
 
         if (page.getItems() != null) {
             for (PageItem item : page.getItems())
-                insertOrUpdateWizardPageItem(item, page.getId(), page.getLang());
+                insertPageItem(item, page.getId(), page.getLang());
         }
     }
 
@@ -112,28 +116,43 @@ public class PBDatabase {
         return PageDbManager.retrieve(this.db, lang);
     }
 
-    public void insertOrUpdateWizardPageAction(PageAction action, String pageId, String lang) {
-        PageActionDbManager.insertOrUpdate(this.db, action, pageId, lang);
+    public void insertPageAction(PageAction action, String pageId, String lang) {
+        PageActionDbManager.insert(this.db, action, pageId, lang);
     }
 
-    public List<PageAction> retrieveWizardPageAction(String pageId, String lang) {
+    public List<PageAction> retrievePageAction(String pageId, String lang) {
         return PageActionDbManager.retrieve(this.db, pageId, lang);
     }
 
-    public void insertOrUpdateWizardPageItem(PageItem item, String pageId, String lang) {
-        PageItemDbManager.insertOrUpdate(this.db, item, pageId, lang);
+    public void deletePageActions(String pageId, String lang){
+        PageActionDbManager.delete(this.db, pageId, lang);
     }
 
-    public List<PageItem> retrieveWizardPageItem(String pageId, String lang) {
+
+
+    public void insertPageItem(PageItem item, String pageId, String lang) {
+        PageItemDbManager.insert(this.db, item, pageId, lang);
+    }
+
+    public List<PageItem> retrievePageItem(String pageId, String lang) {
         return PageItemDbManager.retrieve(this.db, pageId, lang);
     }
 
-    public void insertOrUpdateWizardPageStatus(PageStatus status, String pageId, String lang) {
-        PageStatusDbManager.insertOrUpdate(this.db, status, pageId, lang);
+    public void deletePageItems(String pageId, String lang){
+        PageItemDbManager.delete(this.db, pageId, lang);
     }
 
-    public List<PageStatus> retrieveWizardPageStatus(String pageId, String lang) {
+
+    public void insertPageStatus(PageStatus status, String pageId, String lang) {
+        PageStatusDbManager.insert(this.db, status, pageId, lang);
+    }
+
+    public List<PageStatus> retrievePageStatus(String pageId, String lang) {
         return PageStatusDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public void deletePageStatus(String pageId, String lang){
+        PageStatusDbManager.delete(this.db, pageId, lang);
     }
 
 

@@ -40,7 +40,7 @@ public class WizardSimpleActivity extends Activity{
 
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvContent = (TextView) findViewById(R.id.fragment_contents);
-        bAction = (Button) findViewById(R.id.fragment_action);
+//        bAction = (Button) findViewById(R.id.fragment_action);
         lvItems = (ListView) findViewById(R.id.fragment_item_list);
 
         metrics = new DisplayMetrics();

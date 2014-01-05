@@ -1,6 +1,7 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,14 +14,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.R;
+import com.apb.beacon.adapter.PageActionAdapter;
+import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
+import com.apb.beacon.model.PageItem;
 
 import java.util.HashMap;
 
@@ -37,10 +42,14 @@ public class NewSimpleFragment extends Fragment {
     DisplayMetrics metrics;
 //    private String mDescription = "...your html here...";
 
-    TextView tvTitle, tvContent;
-    Button bAction;
-    ListView lvItems;
+    TextView tvTitle, tvContent, tvIntro, tvWarning;
+//    Button bAction;
+    ListView lvItems, lvActions;
+    LinearLayout llWarning;
 
+    Page currentPage;
+    PageItemAdapter pageItemAdapter;
+    PageActionAdapter pageActionAdapter;
 
     public static NewSimpleFragment newInstance(String pageId) {
         NewSimpleFragment f = new NewSimpleFragment();
@@ -56,9 +65,40 @@ public class NewSimpleFragment extends Fragment {
         View view = inflater.inflate(R.layout.wizard_simple_fragment, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
+        tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
-        bAction = (Button) view.findViewById(R.id.fragment_action);
+//        bAction = (Button) view.findViewById(R.id.fragment_action);
         lvItems = (ListView) view.findViewById(R.id.fragment_item_list);
+        lvActions = (ListView) view.findViewById(R.id.fragment_action_list);
+
+        llWarning = (LinearLayout) view.findViewById(R.id.ll_fragment_warning);
+        tvWarning  = (TextView) view.findViewById(R.id.fragment_warning);
+
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
+
+                String pageId = selectedItem.getLink();
+                Intent i = new Intent(activity, WizardActivity.class);
+                i.putExtra("page_id", pageId);
+                startActivity(i);
+
+            }
+        });
+
+//        bAction.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                String pageId = currentPage.getAction().get(0).getLink();
+//
+//                Intent i = new Intent(activity, WizardActivity.class);
+//                i.putExtra("page_id",  pageId);
+//                startActivity(i);
+//            }
+//        });
 
         return view;
     }
@@ -77,15 +117,36 @@ public class NewSimpleFragment extends Fragment {
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            Page thisPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
 
-            tvTitle.setText(thisPage.getTitle());
-            tvContent.setText(thisPage.getContent());
+            tvTitle.setText(currentPage.getTitle());
+            tvContent.setText(currentPage.getContent());
 
-            bAction.setText(thisPage.getAction().get(0).getTitle());
+            if(currentPage.getIntroduction() == null)
+                tvIntro.setVisibility(View.GONE);
+            else
+                tvIntro.setText(currentPage.getIntroduction());
 
-            updateImages(true, thisPage.getContent());
+            if(currentPage.getWarning() == null)
+                llWarning.setVisibility(View.GONE);
+            else
+                tvWarning.setText(currentPage.getWarning());
+
+//            bAction.setText(currentPage.getAction().get(0).getTitle());
+
+            pageActionAdapter = new PageActionAdapter(activity, null);
+            lvActions.setAdapter(pageActionAdapter);
+            pageActionAdapter.setData(currentPage.getAction());
+
+
+            pageItemAdapter = new PageItemAdapter(activity, null);
+            lvItems.setAdapter(pageItemAdapter);
+
+//            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
+            pageItemAdapter.setData(currentPage.getItems());
+
+            updateImages(true, currentPage.getContent());
         }
     }
 
@@ -111,8 +172,8 @@ public class NewSimpleFragment extends Fragment {
                                             BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
 
                                     int width, height;
-                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density);
-                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density);
+                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
+                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
                                     if (originalWidthScaled > metrics.widthPixels) {
                                         height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
                                         width = metrics.widthPixels;

@@ -98,14 +98,14 @@ public class PageStatusDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, PageStatus status, String pageId, String lang){
-        if(isExist(db, pageId, lang)){
-            update(db, status, pageId, lang);
-        }
-        else{
-            insert(db, status, pageId, lang);
-        }
-    }
+//    public static void insertOrUpdate(SQLiteDatabase db, PageStatus status, String pageId, String lang){
+//        if(isExist(db, pageId, lang)){
+//            update(db, status, pageId, lang);
+//        }
+//        else{
+//            insert(db, status, pageId, lang);
+//        }
+//    }
 
 
     public static int delete(SQLiteDatabase db, String pageId, String lang){

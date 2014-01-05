@@ -93,14 +93,14 @@ public class PageItemDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, PageItem item, String pageId, String lang){
-        if(isExist(db, pageId, lang)){
-            update(db, item, pageId, lang);
-        }
-        else{
-            insert(db, item, pageId, lang);
-        }
-    }
+//    public static void insertOrUpdate(SQLiteDatabase db, PageItem item, String pageId, String lang){
+//        if(isExist(db, pageId, lang)){
+//            update(db, item, pageId, lang);
+//        }
+//        else{
+//            insert(db, item, pageId, lang);
+//        }
+//    }
 
 
     public static int delete(SQLiteDatabase db, String pageId, String lang){

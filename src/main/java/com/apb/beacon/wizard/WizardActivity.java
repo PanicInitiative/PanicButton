@@ -114,19 +114,19 @@ public class WizardActivity extends FragmentActivity{
         viewPager.previousWithSkip();
     }
 
-    @Override
-    public void onBackPressed() {
-        getCurrentWizardFragment().onBackPressed();
-        if(viewPager.isFirstPage()) {
-            this.finish();
-        }
-        else if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
-            viewPager.previousWithSkip();
-        }
-        else{
-            viewPager.previous();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        getCurrentWizardFragment().onBackPressed();
+//        if(viewPager.isFirstPage()) {
+//            this.finish();
+//        }
+//        else if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
+//            viewPager.previousWithSkip();
+//        }
+//        else{
+//            viewPager.previous();
+//        }
+//    }
 
     private WizardFragment getCurrentWizardFragment() {
         return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
