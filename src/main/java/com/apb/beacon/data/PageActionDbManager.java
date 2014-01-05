@@ -18,7 +18,7 @@ public class PageActionDbManager {
 
     private static final String TAG = PageActionDbManager.class.getSimpleName();
 
-    private static final String TABLE_WIZARD_PAGE_ACTION = "wizard_page_action_table";
+    private static final String TABLE_PAGE_ACTION = "page_action_table";
 
     private static final String PAGE_ID = "page_id";
     private static final String PAGE_LANGUAGE = "page_language";
@@ -26,16 +26,16 @@ public class PageActionDbManager {
     private static final String ACTION_LINK = "action_link";
     private static final String ACTION_STATUS = "action_status";
 
-    private static final String CREATE_TABLE_WIZARD_PAGE_ACTION = "create table " + TABLE_WIZARD_PAGE_ACTION + " ( "
+    private static final String CREATE_TABLE_PAGE_ACTION = "create table " + TABLE_PAGE_ACTION + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text);";
 
     public static void createTable(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_WIZARD_PAGE_ACTION);
+        db.execSQL(CREATE_TABLE_PAGE_ACTION);
     }
 
     public static void dropTable(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIZARD_PAGE_ACTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAGE_ACTION);
     }
 
     public static long insert(SQLiteDatabase db, PageAction action, String pageId, String lang) throws SQLException {
@@ -48,14 +48,14 @@ public class PageActionDbManager {
         cv.put(ACTION_LINK, action.getLink());
         cv.put(ACTION_STATUS, action.getStatus());
 
-        return db.insert(TABLE_WIZARD_PAGE_ACTION, null, cv);
+        return db.insert(TABLE_PAGE_ACTION, null, cv);
     }
 
 
     public static List<PageAction> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         List<PageAction> actionList = new ArrayList<PageAction>();
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE_ACTION, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE_ACTION, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
@@ -80,14 +80,14 @@ public class PageActionDbManager {
         cv.put(ACTION_LINK, action.getLink());
         cv.put(ACTION_STATUS, action.getStatus());
 
-        return db.update(TABLE_WIZARD_PAGE_ACTION, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
+        return db.update(TABLE_PAGE_ACTION, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 
 
     public static boolean isExist(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         boolean itemExist = false;
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE_ACTION, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE_ACTION, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
 
         if ((c != null) && (c.getCount() > 0)) {
             itemExist = true;
@@ -108,6 +108,6 @@ public class PageActionDbManager {
 
 
     public static int delete(SQLiteDatabase db, String pageId, String lang){
-        return db.delete(TABLE_WIZARD_PAGE_ACTION, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
+        return db.delete(TABLE_PAGE_ACTION, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 }

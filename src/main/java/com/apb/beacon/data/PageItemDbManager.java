@@ -18,23 +18,23 @@ public class PageItemDbManager {
 
     private static final String TAG = PageItemDbManager.class.getSimpleName();
 
-    private static final String TABLE_WIZARD_PAGE_ITEM = "wizard_page_item_table";
+    private static final String TABLE_PAGE_ITEM = "page_item_table";
 
     private static final String PAGE_ID = "page_id";
     private static final String PAGE_LANGUAGE = "page_language";
     private static final String ITEM_TITLE = "item_title";
     private static final String ITEM_LINK = "item_link";
 
-    private static final String CREATE_TABLE_WIZARD_PAGE_ITEM = "create table " + TABLE_WIZARD_PAGE_ITEM + " ( "
+    private static final String CREATE_TABLE_PAGE_ITEM = "create table " + TABLE_PAGE_ITEM + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + ITEM_TITLE + " text, " + ITEM_LINK + " text);";
 
     public static void createTable(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_WIZARD_PAGE_ITEM);
+        db.execSQL(CREATE_TABLE_PAGE_ITEM);
     }
 
     public static void dropTable(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIZARD_PAGE_ITEM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAGE_ITEM);
     }
 
     public static long insert(SQLiteDatabase db, PageItem item, String pageId, String lang) throws SQLException {
@@ -46,14 +46,14 @@ public class PageItemDbManager {
         cv.put(ITEM_TITLE, item.getTitle());
         cv.put(ITEM_LINK, item.getLink());
 
-        return db.insert(TABLE_WIZARD_PAGE_ITEM, null, cv);
+        return db.insert(TABLE_PAGE_ITEM, null, cv);
     }
 
 
     public static List<PageItem> retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         List<PageItem> statusList = new ArrayList<PageItem>();
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE_ITEM, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE_ITEM, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
@@ -76,14 +76,14 @@ public class PageItemDbManager {
         cv.put(ITEM_TITLE, item.getTitle());
         cv.put(ITEM_LINK, item.getLink());
 
-        return db.update(TABLE_WIZARD_PAGE_ITEM, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
+        return db.update(TABLE_PAGE_ITEM, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 
 
     public static boolean isExist(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         boolean itemExist = false;
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE_ITEM, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE_ITEM, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
 
         if ((c != null) && (c.getCount() > 0)) {
             itemExist = true;
@@ -104,6 +104,6 @@ public class PageItemDbManager {
 
 
     public static int delete(SQLiteDatabase db, String pageId, String lang){
-        return db.delete(TABLE_WIZARD_PAGE_ITEM, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
+        return db.delete(TABLE_PAGE_ITEM, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 }
