@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.ServerResponse;
+import com.apb.beacon.model.WizardPage;
 import com.apb.beacon.model.WizardSimplePage;
 import com.apb.beacon.parser.JsonParser;
 import com.apb.beacon.wizard.WizardActivity;
@@ -50,7 +52,7 @@ public class HomeActivity extends RoboActivity {
 
     private void checkIfDataInitializationNeeded(){
         if (!getHardcodeInsertion(HomeActivity.this)) {
-            insertHardcodedDataToDatabase();
+//            insertHardcodedDataToDatabase();
             setHardcodeInsertion(HomeActivity.this, true);
         }
     }
@@ -106,13 +108,19 @@ public class HomeActivity extends RoboActivity {
 //                    Log.e(">>>>>>>>>>>>", "responseObj = " + responseObj);
                     JSONObject mobObj = responseObj.getJSONObject("mobile");
                     JSONArray dataArray = mobObj.getJSONArray("data");
-                    List<WizardSimplePage> pageList = WizardSimplePage.parsePages(dataArray);
+                    List<WizardPage> pageList = WizardPage.parsePages(dataArray);
+
+                    PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+                    dbInstance.open();
+
                     for(int i = 0; i< pageList.size(); i++){
-                        String id = pageList.get(i).getId();
-                        if(id.equals("home-not-configured")){
-                            FirstPage = pageList.get(i);
-                        }
+                        dbInstance.insertOrUpdateWizardPage(pageList.get(i));
+//                        String id = pageList.get(i).getId();
+//                        if(id.equals("home-not-configured")){
+//                            FirstPage = pageList.get(i);
+//                        }
                     }
+                    dbInstance.close();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -147,7 +155,9 @@ public class HomeActivity extends RoboActivity {
                 pDialog.dismiss();
 
             if (isFirstRun(HomeActivity.this)) {
-                startActivity(new Intent(HomeActivity.this, WizardActivity.class));
+                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                i.putExtra("page_id",  "home-not-configured");
+                startActivity(i);
             } else {
                 startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
             }
@@ -155,21 +165,21 @@ public class HomeActivity extends RoboActivity {
     }
 
 
-    private void insertHardcodedDataToDatabase(){
-        String[] initial_page_content = {
-                getResources().getString(R.string.wizard_welcome_body),
-                getResources().getString(R.string.wizard_training_details),
-                getResources().getString(R.string.wizard_training_pin_details),
-                getResources().getString(R.string.wizard_training_contacts_details_intro),
-                "loren epsum - will add later",
-                getResources().getString(R.string.wizard_training_contacts_details),
-                getResources().getString(R.string.wizard_training_message_details_intro),
-                getResources().getString(R.string.wizard_training_message_details),
-                "emergency alert 1",
-                "emergency alert 2",
-                "emergency alert 3",
-                getResources().getString(R.string.wizard__training_disguise_intro)
-        };
+//    private void insertHardcodedDataToDatabase(){
+//        String[] initial_page_content = {
+//                getResources().getString(R.string.wizard_welcome_body),
+//                getResources().getString(R.string.wizard_training_details),
+//                getResources().getString(R.string.wizard_training_pin_details),
+//                getResources().getString(R.string.wizard_training_contacts_details_intro),
+//                "loren epsum - will add later",
+//                getResources().getString(R.string.wizard_training_contacts_details),
+//                getResources().getString(R.string.wizard_training_message_details_intro),
+//                getResources().getString(R.string.wizard_training_message_details),
+//                "emergency alert 1",
+//                "emergency alert 2",
+//                "emergency alert 3",
+//                getResources().getString(R.string.wizard__training_disguise_intro)
+//        };
 
 //        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
 //        dbInstance.open();
@@ -185,6 +195,6 @@ public class HomeActivity extends RoboActivity {
 //        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_DISGUISE_INTRO, "Wizard Disguise Intro", "Step 5: Activate Disguise", "Try it now", "option", initial_page_content[AppConstants.PAGE_NUMBER_DISGUISE_INTRO]));
 //
 //        dbInstance.close();
-    }
+//    }
 
 }

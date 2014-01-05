@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.HomeActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.ImageDownloader;
-import com.apb.beacon.model.WizardSimplePage;
+import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.WizardPage;
 
 import java.util.HashMap;
 
@@ -73,8 +73,14 @@ public class NewSimpleFragment extends Fragment {
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
             String pageId = getArguments().getString(PAGE_ID);
+            String defaultLang = "en";
 
-            WizardSimplePage thisPage = HomeActivity.FirstPage;
+            PBDatabase dbInstance = new PBDatabase(activity);
+            dbInstance.open();
+            WizardPage thisPage = dbInstance.retrievePage(pageId, defaultLang);
+            dbInstance.close();
+
+//            WizardSimplePage thisPage = HomeActivity.FirstPage;
 
             tvTitle.setText(thisPage.getTitle());
             tvContent.setText(thisPage.getContent());

@@ -42,9 +42,11 @@ public class WizardActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_layout);
 
+        String pageId = getIntent().getExtras().getString("page_id");
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        NewSimpleFragment fragment = new NewSimpleFragment();
+        NewSimpleFragment fragment = new NewSimpleFragment().newInstance(pageId);
         fragmentTransaction.add(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
