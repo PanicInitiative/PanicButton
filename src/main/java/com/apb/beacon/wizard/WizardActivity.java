@@ -2,6 +2,7 @@ package com.apb.beacon.wizard;
 
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -10,6 +11,10 @@ import android.view.View;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
+import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.Page;
+import com.apb.beacon.sms.SMSContactNumberFragment;
+import com.apb.beacon.sms.SMSMessageFragment;
 
 public class WizardActivity extends FragmentActivity{
     private WizardViewPager viewPager;
@@ -43,10 +48,31 @@ public class WizardActivity extends FragmentActivity{
         setContentView(R.layout.wizard_layout);
 
         String pageId = getIntent().getExtras().getString("page_id");
+        String defaultLang = "en";
+
+        PBDatabase dbInstance = new PBDatabase(this);
+        dbInstance.open();
+        Page currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        dbInstance.close();
+
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        NewSimpleFragment fragment = new NewSimpleFragment().newInstance(pageId);
+
+        Fragment fragment = null;
+
+        if(currentPage.getType().equals("simple")){
+            fragment = new NewSimpleFragment().newInstance(pageId);
+        }
+        else{
+            if(currentPage.getComponent().equals("contacts"))
+                fragment = new SMSContactNumberFragment().newInstance(pageId);
+            else if(currentPage.getComponent().equals("message"))
+                fragment = new SMSMessageFragment().newInstance(pageId);
+            else
+                fragment = new NewSimpleFragment().newInstance(pageId);
+        }
         fragmentTransaction.add(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 

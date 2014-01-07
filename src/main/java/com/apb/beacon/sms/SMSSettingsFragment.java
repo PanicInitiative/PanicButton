@@ -47,7 +47,7 @@ public class SMSSettingsFragment extends NestedWizardFragment {
     }
 
     private void initializeViews(View inflate) {
-        contactEditTexts = new ContactEditTexts(getFragmentManager(), actionButtonStateListener, getActivity());
+//        contactEditTexts = new ContactEditTexts(getFragmentManager(), actionButtonStateListener, getActivity());
         Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
         smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
 

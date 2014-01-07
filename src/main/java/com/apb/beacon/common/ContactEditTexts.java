@@ -5,11 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.apb.beacon.R;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.wizard.ActionButtonStateListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,11 +25,11 @@ public class ContactEditTexts {
     private List<EditText> contacts = new ArrayList<EditText>();
     private Context context;
 
-    public ContactEditTexts(FragmentManager fragmentManager, final ActionButtonStateListener actionButtonStateListener,
+    public ContactEditTexts(FragmentManager fragmentManager, final Button bActionButton,
                             Context context) {
         this.context = context;
 
-        TextWatcher phoneNumberTextWatcher = phoneNumberWatcher(actionButtonStateListener);
+        TextWatcher phoneNumberTextWatcher = phoneNumberWatcher(bActionButton);
         List<Integer> ids = Arrays.asList(first_contact, second_contact, third_contact);
         for (Integer id : ids) {
             EditText editText = findEditText(id, fragmentManager);
@@ -76,7 +77,7 @@ public class ContactEditTexts {
     }
 
 
-    private TextWatcher phoneNumberWatcher(final ActionButtonStateListener actionButtonStateListener) {
+    private TextWatcher phoneNumberWatcher(final Button bActionButton) {
         return new TextWatcher() {
             private String currentText;
 
@@ -91,10 +92,11 @@ public class ContactEditTexts {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                Log.e("??????", "text changed");
                 String newText = editable.toString();
-                if (actionButtonStateListener != null && !newText.equals(currentText)) {
+                if (bActionButton != null && !newText.equals(currentText)) {
                     currentText = newText;
-                    actionButtonStateListener.enableActionButton(hasAtleastOneValidPhoneNumber());
+                    bActionButton.setEnabled(hasAtleastOneValidPhoneNumber());
                 }
             }
         };
