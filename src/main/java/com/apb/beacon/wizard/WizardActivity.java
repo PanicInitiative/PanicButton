@@ -13,8 +13,8 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
-import com.apb.beacon.sms.SMSContactNumberFragment;
-import com.apb.beacon.sms.SMSMessageFragment;
+import com.apb.beacon.sms.SetupContactsFragment;
+import com.apb.beacon.sms.SetupMessageFragment;
 
 public class WizardActivity extends FragmentActivity{
     private WizardViewPager viewPager;
@@ -67,9 +67,9 @@ public class WizardActivity extends FragmentActivity{
         }
         else{
             if(currentPage.getComponent().equals("contacts"))
-                fragment = new SMSContactNumberFragment().newInstance(pageId);
+                fragment = new SetupContactsFragment().newInstance(pageId);
             else if(currentPage.getComponent().equals("message"))
-                fragment = new SMSMessageFragment().newInstance(pageId);
+                fragment = new SetupMessageFragment().newInstance(pageId);
             else if(currentPage.getComponent().equals("code"))
                 fragment = new SetupCodeFragment().newInstance(pageId);
             else

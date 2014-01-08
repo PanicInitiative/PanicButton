@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:text="@string/panic_button_label"
         android:layout_toLeftOf="@+id/iv_arrow"
-        android:textSize="25sp" />
+        android:textSize="22sp" />
 
     <ImageView
         android:id="@+id/iv_arrow"

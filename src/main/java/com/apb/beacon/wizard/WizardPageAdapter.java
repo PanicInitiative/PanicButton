@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.apb.beacon.sms.SMSContactNumberFragment;
-import com.apb.beacon.sms.SMSMessageFragment;
+import com.apb.beacon.sms.SetupContactsFragment;
+import com.apb.beacon.sms.SetupMessageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
         fragments.add(new SetupCodeFragment());                             // 2 -
         fragments.add(new WizardTrainingContactIntroFragment());            // 3 -
         fragments.add(new WizardTrainingContactLearnMoreFragment());        // 4
-        fragments.add(new SMSContactNumberFragment());                      // 5
+        fragments.add(new SetupContactsFragment());                      // 5
         fragments.add(new WizardTrainingMessageIntroFragment());            // 6 -
-        fragments.add(new SMSMessageFragment());                            // 7
+        fragments.add(new SetupMessageFragment());                            // 7
 //        fragments.add(SMSSettingsFragment.create(R.string.sms_settings_wizard_header));
         fragments.add(create(wizard_emergency_alert1, next_action));
         fragments.add(create(wizard_emergency_alert2, next_action));

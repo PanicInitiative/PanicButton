@@ -81,6 +81,7 @@
     <ListView
         android:id="@+id/fragment_action_list"
         android:layout_height="wrap_content"
+        android:divider="@android:drawable/screen_background_light_transparent"
         android:layout_width="match_parent" />
 
     <ListView

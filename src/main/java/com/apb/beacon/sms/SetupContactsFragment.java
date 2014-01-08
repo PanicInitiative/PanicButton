@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by aoe on 12/11/13.
  */
-public class SMSContactNumberFragment extends WizardFragment {
+public class SetupContactsFragment extends WizardFragment {
 //    public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
     private ContactEditTexts contactEditTexts;
 //    private EditText smsEditText;
@@ -46,8 +46,8 @@ public class SMSContactNumberFragment extends WizardFragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
-    public static SMSContactNumberFragment newInstance(String pageId) {
-        SMSContactNumberFragment f = new SMSContactNumberFragment();
+    public static SetupContactsFragment newInstance(String pageId) {
+        SetupContactsFragment f = new SetupContactsFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);

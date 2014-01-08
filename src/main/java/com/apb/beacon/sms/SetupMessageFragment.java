@@ -30,7 +30,7 @@ import com.apb.beacon.wizard.WizardFragment;
 /**
  * Created by aoe on 12/12/13.
  */
-public class SMSMessageFragment extends WizardFragment {
+public class SetupMessageFragment extends WizardFragment {
     private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
@@ -44,8 +44,8 @@ public class SMSMessageFragment extends WizardFragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
-    public static SMSMessageFragment newInstance(String pageId) {
-        SMSMessageFragment f = new SMSMessageFragment();
+    public static SetupMessageFragment newInstance(String pageId) {
+        SetupMessageFragment f = new SetupMessageFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
