@@ -68,6 +68,21 @@ public class PageActionAdapter extends ArrayAdapter<PageAction>{
                 mContext.startActivity(i);
             }
         });
+
+        if(item.getStatus() != null){
+            holder.bAction.setEnabled(false);
+            if(item.getStatus().equals("checked")){
+                holder.ivTick.setVisibility(View.VISIBLE);
+            }
+            else{           // statis = "disabled"
+                holder.ivTick.setVisibility(View.INVISIBLE);
+            }
+        }
+        else{
+            holder.bAction.setEnabled(true);
+            holder.ivTick.setVisibility(View.INVISIBLE);
+        }
+
         return convertView;
     }
 

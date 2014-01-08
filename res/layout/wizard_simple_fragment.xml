@@ -23,13 +23,43 @@
                 android:paddingBottom="5dp"
                 android:layout_centerHorizontal="true" />
 
+            <LinearLayout
+                android:id="@+id/ll_fragment_status"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/fragment_title">
+
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="#ff666666" />
+
+                <TextView
+                    android:id="@+id/fragment_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/panic_button_label"
+                    android:textSize="15sp"
+                    android:padding="3dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="#ff666666" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/fragment_intro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/panic_button_label"
                 style="@style/welcome_screen_text"
-                android:layout_below="@+id/fragment_title" />
+                android:layout_below="@+id/ll_fragment_status" />
 
             <LinearLayout
                 android:id="@+id/ll_fragment_warning"
@@ -37,12 +67,12 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/fragment_intro" >
+                android:layout_below="@+id/fragment_intro">
 
                 <ImageView
                     android:layout_height="50dp"
                     android:layout_width="50dp"
-                    android:background="@drawable/warning"/>
+                    android:background="@drawable/warning" />
 
                 <TextView
                     android:id="@+id/fragment_warning"
@@ -54,7 +84,7 @@
                     android:textStyle="bold"
                     android:textSize="18sp" />
 
-                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/fragment_contents"
@@ -65,16 +95,16 @@
                 android:text="@string/wizard_training_contacts_details"
                 style="@style/welcome_screen_text" />
 
-<!--            <Button
-                android:id="@+id/fragment_action"
-                android:text="@string/finish_button_text"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:background="@drawable/topbar_button"
-                style="@style/activate_disguise_button"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/fragment_contents"
-                android:layout_centerHorizontal="true" />-->
+            <!--            <Button
+                            android:id="@+id/fragment_action"
+                            android:text="@string/finish_button_text"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:background="@drawable/topbar_button"
+                            style="@style/activate_disguise_button"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/fragment_contents"
+                            android:layout_centerHorizontal="true" />-->
         </RelativeLayout>
     </ScrollView>
 

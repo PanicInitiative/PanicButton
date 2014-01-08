@@ -3,6 +3,7 @@ package com.apb.beacon.wizard;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -42,10 +43,10 @@ public class NewSimpleFragment extends Fragment {
     DisplayMetrics metrics;
 //    private String mDescription = "...your html here...";
 
-    TextView tvTitle, tvContent, tvIntro, tvWarning;
+    TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
 //    Button bAction;
     ListView lvItems, lvActions;
-    LinearLayout llWarning;
+    LinearLayout llWarning, llStatus;
 
     Page currentPage;
     PageItemAdapter pageItemAdapter;
@@ -67,6 +68,21 @@ public class NewSimpleFragment extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
+
+        llStatus = (LinearLayout) view.findViewById(R.id.ll_fragment_status);
+        tvStatus = (TextView) view.findViewById(R.id.fragment_status);
+
+        llStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pageId = currentPage.getStatus().get(0).getLink();
+
+                Intent i = new Intent(activity, WizardActivity.class);
+                i.putExtra("page_id", pageId);
+                startActivity(i);
+            }
+        });
+
 //        bAction = (Button) view.findViewById(R.id.fragment_action);
         lvItems = (ListView) view.findViewById(R.id.fragment_item_list);
         lvActions = (ListView) view.findViewById(R.id.fragment_action_list);
@@ -121,7 +137,22 @@ public class NewSimpleFragment extends Fragment {
             dbInstance.close();
 
             tvTitle.setText(currentPage.getTitle());
-            tvContent.setText(currentPage.getContent());
+
+            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0)
+                llStatus.setVisibility(View.GONE);
+            else{
+                String color = currentPage.getStatus().get(0).getColor();
+                if(color.equals("red"))
+                    tvStatus.setTextColor(Color.RED);
+                else
+                    tvStatus.setTextColor(Color.GREEN);
+                tvStatus.setText(currentPage.getStatus().get(0).getTitle());
+            }
+
+            if(currentPage.getContent() == null)
+                tvContent.setText(View.GONE);
+            else
+                tvContent.setText(currentPage.getContent());
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
