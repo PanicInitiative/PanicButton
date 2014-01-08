@@ -69,7 +69,11 @@ public class WizardActivity extends FragmentActivity {
 
             if (currentPage.getType().equals("simple")) {
                 fragment = new NewSimpleFragment().newInstance(pageId);
-            } else {
+            }
+            else if (currentPage.getType().equals("modal")){
+                fragment = new NewSimpleFragment().newInstance(pageId);
+            }
+            else {
                 if (currentPage.getComponent().equals("contacts"))
                     fragment = new SetupContactsFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("message"))

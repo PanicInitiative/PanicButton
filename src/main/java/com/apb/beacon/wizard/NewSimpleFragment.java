@@ -80,6 +80,7 @@ public class NewSimpleFragment extends Fragment {
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
+//                startActivityForResult(i, 0);
             }
         });
 
@@ -101,6 +102,7 @@ public class NewSimpleFragment extends Fragment {
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
+//                startActivityForResult(i, 0);
 
             }
         });
@@ -151,7 +153,7 @@ public class NewSimpleFragment extends Fragment {
             }
 
             if(currentPage.getContent() == null)
-                tvContent.setText(View.GONE);
+                tvContent.setVisibility(View.GONE);
             else
                 tvContent.setText(currentPage.getContent());
 

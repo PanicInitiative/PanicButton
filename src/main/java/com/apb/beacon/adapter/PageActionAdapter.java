@@ -1,5 +1,6 @@
 package com.apb.beacon.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.wizard.WizardActivity;
@@ -19,7 +22,7 @@ import java.util.List;
 /**
  * Created by aoe on 1/5/14.
  */
-public class PageActionAdapter extends ArrayAdapter<PageAction>{
+public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
     private Context mContext;
     LayoutInflater mInflater;
@@ -63,22 +66,30 @@ public class PageActionAdapter extends ArrayAdapter<PageAction>{
             public void onClick(View v) {
                 String pageId = getItem(position).getLink();
 
-                Intent i = new Intent(mContext, WizardActivity.class);
-                i.putExtra("page_id", pageId);
-                mContext.startActivity(i);
+                if (pageId.equals("close")) {
+                    ApplicationSettings.completeFirstRun(mContext);
+                    Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    mContext.startActivity(i);
+                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+//                    ((Activity) mContext).finish();
+                } else {
+                    Intent i = new Intent(mContext, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    mContext.startActivity(i);
+//                    mContext.startActivityForResult(i, 0);
+                }
             }
         });
 
-        if(item.getStatus() != null){
+        if (item.getStatus() != null) {
             holder.bAction.setEnabled(false);
-            if(item.getStatus().equals("checked")){
+            if (item.getStatus().equals("checked")) {
                 holder.ivTick.setVisibility(View.VISIBLE);
-            }
-            else{           // statis = "disabled"
+            } else {           // statis = "disabled"
                 holder.ivTick.setVisibility(View.INVISIBLE);
             }
-        }
-        else{
+        } else {
             holder.bAction.setEnabled(true);
             holder.ivTick.setVisibility(View.INVISIBLE);
         }
