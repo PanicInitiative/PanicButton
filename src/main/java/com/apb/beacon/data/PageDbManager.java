@@ -64,7 +64,7 @@ public class PageDbManager {
 
 
     public static Page retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
-        Page page = new Page();
+        Page page = null;
 
         Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {

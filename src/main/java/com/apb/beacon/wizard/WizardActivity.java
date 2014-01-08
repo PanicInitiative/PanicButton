@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
@@ -16,7 +18,7 @@ import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
-public class WizardActivity extends FragmentActivity{
+public class WizardActivity extends FragmentActivity {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -55,29 +57,31 @@ public class WizardActivity extends FragmentActivity{
         Page currentPage = dbInstance.retrievePage(pageId, defaultLang);
         dbInstance.close();
 
+        if (currentPage == null) {
+            Log.e(">>>>>>", "page = null");
+            Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+            Fragment fragment = null;
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        Fragment fragment = null;
-
-        if(currentPage.getType().equals("simple")){
-            fragment = new NewSimpleFragment().newInstance(pageId);
-        }
-        else{
-            if(currentPage.getComponent().equals("contacts"))
-                fragment = new SetupContactsFragment().newInstance(pageId);
-            else if(currentPage.getComponent().equals("message"))
-                fragment = new SetupMessageFragment().newInstance(pageId);
-            else if(currentPage.getComponent().equals("code"))
-                fragment = new SetupCodeFragment().newInstance(pageId);
-            else
+            if (currentPage.getType().equals("simple")) {
                 fragment = new NewSimpleFragment().newInstance(pageId);
+            } else {
+                if (currentPage.getComponent().equals("contacts"))
+                    fragment = new SetupContactsFragment().newInstance(pageId);
+                else if (currentPage.getComponent().equals("message"))
+                    fragment = new SetupMessageFragment().newInstance(pageId);
+                else if (currentPage.getComponent().equals("code"))
+                    fragment = new SetupCodeFragment().newInstance(pageId);
+                else
+                    fragment = new NewSimpleFragment().newInstance(pageId);
+            }
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
         }
-        fragmentTransaction.add(R.id.fragment_container, fragment);
-        fragmentTransaction.commit();
-
 
 
 //        previousButton.setVisibility(INVISIBLE);
@@ -96,7 +100,7 @@ public class WizardActivity extends FragmentActivity{
 //        viewPager.setOnPageChangeListener(pageChangeListener);
     }
 
-    public void setActionButtonVisibility(int pageNumber){
+    public void setActionButtonVisibility(int pageNumber) {
 //        if(pageNumber == AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
 //            actionButton.setVisibility(View.INVISIBLE);
 //        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
@@ -128,11 +132,11 @@ public class WizardActivity extends FragmentActivity{
     }
 
     public void previous(View view) {
-        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
+        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
             viewPager.previousWithSkip();
         }
 //        getCurrentWizardFragment().onBackPressed();
-        else{
+        else {
             viewPager.previous();
         }
     }

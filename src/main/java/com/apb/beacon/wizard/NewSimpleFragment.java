@@ -97,6 +97,7 @@ public class NewSimpleFragment extends Fragment {
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
                 String pageId = selectedItem.getLink();
+
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
