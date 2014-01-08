@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ScrollView xmlns:custom="http://schemas.android.com/apk/res/com.apb.beacon"
         android:id="@+id/wizard_start_root"
@@ -83,21 +85,12 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/fragment_contents"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/ll_fragment_warning"
-                android:text="@string/wizard_training_contacts_details"
-                style="@style/welcome_screen_text" />
-
             <LinearLayout
                 android:id="@+id/ll_message"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/fragment_contents"
+                android:layout_below="@+id/ll_fragment_warning"
                 android:layout_weight="1">
 
                 <fragment
@@ -121,6 +114,15 @@
                 android:layout_marginLeft="50dp"
                 android:layout_below="@+id/ll_message"
                 android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/fragment_contents"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/fragment_action"
+                android:text="@string/wizard_training_contacts_details"
+                style="@style/welcome_screen_text" />
         </RelativeLayout>
 
 

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:id="@+id/wizard_start_root"
@@ -88,8 +90,13 @@
                 android:inputType="number"
                 android:layout_marginTop="10dp"
                 android:password="true"
+                android:hint="...."
+                android:gravity="center_horizontal"
+                android:textSize="30sp"
                 android:layout_below="@+id/fragment_contents"
                 android:layout_width="fill_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:maxLines="1" />
 
             <Button

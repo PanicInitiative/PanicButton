@@ -227,9 +227,7 @@
     </style>
 
     <style name="i_am_at_text">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:background">#ebebeb</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">3dp</item>
         <item name="android:layout_marginRight">3dp</item>
         <item name="android:layout_marginBottom">7dp</item>
