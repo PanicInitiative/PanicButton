@@ -23,9 +23,9 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
         super(fm);
         fragments.add(new WizardWelcomeFragment());          // 0   -
 //        fragments.add(new CreateDialCodeFragment());
-//        fragments.add(new CreatePinFragment());
+//        fragments.add(new SetupCodeFragment());
         fragments.add(new WizardTrainingFragment());                        // 1 -
-        fragments.add(new CreatePinFragment());                             // 2 -
+        fragments.add(new SetupCodeFragment());                             // 2 -
         fragments.add(new WizardTrainingContactIntroFragment());            // 3 -
         fragments.add(new WizardTrainingContactLearnMoreFragment());        // 4
         fragments.add(new SMSContactNumberFragment());                      // 5

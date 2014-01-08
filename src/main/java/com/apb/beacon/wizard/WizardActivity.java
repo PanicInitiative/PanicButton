@@ -70,6 +70,8 @@ public class WizardActivity extends FragmentActivity{
                 fragment = new SMSContactNumberFragment().newInstance(pageId);
             else if(currentPage.getComponent().equals("message"))
                 fragment = new SMSMessageFragment().newInstance(pageId);
+            else if(currentPage.getComponent().equals("code"))
+                fragment = new SetupCodeFragment().newInstance(pageId);
             else
                 fragment = new NewSimpleFragment().newInstance(pageId);
         }
