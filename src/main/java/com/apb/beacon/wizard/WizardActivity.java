@@ -80,6 +80,8 @@ public class WizardActivity extends FragmentActivity {
                     fragment = new SetupMessageFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId);
+                else if (currentPage.getComponent().equals("alarm-test-hardware"))
+                    fragment = new AlarmTestHardwareFragment().newInstance(pageId);
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
             }
