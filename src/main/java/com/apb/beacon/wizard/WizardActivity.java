@@ -1,7 +1,13 @@
 package com.apb.beacon.wizard;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,10 +23,17 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
+import com.apb.beacon.trigger.HardwareTriggerReceiver;
 
 public class WizardActivity extends FragmentActivity {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
+
+    private Handler inactiveHandler = new Handler();
+    private Handler failHandler = new Handler();
+
+    private boolean isInteractionTraced = false;
+    private int runningReceiverFlag = -1;
 
 //    @InjectView(R.id.previous_button)
 //    Button previousButton;
@@ -80,8 +93,18 @@ public class WizardActivity extends FragmentActivity {
                     fragment = new SetupMessageFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId);
-                else if (currentPage.getComponent().equals("alarm-test-hardware"))
+                else if (currentPage.getComponent().equals("alarm-test-hardware")){
+                    isInteractionTraced = true;
                     fragment = new AlarmTestHardwareFragment().newInstance(pageId);
+                    inactiveHandler.postDelayed(runnable, 10000);
+                    failHandler.postDelayed(runnable, 20000);
+
+                    IntentFilter filter = new IntentFilter();
+                    filter.addAction(Intent.ACTION_SCREEN_ON);
+                    filter.addAction(Intent.ACTION_SCREEN_OFF);
+                    registerReceiver(wizardHardwareReceiver, filter);
+                    runningReceiverFlag = 1;
+                }
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
             }
@@ -105,6 +128,44 @@ public class WizardActivity extends FragmentActivity {
 //        viewPager.setOffscreenPageLimit(2);
 //        viewPager.setOnPageChangeListener(pageChangeListener);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("????", "onDestroy");
+        if(runningReceiverFlag == 1){
+            unregisterReceiver(wizardHardwareReceiver);
+        }
+    }
+
+    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            super.onReceive(context, intent);
+            Log.e("????", "onReceive in subclass also");
+            inactiveHandler.removeCallbacks(runnable);
+            inactiveHandler.postDelayed(runnable, 10000);
+        }
+
+        @Override
+        protected void onActivation(Context context) {
+            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+
+            String pageId = "setup-alarm-test-hardware-success";                     // right now, using hard-coded value
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+
+//            setEnabled(true);
+//            HapticFeedback.alert(context);
+
+        }
+
+    };
 
     public void setActionButtonVisibility(int pageNumber) {
 //        if(pageNumber == AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
@@ -152,19 +213,6 @@ public class WizardActivity extends FragmentActivity {
         viewPager.previousWithSkip();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        getCurrentWizardFragment().onBackPressed();
-//        if(viewPager.isFirstPage()) {
-//            this.finish();
-//        }
-//        else if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
-//            viewPager.previousWithSkip();
-//        }
-//        else{
-//            viewPager.previous();
-//        }
-//    }
 
     private WizardFragment getCurrentWizardFragment() {
         return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
@@ -174,7 +222,24 @@ public class WizardActivity extends FragmentActivity {
         return new WizardPageAdapter(getSupportFragmentManager());
     }
 
-//    @Override
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        if(isInteractionTraced == true){
+            Log.e(">>>>>", "interaction happens");
+            inactiveHandler.removeCallbacks(runnable);
+            inactiveHandler.postDelayed(runnable, 10000);
+        }
+    }
+
+
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            finish();
+        }
+    };
+
+    //    @Override
 //    public void enableActionButton(boolean isEnabled) {
 //        actionButton.setEnabled(isEnabled);
 //    }

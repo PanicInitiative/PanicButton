@@ -23,10 +23,11 @@
                   android:text="@string/wizard_emergency_option2_text"
                   style="@style/wizard_text"/>
 
-        <ImageView android:layout_height="wrap_content"
+<!--        <ImageView android:layout_height="wrap_content"
                    android:layout_width="fill_parent"
                    android:src="@drawable/activate2"
                    android:contentDescription="@string/tap_five_times"
-                   style="@style/wizard_image"/>
+                   style="@style/wizard_image"/>-->
+        <include layout="@layout/calculator_layout"/>
     </LinearLayout>
 </ScrollView>
