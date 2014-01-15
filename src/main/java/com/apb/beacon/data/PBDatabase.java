@@ -10,6 +10,7 @@ import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.PageStatus;
+import com.apb.beacon.model.PageTimer;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -40,6 +41,7 @@ public class PBDatabase {
             PageStatusDbManager.createTable(db);
             PageItemDbManager.createTable(db);
             PageActionDbManager.createTable(db);
+            PageTimerDbManager.createTable(db);
         }
 
         @Override
@@ -49,6 +51,7 @@ public class PBDatabase {
             PageActionDbManager.dropTable(db);
             PageItemDbManager.dropTable(db);
             PageActionDbManager.dropTable(db);
+            PageTimerDbManager.dropTable(db);
 
             onCreate(db);
         }
@@ -90,6 +93,7 @@ public class PBDatabase {
         deletePageActions(page.getId(), page.getLang());
         deletePageItems(page.getId(), page.getLang());
         deletePageStatus(page.getId(), page.getLang());
+        deletePageTimer(page.getId(), page.getLang());
 
         if (page.getStatus() != null) {
             for (PageStatus status : page.getStatus())
@@ -105,6 +109,10 @@ public class PBDatabase {
             for (PageItem item : page.getItems())
                 insertPageItem(item, page.getId(), page.getLang());
         }
+
+        if(page.getTimers() != null){
+            insertPageTimer(page.getTimers(), page.getId(), page.getLang());
+        }
     }
 
 
@@ -116,6 +124,10 @@ public class PBDatabase {
         return PageDbManager.retrieve(this.db, lang);
     }
 
+
+    /*
+    Page-Action methods
+    */
     public void insertPageAction(PageAction action, String pageId, String lang) {
         PageActionDbManager.insert(this.db, action, pageId, lang);
     }
@@ -129,7 +141,9 @@ public class PBDatabase {
     }
 
 
-
+    /*
+    Page-Item methods
+    */
     public void insertPageItem(PageItem item, String pageId, String lang) {
         PageItemDbManager.insert(this.db, item, pageId, lang);
     }
@@ -143,6 +157,9 @@ public class PBDatabase {
     }
 
 
+    /*
+    Page-Status methods
+    */
     public void insertPageStatus(PageStatus status, String pageId, String lang) {
         PageStatusDbManager.insert(this.db, status, pageId, lang);
     }
@@ -153,6 +170,23 @@ public class PBDatabase {
 
     public void deletePageStatus(String pageId, String lang){
         PageStatusDbManager.delete(this.db, pageId, lang);
+    }
+
+
+
+    /*
+    Page-Timers methods
+     */
+    public void insertPageTimer(PageTimer timer, String pageId, String lang) {
+        PageTimerDbManager.insert(this.db, timer, pageId, lang);
+    }
+
+    public PageTimer retrievePageTimer(String pageId, String lang) {
+        return PageTimerDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public void deletePageTimer(String pageId, String lang){
+        PageTimerDbManager.delete(this.db, pageId, lang);
     }
 
 

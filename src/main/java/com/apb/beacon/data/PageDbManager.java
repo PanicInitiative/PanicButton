@@ -10,6 +10,7 @@ import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.PageStatus;
+import com.apb.beacon.model.PageTimer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,13 @@ public class PageDbManager {
     private static final String PAGE_WARNING = "page_warning";
     private static final String PAGE_COMPONENT = "page_component";
     private static final String PAGE_CONTENT = "page_content";
+    private static final String PAGE_SUCCESS_ID = "page_success_id";
+    private static final String PAGE_FAILED_ID = "page_failed_id";
 
     private static final String CREATE_TABLE_WIZARD_PAGE = "create table " + TABLE_WIZARD_PAGE + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
-            + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_INTRODUCTION + " text, " + PAGE_WARNING + " text, "
-            + PAGE_COMPONENT + " text, " + PAGE_CONTENT + " text);";
+            + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_INTRODUCTION + " text, " + PAGE_WARNING + " text, " + PAGE_COMPONENT + " text, "
+            + PAGE_CONTENT + " text, " + PAGE_SUCCESS_ID + " text, " + PAGE_FAILED_ID + " text);";
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_WIZARD_PAGE);
@@ -58,6 +61,8 @@ public class PageDbManager {
         cv.put(PAGE_WARNING, page.getWarning());
         cv.put(PAGE_COMPONENT, page.getComponent());
         cv.put(PAGE_CONTENT, page.getContent());
+        cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
+        cv.put(PAGE_FAILED_ID, page.getFailedId());
 
         return db.insert(TABLE_WIZARD_PAGE, null, cv);
     }
@@ -75,12 +80,15 @@ public class PageDbManager {
             String pageWarning = c.getString(c.getColumnIndex(PAGE_WARNING));
             String pageComponent = c.getString(c.getColumnIndex(PAGE_COMPONENT));
             String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
+            String successId = c.getString(c.getColumnIndex(PAGE_SUCCESS_ID));
+            String failedId = c.getString(c.getColumnIndex(PAGE_FAILED_ID));
 
             List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
             List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
             List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
+            PageTimer timer = PageTimerDbManager.retrieve(db, pageId, lang);
 
-            page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
+            page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent, timer, successId, failedId);
         }
         c.close();
         return page;
@@ -100,12 +108,15 @@ public class PageDbManager {
                 String pageWarning = c.getString(c.getColumnIndex(PAGE_WARNING));
                 String pageComponent = c.getString(c.getColumnIndex(PAGE_COMPONENT));
                 String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
+                String successId = c.getString(c.getColumnIndex(PAGE_SUCCESS_ID));
+                String failedId = c.getString(c.getColumnIndex(PAGE_FAILED_ID));
 
                 List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
                 List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
                 List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
+                PageTimer timer = PageTimerDbManager.retrieve(db, pageId, lang);
 
-                Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent);
+                Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent, timer, successId, failedId);
                 pageList.add(page);
                 c.moveToNext();
             }
@@ -125,6 +136,8 @@ public class PageDbManager {
         cv.put(PAGE_WARNING, page.getWarning());
         cv.put(PAGE_COMPONENT, page.getComponent());
         cv.put(PAGE_CONTENT, page.getContent());
+        cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
+        cv.put(PAGE_FAILED_ID, page.getFailedId());
 
         return db.update(TABLE_WIZARD_PAGE, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
     }
