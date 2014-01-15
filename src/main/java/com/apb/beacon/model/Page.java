@@ -25,11 +25,15 @@ public class Page {
     private List<PageAction> action;
     private List<PageItem> items;
     private String content;
+    private PageTimer timers;
+    private String successId;
+    private String failedId;
 
     public Page() {
     }
 
-    public Page(String id, String lang, String type, String title, String introduction, String warning, String component, String content) {
+    public Page(String id, String lang, String type, String title, String introduction, String warning,
+                String component, String content) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -40,8 +44,9 @@ public class Page {
         this.content = content;
     }
 
-    public Page(String id, String lang, String type, String title, String introduction, String warning, String component,
-                List<PageStatus> status, List<PageAction> action, List<PageItem> items, String content) {
+    public Page(String id, String lang, String type, String title, String introduction, String warning,
+                String component, List<PageStatus> status, List<PageAction> action, List<PageItem> items,
+                String content, PageTimer timers, String successId, String failedId) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -53,6 +58,9 @@ public class Page {
         this.action = action;
         this.items = items;
         this.content = content;
+        this.timers = timers;
+        this.successId = successId;
+        this.failedId = failedId;
     }
 
     public static List<Page> parsePages(JSONArray pageArray){
@@ -64,10 +72,23 @@ public class Page {
         try {
             for(int i=0; i < pageArray.length(); i++){
 
-                JSONObject thisItem = pageArray.getJSONObject(i);
-                if(thisItem != null){
-                    String jsonString = thisItem.toString();
+                JSONObject thisPage = pageArray.getJSONObject(i);
+                if(thisPage != null){
+                    String jsonString = thisPage.toString();
                     Page page = gson.fromJson(jsonString, Page.class);
+
+                    JSONObject successObj = thisPage.optJSONObject("success");
+                    if(successObj != null){
+                        String successId = successObj.optString("link");
+                        page.setSuccessId(successId);
+                    }
+
+                    JSONObject failObj = thisPage.optJSONObject("fail");
+                    if(failObj != null){
+                        String failId = failObj.optString("link");
+                        page.setFailedId(failId);
+                    }
+
                     pageList.add(page);
                 }
             }
@@ -165,5 +186,29 @@ public class Page {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public PageTimer getTimers() {
+        return timers;
+    }
+
+    public void setTimers(PageTimer timers) {
+        this.timers = timers;
+    }
+
+    public String getSuccessId() {
+        return successId;
+    }
+
+    public void setSuccessId(String successId) {
+        this.successId = successId;
+    }
+
+    public String getFailedId() {
+        return failedId;
+    }
+
+    public void setFailedId(String failedId) {
+        this.failedId = failedId;
     }
 }

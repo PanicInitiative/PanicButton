@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent">
-
-    <LinearLayout
-        android:id="@+id/wizard_emergency_alert3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="@style/wizard_static_panel"
-        android:orientation="vertical">
-
-        <TextView
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:text="@string/wizard_emergency_title"
-            android:visibility="gone"
-            style="@style/wizard_page_title" />
+            android:layout_width="fill_parent">
+    <LinearLayout android:id="@+id/wizard_emergency_alert3"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  style="@style/wizard_static_panel"
+                  android:orientation="vertical"
+            >
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  android:text="@string/wizard_emergency_title"
+                  style="@style/wizard_page_title"/>
 
-        <View
-            android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            style="@style/wizard_title_sep" />
+        <View android:layout_height="1dp"
+              android:layout_width="match_parent"
+              style="@style/wizard_title_sep"/>
 
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/wizard_emergency_option3_text"
-            android:visibility="gone"
-            style="@style/wizard_text" />
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:text="@string/wizard_emergency_option3_text"
+                  style="@style/wizard_text"/>
 
-        <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:src="@drawable/activate3"
-            android:contentDescription="@string/tap_five_times"
-            style="@style/wizard_image" />
+        <ImageView android:layout_height="wrap_content"
+                   android:layout_width="fill_parent"
+                   android:src="@drawable/activate3"
+                   android:contentDescription="@string/tap_five_times"
+                   style="@style/wizard_image"/>
     </LinearLayout>
 </ScrollView>

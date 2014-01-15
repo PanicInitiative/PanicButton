@@ -128,7 +128,11 @@ public class SetupMessageFragment extends WizardFragment {
             dbInstance.close();
 
             tvTitle.setText(currentPage.getTitle());
-            tvContent.setText(Html.fromHtml(currentPage.getContent()));
+
+            if(currentPage.getContent() == null)
+                tvContent.setVisibility(View.GONE);
+            else
+                tvContent.setText(Html.fromHtml(currentPage.getContent()));
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);

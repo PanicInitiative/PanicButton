@@ -159,6 +159,7 @@ public class WizardActivity extends FragmentActivity {
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
+            finish();
 
 //            setEnabled(true);
 //            HapticFeedback.alert(context);
