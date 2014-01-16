@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.wizard.WizardActivity;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -27,7 +28,11 @@ public class LoginActivity extends PanicButtonActivity {
     public void onEnterPressed(View view) {
         String password = pinEditText.getText().toString();
         if (ApplicationSettings.passwordMatches(getApplicationContext(), password)) {
-            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
+
+            Intent i = new Intent(LoginActivity.this, WizardActivity.class);
+            i.putExtra("page_id",  "home-ready");
+            startActivity(i);
+//            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
             return;
         }
         AppUtil.setError(this, pinEditText, R.string.incorrect_pin);
