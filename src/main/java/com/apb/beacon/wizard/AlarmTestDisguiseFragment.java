@@ -113,7 +113,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
 
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
-                startActivity(i);
+                activity.startActivity(i);
                 activity.finish();
             }
         }
@@ -135,7 +135,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
 
             Intent i = new Intent(activity, WizardActivity.class);
             i.putExtra("page_id", pageId);
-            startActivity(i);
+            activity.startActivity(i);
             activity.finish();
         }
     };
@@ -150,7 +150,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
 
             Intent i = new Intent(activity, WizardActivity.class);
             i.putExtra("page_id", pageId);
-            startActivity(i);
+            activity.startActivity(i);
             activity.finish();
         }
     };

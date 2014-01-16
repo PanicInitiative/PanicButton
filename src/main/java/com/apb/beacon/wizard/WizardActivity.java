@@ -1,13 +1,8 @@
 package com.apb.beacon.wizard;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,20 +18,19 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
-import com.apb.beacon.trigger.HardwareTriggerReceiver;
 
 public class WizardActivity extends FragmentActivity {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
-    private Handler inactiveHandler = new Handler();
-    private Handler failHandler = new Handler();
+//    private Handler inactiveHandler = new Handler();
+//    private Handler failHandler = new Handler();
 
 //    private static final int FLAG_INACTIVITY = 1;
 //    private static final int FLAG_FAILED = 2;
 
-    private boolean isInteractionTraced = false;
-    private int runningReceiverFlag = -1;
+//    private boolean isInteractionTraced = false;
+//    private int runningReceiverFlag = -1;
 
     Page currentPage;
 
@@ -89,8 +83,6 @@ public class WizardActivity extends FragmentActivity {
                 fragment = new NewSimpleFragment().newInstance(pageId);
             }
             else if (currentPage.getType().equals("modal")){
-//                fragment = new NewSimpleFragment().newInstance(pageId);
-
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
@@ -105,28 +97,19 @@ public class WizardActivity extends FragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
-                    isInteractionTraced = true;
-                    fragment = new AlarmTestHardwareFragment().newInstance(pageId);
-                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-                    failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-
-                    IntentFilter filter = new IntentFilter();
-                    filter.addAction(Intent.ACTION_SCREEN_ON);
-                    filter.addAction(Intent.ACTION_SCREEN_OFF);
-                    registerReceiver(wizardHardwareReceiver, filter);
-                    runningReceiverFlag = 1;
-                }
-                else if (currentPage.getComponent().equals("alarm-test-disguise")){
 //                    isInteractionTraced = true;
-                    fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
+                    fragment = new AlarmTestHardwareFragment().newInstance(pageId);
 //                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
 //                    failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-
+//
 //                    IntentFilter filter = new IntentFilter();
 //                    filter.addAction(Intent.ACTION_SCREEN_ON);
 //                    filter.addAction(Intent.ACTION_SCREEN_OFF);
 //                    registerReceiver(wizardHardwareReceiver, filter);
 //                    runningReceiverFlag = 1;
+                }
+                else if (currentPage.getComponent().equals("alarm-test-disguise")){
+                    fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
                 }
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
@@ -134,79 +117,51 @@ public class WizardActivity extends FragmentActivity {
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
-
-
-//        previousButton.setVisibility(INVISIBLE);
-//
-//        PBDatabase dbInstance = new PBDatabase(WizardActivity.this);
-//        dbInstance.open();
-//        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
-//        dbInstance.close();
-//        Log.e(">>>>>>", "setting action text from onCreate -> " + page.getPageAction());
-//        actionButton.setText(page.getPageAction());
-//
-//        viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
-//        pagerAdapter = getWizardPagerAdapter();
-//        viewPager.setAdapter(pagerAdapter);
-//        viewPager.setOffscreenPageLimit(2);
-//        viewPager.setOnPageChangeListener(pageChangeListener);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e("????", "onDestroy");
-        if(runningReceiverFlag == 1){
-            unregisterReceiver(wizardHardwareReceiver);
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        Log.e("????", "onDestroy");
+//        if(runningReceiverFlag == 1){
+//            unregisterReceiver(wizardHardwareReceiver);
+//        }
+//    }
 
-    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            super.onReceive(context, intent);
-            Log.e("????", "onReceive in subclass also");
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        }
-
-        @Override
-        protected void onActivation(Context context) {
-            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
-            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getSuccessId();
-
-            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            startActivity(i);
-            finish();
-
-//            setEnabled(true);
-//            HapticFeedback.alert(context);
-
-        }
-
-    };
+//    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            super.onReceive(context, intent);
+//            Log.e("????", "onReceive in subclass also");
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//        }
+//
+//        @Override
+//        protected void onActivation(Context context) {
+//            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
+//            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+//            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+//
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            String pageId = currentPage.getSuccessId();
+//
+//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            startActivity(i);
+//            finish();
+//
+////            setEnabled(true);
+////            HapticFeedback.alert(context);
+//
+//        }
+//
+//    };
 
     public void setActionButtonVisibility(int pageNumber) {
-//        if(pageNumber == AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        if(pageNumber == pagerAdapter.getCount() -1)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        else
-//            actionButton.setVisibility(View.VISIBLE);
     }
 
 //    public void performAction(View view) {
@@ -260,33 +215,33 @@ public class WizardActivity extends FragmentActivity {
 //    }
 
 
-    private Runnable runnableInteractive = new Runnable() {
-        public void run() {
-
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            startActivity(i);
-            finish();
-        }
-    };
-
-    private Runnable runnableFailed = new Runnable() {
-        public void run() {
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            startActivity(i);
-            finish();
-        }
-    };
+//    private Runnable runnableInteractive = new Runnable() {
+//        public void run() {
+//
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            startActivity(i);
+//            finish();
+//        }
+//    };
+//
+//    private Runnable runnableFailed = new Runnable() {
+//        public void run() {
+//
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            startActivity(i);
+//            finish();
+//        }
+//    };
 
     //    @Override
 //    public void enableActionButton(boolean isEnabled) {

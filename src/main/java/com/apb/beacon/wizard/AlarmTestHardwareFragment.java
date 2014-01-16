@@ -1,10 +1,16 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -16,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
@@ -23,6 +30,7 @@ import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
+import com.apb.beacon.trigger.HardwareTriggerReceiver;
 
 import java.util.HashMap;
 
@@ -35,10 +43,12 @@ public class AlarmTestHardwareFragment extends Fragment{
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
+    private Handler inactiveHandler = new Handler();
+    private Handler failHandler = new Handler();
+
     DisplayMetrics metrics;
 
     TextView tvContent;
-
 
     Page currentPage;
     PageItemAdapter pageItemAdapter;
@@ -67,6 +77,10 @@ public class AlarmTestHardwareFragment extends Fragment{
 
         activity = getActivity();
         if (activity != null) {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            activity.registerReceiver(wizardHardwareReceiver, filter);
 
             String pageId = getArguments().getString(PAGE_ID);
             String defaultLang = "en";
@@ -75,6 +89,9 @@ public class AlarmTestHardwareFragment extends Fragment{
             dbInstance.open();
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
+
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+            failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
@@ -88,6 +105,15 @@ public class AlarmTestHardwareFragment extends Fragment{
                 Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("????", "onDestroy");
+        inactiveHandler.removeCallbacks(runnableInteractive);
+        failHandler.removeCallbacks(runnableFailed);
+        activity.unregisterReceiver(wizardHardwareReceiver);
     }
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
@@ -139,4 +165,63 @@ public class AlarmTestHardwareFragment extends Fragment{
                 }, new MyTagHandler());
         tvContent.setText(spanned);
     }
+
+
+    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            super.onReceive(context, intent);
+            Log.e("????", "onReceive in subclass also");
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+        }
+
+        @Override
+        protected void onActivation(Context context) {
+            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getSuccessId();
+
+            Intent i = new Intent(activity, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            activity.startActivity(i);
+            activity.finish();
+        }
+
+    };
+
+
+    private Runnable runnableInteractive = new Runnable() {
+        public void run() {
+
+            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(activity, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    };
+
+    private Runnable runnableFailed = new Runnable() {
+        public void run() {
+
+            inactiveHandler.removeCallbacks(runnableInteractive);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(activity, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    };
 }
