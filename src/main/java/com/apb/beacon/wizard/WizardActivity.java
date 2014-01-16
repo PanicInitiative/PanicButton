@@ -89,7 +89,13 @@ public class WizardActivity extends FragmentActivity {
                 fragment = new NewSimpleFragment().newInstance(pageId);
             }
             else if (currentPage.getType().equals("modal")){
-                fragment = new NewSimpleFragment().newInstance(pageId);
+//                fragment = new NewSimpleFragment().newInstance(pageId);
+
+                Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
+                i.putExtra("page_id", pageId);
+                startActivity(i);
+                finish();
+                return;
             }
             else {
                 if (currentPage.getComponent().equals("contacts"))
@@ -161,8 +167,8 @@ public class WizardActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             super.onReceive(context, intent);
             Log.e("????", "onReceive in subclass also");
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
         }
 
         @Override
@@ -243,15 +249,15 @@ public class WizardActivity extends FragmentActivity {
         return new WizardPageAdapter(getSupportFragmentManager());
     }
 
-    @Override
-    public void onUserInteraction() {
-        super.onUserInteraction();
-        if(isInteractionTraced == true){
-            Log.e(">>>>>", "interaction happens");
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        }
-    }
+//    @Override
+//    public void onUserInteraction() {
+//        super.onUserInteraction();
+//        if(isInteractionTraced == true){
+//            Log.e(">>>>>", "interaction happens");
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//        }
+//    }
 
 
     private Runnable runnableInteractive = new Runnable() {

@@ -226,6 +226,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="modal_link_button">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="i_am_at_text">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">3dp</item>
@@ -240,6 +246,15 @@
         <item name="android:background">#eeeeee</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

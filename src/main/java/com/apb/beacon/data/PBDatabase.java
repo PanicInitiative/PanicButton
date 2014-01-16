@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
+import com.apb.beacon.model.PageChecklist;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.PageStatus;
 import com.apb.beacon.model.PageTimer;
@@ -26,7 +27,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -36,22 +37,22 @@ public class PBDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-//            LocalCacheDbManager.createTable(db);
             PageDbManager.createTable(db);
             PageStatusDbManager.createTable(db);
             PageItemDbManager.createTable(db);
             PageActionDbManager.createTable(db);
             PageTimerDbManager.createTable(db);
+            PageChecklistDbManager.createTable(db);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//            LocalCacheDbManager.dropTable(db);
             PageDbManager.dropTable(db);
             PageStatusDbManager.dropTable(db);
             PageItemDbManager.dropTable(db);
             PageActionDbManager.dropTable(db);
             PageTimerDbManager.dropTable(db);
+            PageChecklistDbManager.dropTable(db);
 
             onCreate(db);
         }
@@ -94,6 +95,7 @@ public class PBDatabase {
         deletePageItems(page.getId(), page.getLang());
         deletePageStatus(page.getId(), page.getLang());
         deletePageTimer(page.getId(), page.getLang());
+        deletePageChecklist(page.getId(), page.getLang());
 
         if (page.getStatus() != null) {
             for (PageStatus status : page.getStatus())
@@ -112,6 +114,11 @@ public class PBDatabase {
 
         if(page.getTimers() != null){
             insertPageTimer(page.getTimers(), page.getId(), page.getLang());
+        }
+
+        if (page.getChecklist() != null) {
+            for (PageChecklist cl : page.getChecklist())
+                insertPageChecklist(cl, page.getId(), page.getLang());
         }
     }
 
@@ -190,4 +197,18 @@ public class PBDatabase {
     }
 
 
+    /*
+    Page-Checklist methods
+    */
+    public void insertPageChecklist(PageChecklist cList, String pageId, String lang) {
+        PageChecklistDbManager.insert(this.db, cList, pageId, lang);
+    }
+
+    public List<PageChecklist> retrievePageChecklist(String pageId, String lang) {
+        return PageChecklistDbManager.retrieve(this.db, pageId, lang);
+    }
+
+    public void deletePageChecklist(String pageId, String lang){
+        PageChecklistDbManager.delete(this.db, pageId, lang);
+    }
 }

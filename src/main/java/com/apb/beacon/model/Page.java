@@ -28,25 +28,27 @@ public class Page {
     private PageTimer timers;
     private String successId;
     private String failedId;
+    private List<PageChecklist> checklist;
 
     public Page() {
     }
 
-    public Page(String id, String lang, String type, String title, String introduction, String warning,
-                String component, String content) {
-        this.id = id;
-        this.lang = lang;
-        this.type = type;
-        this.title = title;
-        this.introduction = introduction;
-        this.warning = warning;
-        this.component = component;
-        this.content = content;
-    }
+//    public Page(String id, String lang, String type, String title, String introduction, String warning,
+//                String component, String content) {
+//        this.id = id;
+//        this.lang = lang;
+//        this.type = type;
+//        this.title = title;
+//        this.introduction = introduction;
+//        this.warning = warning;
+//        this.component = component;
+//        this.content = content;
+//    }
 
-    public Page(String id, String lang, String type, String title, String introduction, String warning,
-                String component, List<PageStatus> status, List<PageAction> action, List<PageItem> items,
-                String content, PageTimer timers, String successId, String failedId) {
+
+    public Page(String id, String lang, String type, String title, String introduction, String warning, String component,
+                List<PageStatus> status, List<PageAction> action, List<PageItem> items, String content, PageTimer timers,
+                String successId, String failedId, List<PageChecklist> checklist) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -61,7 +63,9 @@ public class Page {
         this.timers = timers;
         this.successId = successId;
         this.failedId = failedId;
+        this.checklist = checklist;
     }
+
 
     public static List<Page> parsePages(JSONArray pageArray){
         List<Page> pageList = new ArrayList<Page>();
@@ -210,5 +214,13 @@ public class Page {
 
     public void setFailedId(String failedId) {
         this.failedId = failedId;
+    }
+
+    public List<PageChecklist> getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(List<PageChecklist> checklist) {
+        this.checklist = checklist;
     }
 }

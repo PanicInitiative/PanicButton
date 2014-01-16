@@ -33,6 +33,10 @@
         <activity android:name=".wizard.WizardActivity"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
+        <activity android:name=".wizard.WizardModalActivity"
+            android:theme="@style/Theme.Transparent"
+                  android:screenOrientation="portrait"
+                  android:excludeFromRecents="true"/>
         <activity android:name=".CalculatorActivity"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>

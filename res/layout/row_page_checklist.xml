@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:padding="5dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_tick"
+        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/tick_green"
+        android:layout_centerVertical="true"/>
+
+    <Button
+        android:id="@+id/b_action"
+        android:text="@string/finish_button_text"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/topbar_button"
+        style="@style/modal_link_button" />
+
+</RelativeLayout>

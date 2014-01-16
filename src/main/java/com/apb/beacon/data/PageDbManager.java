@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
+import com.apb.beacon.model.PageChecklist;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.PageStatus;
 import com.apb.beacon.model.PageTimer;
@@ -87,8 +88,10 @@ public class PageDbManager {
             List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
             List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
             PageTimer timer = PageTimerDbManager.retrieve(db, pageId, lang);
+            List<PageChecklist> checkList = PageChecklistDbManager.retrieve(db, pageId, lang);
 
-            page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent, timer, successId, failedId);
+            page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList,
+                    itemList, pageContent, timer, successId, failedId, checkList);
         }
         c.close();
         return page;
@@ -115,8 +118,10 @@ public class PageDbManager {
                 List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
                 List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
                 PageTimer timer = PageTimerDbManager.retrieve(db, pageId, lang);
+                List<PageChecklist> checkList = PageChecklistDbManager.retrieve(db, pageId, lang);
 
-                Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList, itemList, pageContent, timer, successId, failedId);
+                Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent,
+                        statusList, actionList, itemList, pageContent, timer, successId, failedId, checkList);
                 pageList.add(page);
                 c.moveToNext();
             }
