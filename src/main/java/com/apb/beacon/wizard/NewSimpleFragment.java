@@ -24,6 +24,7 @@ import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.ImageDownloader;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
@@ -231,7 +232,7 @@ public class NewSimpleFragment extends Fragment {
                         }
                         return null;
                     }
-                }, null);
+                }, new MyTagHandler());
         tvContent.setText(spanned);
     }
 

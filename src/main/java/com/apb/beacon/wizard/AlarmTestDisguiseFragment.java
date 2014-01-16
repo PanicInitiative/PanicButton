@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.trigger.MultiClickEvent;
@@ -71,7 +72,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
             if(currentPage.getIntroduction() != null){
-                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction()), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
             }
         }
     }

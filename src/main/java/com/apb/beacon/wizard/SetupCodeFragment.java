@@ -21,6 +21,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.Page;
@@ -134,7 +135,7 @@ public class SetupCodeFragment extends WizardFragment {
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else
-                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);

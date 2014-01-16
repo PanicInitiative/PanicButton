@@ -20,6 +20,7 @@ import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.ImageDownloader;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 
@@ -78,13 +79,13 @@ public class AlarmTestHardwareFragment extends Fragment{
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else{
-                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }
 
 
             if(currentPage.getIntroduction() != null){
-                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction()), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -135,7 +136,7 @@ public class AlarmTestHardwareFragment extends Fragment{
                         }
                         return null;
                     }
-                }, null);
+                }, new MyTagHandler());
         tvContent.setText(spanned);
     }
 }

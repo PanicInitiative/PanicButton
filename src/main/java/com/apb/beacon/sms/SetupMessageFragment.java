@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.MessageFragment;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
@@ -132,7 +133,7 @@ public class SetupMessageFragment extends WizardFragment {
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else
-                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
