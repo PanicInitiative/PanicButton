@@ -66,6 +66,10 @@ public class TestDisguiseOpenFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+
             String pageId = getArguments().getString(PAGE_ID);
             String defaultLang = "en";
 
@@ -95,7 +99,7 @@ public class TestDisguiseOpenFragment extends Fragment {
                 tvContent.setVisibility(View.GONE);
             else{
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-//                updateImages(true, currentPage.getContent());
+                updateImages(true, currentPage.getContent());
             }
 
             if(currentPage.getIntroduction() != null){
