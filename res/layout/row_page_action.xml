@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_marginLeft="50dp"
-        android:layout_toLeftOf="@+id/iv_tick"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="50dp"
         android:background="@drawable/topbar_button"
         style="@style/activate_disguise_button" />
 
@@ -21,8 +21,8 @@
         android:layout_height="30dp"
         android:layout_width="30dp"
         android:background="@drawable/tick_green"
-        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/b_action"
         android:visibility="invisible"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         android:layout_centerVertical="true"/>
 </RelativeLayout>
