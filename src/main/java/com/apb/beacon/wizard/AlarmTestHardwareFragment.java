@@ -84,7 +84,7 @@ public class AlarmTestHardwareFragment extends Fragment{
 
 
             if(currentPage.getIntroduction() != null){
-                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction()), 5000).show();
+                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction()), Toast.LENGTH_LONG).show();
             }
         }
     }

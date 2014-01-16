@@ -32,8 +32,13 @@ public class WizardActivity extends FragmentActivity {
     private Handler inactiveHandler = new Handler();
     private Handler failHandler = new Handler();
 
+//    private static final int FLAG_INACTIVITY = 1;
+//    private static final int FLAG_FAILED = 2;
+
     private boolean isInteractionTraced = false;
     private int runningReceiverFlag = -1;
+
+    Page currentPage;
 
 //    @InjectView(R.id.previous_button)
 //    Button previousButton;
@@ -67,7 +72,7 @@ public class WizardActivity extends FragmentActivity {
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        Page currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        currentPage = dbInstance.retrievePage(pageId, defaultLang);
         dbInstance.close();
 
         if (currentPage == null) {
@@ -96,14 +101,26 @@ public class WizardActivity extends FragmentActivity {
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
                     isInteractionTraced = true;
                     fragment = new AlarmTestHardwareFragment().newInstance(pageId);
-                    inactiveHandler.postDelayed(runnable, 10000);
-                    failHandler.postDelayed(runnable, 20000);
+                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+                    failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
                     IntentFilter filter = new IntentFilter();
                     filter.addAction(Intent.ACTION_SCREEN_ON);
                     filter.addAction(Intent.ACTION_SCREEN_OFF);
                     registerReceiver(wizardHardwareReceiver, filter);
                     runningReceiverFlag = 1;
+                }
+                else if (currentPage.getComponent().equals("alarm-test-disguise")){
+//                    isInteractionTraced = true;
+                    fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
+//                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//                    failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+
+//                    IntentFilter filter = new IntentFilter();
+//                    filter.addAction(Intent.ACTION_SCREEN_ON);
+//                    filter.addAction(Intent.ACTION_SCREEN_OFF);
+//                    registerReceiver(wizardHardwareReceiver, filter);
+//                    runningReceiverFlag = 1;
                 }
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
@@ -144,8 +161,8 @@ public class WizardActivity extends FragmentActivity {
         public void onReceive(Context context, Intent intent) {
             super.onReceive(context, intent);
             Log.e("????", "onReceive in subclass also");
-            inactiveHandler.removeCallbacks(runnable);
-            inactiveHandler.postDelayed(runnable, 10000);
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
         }
 
         @Override
@@ -154,7 +171,10 @@ public class WizardActivity extends FragmentActivity {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
-            String pageId = "setup-alarm-test-hardware-success";                     // right now, using hard-coded value
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getSuccessId();
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
@@ -228,14 +248,36 @@ public class WizardActivity extends FragmentActivity {
         super.onUserInteraction();
         if(isInteractionTraced == true){
             Log.e(">>>>>", "interaction happens");
-            inactiveHandler.removeCallbacks(runnable);
-            inactiveHandler.postDelayed(runnable, 10000);
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
         }
     }
 
 
-    private Runnable runnable = new Runnable() {
+    private Runnable runnableInteractive = new Runnable() {
         public void run() {
+
+            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+            finish();
+        }
+    };
+
+    private Runnable runnableFailed = new Runnable() {
+        public void run() {
+
+            inactiveHandler.removeCallbacks(runnableInteractive);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
             finish();
         }
     };

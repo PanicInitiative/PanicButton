@@ -16,10 +16,10 @@ public class PageTimer {
     public PageTimer() {
     }
 
-    public PageTimer(String fail, String info, String inactive) {
-        this.fail = fail;
+    public PageTimer(String info, String inactive, String fail) {
         this.info = info;
         this.inactive = inactive;
+        this.fail = fail;
     }
 
     public static PageTimer parsePageTimer(JSONObject timerObj){
