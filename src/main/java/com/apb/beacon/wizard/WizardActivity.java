@@ -23,15 +23,6 @@ public class WizardActivity extends FragmentActivity {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
-//    private Handler inactiveHandler = new Handler();
-//    private Handler failHandler = new Handler();
-
-//    private static final int FLAG_INACTIVITY = 1;
-//    private static final int FLAG_FAILED = 2;
-
-//    private boolean isInteractionTraced = false;
-//    private int runningReceiverFlag = -1;
-
     Page currentPage;
 
 //    @InjectView(R.id.previous_button)
@@ -97,19 +88,13 @@ public class WizardActivity extends FragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
-//                    isInteractionTraced = true;
                     fragment = new AlarmTestHardwareFragment().newInstance(pageId);
-//                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-//                    failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-//
-//                    IntentFilter filter = new IntentFilter();
-//                    filter.addAction(Intent.ACTION_SCREEN_ON);
-//                    filter.addAction(Intent.ACTION_SCREEN_OFF);
-//                    registerReceiver(wizardHardwareReceiver, filter);
-//                    runningReceiverFlag = 1;
                 }
                 else if (currentPage.getComponent().equals("alarm-test-disguise")){
                     fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("disguise-test-open")){
+                    fragment = new TestDisguiseOpenFragment().newInstance(pageId);
                 }
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
@@ -118,48 +103,6 @@ public class WizardActivity extends FragmentActivity {
             fragmentTransaction.commit();
         }
     }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        Log.e("????", "onDestroy");
-//        if(runningReceiverFlag == 1){
-//            unregisterReceiver(wizardHardwareReceiver);
-//        }
-//    }
-
-//    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
-//
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            super.onReceive(context, intent);
-//            Log.e("????", "onReceive in subclass also");
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-//        }
-//
-//        @Override
-//        protected void onActivation(Context context) {
-//            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
-//            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-//            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
-//
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            failHandler.removeCallbacks(runnableFailed);
-//
-//            String pageId = currentPage.getSuccessId();
-//
-//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            startActivity(i);
-//            finish();
-//
-////            setEnabled(true);
-////            HapticFeedback.alert(context);
-//
-//        }
-//
-//    };
 
     public void setActionButtonVisibility(int pageNumber) {
     }
@@ -203,45 +146,6 @@ public class WizardActivity extends FragmentActivity {
     FragmentStatePagerAdapter getWizardPagerAdapter() {
         return new WizardPageAdapter(getSupportFragmentManager());
     }
-
-//    @Override
-//    public void onUserInteraction() {
-//        super.onUserInteraction();
-//        if(isInteractionTraced == true){
-//            Log.e(">>>>>", "interaction happens");
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-//        }
-//    }
-
-
-//    private Runnable runnableInteractive = new Runnable() {
-//        public void run() {
-//
-//            failHandler.removeCallbacks(runnableFailed);
-//
-//            String pageId = currentPage.getFailedId();
-//
-//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            startActivity(i);
-//            finish();
-//        }
-//    };
-//
-//    private Runnable runnableFailed = new Runnable() {
-//        public void run() {
-//
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//
-//            String pageId = currentPage.getFailedId();
-//
-//            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            startActivity(i);
-//            finish();
-//        }
-//    };
 
     //    @Override
 //    public void enableActionButton(boolean isEnabled) {

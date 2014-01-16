@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/wizard_static_panel"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/fragment_contents"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/wizard_training_contacts_details"
+            style="@style/welcome_screen_text" />
+
+        <Button
+            android:id="@+id/b_action"
+            android:text="@string/finish_button_text"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:background="@drawable/topbar_button"
+            style="@style/activate_disguise_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:visibility="visible"
+            android:layout_centerHorizontal="true" />
+
+    </LinearLayout>
+</ScrollView>

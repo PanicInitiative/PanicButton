@@ -1,16 +1,11 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -19,41 +14,36 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
-import com.apb.beacon.trigger.HardwareTriggerReceiver;
 
 import java.util.HashMap;
 
 /**
- * Created by aoe on 1/9/14.
+ * Created by aoe on 1/16/14.
  */
-public class AlarmTestHardwareFragment extends Fragment{
+public class TestDisguiseOpenFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
-    private Handler inactiveHandler = new Handler();
-    private Handler failHandler = new Handler();
-
     DisplayMetrics metrics;
 
     TextView tvContent;
+    Button bSkip;
 
     Page currentPage;
-//    PageItemAdapter pageItemAdapter;
-//    PageActionAdapter pageActionAdapter;
 
-    public static AlarmTestHardwareFragment newInstance(String pageId) {
-        AlarmTestHardwareFragment f = new AlarmTestHardwareFragment();
+    public static TestDisguiseOpenFragment newInstance(String pageId) {
+        TestDisguiseOpenFragment f = new TestDisguiseOpenFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
@@ -62,9 +52,10 @@ public class AlarmTestHardwareFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_interactive_test_hardware, container, false);
+        View view = inflater.inflate(R.layout.wizard_interactive_test_open, container, false);
 
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
+        bSkip = (Button) view.findViewById(R.id.b_action);
 
         return view;
     }
@@ -75,11 +66,6 @@ public class AlarmTestHardwareFragment extends Fragment{
 
         activity = getActivity();
         if (activity != null) {
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(Intent.ACTION_SCREEN_ON);
-            filter.addAction(Intent.ACTION_SCREEN_OFF);
-            activity.registerReceiver(wizardHardwareReceiver, filter);
-
             String pageId = getArguments().getString(PAGE_ID);
             String defaultLang = "en";
 
@@ -88,16 +74,29 @@ public class AlarmTestHardwareFragment extends Fragment{
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
 
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-            failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+            if(currentPage.getAction() != null && currentPage.getAction().size() > 0){
+                bSkip.setText(currentPage.getAction().get(0).getTitle());
+                bSkip.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String pageId = currentPage.getAction().get(0).getLink();
+
+                        Intent i = new Intent(activity, WizardActivity.class);
+                        i.putExtra("page_id", pageId);
+                        activity.startActivity(i);
+                        activity.finish();
+                    }
+                });
+            } else {
+                bSkip.setVisibility(View.GONE);
+            }
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else{
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-                updateImages(true, currentPage.getContent());
+//                updateImages(true, currentPage.getContent());
             }
-
 
             if(currentPage.getIntroduction() != null){
                 Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
@@ -105,14 +104,6 @@ public class AlarmTestHardwareFragment extends Fragment{
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.e("????", "onDestroy");
-        inactiveHandler.removeCallbacks(runnableInteractive);
-        failHandler.removeCallbacks(runnableFailed);
-        activity.unregisterReceiver(wizardHardwareReceiver);
-    }
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;
@@ -163,63 +154,4 @@ public class AlarmTestHardwareFragment extends Fragment{
                 }, new MyTagHandler());
         tvContent.setText(spanned);
     }
-
-
-    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            super.onReceive(context, intent);
-            Log.e("????", "onReceive in subclass also");
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        }
-
-        @Override
-        protected void onActivation(Context context) {
-            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
-            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getSuccessId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-
-    };
-
-
-    private Runnable runnableInteractive = new Runnable() {
-        public void run() {
-
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
-
-    private Runnable runnableFailed = new Runnable() {
-        public void run() {
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
 }
