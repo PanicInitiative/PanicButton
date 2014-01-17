@@ -96,6 +96,12 @@ public class WizardActivity extends FragmentActivity {
                 else if (currentPage.getComponent().equals("disguise-test-open")){
                     fragment = new TestDisguiseOpenFragment().newInstance(pageId);
                 }
+                else if (currentPage.getComponent().equals("disguise-test-unlock")){
+                    fragment = new TestDisguiseUnlockFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("disguise-test-code")){
+                    fragment = new TestDisguiseCodeFragment().newInstance(pageId);
+                }
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId);
             }

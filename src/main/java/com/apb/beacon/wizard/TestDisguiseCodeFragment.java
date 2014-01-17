@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -15,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
@@ -27,9 +31,13 @@ import com.apb.beacon.model.Page;
 import java.util.HashMap;
 
 /**
- * Created by aoe on 1/16/14.
+ * Created by aoe on 1/18/14.
  */
-public class TestDisguiseOpenFragment extends Fragment {
+public class TestDisguiseCodeFragment extends Fragment{
+
+    private EditText passwordEditText;
+    private TextView tvContent;
+    private Button bGo;
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -37,13 +45,12 @@ public class TestDisguiseOpenFragment extends Fragment {
 
     DisplayMetrics metrics;
 
-    TextView tvContent;
-    Button bSkip;
+    private Handler failHandler = new Handler();
 
     Page currentPage;
 
-    public static TestDisguiseOpenFragment newInstance(String pageId) {
-        TestDisguiseOpenFragment f = new TestDisguiseOpenFragment();
+    public static TestDisguiseCodeFragment newInstance(String pageId) {
+        TestDisguiseCodeFragment f = new TestDisguiseCodeFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
@@ -52,10 +59,29 @@ public class TestDisguiseOpenFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_interactive_disguise_test_open, container, false);
+        View view = inflater.inflate(R.layout.wizard_interactive_disguise_test_code, container, false);
 
+        passwordEditText = (EditText) view.findViewById(R.id.create_pin_edittext);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
-        bSkip = (Button) view.findViewById(R.id.b_action);
+
+        bGo = (Button) view.findViewById(R.id.b_action);
+        bGo.setText("Go");
+        bGo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password = passwordEditText.getText().toString();
+                if (ApplicationSettings.passwordMatches(activity, password)) {
+                    String pageId = currentPage.getSuccessId();
+
+                    Intent i = new Intent(activity, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    activity.startActivity(i);
+                    activity.finish();
+                    return;
+                }
+                AppUtil.setError(activity, passwordEditText, R.string.incorrect_pin);
+            }
+        });
 
         return view;
     }
@@ -69,7 +95,6 @@ public class TestDisguiseOpenFragment extends Fragment {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-
             String pageId = getArguments().getString(PAGE_ID);
             String defaultLang = "en";
 
@@ -78,22 +103,7 @@ public class TestDisguiseOpenFragment extends Fragment {
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
 
-            if(currentPage.getAction() != null && currentPage.getAction().size() > 0){
-                bSkip.setText(currentPage.getAction().get(0).getTitle());
-                bSkip.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String pageId = currentPage.getAction().get(0).getLink();
-
-                        Intent i = new Intent(activity, WizardActivity.class);
-                        i.putExtra("page_id", pageId);
-                        activity.startActivity(i);
-                        activity.finish();
-                    }
-                });
-            } else {
-                bSkip.setVisibility(View.GONE);
-            }
+            failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
@@ -108,6 +118,17 @@ public class TestDisguiseOpenFragment extends Fragment {
         }
     }
 
+
+    private Runnable runnableFailed = new Runnable() {
+        public void run() {
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(activity, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    };
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;
@@ -159,3 +180,4 @@ public class TestDisguiseOpenFragment extends Fragment {
         tvContent.setText(spanned);
     }
 }
+
