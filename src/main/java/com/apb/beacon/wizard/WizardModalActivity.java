@@ -70,9 +70,13 @@ public class WizardModalActivity extends Activity {
                                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                        sendBroadcast(broadcastIntent);
+
                         finish();
                     } else {
                         finish();
@@ -102,9 +106,13 @@ public class WizardModalActivity extends Activity {
                                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                        sendBroadcast(broadcastIntent);
+
                         finish();
                     } else {
                         finish();

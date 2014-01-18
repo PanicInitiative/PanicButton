@@ -1,7 +1,10 @@
 package com.apb.beacon.wizard;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -51,6 +54,10 @@ public class WizardActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_layout);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(activityFinishReceiver, intentFilter);
 
         String pageId = getIntent().getExtras().getString("page_id");
         String defaultLang = "en";
@@ -144,6 +151,11 @@ public class WizardActivity extends FragmentActivity {
         viewPager.previousWithSkip();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(activityFinishReceiver);
+    }
 
     private WizardFragment getCurrentWizardFragment() {
         return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
@@ -152,6 +164,16 @@ public class WizardActivity extends FragmentActivity {
     FragmentStatePagerAdapter getWizardPagerAdapter() {
         return new WizardPageAdapter(getSupportFragmentManager());
     }
+
+    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("onReceive","Logout in progress");
+            //At this point you should start the login activity and finish this one
+            finish();
+        }
+    };
 
     //    @Override
 //    public void enableActionButton(boolean isEnabled) {

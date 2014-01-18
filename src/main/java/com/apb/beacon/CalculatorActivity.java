@@ -124,10 +124,4 @@ public class CalculatorActivity extends PanicButtonActivity {
 		TextView display = (TextView) findViewById(R.id.display);
 		display.setText(calculator.handleButtonPress(button));
 	}
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
 }
