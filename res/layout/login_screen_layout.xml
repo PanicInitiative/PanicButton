@@ -3,7 +3,9 @@
     android:id="@+id/login_screen_layout_root"
     android:orientation="vertical"
     android:layout_height="fill_parent"
-    android:layout_width="fill_parent">
+    android:layout_width="fill_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <EditText
         android:id="@+id/create_pin_edittext"

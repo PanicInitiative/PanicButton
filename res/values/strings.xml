@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name_setup">PB</string>
     <string name="app_name">Calculation</string>
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>

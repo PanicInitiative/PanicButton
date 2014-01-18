@@ -71,6 +71,9 @@ public class TestDisguiseCodeFragment extends Fragment{
             public void onClick(View v) {
                 String password = passwordEditText.getText().toString();
                 if (ApplicationSettings.passwordMatches(activity, password)) {
+
+                    failHandler.removeCallbacks(runnableFailed);
+
                     String pageId = currentPage.getSuccessId();
 
                     Intent i = new Intent(activity, WizardActivity.class);
