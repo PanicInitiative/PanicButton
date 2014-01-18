@@ -1,64 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/login_screen_layout_root"
-              android:orientation="vertical"
-              android:layout_height="fill_parent"
-              android:layout_width="fill_parent">
+    android:id="@+id/login_screen_layout_root"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
 
-    <LinearLayout
-            style="@style/custom_action_bar"
-            android:layout_height="50dp"
-            android:layout_width="fill_parent">
+    <EditText
+        android:id="@+id/create_pin_edittext"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_marginTop="10dp"
+        android:password="true"
+        android:hint="...."
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:maxLines="1" />
 
-        <Button android:id="@+id/login_back_button"
-                style="@style/back_button"
-                android:onClick="goBack"
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"
-                android:background="@drawable/back_button"/>
-
-        <TextView
-                style="@style/page_title"
-                android:text=""
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"/>
-
-        <Button android:id="@+id/enter_button"
-                style="@style/next_button"
-                android:background="@drawable/topbar_button"
-                android:text="@string/enter_text"
-                android:layout_height="fill_parent"
-                android:layout_width="80dp"
-                android:onClick="onEnterPressed"/>
-
-    </LinearLayout>
-    <View android:layout_width="fill_parent"
-          android:layout_height="1dp"
-          style="@style/custom_action_bar_sep"></View>
-
-    <LinearLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:stretchColumns="0"
-            android:orientation="vertical"
-            style="@style/wizard_static_panel">
-
-        <TextView android:id="@+id/login_screen_header"
-                  android:text="@string/login_header"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  style="@style/wizard_page_title"/>
-
-        <View android:layout_height="1dp"
-              android:layout_width="match_parent"
-              style="@style/wizard_title_sep"/>
-
-        <EditText android:id="@+id/pin_edit_text"
-                  android:layout_height="wrap_content"
-                  android:layout_width="fill_parent"
-                  android:hint="@string/enter_pin_hint"
-                  android:inputType="number"
-                  android:maxLength="4"
-                  android:password="true"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/b_action"
+        android:text="@string/finish_button_text"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:background="@drawable/topbar_button"
+        style="@style/activate_disguise_button"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true" />
 </LinearLayout>
