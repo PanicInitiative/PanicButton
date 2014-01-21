@@ -212,12 +212,14 @@
 
     <style name="contact_number">
         <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:padding">2dp</item>
     </style>
 
     <style name="contact_select_button">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
     </style>
 
     <style name="activate_disguise_button">
