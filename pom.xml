@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
     <artifactId>amnesty-panic-button</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <packaging>apk</packaging>
     <name>amnesty-panic-button</name>
 
