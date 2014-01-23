@@ -105,9 +105,6 @@ public class WizardModalActivity extends Activity {
         if (currentPage.getAction().size() > 1) {
             bAction2.setText(currentPage.getAction().get(1).getTitle());
 
-            if(currentPage.getAction().get(1).getStatus() != null && currentPage.getAction().get(1).getStatus().equals("disabled"))
-                bAction2.setEnabled(false);
-
             bAction2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -144,9 +141,6 @@ public class WizardModalActivity extends Activity {
 
         if (currentPage.getAction().size() > 0) {
             bAction1.setText(currentPage.getAction().get(0).getTitle());
-
-            if(currentPage.getAction().get(0).getStatus() != null && currentPage.getAction().get(0).getStatus().equals("disabled"))
-                bAction2.setEnabled(false);
 
             bAction1.setOnClickListener(new View.OnClickListener() {
                 @Override
