@@ -11,12 +11,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
@@ -27,6 +30,8 @@ public class WizardActivity extends FragmentActivity {
     private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
+
+    TextView tvToastMessage;
 
 //    @InjectView(R.id.previous_button)
 //    Button previousButton;
@@ -55,6 +60,8 @@ public class WizardActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_layout);
 
+        tvToastMessage = (TextView) findViewById(R.id.tv_toast);
+
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.package.ACTION_LOGOUT");
         registerReceiver(activityFinishReceiver, intentFilter);
@@ -78,9 +85,11 @@ public class WizardActivity extends FragmentActivity {
             Fragment fragment = null;
 
             if (currentPage.getType().equals("simple")) {
+                tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new NewSimpleFragment().newInstance(pageId);
             }
             else if (currentPage.getType().equals("modal")){
+                tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
@@ -95,18 +104,39 @@ public class WizardActivity extends FragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
                     fragment = new AlarmTestHardwareFragment().newInstance(pageId);
                 }
                 else if (currentPage.getComponent().equals("alarm-test-disguise")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
                     fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
                 }
                 else if (currentPage.getComponent().equals("disguise-test-open")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
                     fragment = new TestDisguiseOpenFragment().newInstance(pageId);
                 }
                 else if (currentPage.getComponent().equals("disguise-test-unlock")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+
                     fragment = new TestDisguiseUnlockFragment().newInstance(pageId);
                 }
                 else if (currentPage.getComponent().equals("disguise-test-code")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
                     fragment = new TestDisguiseCodeFragment().newInstance(pageId);
                 }
                 else
@@ -115,6 +145,12 @@ public class WizardActivity extends FragmentActivity {
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        tvToastMessage.setVisibility(View.INVISIBLE);
     }
 
     public void setActionButtonVisibility(int pageNumber) {

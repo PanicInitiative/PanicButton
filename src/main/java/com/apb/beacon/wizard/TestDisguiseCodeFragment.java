@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
@@ -115,9 +114,9 @@ public class TestDisguiseCodeFragment extends Fragment{
                 updateImages(true, currentPage.getContent());
             }
 
-            if(currentPage.getIntroduction() != null){
-                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-            }
+//            if(currentPage.getIntroduction() != null){
+//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
+//            }
         }
     }
 

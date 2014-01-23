@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
@@ -99,9 +98,9 @@ public class AlarmTestHardwareFragment extends Fragment{
             }
 
 
-            if(currentPage.getIntroduction() != null){
-                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-            }
+//            if(currentPage.getIntroduction() != null){
+//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
+//            }
         }
     }
 
