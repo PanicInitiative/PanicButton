@@ -81,7 +81,6 @@ public class NewSimpleFragment extends Fragment {
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
-//                startActivityForResult(i, 0);
             }
         });
 

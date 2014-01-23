@@ -12,16 +12,17 @@
         android:background="@drawable/tick_green"
         android:layout_centerVertical="true"/>
 
-    <Button
-        android:id="@+id/b_action"
+    <TextView
+        android:id="@+id/tv_action"
         android:text="@string/finish_button_text"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@+id/iv_tick"
+        android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/topbar_button"
-        style="@style/modal_link_button" />
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
 </RelativeLayout>

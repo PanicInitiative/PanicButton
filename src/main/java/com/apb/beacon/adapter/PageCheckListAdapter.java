@@ -1,16 +1,14 @@
 package com.apb.beacon.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.apb.beacon.R;
 import com.apb.beacon.model.PageChecklist;
-import com.apb.beacon.wizard.WizardActivity;
 
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class PageCheckListAdapter extends ArrayAdapter<PageChecklist> {
     }
 
     private static class ViewHolder {
-        Button bAction;
+        TextView tvAction;
     }
 
 
@@ -43,7 +41,7 @@ public class PageCheckListAdapter extends ArrayAdapter<PageChecklist> {
             convertView = mInflater.inflate(R.layout.row_page_checklist, null);
 
             holder = new ViewHolder();
-            holder.bAction = (Button) convertView.findViewById(R.id.b_action);
+            holder.tvAction = (TextView) convertView.findViewById(R.id.tv_action);
 
             convertView.setTag(holder);
         } else {
@@ -52,19 +50,7 @@ public class PageCheckListAdapter extends ArrayAdapter<PageChecklist> {
 
         PageChecklist item = getItem(position);
 
-        holder.bAction.setText(item.getTitle());
-        holder.bAction.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String pageId = getItem(position).getLink();
-
-                Intent i = new Intent(mContext, WizardActivity.class);
-                i.putExtra("page_id", pageId);
-                mContext.startActivity(i);
-            }
-        });
-
+        holder.tvAction.setText(item.getTitle());
 
         return convertView;
     }
