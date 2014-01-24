@@ -31,6 +31,7 @@ public class WizardActivity extends FragmentActivity {
     private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
+    String pageId;
 
     TextView tvToastMessage;
 
@@ -67,7 +68,7 @@ public class WizardActivity extends FragmentActivity {
         intentFilter.addAction("com.package.ACTION_LOGOUT");
         registerReceiver(activityFinishReceiver, intentFilter);
 
-        String pageId = getIntent().getExtras().getString("page_id");
+        pageId = getIntent().getExtras().getString("page_id");
         String defaultLang = "en";
 
         PBDatabase dbInstance = new PBDatabase(this);
@@ -153,6 +154,17 @@ public class WizardActivity extends FragmentActivity {
     public void onUserInteraction() {
         super.onUserInteraction();
         tvToastMessage.setVisibility(View.INVISIBLE);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(pageId.equals("home-ready")){
+            // don't go back
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 
     public void setActionButtonVisibility(int pageNumber) {

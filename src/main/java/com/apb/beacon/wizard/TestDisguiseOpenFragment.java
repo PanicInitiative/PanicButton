@@ -110,7 +110,7 @@ public class TestDisguiseOpenFragment extends Fragment {
                         ApplicationInfo app = pm.getApplicationInfo(packageName, 0);
                         String appName =  pm.getApplicationLabel(app).toString();
                         if(appName != null && !appName.equals(packageName)){
-                            Log.e(">>>>>>>", "app name = " + appName);
+//                            Log.e(">>>>>>>", "app name = " + appName);
                             appList.add(new AppInfo(appName, packageName));
                             otherPackageCount++;
                         }
