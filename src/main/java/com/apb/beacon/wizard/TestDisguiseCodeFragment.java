@@ -8,8 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +46,9 @@ public class TestDisguiseCodeFragment extends Fragment{
 
     DisplayMetrics metrics;
 
+    private Handler inactiveHandler = new Handler();
     private Handler failHandler = new Handler();
+
 
     Page currentPage;
 
@@ -63,6 +67,8 @@ public class TestDisguiseCodeFragment extends Fragment{
         passwordEditText = (EditText) view.findViewById(R.id.create_pin_edittext);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 
+        passwordEditText.addTextChangedListener(passwordTextChangeListener);
+
         bGo = (Button) view.findViewById(R.id.b_action);
         bGo.setText("Go");
         bGo.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +77,7 @@ public class TestDisguiseCodeFragment extends Fragment{
                 String password = passwordEditText.getText().toString();
                 if (ApplicationSettings.passwordMatches(activity, password)) {
 
+                    inactiveHandler.removeCallbacks(runnableInteractive);
                     failHandler.removeCallbacks(runnableFailed);
 
                     String pageId = currentPage.getSuccessId();
@@ -105,6 +112,7 @@ public class TestDisguiseCodeFragment extends Fragment{
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
 
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
             if(currentPage.getContent() == null)
@@ -113,16 +121,45 @@ public class TestDisguiseCodeFragment extends Fragment{
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }
-
-//            if(currentPage.getIntroduction() != null){
-//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-//            }
         }
     }
 
 
+    private TextWatcher passwordTextChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence text, int start, int before, int count) {
+            inactiveHandler.removeCallbacks(runnableInteractive);
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+        }
+
+        @Override
+        public void afterTextChanged(Editable text) {
+        }
+    };
+
+    private Runnable runnableInteractive = new Runnable() {
+        public void run() {
+
+            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(activity, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            activity.startActivity(i);
+            activity.finish();
+        }
+    };
+
     private Runnable runnableFailed = new Runnable() {
         public void run() {
+
+            inactiveHandler.removeCallbacks(runnableInteractive);
+
             String pageId = currentPage.getFailedId();
 
             Intent i = new Intent(activity, WizardActivity.class);

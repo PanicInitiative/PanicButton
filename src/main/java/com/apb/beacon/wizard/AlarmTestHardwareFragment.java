@@ -96,11 +96,6 @@ public class AlarmTestHardwareFragment extends Fragment{
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }
-
-
-//            if(currentPage.getIntroduction() != null){
-//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-//            }
         }
     }
 

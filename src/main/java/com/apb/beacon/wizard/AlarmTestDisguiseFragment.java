@@ -67,10 +67,6 @@ public class AlarmTestDisguiseFragment extends Fragment {
 
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-
-//            if(currentPage.getIntroduction() != null){
-//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-//            }
         }
     }
 

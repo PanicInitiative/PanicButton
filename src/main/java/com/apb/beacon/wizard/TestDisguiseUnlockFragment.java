@@ -28,8 +28,6 @@ public class TestDisguiseUnlockFragment extends Fragment {
     private Handler inactiveHandler = new Handler();
     private Handler failHandler = new Handler();
 
-    private int lastClickId = -1;
-
     Page currentPage;
 
 
@@ -64,10 +62,6 @@ public class TestDisguiseUnlockFragment extends Fragment {
 
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-
-//            if(currentPage.getIntroduction() != null){
-//                Toast.makeText(activity, Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()), Toast.LENGTH_LONG).show();
-//            }
         }
     }
 
