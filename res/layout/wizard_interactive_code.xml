@@ -68,10 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/wizard_training_contacts_details"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="#ffff0000"
-                    android:textStyle="bold"
-                    android:textSize="18sp" />
+                    style="@style/text_wizard_warning" />
 
             </LinearLayout>
 

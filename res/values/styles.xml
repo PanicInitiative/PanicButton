@@ -259,4 +259,10 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="text_wizard_warning">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>
