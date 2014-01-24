@@ -148,7 +148,7 @@
                 android:text="@string/finish_button_text"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:background="@drawable/topbar_button"
+                android:background="@drawable/drawable_wizard_button"
                 style="@style/activate_disguise_button"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="50dp"

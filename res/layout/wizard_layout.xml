@@ -36,7 +36,7 @@
 
         <Button android:id="@+id/action_button"
                 style="@style/next_button"
-                android:background="@drawable/topbar_button"
+                android:background="@drawable/drawable_wizard_button"
                 android:text="@string/next_action"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"

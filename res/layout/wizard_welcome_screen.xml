@@ -41,7 +41,7 @@
         <Button android:text="option"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:background="@drawable/topbar_button"
+            android:background="@drawable/drawable_wizard_button"
             style="@style/activate_disguise_button"
             android:id="@+id/option"/>
 

@@ -13,7 +13,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/topbar_button"
+        android:background="@drawable/drawable_wizard_button"
         style="@style/activate_disguise_button" />
 
     <ImageView

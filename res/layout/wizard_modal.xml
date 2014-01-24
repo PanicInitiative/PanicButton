@@ -106,7 +106,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/topbar_button"
+            android:background="@drawable/drawable_wizard_button"
             style="@style/activate_disguise_button"
             android:text="B1"
             android:layout_marginRight="5dp"
@@ -116,7 +116,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/topbar_button_disabled"
+            android:background="@drawable/drawable_wizard_button_disabled"
             style="@style/activate_disguise_button"
             android:text="B2"
             android:id="@+id/b_action2" />
