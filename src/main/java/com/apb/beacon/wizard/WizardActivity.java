@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -118,6 +119,7 @@ public class WizardActivity extends FragmentActivity {
                     fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
                 }
                 else if (currentPage.getComponent().equals("disguise-test-open")){
+                    findViewById(R.id.wizard_layout_root).setBackgroundColor(Color.BLACK);
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if(currentPage.getIntroduction() != null){
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
