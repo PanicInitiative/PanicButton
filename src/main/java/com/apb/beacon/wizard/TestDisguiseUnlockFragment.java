@@ -36,7 +36,7 @@ public class TestDisguiseUnlockFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
     @Override

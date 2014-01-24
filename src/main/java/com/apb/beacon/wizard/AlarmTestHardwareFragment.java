@@ -34,7 +34,7 @@ import java.util.HashMap;
 /**
  * Created by aoe on 1/9/14.
  */
-public class AlarmTestHardwareFragment extends Fragment{
+public class AlarmTestHardwareFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -56,7 +56,7 @@ public class AlarmTestHardwareFragment extends Fragment{
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
     @Override
@@ -90,9 +90,9 @@ public class AlarmTestHardwareFragment extends Fragment{
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
-            if(currentPage.getContent() == null)
+            if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
-            else{
+            else {
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }

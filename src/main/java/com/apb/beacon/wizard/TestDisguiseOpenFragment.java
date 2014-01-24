@@ -60,7 +60,7 @@ public class TestDisguiseOpenFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
     @Override
@@ -78,18 +78,17 @@ public class TestDisguiseOpenFragment extends Fragment {
 
                 AppInfo selectedAppInfo = (AppInfo) parent.getItemAtPosition(position);
 
-                if(selectedAppInfo.getPackageName().equals(activity.getPackageName())){
+                if (selectedAppInfo.getPackageName().equals(activity.getPackageName())) {
 
-                        failHandler.removeCallbacks(runnableFailed);
-                    
-                        String pageId = currentPage.getSuccessId();
+                    failHandler.removeCallbacks(runnableFailed);
 
-                        Intent i = new Intent(activity, WizardActivity.class);
-                        i.putExtra("page_id", pageId);
-                        activity.startActivity(i);
-                        activity.finish();
-                }
-                else{
+                    String pageId = currentPage.getSuccessId();
+
+                    Intent i = new Intent(activity, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    activity.startActivity(i);
+                    activity.finish();
+                } else {
                     Toast.makeText(activity, "Please press the Panic Button app icon.", Toast.LENGTH_SHORT).show();
                     inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
                 }
@@ -116,11 +115,11 @@ public class TestDisguiseOpenFragment extends Fragment {
             int otherPackageCount = 0;
             for (ApplicationInfo packageInfo : packages) {
                 String packageName = packageInfo.packageName;
-                if(otherPackageCount < 15 && (packageName.startsWith("com.android.") || packageName.startsWith(" com.google.android."))){
+                if (otherPackageCount < 15 && (packageName.startsWith("com.android.") || packageName.startsWith(" com.google.android."))) {
                     try {
                         ApplicationInfo app = pm.getApplicationInfo(packageName, 0);
-                        String appName =  pm.getApplicationLabel(app).toString();
-                        if(appName != null && !appName.equals(packageName)){
+                        String appName = pm.getApplicationLabel(app).toString();
+                        if (appName != null && !appName.equals(packageName)) {
 //                            Log.e(">>>>>>>", "app name = " + appName);
                             appList.add(new AppInfo(appName, packageName));
                             otherPackageCount++;
@@ -128,8 +127,7 @@ public class TestDisguiseOpenFragment extends Fragment {
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
                     }
-                }
-                else if(packageName.equals(activity.getPackageName())){
+                } else if (packageName.equals(activity.getPackageName())) {
                     appList.add(new AppInfo(activity.getString(R.string.app_name), packageName));
                 }
             }
