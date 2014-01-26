@@ -1,15 +1,18 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -87,6 +90,9 @@ public class TestDisguiseUnlockFragment extends Fragment {
         public boolean onLongClick(View view) {
             inactiveHandler.removeCallbacks(runnableInteractive);
             failHandler.removeCallbacks(runnableFailed);
+
+            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
             String pageId = currentPage.getSuccessId();
 

@@ -1,12 +1,14 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
@@ -79,6 +82,9 @@ public class TestDisguiseCodeFragment extends Fragment {
 
                     inactiveHandler.removeCallbacks(runnableInteractive);
                     failHandler.removeCallbacks(runnableFailed);
+
+                    Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
                     String pageId = currentPage.getSuccessId();
 
