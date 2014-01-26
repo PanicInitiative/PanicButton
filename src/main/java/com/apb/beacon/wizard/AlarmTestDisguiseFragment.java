@@ -41,7 +41,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class AlarmTestDisguiseFragment extends Fragment {
                 multiClickEvent = resetEvent(view);
             }
 
-            if(id != lastClickId) multiClickEvent.reset();
+            if (id != lastClickId) multiClickEvent.reset();
             lastClickId = id;
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {

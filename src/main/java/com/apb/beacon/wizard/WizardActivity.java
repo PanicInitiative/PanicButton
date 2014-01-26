@@ -153,6 +153,10 @@ public class WizardActivity extends FragmentActivity {
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
+        hideToastMessageInInteractiveFragment();
+    }
+
+    public void hideToastMessageInInteractiveFragment(){
         tvToastMessage.setVisibility(View.INVISIBLE);
     }
 
@@ -220,19 +224,7 @@ public class WizardActivity extends FragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("onReceive","Logout in progress");
-            //At this point you should start the login activity and finish this one
             finish();
         }
     };
-
-    //    @Override
-//    public void enableActionButton(boolean isEnabled) {
-//        actionButton.setEnabled(isEnabled);
-//    }
-
-//    @Override
-//    public void setText(String buttonText) {
-//        Log.e(">>>>>>>>>", "buttonText = " + buttonText);
-//        actionButton.setText(buttonText);
-//    }
 }

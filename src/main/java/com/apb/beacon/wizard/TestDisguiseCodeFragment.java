@@ -34,7 +34,7 @@ import java.util.HashMap;
 /**
  * Created by aoe on 1/18/14.
  */
-public class TestDisguiseCodeFragment extends Fragment{
+public class TestDisguiseCodeFragment extends Fragment {
 
     private EditText passwordEditText;
     private TextView tvContent;
@@ -57,7 +57,7 @@ public class TestDisguiseCodeFragment extends Fragment{
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
     @Override
@@ -115,9 +115,9 @@ public class TestDisguiseCodeFragment extends Fragment{
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
 
-            if(currentPage.getContent() == null)
+            if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
-            else{
+            else {
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }
