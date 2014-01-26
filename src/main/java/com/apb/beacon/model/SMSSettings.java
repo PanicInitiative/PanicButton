@@ -34,7 +34,8 @@ public class SMSSettings {
         SharedPreferences.Editor editor = settings.edit();
         int i = 0;
         for (String phoneNumber : smsSettings.phoneNumbers) {
-            editor.putString(PHONE_NUMBER + i++, phoneNumber);
+            String validPhoneDigit = phoneNumber.replaceAll("[- ]", "");
+            editor.putString(PHONE_NUMBER + i++, validPhoneDigit);
         }
         editor.putString(SMS_MESSAGE, smsSettings.message);
         editor.commit();

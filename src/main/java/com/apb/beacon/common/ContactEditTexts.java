@@ -55,7 +55,9 @@ public class ContactEditTexts {
 
     public boolean hasAtleastOneValidPhoneNumber() {
         for (EditText contact : contacts) {
-            if (contact.getText().length() > PHONE_NUMBER_LIMIT) return true;
+            String cNumber = contact.getText().toString();
+            cNumber = cNumber.replaceAll("[- ]", "");
+            if (cNumber.length() > PHONE_NUMBER_LIMIT) return true;
         }
         return false;
     }
