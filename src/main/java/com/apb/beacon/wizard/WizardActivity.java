@@ -90,6 +90,10 @@ public class WizardActivity extends FragmentActivity {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new NewSimpleFragment().newInstance(pageId);
             }
+            else if (currentPage.getType().equals("warning")) {
+                tvToastMessage.setVisibility(View.INVISIBLE);
+                fragment = new NewSimpleFragment().newInstance(pageId);
+            }
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
@@ -148,6 +152,18 @@ public class WizardActivity extends FragmentActivity {
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(">>>>>", "onResume");
     }
 
     @Override
