@@ -2,9 +2,11 @@ package com.apb.beacon.wizard;
 
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
@@ -158,12 +162,34 @@ public class WizardActivity extends FragmentActivity {
     protected void onPause() {
         super.onPause();
         Log.e(">>>>>", "onPause");
+        if(currentPage.getId().equals("home-ready")){
+            ApplicationSettings.completeFirstRun(WizardActivity.this);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.e(">>>>>", "onResume");
+        if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
+            getPackageManager().setComponentEnabledSetting(
+                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            getPackageManager().setComponentEnabledSetting(
+                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+            sendBroadcast(broadcastIntent);
+
+            finish();
+        }
     }
 
     @Override
