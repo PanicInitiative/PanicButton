@@ -31,11 +31,10 @@ import com.apb.beacon.model.PageItem;
 
 import java.util.HashMap;
 
-
 /**
- * Created by aoe on 1/3/14.
+ * Created by aoe on 1/31/14.
  */
-public class NewSimpleFragment extends Fragment {
+public class WarningFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -51,8 +50,8 @@ public class NewSimpleFragment extends Fragment {
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
 
-    public static NewSimpleFragment newInstance(String pageId) {
-        NewSimpleFragment f = new NewSimpleFragment();
+    public static WarningFragment newInstance(String pageId) {
+        WarningFragment f = new WarningFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
@@ -62,7 +61,7 @@ public class NewSimpleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_simple_fragment, container, false);
+        View view = inflater.inflate(R.layout.layout_warning_fragment, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -210,5 +209,4 @@ public class NewSimpleFragment extends Fragment {
                 }, new MyTagHandler());
         tvContent.setText(spanned);
     }
-
 }
