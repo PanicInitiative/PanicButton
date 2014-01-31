@@ -8,7 +8,9 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -32,6 +34,9 @@ public class TestDisguiseUnlockFragment extends Fragment {
     private Handler failHandler = new Handler();
 
     Page currentPage;
+
+    boolean mHasPerformedLongPress;
+    Runnable mPendingCheckForLongPress;
 
 
     public static TestDisguiseUnlockFragment newInstance(String pageId) {
@@ -72,7 +77,8 @@ public class TestDisguiseUnlockFragment extends Fragment {
     private void registerButtonEvents(View view) {
         for (int buttonId : buttonIds) {
             Button button = (Button) view.findViewById(buttonId);
-            button.setOnLongClickListener(longClickListener);
+            button.setOnTouchListener(touchListener);
+//            button.setOnLongClickListener(longClickListener);
             button.setOnClickListener(clickListener);
         }
     }
@@ -85,24 +91,91 @@ public class TestDisguiseUnlockFragment extends Fragment {
         }
     };
 
-    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+
         @Override
-        public boolean onLongClick(View view) {
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            failHandler.removeCallbacks(runnableFailed);
+        public boolean onTouch(final View v, MotionEvent event) {
 
-            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_UP:
 
-            String pageId = currentPage.getSuccessId();
+                    if (!mHasPerformedLongPress) {
+                        // This is a tap, so remove the longpress check
+                        if (mPendingCheckForLongPress != null) {
+                            v.removeCallbacks(mPendingCheckForLongPress);
+                        }
+                        // v.performClick();
+                    }
 
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-            return true;
+                    break;
+                case MotionEvent.ACTION_DOWN:
+                    if (mPendingCheckForLongPress == null) {
+                        mPendingCheckForLongPress = new Runnable() {
+                            public void run() {
+                                inactiveHandler.removeCallbacks(runnableInteractive);
+                                failHandler.removeCallbacks(runnableFailed);
+
+                                Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+
+                                String pageId = currentPage.getSuccessId();
+
+                                Intent i = new Intent(activity, WizardActivity.class);
+                                i.putExtra("page_id", pageId);
+                                activity.startActivity(i);
+                                activity.finish();
+                            }
+                        };
+                    }
+
+
+                    mHasPerformedLongPress = false;
+                    v.postDelayed(mPendingCheckForLongPress, 3000);
+
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+
+                    // Be lenient about moving outside of buttons
+                    int slop = ViewConfiguration.get(v.getContext()).getScaledTouchSlop();
+                    if ((x < 0 - slop) || (x >= v.getWidth() + slop) ||
+                            (y < 0 - slop) || (y >= v.getHeight() + slop)) {
+
+                        if (mPendingCheckForLongPress != null) {
+                            v.removeCallbacks(mPendingCheckForLongPress);
+                        }
+                    }
+                    break;
+                default:
+                    return false;
+            }
+
+            return false;
         }
+
     };
+
+
+//    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+//        @Override
+//        public boolean onLongClick(View view) {
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+//            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+//
+//            String pageId = currentPage.getSuccessId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//            return true;
+//        }
+//    };
 
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
