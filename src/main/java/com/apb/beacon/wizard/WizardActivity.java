@@ -36,8 +36,10 @@ public class WizardActivity extends FragmentActivity {
 
     Page currentPage;
     String pageId;
+    String defaultLang;
 
     TextView tvToastMessage;
+    Boolean flagRiseFromPause = false;
 
 //    @InjectView(R.id.previous_button)
 //    Button previousButton;
@@ -73,7 +75,7 @@ public class WizardActivity extends FragmentActivity {
         registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
-        String defaultLang = "en";
+        defaultLang = "en";
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -165,12 +167,29 @@ public class WizardActivity extends FragmentActivity {
         if(currentPage.getId().equals("home-ready")){
             ApplicationSettings.completeFirstRun(WizardActivity.this);
         }
+
+        if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action
+            Log.e(">>>>>>", "assert flagRiseFromPause = " + true);
+            flagRiseFromPause = true;
+        }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(">>>>>>>>>>", "onStop");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(">>>>>>>>>>", "onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(">>>>>", "onResume");
+        Log.e(">>>>>", "onResume with flagRiseFromPause = " + flagRiseFromPause);
         if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
             getPackageManager().setComponentEnabledSetting(
                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -183,6 +202,38 @@ public class WizardActivity extends FragmentActivity {
             Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+            sendBroadcast(broadcastIntent);
+
+            finish();
+            return;
+        }
+
+        if(AppConstants.wizard_is_back_button_pressed){
+            Log.e(">>>>>>>>", "back button pressed");
+            AppConstants.wizard_is_back_button_pressed = false;
+            return;
+        }
+
+//        if (!pageId.equals("setup-alarm-test-hardware") && flagRiseFromPause) {
+        if (flagRiseFromPause) {
+            int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
+            if (wizardState == AppConstants.wizard_flag_home_not_completed) {
+                pageId = "home-not-configured";
+            } else if (wizardState == AppConstants.wizard_flag_home_not_configured_alarm) {
+                pageId = "home-not-configured-alarm";
+            } else if (wizardState == AppConstants.wizard_flag_home_not_configured_disguise) {
+                pageId = "home-not-configured-disguise";
+            } else if (wizardState == AppConstants.wizard_flag_home_ready) {
+                pageId = "home-ready";
+            }
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+//            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
             Intent broadcastIntent = new Intent();
             broadcastIntent.setAction("com.package.ACTION_LOGOUT");
@@ -211,6 +262,7 @@ public class WizardActivity extends FragmentActivity {
         else{
             super.onBackPressed();
         }
+        AppConstants.wizard_is_back_button_pressed = true;
     }
 
     public void setActionButtonVisibility(int pageNumber) {

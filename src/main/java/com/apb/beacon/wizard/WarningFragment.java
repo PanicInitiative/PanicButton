@@ -162,6 +162,29 @@ public class WarningFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause WarningFragment");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(">>>>>>>>>>", "onStop WarningFragment");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(">>>>>>>>>>", "onStart WarningFragment");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(">>>>>>>>>>", "onResume WarningFragment");
+    }
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;

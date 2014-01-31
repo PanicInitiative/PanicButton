@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,10 +65,25 @@ public class AlarmTestDisguiseFragment extends Fragment {
             dbInstance.open();
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
-
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-            failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause AlarmTestDisguiseFragment");
+
+        inactiveHandler.removeCallbacks(runnableInteractive);
+        failHandler.removeCallbacks(runnableFailed);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(">>>>>", "onResume AlarmTestDisguiseFragment");
+
+        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 

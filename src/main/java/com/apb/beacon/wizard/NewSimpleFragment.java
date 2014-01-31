@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
@@ -163,6 +165,37 @@ public class NewSimpleFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause NewSimpleFragment");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(">>>>>>>>>>", "onStop NewSimpleFragment");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(">>>>>>>>>>", "onStart NewSimpleFragment");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(">>>>>>>>>>", "onResume NewSimpleFragment");
+        if(currentPage.getId().equals("home-not-configured-alarm")){
+            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_not_configured_alarm);
+        } else if(currentPage.getId().equals("home-not-configured-disguise")){
+            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_not_configured_disguise);
+        } else if(currentPage.getId().equals("home-ready")){
+            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_ready);
+        }
+    }
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;

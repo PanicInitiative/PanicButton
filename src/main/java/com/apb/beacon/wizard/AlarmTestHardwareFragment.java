@@ -50,8 +50,6 @@ public class AlarmTestHardwareFragment extends Fragment {
     TextView tvContent;
 
     Page currentPage;
-//    PageItemAdapter pageItemAdapter;
-//    PageActionAdapter pageActionAdapter;
 
     public static AlarmTestHardwareFragment newInstance(String pageId) {
         AlarmTestHardwareFragment f = new AlarmTestHardwareFragment();
@@ -103,6 +101,18 @@ public class AlarmTestHardwareFragment extends Fragment {
                 updateImages(true, currentPage.getContent());
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause AlarmTestHardwareFragment");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(">>>>>", "onResume AlarmTestHardwareFragment");
     }
 
     @Override

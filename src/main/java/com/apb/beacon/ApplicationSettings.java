@@ -15,6 +15,7 @@ public class ApplicationSettings {
     public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
     private static final String IS_ALERT_ACTIVE = "IS_ALERT_ACTIVE";
+    private static final String WIZARD_STATE = "wizard_state";
     public static final String BEST_LOCATION = "BEST_LOCATION";
 
     public static void completeFirstRun(Context context) {
@@ -58,6 +59,15 @@ public class ApplicationSettings {
         saveBoolean(context, IS_ALERT_ACTIVE , isActive);
     }
 
+
+    public static int getWizardState(Context context) {
+        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.wizard_flag_home_not_completed);
+    }
+
+    public static void setWizardState(Context context, int state) {
+        saveInt(context, WIZARD_STATE, state);
+    }
+
     public static Location getCurrentBestLocation(Context context) {
         String locationJson = sharedPreferences(context).getString(BEST_LOCATION, null);
         return (locationJson == null ) ? null : constructLocation(locationJson);
@@ -92,6 +102,12 @@ public class ApplicationSettings {
     private static void saveLong(Context context, String key, Long value) {
         SharedPreferences.Editor editor = sharedPreferences(context).edit();
         editor.putLong(key, value);
+        editor.commit();
+    }
+
+    private static void saveInt(Context context, String key, int value) {
+        SharedPreferences.Editor editor = sharedPreferences(context).edit();
+        editor.putInt(key, value);
         editor.commit();
     }
 }

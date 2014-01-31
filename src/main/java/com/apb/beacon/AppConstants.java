@@ -34,6 +34,14 @@ public class AppConstants {
     public static final int HTTP_REQUEST_TYPE_POST = 2;
     public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
+    public static final int wizard_flag_home_not_completed = 601;
+    public static final int wizard_flag_home_not_configured_alarm = 602;
+    public static final int wizard_flag_home_not_configured_disguise = 603;
+    public static final int wizard_flag_home_ready = 604;
+
+    public static boolean wizard_is_back_button_pressed = false;
+
+
     public static final String TABLE_PRIMARY_KEY = "_id";
 
 //    public static final String BASE_URL = "https://rawgithub.com/TeamPanicButton/Content/latest/Mobile/";

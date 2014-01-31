@@ -35,6 +35,8 @@ public class HomeActivity extends RoboActivity {
     ProgressDialog pDialog;
 //    JsonParser jsonParser;
 
+    String pageId;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -42,6 +44,17 @@ public class HomeActivity extends RoboActivity {
         hard-code initial data to the database.
          */
         checkIfDataInitializationNeeded();
+
+        int wizardState = ApplicationSettings.getWizardState(this);
+        if (wizardState == AppConstants.wizard_flag_home_not_completed) {
+            pageId = "home-not-configured";
+        } else if (wizardState == AppConstants.wizard_flag_home_not_configured_alarm) {
+            pageId = "home-not-configured-alarm";
+        } else if (wizardState == AppConstants.wizard_flag_home_not_configured_disguise) {
+            pageId = "home-not-configured-disguise";
+        } else if (wizardState == AppConstants.wizard_flag_home_ready) {
+            pageId = "home-ready";
+        }
 
         checkIfUpdateNeeded();
 
@@ -77,7 +90,10 @@ public class HomeActivity extends RoboActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(HomeActivity.this, WizardActivity.class));
+                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                i.putExtra("page_id", pageId);
+                startActivity(i);
+//                startActivity(new Intent(HomeActivity.this, WizardActivity.class));
             }
         }, SPLASH_TIME);
     }
@@ -153,7 +169,7 @@ public class HomeActivity extends RoboActivity {
 
             if (isFirstRun(HomeActivity.this)) {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                i.putExtra("page_id",  "home-not-configured");
+                i.putExtra("page_id", pageId);
                 startActivity(i);
             } else {
                 startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));

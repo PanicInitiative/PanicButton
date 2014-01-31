@@ -126,7 +126,6 @@ public class TestDisguiseOpenFragment extends Fragment {
                         ApplicationInfo app = pm.getApplicationInfo(packageName, 0);
                         String appName = pm.getApplicationLabel(app).toString();
                         if (appName != null && !appName.equals(packageName)) {
-//                            Log.e(">>>>>>>", "app name = " + appName);
                             appList.add(new AppInfo(appName, packageName));
                             otherPackageCount++;
                         }
@@ -148,34 +147,26 @@ public class TestDisguiseOpenFragment extends Fragment {
             dbInstance.open();
             currentPage = dbInstance.retrievePage(pageId, defaultLang);
             dbInstance.close();
-
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-            failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
-
-//            if(currentPage.getAction() != null && currentPage.getAction().size() > 0){
-//                bSkip.setText(currentPage.getAction().get(0).getTitle());
-//                bSkip.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String pageId = currentPage.getAction().get(0).getLink();
-//
-//                        Intent i = new Intent(activity, WizardActivity.class);
-//                        i.putExtra("page_id", pageId);
-//                        activity.startActivity(i);
-//                        activity.finish();
-//                    }
-//                });
-//            } else {
-//                bSkip.setVisibility(View.GONE);
-//            }
-
-//            if(currentPage.getContent() == null)
-//                tvContent.setVisibility(View.GONE);
-//            else{
-//                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-//                updateImages(true, currentPage.getContent());
-//            }
         }
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause TestDisguiseOpenFragment");
+
+        inactiveHandler.removeCallbacks(runnableInteractive);
+        failHandler.removeCallbacks(runnableFailed);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(">>>>>", "onResume TestDisguiseOpenFragment");
+
+        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 
