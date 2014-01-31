@@ -54,10 +54,27 @@ public class ContactEditTexts {
     }
 
     public boolean hasAtleastOneValidPhoneNumber() {
+        String[] cNumbers = new String[contacts.size()];
+        int count = 0;
+
         for (EditText contact : contacts) {
             String cNumber = contact.getText().toString();
             cNumber = cNumber.replaceAll("[- ]", "");
-            if (cNumber.length() > PHONE_NUMBER_LIMIT) return true;
+            cNumbers[count++] = cNumber;
+        }
+
+        for (int i = 0; i < count; i++) {
+            if (cNumbers[i] == null || cNumbers[i].equals(""))
+                continue;
+            for (int j = i + 1; j < count; j++) {
+                if (cNumbers[i].equals(cNumbers[j])) {
+                    return false;
+                }
+            }
+        }
+
+        for (int i = 0; i < count; i++) {
+            if (cNumbers[i].length() > PHONE_NUMBER_LIMIT) return true;
         }
         return false;
     }
