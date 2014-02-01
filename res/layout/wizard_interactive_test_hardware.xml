@@ -11,11 +11,7 @@
 
         <TextView
             android:id="@+id/fragment_contents"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/wizard_training_contacts_details"
-            style="@style/welcome_screen_text" />
+            style="@style/wizard_content_style" />
 
     </LinearLayout>
 </ScrollView>

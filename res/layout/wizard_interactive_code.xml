@@ -44,10 +44,7 @@
 
             <TextView
                 android:id="@+id/fragment_intro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/panic_button_label"
-                style="@style/welcome_screen_text"
+                style="@style/wizard_intro_style"
                 android:layout_below="@+id/fragment_title" />
 
             <LinearLayout
@@ -65,21 +62,13 @@
 
                 <TextView
                     android:id="@+id/fragment_warning"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wizard_training_contacts_details"
-                    style="@style/text_wizard_warning" />
-
+                    style="@style/wizard_warning_style" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/fragment_contents"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/ll_fragment_warning"
-                android:text="@string/wizard_training_contacts_details"
-                style="@style/welcome_screen_text" />
+                style="@style/wizard_content_style" />
 
             <EditText
                 android:id="@+id/create_pin_edittext"
