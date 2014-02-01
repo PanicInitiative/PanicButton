@@ -25,17 +25,20 @@ import java.util.List;
 public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
     private Context mContext;
-    LayoutInflater mInflater;
+    private boolean isPageStatusAvailable;
+    private LayoutInflater mInflater;
 
-    public PageActionAdapter(Context context, List<PageAction> actionList) {
+    public PageActionAdapter(Context context, List<PageAction> actionList, boolean isPageStatusAvailable) {
         super(context, R.layout.row_page_action);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.isPageStatusAvailable = isPageStatusAvailable;
     }
 
 
     private static class ViewHolder {
-        Button bAction;
+        Button bActionWithoutStatus;
+        Button bActionWithStatus;
         ImageView ivTick;
     }
 
@@ -49,7 +52,8 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
             convertView = mInflater.inflate(R.layout.row_page_action, null);
 
             holder = new ViewHolder();
-            holder.bAction = (Button) convertView.findViewById(R.id.b_action);
+            holder.bActionWithoutStatus = (Button) convertView.findViewById(R.id.b_action_without_status);
+            holder.bActionWithStatus = (Button) convertView.findViewById(R.id.b_action_with_status);
             holder.ivTick = (ImageView) convertView.findViewById(R.id.iv_tick);
 
             convertView.setTag(holder);
@@ -59,8 +63,16 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
         PageAction item = getItem(position);
 
-        holder.bAction.setText(item.getTitle());
-        holder.bAction.setOnClickListener(new View.OnClickListener() {
+        if(isPageStatusAvailable){
+            holder.bActionWithoutStatus.setVisibility(View.INVISIBLE);
+            holder.bActionWithStatus.setVisibility(View.VISIBLE);
+        } else{
+            holder.bActionWithoutStatus.setVisibility(View.VISIBLE);
+            holder.bActionWithStatus.setVisibility(View.INVISIBLE);
+        }
+
+        holder.bActionWithoutStatus.setText(item.getTitle());
+        holder.bActionWithoutStatus.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -72,25 +84,58 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
                     ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
-//                    ((Activity) mContext).finish();
                 } else {
                     Intent i = new Intent(mContext, WizardActivity.class);
                     i.putExtra("page_id", pageId);
                     mContext.startActivity(i);
-//                    mContext.startActivityForResult(i, 0);
                 }
             }
         });
 
         if (item.getStatus() != null) {
-            holder.bAction.setEnabled(false);
+            holder.bActionWithoutStatus.setEnabled(false);
             if (item.getStatus().equals("checked")) {
                 holder.ivTick.setVisibility(View.VISIBLE);
-            } else {           // statis = "disabled"
+            } else {           // status = "disabled"
                 holder.ivTick.setVisibility(View.INVISIBLE);
             }
         } else {
-            holder.bAction.setEnabled(true);
+            holder.bActionWithoutStatus.setEnabled(true);
+            holder.ivTick.setVisibility(View.INVISIBLE);
+        }
+
+
+
+        holder.bActionWithStatus.setText(item.getTitle());
+        holder.bActionWithStatus.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String pageId = getItem(position).getLink();
+
+                if (pageId.equals("close")) {
+                    ApplicationSettings.completeFirstRun(mContext);
+                    Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    mContext.startActivity(i);
+                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+                } else {
+                    Intent i = new Intent(mContext, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    mContext.startActivity(i);
+                }
+            }
+        });
+
+        if (item.getStatus() != null) {
+            holder.bActionWithStatus.setEnabled(false);
+            if (item.getStatus().equals("checked")) {
+                holder.ivTick.setVisibility(View.VISIBLE);
+            } else {           // status = "disabled"
+                holder.ivTick.setVisibility(View.INVISIBLE);
+            }
+        } else {
+            holder.bActionWithStatus.setEnabled(true);
             holder.ivTick.setVisibility(View.INVISIBLE);
         }
 

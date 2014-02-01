@@ -52,6 +52,7 @@ public class NewSimpleFragment extends Fragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
+    boolean isPageStatusAvailable;
 
     public static NewSimpleFragment newInstance(String pageId) {
         NewSimpleFragment f = new NewSimpleFragment();
@@ -125,9 +126,11 @@ public class NewSimpleFragment extends Fragment {
 
             tvTitle.setText(currentPage.getTitle());
 
-            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0)
+            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0){
+                isPageStatusAvailable = false;
                 llStatus.setVisibility(View.GONE);
-            else{
+            } else{
+                isPageStatusAvailable = true;
                 String color = currentPage.getStatus().get(0).getColor();
                 if(color.equals("red"))
                     tvStatus.setTextColor(Color.RED);
@@ -151,7 +154,11 @@ public class NewSimpleFragment extends Fragment {
             else
                 tvWarning.setText(currentPage.getWarning());
 
-            pageActionAdapter = new PageActionAdapter(activity, null);
+            if(currentPage.getId().equals("home-ready")){
+                isPageStatusAvailable = false;
+            }
+
+            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
             lvActions.setAdapter(pageActionAdapter);
             pageActionAdapter.setData(currentPage.getAction());
 

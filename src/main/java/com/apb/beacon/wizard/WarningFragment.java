@@ -49,6 +49,7 @@ public class WarningFragment extends Fragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
+    boolean isPageStatusAvailable;
 
     public static WarningFragment newInstance(String pageId) {
         WarningFragment f = new WarningFragment();
@@ -122,9 +123,11 @@ public class WarningFragment extends Fragment {
 
             tvTitle.setText(currentPage.getTitle());
 
-            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0)
+            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0){
+                isPageStatusAvailable = false;
                 llStatus.setVisibility(View.GONE);
-            else{
+            } else{
+                isPageStatusAvailable = true;
                 String color = currentPage.getStatus().get(0).getColor();
                 if(color.equals("red"))
                     tvStatus.setTextColor(Color.RED);
@@ -148,7 +151,7 @@ public class WarningFragment extends Fragment {
             else
                 tvWarning.setText(currentPage.getWarning());
 
-            pageActionAdapter = new PageActionAdapter(activity, null);
+            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
             lvActions.setAdapter(pageActionAdapter);
             pageActionAdapter.setData(currentPage.getAction());
 
