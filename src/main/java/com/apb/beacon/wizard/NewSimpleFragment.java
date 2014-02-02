@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -159,8 +160,20 @@ public class NewSimpleFragment extends Fragment {
             }
 
             pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
-            lvActions.setAdapter(pageActionAdapter);
-            pageActionAdapter.setData(currentPage.getAction());
+
+            if (pageId.equals("setup-alarm-test-hardware-success") || pageId.equals("setup-alarm-test-disguise-success")) {
+                Handler actionHandler = new Handler();
+                actionHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvActions.setAdapter(pageActionAdapter);
+                        pageActionAdapter.setData(currentPage.getAction());
+                    }
+                }, 1000);
+            } else {
+                lvActions.setAdapter(pageActionAdapter);
+                pageActionAdapter.setData(currentPage.getAction());
+            }
 
 
             pageItemAdapter = new PageItemAdapter(activity, null);
