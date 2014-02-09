@@ -28,7 +28,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 //            process(context);
 //        }
 
-        if (isScreenLocked(context) && action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON)) {
+        if (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON)) {
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {
                 onActivation(context);

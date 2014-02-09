@@ -217,8 +217,8 @@ public class WizardActivity extends FragmentActivity {
             return;
         }
 
-//        if (!pageId.equals("setup-alarm-test-hardware") && flagRiseFromPause) {
-        if (flagRiseFromPause) {
+        if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
+//        if (flagRiseFromPause) {
             int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
             if (wizardState == AppConstants.wizard_flag_home_not_completed) {
                 pageId = "home-not-configured";
