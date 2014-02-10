@@ -25,6 +25,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
+import com.apb.beacon.adapter.PageActionFakeAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
@@ -162,6 +163,10 @@ public class NewSimpleFragment extends Fragment {
             pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
 
             if (pageId.equals("setup-alarm-test-hardware-success") || pageId.equals("setup-alarm-test-disguise-success")) {
+                PageActionFakeAdapter pageActionFakeAdapter = new PageActionFakeAdapter(activity, null);
+                lvActions.setAdapter(pageActionFakeAdapter);
+                pageActionFakeAdapter.setData(currentPage.getAction());
+
                 Handler actionHandler = new Handler();
                 actionHandler.postDelayed(new Runnable() {
                     @Override
