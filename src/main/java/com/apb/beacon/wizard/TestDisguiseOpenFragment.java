@@ -1,7 +1,6 @@
 package com.apb.beacon.wizard;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -10,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
@@ -23,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.AppInfoAdapter;
 import com.apb.beacon.common.ImageDownloader;
@@ -86,9 +83,6 @@ public class TestDisguiseOpenFragment extends Fragment {
                     failHandler.removeCallbacks(runnableFailed);
 
                     String pageId = currentPage.getSuccessId();
-
-                    Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-                    vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
                     Intent i = new Intent(activity, WizardActivity.class);
                     i.putExtra("page_id", pageId);
