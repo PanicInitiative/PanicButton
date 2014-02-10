@@ -18,8 +18,8 @@ public class ApplicationSettings {
     private static final String WIZARD_STATE = "wizard_state";
     public static final String BEST_LOCATION = "BEST_LOCATION";
 
-    public static void completeFirstRun(Context context) {
-        saveBoolean(context, FIRST_RUN, false);
+    public static void setFirstRun(Context context, boolean isFirstRun) {
+        saveBoolean(context, FIRST_RUN, isFirstRun);
     }
 
     public static boolean isFirstRun(Context context) {

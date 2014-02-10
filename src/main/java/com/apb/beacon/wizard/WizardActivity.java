@@ -165,7 +165,7 @@ public class WizardActivity extends FragmentActivity {
         super.onPause();
         Log.e(">>>>>", "onPause");
         if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.completeFirstRun(WizardActivity.this);
+            ApplicationSettings.setFirstRun(WizardActivity.this, false);
         }
 
         if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action

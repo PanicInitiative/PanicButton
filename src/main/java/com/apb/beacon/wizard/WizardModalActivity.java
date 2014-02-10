@@ -7,12 +7,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
@@ -39,6 +41,8 @@ public class WizardModalActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
+
+        Log.e(">>>>>>>", "in WizardModalActivity onCreate");
 
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
@@ -111,7 +115,7 @@ public class WizardModalActivity extends Activity {
                     String pageId = currentPage.getAction().get(1).getLink();
 
                     if (pageId.equals("close")) {
-                        ApplicationSettings.completeFirstRun(WizardModalActivity.this);
+                        ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
                         getPackageManager().setComponentEnabledSetting(
                                 new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -131,6 +135,8 @@ public class WizardModalActivity extends Activity {
 
                         finish();
                     } else {
+                        ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+                        AppConstants.wizard_is_back_button_pressed = true;
                         finish();
                     }
                 }
@@ -148,7 +154,7 @@ public class WizardModalActivity extends Activity {
                     String pageId = currentPage.getAction().get(0).getLink();
 
                     if (pageId.equals("close")) {
-                        ApplicationSettings.completeFirstRun(WizardModalActivity.this);
+                        ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
                         getPackageManager().setComponentEnabledSetting(
                                 new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -168,6 +174,8 @@ public class WizardModalActivity extends Activity {
 
                         finish();
                     } else {
+                        ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+                        AppConstants.wizard_is_back_button_pressed = true;
                         finish();
                     }
                 }
@@ -179,6 +187,14 @@ public class WizardModalActivity extends Activity {
         pageCheckListAdapter = new PageCheckListAdapter(this, null);
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+        AppConstants.wizard_is_back_button_pressed = true;
     }
 
 }

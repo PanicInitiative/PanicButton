@@ -79,7 +79,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 String pageId = getItem(position).getLink();
 
                 if (pageId.equals("close")) {
-                    ApplicationSettings.completeFirstRun(mContext);
+                    ApplicationSettings.setFirstRun(mContext, false);
                     Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
@@ -114,7 +114,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 String pageId = getItem(position).getLink();
 
                 if (pageId.equals("close")) {
-                    ApplicationSettings.completeFirstRun(mContext);
+                    ApplicationSettings.setFirstRun(mContext, false);
                     Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
