@@ -13,13 +13,13 @@
         android:id="@+id/gv_app_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:columnWidth="45dp"
+        android:columnWidth="65dp"
         android:gravity="center"
-        android:horizontalSpacing="8dp"
+        android:horizontalSpacing="15dp"
         android:numColumns="auto_fit"
         android:padding="5dp"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
+        android:verticalSpacing="20dp" />
 
 
 

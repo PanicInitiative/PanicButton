@@ -8,18 +8,18 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="37dp"
-        android:layout_height="37dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_marginTop="5dp"
-        android:layout_width="45dp"
+        android:layout_width="55dp"
         android:textColor="@android:color/white"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lines="2"
-        android:textSize="11sp" />
+        android:textSize="12sp" />
 
 </LinearLayout>
