@@ -15,6 +15,7 @@ public class LoginActivity extends PanicButtonActivity {
 
     private EditText passwordEditText;
     private Button bGo;
+    private int tryCount = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,10 @@ public class LoginActivity extends PanicButtonActivity {
                     Intent i = new Intent(LoginActivity.this, SettingsActivity.class);
                     i.putExtra("page_id",  "home-ready");
                     startActivity(i);
-//            startActivity(new Intent(LoginActivity.this, SettingsActivity.class));
                     return;
                 }
-                AppUtil.setError(LoginActivity.this, passwordEditText, R.string.incorrect_pin);
+                AppUtil.setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
+                tryCount++;
             }
         });
     }
