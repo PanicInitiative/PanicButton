@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
-    <artifactId>amnesty-panic-button</artifactId>
+    <artifactId>panic-button</artifactId>
     <version>1.1.0</version>
     <packaging>apk</packaging>
-    <name>amnesty-panic-button</name>
+    <name>panic-button</name>
 
     <repositories>
         <repository>
@@ -18,9 +18,12 @@
 
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <skipCoverage>false</skipCoverage>
         <app.version.prefix>dev</app.version.prefix>
         <app.version.name>${project.version}${app.version.prefix}</app.version.name>
+
+        <skipCoverage>false</skipCoverage>
+        <failBuildIfCoverage>true</failBuildIfCoverage>
+        <coverageRate>70</coverageRate>
     </properties>
 
     <dependencies>
@@ -161,13 +164,13 @@
                         </excludes>
                     </instrumentation>
                     <check>
-                        <haltOnFailure>true</haltOnFailure>
-                        <branchRate>90</branchRate>
-                        <lineRate>90</lineRate>
-                        <totalBranchRate>90</totalBranchRate>
-                        <totalLineRate>90</totalLineRate>
-                        <packageLineRate>90</packageLineRate>
-                        <packageBranchRate>90</packageBranchRate>
+                        <haltOnFailure>${failBuildIfCoverage}</haltOnFailure>
+                        <branchRate>${coverageRate}</branchRate>
+                        <lineRate>${coverageRate}</lineRate>
+                        <totalBranchRate>${coverageRate}</totalBranchRate>
+                        <totalLineRate>${coverageRate}</totalLineRate>
+                        <packageLineRate>${coverageRate}</packageLineRate>
+                        <packageBranchRate>${coverageRate}</packageBranchRate>
                     </check>
                 </configuration>
                 <executions>
