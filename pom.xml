@@ -21,9 +21,9 @@
         <app.version.prefix>dev</app.version.prefix>
         <app.version.name>${project.version}${app.version.prefix}</app.version.name>
 
-        <skipCoverage>false</skipCoverage>
-        <failBuildIfCoverage>true</failBuildIfCoverage>
-        <coverageRate>70</coverageRate>
+        <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
+        <coverageRate>70</coverageRate> <!-- expected coverage rate -->
+        <failBuildIfCoverage>true</failBuildIfCoverage> <!-- fail build if coverage less then expected -->
     </properties>
 
     <dependencies>
