@@ -125,7 +125,7 @@
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
                         <skip>false</skip>
-                        <failOnError>true</failOnError>
+                        <failOnError>false</failOnError>
                         <enableHtml>true</enableHtml>
                     </lint>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
