@@ -110,6 +110,7 @@
                         <id>lint</id>
                         <goals>
                             <goal>lint</goal>
+                            <goal>zipalign</goal>
                         </goals>
                         <phase>install</phase>
                     </execution>
@@ -122,6 +123,12 @@
                     <sdk>
                         <platform>18</platform>
                     </sdk>
+                    <zipalignSkip>false</zipalignSkip>
+                    <zipalign>
+                        <verbose>true</verbose>
+                        <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-${app.version.prefix}.apk</outputApk>
+                    </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
                         <skip>false</skip>
