@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apb.beacon.alert.AlertStatus;
+import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.common.AppUtil;
 
 import roboguice.inject.ContentView;
@@ -31,15 +33,28 @@ public class LoginActivity extends PanicButtonActivity {
                 String password = passwordEditText.getText().toString();
                 if (ApplicationSettings.passwordMatches(getApplicationContext(), password)) {
 
-                    Intent i = new Intent(LoginActivity.this, SettingsActivity.class);
-                    i.putExtra("page_id",  "home-ready");
+//                    Intent i = new Intent(LoginActivity.this, SettingsActivity.class);
+//                    i.putExtra("page_id",  "home-ready");
+//                    startActivity(i);
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    if (getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE)) {
+                        i.putExtra("page_id", "home-alerting");
+                    } else{
+                        i.putExtra("page_id", "home-ready");
+                    }
                     startActivity(i);
+
+
                     return;
                 }
                 AppUtil.setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
                 tryCount++;
             }
         });
+    }
+
+    public PanicAlert getPanicAlert() {
+        return new PanicAlert(this);
     }
 
 //    public void goBack(View view) {

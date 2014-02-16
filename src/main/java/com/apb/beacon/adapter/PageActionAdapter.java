@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.wizard.WizardActivity;
@@ -27,12 +29,14 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
     private Context mContext;
     private boolean isPageStatusAvailable;
     private LayoutInflater mInflater;
+    private int parentActivity;
 
-    public PageActionAdapter(Context context, List<PageAction> actionList, boolean isPageStatusAvailable) {
+    public PageActionAdapter(Context context, List<PageAction> actionList, boolean isPageStatusAvailable, int parentActivity) {
         super(context, R.layout.row_page_action);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.isPageStatusAvailable = isPageStatusAvailable;
+        this.parentActivity = parentActivity;
     }
 
 
@@ -85,7 +89,15 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     mContext.startActivity(i);
                     ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 } else {
-                    Intent i = new Intent(mContext, WizardActivity.class);
+
+                    Intent i;
+                    if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                        i = new Intent(mContext, WizardActivity.class);
+                    } else{
+                        i = new Intent(mContext, MainActivity.class);
+                    }
+
+//                    Intent i = new Intent(mContext, WizardActivity.class);
                     i.putExtra("page_id", pageId);
                     mContext.startActivity(i);
                 }
@@ -120,7 +132,14 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     mContext.startActivity(i);
                     ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 } else {
-                    Intent i = new Intent(mContext, WizardActivity.class);
+
+                    Intent i;
+                    if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                        i = new Intent(mContext, WizardActivity.class);
+                    } else{
+                        i = new Intent(mContext, MainActivity.class);
+                    }
+//                    Intent i = new Intent(mContext, WizardActivity.class);
                     i.putExtra("page_id", pageId);
                     mContext.startActivity(i);
                 }

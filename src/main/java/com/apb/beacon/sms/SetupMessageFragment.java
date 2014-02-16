@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.apb.beacon.AppConstants;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.MessageFragment;
@@ -35,6 +37,7 @@ public class SetupMessageFragment extends WizardFragment {
     private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
+    private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
@@ -45,10 +48,11 @@ public class SetupMessageFragment extends WizardFragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
-    public static SetupMessageFragment newInstance(String pageId) {
+    public static SetupMessageFragment newInstance(String pageId, int parentActivity) {
         SetupMessageFragment f = new SetupMessageFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
+        args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
         return(f);
     }
@@ -57,7 +61,7 @@ public class SetupMessageFragment extends WizardFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.wizard_interactive_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_type_interactive_message, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -74,9 +78,22 @@ public class SetupMessageFragment extends WizardFragment {
                 displaySettings(msg);
 
                 String pageId = currentPage.getAction().get(0).getLink();
-                Intent i = new Intent(activity, WizardActivity.class);
+                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                Intent i;
+
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    i = new Intent(activity, WizardActivity.class);
+                } else{
+                    i = new Intent(activity, MainActivity.class);
+                }
+
+//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
+
+                if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
+                    activity.finish();
+                }
             }
         });
 
@@ -93,7 +110,16 @@ public class SetupMessageFragment extends WizardFragment {
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
                 String pageId = selectedItem.getLink();
-                Intent i = new Intent(activity, WizardActivity.class);
+                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                Intent i;
+
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    i = new Intent(activity, WizardActivity.class);
+                } else{
+                    i = new Intent(activity, MainActivity.class);
+                }
+
+//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 

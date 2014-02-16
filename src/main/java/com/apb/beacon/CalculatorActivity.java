@@ -33,6 +33,8 @@ public class CalculatorActivity extends PanicButtonActivity {
 		super.onCreate(savedInstanceState);
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
+
+        ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
 	}
 
 	private void registerButtonEvents() {

@@ -65,7 +65,7 @@ public class TestDisguiseOpenFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_interactive_disguise_test_open, container, false);
+        View view = inflater.inflate(R.layout.fragment_type_interactive_disguise_test_open, container, false);
 
 //        tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 //        bSkip = (Button) view.findViewById(R.id.b_action);

@@ -62,7 +62,7 @@ public class TestDisguiseCodeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_interactive_disguise_test_code, container, false);
+        View view = inflater.inflate(R.layout.fragment_type_interactive_disguise_test_code, container, false);
 
         passwordEditText = (EditText) view.findViewById(R.id.create_pin_edittext);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);

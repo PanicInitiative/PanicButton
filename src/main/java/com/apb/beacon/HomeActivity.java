@@ -46,13 +46,13 @@ public class HomeActivity extends RoboActivity {
         checkIfDataInitializationNeeded();
 
         int wizardState = ApplicationSettings.getWizardState(this);
-        if (wizardState == AppConstants.wizard_flag_home_not_completed) {
+        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
             pageId = "home-not-configured";
-        } else if (wizardState == AppConstants.wizard_flag_home_not_configured_alarm) {
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = "home-not-configured-alarm";
-        } else if (wizardState == AppConstants.wizard_flag_home_not_configured_disguise) {
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
             pageId = "home-not-configured-disguise";
-        } else if (wizardState == AppConstants.wizard_flag_home_ready) {
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
             pageId = "home-ready";
         }
 
@@ -114,7 +114,7 @@ public class HomeActivity extends RoboActivity {
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
                 Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
-//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
 
                 try {
                     JSONObject responseObj = response.getjObj();

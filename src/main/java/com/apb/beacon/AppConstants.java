@@ -34,13 +34,16 @@ public class AppConstants {
     public static final int HTTP_REQUEST_TYPE_POST = 2;
     public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
-    public static final int wizard_flag_home_not_completed = 601;
-    public static final int wizard_flag_home_not_configured_alarm = 602;
-    public static final int wizard_flag_home_not_configured_disguise = 603;
-    public static final int wizard_flag_home_ready = 604;
+    public static final int WIZARD_FLAG_HOME_NOT_COMPLETED = 601;
+    public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
+    public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE = 603;
+    public static final int WIZARD_FLAG_HOME_READY = 604;
+    public static final int WIZARD_FLAG_COMPLETE = 605;
 
     public static boolean wizard_is_back_button_pressed = false;
 
+    public static final int FROM_WIZARD_ACTIVITY = 1;
+    public static final int FROM_MAIN_ACTIVITY = 2;
 
     public static final String TABLE_PRIMARY_KEY = "_id";
 

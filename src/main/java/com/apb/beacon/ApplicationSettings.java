@@ -15,7 +15,7 @@ public class ApplicationSettings {
     public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
     private static final String IS_ALERT_ACTIVE = "IS_ALERT_ACTIVE";
-    private static final String WIZARD_STATE = "wizard_state";
+    private static final String WIZARD_STATE = "WIZARD_STATE";
     public static final String BEST_LOCATION = "BEST_LOCATION";
 
     public static void setFirstRun(Context context, boolean isFirstRun) {
@@ -61,7 +61,7 @@ public class ApplicationSettings {
 
 
     public static int getWizardState(Context context) {
-        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.wizard_flag_home_not_completed);
+        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
     }
 
     public static void setWizardState(Context context, int state) {

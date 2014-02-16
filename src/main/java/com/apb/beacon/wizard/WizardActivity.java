@@ -66,7 +66,7 @@ public class WizardActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wizard_layout);
+        setContentView(R.layout.root_layout);
 
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
@@ -94,7 +94,7 @@ public class WizardActivity extends FragmentActivity {
 
             if (currentPage.getType().equals("simple")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new NewSimpleFragment().newInstance(pageId);
+                fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
             }
             else if (currentPage.getType().equals("warning")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
@@ -104,17 +104,18 @@ public class WizardActivity extends FragmentActivity {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
                 i.putExtra("page_id", pageId);
+                i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
                 startActivity(i);
                 finish();
                 return;
             }
             else {
                 if (currentPage.getComponent().equals("contacts"))
-                    fragment = new SetupContactsFragment().newInstance(pageId);
+                    fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("message"))
-                    fragment = new SetupMessageFragment().newInstance(pageId);
+                    fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("code"))
-                    fragment = new SetupCodeFragment().newInstance(pageId);
+                    fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if(currentPage.getIntroduction() != null){
@@ -153,7 +154,7 @@ public class WizardActivity extends FragmentActivity {
                     fragment = new TestDisguiseCodeFragment().newInstance(pageId);
                 }
                 else
-                    fragment = new NewSimpleFragment().newInstance(pageId);
+                    fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
@@ -190,6 +191,13 @@ public class WizardActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         Log.e(">>>>>", "onResume with flagRiseFromPause = " + flagRiseFromPause);
+
+        int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
+
+        if(wizardState == AppConstants.WIZARD_FLAG_COMPLETE){
+            return;
+        }
+
         if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
             getPackageManager().setComponentEnabledSetting(
                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -219,14 +227,14 @@ public class WizardActivity extends FragmentActivity {
 
         if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
 //        if (flagRiseFromPause) {
-            int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
-            if (wizardState == AppConstants.wizard_flag_home_not_completed) {
+
+            if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
                 pageId = "home-not-configured";
-            } else if (wizardState == AppConstants.wizard_flag_home_not_configured_alarm) {
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
-            } else if (wizardState == AppConstants.wizard_flag_home_not_configured_disguise) {
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
                 pageId = "home-not-configured-disguise";
-            } else if (wizardState == AppConstants.wizard_flag_home_ready) {
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
                 pageId = "home-ready";
             }
 

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageActionFakeAdapter;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 public class NewSimpleFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
+    private static final String PARENT_ACTIVITY = "parent_activity";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
@@ -56,10 +58,11 @@ public class NewSimpleFragment extends Fragment {
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
 
-    public static NewSimpleFragment newInstance(String pageId) {
+    public static NewSimpleFragment newInstance(String pageId, int parentActivity) {
         NewSimpleFragment f = new NewSimpleFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
+        args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
         return(f);
     }
@@ -67,7 +70,7 @@ public class NewSimpleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_simple_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_type_simple, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -80,8 +83,16 @@ public class NewSimpleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String pageId = currentPage.getStatus().get(0).getLink();
+                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                Intent i;
 
-                Intent i = new Intent(activity, WizardActivity.class);
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    i = new Intent(activity, WizardActivity.class);
+                } else{
+                    i = new Intent(activity, MainActivity.class);
+                }
+
+//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -100,8 +111,14 @@ public class NewSimpleFragment extends Fragment {
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
                 String pageId = selectedItem.getLink();
+                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                Intent i;
 
-                Intent i = new Intent(activity, WizardActivity.class);
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    i = new Intent(activity, WizardActivity.class);
+                } else{
+                    i = new Intent(activity, MainActivity.class);
+                }
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -120,6 +137,7 @@ public class NewSimpleFragment extends Fragment {
 
             String pageId = getArguments().getString(PAGE_ID);
             String defaultLang = "en";
+            int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
@@ -160,7 +178,7 @@ public class NewSimpleFragment extends Fragment {
                 isPageStatusAvailable = false;
             }
 
-            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
+            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, parentActivity);
 
             if (pageId.equals("setup-alarm-test-hardware-success") || pageId.equals("setup-alarm-test-disguise-success")) {
                 PageActionFakeAdapter pageActionFakeAdapter = new PageActionFakeAdapter(activity, null);
@@ -214,11 +232,11 @@ public class NewSimpleFragment extends Fragment {
         super.onResume();
         Log.d(">>>>>>>>>>", "onResume NewSimpleFragment");
         if(currentPage.getId().equals("home-not-configured-alarm")){
-            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_not_configured_alarm);
+            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
         } else if(currentPage.getId().equals("home-not-configured-disguise")){
-            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_not_configured_disguise);
+            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
         } else if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.setWizardState(activity, AppConstants.wizard_flag_home_ready);
+            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
         }
     }
 

@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
@@ -151,7 +152,7 @@ public class WarningFragment extends Fragment {
             else
                 tvWarning.setText(currentPage.getWarning());
 
-            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable);
+            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, AppConstants.FROM_WIZARD_ACTIVITY);
             lvActions.setAdapter(pageActionAdapter);
             pageActionAdapter.setData(currentPage.getAction());
 

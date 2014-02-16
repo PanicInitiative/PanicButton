@@ -37,7 +37,7 @@ public class WizardSimpleActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wizard_simple_fragment);
+        setContentView(R.layout.fragment_type_simple);
 
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvContent = (TextView) findViewById(R.id.fragment_contents);
