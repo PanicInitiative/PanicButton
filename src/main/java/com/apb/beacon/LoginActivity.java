@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.apb.beacon.alert.AlertStatus;
-import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.common.AppUtil;
 
 import roboguice.inject.ContentView;
@@ -53,9 +52,9 @@ public class LoginActivity extends PanicButtonActivity {
         });
     }
 
-    public PanicAlert getPanicAlert() {
-        return new PanicAlert(this);
-    }
+//    public PanicAlert getPanicAlert() {
+//        return new PanicAlert(this);
+//    }
 
 //    public void goBack(View view) {
 //        this.finish();

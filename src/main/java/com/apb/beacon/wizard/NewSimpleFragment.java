@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageActionFakeAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
@@ -52,6 +54,7 @@ public class NewSimpleFragment extends Fragment {
     TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
     ListView lvItems, lvActions;
     LinearLayout llWarning, llStatus;
+    Button bAction;
 
     Page currentPage;
     PageItemAdapter pageItemAdapter;
@@ -78,6 +81,34 @@ public class NewSimpleFragment extends Fragment {
 
         llStatus = (LinearLayout) view.findViewById(R.id.ll_fragment_status);
         tvStatus = (TextView) view.findViewById(R.id.fragment_status);
+
+        /*
+        special case for page id = "home-alerting"
+         */
+        bAction = (Button) view.findViewById(R.id.b_action);
+        bAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleAlert();
+                String pageId = currentPage.getAction().get(0).getLink();
+
+                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                Intent i;
+
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    i = new Intent(activity, WizardActivity.class);
+                } else{
+                    i = new Intent(activity, MainActivity.class);
+                }
+
+//                Intent i = new Intent(activity, WizardActivity.class);
+                i.putExtra("page_id", pageId);
+                startActivity(i);
+                activity.finish();
+
+
+            }
+        });
 
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +205,7 @@ public class NewSimpleFragment extends Fragment {
             else
                 tvWarning.setText(currentPage.getWarning());
 
-            if(currentPage.getId().equals("home-ready")){
+            if(pageId.equals("home-ready") || pageId.equals("home-alerting")){
                 isPageStatusAvailable = false;
             }
 
@@ -193,7 +224,14 @@ public class NewSimpleFragment extends Fragment {
                         pageActionAdapter.setData(currentPage.getAction());
                     }
                 }, 1000);
-            } else {
+            }
+            else if(pageId.equals("home-alerting")){
+                lvActions.setVisibility(View.INVISIBLE);
+                bAction.setVisibility(View.VISIBLE);
+
+                bAction.setText(currentPage.getAction().get(0).getTitle());
+            }
+            else {
                 lvActions.setAdapter(pageActionAdapter);
                 pageActionAdapter.setData(currentPage.getAction());
             }
@@ -208,6 +246,19 @@ public class NewSimpleFragment extends Fragment {
         }
     }
 
+    private void toggleAlert() {
+        PanicAlert panicAlert = getPanicAlert();
+        if(panicAlert.isActive()) {
+            panicAlert.deActivate();
+        } else{
+            panicAlert.activate();
+        }
+//        activity.finish();
+    }
+
+    PanicAlert getPanicAlert() {
+        return new PanicAlert(activity);
+    }
 
     @Override
     public void onPause() {

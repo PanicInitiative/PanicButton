@@ -85,7 +85,7 @@
                 style="@style/wizard_content_style" />
 
             <Button
-                android:id="@+id/b_success"
+                android:id="@+id/b_action"
                 android:text="@string/finish_button_text"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
