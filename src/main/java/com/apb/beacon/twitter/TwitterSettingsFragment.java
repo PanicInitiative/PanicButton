@@ -11,9 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.apb.beacon.R;
 import com.apb.beacon.common.MessageFragment;
 import com.apb.beacon.wizard.ActionButtonStateListener;
+
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectFragment;
 

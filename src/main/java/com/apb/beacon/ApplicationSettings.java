@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
+
 import com.google.gson.Gson;
 
 import static com.apb.beacon.AppConstants.ALERT_FREQUENCY;
 
 public class ApplicationSettings {
     public static final String FIRST_RUN = "FIRST_RUN";
+    public static final String HARDCODE_INSERT = "HARDCODE_INSERT";
+    public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
     private static final String IS_ALERT_ACTIVE = "IS_ALERT_ACTIVE";
     public static final String BEST_LOCATION = "BEST_LOCATION";
@@ -20,6 +23,22 @@ public class ApplicationSettings {
 
     public static boolean isFirstRun(Context context) {
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
+    }
+
+    public static void setHardcodeInsertion(Context context, boolean flag) {
+        saveBoolean(context, HARDCODE_INSERT, flag);
+    }
+
+    public static boolean getHardcodeInsertion(Context context) {
+        return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
+    }
+
+    public static long getLastRunTimeInMillis(Context context) {
+        return sharedPreferences(context).getLong(LAST_RUN, -1);
+    }
+
+    public static void setLastRunTimeInMillis(Context context, Long time) {
+        saveLong(context, LAST_RUN, time);
     }
 
     public static void savePassword(Context context, String password) {
@@ -67,6 +86,12 @@ public class ApplicationSettings {
     private static void saveString(Context context, String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences(context).edit();
         editor.putString(key, value);
+        editor.commit();
+    }
+
+    private static void saveLong(Context context, String key, Long value) {
+        SharedPreferences.Editor editor = sharedPreferences(context).edit();
+        editor.putLong(key, value);
         editor.commit();
     }
 }

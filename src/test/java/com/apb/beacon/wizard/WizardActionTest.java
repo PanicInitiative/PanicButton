@@ -1,6 +1,7 @@
 package com.apb.beacon.wizard;
 
 import com.apb.beacon.R;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

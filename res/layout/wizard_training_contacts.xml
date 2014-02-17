@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:text="@string/wizard_training_contacts_title"
             style="@style/wizard_page_title"
-            />
+            android:id="@+id/title" />
 
 
         <View android:layout_height="1dp"
@@ -29,7 +29,8 @@
             android:text="@string/wizard_training_contacts_details"
             style="@style/welcome_screen_text"
             android:layout_marginBottom="20dp"
-            android:paddingTop="0dp"/>
+            android:paddingTop="0dp"
+            android:id="@+id/content_body" />
 
         <LinearLayout
             android:layout_width="fill_parent"

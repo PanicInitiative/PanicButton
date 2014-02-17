@@ -1,14 +1,13 @@
 package com.apb.beacon;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.apb.beacon.alert.AlertStatus;
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.sms.SMSSettingsActivity;
+import com.apb.beacon.twitter.TwitterSettingsActivity;
 
 import org.hamcrest.core.Is;
 import org.junit.Before;
@@ -20,14 +19,15 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowView;
 
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.apb.beacon.alert.AlertStatus;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.sms.SMSSettingsActivity;
-import com.apb.beacon.twitter.TwitterSettingsActivity;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class SettingsActivityTest {

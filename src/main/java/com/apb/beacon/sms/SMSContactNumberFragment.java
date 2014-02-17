@@ -1,25 +1,20 @@
 package com.apb.beacon.sms;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.apb.beacon.R;
 import com.apb.beacon.common.ContactEditTexts;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.wizard.NestedWizardFragment;
 import com.apb.beacon.wizard.WizardAction;
-import com.apb.beacon.wizard.WizardActivity;
 
 import java.util.List;
 
 import static com.apb.beacon.R.id.first_contact;
 import static com.apb.beacon.R.id.second_contact;
-import static com.apb.beacon.R.id.sms_message;
 import static com.apb.beacon.R.id.third_contact;
 
 /**

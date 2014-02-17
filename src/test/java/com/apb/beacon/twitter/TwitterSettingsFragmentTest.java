@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
 import com.apb.beacon.R;
 import com.apb.beacon.common.MessageFragment;
 import com.apb.beacon.common.TestFragmentActivity;
+
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;

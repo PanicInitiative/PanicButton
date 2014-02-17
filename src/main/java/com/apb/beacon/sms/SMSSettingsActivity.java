@@ -1,7 +1,5 @@
 package com.apb.beacon.sms;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +13,9 @@ import com.apb.beacon.R;
 import com.apb.beacon.SettingsActivity;
 import com.apb.beacon.SoftKeyboard;
 import com.apb.beacon.wizard.ActionButtonStateListener;
+
+import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.InjectView;
 
 public class SMSSettingsActivity extends RoboFragmentActivity implements ActionButtonStateListener {
     @InjectView(R.id.sms_save_button)

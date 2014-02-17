@@ -10,8 +10,9 @@ import com.apb.beacon.sms.SMSMessageFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.apb.beacon.R.layout.*;
-import static com.apb.beacon.R.string.i_understand_message_action;
+import static com.apb.beacon.R.layout.wizard_emergency_alert1;
+import static com.apb.beacon.R.layout.wizard_emergency_alert2;
+import static com.apb.beacon.R.layout.wizard_emergency_alert3;
 import static com.apb.beacon.R.string.next_action;
 import static com.apb.beacon.wizard.SimpleFragment.create;
 
@@ -20,19 +21,21 @@ public class WizardPageAdapter extends FragmentStatePagerAdapter {
 
     public WizardPageAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(create(wizard_welcome_screen, next_action));          // 0
+        fragments.add(new WizardWelcomeFragment());          // 0   -
 //        fragments.add(new CreateDialCodeFragment());
-        fragments.add(new CreatePinFragment());                             // 1
-        fragments.add(new WizardTrainingFragment());                        // 2
-        fragments.add(new WizardTrainingContactIntroFragment());            // 3
+//        fragments.add(new CreatePinFragment());
+        fragments.add(new WizardTrainingFragment());                        // 1 -
+        fragments.add(new CreatePinFragment());                             // 2 -
+        fragments.add(new WizardTrainingContactIntroFragment());            // 3 -
         fragments.add(new WizardTrainingContactLearnMoreFragment());        // 4
         fragments.add(new SMSContactNumberFragment());                      // 5
-        fragments.add(new WizardTrainingMessageIntroFragment());            // 6
+        fragments.add(new WizardTrainingMessageIntroFragment());            // 6 -
         fragments.add(new SMSMessageFragment());                            // 7
 //        fragments.add(SMSSettingsFragment.create(R.string.sms_settings_wizard_header));
         fragments.add(create(wizard_emergency_alert1, next_action));
         fragments.add(create(wizard_emergency_alert2, next_action));
         fragments.add(create(wizard_emergency_alert3, next_action));
+        fragments.add(new WizardDisguiseIntroFragment());                   // 11
         fragments.add(new WizardFinishFragment());
     }
 

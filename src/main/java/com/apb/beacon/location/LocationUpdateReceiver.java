@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
+
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.common.Intents;
 

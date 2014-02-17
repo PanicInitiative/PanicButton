@@ -1,10 +1,10 @@
 package com.apb.beacon.calculator;
 
+import java.math.BigDecimal;
+
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static java.math.MathContext.DECIMAL32;
-
-import java.math.BigDecimal;
 
 class CalculatorImpl implements Calculator {
 

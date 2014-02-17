@@ -2,14 +2,17 @@ package com.apb.beacon.wizard;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.apb.beacon.Constants;
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 import com.apb.beacon.SoftKeyboard;
+import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.LocalCachePage;
+
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -19,16 +22,16 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 @ContentView(R.layout.wizard_layout)
-public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener {
+public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener{
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
     @InjectView(R.id.previous_button)
     Button previousButton;
     @InjectView(R.id.action_button)
-    Button actionButton;
+    public Button actionButton;
 
-    private SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
@@ -36,9 +39,10 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
             previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
 //            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
             setActionButtonVisibility(position);
-            if(position == Constants.PAGE_NUMBER_TRAINING_MESSAGE)
+            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
                 Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
 
+            Log.e(">>>>>>", "setting action text from pageChangeListener");
             actionButton.setText(getCurrentWizardFragment().action());
             getCurrentWizardFragment().onFragmentSelected();
         }
@@ -49,7 +53,13 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         super.onCreate(savedInstanceState);
 
         previousButton.setVisibility(INVISIBLE);
-        actionButton.setText(getString(R.string.next_action));
+
+        PBDatabase dbInstance = new PBDatabase(WizardActivity.this);
+        dbInstance.open();
+        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
+        dbInstance.close();
+        Log.e(">>>>>>", "setting action text from onCreate -> " + page.getPageAction());
+        actionButton.setText(page.getPageAction());
 
         viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
         pagerAdapter = getWizardPagerAdapter();
@@ -59,22 +69,25 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void setActionButtonVisibility(int pageNumber){
-        if(pageNumber == Constants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
-            actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
-            actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE)
-            actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == Constants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
-            actionButton.setVisibility(View.INVISIBLE);
-        else if(pageNumber == pagerAdapter.getCount() -1)
+//        if(pageNumber == AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
+//            actionButton.setVisibility(View.INVISIBLE);
+//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
+//            actionButton.setVisibility(View.INVISIBLE);
+//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE)
+//            actionButton.setVisibility(View.INVISIBLE);
+//        if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
+//            actionButton.setVisibility(View.INVISIBLE);
+        if(pageNumber == pagerAdapter.getCount() -1)
             actionButton.setVisibility(View.INVISIBLE);
         else
             actionButton.setVisibility(View.VISIBLE);
     }
 
     public void performAction(View view) {
-        if(getCurrentWizardFragment().performAction()) {
+        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
+            viewPager.nextWithSkip();
+        }
+        else if(getCurrentWizardFragment().performAction()){
             viewPager.next();
         }
     }
@@ -87,7 +100,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void previous(View view) {
-        if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_TRAINING_CONTACTS){
+        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
             viewPager.previousWithSkip();
         }
 //        getCurrentWizardFragment().onBackPressed();
@@ -107,7 +120,7 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         if(viewPager.isFirstPage()) {
             this.finish();
         }
-        else if(viewPager.getCurrentItem() == Constants.PAGE_NUMBER_TRAINING_CONTACTS){
+        else if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
             viewPager.previousWithSkip();
         }
         else{
@@ -127,4 +140,10 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     public void enableActionButton(boolean isEnabled) {
         actionButton.setEnabled(isEnabled);
     }
+
+//    @Override
+//    public void setText(String buttonText) {
+//        Log.e(">>>>>>>>>", "buttonText = " + buttonText);
+//        actionButton.setText(buttonText);
+//    }
 }

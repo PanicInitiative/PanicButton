@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;

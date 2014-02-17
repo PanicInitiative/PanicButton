@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.apb.beacon.R;
 import com.apb.beacon.wizard.ActionButtonStateListener;
 

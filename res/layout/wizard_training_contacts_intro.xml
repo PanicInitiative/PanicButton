@@ -12,9 +12,9 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wizard_training_contacts_title"
+            android:text="title"
             style="@style/wizard_page_title"
-            />
+            android:id="@+id/title" />
 
 
         <View android:layout_height="1dp"
@@ -26,11 +26,12 @@
 
         <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="@string/wizard_training_contacts_details_intro"
+            android:text="content"
             style="@style/welcome_screen_text"
-            android:paddingTop="0dp"/>
+            android:paddingTop="0dp"
+            android:id="@+id/content_body" />
 
-        <TextView android:layout_height="wrap_content"
+<!--        <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -49,9 +50,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="@string/wizard_contact_q3"
-            style="@style/bulleted_text"/>
+            style="@style/bulleted_text"/>-->
 
-        <TextView android:layout_height="wrap_content"
+<!--        <TextView android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -59,16 +60,16 @@
             android:textSize="20dp"
             android:id="@+id/tv_learn_more"
             android:text="@string/learn_more"
-            android:textColor="@color/blue"/>
+            android:textColor="@color/blue"/>-->
 
 
-        <Button android:text="@string/i_understand_contacts_action"
+        <Button android:text="option"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:background="@drawable/topbar_button"
             android:layout_marginTop="10dp"
             style="@style/activate_disguise_button"
-            android:id="@+id/i_understand"/>
+            android:id="@+id/option"/>
 
     </LinearLayout>
 </ScrollView>

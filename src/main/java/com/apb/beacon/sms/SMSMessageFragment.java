@@ -6,22 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apb.beacon.R;
-import com.apb.beacon.common.ContactEditTexts;
 import com.apb.beacon.common.MessageFragment;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.wizard.NestedWizardFragment;
 import com.apb.beacon.wizard.WizardAction;
 
-import java.util.List;
-
-import static com.apb.beacon.R.id.first_contact;
-import static com.apb.beacon.R.id.second_contact;
 import static com.apb.beacon.R.id.sms_message;
-import static com.apb.beacon.R.id.third_contact;
 
 /**
  * Created by aoe on 12/12/13.

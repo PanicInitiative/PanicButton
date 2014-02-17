@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+
 import com.apb.beacon.R;
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 
 import java.util.List;
+
+import roboguice.fragment.RoboFragment;
+import roboguice.inject.InjectView;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;

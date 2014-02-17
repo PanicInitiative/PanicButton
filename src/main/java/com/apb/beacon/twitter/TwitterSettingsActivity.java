@@ -7,13 +7,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import com.apb.beacon.CalculatorActivity;
-import com.apb.beacon.HomeActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.SettingsActivity;
 import com.apb.beacon.SoftKeyboard;
 import com.apb.beacon.wizard.ActionButtonStateListener;
-import com.apb.beacon.wizard.WizardActivity;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectFragment;

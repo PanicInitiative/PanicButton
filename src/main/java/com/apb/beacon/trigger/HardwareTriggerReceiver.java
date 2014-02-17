@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import com.apb.beacon.alert.PanicAlert;
 
 import static android.content.Intent.ACTION_SCREEN_OFF;

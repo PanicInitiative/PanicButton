@@ -13,37 +13,34 @@ import com.apb.beacon.R;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.LocalCachePage;
 
-
 /**
- * Created by aoe on 12/11/13.
+ * Created by aoe on 12/13/13.
  */
-public class WizardTrainingContactIntroFragment extends WizardFragment{
+public class WizardWelcomeFragment extends WizardFragment{
 
     private Activity activity;
     protected ActionButtonTextListener actionButtonTextListener;
+
+//    JsonParser jsonParser;
 
     TextView tvTitle, tvContentBody;
     Button bOption;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.wizard_training_contacts_intro, container, false);
+        View view = inflater.inflate(R.layout.wizard_welcome_screen, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.title);
         tvContentBody = (TextView) view.findViewById(R.id.content_body);
 
         bOption = (Button) view.findViewById(R.id.option);
         bOption.setOnClickListener(new View.OnClickListener() {
-
             @Override
-            public void onClick(View v) {
-                ((WizardActivity) getActivity()).performAction(null);
+            public void onClick(View view) {
             }
         });
-
         return view;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class WizardTrainingContactIntroFragment extends WizardFragment{
 
     private void setActionButtonTextListener(Activity activity){
         if (activity instanceof ActionButtonTextListener)
-            this.actionButtonTextListener = (ActionButtonTextListener) activity;
+        this.actionButtonTextListener = (ActionButtonTextListener) activity;
     }
 
     @Override
@@ -67,7 +64,7 @@ public class WizardTrainingContactIntroFragment extends WizardFragment{
     private void showPageContentToUI() {
         PBDatabase dbInstance = new PBDatabase(activity);
         dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO);
+        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
         dbInstance.close();
 
         tvTitle.setText(page.getPageTitle());
@@ -79,14 +76,34 @@ public class WizardTrainingContactIntroFragment extends WizardFragment{
             bOption.setVisibility(View.VISIBLE);
             bOption.setText(page.getPageOption());
         }
+
+//        if(page.getPageAction() != null){
+//            Log.e(">>>>>>", "setting action text from showPageContentToUI -> " + page.getPageAction());
+//            actionButtonTextListener.setText(page.getPageAction());
+//        }
     }
 
     @Override
     public String action() {
         PBDatabase dbInstance = new PBDatabase(activity);
         dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO);
+        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
         dbInstance.close();
         return page.getPageAction();
     }
+
+
+//    void alert(String message) {
+//        AlertDialog.Builder bld = new AlertDialog.Builder(activity);
+//        bld.setMessage(message);
+//        bld.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                activity.finish();
+//            }
+//        });
+//        bld.create().show();
+//    }
 }

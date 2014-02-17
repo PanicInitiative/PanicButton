@@ -1,5 +1,11 @@
 package com.apb.beacon.calculator;
 
+import com.apb.beacon.calculator.Calculator.Button;
+
+import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import static com.apb.beacon.calculator.Calculator.Button.DIVIDE;
 import static com.apb.beacon.calculator.Calculator.Button.EIGHT;
 import static com.apb.beacon.calculator.Calculator.Button.EQUALS;
@@ -15,11 +21,6 @@ import static com.apb.beacon.calculator.Calculator.Button.SIX;
 import static com.apb.beacon.calculator.Calculator.Button.THREE;
 import static com.apb.beacon.calculator.Calculator.Button.TWO;
 import static com.apb.beacon.calculator.Calculator.Button.ZERO;
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import com.apb.beacon.calculator.Calculator.Button;
 
 public class CalculatorImplTest extends TestCase {
 

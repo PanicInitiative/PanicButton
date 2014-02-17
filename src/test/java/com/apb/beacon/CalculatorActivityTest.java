@@ -1,14 +1,11 @@
 package com.apb.beacon;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.shadowOf;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +15,15 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowIntent;
 
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.trigger.HardwareTriggerService;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class CalculatorActivityTest {

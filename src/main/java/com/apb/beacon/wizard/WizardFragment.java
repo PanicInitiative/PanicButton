@@ -2,6 +2,7 @@ package com.apb.beacon.wizard;
 
 import android.app.Activity;
 import android.content.Context;
+
 import roboguice.fragment.RoboFragment;
 
 public class WizardFragment extends RoboFragment {

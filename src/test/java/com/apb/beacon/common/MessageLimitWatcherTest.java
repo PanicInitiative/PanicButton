@@ -3,8 +3,6 @@ package com.apb.beacon.common;
 import android.app.Activity;
 import android.widget.TextView;
 
-import com.apb.beacon.wizard.WizardActivity;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;

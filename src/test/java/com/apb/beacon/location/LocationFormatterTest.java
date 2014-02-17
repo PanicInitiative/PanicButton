@@ -1,6 +1,7 @@
 package com.apb.beacon.location;
 
 import android.location.Location;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;

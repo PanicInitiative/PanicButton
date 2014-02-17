@@ -3,6 +3,7 @@ package com.apb.beacon.twitter;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
+
 import com.google.gson.Gson;
 
 import java.io.InputStreamReader;

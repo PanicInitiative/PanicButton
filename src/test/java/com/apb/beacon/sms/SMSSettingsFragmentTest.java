@@ -5,10 +5,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.apb.beacon.R;
 import com.apb.beacon.common.TestFragmentActivity;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.wizard.ActionButtonStateListener;
+
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,14 +20,21 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowLog;
 import org.robolectric.tester.android.util.TestFragmentManager;
 import org.robolectric.tester.android.util.TestFragmentTransaction;
-import roboguice.activity.RoboFragmentActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.apb.beacon.R.id.*;
-import static org.junit.Assert.*;
+import roboguice.activity.RoboFragmentActivity;
+
+import static com.apb.beacon.R.id.first_contact;
+import static com.apb.beacon.R.id.second_contact;
+import static com.apb.beacon.R.id.sms_message;
+import static com.apb.beacon.R.id.third_contact;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Robolectric.shadowOf;

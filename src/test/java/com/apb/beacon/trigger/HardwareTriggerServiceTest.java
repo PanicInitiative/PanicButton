@@ -2,6 +2,7 @@ package com.apb.beacon.trigger;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
