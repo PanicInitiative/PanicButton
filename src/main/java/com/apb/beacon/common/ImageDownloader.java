@@ -48,6 +48,8 @@ public class ImageDownloader extends AsyncTask {
                 baos.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
         }
     }

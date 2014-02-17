@@ -26,11 +26,11 @@ public class ApplicationSettings {
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
     }
 
-    public static void setHardcodeInsertion(Context context, boolean flag) {
+    public static void setLocalDataInsertion(Context context, boolean flag) {
         saveBoolean(context, HARDCODE_INSERT, flag);
     }
 
-    public static boolean getHardcodeInsertion(Context context) {
+    public static boolean getLocalDataInsertion(Context context) {
         return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
     }
 

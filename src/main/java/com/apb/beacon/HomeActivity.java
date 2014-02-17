@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,9 +26,9 @@ import java.util.TimerTask;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 
-import static com.apb.beacon.ApplicationSettings.getHardcodeInsertion;
+import static com.apb.beacon.ApplicationSettings.getLocalDataInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
-import static com.apb.beacon.ApplicationSettings.setHardcodeInsertion;
+import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
 
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
@@ -61,15 +63,15 @@ public class HomeActivity extends RoboActivity {
     }
 
     private void checkIfDataInitializationNeeded(){
-        if (!getHardcodeInsertion(HomeActivity.this)) {
-//            insertHardcodedDataToDatabase();
-            setHardcodeInsertion(HomeActivity.this, true);
+        if (!getLocalDataInsertion(HomeActivity.this)) {
+            initializeLocalData();
+            setLocalDataInsertion(HomeActivity.this, true);
         }
     }
 
     private void checkIfUpdateNeeded(){
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
-        if (!AppUtil.isToday(lastRunTimeInMillis)) {
+        if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
             new GetUpdate().execute();
         }
@@ -118,46 +120,13 @@ public class HomeActivity extends RoboActivity {
 
                 try {
                     JSONObject responseObj = response.getjObj();
-//                    Log.e(">>>>>>>>>>>>", "responseObj = " + responseObj);
                     JSONObject mobObj = responseObj.getJSONObject("mobile");
                     JSONArray dataArray = mobObj.getJSONArray("data");
-                    List<Page> pageList = Page.parsePages(dataArray);
-
-                    PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-                    dbInstance.open();
-
-                    for(int i = 0; i< pageList.size(); i++){
-                        dbInstance.insertOrUpdateWizardPage(pageList.get(i));
-//                        String id = pageList.get(i).getId();
-//                        if(id.equals("home-not-configured")){
-//                            FirstPage = pageList.get(i);
-//                        }
-                    }
-                    dbInstance.close();
+                    insertJsonDataToLocalDB(dataArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
-
-//            for (int i = 0; i < AppConstants.RELATIVE_URLS.length; i++) {
-//                String url = AppConstants.BASE_URL + AppConstants.RELATIVE_URLS[i];
-//                JsonParser jsonParser = new JsonParser();
-//                MarkDownResponse response = jsonParser.retrieveMarkDownData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null);
-//                if (response.getStatus() == 200) {
-//                    Log.d(">>>><<<<", "success in retrieving markdown info for url = " + url);
-//                    ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
-//                    String mdContent = response.getMdData();
-//                    LocalCachePage page = AppUtil.parseMarkDown(AppConstants.PAGE_NUMBER_FOR_DATA[i], AppConstants.PAGE_NAME_FOR_DATA[i], mdContent);
-//
-//                    PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-//                    dbInstance.open();
-//                    dbInstance.insertOrUpdateLocalCachePage(page);
-//                    dbInstance.close();
-//
-//                }
-//            }
             return null;
         }
 
@@ -177,37 +146,48 @@ public class HomeActivity extends RoboActivity {
         }
     }
 
+    private void insertJsonDataToLocalDB(JSONArray dataArray){
+        List<Page> pageList = Page.parsePages(dataArray);
 
-//    private void insertHardcodedDataToDatabase(){
-//        String[] initial_page_content = {
-//                getResources().getString(R.string.wizard_welcome_body),
-//                getResources().getString(R.string.wizard_training_details),
-//                getResources().getString(R.string.wizard_training_pin_details),
-//                getResources().getString(R.string.wizard_training_contacts_details_intro),
-//                "loren epsum - will add later",
-//                getResources().getString(R.string.wizard_training_contacts_details),
-//                getResources().getString(R.string.wizard_training_message_details_intro),
-//                getResources().getString(R.string.wizard_training_message_details),
-//                "emergency alert 1",
-//                "emergency alert 2",
-//                "emergency alert 3",
-//                getResources().getString(R.string.wizard__training_disguise_intro)
-//        };
+        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+        dbInstance.open();
 
-//        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-//        dbInstance.open();
-//
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_WIZARD_WELCOME]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING, "Wizard Training", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN, "Wizard Training Pin", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO, "Wizard Contact Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE, "Wizard Contact Learn More", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_CONTACTS, "Wizard Contact", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_CONTACTS]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO, "Wizard Message Intro", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_TRAINING_MESSAGE, "Wizard Message", "Welcome", "action", "option", initial_page_content[AppConstants.PAGE_NUMBER_TRAINING_MESSAGE]));
-//        dbInstance.insertOrUpdateLocalCachePage(new LocalCachePage(AppConstants.PAGE_NUMBER_DISGUISE_INTRO, "Wizard Disguise Intro", "Step 5: Activate Disguise", "Try it now", "option", initial_page_content[AppConstants.PAGE_NUMBER_DISGUISE_INTRO]));
-//
-//        dbInstance.close();
-//    }
+        for(int i = 0; i< pageList.size(); i++){
+            dbInstance.insertOrUpdateWizardPage(pageList.get(i));
+        }
+        dbInstance.close();
+    }
+
+
+    private void initializeLocalData(){
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset());
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            int version = mobileObj.getInt("version");
+            Log.e(">>>>>", "current version = " + version);
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertJsonDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getAssets().open("mobile.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 
 }
