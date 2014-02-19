@@ -29,6 +29,29 @@ Click Install
 Close the SDK Manager.
 ```
 
+* Install eclpise packages
+
+```
+Go to Help > Install new software
+Choose "All Available Sites"
+Select MarketPlace Client under General Purpose Tools
+Click Next, Accept the License and Finish.
+Accept to Restart.
+```
+
+![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/a.1.png)
+
+```
+Go to Help > Eclipse MarketPlace
+Find "Android Configurator for M2E"
+Click Next, Accept the License and Finish.
+
+```
+
+![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/a.2.png)
+
+
+
 * Clone the repository
 
 ```
@@ -42,5 +65,26 @@ git clone https://github.com/TeamPanicButton/PanicButton.git
 Go to File > Import
 ```
 
-![Licenses](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/3.png)
+![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/3.png)
+
+```
+Select Maven > Import Maven Project
+```
+
+![Android](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/4.png)
+
+```
+Locate the git folder you've cloned.
+```
+
+![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/5.png)
+
+```
+Accept the proposed Maven Plugins (resolve later is fine).
+```
+
+![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/img/6.png)
+
+m2e-egit
+
 
