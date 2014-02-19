@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/fragment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/panic_button_label"
+        android:textSize="32sp"
+        android:textColor="@android:color/black"
+        android:paddingBottom="15dp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_fragment_status"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/fragment_title">
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="#ff666666" />
+
+        <TextView
+            android:id="@+id/fragment_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/panic_button_label"
+            android:textSize="15sp"
+            android:padding="3dp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
+
+        <View
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="#ff666666" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/fragment_intro"
+        style="@style/wizard_intro_style"
+        android:layout_below="@+id/ll_fragment_status" />
+
+    <LinearLayout
+        android:id="@+id/ll_fragment_warning"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/fragment_intro">
+
+        <ImageView
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="@drawable/warning" />
+
+        <TextView
+            android:id="@+id/fragment_warning"
+            style="@style/wizard_warning_style" />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/lv_checklist"
+        android:layout_height="wrap_content"
+        android:divider="@android:drawable/screen_background_light_transparent"
+        android:layout_below="@+id/ll_fragment_warning"
+        android:layout_width="match_parent" />
+
+    <TextView
+        android:id="@+id/fragment_contents"
+        android:layout_below="@+id/lv_checklist"
+        style="@style/wizard_content_style" />
+
+    <LinearLayout
+        android:id="@+id/ll_actions"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_wizard_button"
+            style="@style/activate_disguise_button"
+            android:text="B1"
+            android:layout_marginRight="5dp"
+            android:id="@+id/b_action1" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/drawable_wizard_button_disabled"
+            style="@style/activate_disguise_button"
+            android:text="B2"
+            android:id="@+id/b_action2" />
+
+    </LinearLayout>
+</RelativeLayout>

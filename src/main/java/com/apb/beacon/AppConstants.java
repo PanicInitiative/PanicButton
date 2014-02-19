@@ -34,7 +34,21 @@ public class AppConstants {
     public static final int HTTP_REQUEST_TYPE_POST = 2;
     public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
-    public static final String BASE_URL = "https://rawgithub.com/TeamPanicButton/Content/latest/Mobile/";
+    public static final int WIZARD_FLAG_HOME_NOT_COMPLETED = 601;
+    public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
+    public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE = 603;
+    public static final int WIZARD_FLAG_HOME_READY = 604;
+    public static final int WIZARD_FLAG_COMPLETE = 605;
+
+    public static boolean wizard_is_back_button_pressed = false;
+
+    public static final int FROM_WIZARD_ACTIVITY = 1;
+    public static final int FROM_MAIN_ACTIVITY = 2;
+
+    public static final String TABLE_PRIMARY_KEY = "_id";
+
+//    public static final String BASE_URL = "https://rawgithub.com/TeamPanicButton/Content/latest/Mobile/";
+    public static final String BASE_URL = "http://teampanicbutton.github.io/api/mobile.json";
 
     public static final String[] RELATIVE_URLS = {
       "Wizard_Welcome.md", "Wizard_Training.md", "Wizard_Training_Pin.md", "Wizard_Training_Contacts.md", "Wizard_Training_Message.md"

@@ -37,7 +37,7 @@ public class WizardTrainingContactIntroFragment extends WizardFragment{
 
             @Override
             public void onClick(View v) {
-                ((WizardActivity) getActivity()).performAction(null);
+//                ((WizardActivity) getActivity()).performAction(null);
             }
         });
 

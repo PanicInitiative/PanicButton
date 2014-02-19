@@ -10,7 +10,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
-import static com.apb.beacon.ApplicationSettings.completeFirstRun;
+import static com.apb.beacon.ApplicationSettings.setFirstRun;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertFalse;
@@ -40,7 +40,7 @@ public class ApplicationSettingsTest {
 
     @Test
     public void shouldUpdateFirstRunFlagOnCompletion() {
-        completeFirstRun(context);
+        setFirstRun(context, false);
         assertFalse(sharedPreferences.getBoolean("FIRST_RUN", true));
     }
 

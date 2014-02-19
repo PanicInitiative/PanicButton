@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PBCalc</string>
+    <string name="app_name_setup">PB</string>
+    <string name="app_name">Calculation</string>
     <string name="settings_label">SETTINGS</string>
     <string name="sms">SMS settings</string>
     <string name="twitter">Twitter settings</string>
@@ -60,7 +61,7 @@
     <string name="sms_settings_header">SMS alert settings</string>
     <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
     <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
-    <string name="contact_hint">enter emergency contact</string>
+    <string name="contact_hint">enter contact number</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
     <string name="twitter_emergency_message_header">Emergency tweet</string>
@@ -85,6 +86,7 @@
     <string name="login_header">Settings</string>
     <string name="enter_pin_hint">enter pin</string>
     <string name="incorrect_pin">Please enter the correct pin</string>
+    <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
     <string name="settings_changed_alert_title">Settings Modified</string>
     <string name="settings_changed_alert_message">Do you want to save the changes?</string>
     <string name="yes">Yes</string>

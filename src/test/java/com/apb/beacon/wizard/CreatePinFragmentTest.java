@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class CreatePinFragmentTest {
-    private CreatePinFragment createPinFragment;
+    private SetupCodeFragment createPinFragment;
     private EditText pinInput;
     private SharedPreferences sharedPreferences;
     private static Application context;
@@ -35,7 +35,7 @@ public class CreatePinFragmentTest {
 
     @Before
     public void setUp() {
-        createPinFragment = new CreatePinFragment();
+        createPinFragment = new SetupCodeFragment();
         testActivity = new TestFragmentActivity();
         context = Robolectric.application;
         FragmentManager fragmentManager = testActivity.getSupportFragmentManager();

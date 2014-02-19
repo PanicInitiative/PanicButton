@@ -107,10 +107,45 @@
         <item name="android:layout_margin">0dp</item>
     </style>
 
+    <style name="wizard_intro_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:text">@string/panic_button_label</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="wizard_warning_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:text">@string/wizard_training_contacts_details</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="wizard_content_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:text">@string/wizard_training_contacts_details</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="wizard_static_panel">
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingBottom">1dp</item>
         <item name="android:paddingTop">10dp</item>
     </style>
 
@@ -212,12 +247,14 @@
 
     <style name="contact_number">
         <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:padding">2dp</item>
     </style>
 
     <style name="contact_select_button">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
     </style>
 
     <style name="activate_disguise_button">
@@ -226,10 +263,14 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="modal_link_button">
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="i_am_at_text">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">italic</item>
-        <item name="android:background">#ebebeb</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">3dp</item>
         <item name="android:layout_marginRight">3dp</item>
         <item name="android:layout_marginBottom">7dp</item>
@@ -242,6 +283,15 @@
         <item name="android:background">#eeeeee</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
 </resources>

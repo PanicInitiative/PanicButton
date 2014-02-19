@@ -28,5 +28,6 @@
                    android:src="@drawable/activate2"
                    android:contentDescription="@string/tap_five_times"
                    style="@style/wizard_image"/>
+<!--        <include layout="@layout/calculator_layout"/>-->
     </LinearLayout>
 </ScrollView>

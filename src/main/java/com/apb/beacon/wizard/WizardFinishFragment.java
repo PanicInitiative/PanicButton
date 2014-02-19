@@ -19,7 +19,7 @@ public class WizardFinishFragment extends WizardFragment {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApplicationSettings.completeFirstRun(context);
+                ApplicationSettings.setFirstRun(context, false);
                 startActivity(new Intent(context, CalculatorActivity.class));
                 getActivity().overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 getActivity().finish();

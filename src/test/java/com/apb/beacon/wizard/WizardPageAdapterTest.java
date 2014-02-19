@@ -35,7 +35,7 @@ public class WizardPageAdapterTest {
 //        assertSimpleFragment(0, wizard_start_screen, start_action);
         assertEquals(WizardWelcomeFragment.class, wizardPageAdapter.getItem(AppConstants.PAGE_NUMBER_WIZARD_WELCOME).getClass());
         assertEquals(WizardTrainingFragment.class, wizardPageAdapter.getItem(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING).getClass());
-        assertEquals(CreatePinFragment.class, wizardPageAdapter.getItem(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN).getClass());
+        assertEquals(SetupCodeFragment.class, wizardPageAdapter.getItem(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN).getClass());
 //        SMSSettingsFragment smsSettingsFragment = (SMSSettingsFragment) wizardPageAdapter.getItem(2);
 //        assertEquals(R.string.sms_settings_wizard_header, smsSettingsFragment.getArguments().getInt("HEADER_TEXT_ID"));
         assertSimpleFragment(AppConstants.PAGE_NUMBER_EMERGENCY_ALERT1, wizard_emergency_alert1, next_action);

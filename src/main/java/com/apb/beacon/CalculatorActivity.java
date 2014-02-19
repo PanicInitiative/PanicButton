@@ -2,7 +2,9 @@ package com.apb.beacon;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,17 +25,23 @@ public class CalculatorActivity extends PanicButtonActivity {
 	@Inject private Calculator calculator;
 	private int lastClickId = -1;
 
+    boolean mHasPerformedLongPress;
+    Runnable mPendingCheckForLongPress;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
+
+        ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
 	}
 
 	private void registerButtonEvents() {
 		for(int button : buttons) {
 			Button equalsButton = (Button) findViewById(button);
-			equalsButton.setOnLongClickListener(longClickListener);
+            equalsButton.setOnTouchListener(touchListener);
+//			equalsButton.setOnLongClickListener(longClickListener);
 			equalsButton.setOnClickListener(clickListener);
 		}
 	}
@@ -105,14 +113,70 @@ public class CalculatorActivity extends PanicButtonActivity {
 		}
 	};
 
-	private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-		@Override
-		public boolean onLongClick(View view) {
-			startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
-			overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
-			return true;
-		}
-	};
+
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+
+        @Override
+        public boolean onTouch(final View v, MotionEvent event) {
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_UP:
+
+                    if (!mHasPerformedLongPress) {
+                        // This is a tap, so remove the longpress check
+                        if (mPendingCheckForLongPress != null) {
+                            v.removeCallbacks(mPendingCheckForLongPress);
+                        }
+                        // v.performClick();
+                    }
+
+                    break;
+                case MotionEvent.ACTION_DOWN:
+                    if (mPendingCheckForLongPress == null) {
+                        mPendingCheckForLongPress = new Runnable() {
+                            public void run() {
+                                startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
+                                overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
+                            }
+                        };
+                    }
+
+
+                    mHasPerformedLongPress = false;
+                    v.postDelayed(mPendingCheckForLongPress, 3000);
+
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+
+                    // Be lenient about moving outside of buttons
+                    int slop = ViewConfiguration.get(v.getContext()).getScaledTouchSlop();
+                    if ((x < 0 - slop) || (x >= v.getWidth() + slop) ||
+                            (y < 0 - slop) || (y >= v.getHeight() + slop)) {
+
+                        if (mPendingCheckForLongPress != null) {
+                            v.removeCallbacks(mPendingCheckForLongPress);
+                        }
+                    }
+                    break;
+                default:
+                    return false;
+            }
+
+            return false;
+        }
+
+    };
+
+//	private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+//		@Override
+//		public boolean onLongClick(View view) {
+//			startActivity(new Intent(CalculatorActivity.this, LoginActivity.class));
+//			overridePendingTransition(R.anim.show_from_top, R.anim.hide_to_bottom);
+//			return true;
+//		}
+//	};
 
 	private MultiClickEvent resetEvent(View view) {
 		MultiClickEvent multiClickEvent = new MultiClickEvent();

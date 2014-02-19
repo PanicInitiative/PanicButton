@@ -3,36 +3,30 @@ package com.apb.beacon.common;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.apb.beacon.R;
-import com.apb.beacon.wizard.ActionButtonStateListener;
-
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 
 import static java.lang.String.valueOf;
 
-public class MessageFragment extends RoboFragment {
-    @InjectView(R.id.characters_left_view)
+public class MessageFragment extends Fragment {
+
     private TextView charactersLeftView;
-
-    @InjectView(R.id.message_fragment_header)
     private TextView messageHeaderView;
-
-    @InjectView(R.id.message_edit_text)
     private EditText messageEditText;
 
     private MessageLimitWatcher messageLimitWatcher;
     private int maxCharacters;
     private String messageHeader;
-    private ActionButtonStateListener actionButtonStateListener;
+    private Button bAction;
 
     @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
@@ -46,7 +40,14 @@ public class MessageFragment extends RoboFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.message_fragment, container, false);
+
+        View view = inflater.inflate(R.layout.message_fragment, container, false);
+
+        charactersLeftView = (TextView) view.findViewById(R.id.characters_left_view);
+        messageHeaderView = (TextView) view.findViewById(R.id.message_fragment_header);
+        messageEditText = (EditText) view.findViewById(R.id.message_edit_text);
+
+        return view;
     }
 
     @Override
@@ -55,11 +56,11 @@ public class MessageFragment extends RoboFragment {
 
     }
 
-    public void setActionButtonStateListener(ActionButtonStateListener actionButtonStateListener){
-        this.actionButtonStateListener = actionButtonStateListener;
+    public void setActionButtonStateListener(Button bAction){
+        this.bAction = bAction;
 
         String prefix = getString(R.string.characters_left);
-        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, prefix, maxCharacters, actionButtonStateListener);
+        messageLimitWatcher = new MessageLimitWatcher(charactersLeftView, prefix, maxCharacters, bAction);
         messageEditText.addTextChangedListener(messageLimitWatcher);
         InputFilter[] filters = {new InputFilter.LengthFilter(maxCharacters)};
         messageEditText.setFilters(filters);

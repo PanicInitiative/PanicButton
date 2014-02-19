@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="fill_parent">-->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/black"
+        android:orientation="horizontal">
+
+    <GridView
+        android:id="@+id/gv_app_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="55dp"
+        android:gravity="center"
+        android:horizontalSpacing="12dp"
+        android:numColumns="auto_fit"
+        android:padding="5dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="15dp" />
+
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/fragment_contents"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:text="@string/wizard_training_contacts_details"-->
+            <!--style="@style/welcome_screen_text" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/b_action"-->
+            <!--android:text="@string/finish_button_text"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:background="@drawable/drawable_wizard_button"-->
+            <!--style="@style/activate_disguise_button"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginLeft="50dp"-->
+            <!--android:layout_marginRight="50dp"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_centerHorizontal="true" />-->
+
+    </LinearLayout>
+<!--</ScrollView>-->

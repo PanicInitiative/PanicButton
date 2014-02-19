@@ -4,10 +4,10 @@ import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.wizard.ActionButtonStateListener;
 
 import static java.lang.String.valueOf;
 
@@ -15,13 +15,13 @@ public class MessageLimitWatcher implements TextWatcher {
     private TextView textView;
     private String prefix;
     private int maxCount;
-    private ActionButtonStateListener actionButtonStateListener;
+    private Button bAction;
 
-    public MessageLimitWatcher(TextView textView, String prefix, int maxCount, final ActionButtonStateListener actionButtonStateListener) {
+    public MessageLimitWatcher(TextView textView, String prefix, int maxCount, final Button bAction) {
         this.textView = textView;
         this.prefix = prefix;
         this.maxCount = maxCount;
-        this.actionButtonStateListener = actionButtonStateListener;
+        this.bAction = bAction;
     }
 
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -42,8 +42,8 @@ public class MessageLimitWatcher implements TextWatcher {
 //        else{
 //            WizardActivity.actionButton.setEnabled(true);
 //        }
-        if (actionButtonStateListener != null) {
-            actionButtonStateListener.enableActionButton(!s.toString().trim().equals(""));
+        if (bAction != null) {
+            bAction.setEnabled(!s.toString().trim().equals(""));
         } else {
             Log.e(">>>>>>>>>>", "actionButtonStateListener = null");
         }

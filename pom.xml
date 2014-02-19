@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
     <artifactId>panic-button</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.2</version>
     <packaging>apk</packaging>
     <name>panic-button</name>
 
@@ -73,6 +74,14 @@
             <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
+
+        <!--  Gson: Java to Json conversion -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -116,10 +125,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <androidManifestFile>${project.build.directory}/filtered-manifest/AndroidManifest.xml</androidManifestFile>
+                    <androidManifestFile>
+                        ${project.build.directory}/filtered-manifest/AndroidManifest.xml
+                    </androidManifestFile>
                     <assetsDirectory>${project.basedir}/assets</assetsDirectory>
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
-                    <nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
+                    <nativeLibrariesDirectory>${project.basedir}/src/main/native
+                    </nativeLibrariesDirectory>
                     <sdk>
                         <platform>18</platform>
                     </sdk>
@@ -163,7 +175,8 @@
                             <exclude>com/apb/beacon/common/Intents.class</exclude>
                             <exclude>com/apb/beacon/common/AppUtil.class</exclude>
                             <exclude>com/apb/beacon/AppConstants.class</exclude>
-                            <exclude>com/apb/beacon/twitter/OnItemSelectedListenerAdapter.class</exclude>
+                            <exclude>com/apb/beacon/twitter/OnItemSelectedListenerAdapter.class
+                            </exclude>
                             <exclude>com/apb/beacon/twitter/HintSpinnerAdapter.class</exclude>
 
                             <exclude>com/apb/beacon/HomeActivity*.class</exclude>
@@ -202,7 +215,7 @@
                     <formats>
                         <format>html</format>
                     </formats>
-                    <check/>
+                    <check />
                 </configuration>
             </plugin>
         </plugins>

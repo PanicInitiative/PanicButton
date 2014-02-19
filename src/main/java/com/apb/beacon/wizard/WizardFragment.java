@@ -2,10 +2,9 @@ package com.apb.beacon.wizard;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
-import roboguice.fragment.RoboFragment;
-
-public class WizardFragment extends RoboFragment {
+public class WizardFragment extends Fragment {
     protected ActionButtonStateListener actionButtonStateListener;
     protected Context context;
 
@@ -21,18 +20,18 @@ public class WizardFragment extends RoboFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.context = activity.getApplicationContext();
-        setActionButtonStateListener(activity);
+//        setActionButtonStateListener(activity);
     }
 
-    private void setActionButtonStateListener(Activity activity) {
-        if (activity instanceof ActionButtonStateListener)
-            this.actionButtonStateListener = (ActionButtonStateListener) activity;
-    }
-
+//    private void setActionButtonStateListener(Activity activity) {
+//        if (activity instanceof ActionButtonStateListener)
+//            this.actionButtonStateListener = (ActionButtonStateListener) activity;
+//    }
+//
     public void onFragmentSelected() {
-        if (actionButtonStateListener != null) {
-            actionButtonStateListener.enableActionButton(true);
-        }
+//        if (actionButtonStateListener != null) {
+//            actionButtonStateListener.enableActionButton(true);
+//        }
     }
 
     public void onBackPressed() {

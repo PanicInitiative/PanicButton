@@ -15,21 +15,22 @@ public class ApplicationSettings {
     public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
     private static final String IS_ALERT_ACTIVE = "IS_ALERT_ACTIVE";
+    private static final String WIZARD_STATE = "WIZARD_STATE";
     public static final String BEST_LOCATION = "BEST_LOCATION";
 
-    public static void completeFirstRun(Context context) {
-        saveBoolean(context, FIRST_RUN, false);
+    public static void setFirstRun(Context context, boolean isFirstRun) {
+        saveBoolean(context, FIRST_RUN, isFirstRun);
     }
 
     public static boolean isFirstRun(Context context) {
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
     }
 
-    public static void setHardcodeInsertion(Context context, boolean flag) {
+    public static void setLocalDataInsertion(Context context, boolean flag) {
         saveBoolean(context, HARDCODE_INSERT, flag);
     }
 
-    public static boolean getHardcodeInsertion(Context context) {
+    public static boolean getLocalDataInsertion(Context context) {
         return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
     }
 
@@ -56,6 +57,15 @@ public class ApplicationSettings {
 
     public static void setAlertActive(Context context, boolean isActive) {
         saveBoolean(context, IS_ALERT_ACTIVE , isActive);
+    }
+
+
+    public static int getWizardState(Context context) {
+        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+    }
+
+    public static void setWizardState(Context context, int state) {
+        saveInt(context, WIZARD_STATE, state);
     }
 
     public static Location getCurrentBestLocation(Context context) {
@@ -92,6 +102,12 @@ public class ApplicationSettings {
     private static void saveLong(Context context, String key, Long value) {
         SharedPreferences.Editor editor = sharedPreferences(context).edit();
         editor.putLong(key, value);
+        editor.commit();
+    }
+
+    private static void saveInt(Context context, String key, int value) {
+        SharedPreferences.Editor editor = sharedPreferences(context).edit();
+        editor.putInt(key, value);
         editor.commit();
     }
 }

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/wizard_layout_root"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:orientation="vertical">
 
 
 
-    <LinearLayout
+<!--    <LinearLayout
             style="@style/custom_action_bar"
             android:layout_height="50dp"
+            android:visibility="gone"
             android:layout_width="fill_parent">
 
         <Button android:id="@+id/previous_button"
@@ -33,19 +36,37 @@
 
         <Button android:id="@+id/action_button"
                 style="@style/next_button"
-                android:background="@drawable/topbar_button"
+                android:background="@drawable/drawable_wizard_button"
                 android:text="@string/next_action"
                 android:layout_height="fill_parent"
                 android:layout_width="wrap_content"
                 android:onClick="performAction"/>
 
-    </LinearLayout>
-      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>
+    </LinearLayout>-->
+<!--      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>-->
 
-    <com.apb.beacon.wizard.WizardViewPager
+<!--    <com.apb.beacon.wizard.WizardViewPager
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/wizard_view_pager"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            />
-</LinearLayout>
+            />-->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"/>
+
+    <TextView
+        android:id="@+id/tv_toast"
+        android:textSize="18sp"
+        android:text="hello"
+        android:background="@android:color/darker_gray"
+        android:textColor="@android:color/white"
+        android:layout_alignBottom="@+id/fragment_container"
+        android:layout_marginBottom="30dp"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"/>
+</RelativeLayout>

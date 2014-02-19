@@ -35,7 +35,7 @@ public class WizardDisguiseIntroFragment extends WizardFragment {
         bOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((WizardActivity)getActivity()).performAction(null);
+//                ((WizardActivity)getActivity()).performAction(null);
             }
         });
         return view;

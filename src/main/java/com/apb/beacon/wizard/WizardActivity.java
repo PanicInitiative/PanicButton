@@ -1,96 +1,289 @@
 package com.apb.beacon.wizard;
 
+
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
-import com.apb.beacon.SoftKeyboard;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
+import com.apb.beacon.model.Page;
+import com.apb.beacon.sms.SetupContactsFragment;
+import com.apb.beacon.sms.SetupMessageFragment;
 
-import roboguice.activity.RoboFragmentActivity;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
-
-import static android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
-
-@ContentView(R.layout.wizard_layout)
-public class WizardActivity extends RoboFragmentActivity implements ActionButtonStateListener{
+public class WizardActivity extends FragmentActivity {
     private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
-    @InjectView(R.id.previous_button)
-    Button previousButton;
-    @InjectView(R.id.action_button)
-    public Button actionButton;
+    Page currentPage;
+    String pageId;
+    String defaultLang;
 
-    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
-        @Override
-        public void onPageSelected(int position) {
-            super.onPageSelected(position);
-            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
-            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
-//            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
-            setActionButtonVisibility(position);
-            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
-                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
+    TextView tvToastMessage;
+    Boolean flagRiseFromPause = false;
 
-            Log.e(">>>>>>", "setting action text from pageChangeListener");
-            actionButton.setText(getCurrentWizardFragment().action());
-            getCurrentWizardFragment().onFragmentSelected();
-        }
-    };
+//    @InjectView(R.id.previous_button)
+//    Button previousButton;
+//    @InjectView(R.id.action_button)
+//    public Button actionButton;
+
+//    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
+//        @Override
+//        public void onPageSelected(int position) {
+//            super.onPageSelected(position);
+//            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
+//            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
+////            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
+//            setActionButtonVisibility(position);
+//            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
+//                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
+//
+//            Log.e(">>>>>>", "setting action text from pageChangeListener");
+//            actionButton.setText(getCurrentWizardFragment().action());
+//            getCurrentWizardFragment().onFragmentSelected();
+//        }
+//    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.root_layout);
 
-        previousButton.setVisibility(INVISIBLE);
+        tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
-        PBDatabase dbInstance = new PBDatabase(WizardActivity.this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        registerReceiver(activityFinishReceiver, intentFilter);
+
+        pageId = getIntent().getExtras().getString("page_id");
+        defaultLang = "en";
+
+        PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
+        currentPage = dbInstance.retrievePage(pageId, defaultLang);
         dbInstance.close();
-        Log.e(">>>>>>", "setting action text from onCreate -> " + page.getPageAction());
-        actionButton.setText(page.getPageAction());
 
-        viewPager = (WizardViewPager) findViewById(R.id.wizard_view_pager);
-        pagerAdapter = getWizardPagerAdapter();
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setOnPageChangeListener(pageChangeListener);
-    }
+        if (currentPage == null) {
+            Log.e(">>>>>>", "page = null");
+            Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-    public void setActionButtonVisibility(int pageNumber){
-//        if(pageNumber == AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        else if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_LEARN_MORE)
-//            actionButton.setVisibility(View.INVISIBLE);
-//        if(pageNumber == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE_INTRO)
-//            actionButton.setVisibility(View.INVISIBLE);
-        if(pageNumber == pagerAdapter.getCount() -1)
-            actionButton.setVisibility(View.INVISIBLE);
-        else
-            actionButton.setVisibility(View.VISIBLE);
-    }
+            Fragment fragment = null;
 
-    public void performAction(View view) {
-        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
-            viewPager.nextWithSkip();
+            if (currentPage.getType().equals("simple")) {
+                tvToastMessage.setVisibility(View.INVISIBLE);
+                fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+            }
+            else if (currentPage.getType().equals("warning")) {
+                tvToastMessage.setVisibility(View.INVISIBLE);
+                fragment = new WarningFragment().newInstance(pageId);
+            }
+            else if (currentPage.getType().equals("modal")){
+                tvToastMessage.setVisibility(View.INVISIBLE);
+                Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
+                i.putExtra("page_id", pageId);
+                i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
+                startActivity(i);
+                finish();
+                return;
+            }
+            else {
+                if (currentPage.getComponent().equals("contacts"))
+                    fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("message"))
+                    fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("code"))
+                    fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("alarm-test-hardware")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+                    fragment = new AlarmTestHardwareFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("alarm-test-disguise")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+                    fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("disguise-test-open")){
+                    findViewById(R.id.wizard_layout_root).setBackgroundColor(Color.BLACK);
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+                    fragment = new TestDisguiseOpenFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("disguise-test-unlock")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+
+                    fragment = new TestDisguiseUnlockFragment().newInstance(pageId);
+                }
+                else if (currentPage.getComponent().equals("disguise-test-code")){
+                    tvToastMessage.setVisibility(View.VISIBLE);
+                    if(currentPage.getIntroduction() != null){
+                        tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
+                    }
+                    fragment = new TestDisguiseCodeFragment().newInstance(pageId);
+                }
+                else
+                    fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+            }
+            fragmentTransaction.add(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
         }
-        else if(getCurrentWizardFragment().performAction()){
-            viewPager.next();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(">>>>>", "onPause");
+        if(currentPage.getId().equals("home-ready")){
+            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        }
+
+        if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action
+            Log.e(">>>>>>", "assert flagRiseFromPause = " + true);
+            flagRiseFromPause = true;
         }
     }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(">>>>>>>>>>", "onStop");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(">>>>>>>>>>", "onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(">>>>>", "onResume with flagRiseFromPause = " + flagRiseFromPause);
+
+        int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
+
+        if(wizardState == AppConstants.WIZARD_FLAG_COMPLETE){
+            return;
+        }
+
+        if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
+            getPackageManager().setComponentEnabledSetting(
+                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+            getPackageManager().setComponentEnabledSetting(
+                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+            Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+            sendBroadcast(broadcastIntent);
+
+            finish();
+            return;
+        }
+
+        if(AppConstants.wizard_is_back_button_pressed){
+            Log.e(">>>>>>>>", "back button pressed");
+            AppConstants.wizard_is_back_button_pressed = false;
+            return;
+        }
+
+        if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
+//        if (flagRiseFromPause) {
+
+            if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
+                pageId = "home-not-configured";
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
+                pageId = "home-not-configured-alarm";
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
+                pageId = "home-not-configured-disguise";
+            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
+                pageId = "home-ready";
+            }
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+//            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+            sendBroadcast(broadcastIntent);
+
+            finish();
+        }
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        hideToastMessageInInteractiveFragment();
+    }
+
+    public void hideToastMessageInInteractiveFragment(){
+        tvToastMessage.setVisibility(View.INVISIBLE);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(pageId.equals("home-ready")){
+            // don't go back
+        }
+        else{
+            super.onBackPressed();
+        }
+        AppConstants.wizard_is_back_button_pressed = true;
+    }
+
+    public void setActionButtonVisibility(int pageNumber) {
+    }
+
+//    public void performAction(View view) {
+//        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
+//            viewPager.nextWithSkip();
+//        }
+//        else if(getCurrentWizardFragment().performAction()){
+//            viewPager.next();
+//        }
+//    }
 
     /*
     skip one fragment in the middle
@@ -100,11 +293,11 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     public void previous(View view) {
-        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
+        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
             viewPager.previousWithSkip();
         }
 //        getCurrentWizardFragment().onBackPressed();
-        else{
+        else {
             viewPager.previous();
         }
     }
@@ -115,17 +308,9 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
     }
 
     @Override
-    public void onBackPressed() {
-        getCurrentWizardFragment().onBackPressed();
-        if(viewPager.isFirstPage()) {
-            this.finish();
-        }
-        else if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS){
-            viewPager.previousWithSkip();
-        }
-        else{
-            viewPager.previous();
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(activityFinishReceiver);
     }
 
     private WizardFragment getCurrentWizardFragment() {
@@ -136,14 +321,12 @@ public class WizardActivity extends RoboFragmentActivity implements ActionButton
         return new WizardPageAdapter(getSupportFragmentManager());
     }
 
-    @Override
-    public void enableActionButton(boolean isEnabled) {
-        actionButton.setEnabled(isEnabled);
-    }
+    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
 
-//    @Override
-//    public void setText(String buttonText) {
-//        Log.e(">>>>>>>>>", "buttonText = " + buttonText);
-//        actionButton.setText(buttonText);
-//    }
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("onReceive","Logout in progress");
+            finish();
+        }
+    };
 }
