@@ -31,7 +31,7 @@ import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
 public class WizardActivity extends FragmentActivity {
-    private WizardViewPager viewPager;
+//    private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
@@ -273,8 +273,8 @@ public class WizardActivity extends FragmentActivity {
         AppConstants.wizard_is_back_button_pressed = true;
     }
 
-    public void setActionButtonVisibility(int pageNumber) {
-    }
+//    public void setActionButtonVisibility(int pageNumber) {
+//    }
 
 //    public void performAction(View view) {
 //        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
@@ -288,24 +288,24 @@ public class WizardActivity extends FragmentActivity {
     /*
     skip one fragment in the middle
      */
-    public void performActionWithSkip() {
-        viewPager.nextWithSkip();
-    }
-
-    public void previous(View view) {
-        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
-            viewPager.previousWithSkip();
-        }
-//        getCurrentWizardFragment().onBackPressed();
-        else {
-            viewPager.previous();
-        }
-    }
-
-    public void previousWithSkip() {
-//        getCurrentWizardFragment().onBackPressed();
-        viewPager.previousWithSkip();
-    }
+//    public void performActionWithSkip() {
+//        viewPager.nextWithSkip();
+//    }
+//
+//    public void previous(View view) {
+//        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
+//            viewPager.previousWithSkip();
+//        }
+////        getCurrentWizardFragment().onBackPressed();
+//        else {
+//            viewPager.previous();
+//        }
+//    }
+//
+//    public void previousWithSkip() {
+////        getCurrentWizardFragment().onBackPressed();
+//        viewPager.previousWithSkip();
+//    }
 
     @Override
     protected void onDestroy() {
@@ -313,13 +313,13 @@ public class WizardActivity extends FragmentActivity {
         unregisterReceiver(activityFinishReceiver);
     }
 
-    private WizardFragment getCurrentWizardFragment() {
-        return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
-    }
-
-    FragmentStatePagerAdapter getWizardPagerAdapter() {
-        return new WizardPageAdapter(getSupportFragmentManager());
-    }
+//    private WizardFragment getCurrentWizardFragment() {
+//        return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
+//    }
+//
+//    FragmentStatePagerAdapter getWizardPagerAdapter() {
+//        return new WizardPageAdapter(getSupportFragmentManager());
+//    }
 
     BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
 
