@@ -58,7 +58,7 @@ public class HomeActivity extends RoboActivity {
             pageId = "home-ready";
         }
 
-        checkIfUpdateNeeded();
+//        checkIfUpdateNeeded();
 
     }
 
@@ -161,7 +161,19 @@ public class HomeActivity extends RoboActivity {
 
     private void initializeLocalData(){
         try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset());
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            int version = mobileObj.getInt("version");
+            Log.e(">>>>>", "current version = " + version);
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertJsonDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
             JSONObject mobileObj = jsonObj.getJSONObject("mobile");
             int version = mobileObj.getInt("version");
             Log.e(">>>>>", "current version = " + version);
@@ -174,10 +186,10 @@ public class HomeActivity extends RoboActivity {
     }
 
 
-    public String loadJSONFromAsset() {
+    public String loadJSONFromAsset(String jsonFileName) {
         String json = null;
         try {
-            InputStream is = getAssets().open("mobile.json");
+            InputStream is = getAssets().open(jsonFileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
