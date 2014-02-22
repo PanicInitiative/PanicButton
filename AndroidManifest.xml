@@ -80,18 +80,6 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
-        <activity android:name=".sms.SMSSettingsActivity"
-                  android:windowSoftInputMode="stateHidden"
-                  android:screenOrientation="portrait"
-                  android:label="@string/sms"
-                  android:noHistory="true"
-                  android:excludeFromRecents="true"/>
-        <activity android:name=".twitter.TwitterSettingsActivity"
-                  android:windowSoftInputMode="stateHidden"
-                  android:screenOrientation="portrait"
-                  android:noHistory="true"
-                  android:label="@string/twitter"
-                  android:excludeFromRecents="true"/>
 
         <service android:name=".trigger.HardwareTriggerService"/>
 

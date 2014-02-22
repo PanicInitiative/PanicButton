@@ -24,7 +24,6 @@ import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 
@@ -128,17 +127,8 @@ public class SetupCodeFragment extends WizardFragment {
 
     @Override
     public void onFragmentSelected() {
-        actionButtonStateListener.enableActionButton(isComplete());
     }
 
-    @Override
-    public String action() {
-        PBDatabase dbInstance = new PBDatabase(activity);
-        dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN);
-        dbInstance.close();
-        return page.getPageAction();
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

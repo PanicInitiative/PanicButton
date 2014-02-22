@@ -1,6 +1,5 @@
 package com.apb.beacon;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +7,6 @@ import android.widget.TextView;
 
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.sms.SMSSettingsActivity;
-import com.apb.beacon.twitter.TwitterSettingsActivity;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -36,13 +33,7 @@ public class SettingsActivity extends PanicButtonActivity {
         updateView();
     }
 
-    public void launchSmsActivity(View view) {
-        startActivity(new Intent(this, SMSSettingsActivity.class));
-    }
 
-    public void launchTwitterActivity(View view) {
-        startActivity(new Intent(this, TwitterSettingsActivity.class));
-    }
 
     public void goBack(View view) {
         this.finish();

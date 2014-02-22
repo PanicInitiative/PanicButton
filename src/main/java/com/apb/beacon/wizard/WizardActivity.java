@@ -41,28 +41,6 @@ public class WizardActivity extends FragmentActivity {
     TextView tvToastMessage;
     Boolean flagRiseFromPause = false;
 
-//    @InjectView(R.id.previous_button)
-//    Button previousButton;
-//    @InjectView(R.id.action_button)
-//    public Button actionButton;
-
-//    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
-//        @Override
-//        public void onPageSelected(int position) {
-//            super.onPageSelected(position);
-//            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
-//            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
-////            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
-//            setActionButtonVisibility(position);
-//            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
-//                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
-//
-//            Log.e(">>>>>>", "setting action text from pageChangeListener");
-//            actionButton.setText(getCurrentWizardFragment().action());
-//            getCurrentWizardFragment().onFragmentSelected();
-//        }
-//    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -273,53 +251,12 @@ public class WizardActivity extends FragmentActivity {
         AppConstants.wizard_is_back_button_pressed = true;
     }
 
-//    public void setActionButtonVisibility(int pageNumber) {
-//    }
-
-//    public void performAction(View view) {
-//        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
-//            viewPager.nextWithSkip();
-//        }
-//        else if(getCurrentWizardFragment().performAction()){
-//            viewPager.next();
-//        }
-//    }
-
-    /*
-    skip one fragment in the middle
-     */
-//    public void performActionWithSkip() {
-//        viewPager.nextWithSkip();
-//    }
-//
-//    public void previous(View view) {
-//        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
-//            viewPager.previousWithSkip();
-//        }
-////        getCurrentWizardFragment().onBackPressed();
-//        else {
-//            viewPager.previous();
-//        }
-//    }
-//
-//    public void previousWithSkip() {
-////        getCurrentWizardFragment().onBackPressed();
-//        viewPager.previousWithSkip();
-//    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(activityFinishReceiver);
     }
-
-//    private WizardFragment getCurrentWizardFragment() {
-//        return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
-//    }
-//
-//    FragmentStatePagerAdapter getWizardPagerAdapter() {
-//        return new WizardPageAdapter(getSupportFragmentManager());
-//    }
 
     BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
 

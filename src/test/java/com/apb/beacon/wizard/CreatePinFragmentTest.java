@@ -6,12 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
 
-import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.common.TestFragmentActivity;
-import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -50,17 +47,6 @@ public class CreatePinFragmentTest {
 
     @Test
     public void shouldReturnTheActionText() {
-
-        LocalCachePage page = new LocalCachePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN, "Wizard Training Pin", "Step 1: Set a pin",
-                "Next", "", "page contents");
-        PBDatabase dbInstance = new PBDatabase(context);
-        dbInstance.open();
-        dbInstance.insertOrUpdateLocalCachePage(page);
-
-        page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN);
-        dbInstance.close();
-
-        assertEquals("Next", page.getPageAction());
     }
 
     @Test

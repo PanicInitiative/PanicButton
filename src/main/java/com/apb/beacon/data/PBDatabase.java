@@ -5,7 +5,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.PageChecklist;
@@ -76,17 +75,17 @@ public class PBDatabase {
     }
 
 
-    public void insertOrUpdateLocalCachePage(LocalCachePage page) {
-        LocalCacheDbManager.insertOrUpdate(this.db, page);
-    }
-
-    public LocalCachePage retrievePage(int pageNumber) {
-        return LocalCacheDbManager.retrievePage(this.db, pageNumber);
-    }
-
-    public int deletePage(int pageNumber) {
-        return LocalCacheDbManager.deletePage(this.db, pageNumber);
-    }
+//    public void insertOrUpdateLocalCachePage(LocalCachePage page) {
+//        LocalCacheDbManager.insertOrUpdate(this.db, page);
+//    }
+//
+//    public LocalCachePage retrievePage(int pageNumber) {
+//        return LocalCacheDbManager.retrievePage(this.db, pageNumber);
+//    }
+//
+//    public int deletePage(int pageNumber) {
+//        return LocalCacheDbManager.deletePage(this.db, pageNumber);
+//    }
 
     public void insertOrUpdateWizardPage(Page page) {
         PageDbManager.insertOrUpdate(this.db, page);

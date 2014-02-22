@@ -7,8 +7,6 @@ import android.location.LocationManager;
 import com.apb.beacon.location.LocationTestUtil;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.sms.SMSAdapter;
-import com.apb.beacon.twitter.ShortCodeSettings;
-import com.apb.beacon.twitter.TwitterSettings;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -81,20 +79,6 @@ public class PanicMessageTest {
         verifyNoMoreInteractions(mockSMSAdapter);
     }
 
-    @Test
-    public void shouldSendTwitterSMSIfEnabled() {
-        String tweet = "Test Message";
-        ShortCodeSettings shortCodeSettings = new ShortCodeSettings("India", "Airtel", "53000");
-        TwitterSettings twitterSettings = new TwitterSettings(shortCodeSettings, tweet);
-        TwitterSettings.enable(context);
-        TwitterSettings.save(context, twitterSettings);
-        String tweetText = tweet + normalLocationText;
-
-        PanicMessage panicMessage = createPanicMessage();
-        panicMessage.send(location);
-
-        verify(mockSMSAdapter).sendSMS("53000", tweetText);
-    }
 
     @Test
     public void shouldTruncateTheMessagePartIfItExceeds() {

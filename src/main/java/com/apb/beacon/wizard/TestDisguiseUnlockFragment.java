@@ -168,25 +168,6 @@ public class TestDisguiseUnlockFragment extends Fragment {
     };
 
 
-//    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-//        @Override
-//        public boolean onLongClick(View view) {
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            failHandler.removeCallbacks(runnableFailed);
-//
-//            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-//            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
-//
-//            String pageId = currentPage.getSuccessId();
-//
-//            Intent i = new Intent(activity, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            activity.startActivity(i);
-//            activity.finish();
-//            return true;
-//        }
-//    };
-
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
 

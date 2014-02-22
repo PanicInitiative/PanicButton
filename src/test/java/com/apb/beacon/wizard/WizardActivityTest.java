@@ -1,15 +1,10 @@
 package com.apb.beacon.wizard;
 
-import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
-import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
-import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,15 +12,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowInputMethodManager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static org.robolectric.Robolectric.application;
 import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -38,8 +29,7 @@ public class WizardActivityTest {
 
     @Mock
     private FragmentStatePagerAdapter mockPagerAdapter;
-    @Mock
-    private SimpleFragment mockFragment;
+
 
     @Before
     public void setUp() throws IllegalAccessException {
@@ -69,16 +59,6 @@ public class WizardActivityTest {
 //        assertEquals(mockPagerAdapter, viewPager.getAdapter());
     }
 
-    @Test
-    public void shouldHideKeyboardOnNavigation() {
-        ShadowInputMethodManager shadowInputMethodManager = shadowOf((InputMethodManager)
-                application.getSystemService(Activity.INPUT_METHOD_SERVICE));
-        shadowInputMethodManager.showSoftInput(mockFragment.getView(), 0);
-
-        assertTrue(shadowInputMethodManager.isSoftInputVisible());
-        moveNext(1);
-        assertFalse(shadowInputMethodManager.isSoftInputVisible());
-    }
 
     @Test
     public void shouldHavePreviousHiddenForFirstScreen() {
@@ -88,26 +68,8 @@ public class WizardActivityTest {
 
     @Test
     public void shouldSetActionButtonTextForFirstScreen() {
-
-        LocalCachePage page = new LocalCachePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME, "Wizard Welcome", "Wizard Welcome",
-                "Take me to the training", "Choose language settings", "page contents");
-        PBDatabase dbInstance = new PBDatabase(context);
-        dbInstance.open();
-        dbInstance.insertOrUpdateLocalCachePage(page);
-
-        page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_WIZARD_WELCOME);
-        dbInstance.close();
-
-        assertEquals("Take me to the training", page.getPageAction());
     }
 
-    @Test
-    public void shouldUpdateActionButtonTextOnNavigationToNextScreen() {
-        when(mockFragment.action()).thenReturn("Save");
-        moveNext(1);
-        assertEquals("Save", actionButton.getText());
-        verify(mockFragment).performAction();
-    }
 
     @Test
     public void shouldPerformActionAndNavigateToNextScreenAndShowPreviousButton() {
@@ -154,23 +116,7 @@ public class WizardActivityTest {
         assertFalse(actionButton.isShown());
     }
 
-    @Test
-    public void shouldChangeStateOfActionButton() {
-//        wizardActivity.enableActionButton(true);
-        assertTrue(actionButton.isEnabled());
-//        wizardActivity.enableActionButton(false);
-        assertTrue(!actionButton.isEnabled());
-    }
 
-    @Test
-    public void shouldNotMoveNextIfPerformActionFails() throws IllegalAccessException {
-        when(mockFragment.performAction()).thenReturn(false);
-//        WizardViewPager mockWizardViewPager = mock(WizardViewPager.class);
-//        ReflectionUtils.setVariableValueInObject(wizardActivity, "viewPager", mockWizardViewPager);
-
-//        wizardActivity.performAction(null);
-//        verify(mockWizardViewPager, never()).next();
-    }
 
     private void moveNext(int times) {
         for (int i = 0; i < times; i++) {
