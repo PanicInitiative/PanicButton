@@ -27,3 +27,5 @@ out/
 target/
 tmp/
 coverage.ec
+/test_servers/
+/*.png
