@@ -184,20 +184,6 @@ public class SetupMessageFragment extends Fragment {
     }
 
 
-//    @Override
-//    public String action() {
-//        return getString(WizardAction.NEXT.actionId());
-//    }
-
-//    @Override
-    public boolean performAction() {
-        String msg =  getSMSSettingsFromView();
-
-        SMSSettings.saveMessage(activity, msg);
-        displaySettings(msg);
-        return true;
-    }
-
     private String getSMSSettingsFromView() {
         String message = smsEditText.getText().toString().trim();
         return message;

@@ -4,6 +4,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
@@ -30,6 +31,11 @@ public class LoginActivityTest {
         ApplicationSettings.savePassword(Robolectric.application, pin);
 
         shadowActivity = shadowOf(loginActivity);
+    }
+
+    @Test
+    public void testTest() {
+        assert(true);
     }
 
 }

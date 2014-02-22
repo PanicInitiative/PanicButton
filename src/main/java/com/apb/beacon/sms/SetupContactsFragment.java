@@ -201,24 +201,6 @@ public class SetupContactsFragment extends Fragment {
         contactEditTexts.maskPhoneNumbers();
     }
 
-//    @Override
-//    protected int[] getFragmentIds() {
-//        return new int[]{first_contact, second_contact, third_contact};
-//    }
-
-//    @Override
-//    public String action() {
-//        return getString(WizardAction.NEXT.actionId());
-//    }
-
-//    @Override
-    public boolean performAction() {
-        SMSSettings newSMSSettings = getSMSSettingsFromView();
-
-        SMSSettings.save(activity, newSMSSettings);
-        displaySettings(newSMSSettings);
-        return true;
-    }
 
     private SMSSettings getSMSSettingsFromView() {
 //        String message = smsEditText.getText().toString();

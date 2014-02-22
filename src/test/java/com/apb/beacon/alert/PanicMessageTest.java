@@ -39,7 +39,7 @@ public class PanicMessageTest {
     public void setUp() {
         initMocks(this);
         context = Robolectric.application;
-        mobile1 = "123-123-1222";
+        mobile1 = "1231231222";
         String mobile2 = "";
         mobile3 = "6786786789";
         double latitude = 12.9839562;
