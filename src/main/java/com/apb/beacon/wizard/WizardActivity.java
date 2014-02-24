@@ -36,7 +36,7 @@ public class WizardActivity extends FragmentActivity {
 
     Page currentPage;
     String pageId;
-    String defaultLang;
+    String selectedLang;
 
     TextView tvToastMessage;
     Boolean flagRiseFromPause = false;
@@ -53,11 +53,11 @@ public class WizardActivity extends FragmentActivity {
         registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
-        defaultLang = "en";
+        selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        currentPage = dbInstance.retrievePage(pageId, selectedLang);
         dbInstance.close();
 
         if (currentPage == null) {
@@ -87,13 +87,15 @@ public class WizardActivity extends FragmentActivity {
                 finish();
                 return;
             }
-            else {
+            else {          // type = interactive
                 if (currentPage.getComponent().equals("contacts"))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("message"))
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("language"))
+                    fragment = new LanguageSettingsFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if(currentPage.getIntroduction() != null){

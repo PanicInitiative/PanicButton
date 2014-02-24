@@ -17,14 +17,16 @@ public class PageAction {
     private String title;
     private String link;
     private String status;
+    private String language;
 
     public PageAction() {
     }
 
-    public PageAction(String title, String link, String status) {
+    public PageAction(String title, String link, String status, String language) {
         this.title = title;
         this.link = link;
         this.status = status;
+        this.language = language;
     }
 
     public static List<PageAction> parsePageItems(JSONArray actionArray){
@@ -87,5 +89,13 @@ public class PageAction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
