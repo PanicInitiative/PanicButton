@@ -143,7 +143,7 @@ public class WizardModalActivity extends Activity {
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.wizard_is_back_button_pressed = true;
+                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -188,7 +188,7 @@ public class WizardModalActivity extends Activity {
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.wizard_is_back_button_pressed = true;
+                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -209,7 +209,7 @@ public class WizardModalActivity extends Activity {
         super.onBackPressed();
         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-            AppConstants.wizard_is_back_button_pressed = true;
+            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
         }
     }
 

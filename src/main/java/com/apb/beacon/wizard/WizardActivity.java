@@ -197,9 +197,9 @@ public class WizardActivity extends FragmentActivity {
             return;
         }
 
-        if(AppConstants.wizard_is_back_button_pressed){
+        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
             Log.e(">>>>>>>>", "back button pressed");
-            AppConstants.wizard_is_back_button_pressed = false;
+            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
@@ -248,7 +248,7 @@ public class WizardActivity extends FragmentActivity {
         else{
             super.onBackPressed();
         }
-        AppConstants.wizard_is_back_button_pressed = true;
+        AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
     }
 
 
