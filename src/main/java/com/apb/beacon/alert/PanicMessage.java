@@ -6,11 +6,8 @@ import android.location.Location;
 import com.apb.beacon.location.LocationFormatter;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.sms.SMSAdapter;
-import com.apb.beacon.twitter.ShortCodeSettings;
-import com.apb.beacon.twitter.TwitterSettings;
 
 import static android.telephony.SmsMessage.MAX_USER_DATA_SEPTETS;
-import static com.apb.beacon.twitter.TwitterSettings.retrieve;
 
 public class PanicMessage {
     public static final int TWITTER_MAX_LENGTH = 140;
@@ -24,9 +21,6 @@ public class PanicMessage {
     public void send(Location location) {
         this.location = location;
         sendSMS();
-        if (TwitterSettings.isEnabled(context)) {
-            tweet(retrieve(context));
-        }
     }
 
     private void sendSMS() {
@@ -37,13 +31,6 @@ public class PanicMessage {
         for (String phoneNumber : smsSettings.validPhoneNumbers()) {
             smsAdapter.sendSMS(phoneNumber, message);
         }
-    }
-
-    private void tweet(TwitterSettings twitterSettings) {
-        SMSAdapter smsAdapter = getSMSAdapter();
-        ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
-        String message = getTwitterText(twitterSettings.getMessage());
-        smsAdapter.sendSMS(shortCodeSettings.getShortCode(), message);
     }
 
     private String getSMSText(String message) {

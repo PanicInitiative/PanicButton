@@ -26,14 +26,12 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.wizard.WizardAction;
 import com.apb.beacon.wizard.WizardActivity;
-import com.apb.beacon.wizard.WizardFragment;
 
 /**
  * Created by aoe on 12/12/13.
  */
-public class SetupMessageFragment extends WizardFragment {
+public class SetupMessageFragment extends Fragment {
     private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
@@ -186,30 +184,16 @@ public class SetupMessageFragment extends WizardFragment {
     }
 
 
-    @Override
-    public String action() {
-        return getString(WizardAction.NEXT.actionId());
-    }
-
-    @Override
-    public boolean performAction() {
-        String msg =  getSMSSettingsFromView();
-
-        SMSSettings.saveMessage(context, msg);
-        displaySettings(msg);
-        return true;
-    }
-
     private String getSMSSettingsFromView() {
         String message = smsEditText.getText().toString().trim();
         return message;
     }
 
-    @Override
-    public void onFragmentSelected() {
-//        if (actionButtonStateListener != null) {
-//            actionButtonStateListener.enableActionButton(!smsEditText.getText().toString().trim().equals(""));
-//        }
-    }
+//    @Override
+//    public void onFragmentSelected() {
+////        if (actionButtonStateListener != null) {
+////            actionButtonStateListener.enableActionButton(!smsEditText.getText().toString().trim().equals(""));
+////        }
+//    }
 
 }

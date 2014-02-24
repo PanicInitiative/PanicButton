@@ -3,6 +3,7 @@ package com.apb.beacon.sms;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,16 +25,14 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.wizard.WizardAction;
 import com.apb.beacon.wizard.WizardActivity;
-import com.apb.beacon.wizard.WizardFragment;
 
 import java.util.List;
 
 /**
  * Created by aoe on 12/11/13.
  */
-public class SetupContactsFragment extends WizardFragment {
+public class SetupContactsFragment extends Fragment {
 //    public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
     private ContactEditTexts contactEditTexts;
 //    private EditText smsEditText;
@@ -83,7 +82,7 @@ public class SetupContactsFragment extends WizardFragment {
                 Log.e(">>>>", "action button pressed");
                 SMSSettings newSMSSettings = getSMSSettingsFromView();
 
-                SMSSettings.save(context, newSMSSettings);
+                SMSSettings.save(activity, newSMSSettings);
                 displaySettings(newSMSSettings);
 
                 String pageId = currentPage.getAction().get(0).getLink();
@@ -147,7 +146,7 @@ public class SetupContactsFragment extends WizardFragment {
         if (activity != null) {
             contactEditTexts = new ContactEditTexts(getFragmentManager(), bAction, activity);
 
-            SMSSettings currentSettings = SMSSettings.retrieve(context);
+            SMSSettings currentSettings = SMSSettings.retrieve(activity);
             if(currentSettings.isConfigured()) {
                 displaySettings(currentSettings);
             }
@@ -202,24 +201,6 @@ public class SetupContactsFragment extends WizardFragment {
         contactEditTexts.maskPhoneNumbers();
     }
 
-//    @Override
-//    protected int[] getFragmentIds() {
-//        return new int[]{first_contact, second_contact, third_contact};
-//    }
-
-    @Override
-    public String action() {
-        return getString(WizardAction.NEXT.actionId());
-    }
-
-    @Override
-    public boolean performAction() {
-        SMSSettings newSMSSettings = getSMSSettingsFromView();
-
-        SMSSettings.save(context, newSMSSettings);
-        displaySettings(newSMSSettings);
-        return true;
-    }
 
     private SMSSettings getSMSSettingsFromView() {
 //        String message = smsEditText.getText().toString();
