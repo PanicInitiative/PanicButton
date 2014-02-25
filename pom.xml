@@ -7,7 +7,7 @@
     <artifactId>panic-button</artifactId>
     <version>1.1.3</version>
     <packaging>apk</packaging>
-    <name>panic-button</name>
+    <name>Panic Button</name>
 
     <repositories>
         <repository>
@@ -139,7 +139,7 @@
                     <zipalign>
                         <verbose>true</verbose>
                         <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-${app.version.prefix}.apk</outputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
