@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
@@ -39,6 +40,7 @@ public class HomeActivity extends RoboActivity {
 //    JsonParser jsonParser;
 
     String pageId;
+    String selectedLang;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,7 @@ public class HomeActivity extends RoboActivity {
             pageId = "home-ready";
         }
 
-        checkIfUpdateNeeded();
+//        checkIfUpdateNeeded();
 
     }
 
@@ -74,7 +76,18 @@ public class HomeActivity extends RoboActivity {
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
         if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
-            new GetUpdate().execute();
+
+            String url = null;
+            selectedLang = ApplicationSettings.getSelectedLanguage(this);
+            if(selectedLang.equals("en")){
+                url = AppConstants.BASE_ENGLISH_URL;
+            }else if(selectedLang.equals("es")){
+                url = AppConstants.BASE_SPANISH_URL;
+            } else if(selectedLang.equals("ph")){
+                url = AppConstants.BASE_FILIPINO_URL;
+            }
+
+            new GetLanguageUpdate().execute(url);
         }
         else{
             if (isFirstRun(HomeActivity.this)) {
@@ -102,7 +115,7 @@ public class HomeActivity extends RoboActivity {
     }
 
 
-    private class GetUpdate extends AsyncTask<Void, Void, Void> {
+    private class GetLanguageUpdate extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -111,8 +124,8 @@ public class HomeActivity extends RoboActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            String url = AppConstants.BASE_URL;
+        protected Boolean doInBackground(String... params) {
+            String url = params[0];
             JsonParser jsonParser = new JsonParser();
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
@@ -124,19 +137,23 @@ public class HomeActivity extends RoboActivity {
                     JSONObject mobObj = responseObj.getJSONObject("mobile");
                     JSONArray dataArray = mobObj.getJSONArray("data");
                     insertJsonDataToLocalDB(dataArray);
+                    return true;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return false;
         }
 
         @Override
-        protected void onPostExecute(Void response) {
+        protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
+            if(!response){
+                Toast.makeText(HomeActivity.this, "Language content couldn't be updated.", Toast.LENGTH_SHORT).show();
+            }
             if (isFirstRun(HomeActivity.this)) {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
                 i.putExtra("page_id", pageId);
@@ -162,7 +179,31 @@ public class HomeActivity extends RoboActivity {
 
     private void initializeLocalData(){
         try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset());
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            int version = mobileObj.getInt("version");
+            Log.e(">>>>>", "current version = " + version);
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertJsonDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            int version = mobileObj.getInt("version");
+            Log.e(">>>>>", "current version = " + version);
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertJsonDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
             JSONObject mobileObj = jsonObj.getJSONObject("mobile");
             int version = mobileObj.getInt("version");
             Log.e(">>>>>", "current version = " + version);
@@ -175,10 +216,10 @@ public class HomeActivity extends RoboActivity {
     }
 
 
-    public String loadJSONFromAsset() {
+    public String loadJSONFromAsset(String jsonFileName) {
         String json = null;
         try {
-            InputStream is = getAssets().open("mobile.json");
+            InputStream is = getAssets().open(jsonFileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

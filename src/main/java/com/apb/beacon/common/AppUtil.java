@@ -7,10 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.Html;
-import android.util.Log;
 import android.widget.EditText;
-
-import com.apb.beacon.model.LocalCachePage;
 
 import java.util.Calendar;
 import java.util.List;
@@ -84,47 +81,6 @@ public class AppUtil {
         if(millis > today.getTimeInMillis())
             return true;
         return false;
-    }
-
-
-
-    public static LocalCachePage parseMarkDown(int pageNumber, String pageName, String mdContent){
-        LocalCachePage page = new LocalCachePage();
-        page.setPageNumber(pageNumber);
-        page.setPageName(pageName);
-
-        String[] subStr = mdContent.split("---");
-        if(subStr.length > 1){
-            String[] headerStr = subStr[1].split("\n");
-            Log.e(">>>>>>>>", "headerStr length = " + headerStr.length);
-            for(String str : headerStr){
-                Log.e("<<<<<", "headStr string = " + str);
-                if(str == null || str.equals(""))
-                    continue;
-                String[] strPart = str.split(":");
-                for(String testStr : strPart){
-                    Log.e(">>>>>>>", "test = " + testStr);
-                }
-
-                String key = strPart[0];
-                String field = strPart[1].trim();
-
-                if(key.equalsIgnoreCase("title")){
-                    page.setPageTitle(field);
-                } else if(key.equalsIgnoreCase("option")){
-                    page.setPageOption(field);
-                }  if(key.equalsIgnoreCase("action")){
-                    page.setPageAction(field);
-                }
-            }
-        }
-
-        if(subStr.length > 2){
-            String content = subStr[2].trim();
-            page.setPageContent(content);
-        }
-
-        return page;
     }
 
 }
