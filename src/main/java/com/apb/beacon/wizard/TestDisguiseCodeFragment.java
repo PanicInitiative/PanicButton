@@ -105,11 +105,11 @@ public class TestDisguiseCodeFragment extends Fragment {
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
             String pageId = getArguments().getString(PAGE_ID);
-            String defaultLang = "en";
+            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            currentPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
 
             if (currentPage.getContent() == null)

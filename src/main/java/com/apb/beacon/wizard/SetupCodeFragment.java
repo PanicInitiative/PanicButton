@@ -3,6 +3,7 @@ package com.apb.beacon.wizard;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -24,11 +25,10 @@ import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.LocalCachePage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 
-public class SetupCodeFragment extends WizardFragment {
+public class SetupCodeFragment extends Fragment {
 
     private static final int EXACT_CHARACTERS = 4;
 
@@ -127,20 +127,6 @@ public class SetupCodeFragment extends WizardFragment {
 
 
     @Override
-    public void onFragmentSelected() {
-        actionButtonStateListener.enableActionButton(isComplete());
-    }
-
-    @Override
-    public String action() {
-        PBDatabase dbInstance = new PBDatabase(activity);
-        dbInstance.open();
-        LocalCachePage page = dbInstance.retrievePage(AppConstants.PAGE_NUMBER_PANIC_BUTTON_TRAINING_PIN);
-        dbInstance.close();
-        return page.getPageAction();
-    }
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
@@ -148,11 +134,11 @@ public class SetupCodeFragment extends WizardFragment {
             bAction.setEnabled(isComplete());
 
             String pageId = getArguments().getString(PAGE_ID);
-            String defaultLang = "en";
+            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            currentPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
 
             tvTitle.setText(currentPage.getTitle());
@@ -183,19 +169,8 @@ public class SetupCodeFragment extends WizardFragment {
     }
 
 
-    @Override
-    public boolean performAction() {
-        ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
-        return true;
-    }
-
     private boolean isComplete() {
         return passwordEditText.getText().length() == EXACT_CHARACTERS;
-    }
-
-    @Override
-    public void onBackPressed() {
-        passwordEditText.setError(null);
     }
 
     private TextWatcher passwordTextChangeListener = new TextWatcher() {
