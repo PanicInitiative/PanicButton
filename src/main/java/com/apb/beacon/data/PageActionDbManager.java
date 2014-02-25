@@ -25,10 +25,11 @@ public class PageActionDbManager {
     private static final String ACTION_TITLE = "action_title";
     private static final String ACTION_LINK = "action_link";
     private static final String ACTION_STATUS = "action_status";
+    private static final String ACTION_LANGUAGE = "action_language";
 
     private static final String CREATE_TABLE_PAGE_ACTION = "create table " + TABLE_PAGE_ACTION + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
-            + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text);";
+            + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text, " + ACTION_LANGUAGE + " text);";
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_ACTION);
@@ -47,6 +48,7 @@ public class PageActionDbManager {
         cv.put(ACTION_TITLE, action.getTitle());
         cv.put(ACTION_LINK, action.getLink());
         cv.put(ACTION_STATUS, action.getStatus());
+        cv.put(ACTION_LANGUAGE, action.getLanguage());
 
         return db.insert(TABLE_PAGE_ACTION, null, cv);
     }
@@ -62,7 +64,8 @@ public class PageActionDbManager {
                 String actionTitle = c.getString(c.getColumnIndex(ACTION_TITLE));
                 String actionLink = c.getString(c.getColumnIndex(ACTION_LINK));
                 String actionStatus = c.getString(c.getColumnIndex(ACTION_STATUS));
-                PageAction action = new PageAction(actionTitle, actionLink, actionStatus);
+                String actionLang = c.getString(c.getColumnIndex(ACTION_LANGUAGE));
+                PageAction action = new PageAction(actionTitle, actionLink, actionStatus, actionLang);
                 actionList.add(action);
                 c.moveToNext();
             }
@@ -79,6 +82,7 @@ public class PageActionDbManager {
         cv.put(ACTION_TITLE, action.getTitle());
         cv.put(ACTION_LINK, action.getLink());
         cv.put(ACTION_STATUS, action.getStatus());
+        cv.put(ACTION_LANGUAGE, action.getLanguage());
 
         return db.update(TABLE_PAGE_ACTION, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }

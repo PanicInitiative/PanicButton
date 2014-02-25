@@ -37,9 +37,9 @@ public class PanicMessage {
         return trimMessage(message, MAX_USER_DATA_SEPTETS);
     }
 
-    private String getTwitterText(String message) {
-        return trimMessage(message, TWITTER_MAX_LENGTH);
-    }
+//    private String getTwitterText(String message) {
+//        return trimMessage(message, TWITTER_MAX_LENGTH);
+//    }
 
     private String trimMessage(String message, int maxLength) {
         String locationString = new LocationFormatter(location).format();

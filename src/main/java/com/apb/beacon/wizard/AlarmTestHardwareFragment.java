@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
@@ -84,11 +85,11 @@ public class AlarmTestHardwareFragment extends Fragment {
             activity.registerReceiver(wizardHardwareReceiver, filter);
 
             String pageId = getArguments().getString(PAGE_ID);
-            String defaultLang = "en";
+            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            currentPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
 
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);

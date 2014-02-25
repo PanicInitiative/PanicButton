@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
@@ -153,11 +154,11 @@ public class SetupContactsFragment extends Fragment {
             bAction.setEnabled(contactEditTexts.hasAtleastOneValidPhoneNumber());
 
             String pageId = getArguments().getString(PAGE_ID);
-            String defaultLang = "en";
+            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            currentPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
 
             tvTitle.setText(currentPage.getTitle());

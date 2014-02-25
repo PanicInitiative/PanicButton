@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -43,8 +42,6 @@ public class WizardModalActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
 
-        Log.e(">>>>>>>", "in WizardModalActivity onCreate");
-
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
         tvContent = (TextView) findViewById(R.id.fragment_contents);
@@ -55,29 +52,18 @@ public class WizardModalActivity extends Activity {
         llStatus = (LinearLayout) findViewById(R.id.ll_fragment_status);
         tvStatus = (TextView) findViewById(R.id.fragment_status);
 
-//        llStatus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String pageId = currentPage.getStatus().get(0).getLink();
-//
-//                Intent i = new Intent(WizardModalActivity.this, WizardActivity.class);
-//                i.putExtra("page_id", pageId);
-//                startActivity(i);
-//            }
-//        });
-
         bAction1 = (Button) findViewById(R.id.b_action1);
         bAction2 = (Button) findViewById(R.id.b_action2);
 
         checkList = (ListView) findViewById(R.id.lv_checklist);
 
         String pageId = getIntent().getExtras().getString("page_id");
-        String defaultLang = "en";
+        String selectedLang = ApplicationSettings.getSelectedLanguage(this);
         parentActivity = getIntent().getExtras().getInt("parent_activity");
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        currentPage = dbInstance.retrievePage(pageId, selectedLang);
         dbInstance.close();
 
         tvTitle.setText(currentPage.getTitle());
