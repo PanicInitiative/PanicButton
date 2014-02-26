@@ -125,6 +125,9 @@ public class HomeActivity extends RoboActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
+
+            checkIfDataInitializationNeeded();
+
             String url = params[0];
             JsonParser jsonParser = new JsonParser();
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
