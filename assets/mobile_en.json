@@ -106,7 +106,7 @@
       "content" : "<p>Panic Button stays hidden on your phone by looking like a simple calculator. From now on, you will see the calculator disguise whenever you open the app. Learn how it works. </p>"
     },
     {
-      "id" : "Setup Contacts",
+      "id" : "setup-contacts",
       "lang" : "en",
       "type" : "interactive",
       "title" : "Setup contacts",

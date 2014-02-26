@@ -117,10 +117,10 @@
       "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quien puede ayudarte de manera practica- No tiene caso que alguien se entere que estas en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rapidamente </li><li>Considera los riesgos- Como puede tu contacto ponerse en riesgo?</li></ul>"
     },
     {
-      "id" : "Crear una clave",
+      "id" : "setup-code",
       "lang" : "es",
       "type" : "interactive",
-      "title" : "Set a pincode",
+      "title" : "Crear una clave",
       "introduction" : "Esta clave es necesaria para acceder a configuraciones de la aplicacion. No se necesita para enviar alerta a tus contactos en caso de emergencia.",
       "warning" : "Recuerda tu clave! Si la olvidas necesitaras re-instalar la aplicacion.",
       "component" : "code",

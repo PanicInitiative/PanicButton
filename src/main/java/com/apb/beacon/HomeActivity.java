@@ -44,7 +44,6 @@ public class HomeActivity extends RoboActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        checkIfDataInitializationNeeded();
 
         int wizardState = ApplicationSettings.getWizardState(this);
         if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
@@ -121,6 +120,9 @@ public class HomeActivity extends RoboActivity {
 
         @Override
         protected Boolean doInBackground(String... params) {
+
+            checkIfDataInitializationNeeded();
+
             String url = params[0];
             JsonParser jsonParser = new JsonParser();
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
