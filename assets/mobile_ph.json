@@ -281,7 +281,7 @@
       "title" : "Panic Button",
       "action" : [{"title":"Set-Up","link":"setup-warning"}],
       "items" : [{"title":"About","link":"setup-about"},{"title":"Language Settings","link":"setup-language"}],
-      "content" : "<p><img src=\"/media/mobile/home-not-configured.png\" alt=\"Illustration\"> El Boton de Panico convierte tu telefono movil en una alarma secreta para que tus contactos mas confiables pueden actuar si te encuentres en riesgo.</p>"
+      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Boton de Panico convierte tu telefono movil en una alarma secreta para que tus contactos mas confiables pueden actuar si te encuentres en riesgo.</p>"
     },
     {
       "id" : "home-alerting",
