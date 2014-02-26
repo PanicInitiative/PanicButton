@@ -31,7 +31,7 @@
     
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix>dev</app.version.prefix>
+        <app.version.prefix>crash</app.version.prefix>
         <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
@@ -151,7 +151,7 @@
                     <zipalign>
                         <verbose>true</verbose>
                         <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}.apk</outputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-${app.version.prefix}.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
