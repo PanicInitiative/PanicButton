@@ -57,7 +57,7 @@ public class HomeActivity extends RoboActivity {
             pageId = "home-ready";
         }
 
-//        checkIfUpdateNeeded();
+        checkIfUpdateNeeded();
 
     }
 
