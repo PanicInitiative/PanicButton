@@ -48,7 +48,6 @@ public class HomeActivity extends RoboActivity {
         /*
         hard-code initial data to the database.
          */
-        checkIfDataInitializationNeeded();
 
         int wizardState = ApplicationSettings.getWizardState(this);
         if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
