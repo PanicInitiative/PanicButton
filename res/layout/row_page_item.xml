@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="@string/panic_button_label"
+        android:text="@string/page_title_text"
         android:layout_toLeftOf="@+id/iv_arrow"
         android:textSize="22sp" />
 

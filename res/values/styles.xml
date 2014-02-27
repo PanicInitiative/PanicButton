@@ -39,17 +39,6 @@
         <item name="android:background">#767272</item>
     </style>
 
-    <style name="custom_action_bar_title">
-        <item name="android:textColor">#c0c0c0</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">5dp</item>
-    </style>
-
-    <style name="top_bar">
-        <item name="android:background">#d49602</item>
-    </style>
-
     <style name="back_button">
         <item name="android:drawableLeft">@drawable/back</item>
         <item name="android:layout_weight">0</item>
@@ -66,20 +55,6 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="next_button">
-        <item name="android:layout_weight">0</item>
-        <item name="android:drawableRight">@drawable/next</item>
-        <item name="android:drawablePadding">5dp</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="line">
-        <item name="android:background">#444444</item>
-    </style>
-
 
     <style name="page_title">
         <item name="android:layout_width">wrap_content</item>
@@ -88,18 +63,6 @@
         <item name="android:paddingLeft">5dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="geolocation_panel">
-
-    </style>
-
-    <style name="text">
-        <item name="android:textSize">15sp</item>
-    </style>
-
-    <style name="link">
-        <item name="android:textColor">#0072bc</item>
     </style>
 
     <style name="message_box">
@@ -114,7 +77,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:lineSpacingExtra">1dp</item>
-        <item name="android:text">@string/panic_button_label</item>
+        <item name="android:text">@string/page_title_text</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">18sp</item>
     </style>
@@ -149,33 +112,12 @@
         <item name="android:paddingTop">10dp</item>
     </style>
 
-    <style name="welcome_screen_text">
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:gravity">center_vertical</item>
-    </style>
-
-    <style name="bulleted_text">
-        <item name="android:textSize">15sp</item>
-        <item name="android:drawableLeft">@drawable/wizard_active</item>
-        <item name="android:drawablePadding">5dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingLeft">5dp</item>
-    </style>
 
     <style name="wizard_page_title">
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="android:textColor">@android:color/primary_text_light</item>
-
-    </style>
-
-    <style name="wizard_sub_title">
-        <item name="android:textSize">17sp</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
     </style>
 
     <style name="wizard_text">
@@ -185,10 +127,6 @@
         <item name="android:textColor">@android:color/secondary_text_light</item>
     </style>
 
-    <style name="wizard_image">
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
-    </style>
 
     <style name="wizard_title_sep">
         <item name="android:background">#666666</item>
@@ -203,46 +141,6 @@
         <item name="android:textSize">60sp</item>
         <item name="android:gravity">right</item>
         <item name="android:textColor">#ffffff</item>
-    </style>
-
-    <style name="setup_wizard_image">
-        <item name="android:padding">10dp</item>
-    </style>
-
-    <style name="settings_page">
-        <item name="android:padding">10dp</item>
-        <item name="android:paddingTop">20dp</item>
-    </style>
-
-    <style name="alert_button">
-        <item name="android:drawableLeft">@drawable/icon_alarm</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:gravity">left|center_vertical</item>
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:layout_marginBottom">10dp</item>
-    </style>
-
-    <style name="settings_list">
-        <item name="android:gravity">bottom</item>
-    </style>
-
-    <style name="settings_list_item">
-        <item name="android:padding">15dp</item>
-    </style>
-
-    <style name="settings_list_item_text">
-        <item name="android:textSize">20sp</item>
-        <item name="android:layout_weight">2</item>
-        <item name="android:drawableRight">@drawable/icon_arrow</item>
-        <item name="android:padding">20dp</item>
-    </style>
-
-
-
-    <style name="alert_status">
-        <item name="android:textColor">@android:color/secondary_text_light</item>
-        <item name="android:paddingTop">10dp</item>
     </style>
 
     <style name="contact_number">
@@ -263,12 +161,6 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="modal_link_button">
-        <item name="android:padding">5dp</item>
-        <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">15sp</item>
-    </style>
-
     <style name="i_am_at_text">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginLeft">3dp</item>
@@ -277,12 +169,6 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_gravity">left|center_vertical</item>
-    </style>
-
-    <style name="twitter_short_code">
-        <item name="android:background">#eeeeee</item>
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_margin">5dp</item>
     </style>
 
     <style name="Theme.Transparent" parent="android:Theme">

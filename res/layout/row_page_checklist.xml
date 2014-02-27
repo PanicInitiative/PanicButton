@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/tv_action"
-        android:text="@string/finish_button_text"
+        android:text="@string/page_button_action_text"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_alignParentRight="true"
