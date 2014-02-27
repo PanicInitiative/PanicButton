@@ -2,97 +2,31 @@
 <resources>
     <string name="app_name_setup">PB</string>
     <string name="app_name">Calculate!</string>
-    <string name="settings_label">SETTINGS</string>
-    <string name="sms">SMS settings</string>
-    <string name="twitter">Twitter settings</string>
-
     <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
 
     <string name="enter_message_hint">Enter Message</string>
-    <string name="sms_save_successful">SMS settings saved successfully</string>
-    <string name="twitter_save_successful">Twitter settings saved successfully</string>
 
     <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
     <string name="panic_button">Panic\nButton</string>
-    <string name="panic_button_label">Panic Button</string>
-    <string name="finish_label">Panic Button will now disguise itself</string>
-    <string name="setup_wizard">setup wizard</string>
-    <string name="save_action">Save</string>
-    <string name="start_action">Start</string>
-    <string name="next_action">Next</string>
-    <string name="i_understand_contacts_action">I understand, set-up my trusted contacts now</string>
-    <string name="i_understand_message_action">I understand, write my message now</string>
+    <string name="page_title_text">Title</string>
 
-    <string name="wizard_what_is_PB">Panic Button is an emergency alert app for people at risk.</string>
-    <string name="wizard_PB_feature1">&#160;&#160;App disguises itself to avoid discovery</string>
-    <string name="wizard_PB_feature2">&#160;&#160;Alerts are sent via SMS every 5 minutes</string>
-    <string name="wizard_PB_feature3">&#160;&#160;Current location is automatically added</string>
-    <string name="wizard_PB_feature4">&#160;&#160;Phone message logs are erased</string>
-    <string name="wizard_PB_feature5">&#160;&#160;Limited emergency contacts for security</string>
-    <string name="wizard_PB_feature6">&#160;&#160;Option to post alert to Twitter via SMS</string>
+    <string name="page_status_text">Status</string>
+    <string name="page_modal_button1_text">Button1</string>
+    <string name="page_modal_button2_text">Button2</string>
 
-    <string name="wizard_emergency_title">3 ways to send an emergency alert</string>
-    <string name="wizard_emergency_option1_text">
-        <b>#1.</b>
-        The Emergency Alert button in Settings&#8230;
-    </string>
-
-
-    <string name="wizard_emergency_option2_text">
-        <b>#2.</b>
-        From any button on the app’s disguise&#8230;
-    </string>
-
-
-    <string name="wizard_emergency_option3_text">
-        <b>#3.</b>
-        Using the phone’s Power button&#8230;
-    </string>
-
-    <string name="finish_detail">You can change your contacts or alert message from the app\'s Settings screen.</string>
-    <string name="finish_button_text">Finish &amp; activate disguise</string>
-
-    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
-    <string name="stop_alert">&#160;&#160;Stop alert</string>
-    <string name="alert_status_standby">Alert is in standby</string>
-    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
-
-    <string name="sms_settings_header">SMS alert settings</string>
-    <string name="sms_settings_wizard_header">Next, setup the SMS alert</string>
-    <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
-    <string name="contact_hint">enter contact number</string>
+    <string name="page_button_action_text">Action</string>
+    <string name="contact_hint_text">enter contact number</string>
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
-    <string name="twitter_emergency_message_header">Emergency tweet</string>
+    <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="alert_status_standby">Alert is in standby</string>
+    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
+    <string name="stop_alert">&#160;&#160;Stop alert</string>
+    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
 
-    <string name="opt_twitter_text">Post alert to Twitter via SMS</string>
-    <string name="twitter_help_text">To connect your phone to Twitter by SMS, send a text with the word START to:</string>
-    <string name="twitter_provider_not_supported_text">We are only able to connect with phone service providers supported by Twitter.</string>
-    <string name="select_country_hint">Select country</string>
-    <string name="select_phone_service_hint">Select phone service</string>
-    <string name="other_phone_service">Other phone service</string>
-
-    <string name="set_pin_label">First, set a pin</string>
-    <string name="set_pin_detail">Setting a pin helps secure the app,
-        you must enter it to access the Settings screen hidden behind the calculator disguise.
-        \n\nYou do not need to enter it to send an alert
-    </string>
-    <string name="set_pin_help">Enter a four digit pin, something easy to remember - you cannot change it.</string>
-    <string name="country_spinner">CountrySpinner</string>
-    <string name="service_provider_spinner">ServiceProviderSpinner</string>
-
-    <string name="enter_text">Enter</string>
-    <string name="login_header">Settings</string>
-    <string name="enter_pin_hint">enter pin</string>
     <string name="incorrect_pin">Please enter the correct pin</string>
     <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
-    <string name="settings_changed_alert_title">Settings Modified</string>
-    <string name="settings_changed_alert_message">Do you want to save the changes?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-
-    <string name="twitter_shortcode_label">Find your Twitter SMS shortcode</string>
 
     <string name="one">1</string>
     <string name="two">2</string>
@@ -115,35 +49,5 @@
     <string name="third_contact">&#160;3.&#160;</string>
 
     <string name="choose_contact">Choose your emergency contact</string>
-    <string name="tap_once">Tap once to send alert</string>
-    <string name="tap_five_times">Tap five times fast to send alert</string>
-    <string name="long_press">Long press to access settings</string>
-
-    <string name="guardian_active">Guardian mode is active</string>
-    <string name="guardian_inactive">Activate Guardian mode</string>
-
-    <string name="take_me_to_training">Take me to the training</string>
-
-    <string name="wizard_welcome_body">Panic Button turns your mobile phone into a secret alarm so that your trusted contacts can respond quickly if you are in trouble.\n\nOnce you have set-off the \'Panic\' alarm, your trusted three contacts will receive an SMS and a map link with your location every five minutes.\n\nPanic Button is disguised so that aggressors cannot detect that the alarm has been set-off, helping to ensure your trusted contacts get critical updates about your location.</string>
-    <string name="wizard_welcome_title">Welcome</string>
-    <string name="choose_language_settings">Choose language settings</string>
-    <string name="panic_button_training">Panic Button Training</string>
-    <string name="wizard_training_details">For Panic Button to help you when you need it the most, we recommend taking the time to create a security plan with your trusted contacts.\n\nThis training will show you how to use the app and offer security tips about creating a security plan.\n\nThe training will take approx. 10 minutes so make sure you are somewhere quiet and safe.</string>
-    <string name="wizard_training_pin_title">Step 1: Set a pin</string>
-    <string name="wizard_training_pin_details">Enter a four digit pin, something easy to remember - you cannot change it.\n\nThis pin helps prevent unauthorized access to your settings.\n\nYou don\'t need this pin to send an emergency message.</string>
-    <string name="wizard_training_contacts_title">Step 2: Set-up your trusted contacts</string>
-    <string name="wizard_training_contacts_details_intro">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.\n\nQuestions to ask:</string>
-    <string name="learn_more">Learn more</string>
-    <string name="wizard_training_message_title">Step 3: Create an emergency message</string>
-    <string name="wizard_training_message_details_intro">Think first! Your emergency message needs to clearly communicate that you need help in only a few words.\n\nQuestions to ask:</string>
-    <string name="wizard_training_message_details">Think first! Your emergency message needs to clearly communicate that you need help in only a few words.</string>
-    <string name="wizard_contact_q1">Who in my network can practically help me in an emergency?</string>
-    <string name="wizard_contact_q2">Have I told these people they are a trusted contact?</string>
-    <string name="wizard_contact_q3">Have I created a security plan so my trusted contacts know what to do when they receive the Panic message?</string>
     <string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string>
-    <string name="wizard_message_q1">Does your message work for all situations?</string>
-    <string name="wizard_message_q2">How often should you review and change it?</string>
-    <string name="wizard_message_q3">Would it be wise to create a code message with your contacts?</string>
-    <string name="wizard_message_q4">Do you want to enable GPS tracking from your phone settings so that your location sends with your emergency message?</string>
-    <string name="wizard__training_disguise_intro">Panic Button is disguised to protect you. From now on you will see a fake screen when you open the app. To get to your settings screen, hold down a button on the calculator and you will be asked to enter your pincode.</string>
 </resources>

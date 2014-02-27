@@ -10,7 +10,7 @@
         android:id="@+id/fragment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/panic_button_label"
+        android:text="@string/page_title_text"
         android:textSize="32sp"
         android:textColor="@android:color/black"
         android:paddingBottom="15dp"
@@ -34,7 +34,7 @@
             android:id="@+id/fragment_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/panic_button_label"
+            android:text="@string/page_status_text"
             android:textSize="15sp"
             android:padding="3dp"
             android:textStyle="bold"
@@ -98,7 +98,7 @@
             android:layout_weight="1"
             android:background="@drawable/drawable_wizard_button"
             style="@style/activate_disguise_button"
-            android:text="B1"
+            android:text="@string/page_modal_button1_text"
             android:layout_marginRight="5dp"
             android:id="@+id/b_action1" />
 
@@ -108,7 +108,7 @@
             android:layout_weight="1"
             android:background="@drawable/drawable_wizard_button_disabled"
             style="@style/activate_disguise_button"
-            android:text="B2"
+            android:text="@string/page_modal_button2_text"
             android:id="@+id/b_action2" />
 
     </LinearLayout>

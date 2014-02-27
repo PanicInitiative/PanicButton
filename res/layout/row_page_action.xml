@@ -6,7 +6,7 @@
 
     <Button
         android:id="@+id/b_action_without_status"
-        android:text="@string/finish_button_text"
+        android:text="@string/page_button_action_text"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/b_action_with_status"
-        android:text="@string/finish_button_text"
+        android:text="@string/page_button_action_text"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_alignParentLeft="true"

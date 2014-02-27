@@ -8,7 +8,7 @@
         android:id="@+id/contact_edit_text"
         android:layout_height="52dp"
         android:layout_width="fill_parent"
-        android:hint="@string/contact_hint"
+        android:hint="@string/contact_hint_text"
         android:textSize="20sp"
         android:inputType="phone" />
 
