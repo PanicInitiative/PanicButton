@@ -169,7 +169,7 @@ public class HomeActivity extends RoboActivity {
         dbInstance.open();
 
         for(int i = 0; i< pageList.size(); i++){
-            dbInstance.insertOrUpdateWizardPage(pageList.get(i));
+            dbInstance.insertOrUpdatePage(pageList.get(i));
         }
         dbInstance.close();
     }
