@@ -38,7 +38,8 @@ public class HomeActivity extends RoboActivity {
 
     String pageId;
     String selectedLang;
-    String mobileDataUrl, helpDataUrl;
+    String mobileDataUrl;
+    String helpDataUrl;
 
     int lastUpdatedVersion;
     int latestVersion;
@@ -76,13 +77,7 @@ public class HomeActivity extends RoboActivity {
         if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
 
-            mobileDataUrl = null;
             selectedLang = ApplicationSettings.getSelectedLanguage(this);
-            if (selectedLang.equals("en")) {
-                mobileDataUrl = AppConstants.BASE_URL + AppConstants.MOBILE_DATA_URL;
-            } else {
-                mobileDataUrl = AppConstants.BASE_URL + selectedLang + "/" + AppConstants.MOBILE_DATA_URL;
-            }
             helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
 
             new GetLatestVersion().execute();
@@ -173,21 +168,35 @@ public class HomeActivity extends RoboActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            JsonParser jsonParser = new JsonParser();
-            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
-            if (response.getStatus() == 200) {
-                Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
-                try {
-                    JSONObject responseObj = response.getjObj();
-                    JSONObject mobObj = responseObj.getJSONObject("mobile");
-                    JSONArray dataArray = mobObj.getJSONArray("data");
-                    insertMobileDataToLocalDB(dataArray);
-                    return true;
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            int version = 0;
+            for(version = lastUpdatedVersion+1; version <= latestVersion; version ++){
+                if (selectedLang.equals("en")) {
+                    mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
+                } else {
+                    mobileDataUrl = AppConstants.BASE_URL + selectedLang + "/" + "mobile." + version + ".json";
+                }
+
+                JsonParser jsonParser = new JsonParser();
+                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
+                if (response.getStatus() == 200) {
+                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
+                    try {
+                        JSONObject responseObj = response.getjObj();
+                        JSONObject mobObj = responseObj.getJSONObject("mobile");
+                        JSONArray dataArray = mobObj.getJSONArray("data");
+                        insertMobileDataToLocalDB(dataArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
                 }
             }
-            return false;
+
+            if(version > latestVersion){
+                return true;
+            } else{
+                return false;
+            }
         }
 
         @Override
@@ -209,17 +218,10 @@ public class HomeActivity extends RoboActivity {
                     startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
                 }
             }
-
-
-//            if (!response) {
-//                if (pDialog.isShowing())
-//                    pDialog.dismiss();
-//                Toast.makeText(HomeActivity.this, "App content couldn't be updated.", Toast.LENGTH_SHORT).show();
-//            } else {
-//
-//            }
         }
     }
+
+
 
 
     private class GetHelpDataUpdate extends AsyncTask<Void, Void, Boolean> {

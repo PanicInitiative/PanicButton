@@ -53,7 +53,7 @@ public class JsonParser {
             url += "?" + paramString;            
         }
         Log.e(TAG, "url after param added = " + url);
-        Log.e(TAG, "content body = " + content);
+//        Log.e(TAG, "content body = " + content);
 
         // Making HTTP request
         try {
@@ -103,7 +103,7 @@ public class JsonParser {
 
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-            Log.e(TAG, "is = " + is.toString());
+//            Log.e(TAG, "is = " + is.toString());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
