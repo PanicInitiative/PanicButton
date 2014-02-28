@@ -63,11 +63,14 @@ public class HelpPageDbManager {
         cv.put(PAGE_CATEGORIES, page.getCategories());
         cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
         cv.put(PAGE_TOC, page.getToc());
-        cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
-        cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
-        cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
         cv.put(PAGE_CONTENT, page.getContent());
         cv.put(PAGE_ALERT, page.getAlert());
+
+        if(page.getImage() != null){
+            cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
+            cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
+            cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
+        }
 
         return db.insert(TABLE_CONTENT_HELP, null, cv);
     }
@@ -115,11 +118,14 @@ public class HelpPageDbManager {
         cv.put(PAGE_CATEGORIES, page.getCategories());
         cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
         cv.put(PAGE_TOC, page.getToc());
-        cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
-        cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
-        cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
         cv.put(PAGE_CONTENT, page.getContent());
         cv.put(PAGE_ALERT, page.getAlert());
+
+        if(page.getImage() != null){
+            cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
+            cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
+            cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
+        }
 
         return db.update(TABLE_CONTENT_HELP, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
     }

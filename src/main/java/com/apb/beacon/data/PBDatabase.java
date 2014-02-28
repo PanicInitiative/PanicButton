@@ -206,7 +206,7 @@ public class PBDatabase {
     /*
     Page-HelpPage methods
     */
-    public void insertHelpPage(HelpPage pList) {
+    public void insertOrUpdateHelpPage(HelpPage pList) {
         HelpPageDbManager.insertOrUpdate(this.db, pList);
     }
 

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.parser.JsonParser;
@@ -75,14 +76,12 @@ public class HomeActivity extends RoboActivity {
             String url = null;
             selectedLang = ApplicationSettings.getSelectedLanguage(this);
             if(selectedLang.equals("en")){
-                url = AppConstants.BASE_ENGLISH_URL;
-            }else if(selectedLang.equals("es")){
-                url = AppConstants.BASE_SPANISH_URL;
-            } else if(selectedLang.equals("ph")){
-                url = AppConstants.BASE_FILIPINO_URL;
+                url = AppConstants.BASE_URL + AppConstants.MOBILE_DATA_URL;
+            }else{
+                url = AppConstants.BASE_URL + selectedLang + "/" + AppConstants.MOBILE_DATA_URL;
             }
 
-            new GetLanguageUpdate().execute(url);
+            new GetMobileDataUpdate().execute(url);
         }
         else{
             if (isFirstRun(HomeActivity.this)) {
@@ -110,7 +109,7 @@ public class HomeActivity extends RoboActivity {
     }
 
 
-    private class GetLanguageUpdate extends AsyncTask<String, Void, Boolean> {
+    private class GetMobileDataUpdate extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -128,13 +127,75 @@ public class HomeActivity extends RoboActivity {
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
                 Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
-                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
 
                 try {
                     JSONObject responseObj = response.getjObj();
                     JSONObject mobObj = responseObj.getJSONObject("mobile");
                     JSONArray dataArray = mobObj.getJSONArray("data");
-                    insertJsonDataToLocalDB(dataArray);
+                    insertMobileDataToLocalDB(dataArray);
+                    return true;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean response) {
+            super.onPostExecute(response);
+
+            if(!response){
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+                Toast.makeText(HomeActivity.this, "App content couldn't be updated.", Toast.LENGTH_SHORT).show();
+            } else {
+                String url = null;
+                selectedLang = ApplicationSettings.getSelectedLanguage(HomeActivity.this);
+                if(selectedLang.equals("en")){
+                    url = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
+                }else{
+                    url = AppConstants.BASE_URL + selectedLang + "/" + AppConstants.HELP_DATA_URL;
+                }
+
+                new GetHelpDataUpdate().execute(url);
+            }
+//            if (isFirstRun(HomeActivity.this)) {
+//                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+//                i.putExtra("page_id", pageId);
+//                startActivity(i);
+//            } else {
+//                startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
+//            }
+        }
+    }
+
+
+
+    private class GetHelpDataUpdate extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Checking for updates...", true, false);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+
+            String url = params[0];
+            JsonParser jsonParser = new JsonParser();
+            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
+            if (response.getStatus() == 200) {
+                Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
+//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+
+                try {
+                    JSONObject responseObj = response.getjObj();
+                    JSONObject mobObj = responseObj.getJSONObject("mobile");
+                    JSONArray dataArray = mobObj.getJSONArray("data");
+                    insertHelpDataToLocalDB(dataArray);
                     return true;
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -150,7 +211,7 @@ public class HomeActivity extends RoboActivity {
                 pDialog.dismiss();
 
             if(!response){
-                Toast.makeText(HomeActivity.this, "Language content couldn't be updated.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Help content couldn't be updated.", Toast.LENGTH_SHORT).show();
             }
             if (isFirstRun(HomeActivity.this)) {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
@@ -162,7 +223,23 @@ public class HomeActivity extends RoboActivity {
         }
     }
 
-    private void insertJsonDataToLocalDB(JSONArray dataArray){
+
+
+    private void insertHelpDataToLocalDB(JSONArray dataArray){
+        List<HelpPage> pageList = HelpPage.parseHelpPages(dataArray);
+
+        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+        dbInstance.open();
+
+        for(int i = 0; i< pageList.size(); i++){
+            Log.e(">>>>>>>>", "new help page = " + pageList.get(i).getId());
+            dbInstance.insertOrUpdateHelpPage(pageList.get(i));
+        }
+        dbInstance.close();
+    }
+
+
+    private void insertMobileDataToLocalDB(JSONArray dataArray){
         List<Page> pageList = Page.parsePages(dataArray);
 
         PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
@@ -183,7 +260,7 @@ public class HomeActivity extends RoboActivity {
             Log.e(">>>>>", "current version = " + version);
 
             JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertJsonDataToLocalDB(dataArray);
+            insertMobileDataToLocalDB(dataArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -195,7 +272,7 @@ public class HomeActivity extends RoboActivity {
             Log.e(">>>>>", "current version = " + version);
 
             JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertJsonDataToLocalDB(dataArray);
+            insertMobileDataToLocalDB(dataArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -207,7 +284,7 @@ public class HomeActivity extends RoboActivity {
             Log.e(">>>>>", "current version = " + version);
 
             JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertJsonDataToLocalDB(dataArray);
+            insertMobileDataToLocalDB(dataArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }

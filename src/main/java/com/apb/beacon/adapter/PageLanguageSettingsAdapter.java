@@ -76,13 +76,11 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 String url = null;
                 selectedLang = item.getLanguage();
                 if(selectedLang.equals("en")){
-                    url = AppConstants.BASE_ENGLISH_URL;
-                }else if(selectedLang.equals("es")){
-                    url = AppConstants.BASE_SPANISH_URL;
-                } else if(selectedLang.equals("ph")){
-                    url = AppConstants.BASE_FILIPINO_URL;
+                    url = AppConstants.BASE_URL + AppConstants.MOBILE_DATA_URL;
+                }else{
+                    url = AppConstants.BASE_URL + selectedLang + "/" + AppConstants.MOBILE_DATA_URL;
                 }
-                new GetLanguageUpdate().execute(url);
+                new GetMobileDataUpdate().execute(url);
             }
         });
 
@@ -100,7 +98,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     }
 
 
-    private class GetLanguageUpdate extends AsyncTask<String, Void, Boolean> {
+    private class GetMobileDataUpdate extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -137,7 +135,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 pDialog.dismiss();
 
             if(!response){
-                Toast.makeText(mContext, "Language content couldn't be updated. Please try again.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
             } else{
                 Toast.makeText(mContext, "New language applied.", Toast.LENGTH_SHORT).show();
                 ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
