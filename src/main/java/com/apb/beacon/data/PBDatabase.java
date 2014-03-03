@@ -27,7 +27,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {

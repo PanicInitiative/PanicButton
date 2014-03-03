@@ -24,7 +24,7 @@ public class PageDbManager {
 
     private static final String TAG = PageDbManager.class.getSimpleName();
 
-    private static final String TABLE_WIZARD_PAGE = "wizard_page_table";
+    private static final String TABLE_PAGE = "page_table";
 
     private static final String PAGE_ID = "page_id";
     private static final String PAGE_LANGUAGE = "page_language";
@@ -37,12 +37,12 @@ public class PageDbManager {
     private static final String PAGE_SUCCESS_ID = "page_success_id";
     private static final String PAGE_FAILED_ID = "page_failed_id";
 
-    private static final String CREATE_TABLE_WIZARD_PAGE = "create table " + TABLE_WIZARD_PAGE + " ( "
+    private static final String CREATE_TABLE_WIZARD_PAGE = "create table " + TABLE_PAGE + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_INTRODUCTION + " text, " + PAGE_WARNING + " text, " + PAGE_COMPONENT + " text, "
             + PAGE_CONTENT + " text, " + PAGE_SUCCESS_ID + " text, " + PAGE_FAILED_ID + " text);";
 
-    private static final String INSERT_SQL = "insert into  " + TABLE_WIZARD_PAGE + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
+    private static final String INSERT_SQL = "insert into  " + TABLE_PAGE + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
             + PAGE_TITLE + ", " + PAGE_INTRODUCTION + ", " + PAGE_WARNING + ", " + PAGE_COMPONENT + ", "+ PAGE_CONTENT + ", " + PAGE_SUCCESS_ID
             + ", " + PAGE_FAILED_ID + ") values (?,?,?,?,?,?,?,?,?,?)";
 
@@ -51,7 +51,7 @@ public class PageDbManager {
     }
 
     public static void dropTable(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIZARD_PAGE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PAGE);
     }
 
 
@@ -81,28 +81,13 @@ public class PageDbManager {
             insertStatement.bindString(10, page.getFailedId());
 
         return insertStatement.executeInsert();
-
-//        ContentValues cv = new ContentValues();
-//
-//        cv.put(PAGE_ID, page.getId());
-//        cv.put(PAGE_LANGUAGE, page.getLang());
-//        cv.put(PAGE_TYPE, page.getType());
-//        cv.put(PAGE_TITLE, page.getTitle());
-//        cv.put(PAGE_INTRODUCTION, page.getIntroduction());
-//        cv.put(PAGE_WARNING, page.getWarning());
-//        cv.put(PAGE_COMPONENT, page.getComponent());
-//        cv.put(PAGE_CONTENT, page.getContent());
-//        cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
-//        cv.put(PAGE_FAILED_ID, page.getFailedId());
-//
-//        return db.insert(TABLE_WIZARD_PAGE, null, cv);
     }
 
 
     public static Page retrieve(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         Page page = null;
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             String pageType = c.getString(c.getColumnIndex(PAGE_TYPE));
@@ -130,7 +115,7 @@ public class PageDbManager {
     public static List<Page> retrieve(SQLiteDatabase db, String lang) throws SQLException {
         List<Page> pageList = new ArrayList<Page>();
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_LANGUAGE + "=?", new String[]{lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE, null, PAGE_LANGUAGE + "=?", new String[]{lang}, null, null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
             while (!c.isAfterLast()) {
@@ -174,14 +159,14 @@ public class PageDbManager {
         cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
         cv.put(PAGE_FAILED_ID, page.getFailedId());
 
-        return db.update(TABLE_WIZARD_PAGE, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
+        return db.update(TABLE_PAGE, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
     }
 
 
     public static boolean isExist(SQLiteDatabase db, String pageId, String lang) throws SQLException {
         boolean itemExist = false;
 
-        Cursor c = db.query(TABLE_WIZARD_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
+        Cursor c = db.query(TABLE_PAGE, null, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang}, null, null, null);
 
         if ((c != null) && (c.getCount() > 0)) {
             itemExist = true;
@@ -202,6 +187,6 @@ public class PageDbManager {
 
 
     public static int delete(SQLiteDatabase db, String pageId, String lang){
-        return db.delete(TABLE_WIZARD_PAGE, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
+        return db.delete(TABLE_PAGE, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 }
