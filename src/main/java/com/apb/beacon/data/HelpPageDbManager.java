@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.HelpImage;
@@ -42,6 +43,10 @@ public class HelpPageDbManager {
             + PAGE_SECTION_ORDER + " text, " + PAGE_TOC + " text, " + PAGE_IMAGE_TITLE + " text, " + PAGE_IMAGE_CAPTION + " text, "
             + PAGE_IMAGE_SRC + " text, " + PAGE_CONTENT + " text, " + PAGE_ALERT + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_CONTENT_HELP + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
+            + PAGE_TITLE + ", " + PAGE_HEADING + ", " + PAGE_CATEGORIES + ", " + PAGE_SECTION_ORDER + ", " + PAGE_TOC + ", " + PAGE_CONTENT
+            + ", " + PAGE_ALERT + ", " + PAGE_IMAGE_TITLE + ", " + PAGE_IMAGE_CAPTION + ", " + PAGE_IMAGE_SRC + ") values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CONTENT_HELP);
     }
@@ -53,26 +58,62 @@ public class HelpPageDbManager {
 
     public static long insert(SQLiteDatabase db, HelpPage page) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, page.getId());
-        cv.put(PAGE_LANGUAGE, page.getLang());
-        cv.put(PAGE_TYPE, page.getType());
-        cv.put(PAGE_TITLE, page.getTitle());
-        cv.put(PAGE_HEADING, page.getHeading());
-        cv.put(PAGE_CATEGORIES, page.getCategories());
-        cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
-        cv.put(PAGE_TOC, page.getToc());
-        cv.put(PAGE_CONTENT, page.getContent());
-        cv.put(PAGE_ALERT, page.getAlert());
 
-        if(page.getImage() != null){
-            cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
-            cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
-            cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
+        if (page.getId() != null)
+            insertStatement.bindString(1, page.getId());
+        if (page.getLang() != null)
+            insertStatement.bindString(2, page.getLang());
+        if (page.getType() != null)
+            insertStatement.bindString(3, page.getType());
+        if (page.getTitle() != null)
+            insertStatement.bindString(4, page.getTitle());
+        if (page.getHeading() != null)
+            insertStatement.bindString(5, page.getHeading());
+        if (page.getCategories() != null)
+            insertStatement.bindString(6, page.getCategories());
+        if (page.getSectionOrder() != null)
+            insertStatement.bindString(7, page.getSectionOrder());
+        if (page.getToc() != null)
+            insertStatement.bindString(8, page.getToc());
+        if (page.getContent() != null)
+            insertStatement.bindString(9, page.getContent());
+        if (page.getAlert() != null)
+            insertStatement.bindString(10, page.getAlert());
+
+        if (page.getImage() != null) {
+            if (page.getImage().getTitle() != null)
+                insertStatement.bindString(11, page.getImage().getTitle());
+            if (page.getImage().getCaption() != null)
+                insertStatement.bindString(12, page.getImage().getCaption());
+            if (page.getImage().getSrc() != null)
+                insertStatement.bindString(13, page.getImage().getSrc());
         }
 
-        return db.insert(TABLE_CONTENT_HELP, null, cv);
+        return insertStatement.executeInsert();
+
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, page.getId());
+//        cv.put(PAGE_LANGUAGE, page.getLang());
+//        cv.put(PAGE_TYPE, page.getType());
+//        cv.put(PAGE_TITLE, page.getTitle());
+//        cv.put(PAGE_HEADING, page.getHeading());
+//        cv.put(PAGE_CATEGORIES, page.getCategories());
+//        cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
+//        cv.put(PAGE_TOC, page.getToc());
+//        cv.put(PAGE_CONTENT, page.getContent());
+//        cv.put(PAGE_ALERT, page.getAlert());
+//
+//        if(page.getImage() != null){
+//            cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
+//            cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
+//            cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
+//        }
+//
+//        return db.insert(TABLE_CONTENT_HELP, null, cv);
     }
 
 
@@ -121,7 +162,7 @@ public class HelpPageDbManager {
         cv.put(PAGE_CONTENT, page.getContent());
         cv.put(PAGE_ALERT, page.getAlert());
 
-        if(page.getImage() != null){
+        if (page.getImage() != null) {
             cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
             cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
             cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
@@ -144,17 +185,16 @@ public class HelpPageDbManager {
     }
 
 
-    public static void insertOrUpdate(SQLiteDatabase db, HelpPage page){
-        if(isExist(db, page.getId(), page.getLang())){
+    public static void insertOrUpdate(SQLiteDatabase db, HelpPage page) {
+        if (isExist(db, page.getId(), page.getLang())) {
             update(db, page);
-        }
-        else{
+        } else {
             insert(db, page);
         }
     }
 
 
-    public static int delete(SQLiteDatabase db, String pageId, String lang){
+    public static int delete(SQLiteDatabase db, String pageId, String lang) {
         return db.delete(TABLE_CONTENT_HELP, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }
 

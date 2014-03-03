@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.PageAction;
@@ -31,6 +32,9 @@ public class PageActionDbManager {
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text, " + ACTION_LANGUAGE + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_PAGE_ACTION + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", "
+            + ACTION_TITLE + ", " + ACTION_LINK + ", " + ACTION_STATUS + ", " + ACTION_LANGUAGE + ") values (?,?,?,?,?,?)";
+
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_ACTION);
     }
@@ -41,16 +45,33 @@ public class PageActionDbManager {
 
     public static long insert(SQLiteDatabase db, PageAction action, String pageId, String lang) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, pageId);
-        cv.put(PAGE_LANGUAGE, lang);
-        cv.put(ACTION_TITLE, action.getTitle());
-        cv.put(ACTION_LINK, action.getLink());
-        cv.put(ACTION_STATUS, action.getStatus());
-        cv.put(ACTION_LANGUAGE, action.getLanguage());
+        if(pageId != null)
+            insertStatement.bindString(1, pageId);
+        if(lang != null)
+            insertStatement.bindString(2, lang);
+        if(action.getTitle() != null)
+            insertStatement.bindString(3, action.getTitle());
+        if(action.getLink() != null)
+            insertStatement.bindString(4, action.getLink());
+        if(action.getStatus() != null)
+            insertStatement.bindString(5, action.getStatus());
+        if(action.getLanguage() != null)
+            insertStatement.bindString(6, action.getLanguage());
 
-        return db.insert(TABLE_PAGE_ACTION, null, cv);
+        return insertStatement.executeInsert();
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, pageId);
+//        cv.put(PAGE_LANGUAGE, lang);
+//        cv.put(ACTION_TITLE, action.getTitle());
+//        cv.put(ACTION_LINK, action.getLink());
+//        cv.put(ACTION_STATUS, action.getStatus());
+//        cv.put(ACTION_LANGUAGE, action.getLanguage());
+//
+//        return db.insert(TABLE_PAGE_ACTION, null, cv);
     }
 
 

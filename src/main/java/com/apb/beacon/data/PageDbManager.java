@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.Page;
@@ -41,6 +42,10 @@ public class PageDbManager {
             + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_INTRODUCTION + " text, " + PAGE_WARNING + " text, " + PAGE_COMPONENT + " text, "
             + PAGE_CONTENT + " text, " + PAGE_SUCCESS_ID + " text, " + PAGE_FAILED_ID + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_WIZARD_PAGE + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
+            + PAGE_TITLE + ", " + PAGE_INTRODUCTION + ", " + PAGE_WARNING + ", " + PAGE_COMPONENT + ", "+ PAGE_CONTENT + ", " + PAGE_SUCCESS_ID
+            + ", " + PAGE_FAILED_ID + ") values (?,?,?,?,?,?,?,?,?,?)";
+
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_WIZARD_PAGE);
     }
@@ -52,20 +57,45 @@ public class PageDbManager {
 
     public static long insert(SQLiteDatabase db, Page page) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, page.getId());
-        cv.put(PAGE_LANGUAGE, page.getLang());
-        cv.put(PAGE_TYPE, page.getType());
-        cv.put(PAGE_TITLE, page.getTitle());
-        cv.put(PAGE_INTRODUCTION, page.getIntroduction());
-        cv.put(PAGE_WARNING, page.getWarning());
-        cv.put(PAGE_COMPONENT, page.getComponent());
-        cv.put(PAGE_CONTENT, page.getContent());
-        cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
-        cv.put(PAGE_FAILED_ID, page.getFailedId());
+        if(page.getId() != null)
+            insertStatement.bindString(1, page.getId());
+        if(page.getLang() != null)
+            insertStatement.bindString(2, page.getLang());
+        if(page.getType() != null)
+            insertStatement.bindString(3, page.getType());
+        if(page.getTitle() != null)
+            insertStatement.bindString(4, page.getTitle());
+        if(page.getIntroduction() != null)
+            insertStatement.bindString(5, page.getIntroduction());
+        if(page.getWarning() != null)
+            insertStatement.bindString(6, page.getWarning());
+        if(page.getComponent() != null)
+            insertStatement.bindString(7, page.getComponent());
+        if(page.getContent() != null)
+            insertStatement.bindString(8, page.getContent());
+        if(page.getSuccessId() != null)
+            insertStatement.bindString(9, page.getSuccessId());
+        if(page.getFailedId() != null)
+            insertStatement.bindString(10, page.getFailedId());
 
-        return db.insert(TABLE_WIZARD_PAGE, null, cv);
+        return insertStatement.executeInsert();
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, page.getId());
+//        cv.put(PAGE_LANGUAGE, page.getLang());
+//        cv.put(PAGE_TYPE, page.getType());
+//        cv.put(PAGE_TITLE, page.getTitle());
+//        cv.put(PAGE_INTRODUCTION, page.getIntroduction());
+//        cv.put(PAGE_WARNING, page.getWarning());
+//        cv.put(PAGE_COMPONENT, page.getComponent());
+//        cv.put(PAGE_CONTENT, page.getContent());
+//        cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
+//        cv.put(PAGE_FAILED_ID, page.getFailedId());
+//
+//        return db.insert(TABLE_WIZARD_PAGE, null, cv);
     }
 
 

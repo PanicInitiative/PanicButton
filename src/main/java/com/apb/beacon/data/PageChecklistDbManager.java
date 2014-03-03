@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.PageChecklist;
@@ -29,6 +30,9 @@ public class PageChecklistDbManager {
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + CHECKLIST_TITLE + " text, " + CHECKLIST_LINK + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_PAGE_CHECKLIST + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", "
+            + CHECKLIST_TITLE + ", " + CHECKLIST_LINK + ") values (?,?,?,?)";
+
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_CHECKLIST);
     }
@@ -39,14 +43,27 @@ public class PageChecklistDbManager {
 
     public static long insert(SQLiteDatabase db, PageChecklist item, String pageId, String lang) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, pageId);
-        cv.put(PAGE_LANGUAGE, lang);
-        cv.put(CHECKLIST_TITLE, item.getTitle());
-        cv.put(CHECKLIST_LINK, item.getLink());
+        if(pageId != null)
+            insertStatement.bindString(1, pageId);
+        if(lang != null)
+            insertStatement.bindString(2, lang);
+        if(item.getTitle() != null)
+            insertStatement.bindString(3, item.getTitle());
+        if(item.getLink() != null)
+            insertStatement.bindString(4, item.getLink());
 
-        return db.insert(TABLE_PAGE_CHECKLIST, null, cv);
+        return insertStatement.executeInsert();
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, pageId);
+//        cv.put(PAGE_LANGUAGE, lang);
+//        cv.put(CHECKLIST_TITLE, item.getTitle());
+//        cv.put(CHECKLIST_LINK, item.getLink());
+//
+//        return db.insert(TABLE_PAGE_CHECKLIST, null, cv);
     }
 
 
