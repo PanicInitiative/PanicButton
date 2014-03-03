@@ -55,6 +55,8 @@ public class WizardActivity extends FragmentActivity {
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
+        Log.e(">>>>>>>", "pageId = " + pageId);
+
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
         currentPage = dbInstance.retrievePage(pageId, selectedLang);
@@ -63,6 +65,7 @@ public class WizardActivity extends FragmentActivity {
         if (currentPage == null) {
             Log.e(">>>>>>", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -178,7 +181,19 @@ public class WizardActivity extends FragmentActivity {
             return;
         }
 
-        if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
+        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+            Log.e(">>>>>>>>", "returning from not-implemented page.");
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+            return;
+        }
+
+        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
+            Log.e(">>>>>>>>", "back button pressed");
+            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
+            return;
+        }
+
+        if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
             getPackageManager().setComponentEnabledSetting(
                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
@@ -196,12 +211,6 @@ public class WizardActivity extends FragmentActivity {
             sendBroadcast(broadcastIntent);
 
             finish();
-            return;
-        }
-
-        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
-            Log.e(">>>>>>>>", "back button pressed");
-            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 

@@ -94,6 +94,18 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+//        unregisterReceiver(activityFinishReceiver);
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+
+        finish();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(activityFinishReceiver);

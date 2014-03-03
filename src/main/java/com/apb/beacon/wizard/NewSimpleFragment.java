@@ -141,6 +141,8 @@ public class NewSimpleFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
+//                AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
+
                 String pageId = selectedItem.getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
