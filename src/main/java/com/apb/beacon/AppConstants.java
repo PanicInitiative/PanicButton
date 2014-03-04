@@ -25,6 +25,7 @@ public class AppConstants {
 
 
     public static boolean WIZARD_IS_BACK_BUTTON_PRESSED = false;
+    public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
 
     public static final int FROM_WIZARD_ACTIVITY = 1;
     public static final int FROM_MAIN_ACTIVITY = 2;
