@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.PageStatus;
@@ -30,6 +31,9 @@ public class PageStatusDbManager {
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + STATUS_TITLE + " text, " + STATUS_COLOR + " text, " + STATUS_LINK + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_PAGE_STATUS + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", "
+            + STATUS_TITLE + ", " + STATUS_COLOR + ", " + STATUS_LINK + ") values (?,?,?,?,?)";
+
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_STATUS);
     }
@@ -41,15 +45,30 @@ public class PageStatusDbManager {
 
     public static long insert(SQLiteDatabase db, PageStatus status, String pageId, String lang) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, pageId);
-        cv.put(PAGE_LANGUAGE, lang);
-        cv.put(STATUS_TITLE, status.getTitle());
-        cv.put(STATUS_COLOR, status.getColor());
-        cv.put(STATUS_LINK, status.getLink());
+        if(pageId != null)
+            insertStatement.bindString(1, pageId);
+        if(lang != null)
+            insertStatement.bindString(2, lang);
+        if(status.getTitle() != null)
+            insertStatement.bindString(3, status.getTitle());
+        if(status.getColor() != null)
+            insertStatement.bindString(4, status.getColor());
+        if(status.getLink() != null)
+            insertStatement.bindString(5, status.getLink());
 
-        return db.insert(TABLE_PAGE_STATUS, null, cv);
+        return insertStatement.executeInsert();
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, pageId);
+//        cv.put(PAGE_LANGUAGE, lang);
+//        cv.put(STATUS_TITLE, status.getTitle());
+//        cv.put(STATUS_COLOR, status.getColor());
+//        cv.put(STATUS_LINK, status.getLink());
+//
+//        return db.insert(TABLE_PAGE_STATUS, null, cv);
     }
 
 

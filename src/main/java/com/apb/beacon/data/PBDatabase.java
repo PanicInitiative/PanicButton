@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.PageChecklist;
@@ -26,7 +27,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -42,6 +43,7 @@ public class PBDatabase {
             PageActionDbManager.createTable(db);
             PageTimerDbManager.createTable(db);
             PageChecklistDbManager.createTable(db);
+            HelpPageDbManager.createTable(db);
         }
 
         @Override
@@ -52,6 +54,7 @@ public class PBDatabase {
             PageActionDbManager.dropTable(db);
             PageTimerDbManager.dropTable(db);
             PageChecklistDbManager.dropTable(db);
+            HelpPageDbManager.dropTable(db);
 
             onCreate(db);
         }
@@ -75,19 +78,7 @@ public class PBDatabase {
     }
 
 
-//    public void insertOrUpdateLocalCachePage(LocalCachePage page) {
-//        LocalCacheDbManager.insertOrUpdate(this.db, page);
-//    }
-//
-//    public LocalCachePage retrievePage(int pageNumber) {
-//        return LocalCacheDbManager.retrievePage(this.db, pageNumber);
-//    }
-//
-//    public int deletePage(int pageNumber) {
-//        return LocalCacheDbManager.deletePage(this.db, pageNumber);
-//    }
-
-    public void insertOrUpdateWizardPage(Page page) {
+    public void insertOrUpdatePage(Page page) {
         PageDbManager.insertOrUpdate(this.db, page);
 
         deletePageActions(page.getId(), page.getLang());
@@ -209,5 +200,21 @@ public class PBDatabase {
 
     public void deletePageChecklist(String pageId, String lang){
         PageChecklistDbManager.delete(this.db, pageId, lang);
+    }
+
+
+    /*
+    Page-HelpPage methods
+    */
+    public void insertOrUpdateHelpPage(HelpPage pList) {
+        HelpPageDbManager.insertOrUpdate(this.db, pList);
+    }
+
+    public List<HelpPage> retrieveHelpPage(String lang) {
+        return HelpPageDbManager.retrieve(this.db, lang);
+    }
+
+    public void deleteHelpPage(String pageId, String lang){
+        HelpPageDbManager.delete(this.db, pageId, lang);
     }
 }

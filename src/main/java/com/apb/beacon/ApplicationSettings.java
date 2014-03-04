@@ -18,6 +18,7 @@ public class ApplicationSettings {
     private static final String WIZARD_STATE = "WIZARD_STATE";
     public static final String BEST_LOCATION = "BEST_LOCATION";
     public static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
+    public static final String LAST_UPDATED_VERSION = "LAST_UPDATED_VERSION";
 
     public static void setFirstRun(Context context, boolean isFirstRun) {
         saveBoolean(context, FIRST_RUN, isFirstRun);
@@ -119,5 +120,14 @@ public class ApplicationSettings {
 
     public static void setSelectedLanguage(Context context, String lang) {
         saveString(context, SELECTED_LANGUAGE , lang);
+    }
+
+
+    public static int getLastUpdatedVersion(Context context) {
+        return sharedPreferences(context).getInt(LAST_UPDATED_VERSION, -1);
+    }
+
+    public static void setLastUpdatedVersion(Context context, int versionNumber) {
+        saveInt(context, LAST_UPDATED_VERSION , versionNumber);
     }
 }

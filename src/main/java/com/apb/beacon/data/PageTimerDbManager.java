@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.PageTimer;
@@ -27,6 +28,9 @@ public class PageTimerDbManager {
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, " + TIMER_INFO + " text, "
             + TIMER_INACTIVE + " text, " + TIMER_FAIL + " text);";
 
+    private static final String INSERT_SQL = "insert into  " + TABLE_PAGE_TIMER + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", "
+            + TIMER_INFO + ", " + TIMER_INACTIVE + ", " + TIMER_FAIL + ") values (?,?,?,?,?)";
+
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_TIMER);
@@ -38,15 +42,30 @@ public class PageTimerDbManager {
 
     public static long insert(SQLiteDatabase db, PageTimer timer, String pageId, String lang) throws SQLException {
 
-        ContentValues cv = new ContentValues();
+        SQLiteStatement insertStatement = db.compileStatement(INSERT_SQL);
 
-        cv.put(PAGE_ID, pageId);
-        cv.put(PAGE_LANGUAGE, lang);
-        cv.put(TIMER_INFO, timer.getInfo());
-        cv.put(TIMER_INACTIVE, timer.getInactive());
-        cv.put(TIMER_FAIL, timer.getFail());
+        if(pageId != null)
+            insertStatement.bindString(1, pageId);
+        if(lang != null)
+            insertStatement.bindString(2, lang);
+        if(timer.getInfo() != null)
+            insertStatement.bindString(3, timer.getInfo());
+        if(timer.getInactive() != null)
+            insertStatement.bindString(4, timer.getInactive());
+        if(timer.getFail() != null)
+            insertStatement.bindString(5, timer.getFail());
 
-        return db.insert(TABLE_PAGE_TIMER, null, cv);
+        return insertStatement.executeInsert();
+
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(PAGE_ID, pageId);
+//        cv.put(PAGE_LANGUAGE, lang);
+//        cv.put(TIMER_INFO, timer.getInfo());
+//        cv.put(TIMER_INACTIVE, timer.getInactive());
+//        cv.put(TIMER_FAIL, timer.getFail());
+//
+//        return db.insert(TABLE_PAGE_TIMER, null, cv);
     }
 
 

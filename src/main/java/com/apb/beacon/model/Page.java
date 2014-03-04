@@ -33,18 +33,6 @@ public class Page {
     public Page() {
     }
 
-//    public Page(String id, String lang, String type, String title, String introduction, String warning,
-//                String component, String content) {
-//        this.id = id;
-//        this.lang = lang;
-//        this.type = type;
-//        this.title = title;
-//        this.introduction = introduction;
-//        this.warning = warning;
-//        this.component = component;
-//        this.content = content;
-//    }
-
 
     public Page(String id, String lang, String type, String title, String introduction, String warning, String component,
                 List<PageStatus> status, List<PageAction> action, List<PageItem> items, String content, PageTimer timers,
