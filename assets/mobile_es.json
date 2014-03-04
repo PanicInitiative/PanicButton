@@ -1,14 +1,14 @@
 {
   "mobile": {
-    "version" : 5,
+    "version" : 7,
     "data":[
     {
       "id" : "setup-warning",
       "lang" : "es",
       "type" : "warning",
-      "title" : "Warning",
+      "title" : "Atención",
       "action" : [{"title":"Iniciar","link":"setup-contacts"}],
-      "content" : "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Create a PACT with your network so that they are PREPARED to ACT. </p>"
+      "content" : "<p>El Botón de Pánico es una herramienta útil para avisar rápidamente a tus contactos cuando necesitas ayuda. No puede garantizar tu seguridad por lo cual debes de elaborar un plan con tus contactos seleccionados para que puedan estar preparados y actuar rápido.  </p>"
     },
     {
       "id" : "setup-message",
@@ -18,7 +18,7 @@
       "introduction" : "Este sera el mensaje que se enviara junto con tu ubicacion.",
       "warning" : "Make sure your contacts know what to do if they receive this message",
       "component" : "message",
-      "action" : [{"title":"Siguiente"},{"link":"setup-code"}],
+      "action" : [{"title":"Siguiente","link":"setup-code"}],
       "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que solo tu y tus contactos lo entiendan.</li><li>No tendras tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario.</li><li>Activa el rastreador GPS desde las configuraciones de tu telefono si deseas que tu ubicacion se incluya en el mensaje.</li></ul>"
     },
     {
@@ -71,7 +71,7 @@
       "lang" : "es",
       "type" : "interactive",
       "title" : "Prueba el disfraz",
-      "introduction" : "Intentalo ahora! Abre la aplicacion dandole un click al icono de la Calculadora!",
+      "introduction" : "¡Inténtalo ahora! Abre la aplicacion dándole un click al ícono Calculate!",
       "component" : "disguise-test-open",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-disguise-test-unlock"},
@@ -103,7 +103,7 @@
       "type" : "simple",
       "title" : "Instalar el disfraz",
       "action" : [{"title":"Aprende","link":"setup-disguise-test-open"}],
-      "content" : "<p>El Boton de Panico se mantiene escondido dentro de tu telefono apareciendo disfrazado como un simple calculadora. De ahora en adelante, veras el disfraz de calculadora cada vez que abras la aplicacion. Aprende como funciona. </p>"
+      "content" : "<p>El Botón de Pánico se mantiene oculto dentro de tu teléfono apareciendo disfrazado como una simple calculadora. De ahora en adelante, verás el disfraz de calculadora cada vez que abras la aplicación. Aprende cómo funciona. </p>"
     },
     {
       "id" : "setup-contacts",
@@ -194,18 +194,18 @@
       "type" : "simple",
       "title" : "Instalar Alerta",
       "action" : [{"title":"Aprende","link":"setup-alarm-test-hardware"}],
-      "content" : "<p>Now you will learn how to trigger Panic Button in an emergency. The app is special because it allows you to trigger the alert from the phone&#39;s power button (meaning you can do it secretly - for example, from inside a jacket pocket).</p>"
+      "content" : "<p>Ahora aprende cómo activar el Botón de Pánico en caso de una emergencia.</p><p>El Botón de Pánico es único porque puedes activar la alerta desde el botón de encender/apagar de tu teléfono. Esto significa que puedes hacerlo en secreto- por ejemplo, desde el interior del bolsillo de tu chaqueta.</p>"
     },
     {
       "id" : "settings-message",
       "lang" : "es",
       "type" : "interactive",
-      "title" : "Instalar el mensaje de alerta",
-      "introduction" : "Este sera el mensaje que se enviara junto con tu ubicacion.",
-      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "title" : "Crear el mensaje de alerta",
+      "introduction" : "Este será el mensaje que se enviará junto con tu ubicación.",
+      "warning" : "Asegurate de que tus contactos sepan que hacer si reciben este mensaje.",
       "component" : "message",
-      "action" : [{"title":"Save","link":"home-ready"}],
-      "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que solo tu y tus contactos lo entiendan </li><li>No tendras tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario</li><li>Activa el rastreador GPS desde las configuraciones de tu telefono si deseas que tu ubicacion se incluya en el mensaje</li></ul>"
+      "action" : [{"title":"Guardar","link":"home-ready"}],
+      "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que sólo tu y tus contactos lo entiendan.</li><li>No tendrás tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario.</li><li>Activa el rastreador GPS desde las configuraciones de tu teléfono si deseas que tu ubicación se incluya en el mensaje.</li></ul>"
     },
     {
       "id" : "settings-language",
@@ -221,11 +221,11 @@
       "lang" : "es",
       "type" : "interactive",
       "title" : "Establecer contactos",
-      "introduction" : "Estas son las personas que recibiran tu alerta.",
-      "warning" : "Estas personas deberan de conocerte personalmente y ser capaces de responder rapidamente.",
+      "introduction" : "Estas son las personas que recibirán tu alerta.",
+      "warning" : "Estas personas deberán de conocerte personalmente y ser capaces de responder rápidamente.",
       "component" : "contacts",
       "action" : [{"title":"Save","link":"home-ready"}],
-      "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quien puede ayudarte de manera practica- No tiene caso que alguien se entere que estas en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rapidamente </li><li>Considera los riesgos- Como puede tu contacto ponerse en riesgo?</li></ul>"
+      "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quién puede ayudarte de manera práctica- No tiene caso que alguien se entere que estás en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rápidamente </li><li>Considera los riesgos- ¿Como puede tu contacto ponerse en riesgo?</li></ul>"
     },
     {
       "id" : "settings-code",
