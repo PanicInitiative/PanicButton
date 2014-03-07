@@ -4,15 +4,6 @@ class Device
   def self.adb_command(command)
     cmd = "#{default_device.adb_command} #{command}"
     system(cmd)
-
-  end
-
-  def self.press_back_button
-    adb_command("shell input keyevent 4")
-  end
-
-  def self.press_home_button
-    adb_command("shell input keyevent 3")
   end
 
   def self.install_development_app
@@ -21,8 +12,8 @@ class Device
     default_device.install_app("#{justHome}/features/support/Development.apk")
   end
 
-  def self.start_dev_app
-    #adb shell am start -n com.google.android.contacts/.ContactsActivity
+  def self.open_dev_app_connection_settings
+    adb_command("shell am start -n com.android.development/.Connectivity")
   end
 
 end

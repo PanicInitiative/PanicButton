@@ -15,13 +15,22 @@ Then /^I enter "(.*?)" into contact field (\d+)$/ do |text_to_enter, index|
 end
 
 Then /^I press back button$/ do
-  Device.press_back_button
+  Device.adb_command("shell input keyevent 4")
 end
 
 Then /^I press home button$/ do
-  Device.press_home_button
+  Device.adb_command("shell input keyevent 3")
 end
 
-Then /^There is no internet connection$/ do
+Then /^I tern off wifi$/ do
   Device.install_development_app
+  Device.open_dev_app_connection_settings
+  Device.adb_command("shell input keyevent 61")
+  Device.adb_command("shell input keyevent 23")
+end
+
+Then /^I tern on wifi$/ do
+  Device.install_development_app
+  Device.open_dev_app_connection_settings
+  Device.adb_command("shell input keyevent 23")
 end
