@@ -1,0 +1,316 @@
+{
+  "mobile": {
+    "version" : 5,
+    "data":[
+    {
+      "id" : "setup-warning",
+      "lang" : "es",
+      "type" : "warning",
+      "title" : "Warning",
+      "action" : [{"title":"Iniciar","link":"setup-contacts"}],
+      "content" : "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Create a PACT with your network so that they are PREPARED to ACT. </p>"
+    },
+    {
+      "id" : "setup-message",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Instalar el mensaje de alerta",
+      "introduction" : "Este sera el mensaje que se enviara junto con tu ubicacion.",
+      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "component" : "message",
+      "action" : [{"title":"Siguiente"},{"link":"setup-code"}],
+      "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que solo tu y tus contactos lo entiendan.</li><li>No tendras tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario.</li><li>Activa el rastreador GPS desde las configuraciones de tu telefono si deseas que tu ubicacion se incluya en el mensaje.</li></ul>"
+    },
+    {
+      "id" : "setup-language",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Configuraciones de Lenguage",
+      "introduction" : "Escoje un lenguaje para la aplicacion.",
+      "component" : "language",
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+    },
+    {
+      "id" : "setup-disguise-test-unlock-fail",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Setup the Disguise",
+      "action" : [{"title":"Try Again","link":"setup-disguise-test-open"}],
+      "content" : "<p>Parece que no se logro ablir la aplicacion desde la el disfraz de Calculadora.</p><p>Recuerda: Manten presionado cualquier boton y despues se requerira que escribas tu clave.</p>"
+    },
+    {
+      "id" : "setup-disguise-test-unlock",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Prueba el disfraz",
+      "introduction" : "Intentalo ahora! Presiona cualquier boton de la calculadora",
+      "component" : "disguise-test-unlock",
+      "timers" : {"info":"0","inactive":"10","fail":"20"},
+      "action" : [{"title":"Skip","link":"setup-disguise-test-code"}],
+      "success" : {"link":"setup-disguise-test-code"},
+      "fail" : {"link":"setup-disguise-test-unlock-fail"}
+    },
+    {
+      "id" : "setup-disguise-test-success",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Bien hecho!",
+      "action" : [{"title":"Finish","link":"home-ready"}],
+      "content" : "<p>Felicidades! Lograste instalar la apliacion de Boton de Panico exitosamente!</p>"
+    },
+    {
+      "id" : "setup-disguise-test-open-fail",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar el disfraz",
+      "action" : [{"title":"Try Again","link":"setup-disguise-test-open"}],
+      "content" : "<p>Parece que no se logro ablir la aplicacion desde la el disfraz de Calculadora!</p><p>Recuerda: Manten presionado cualquier boton y despues se requerira que escribas tu clave.</p>"
+    },
+    {
+      "id" : "setup-disguise-test-open",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Prueba el disfraz",
+      "introduction" : "Intentalo ahora! Abre la aplicacion dandole un click al icono de la Calculadora!",
+      "component" : "disguise-test-open",
+      "timers" : {"info":"0","inactive":"10","fail":"20"},
+      "success" : {"link":"setup-disguise-test-unlock"},
+      "fail" : {"link":"setup-disguise-test-open-fail"}
+    },
+    {
+      "id" : "setup-disguise-test-unlock-fail",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar el disfraz",
+      "action" : [{"title":"Try Again","link":"setup-disguise-test-unlock"}],
+      "content" : "<p>Parece que no se logro abrir la aplicacion desde la el disfraz de Calculadora!</p><p>Recuerda: Manten presionado cualquier boton y despues se requerira que escribas tu clave.</p>"
+    },
+    {
+      "id" : "setup-disguise-test-code",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Prueba el disfraz",
+      "introduction" : "Bien hecho! Ahora escribe tu clave para acceder a configuraciones.",
+      "component" : "disguise-test-code",
+      "timers" : {"info":"0","inactive":"10","fail":"20"},
+      "action" : [{"title":"Ok","link":"setup-disguise-test-success"}],
+      "success" : {"link":"setup-disguise-test-success"},
+      "fail" : {"link":"setup-disguise-test-code-fail"}
+    },
+    {
+      "id" : "setup-disguise",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar el disfraz",
+      "action" : [{"title":"Aprende","link":"setup-disguise-test-open"}],
+      "content" : "<p>El Boton de Panico se mantiene escondido dentro de tu telefono apareciendo disfrazado como un simple calculadora. De ahora en adelante, veras el disfraz de calculadora cada vez que abras la aplicacion. Aprende como funciona. </p>"
+    },
+    {
+      "id" : "setup-contacts",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Establecer contactos",
+      "introduction" : "Estas son las personas que recibiran tu alerta.",
+      "warning" : "Estas personas deberan de conocerte personalmente y ser capaces de responder rapidamente.",
+      "component" : "contacts",
+      "action" : [{"title":"Siguiente","link":"setup-message"}],
+      "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quien puede ayudarte de manera practica- No tiene caso que alguien se entere que estas en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rapidamente </li><li>Considera los riesgos- Como puede tu contacto ponerse en riesgo?</li></ul>"
+    },
+    {
+      "id" : "setup-code",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Crear una clave",
+      "introduction" : "Esta clave es necesaria para acceder a configuraciones de la aplicacion. No se necesita para enviar alerta a tus contactos en caso de emergencia.",
+      "warning" : "Recuerda tu clave! Si la olvidas necesitaras re-instalar la aplicacion.",
+      "component" : "code",
+      "action" : [{"title":"Siguiente","link":"home-not-configured-alarm"}]
+    },
+    {
+      "id" : "setup-alarm-test-hardware-success",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Bien hecho!",
+      "action" : [{"title":"Siguiente","link":"setup-alarm-disguise"}],
+      "content" : "<p>Tu prueba fue exitosa! En una emergencia real, tu alerta se enviara.</p>"
+    },
+    {
+      "id" : "setup-alarm-test-hardware-fail",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Setup the Alarm",
+      "action" : [{"title":"Try Again","link":"setup-alarm-test-hardware"}],
+      "content" : "<p>Parece que la activacion de la alarma no tuvo exito al ser utilizada desde el boton de encender/apagar de tu telefono.</p><p>Recuerda: Presiona repetidamente el boton de encender/apagar lo mas rapido posible hasta que sientas una vibracion. </p>"
+    },
+    {
+      "id" : "setup-alarm-test-hardware",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Test Hardware Alarm",
+      "introduction" : "Intenta ahora! Presiona repetidamente el boton de encender/apagar lo mas rapido posible hasta que sientas una vibracion.",
+      "component" : "alarm-test-hardware",
+      "timers" : {"info":"0","inactive":"10","fail":"20"},
+      "success" : {"link":"setup-alarm-test-hardware-success"},
+      "fail" : {"link":"setup-alarm-test-hardware-fail"}
+    },
+    {
+      "id" : "setup-alarm-test-disguise-success",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Bien hecho!",
+      "action" : [{"title":"Next","link":"home-not-configured-disguise"}],
+      "content" : "<p>Tu prueba fue exitosa! En una emergencia real, tu alerta se enviara.</p>"
+    },
+    {
+      "id" : "setup-alarm-test-disguise-fail",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar Alerta",
+      "action" : [{"title":"Try Again","link":"setup-alarm-test-disguise"}],
+      "content" : "<p>Parece que la activacion de la alarma no tuvo exito.</p><p>Recuerda: Presiona repetidamente un mismo boton de la calculadora lo mas rapido posible hasta que sientas una vibracion. </p>"
+    },
+    {
+      "id" : "setup-alarm-test-disguise",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Test Disguised Alarm",
+      "introduction" : "Intenta ahora! Presiona repetidamente un mismo boton de la calculadora lo mas rapido posible hasta que sientas una vibracion.",
+      "component" : "alarm-test-disguise",
+      "timers" : {"info":"0","inactive":"10","fail":"20"},
+      "success" : {"link":"setup-alarm-test-disguise-success"},
+      "fail" : {"link":"setup-alarm-test-disguise-fail"}
+    },
+    {
+      "id" : "setup-alarm-disguise",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar Alerta",
+      "action" : [{"title":"Learn","link":"setup-alarm-test-disguise"}],
+      "content" : "<p>De manera alterna, puedes activar la alerta directamente desde la pantalla de disfraz de tu aplicacion.</p>"
+    },
+    {
+      "id" : "setup-alarm",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Instalar Alerta",
+      "action" : [{"title":"Aprende","link":"setup-alarm-test-hardware"}],
+      "content" : "<p>Now you will learn how to trigger Panic Button in an emergency. The app is special because it allows you to trigger the alert from the phone&#39;s power button (meaning you can do it secretly - for example, from inside a jacket pocket).</p>"
+    },
+    {
+      "id" : "settings-message",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Instalar el mensaje de alerta",
+      "introduction" : "Este sera el mensaje que se enviara junto con tu ubicacion.",
+      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "component" : "message",
+      "action" : [{"title":"Save","link":"home-ready"}],
+      "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que solo tu y tus contactos lo entiendan </li><li>No tendras tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario</li><li>Activa el rastreador GPS desde las configuraciones de tu telefono si deseas que tu ubicacion se incluya en el mensaje</li></ul>"
+    },
+    {
+      "id" : "settings-language",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Configuraciones de Lenguage",
+      "introduction" : "Escoje un lenguaje para la aplicacion.",
+      "component" : "language",
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+    },
+    {
+      "id" : "settings-contacts",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Establecer contactos",
+      "introduction" : "Estas son las personas que recibiran tu alerta.",
+      "warning" : "Estas personas deberan de conocerte personalmente y ser capaces de responder rapidamente.",
+      "component" : "contacts",
+      "action" : [{"title":"Save","link":"home-ready"}],
+      "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quien puede ayudarte de manera practica- No tiene caso que alguien se entere que estas en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rapidamente </li><li>Considera los riesgos- Como puede tu contacto ponerse en riesgo?</li></ul>"
+    },
+    {
+      "id" : "settings-code",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Crear una clave",
+      "introduction" : "Esta clave es necesaria para acceder a configuraciones de la aplicacion. No se necesita para enviar alerta a tus contactos en caso de emergencia.
+Recuerda tu clave! Si la olvidas necesitaras re-instalar la aplicacion.
+",
+      "component" : "code",
+      "action" : [{"title":"Save","link":"home-ready"}]
+    },
+    {
+      "id" : "settings",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Configuraciones",
+      "items" : [{"title":"Configuraciones de Lenguage","link":"settings-language"},{"title":"Configuraciones de mensaje","link":"settings-message"},{"title":"Configuraciones de contactos","link":"settings-contacts"},{"title":"Configuraciones de clave de acceso","link":"settings-code"},{"title":"Reiniciar la instalacion","link":"home-not-configured"}]
+    },
+    {
+      "id" : "home-ready",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Panic Button",
+      "status" : [{"title":"Ready","color":"green","link":"help-ready"}],
+      "action" : [{"title":"Disguise","link":"checklist"}],
+      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
+      "content" : "<p>Panic Button is set-up and ready. Click Disguise to exit and hide the application.</p>"
+    },
+    {
+      "id" : "home-not-configured-disguise",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Panic Button",
+      "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
+      "action" : [{"title":"Basic Settings","link":"","status":"checked"},{"title":"Setup Alarm","link":"","status":"checked"},{"title":"Setup Disguise","link":"setup-disguise"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Language Settings","link":"setup-language"}],
+      "content" : "<p>You cannot use Panic Button until it is fully setup.</p>"
+    },
+    {
+      "id" : "home-not-configured-alarm",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Panic Button",
+      "status" : [{"title":"Instalacion incompleta","color":"red","link":"help-not-configured"}],
+      "action" : [{"title":"Configuraciones basicas","link":"","status":"checked"},{"title":"Instalar Alerta","link":"setup-alarm"},{"title":"Setup Disguise","link":"Instalar Disfraz","status":"disabled"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Configuraciones de Lenguage","link":"setup-language"}],
+      "content" : "<p>No puedes hacer uso del Boton de Panico hasta que este completamente instalado.</p>"
+    },
+    {
+      "id" : "home-not-configured",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Panic Button",
+      "action" : [{"title":"Set-Up","link":"setup-warning"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Language Settings","link":"setup-language"}],
+      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Boton de Panico convierte tu telefono movil en una alarma secreta para que tus contactos mas confiables pueden actuar si te encuentres en riesgo.</p>"
+    },
+    {
+      "id" : "home-alerting",
+      "lang" : "es",
+      "type" : "simple",
+      "title" : "Boton de Panico",
+      "status" : [{"title":"Enviando Alerta","color":"red","link":"help-alerting"}],
+      "action" : [{"title":"Detener Alerta","link":"home-ready"}],
+      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
+      "content" : "<p>El Boton de Panico se encuentra enviando mensajes de alerta. Oprime en Detener Alerta para cancelar los mensajes.</p>"
+    },
+    {
+      "id" : "code",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Code",
+      "component" : "code",
+      "action" : [{"title":"Go","link":"home-ready"}],
+      "fail" : "If you have forgotten your pin number, please completely uninstall the application and reinstall it."
+    },
+    {
+      "id" : "checklist",
+      "lang" : "es",
+      "type" : "modal",
+      "title" : "lista de verificación",
+      "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
+      "checklist" : [{"title":"Revisar plan de seguridad y actualizar contactos regularmente"},{"title":"Prueba la alerta para asegurarte que funcione"},{"title":"Asegurate de tener suficiente credito en tu telefono movil"},{"title":"Activa el GPS (si deseas que tu ubicacion se incluya en el mensaje)"},{"title":"Carga la bateria de tu telefono completamente"}],
+      "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
+    }]
+  }
+}

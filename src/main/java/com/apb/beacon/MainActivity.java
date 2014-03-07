@@ -18,6 +18,7 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
+import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
 import com.apb.beacon.wizard.WizardModalActivity;
@@ -31,7 +32,7 @@ public class MainActivity extends FragmentActivity {
 
     Page currentPage;
     String pageId;
-    String defaultLang;
+    String selectedLang;
 
 
     @Override
@@ -47,11 +48,11 @@ public class MainActivity extends FragmentActivity {
         registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
-        defaultLang = "en";
+        selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        currentPage = dbInstance.retrievePage(pageId, selectedLang);
         dbInstance.close();
 
         if (currentPage == null) {
@@ -82,12 +83,26 @@ public class MainActivity extends FragmentActivity {
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                else if (currentPage.getComponent().equals("language"))
+                    fragment = new LanguageSettingsFragment().newInstance(pageId);
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        unregisterReceiver(activityFinishReceiver);
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+        sendBroadcast(broadcastIntent);
+
+        finish();
     }
 
     @Override

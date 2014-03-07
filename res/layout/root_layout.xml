@@ -8,49 +8,6 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:orientation="vertical">
-
-
-
-<!--    <LinearLayout
-            style="@style/custom_action_bar"
-            android:layout_height="50dp"
-            android:visibility="gone"
-            android:layout_width="fill_parent">
-
-        <Button android:id="@+id/previous_button"
-                style="@style/back_button"
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"
-                android:background="@drawable/back_button"
-                android:onClick="previous"/>
-
-
-
-        <TextView
-                style="@style/page_title"
-                android:text=""
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"/>
-
-
-
-        <Button android:id="@+id/action_button"
-                style="@style/next_button"
-                android:background="@drawable/drawable_wizard_button"
-                android:text="@string/next_action"
-                android:layout_height="fill_parent"
-                android:layout_width="wrap_content"
-                android:onClick="performAction"/>
-
-    </LinearLayout>-->
-<!--      <View android:layout_width="fill_parent" android:layout_height="1dp" style="@style/custom_action_bar_sep"></View>-->
-
-<!--    <com.apb.beacon.wizard.WizardViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/wizard_view_pager"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            />-->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_height="fill_parent"

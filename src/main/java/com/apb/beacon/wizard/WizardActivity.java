@@ -31,37 +31,15 @@ import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
 public class WizardActivity extends FragmentActivity {
-    private WizardViewPager viewPager;
+//    private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
     String pageId;
-    String defaultLang;
+    String selectedLang;
 
     TextView tvToastMessage;
     Boolean flagRiseFromPause = false;
-
-//    @InjectView(R.id.previous_button)
-//    Button previousButton;
-//    @InjectView(R.id.action_button)
-//    public Button actionButton;
-
-//    private SimpleOnPageChangeListener pageChangeListener = new SimpleOnPageChangeListener() {
-//        @Override
-//        public void onPageSelected(int position) {
-//            super.onPageSelected(position);
-//            SoftKeyboard.hide(getApplicationContext(), getCurrentWizardFragment().getView());
-//            previousButton.setVisibility(position != 0 ? VISIBLE : INVISIBLE);
-////            actionButton.setVisibility(position != (pagerAdapter.getCount() - 1) ? VISIBLE : INVISIBLE);
-//            setActionButtonVisibility(position);
-//            if(position == AppConstants.PAGE_NUMBER_TRAINING_MESSAGE)
-//                Toast.makeText(WizardActivity.this, "Enter your message.", Toast.LENGTH_SHORT).show();
-//
-//            Log.e(">>>>>>", "setting action text from pageChangeListener");
-//            actionButton.setText(getCurrentWizardFragment().action());
-//            getCurrentWizardFragment().onFragmentSelected();
-//        }
-//    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,16 +53,19 @@ public class WizardActivity extends FragmentActivity {
         registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
-        defaultLang = "en";
+        selectedLang = ApplicationSettings.getSelectedLanguage(this);
+
+        Log.e(">>>>>>>", "pageId = " + pageId);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
-        currentPage = dbInstance.retrievePage(pageId, defaultLang);
+        currentPage = dbInstance.retrievePage(pageId, selectedLang);
         dbInstance.close();
 
         if (currentPage == null) {
             Log.e(">>>>>>", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -109,13 +90,15 @@ public class WizardActivity extends FragmentActivity {
                 finish();
                 return;
             }
-            else {
+            else {          // type = interactive
                 if (currentPage.getComponent().equals("contacts"))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("message"))
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("language"))
+                    fragment = new LanguageSettingsFragment().newInstance(pageId);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if(currentPage.getIntroduction() != null){
@@ -198,7 +181,19 @@ public class WizardActivity extends FragmentActivity {
             return;
         }
 
-        if(!ApplicationSettings.isFirstRun(WizardActivity.this)){
+        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+            Log.e(">>>>>>>>", "returning from not-implemented page.");
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+            return;
+        }
+
+        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
+            Log.e(">>>>>>>>", "back button pressed");
+            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
+            return;
+        }
+
+        if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
             getPackageManager().setComponentEnabledSetting(
                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
@@ -216,12 +211,6 @@ public class WizardActivity extends FragmentActivity {
             sendBroadcast(broadcastIntent);
 
             finish();
-            return;
-        }
-
-        if(AppConstants.wizard_is_back_button_pressed){
-            Log.e(">>>>>>>>", "back button pressed");
-            AppConstants.wizard_is_back_button_pressed = false;
             return;
         }
 
@@ -270,55 +259,14 @@ public class WizardActivity extends FragmentActivity {
         else{
             super.onBackPressed();
         }
-        AppConstants.wizard_is_back_button_pressed = true;
+        AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
     }
 
-    public void setActionButtonVisibility(int pageNumber) {
-    }
-
-//    public void performAction(View view) {
-//        if(viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS_INTRO && view != null){
-//            viewPager.nextWithSkip();
-//        }
-//        else if(getCurrentWizardFragment().performAction()){
-//            viewPager.next();
-//        }
-//    }
-
-    /*
-    skip one fragment in the middle
-     */
-    public void performActionWithSkip() {
-        viewPager.nextWithSkip();
-    }
-
-    public void previous(View view) {
-        if (viewPager.getCurrentItem() == AppConstants.PAGE_NUMBER_TRAINING_CONTACTS) {
-            viewPager.previousWithSkip();
-        }
-//        getCurrentWizardFragment().onBackPressed();
-        else {
-            viewPager.previous();
-        }
-    }
-
-    public void previousWithSkip() {
-//        getCurrentWizardFragment().onBackPressed();
-        viewPager.previousWithSkip();
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(activityFinishReceiver);
-    }
-
-    private WizardFragment getCurrentWizardFragment() {
-        return (WizardFragment) pagerAdapter.getItem(viewPager.getCurrentItem());
-    }
-
-    FragmentStatePagerAdapter getWizardPagerAdapter() {
-        return new WizardPageAdapter(getSupportFragmentManager());
     }
 
     BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {

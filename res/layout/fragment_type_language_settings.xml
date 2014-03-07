@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/wizard_start_root"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/wizard_static_panel">
+
+            <TextView
+                android:id="@+id/fragment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/page_title_text"
+                android:textSize="32sp"
+                android:paddingBottom="5dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/fragment_intro"
+                style="@style/wizard_intro_style"
+                android:layout_below="@+id/fragment_title" />
+
+            <TextView
+                android:id="@+id/fragment_contents"
+                android:layout_below="@+id/fragment_intro"
+                style="@style/wizard_content_style" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/fragment_action_list"
+        android:layout_height="wrap_content"
+        android:divider="@android:drawable/screen_background_light_transparent"
+        android:layout_width="match_parent" />
+</LinearLayout>

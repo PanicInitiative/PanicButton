@@ -20,7 +20,7 @@
                 android:id="@+id/fragment_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/panic_button_label"
+                android:text="@string/page_title_text"
                 android:textSize="32sp"
                 android:paddingBottom="5dp"
                 android:layout_centerHorizontal="true" />
@@ -68,7 +68,7 @@
 
             <Button
                 android:id="@+id/fragment_action"
-                android:text="@string/finish_button_text"
+                android:text="@string/page_button_action_text"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:background="@drawable/drawable_wizard_button"

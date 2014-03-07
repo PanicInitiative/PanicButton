@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
+import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.parser.JsonParser;
@@ -32,20 +33,22 @@ import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
 
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
-    public static final int SPLASH_TIME = 1000;
 
     ProgressDialog pDialog;
-//    JsonParser jsonParser;
 
     String pageId;
+    String selectedLang;
+    String mobileDataUrl;
+    String helpDataUrl;
+
+    int lastUpdatedVersion;
+    int latestVersion;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
-        hard-code initial data to the database.
-         */
-        checkIfDataInitializationNeeded();
+        latestVersion = -1;
+        lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
         int wizardState = ApplicationSettings.getWizardState(this);
         if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
@@ -62,20 +65,23 @@ public class HomeActivity extends RoboActivity {
 
     }
 
-    private void checkIfDataInitializationNeeded(){
+    private void checkIfDataInitializationNeeded() {
         if (!getLocalDataInsertion(HomeActivity.this)) {
             initializeLocalData();
             setLocalDataInsertion(HomeActivity.this, true);
         }
     }
 
-    private void checkIfUpdateNeeded(){
+    private void checkIfUpdateNeeded() {
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
         if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
-            new GetUpdate().execute();
-        }
-        else{
+
+            selectedLang = ApplicationSettings.getSelectedLanguage(this);
+            helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
+
+            new GetLatestVersion().execute();
+        } else {
             if (isFirstRun(HomeActivity.this)) {
                 scheduleTimer();
             } else {
@@ -95,13 +101,13 @@ public class HomeActivity extends RoboActivity {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
-//                startActivity(new Intent(HomeActivity.this, WizardActivity.class));
             }
-        }, SPLASH_TIME);
+        }, AppConstants.SPLASH_DELAY_TIME);
     }
 
 
-    private class GetUpdate extends AsyncTask<Void, Void, Void> {
+
+    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
@@ -110,28 +116,145 @@ public class HomeActivity extends RoboActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            String url = AppConstants.BASE_URL;
+        protected Boolean doInBackground(Void... params) {
+
+            checkIfDataInitializationNeeded();
+
+            String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
             JsonParser jsonParser = new JsonParser();
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
-                Log.d(">>>><<<<", "success in retrieving server-response for url = " + url);
-                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
-
                 try {
                     JSONObject responseObj = response.getjObj();
-                    JSONObject mobObj = responseObj.getJSONObject("mobile");
-                    JSONArray dataArray = mobObj.getJSONArray("data");
-                    insertJsonDataToLocalDB(dataArray);
+                    latestVersion = responseObj.getInt("version");
+                    Log.e("??????", "latest version = " + latestVersion);
+                    return true;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return false;
         }
 
         @Override
-        protected void onPostExecute(Void response) {
+        protected void onPostExecute(Boolean response) {
+            super.onPostExecute(response);
+
+            if (latestVersion > lastUpdatedVersion) {
+                new GetMobileDataUpdate().execute();
+            } else {
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+                if (isFirstRun(HomeActivity.this)) {
+                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    startActivity(i);
+                } else {
+                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
+                }
+            }
+        }
+    }
+
+
+
+    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            int version = 0;
+            for(version = lastUpdatedVersion+1; version <= latestVersion; version ++){
+                if (selectedLang.equals("en")) {
+                    mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
+                } else {
+                    mobileDataUrl = AppConstants.BASE_URL + selectedLang + "/" + "mobile." + version + ".json";
+                }
+
+                JsonParser jsonParser = new JsonParser();
+                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
+                if (response.getStatus() == 200) {
+                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
+                    try {
+                        JSONObject responseObj = response.getjObj();
+                        JSONObject mobObj = responseObj.getJSONObject("mobile");
+                        JSONArray dataArray = mobObj.getJSONArray("data");
+                        insertMobileDataToLocalDB(dataArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+            }
+
+            if(version > latestVersion){
+                return true;
+            } else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean response) {
+            super.onPostExecute(response);
+
+            if(response){
+                new GetHelpDataUpdate().execute();
+            }
+            else{
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
+
+                if (isFirstRun(HomeActivity.this)) {
+                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i.putExtra("page_id", pageId);
+                    startActivity(i);
+                } else {
+                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
+                }
+            }
+        }
+    }
+
+
+
+
+    private class GetHelpDataUpdate extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            JsonParser jsonParser = new JsonParser();
+            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, helpDataUrl, null, null, null);
+            if (response.getStatus() == 200) {
+                Log.d(">>>><<<<", "success in retrieving server-response for url = " + helpDataUrl);
+                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+                try {
+                    JSONObject responseObj = response.getjObj();
+                    JSONObject mobObj = responseObj.getJSONObject("mobile");
+                    JSONArray dataArray = mobObj.getJSONArray("data");
+                    insertHelpDataToLocalDB(dataArray);
+                    ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
+                    return true;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
                 pDialog.dismiss();
@@ -146,38 +269,74 @@ public class HomeActivity extends RoboActivity {
         }
     }
 
-    private void insertJsonDataToLocalDB(JSONArray dataArray){
-        List<Page> pageList = Page.parsePages(dataArray);
+
+
+    private void insertHelpDataToLocalDB(JSONArray dataArray) {
+        List<HelpPage> pageList = HelpPage.parseHelpPages(dataArray);
 
         PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
         dbInstance.open();
 
-        for(int i = 0; i< pageList.size(); i++){
-            dbInstance.insertOrUpdateWizardPage(pageList.get(i));
+        for (int i = 0; i < pageList.size(); i++) {
+            dbInstance.insertOrUpdateHelpPage(pageList.get(i));
         }
         dbInstance.close();
     }
 
 
-    private void initializeLocalData(){
+    private void insertMobileDataToLocalDB(JSONArray dataArray) {
+        List<Page> pageList = Page.parsePages(dataArray);
+
+        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+        dbInstance.open();
+
+        for (int i = 0; i < pageList.size(); i++) {
+            dbInstance.insertOrUpdatePage(pageList.get(i));
+        }
+        dbInstance.close();
+    }
+
+
+    private void initializeLocalData() {
         try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset());
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
             JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-            int version = mobileObj.getInt("version");
-            Log.e(">>>>>", "current version = " + version);
+
+            lastUpdatedVersion = mobileObj.getInt("version");
+            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
 
             JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertJsonDataToLocalDB(dataArray);
+            insertMobileDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertMobileDataToLocalDB(dataArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+
+            JSONArray dataArray = mobileObj.getJSONArray("data");
+            insertMobileDataToLocalDB(dataArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
 
-    public String loadJSONFromAsset() {
+    public String loadJSONFromAsset(String jsonFileName) {
         String json = null;
         try {
-            InputStream is = getAssets().open("mobile.json");
+            InputStream is = getAssets().open(jsonFileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

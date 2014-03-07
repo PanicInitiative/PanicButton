@@ -13,6 +13,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -59,11 +60,11 @@ public class TestDisguiseUnlockFragment extends Fragment {
         activity = getActivity();
         if (activity != null) {
             String pageId = getArguments().getString(PAGE_ID);
-            String defaultLang = "en";
+            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
-            currentPage = dbInstance.retrievePage(pageId, defaultLang);
+            currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
         }
     }
@@ -167,25 +168,6 @@ public class TestDisguiseUnlockFragment extends Fragment {
 
     };
 
-
-//    private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-//        @Override
-//        public boolean onLongClick(View view) {
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            failHandler.removeCallbacks(runnableFailed);
-//
-//            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-//            vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
-//
-//            String pageId = currentPage.getSuccessId();
-//
-//            Intent i = new Intent(activity, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            activity.startActivity(i);
-//            activity.finish();
-//            return true;
-//        }
-//    };
 
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
