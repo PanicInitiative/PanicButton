@@ -10,7 +10,7 @@ Feature: One time setup wizard
     And I press "Get started"
     Then I see the text "Setup contacts"
     Then I press "Choose your emergency contact"
-    Then I go back
+    Then I press back button
     Then I wait up to 10 seconds for "Setup contacts" to appear
 
 #  @passwordscreen

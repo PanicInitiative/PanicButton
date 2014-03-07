@@ -13,3 +13,7 @@ end
 Then /^I enter "(.*?)" into contact field (\d+)$/ do |text_to_enter, index|
   query("editText id:'contact_edit_text' index:#{index}", {:setText => text_to_enter})
 end
+
+Then /^I press back button$/ do
+  Device.press_back_button
+end
