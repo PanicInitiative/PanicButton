@@ -17,3 +17,11 @@ end
 Then /^I press back button$/ do
   Device.press_back_button
 end
+
+Then /^I press home button$/ do
+  Device.press_home_button
+end
+
+Then /^There is no internet connection$/ do
+  Device.install_development_app
+end
