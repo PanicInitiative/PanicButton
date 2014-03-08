@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_setup">PB</string>
+    <string name="app_name">Calculation</string>
+
+    <string name="characters_left">Characters:&#160;</string>
+    <string name="save_text">Save</string>
+
+    <string name="enter_message_hint">Enter Message</string>
+
+    <string name="i_am_at">I\'m at http://maps.google.com/GPS-location</string>
+    <string name="panic_button">Panic\nButton</string>
+    <string name="page_title_text">Title</string>
+
+    <string name="page_status_text">Status</string>
+    <string name="page_modal_button1_text">Button1</string>
+    <string name="page_modal_button2_text">Button2</string>
+
+    <string name="page_button_action_text">Action</string>
+    <string name="contact_hint_text">enter contact number</string>
+    <string name="default_emergency_message">Help me, I\'m in danger</string>
+    <string name="emergency_message_header">Emergency message</string>
+    <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="alert_status_standby">Alert is in standby</string>
+    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
+    <string name="stop_alert">&#160;&#160;Stop alert</string>
+    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
+
+    <string name="incorrect_pin">Please enter the correct pin</string>
+    <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="addition">+</string>
+    <string name="subtraction">&#8722;</string>
+    <string name="multiplication">&#215;</string>
+    <string name="division">&#247;</string>
+    <string name="equal_to">=</string>
+
+    <string name="first_contact">&#160;1.&#160;</string>
+    <string name="second_contact">&#160;2.&#160;</string>
+    <string name="third_contact">&#160;3.&#160;</string>
+
+    <string name="choose_contact">Choose your emergency contact</string>
+    <string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string>
+</resources>

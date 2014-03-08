@@ -61,8 +61,8 @@ public class JsonParser {
 
             if(reqType == AppConstants.HTTP_REQUEST_TYPE_GET){
                 HttpGet httpGet = new HttpGet(url);
-                httpGet.setHeader("Content-Type", "application/json");
-                httpGet.setHeader("Accept", "application/json");
+//                httpGet.setHeader("Content-Type", "application/json");
+//                httpGet.setHeader("Accept", "application/json");
                 if (appToken != null){
                     httpGet.setHeader("token", appToken);
                 }
@@ -126,7 +126,7 @@ public class JsonParser {
                 sb.append(line + "\n");
             }
             is.close();
-//            Log.e(TAG, "sb = " + sb.toString());
+            Log.e(TAG, "sb = " + sb.toString());
             json = sb.toString();
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
