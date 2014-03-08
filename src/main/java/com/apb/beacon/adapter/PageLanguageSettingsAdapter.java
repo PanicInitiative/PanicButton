@@ -3,7 +3,9 @@ package com.apb.beacon.adapter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by aoe on 2/25/14.
@@ -83,8 +86,8 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 String url = null;
                 selectedLang = item.getLanguage();
 
-                if(currentLang.equals(selectedLang)){
-                    ((Activity)mContext).finish();
+                if (currentLang.equals(selectedLang)) {
+                    ((Activity) mContext).finish();
                     return;
                 }
                 new GetLatestVersion().execute();
@@ -136,15 +139,34 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
 
-            if (latestVersion > lastUpdatedVersion) {
-                new GetMobileDataUpdate().execute();
+            if (!response) {
+                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
             } else {
-                ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-                ((Activity)mContext).finish();
+                if (latestVersion > lastUpdatedVersion) {
+                    new GetMobileDataUpdate().execute();
+                } else {
+                    if (pDialog.isShowing())
+                        pDialog.dismiss();
+                    changeStaticLanguageSettings();
+                }
             }
         }
+    }
+
+    private void changeStaticLanguageSettings() {
+        Toast.makeText(mContext, "New language applied.", Toast.LENGTH_SHORT).show();
+        ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
+
+        Resources res = mContext.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        android.content.res.Configuration conf = res.getConfiguration();
+
+        conf.locale = new Locale(selectedLang);
+        res.updateConfiguration(conf, dm);
+
+        ((Activity) mContext).finish();
+
+
     }
 
 
@@ -160,7 +182,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
             int version = 0;
             String mobileDataUrl;
-            for(version = lastUpdatedVersion + 1; version <= latestVersion; version ++){
+            for (version = lastUpdatedVersion + 1; version <= latestVersion; version++) {
                 if (selectedLang.equals("en")) {
                     mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
                 } else {
@@ -183,9 +205,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 }
             }
 
-            if(version > latestVersion){
+            if (version > latestVersion) {
                 return true;
-            } else{
+            } else {
                 return false;
             }
         }
@@ -194,14 +216,12 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
 
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-            if(!response){
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            if (!response) {
                 Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
-            } else{
-                Toast.makeText(mContext, "New language applied.", Toast.LENGTH_SHORT).show();
-                ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
-                ((Activity)mContext).finish();
+            } else {
+                changeStaticLanguageSettings();
             }
         }
     }
