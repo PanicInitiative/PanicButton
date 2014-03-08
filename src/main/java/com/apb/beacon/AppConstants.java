@@ -39,9 +39,4 @@ public class AppConstants {
 
     public static final int SPLASH_DELAY_TIME = 1000;
 
-
-//    public static final String BASE_ENGLISH_URL = "http://teampanicbutton.github.io/api/mobile.json";
-//    public static final String BASE_SPANISH_URL = "http://teampanicbutton.github.io/api/es/mobile.json";
-//    public static final String BASE_FILIPINO_URL = "http://teampanicbutton.github.io/api/ph/mobile.json";
-
 }
