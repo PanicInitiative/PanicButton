@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_setup">BP Boton de Panico</string>
+    <string name="app_name_setup">Boton de Panico</string>
     <string name="app_name">Calcula!</string>
 
     <string name="characters_left">caracteres: &#160;</string>
