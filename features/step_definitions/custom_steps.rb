@@ -29,6 +29,10 @@ Then /^I tern off wifi$/ do
   Device.adb_command("shell input keyevent 23")
 end
 
+Then /^I switch gps$/ do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/gpsmonkey.py")
+end
+
 Then /^I tern on wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
