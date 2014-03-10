@@ -174,7 +174,7 @@ public class HomeActivity extends RoboActivity {
         protected Boolean doInBackground(Void... params) {
 
             int version = 0;
-            for(version = lastUpdatedVersion+1; version <= latestVersion; version ++){
+            for(version = lastUpdatedVersion + 1; version <= latestVersion; version ++){
                 if (selectedLang.equals("en")) {
                     mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
                 } else {
