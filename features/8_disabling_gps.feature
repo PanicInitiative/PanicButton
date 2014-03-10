@@ -1,5 +1,5 @@
 @gps_settings
-Feature: Offline work
+Feature: Sending sms with different gps status
 
   Scenario: Change GPS status
     Then I switch gps
