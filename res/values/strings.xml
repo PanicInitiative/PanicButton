@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_setup">PB</string>
+    <string name="app_name_setup">Panic Button</string>
     <string name="app_name">Calculate!</string>
+
     <string name="characters_left">Characters:&#160;</string>
     <string name="save_text">Save</string>
 
