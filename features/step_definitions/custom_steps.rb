@@ -38,3 +38,16 @@ Then /^I tern on wifi$/ do
   Device.open_dev_app_connection_settings
   Device.adb_command("shell input keyevent 23")
 end
+
+And(/^I press power button 5 times$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/presspowr5times.py")
+end
+
+And(/^I unlock device$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/unlockscreen.py")
+end
+
+
+And(/^I click 5 times fast on calculation$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/clikingoncalculation.py")
+end

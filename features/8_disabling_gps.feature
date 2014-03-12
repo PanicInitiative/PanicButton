@@ -1,14 +1,46 @@
 @gps_settings
 Feature: Sending sms with different gps status
 
-  Scenario: Change GPS status
-    Then I switch gps
-
-  Scenario: Opening app
+  Scenario: Setting up
     Given I wait upto 60 seconds for the "WizardActivity" screen to appear
-    Then I see the text "Panic Button"
-    Then I press "Set-Up"
-    Then I see the text "Get started"
+    And I press "Set-Up"
+    And I press "Get started"
+    And I wait for 1 second
+    And I enter "123456" into contact field 0
+    And I press "Next"
+    And I wait for 1 second
+    And I press "Next"
+    And I wait for 1 second
+    And I enter "1234" into input field number 1
+    And I press "Next"
+    And I press "Setup Alarm"
+    And I press "Learn"
+    Then I see "Try Now! Repeatedly press the power button fast until you feel a vibration."
+    And I press power button 5 times
+    And I unlock device
+    Then I see "Well done!"
+    And I press "Next"
+    And I press "Learn"
+    And I click 5 times fast on calculation
+    Then I see "Well done!"
+    And I press "Next"
+    And I press "Setup Disguise"
+    And I press "Learn"
+    And I press "Calculation"
+    Then I see "Try now! Hold down any button on the calculator."
+    And I long press "4"
+    Then I see "Well done! Now enter your pincode to access settings."
+    And I enter "1234" into input field number 1
+    And I press "go"
+    And I press "Finish"
+    Then I see "Ready"
 
-  Scenario: Change GPS status
-    Then I switch gps
+
+
+#  Scenario: Change GPS status
+#    Then I switch gps
+
+
+
+#  Scenario: Change GPS status
+#    Then I switch gps
