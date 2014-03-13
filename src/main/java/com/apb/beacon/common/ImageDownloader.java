@@ -25,7 +25,7 @@ public class ImageDownloader extends AsyncTask {
     }
 
     protected Object doInBackground(Object... urls) {
-        String url = "http://panicbutton.iilab.org" + (String)urls[0];
+        String url = "https://teampanicbutton.github.io" + (String)urls[0];
         ByteArrayOutputStream baos = null;
         InputStream mIn = null;
         try {

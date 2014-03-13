@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 5,
+    "version" : 1,
     "data":[
     {
       "id" : "setup-warning",
@@ -236,13 +236,6 @@
       "warning" : "Remember your pincode! If you forget it you will need to reinstall the app.",
       "component" : "code",
       "action" : [{"title":"Save","link":"home-ready"}]
-    },
-    {
-      "id" : "settings",
-      "lang" : "en",
-      "type" : "simple",
-      "title" : "Settings",
-      "items" : [{"title":"Language Settings","link":"settings-language"},{"title":"Message Settings","link":"settings-message"},{"title":"Contact Settings","link":"settings-contacts"},{"title":"Code Settings","link":"settings-code"},{"title":"Restart the Installation","link":"home-not-configured"}]
     },
     {
       "id" : "home-ready",
