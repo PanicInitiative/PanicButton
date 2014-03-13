@@ -26,7 +26,7 @@ Feature: Sending sms with different gps status
     And I press "Next"
     And I press "Setup Disguise"
     And I press "Learn"
-    And I press "Calculation"
+    And I press "Calculate!"
     Then I see "Try now! Hold down any button on the calculator."
     And I long press custom
     Then I see "Well done! Now enter your pincode to access settings."
