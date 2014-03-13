@@ -25,7 +25,7 @@ class Device
     adb_command("shell am start -n com.android.development/.Connectivity --activity-no-history")
   end
 
-  # location
+  # Location
   def self.start_settings
     adb_command("shell am start -a android.settings.LOCATION_SOURCE_SETTINGS")
   end

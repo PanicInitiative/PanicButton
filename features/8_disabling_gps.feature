@@ -28,14 +28,28 @@ Feature: Sending sms with different gps status
     And I press "Learn"
     And I press "Calculation"
     Then I see "Try now! Hold down any button on the calculator."
-    And I long press "4"
+    And I long press custom
     Then I see "Well done! Now enter your pincode to access settings."
     And I enter "1234" into input field number 1
     And I press "go"
     And I press "Finish"
     Then I see "Ready"
 
+  Scenario: Start alarm with hardware button
+    Given I wait for 5 seconds
+    And I press power button 5 times
+    And I unlock device
+    And I start application
+    And I long press custom
+    And I enter "1234" into input field number 1
+    And I press "go"
+    Then I see "Alerting"
+  #TODO: check sms text
 
+
+
+
+  #TODO: add test on  starting alarm by : #    And I click 5 times fast on calculation
 
 #  Scenario: Change GPS status
 #    Then I switch gps

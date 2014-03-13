@@ -22,6 +22,10 @@ Then /^I press home button$/ do
   Device.adb_command("shell input keyevent 3")
 end
 
+And(/^I start application$/) do
+  Device.adb_command("shell am start -n com.apb.beacon/.HomeActivity")
+end
+
 Then /^I tern off wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
@@ -51,3 +55,8 @@ end
 And(/^I click 5 times fast on calculation$/) do
   Device.cmd_command("monkeyrunner #{Device.get_more_dir}/clikingoncalculation.py")
 end
+
+And(/^I long press custom$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/longpress.py")
+end
+
