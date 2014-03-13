@@ -1,46 +1,46 @@
 {
   "mobile": {
-    "version" : 1,
+    "version" : 2,
     "data":[
     {
       "id" : "setup-warning",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "warning",
       "title" : "Warning",
       "action" : [{"title":"Get started","link":"setup-contacts"}],
-      "content" : "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Create a PACT with your network so that they are PREPARED to ACT. </p>"
+      "content" : "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Make a plan with your contacts so they are prepared to act fast. </p>"
     },
     {
       "id" : "setup-message",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Setup alert message",
       "introduction" : "This is the message that will be sent with your location.",
-      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "warning" : "Create a plan so your contacts know what to do when they receive this",
       "component" : "message",
       "action" : [{"title":"Next","link":"setup-code"}],
-      "content" : "<p>Security tips</p><ul><li>Consider creating a code message that only your contacts will understand </li><li>The message should be relevant for any situation - you won&#39;t have time to change it in a &#39;Panic&#39; moment</li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message<br></li></ul>"
+      "content" : "<p>Security tips</p><ul><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all scenarios. </li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message. </li></ul>"
     },
     {
       "id" : "setup-language",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Setup the Disguise",
+      "title" : "Setup Disguise",
       "action" : [{"title":"Try Again","link":"setup-disguise-test-open"}],
-      "content" : "<p>It looks like you weren&#39;t successful at opening the app from the calculator disguise.</p><p>Remember: Hold down any button and you will be asked to enter your pincode. </p>"
+      "content" : "<p>It looks like you weren&#39;t successful at opening the app from the Caculate! disguise. </p><p>Remember: Hold down any button and you will be asked to enter your pincode. </p>"
     },
     {
       "id" : "setup-disguise-test-unlock",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Test Disguise",
       "introduction" : "Try now! Hold down any button on the calculator.",
@@ -52,15 +52,15 @@
     },
     {
       "id" : "setup-disguise-test-success",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Well done",
       "action" : [{"title":"Finish","link":"home-ready"}],
-      "content" : "<p>Congratulations you have now succesfully configured the Panic Button app!</p>"
+      "content" : "<p>Congratulations you have now successfully configured the Panic Button app!</p>"
     },
     {
       "id" : "setup-disguise-test-open-fail",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Setup the Disguise",
       "action" : [{"title":"Try Again","link":"setup-disguise-test-open"}],
@@ -68,7 +68,7 @@
     },
     {
       "id" : "setup-disguise-test-open",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Test Disguise",
       "introduction" : "Try now! Open the app by clicking on the Calculate! icon.",
@@ -79,7 +79,7 @@
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Setup the Disguise",
       "action" : [{"title":"Try Again","link":"setup-disguise-test-unlock"}],
@@ -87,7 +87,7 @@
     },
     {
       "id" : "setup-disguise-test-code",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Test Disguise",
       "introduction" : "Well done! Now enter your pincode to access settings.",
@@ -99,44 +99,44 @@
     },
     {
       "id" : "setup-disguise",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Setup the Disguise",
+      "title" : "Setup Disguise",
       "action" : [{"title":"Learn","link":"setup-disguise-test-open"}],
-      "content" : "<p>Panic Button stays hidden on your phone by looking like a simple calculator. From now on you will see the calculator disguise whenever you open the app. Here we teach you how to access your settings from the disguise screen.</p>"
+      "content" : "<p>Panic Button stays hidden on your phone by looking like a simple calculator. From now on, you will see the calculator disguise whenever you open the app. Learn how it works. </p>"
     },
     {
       "id" : "setup-contacts",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Setup contacts",
-      "introduction" : "These are the people who will receive your alert message.",
-      "warning" : "They should know you personally and be able to respond.",
+      "introduction" : "These people will receive the alert.",
+      "warning" : "They should know you personally and be able to respond fast.",
       "component" : "contacts",
       "action" : [{"title":"Next","link":"setup-message"}],
-      "content" : "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Create a PACT with the contacts you choose - make sure they agree and are PREPARED to ACT</li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
+      "content" : "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they cannot help. </li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your contact be put at risk? </li></ul>"
     },
     {
       "id" : "setup-code",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
-      "title" : "Set a pincode",
-      "introduction" : "This pincode is needed to access the app settings. It is not needed to alert in an emergency.",
-      "warning" : "Remember your pin! If you forget it you will need to reinstall the app.",
+      "title" : "Create a pincode",
+      "introduction" : "This pincode is needed to access the app settings. It is not needed to alert contacts in an emergency.",
+      "warning" : "Remember your pincode! If you forget it you will need to reinstall the app.",
       "component" : "code",
       "action" : [{"title":"Next","link":"home-not-configured-alarm"}]
     },
     {
       "id" : "setup-alarm-test-hardware-success",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Well done",
+      "title" : "Well done!",
       "action" : [{"title":"Next","link":"setup-alarm-disguise"}],
-      "content" : "<p>Your test was successful! If this was a real emergency, your alert message and location would be sent to your contacts.</p>"
+      "content" : "<p>Your test was successful! In an actual emergency, your alert would have been sent.</p>"
     },
     {
       "id" : "setup-alarm-test-hardware-fail",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Setup the Alarm",
       "action" : [{"title":"Try Again","link":"setup-alarm-test-hardware"}],
@@ -144,34 +144,35 @@
     },
     {
       "id" : "setup-alarm-test-hardware",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Test Hardware Alarm",
       "introduction" : "Try Now! Repeatedly press the power button fast until you feel a vibration.",
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
-      "fail" : {"link":"setup-alarm-test-hardware-fail"}
+      "fail" : {"link":"setup-alarm-test-hardware-fail"},
+      "content" : "<p><img src=\"/media/panic_button_activation.png\" alt=\"\"></p>"
     },
     {
       "id" : "setup-alarm-test-disguise-success",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Well done",
+      "title" : "Well done!",
       "action" : [{"title":"Next","link":"home-not-configured-disguise"}],
-      "content" : "<p>Your test was successful! If this was a real emergency, your alert message and location would be sent to your contacts.</p>"
+      "content" : "<p>Your test was successful! In an actual emergency, your alert would have been sent.</p>"
     },
     {
       "id" : "setup-alarm-test-disguise-fail",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Setup the Alarm",
+      "title" : "Setup Alert",
       "action" : [{"title":"Try Again","link":"setup-alarm-test-disguise"}],
       "content" : "<p>It looks like you didn&#39;t succeed in triggering the alert.</p><p>Remember: repeatedly press a button on the calculator fast until you feel a vibration.</p>"
     },
     {
       "id" : "setup-alarm-test-disguise",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Test Disguised Alarm",
       "introduction" : "Try Now! Repeatedly press a button on the calculator fast until you feel a vibration.",
@@ -182,71 +183,71 @@
     },
     {
       "id" : "setup-alarm-disguise",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Setup the Alarm",
+      "title" : "Setup Alert",
       "action" : [{"title":"Learn","link":"setup-alarm-test-disguise"}],
       "content" : "<p>Alternatively, you can trigger the alert directly from the app&#39;s disguise screen.</p>"
     },
     {
       "id" : "setup-alarm",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
-      "title" : "Setup the Alarm",
+      "title" : "Setup Alert",
       "action" : [{"title":"Learn","link":"setup-alarm-test-hardware"}],
-      "content" : "<p>Now you will learn how to trigger Panic Button in an emergency. The app is special because it allows you to trigger the alert from the phone&#39;s power button (meaning you can do it secretly - for example, from inside a jacket pocket).</p>"
+      "content" : "<p>Now learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alert from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
     },
     {
       "id" : "settings-message",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Setup alert message",
       "introduction" : "This is the message that will be sent with your location.",
-      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "warning" : "Create a plan so your contacts know what to do when they receive this",
       "component" : "message",
       "action" : [{"title":"Save","link":"home-ready"}],
-      "content" : "<p>Security tips</p><ul><li>Consider creating a code message that only your contacts will understand </li><li>The message should be relevant for any situation - you won&#39;t have time to change it in a &#39;Panic&#39; moment</li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message<br></li></ul>"
+      "content" : "<p>Security tips</p><ul><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all situations. </li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message<br></li></ul>"
     },
     {
       "id" : "settings-language",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "settings-contacts",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Setup contacts",
-      "introduction" : "These are the people who will receive the alert.",
-      "warning" : "They should know you personally and be able to respond quickly.",
+      "introduction" : "These people will receive the alert.",
+      "warning" : "They should know you personally and be able to respond fast.",
       "component" : "contacts",
       "action" : [{"title":"Save","link":"home-ready"}],
-      "content" : "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Create a PACT with the contacts you choose - make sure they agree and are PREPARED to ACT</li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
+      "content" : "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
     },
     {
       "id" : "settings-code",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
-      "title" : "Set a pincode",
-      "introduction" : "This pincode is needed to access the app settings. It is not needed to alert in an emergency.",
-      "warning" : "Remember your pin! If you forget it you will need to reinstall the app.",
+      "title" : "Create a pincode",
+      "introduction" : "This pincode is needed to access the app settings. It is not needed to alert contacts in an emergency.",
+      "warning" : "Remember your pincode! If you forget it you will need to reinstall the app.",
       "component" : "code",
       "action" : [{"title":"Save","link":"home-ready"}]
     },
     {
       "id" : "settings",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Settings",
       "items" : [{"title":"Language Settings","link":"settings-language"},{"title":"Message Settings","link":"settings-message"},{"title":"Contact Settings","link":"settings-contacts"},{"title":"Code Settings","link":"settings-code"},{"title":"Restart the Installation","link":"home-not-configured"}]
     },
     {
       "id" : "home-ready",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Panic Button",
       "status" : [{"title":"Ready","color":"green","link":"help-ready"}],
@@ -256,7 +257,7 @@
     },
     {
       "id" : "home-not-configured-disguise",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Panic Button",
       "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
@@ -266,7 +267,7 @@
     },
     {
       "id" : "home-not-configured-alarm",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Panic Button",
       "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
@@ -276,39 +277,39 @@
     },
     {
       "id" : "home-not-configured",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Panic Button",
       "action" : [{"title":"Set-Up","link":"setup-warning"}],
       "items" : [{"title":"About","link":"setup-about"},{"title":"Language Settings","link":"setup-language"}],
-      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Boton de Panico convierte tu telefono movil en una alarma secreta para que tus contactos mas confiables pueden actuar si te encuentres en riesgo.</p>"
+      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panic Button is an Android app that secretly alerts your contacts when you are in trouble. The app stays hidden on your phone by looking like a simple calculator.</p>"
     },
     {
       "id" : "home-alerting",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "simple",
       "title" : "Panic Button",
       "status" : [{"title":"Alerting","color":"red","link":"help-alerting"}],
       "action" : [{"title":"Stop Alerting","link":"home-ready"}],
       "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
-      "content" : "<p>Panic Button is currently sending alert messages. Click Stop Alerting to stop the alert.</p>"
+      "content" : "<p>Panic Button is currently sending alert messages. Click Stop Alerting to cancel messages. </p>"
     },
     {
       "id" : "code",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "interactive",
       "title" : "Code",
       "component" : "code",
       "action" : [{"title":"Go","link":"home-ready"}],
-      "fail" : "If you have forgotten your pin number, please completely uninstall the application and reinstall it."
+      "fail" : "If you have forgotten your pin number, uninstall the application from your phone settings and then reinstall it."
     },
     {
       "id" : "checklist",
-      "lang" : "ph",
+      "lang" : "en",
       "type" : "modal",
       "title" : "Checklist",
-      "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
-      "checklist" : [{"title":"The application will be disguised"},{"title":"Review security plan and update trusted contacts regularly"},{"title":"Test setting off the alarm to ensure it is working"},{"title":"Ensure sufficient credit on the phone"},{"title":"Activate GPS (if you want to enable location tracking)"},{"title":"Charge phone battery to full"}],
+      "action" : [{"title":"Disguise Now","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
+      "checklist" : [{"title":"Review security plan and update contacts regularly"},{"title":"Test the alert to ensure it is working"},{"title":"Ensure sufficient credit on the phone"},{"title":"Activate GPS (if you want to enable location tracking)"},{"title":"Charge phone battery to full"}],
       "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
     }]
   }
