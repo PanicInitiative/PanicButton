@@ -3,12 +3,14 @@ package com.apb.beacon.parser;
 import android.util.Log;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.common.SSLUtilities;
 import com.apb.beacon.model.ServerResponse;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -35,10 +37,10 @@ public class JsonParser {
 
     private static final String TAG  = JsonParser.class.getSimpleName();
 
-    // constructor
     public JsonParser() {
 
     }
+
 
     public ServerResponse retrieveServerData(int reqType, String url, List<NameValuePair> urlParams, String content, String appToken) {
         Log.d(TAG, "in retrieveServerData method");
@@ -52,17 +54,18 @@ public class JsonParser {
             url += "?" + paramString;            
         }
         Log.e(TAG, "url after param added = " + url);
-//        Log.e(TAG, "content body = " + content);
 
-        // Making HTTP request
+        // Making HTTPS request
         try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
+            SSLUtilities.trustAllHostnames();
+            SSLUtilities.trustAllHttpsCertificates();
+
+            HttpClient httpClient = new DefaultHttpClient();
             HttpResponse httpResponse = null;
 
             if(reqType == AppConstants.HTTP_REQUEST_TYPE_GET){
                 HttpGet httpGet = new HttpGet(url);
-//                httpGet.setHeader("Content-Type", "application/json");
-//                httpGet.setHeader("Accept", "application/json");
+
                 if (appToken != null){
                     httpGet.setHeader("token", appToken);
                 }
@@ -102,7 +105,6 @@ public class JsonParser {
 
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-//            Log.e(TAG, "is = " + is.toString());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             Log.e(TAG, "exception = UnsupportedEncodingException");
@@ -115,11 +117,10 @@ public class JsonParser {
         }
 
         try {
-            Log.e(TAG, "I am here");
             Log.e(TAG, "trying to read input stream.");
             Log.e(TAG, "STATUS = " + status);
-            Log.e(TAG, "is = " + is.toString());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+//            Log.e(TAG, "is = " + is.toString());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 2148);
             sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -138,76 +139,8 @@ public class JsonParser {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-
-        // return ServerResponse
         return new ServerResponse(jObj, status);
     }
 
-
-
-//    public MarkDownResponse retrieveMarkDownData(int reqType, String url, List<NameValuePair> urlParams) {
-//        Log.e(TAG, "in retrieveMarkdownData method");
-//
-//        int status = 0;
-//        String mdContent = null;
-//
-//        StringBuilder sb = null;
-//
-//        if (urlParams != null) {
-//            String paramString = URLEncodedUtils.format(urlParams, "utf-8");
-//            url += "." + paramString;
-//        }
-//        Log.e(TAG, "url after param added = " + url);
-//
-//        // Making HTTP request
-//        try {
-//            DefaultHttpClient httpClient = new DefaultHttpClient();
-//            HttpResponse httpResponse = null;
-//
-//            if(reqType == AppConstants.HTTP_REQUEST_TYPE_GET){
-//                HttpGet httpGet = new HttpGet(url);
-////                httpGet.setHeader("Content-Type", "application/json");
-////                httpGet.setHeader("Accept", "application/json");
-//
-//                httpResponse = httpClient.execute(httpGet);
-//            }
-//
-//            status = httpResponse.getStatusLine().getStatusCode();
-//            Log.e(TAG, "STATUS = " + status);
-//
-//            HttpEntity httpEntity = httpResponse.getEntity();
-//            is = httpEntity.getContent();
-//            Log.e(TAG, "is = " + is.toString());
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//            Log.e(TAG, "exception = UnsupportedEncodingException");
-//        } catch (ClientProtocolException e) {
-//            Log.e(TAG, "exception = ClientProtocolException");
-//        } catch (IOException e) {
-//            Log.e(TAG, "exception = IOException");
-//        }
-//
-//        try {
-//            Log.e(TAG, "I am here");
-//            Log.e(TAG, "trying to read input stream.");
-//            Log.e(TAG, "STATUS = " + status);
-//            Log.e(TAG, "is = " + is.toString());
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
-//            sb = new StringBuilder();
-//            String line = null;
-//            while ((line = reader.readLine()) != null) {
-//                sb.append(line + "\n");
-//            }
-//            is.close();
-//            Log.e(TAG, "sb = " + sb.toString());
-//            mdContent = sb.toString();
-//        } catch (Exception e) {
-//            Log.e("Buffer Error", "Error converting result " + e.toString());
-//        }
-//
-//
-//        // return ServerResponse
-//        return new MarkDownResponse(mdContent, status);
-//    }
 
 }

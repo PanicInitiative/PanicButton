@@ -32,8 +32,8 @@ public class AppConstants {
 
     public static final String TABLE_PRIMARY_KEY = "_id";
 
-    public static final String BASE_URL = "http://panicbutton.iilab.org/api/";
-    public static final String MOBILE_DATA_URL = "mobile.json";
+    public static final String BASE_URL = "https://panicbutton.iilab.org/api/";
+//    public static final String MOBILE_DATA_URL = "mobile.json";
     public static final String HELP_DATA_URL = "help.json";
     public static final String VERSION_CHECK_URL = "version.json";
 

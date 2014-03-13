@@ -37,7 +37,7 @@ public class SMSSettings {
             String validPhoneDigit = phoneNumber.replaceAll("[- ]", "");
             editor.putString(PHONE_NUMBER + i++, validPhoneDigit);
         }
-        editor.putString(SMS_MESSAGE, smsSettings.message);
+//        editor.putString(SMS_MESSAGE, smsSettings.message);
         editor.commit();
     }
 
