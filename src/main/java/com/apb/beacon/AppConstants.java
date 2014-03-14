@@ -37,6 +37,6 @@ public class AppConstants {
     public static final String HELP_DATA_URL = "help.json";
     public static final String VERSION_CHECK_URL = "version.json";
 
-    public static final int SPLASH_DELAY_TIME = 1000;
+    public static final int SPLASH_DELAY_TIME = 200;
 
 }

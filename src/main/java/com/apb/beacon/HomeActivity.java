@@ -65,29 +65,25 @@ public class HomeActivity extends RoboActivity {
         }
 
         checkIfUpdateNeeded();
-
+        if (!isFirstRun(HomeActivity.this)) {
+            startFacade();
+        }
     }
 
     private void checkIfUpdateNeeded() {
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
+
+        if (!getLocalDataInsertion(HomeActivity.this)) {
+            new InitializeLocalData().execute();
+        } 
+
         if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
 
             selectedLang = ApplicationSettings.getSelectedLanguage(this);
             helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
             
-            if (!getLocalDataInsertion(HomeActivity.this)) {
-                new InitializeLocalData().execute();
-                setLocalDataInsertion(HomeActivity.this, true);
-            } else {
-            	new GetLatestVersion().execute();
-            }
-        } else {
-            if (isFirstRun(HomeActivity.this)) {
-                scheduleTimer();
-            } else {
-                startFacade();
-            }
+            new GetLatestVersion().execute();
         }
     }
 
@@ -95,7 +91,7 @@ public class HomeActivity extends RoboActivity {
         startActivity(new Intent(this, CalculatorActivity.class));
     }
 
-    private void scheduleTimer() {
+    private void startWizard() {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -105,7 +101,6 @@ public class HomeActivity extends RoboActivity {
             }
         }, AppConstants.SPLASH_DELAY_TIME);
     }
-
 
     private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
 
@@ -191,7 +186,12 @@ public class HomeActivity extends RoboActivity {
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
-        	new GetLatestVersion().execute();
+            setLocalDataInsertion(HomeActivity.this, true);
+            
+            if (isFirstRun(HomeActivity.this)) {
+            	startWizard();
+                return;
+            } 
         }
     }
     
