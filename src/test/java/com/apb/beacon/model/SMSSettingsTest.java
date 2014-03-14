@@ -30,7 +30,8 @@ public class SMSSettingsTest {
 
         SMSSettings smsSettings = new SMSSettings(expectedPhoneNumbers, expectedMessage);
 
-        SMSSettings.save(context, smsSettings);
+        SMSSettings.saveContacts(context, smsSettings);
+        SMSSettings.saveMessage(context, expectedMessage);
         SMSSettings retrievedSMSSettings = SMSSettings.retrieve(context);
 
         assertEquals(expectedMessage, retrievedSMSSettings.message());

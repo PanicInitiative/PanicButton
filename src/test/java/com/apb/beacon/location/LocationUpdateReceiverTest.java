@@ -98,15 +98,15 @@ public class LocationUpdateReceiverTest {
     public void shouldReturnLocationFromSameProviderAndNotSignificantlyAccurateButRelativelyNew() {
         Location oldLocation = location(NETWORK_PROVIDER, 12.0, 20.0, currentTimeMillis(), LESS_ACCURATE);
         Location lessAccurateButNewLocation = location(NETWORK_PROVIDER, 12.0, 20.0, offsetCurrentTimeBy(10), VERY_LESS_ACCURATE);
-        Location diffProviderLocation = location(GPS_PROVIDER, 12.0, 20.0, offsetCurrentTimeBy(20), VERY_LESS_ACCURATE + 10.0f);
+        Location diffMoreAccurateProviderLocation = location(GPS_PROVIDER, 12.0, 20.0, offsetCurrentTimeBy(20), VERY_LESS_ACCURATE + 10.0f);
         Location significantlyLessAccurateLocation = location(NETWORK_PROVIDER, 13.0, 20.0, offsetCurrentTimeBy(10), SIGNIFICANTLY_LESS_ACCURATE);
 
         locationUpdateReceiver.onReceive(context, getIntent(oldLocation));
         locationUpdateReceiver.onReceive(context, getIntent(lessAccurateButNewLocation));
-        locationUpdateReceiver.onReceive(context, getIntent(diffProviderLocation));
+        locationUpdateReceiver.onReceive(context, getIntent(diffMoreAccurateProviderLocation));
         locationUpdateReceiver.onReceive(context, getIntent(significantlyLessAccurateLocation));
 
-        assertLocation(lessAccurateButNewLocation);
+        assertLocation(diffMoreAccurateProviderLocation);
     }
 
     private Intent getIntent(Location location) {
