@@ -3,7 +3,7 @@ import commands
 import sys
 device = MonkeyRunner.waitForConnection()
 #Starting gps settings app
-device.shell('am start -a android.settings.LOCATION_SOURCE_SETTINGS --activity-no-history')
+device.shell('am start --activity-reset-task-if-needed -W -a android.settings.LOCATION_SOURCE_SETTINGS')
 MonkeyRunner.sleep(2)
 
 print "start working with gps"
@@ -24,4 +24,4 @@ device.shell('am force-stop com.android.settings')
 
 #TODO: check that gps enabled
 
-print "gps status changes"
+print "gps status changed"

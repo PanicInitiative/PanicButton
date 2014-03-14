@@ -7,7 +7,7 @@ class Device
   end
 
   def self.cmd_command(command)
-    system("#{command}")
+    return system("#{command}")
   end
 
   def self.get_more_dir

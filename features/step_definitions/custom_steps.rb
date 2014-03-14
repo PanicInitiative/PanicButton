@@ -26,6 +26,15 @@ And(/^I start application$/) do
   Device.adb_command("shell am start -n com.apb.beacon/.HomeActivity")
 end
 
+And(/^I clear log$/) do
+  Device.cmd_command("adb logcat -c")
+end
+
+And(/^I check sms text$/) do
+  Device.cmd_command("adb logcat -d -n5 -s 'com.apb.beacon.sms.SMSAdapter'")
+  #TODO:check sms text
+end
+
 Then /^I tern off wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
