@@ -30,7 +30,6 @@ import roboguice.inject.ContentView;
 import static com.apb.beacon.ApplicationSettings.getLocalDataInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
 import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
-import com.crashlytics.android.Crashlytics;
 
 @ContentView(R.layout.welcome_screen)
 public class HomeActivity extends RoboActivity {
@@ -47,7 +46,6 @@ public class HomeActivity extends RoboActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Crashlytics.start(this);
         /*
         hard-code initial data to the database.
          */

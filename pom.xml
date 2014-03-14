@@ -15,23 +15,11 @@
             <name>Android support v4 local repo</name>
             <url>file://${project.basedir}/lib</url>
         </repository>
-         <repository> 
-             <id>crashlytics-repo</id> 
-             <url>http://download.crashlytics.com/maven</url> 
-         </repository>
-         
     </repositories>
-    
-	<pluginRepositories>
-		<pluginRepository>
-			<id>crashlytics-plugin-repo</id>
-			<url>http://download.crashlytics.com/maven</url>
-		</pluginRepository>
-	</pluginRepositories>
     
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix>crash</app.version.prefix>
+        <app.version.prefix>trainer</app.version.prefix>
         <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
@@ -52,12 +40,6 @@
             <artifactId>support-v4</artifactId>
             <version>r12</version>
         </dependency>
-
-        <dependency>
-			<groupId>com.crashlytics.android</groupId>
-			<artifactId>crashlytics</artifactId>
-			<version>[1.1.10,)</version>
-		</dependency>
  
         <dependency>
             <groupId>org.roboguice</groupId>
@@ -216,25 +198,6 @@
                     </execution>
                 </executions>
             </plugin>
-			<plugin>
-				<groupId>com.crashlytics</groupId>
-				<artifactId>crashlytics-maven</artifactId>
-				<version>1.3.1</version>
-				<executions>
-					<execution>
-						<id>GenerateResources</id>
-						<goals>
-							<goal>GenerateResources</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>CleanupResources</id>
-						<goals>
-							<goal>CleanupResources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
         </plugins>
     </build>
 
