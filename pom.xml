@@ -19,8 +19,8 @@
     
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix>dev</app.version.prefix>
-        <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
+        <app.version.prefix></app.version.prefix>
+        <app.version.name>${project.version}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
         <coverageRate>50</coverageRate> <!-- expected coverage rate -->
