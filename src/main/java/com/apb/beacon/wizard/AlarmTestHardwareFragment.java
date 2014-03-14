@@ -75,6 +75,8 @@ public class AlarmTestHardwareFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
             PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
             wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "TEST");
@@ -133,9 +135,6 @@ public class AlarmTestHardwareFragment extends Fragment {
                     @Override
                     public Drawable getDrawable(final String source) {
                         Log.e(">>>>>>", "image src = " + source);
-//                        if(!source.startsWith("http")){
-//                            source = "http://teampanicbutton.github.io/" + source;
-//                        }
                         Drawable drawable = mImageCache.get(source);
                         if (drawable != null) {
                             return drawable;
