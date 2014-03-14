@@ -1,5 +1,6 @@
 package com.apb.beacon;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,15 +25,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-
 import static com.apb.beacon.ApplicationSettings.getLocalDataInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
 import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
 
-@ContentView(R.layout.welcome_screen)
-public class HomeActivity extends RoboActivity {
+public class HomeActivity extends Activity {
 
     ProgressDialog pDialog;
 
@@ -46,9 +43,7 @@ public class HomeActivity extends RoboActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        hard-code initial data to the database.
-         */
+        setContentView(R.layout.welcome_screen);
 
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);

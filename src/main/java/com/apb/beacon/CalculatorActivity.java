@@ -11,18 +11,14 @@ import android.widget.TextView;
 import com.apb.beacon.calculator.Calculator;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
-import com.google.inject.Inject;
 
-import roboguice.inject.ContentView;
-
-@ContentView(R.layout.calculator_layout)
 public class CalculatorActivity extends PanicButtonActivity {
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
 		R.id.divide};
 
-	@Inject private Calculator calculator;
+	private Calculator calculator;
 	private int lastClickId = -1;
 
     boolean mHasPerformedLongPress;
@@ -31,6 +27,8 @@ public class CalculatorActivity extends PanicButtonActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.calculator_layout);
+
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
 

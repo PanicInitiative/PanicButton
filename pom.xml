@@ -41,11 +41,11 @@
             <version>r12</version>
         </dependency>
  
-        <dependency>
+<!--        <dependency>
             <groupId>org.roboguice</groupId>
             <artifactId>roboguice</artifactId>
             <version>2.0</version>
-        </dependency>
+        </dependency>-->
 
         <!-- Test dependencies -->
         <dependency>
