@@ -19,7 +19,7 @@
     
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix></app.version.prefix>
+        <app.version.prefix>master</app.version.prefix>
         <app.version.name>${project.version}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
@@ -132,8 +132,8 @@
                     <zipalignSkip>false</zipalignSkip>
                     <zipalign>
                         <verbose>true</verbose>
-                        <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-${app.version.prefix}.apk</outputApk>
+                        <inputApk>${project.build.directory}/${project.artifactId}-${app.version.name}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
