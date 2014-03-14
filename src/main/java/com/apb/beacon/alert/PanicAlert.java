@@ -84,11 +84,10 @@ public class PanicAlert {
     }
 
     private void registerLocationUpdate() {
-    	if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER)) {
+    	if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER)) 
     		locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
-    	} else if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER)) {
+    	if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
     		locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-    	}
     }
 
     public boolean isActive() {

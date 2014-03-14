@@ -12,8 +12,8 @@ import com.apb.beacon.common.Intents;
 
 public class LocationUpdateReceiver extends BroadcastReceiver {
     private static final String TAG = LocationUpdateReceiver.class.getName();
-    //private static long MIN_UPDATE_INTERVAL = 1000 * 60 * 1;
-    //private static final int ACCURACY_THRESHOLD = 200;
+    private static long MIN_UPDATE_INTERVAL = 1000 * 60 * 1;
+    private static final int ACCURACY_THRESHOLD = 200;
     private Context context;
 
     @Override
@@ -38,29 +38,28 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
         if (currentBestLocation == null) {
             return true;
         }
-        //long timeDelta = location.getTime() - currentBestLocation.getTime();
-        //boolean isNewer = timeDelta > 0;
-        boolean isNewer = location.getTime() > currentBestLocation.getTime();
-
-        /*if (timeDelta > MIN_UPDATE_INTERVAL) {
+        long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isNewer = timeDelta > 0;
+        
+        if (timeDelta > MIN_UPDATE_INTERVAL) {
             return true;
-        } else if (timeDelta < -MIN_UPDATE_INTERVAL) {
+        } /*else if (timeDelta < -MIN_UPDATE_INTERVAL) {
             return false;
         }*/
 
         int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
         boolean isMoreAccurate = accuracyDelta < 0;
-        //boolean isAlmostSame = accuracyDelta == 0;
-        //boolean isSignificantlyLessAccurate = accuracyDelta > ACCURACY_THRESHOLD;
-        //boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
+        boolean isAlmostSame = accuracyDelta == 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > ACCURACY_THRESHOLD;
+        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
 
         if (isMoreAccurate) {
             return true;
-        } else if (isNewer) {
+        } else if (isFromSameProvider && isNewer) {
             return true;
-        } /*else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+        } else if (isNewer && !isSignificantlyLessAccurate) {
             return true;
-        }*/
+        }
 
         return false;
     }
