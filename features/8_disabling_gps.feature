@@ -37,7 +37,7 @@ Feature: Sending sms with different gps status
 
   Scenario: Start alarm with hardware button
     Given I clear log
-    Given I wait for "=" to appear
+    And I wait up to 5 seconds for "=" to appear
     And I press power button 5 times
     And I unlock device
     And I start application
@@ -47,7 +47,8 @@ Feature: Sending sms with different gps status
     Then I see "Alerting"
     And I press "Stop Alerting"
     Then I see "Ready"
-    Then I check sms text
+    Then I check sms text contains "Help me, I'm in danger"
+
 
   Scenario: Change GPS status
     Then I switch gps
@@ -55,7 +56,7 @@ Feature: Sending sms with different gps status
 
   Scenario: Start alarm with clicking in calculation
     Given I clear log
-    Given I wait for "=" to appear
+    And I wait up to 5 seconds for "=" to appear
     And I click 5 times fast on calculation
     And I start application
     And I long press custom
@@ -64,7 +65,7 @@ Feature: Sending sms with different gps status
     Then I see "Alerting"
     And I press "Stop Alerting"
     Then I see "Ready"
-    Then I check sms text
+    Then I check sms text contains "Help me, I'm in danger"
 
   Scenario: Change GPS status
     Then I switch gps

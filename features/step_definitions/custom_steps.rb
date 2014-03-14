@@ -23,16 +23,22 @@ Then /^I press home button$/ do
 end
 
 And(/^I start application$/) do
-  Device.adb_command("shell am start -n com.apb.beacon/.HomeActivity")
-end
-
+x exit!
 And(/^I clear log$/) do
   Device.cmd_command("adb logcat -c")
 end
 
-And(/^I check sms text$/) do
-  Device.cmd_command("adb logcat -d -n5 -s 'com.apb.beacon.sms.SMSAdapter'")
-  #TODO:check sms text
+And(/^I check sms text contains    b vm .mn ,"(.*?)"$/) do |sms_text|
+  # Get sms text
+  log_input = "adb logcat -d -n5 -s \"com.apb.beacon.sms.SMSAdapter\""
+  log_output = `#{log_input}`
+  print log_output
+
+  #check sms text
+  if not log_output.include? sms_text
+    fail(msg="text not found")
+  end
+
 end
 
 Then /^I tern off wifi$/ do
