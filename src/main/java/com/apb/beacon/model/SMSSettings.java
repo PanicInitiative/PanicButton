@@ -29,7 +29,7 @@ public class SMSSettings {
         this.message = message;
     }
 
-    public static void save(Context context, SMSSettings smsSettings) {
+    public static void saveContacts(Context context, SMSSettings smsSettings) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = settings.edit();
         int i = 0;
@@ -37,7 +37,6 @@ public class SMSSettings {
             String validPhoneDigit = phoneNumber.replaceAll("[- ]", "");
             editor.putString(PHONE_NUMBER + i++, validPhoneDigit);
         }
-//        editor.putString(SMS_MESSAGE, smsSettings.message);
         editor.commit();
     }
 

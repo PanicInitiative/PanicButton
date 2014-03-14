@@ -16,11 +16,11 @@
             <url>file://${project.basedir}/lib</url>
         </repository>
     </repositories>
-
+    
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix>dev</app.version.prefix>
-        <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
+        <app.version.prefix>master</app.version.prefix>
+        <app.version.name>${project.version}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
         <coverageRate>50</coverageRate> <!-- expected coverage rate -->
@@ -40,7 +40,7 @@
             <artifactId>support-v4</artifactId>
             <version>r12</version>
         </dependency>
-
+ 
         <dependency>
             <groupId>org.roboguice</groupId>
             <artifactId>roboguice</artifactId>
@@ -132,8 +132,8 @@
                     <zipalignSkip>false</zipalignSkip>
                     <zipalign>
                         <verbose>true</verbose>
-                        <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}.apk</outputApk>
+                        <inputApk>${project.build.directory}/${project.artifactId}-${app.version.name}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
@@ -152,7 +152,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <debug>true</debug>
-                    <optimize>true</optimize>
+                	<optimize>true</optimize>
                 </configuration>
             </plugin>
             <plugin>

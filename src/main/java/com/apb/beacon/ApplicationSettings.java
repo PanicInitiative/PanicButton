@@ -77,8 +77,9 @@ public class ApplicationSettings {
 
     private static Location constructLocation(String locationJson) {
         Location location = new Gson().fromJson(locationJson, Location.class);
-        long timeDelta = System.currentTimeMillis() - location.getTime();
-        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
+//        long timeDelta = System.currentTimeMillis() - location.getTime();
+//        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
+        return location;
     }
 
     public static void setCurrentBestLocation(Context context, Location location) {
@@ -86,7 +87,7 @@ public class ApplicationSettings {
     }
 
     private static SharedPreferences sharedPreferences(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+    	return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private static void saveBoolean(Context context, String key, boolean value) {

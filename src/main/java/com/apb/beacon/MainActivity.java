@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity {
         if (currentPage == null) {
             Log.e(">>>>>>", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
-            finish();
+            return;
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

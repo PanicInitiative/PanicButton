@@ -8,7 +8,8 @@
 
     <string name="enter_message_hint">Ingresa tu mensaje</string>
 
-    <string name="i_am_at">Estoy en :  http://maps.google.com/GPS-ubicacion </string>
+    <string name="i_am_at">Estoy en</string>
+    <string name="i_am_at_url">Estoy en :  http://maps.google.com/GPS-ubicación </string>
     <string name="panic_button">Boton de Panico</string>
     <string name="page_title_text">Titulo</string>
 
@@ -16,7 +17,7 @@
     <string name="page_modal_button1_text">Boton 1</string>
     <string name="page_modal_button2_text">Boton 2</string>
 
-    <string name="page_button_action_text">Accion</string>
+    <string name="page_button_action_text">Acción</string>
     <string name="contact_hint_text">Ingresa el numero de tu contacto</string>
     <string name="default_emergency_message">Ayudame</string>
     <string name="emergency_message_header">Mensaje de emergencia</string>

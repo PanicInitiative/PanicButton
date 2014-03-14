@@ -1,0 +1,232 @@
+{
+  "help": {
+    "version" : 2,
+    "data":[    
+    {
+      "id" : "help",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Help",
+      "items" : [
+        {
+          "title" : "Reading List",
+          "link" : "help_reading"
+        },{
+          "title" : "Managing Your Risks",
+          "link" : "help_risk"
+        },{
+          "title" : "Using Panic Button",
+          "link" : "help_using"
+        }
+      ]
+    },
+    {
+      "id" : "help_reading",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Reading List",
+      "section_order" : "3",
+      "content" : "<p>Here&#39;s a reading list:</p><ul><li><a href=\"https://securityinabox.org/\">Security in a Box</a> </li></ul><p>A collaborative effort of the Tactical Technology Collective and Front Line. It was created to meet the digital security and privacy needs of advocates and human rights defenders. Security in-a-box includes a How-to Booklet, which addresses a number of important digital security issues. It also provides a collection of Hands-on Guides, each of which includes a particular freeware or open source software tool, as well as instructions on how you can use that tool to secure your computer, protect your information or maintain the privacy of your Internet communication. </p><ul><li><a href=\"http://www.frontlinedefenders.org/files/workbook_eng.pdf\">Frontline Defenders - Workbook on Security</a> </li></ul><p>Designed to raise awareness about security issues and to help human rights defenders consider how to mitigate threats. The workbook takes human rights defenders through the steps to producing a security plan - for individuals and for organisations. It follows a systematic approach for assessing their security situation and developing risk and vulnerability reduction strategies and tactics.</p><ul><li><a href=\"http://www.frontlinedefenders.org/manuals/protection\">Frontline Defenders - Protection Manual for Human Rights Defenders</a></li></ul><p>The purpose of this manual is to provide human rights defenders with information and tools to improve their understanding of security and protection. The manual topics include risk analysis, evaluating threats, preventing and reacting to attacks and developing security plans. It is the main handout for Front Line training on protection and security.</p><ul><li><a href=\"https://www.newtactics.org/resource/english-collection-tactics-book\">New Tactics in Human Rights Project</a></li></ul><p>This book, published by the Center for Victims of Torture, is a collection of 80 stories of successful tactics used for human rights work.  The stories come from all over the world and range from prevention tactics to intervention tactics, restorative tactics to those that building human rights cultures and institutions.</p><ul><li><a href=\"http://www.ruckus.org/downloads/RuckusSecurityCultureForActivists.pdf\">Ruckus - Security Culture for Activists</a></li></ul><p>A guide for activists to safeguard themselves against government and corporate surveillance.</p><ul><li><a href=\"https://www.apc.org/en/irhr/digital-security-first-aid-kit\">APC- Digital Security First Aid Kit</a></li></ul><p>This kit contains short guides for human rights defenders who find themselves in emergencies related to communication and digital security. While the kit does not provide exhaustive guidelines on how to respond to specific situations, it does suggest concrete steps, further resources and references to support groups to whom activists can turn to for further assistance.</p><ul><li><a href=\"http://cpj.org/reports/2012/04/journalist-security-guide.php\">CPJ - Journalist Security Guide</a></li></ul><p>This guide details what journalists need to know in a new and changing world. It outlines basic preparedness for journalists taking on their first assignments around the world, offers refresher information for mid-career journalists returning to the field, and provides advice on complex issues such as digital security and threat assessment for journalists of all experience levels.</p>",
+      "items" : [
+        
+      ]
+    },
+    {
+      "id" : "help_risk",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Managing Your Risks",
+      "heading" : "Managing Your Risks",
+      "section_order" : "1",
+      "content" : "<h1>Managing Your <strong>Risks</strong></h1><h2>How to assess your risks, the basics about mobile phone security and other risks.</h2>",
+      "items" : [
+        {
+          "title" : "Assessing your risk",
+          "link" : "help_risk_assessing"
+        },{
+          "title" : "Safer mobile",
+          "link" : "help_risk_mobile"
+        }
+      ]
+    },
+    {
+      "id" : "help_risk_assessing",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Assessing your risk",
+      "heading" : "Assessing your risk",
+      "section_order" : "1",
+      "content" : "<p>First, assess your risk. Only you know how security conscious you need to be. The consequences of surveillance and harassment have the potential to be severe; but, being overly cautious and constantly preparing for the worst can be debilitating. Ask yourself, what threats do you face? How serious would it be if that threat became reality? How likely is that to happen?</p><p><strong>The likelihood that you aren&#39;t ready for a threat, and that it will become a reality is risk. Many factors affect your risk. Planning for these factors will help you to defend against risk.</strong></p>",
+      "items" : [
+        {
+          "title" : "Assessing the threat",
+          "link" : "help_risk_assessing_threat"
+        },{
+          "title" : "Reducing your vulnerability",
+          "link" : "help_risk_assessing_vulnerability"
+        }
+      ]
+    },
+    {
+      "id" : "help_risk_assessing_threat",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Assessing the threat",
+      "heading" : "First step: assessing the threat",
+      "section_order" : "1",
+      "content" : "<p>Sometimes a threat may be explicit. Not all explicit threats will lead to an incident. After all threatening you may be easy, but attacks are expensive. Other times, a threat will be implicit. You may be concerned that you are under threat because of another attack on someone else.</p><p>It is good to think about what the person or group threatening you aims to achieve and whether their motive is great enough for them to take the risk. Think about this in terms of what they have to gain versus what they have to lose. This will help you to decide if the risk of the threat becoming a reality is low, medium, or high.</p><p>Five steps to assessing a threat:</p><ol><li>Establish the facts surrounding the threat(s).</li><li>Establish whether there is a pattern of threats over time.</li><li>Establish the objective of the threat (what they have to gain)</li><li>Establish who is making the threat and what they might have to lose</li><li>Make a reasonable conclusion about whether or not the threat can be put into action (are they equipped enough?)</li></ol>"
+    },
+    {
+      "id" : "help_risk_assessing_vulnerability",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Reducing your vulnerability",
+      "heading" : "Second step: reducing your vulnerability to a threat",
+      "section_order" : "2",
+      "content" : "<p>Vulnerability to a threat depends on your circumstances and how well equipped you are to stop the threat from harming you if it becomes reality. </p><p>Some factors that increase or reduce vulnerability include access or lack of access to:</p><ul><li>Effective and secure means of communication</li><li>Safe, ground transportation</li><li>Proper locks or other physical security protections for a house or office</li><li>Support from others (a network or system) in the event of attack </li></ul><p>Vulnerabilities and threats also vary according to gender, age and other factors.</p><p>To reduce your vulnerability it is important to increase your capacity to defend against and respond to a threat by having a clear and effective security plan in place. For starters, it is a good idea to develop and maintain an up-to-date checklist that covers the following:</p><ul><li>Managing information (physical and digital) in a secure manner</li><li>Maintaining a contact list and network that can provide information about attacks and will advocate on your behalf should you be victimized </li><li>Deciding who your emergency contacts are in the event of a threat </li><li>Deciding who should know who your emergency contacts are (and making sure to let them know)</li><li>Making a recovery plan (should be tested in practice)</li></ul><p>SOURCE: This information was taken and adapted from the Frontline Defenders Protection Manual for Human Rights Defenders. Useful examples to help you create your own security checklist, as well as further information about how to prevent or respond to attacks can be found in the original <a href=\"http://www.frontlinedefenders.org/manuals/protection\">Frontline Protection Manual</a>.</p>"
+    },
+    {
+      "id" : "help_risk_mobile",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Safer mobile",
+      "heading" : "Safer mobile",
+      "section_order" : "2",
+      "content" : "<p>All organizations face threats to the information they produce and to the wellbeing of their friends and allies. This can be because of powerful enemies or bad luck (or a combination of the two). If an organization does not defend against a threat, and the threat becomes a reality, the organization can lose important information, betray sensitive information about community members, and put staff in danger.</p><p>Mobile phones are an integral part of our daily communications and the functions they enable are rapidly expanding. Mobiles may feature GPS, multimedia capacity (photo, video and audio recording and sometimes transmitting), data processing and access to the internet. Smartphones support an even bigger range of functionality – web browsing, email, voice and instant messaging over the internet, capturing, storing and transmitting audio, videos and photos, social networking, multi-user games, banking and many other activities. However, many of these tools and features introduce new security issues, or increase existing risks.</p><p>It is important to start with the understanding that <strong>mobile phones are inherently insecure:</strong></p><ul><li>Information sent from a mobile phone is vulnerable.</li><li>Information stored on mobile phones is vulnerable.</li><li>Phones are designed to give out information about their location and their activity.</li></ul><p>For instance, mobile phones relay your location information to your mobile network operator (as part of the normal functions of the phone) and many smartphones have built-in geo-location (GPS) functionality, which means they can provide an even more precise location to your mobile network operator, as well as to many applications you use on your phone (such as social networking, mapping, browsing and other applications). This makes it increasingly easy to be able to track your location.</p><p>SOURCE: This information was taken and adapted from the Security in a Box Toolkit by Tactical Technology Collective and Frontline Defenders. Further information about how your mobile phone can put you at risk as well as a great list of useful tools to help secure your mobile communications can be found in the original <a href=\"https://securityinabox.org/\">Security in a Box Toolkit</a>.</p><p><strong>Top tips for safer mobile use</strong></p><ul><li>Do not transmit sensitive information via SMS unless you are willing to have it read by strong adversaries. All SMS messages may be recorded by the service provider, and may be read by the strong adversaries.</li><li>When you need to communicate something that is sensitive, consider creating a coded system with trusted colleagues. For example, “X” could mean you’re in danger, and “Z” could mean you’re safe. “Tree” could mean you want to meet up. “Banner” could be a cafe you can meet at.&quot;</li><li>If you or your source are threatened, and you must communicate via SMS, you should both use an encrypted SMS application. If it is really sensitive information, it is better to find an alternative method to communicate and even avoid digital communications if possible. </li><li>If possible, carry more than one phone and ensure that at least one is anonymous so that sensitive communications cannot be tied to your personal identity. This means not registering the SIM card to yourself and using pre-paid phones that do not require you to give personal details or billing information to your network provider.</li><li>If possible, carry more than one phone and ensure that at least one is anonymous so that sensitive communications cannot be tied to your personal identity. Try not to register the SIM card to yourself and use pre-paid phones that do not require personal details or billing information.</li><li>Never keep a record of your SMS messages on your phone. However, it is good to be aware that even if you delete your messages, they may still be accessed by strong adversaries if they go directly to your service provider.</li><li>Where possible, memorize the telephone numbers of close colleagues or sources so that this information is not easily found on your telephone. Remember to delete numbers this in your call history although this information could still be found by going to the service provider.</li></ul><p>SOURCE: This list of top tips was taken and adapted from the Story Maker App Lessons on mobile security. Further information about the project and a range of more detailed lessons on mobile security can be found on the <a href=\"https://storymaker.cc/lessons/?Lesson=/2/2.7/&amp;Lang=en\">Story Maker site</a></p>",
+      "items" : [
+        
+      ]
+    },
+    {
+      "id" : "help_using",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Using Panic Button",
+      "section_order" : "2",
+      "items" : [
+        {
+          "title" : "Installation",
+          "link" : "help_using_installation"
+        },{
+          "title" : "Configuration",
+          "link" : "help_using_configuration"
+        },{
+          "title" : "Tips for testing",
+          "link" : "help_using_tips"
+        },{
+          "title" : "Frequently Ask Questions",
+          "link" : "help_using_faq"
+        }
+      ]
+    },
+    {
+      "id" : "help_using_installation",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Installation",
+      "heading" : "Installation",
+      "section_order" : "1",
+      "content" : "<p>You can download Panic Button onto your mobile phone <strong>here</strong> (LINK).  The installation should begin automatically; simply follow the instructions on your phone. </p><p>Once the app has been installed you can open it by searching for the Calculate! icon among your apps. Panic Button will walk you through the set up and functions of the app.</p><p>If you are taking part in the private beta testing and have difficulties installing the app, please see the <strong>Help</strong> FAQ(LINK) or <strong>contact us directly</strong> (LINK) for support.</p><p><strong>IMAGE</strong> Android Screenshot - showing the auto install process.</p>",
+      "items" : [
+        
+      ]
+    },
+    {
+      "id" : "help_using_configuration",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Configuration",
+      "heading" : "Configuration",
+      "section_order" : "2",
+      "items" : [
+        {
+          "title" : "Setting Up Contacts",
+          "link" : "help_using_configuration_contacts"
+        },{
+          "title" : "Create your alert message",
+          "link" : "help_using_configuration_alert_messages"
+        },{
+          "title" : "Create pin code",
+          "link" : "help_using_configuration_code"
+        },{
+          "title" : "Learn how to alert",
+          "link" : "help_using_configuration_alert"
+        },{
+          "title" : "Activate disguise",
+          "link" : "help_using_configuration_disguise"
+        }
+      ]
+    },
+    {
+      "id" : "help_using_configuration_contacts",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Setting Up Contacts",
+      "heading" : "Setting Up Contacts",
+      "section_order" : "1",
+      "alert" : "Panic Button is not a replacement for regular contact. Communicate regularly with your network and keep them informed of your planned whereabouts.",
+      "content" : "<p>Think carefully about who in your network is placed to receive the alert. <strong>These three people must be prepared to respond fast so make sure you talk to them first</strong>. </p><p>A few things to think about:</p><ul><li>  These should be people with a mobile phone who are likely to check it regularly. For example, don’t pick someone who you know regularly leaves their phone at home in which case your alert may not be seen for hours.</li><li>  Make sure that the three emergency contacts complement each other. Don’t pick three people in a single organization or location. </li><li>  Consider who can realistically help you in an emergency. Your close colleagues may know the situation but they could also be at high risk or even be arrested with you. Pick someone whose reputation and influence will help to secure your release. For example, a lawyer or community leader.</li><li>  It is a good idea to include one person who is at low risk of retaliation. For example, it may be an older family member who is less likely to be targeted by the authorities. Alternatively, is there a close and trusted member of your network outside the country? </li><li>  While there may be international contacts in your network think carefully before selecting someone far away. Will they be able to respond quickly to an alert? Consider timezone differences and also whether the person you choose is familiar enough with your context to get in touch with others who can physically assist.</li></ul><p><strong>IMAGE</strong> Screenshot of the add contacts page</p>"
+    },
+    {
+      "id" : "help_using_configuration_alert_messages",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Create your alert message",
+      "heading" : "Create your alert message",
+      "section_order" : "2",
+      "content" : "<p>Consider the context of your message carefully. The message should be short but clearly communicate the urgency of your situation.  </p><p>Things to think about:</p><ul><li>It is best to agree the content of this message in a conversation with your contacts. You may want to decide a code word or phrase instead of saying ‘help!’ . The most important thing is that your contacts know what the message means and how to act on it.</li><li>You won&#39;t have time to change a message in an emergency, so make sure your alert message would work in all situations.</li><li>Remember to enable GPS in your phone settings if you want your location to be sent to your contacts with the alert.</li></ul><p><strong>IMAGE</strong> Screenshot of message set-up with default text</p><p><img src=\"/media/article-img-2.png\" alt=\"This is another image caption\"></p>"
+    },
+    {
+      "id" : "help_using_configuration_code",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Create pin code",
+      "heading" : "Create pin code",
+      "section_order" : "3",
+      "content" : "<p>Pin code.</p>"
+    },
+    {
+      "id" : "help_using_configuration_alert",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Learn how to alert",
+      "heading" : "Learn how to alert",
+      "section_order" : "4",
+      "content" : "<p>Learn how to alert.</p>"
+    },
+    {
+      "id" : "help_using_configuration_disguise",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Activate disguise",
+      "heading" : "Activate disguise",
+      "section_order" : "5",
+      "content" : "<p>Activate disguise.</p>"
+    },
+    {
+      "id" : "help_using_tips",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Tips for testing",
+      "heading" : "Tips for testing",
+      "section_order" : "3",
+      "content" : "<p>This is a tip!</p>",
+      "items" : [
+        
+      ]
+    },
+    {
+      "id" : "help_using_faq",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Frequently Ask Questions",
+      "heading" : "Frequently Ask Questions",
+      "section_order" : "4",
+      "content" : "<ol><li>I&#39;ve downloaded the app but I can&#39;t find the app on my phone, where is it?</li><li>How can I reset my passcode if I have forgotten it?</li><li>How do I turn of the alert when it is sending?</li><li>I have triggered the alert but my contacts are not receiving any messages, what does this meam?</li><li>My contacts are receiving an alert message but are not seeing my location, what should I do?</li><li>The app keeps crashing, what should I do?</li></ol>",
+      "items" : [
+        
+      ]
+    }]
+  }
+}
+

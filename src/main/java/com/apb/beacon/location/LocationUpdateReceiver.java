@@ -40,12 +40,12 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
         }
         long timeDelta = location.getTime() - currentBestLocation.getTime();
         boolean isNewer = timeDelta > 0;
-
+        
         if (timeDelta > MIN_UPDATE_INTERVAL) {
             return true;
-        } else if (timeDelta < -MIN_UPDATE_INTERVAL) {
+        } /*else if (timeDelta < -MIN_UPDATE_INTERVAL) {
             return false;
-        }
+        }*/
 
         int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
         boolean isMoreAccurate = accuracyDelta < 0;
@@ -55,9 +55,9 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
 
         if (isMoreAccurate) {
             return true;
-        } else if (isAlmostSame && isNewer) {
+        } else if (isFromSameProvider && isNewer) {
             return true;
-        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+        } else if (isNewer && !isSignificantlyLessAccurate) {
             return true;
         }
 

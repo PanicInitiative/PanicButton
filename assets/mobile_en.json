@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 1,
+    "version" : 2,
     "data":[
     {
       "id" : "setup-warning",
@@ -28,7 +28,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -151,7 +151,8 @@
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
-      "fail" : {"link":"setup-alarm-test-hardware-fail"}
+      "fail" : {"link":"setup-alarm-test-hardware-fail"},
+      "content" : "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
     },
     {
       "id" : "setup-alarm-test-disguise-success",
@@ -214,7 +215,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "settings-contacts",
@@ -236,6 +237,13 @@
       "warning" : "Remember your pincode! If you forget it you will need to reinstall the app.",
       "component" : "code",
       "action" : [{"title":"Save","link":"home-ready"}]
+    },
+    {
+      "id" : "settings",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "Settings",
+      "items" : [{"title":"Language Settings","link":"settings-language"},{"title":"Message Settings","link":"settings-message"},{"title":"Contact Settings","link":"settings-contacts"},{"title":"Code Settings","link":"settings-code"},{"title":"Restart the Installation","link":"home-not-configured"}]
     },
     {
       "id" : "home-ready",

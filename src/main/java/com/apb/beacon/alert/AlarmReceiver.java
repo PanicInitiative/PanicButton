@@ -11,13 +11,15 @@ import com.apb.beacon.common.Intents;
 public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+    	Context _context = context.getApplicationContext();
         if(intent.getAction().equals(Intents.SEND_ALERT_ACTION)) {
-            Location currentBestLocation = ApplicationSettings.getCurrentBestLocation(context);
-            getPanicMessage(context).send(currentBestLocation);
+            Location currentBestLocation = ApplicationSettings.getCurrentBestLocation(_context);
+            getPanicMessage(_context).send(currentBestLocation);
         }
     }
 
     PanicMessage getPanicMessage(Context context) {
-        return new PanicMessage(context);
+    	Context _context = context.getApplicationContext();
+        return new PanicMessage(_context);
     }
 }

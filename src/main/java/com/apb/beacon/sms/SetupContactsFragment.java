@@ -83,7 +83,7 @@ public class SetupContactsFragment extends Fragment {
                 Log.e(">>>>", "action button pressed");
                 SMSSettings newSMSSettings = getSMSSettingsFromView();
 
-                SMSSettings.save(activity, newSMSSettings);
+                SMSSettings.saveContacts(activity, newSMSSettings);
                 displaySettings(newSMSSettings);
 
                 String pageId = currentPage.getAction().get(0).getLink();

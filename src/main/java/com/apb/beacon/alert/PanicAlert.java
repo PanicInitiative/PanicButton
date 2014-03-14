@@ -65,7 +65,8 @@ public class PanicAlert {
 
     private void sendFirstAlert() {
         CurrentLocationProvider currentLocationProvider = getCurrentLocationProvider();
-        createPanicMessage().send(getLocation(currentLocationProvider));
+        Location loc = getLocation(currentLocationProvider);
+        createPanicMessage().send(loc);
     }
 
     PanicMessage createPanicMessage() {
@@ -83,8 +84,10 @@ public class PanicAlert {
     }
 
     private void registerLocationUpdate() {
-        locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-        locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+    	if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER)) 
+    		locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+    	if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+    		locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
     }
 
     public boolean isActive() {

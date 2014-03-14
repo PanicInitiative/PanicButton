@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 1,
+    "version" : 2,
     "data":[
     {
       "id" : "setup-warning",
@@ -28,7 +28,7 @@
       "title" : "Configuraciones de lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -151,7 +151,8 @@
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
-      "fail" : {"link":"setup-alarm-test-hardware-fail"}
+      "fail" : {"link":"setup-alarm-test-hardware-fail"},
+      "content" : "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
     },
     {
       "id" : "setup-alarm-test-disguise-success",
@@ -214,7 +215,7 @@
       "title" : "Configuraciones de Lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"}]
     },
     {
       "id" : "settings-contacts",
