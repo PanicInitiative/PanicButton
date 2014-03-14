@@ -70,13 +70,6 @@ public class HomeActivity extends RoboActivity {
 
     }
 
-    private void checkIfDataInitializationNeeded() {
-        if (!getLocalDataInsertion(HomeActivity.this)) {
-            initializeLocalData();
-            setLocalDataInsertion(HomeActivity.this, true);
-        }
-    }
-
     private void checkIfUpdateNeeded() {
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
         if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
@@ -84,8 +77,13 @@ public class HomeActivity extends RoboActivity {
 
             selectedLang = ApplicationSettings.getSelectedLanguage(this);
             helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
-
-            new GetLatestVersion().execute();
+            
+            if (!getLocalDataInsertion(HomeActivity.this)) {
+                new InitializeLocalData().execute();
+                setLocalDataInsertion(HomeActivity.this, true);
+            } else {
+            	new GetLatestVersion().execute();
+            }
         } else {
             if (isFirstRun(HomeActivity.this)) {
                 scheduleTimer();
@@ -111,19 +109,104 @@ public class HomeActivity extends RoboActivity {
     }
 
 
+    private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "First installation...", true, false);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+	
+	            lastUpdatedVersion = mobileObj.getInt("version");
+	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("help");
+	
+	            lastUpdatedVersion = mobileObj.getInt("version");
+	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("help");
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("help");
+	
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+	        return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean response) {
+            super.onPostExecute(response);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+
+        	new GetLatestVersion().execute();
+        }
+    }
+    
     private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Checking for updates...", true, false);
+            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Starting...", true, false);
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-            checkIfDataInitializationNeeded();
 
             String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
             JsonParser jsonParser = new JsonParser();
@@ -168,7 +251,8 @@ public class HomeActivity extends RoboActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        }
+            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+       }
 
         @Override
         protected Boolean doInBackground(Void... params) {
@@ -234,6 +318,7 @@ public class HomeActivity extends RoboActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
         }
 
         @Override
@@ -246,7 +331,7 @@ public class HomeActivity extends RoboActivity {
                 ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
                 try {
                     JSONObject responseObj = response.getjObj();
-                    JSONObject mobObj = responseObj.getJSONObject("mobile");
+                    JSONObject mobObj = responseObj.getJSONObject("help");
                     JSONArray dataArray = mobObj.getJSONArray("data");
                     insertHelpDataToLocalDB(dataArray);
                     ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
@@ -300,43 +385,6 @@ public class HomeActivity extends RoboActivity {
         }
         dbInstance.close();
     }
-
-
-    private void initializeLocalData() {
-        try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
-            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-            lastUpdatedVersion = mobileObj.getInt("version");
-            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-
-            JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertMobileDataToLocalDB(dataArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
-            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-            JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertMobileDataToLocalDB(dataArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
-            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-            JSONArray dataArray = mobileObj.getJSONArray("data");
-            insertMobileDataToLocalDB(dataArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public String loadJSONFromAsset(String jsonFileName) {
         String json = null;
