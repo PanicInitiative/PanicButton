@@ -55,7 +55,8 @@ public class PanicMessageTest {
         finerLocation = LocationTestUtil.location(LocationManager.NETWORK_PROVIDER, finerLatitude, finerLongitude, currentTimeMillis(), 10.0f);
 
         SMSSettings smsSettings = new SMSSettings(asList(mobile1, mobile2, mobile3), message);
-        SMSSettings.save(context, smsSettings);
+        SMSSettings.saveContacts(context, smsSettings);
+        SMSSettings.saveMessage(context, message);
     }
 
     @Test
