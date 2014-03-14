@@ -3,7 +3,6 @@ package com.apb.beacon.parser;
 import android.util.Log;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.common.SSLUtilities;
 import com.apb.beacon.model.ServerResponse;
 
 import org.apache.http.HttpEntity;
@@ -57,8 +56,6 @@ public class JsonParser {
 
         // Making HTTPS request
         try {
-            SSLUtilities.trustAllHostnames();
-            SSLUtilities.trustAllHttpsCertificates();
 
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse httpResponse = null;
