@@ -19,7 +19,6 @@ public class ApplicationSettings {
     public static final String BEST_LOCATION = "BEST_LOCATION";
     public static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static final String LAST_UPDATED_VERSION = "LAST_UPDATED_VERSION";
-    public static final String PREF_FILE = "CALCULATE";
 
     public static void setFirstRun(Context context, boolean isFirstRun) {
         saveBoolean(context, FIRST_RUN, isFirstRun);
@@ -88,7 +87,7 @@ public class ApplicationSettings {
     }
 
     private static SharedPreferences sharedPreferences(Context context) {
-        return context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+    	return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private static void saveBoolean(Context context, String key, boolean value) {
