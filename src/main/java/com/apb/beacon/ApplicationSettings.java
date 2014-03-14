@@ -19,6 +19,7 @@ public class ApplicationSettings {
     public static final String BEST_LOCATION = "BEST_LOCATION";
     public static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static final String LAST_UPDATED_VERSION = "LAST_UPDATED_VERSION";
+    public static final String PREF_FILE = "CALCULATE";
 
     public static void setFirstRun(Context context, boolean isFirstRun) {
         saveBoolean(context, FIRST_RUN, isFirstRun);
@@ -77,8 +78,9 @@ public class ApplicationSettings {
 
     private static Location constructLocation(String locationJson) {
         Location location = new Gson().fromJson(locationJson, Location.class);
-        long timeDelta = System.currentTimeMillis() - location.getTime();
-        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
+//        long timeDelta = System.currentTimeMillis() - location.getTime();
+//        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
+        return location;
     }
 
     public static void setCurrentBestLocation(Context context, Location location) {
@@ -86,7 +88,7 @@ public class ApplicationSettings {
     }
 
     private static SharedPreferences sharedPreferences(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        return context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
     }
 
     private static void saveBoolean(Context context, String key, boolean value) {
