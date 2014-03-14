@@ -23,7 +23,9 @@ Then /^I press home button$/ do
 end
 
 And(/^I start application$/) do
-x exit!
+  Device.adb_command("shell am start -n com.apb.beacon/.HomeActivity")
+end
+
 And(/^I clear log$/) do
   Device.cmd_command("adb logcat -c")
 end
@@ -74,4 +76,6 @@ end
 And(/^I long press custom$/) do
   Device.cmd_command("monkeyrunner #{Device.get_more_dir}/longpress.py")
 end
+
+
 
