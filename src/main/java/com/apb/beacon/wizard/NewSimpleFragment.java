@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -196,8 +197,10 @@ public class NewSimpleFragment extends Fragment {
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
-            else
-                tvContent.setText(currentPage.getContent());
+            else {
+                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+            }
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
@@ -294,6 +297,8 @@ public class NewSimpleFragment extends Fragment {
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
         }
     }
+
+
 
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;
