@@ -75,7 +75,11 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
-
+		<activity android:name=".MainModalActivity"
+		    android:theme="@style/Theme.Transparent"
+                  android:screenOrientation="portrait"
+                  android:excludeFromRecents="true"/>
+        
         <service android:name=".trigger.HardwareTriggerService"/>
 
         <receiver android:name=".trigger.BootReceiver" android:enabled="true" android:exported="false">
