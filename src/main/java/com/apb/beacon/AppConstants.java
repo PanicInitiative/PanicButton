@@ -4,8 +4,8 @@ public class AppConstants {
     //Test values
 	//public static final boolean SKIP_WIZARD = true;
     //public static final int PHONE_NUMBER_LIMIT = 3;
-<meta-data android:name="com.crashlytics.ApiKey" android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015"/><meta-data android:name="com.crashlytics.ApiKey" android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015"/><meta-data android:name="com.crashlytics.ApiKey" android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015"/>
-    //Trainer values
+
+	//Trainer values
 	public static final long ALERT_FREQUENCY = 1000 * 30;
 	
 	//Prod values
