@@ -2,13 +2,14 @@ package com.apb.beacon;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.apb.beacon.calculator.Calculator;
+import com.apb.beacon.calculator.CalculatorImpl;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
 
@@ -18,7 +19,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
 		R.id.divide};
 
-	private Calculator calculator;
+	private CalculatorImpl calculator;
 	private int lastClickId = -1;
 
     boolean mHasPerformedLongPress;
@@ -28,10 +29,11 @@ public class CalculatorActivity extends PanicButtonActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_layout);
-
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
 
+		calculator = new CalculatorImpl();
+		
         ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
 	}
 
@@ -50,49 +52,49 @@ public class CalculatorActivity extends PanicButtonActivity {
 			int id = view.getId();
 			switch(id) {
 			case R.id.one:
-				handleButtonPress(Calculator.Button.ONE);
+				handleButtonPress(CalculatorImpl.Button.ONE);
 				break;
 			case R.id.two:
-				handleButtonPress(Calculator.Button.TWO);
+				handleButtonPress(CalculatorImpl.Button.TWO);
 				break;
 			case R.id.three:
-				handleButtonPress(Calculator.Button.THREE);
+				handleButtonPress(CalculatorImpl.Button.THREE);
 				break;
 			case R.id.four:
-				handleButtonPress(Calculator.Button.FOUR);
+				handleButtonPress(CalculatorImpl.Button.FOUR);
 				break;
 			case R.id.five:
-				handleButtonPress(Calculator.Button.FIVE);
+				handleButtonPress(CalculatorImpl.Button.FIVE);
 				break;
 			case R.id.six:
-				handleButtonPress(Calculator.Button.SIX);
+				handleButtonPress(CalculatorImpl.Button.SIX);
 				break;
 			case R.id.seven:
-				handleButtonPress(Calculator.Button.SEVEN);
+				handleButtonPress(CalculatorImpl.Button.SEVEN);
 				break;
 			case R.id.eight:
-				handleButtonPress(Calculator.Button.EIGHT);
+				handleButtonPress(CalculatorImpl.Button.EIGHT);
 				break;
 			case R.id.nine:
-				handleButtonPress(Calculator.Button.NINE);
+				handleButtonPress(CalculatorImpl.Button.NINE);
 				break;
 			case R.id.zero:
-				handleButtonPress(Calculator.Button.ZERO);
+				handleButtonPress(CalculatorImpl.Button.ZERO);
 				break;
 			case R.id.equals_sign:
-				handleButtonPress(Calculator.Button.EQUALS);
+				handleButtonPress(CalculatorImpl.Button.EQUALS);
 				break;
 			case R.id.plus:
-				handleButtonPress(Calculator.Button.PLUS);
+				handleButtonPress(CalculatorImpl.Button.PLUS);
 				break;
 			case R.id.minus:
-				handleButtonPress(Calculator.Button.MINUS);
+				handleButtonPress(CalculatorImpl.Button.MINUS);
 				break;
 			case R.id.multiply:
-				handleButtonPress(Calculator.Button.MULTIPLY);
+				handleButtonPress(CalculatorImpl.Button.MULTIPLY);
 				break;
 			case R.id.divide:
-				handleButtonPress(Calculator.Button.DIVIDE);
+				handleButtonPress(CalculatorImpl.Button.DIVIDE);
 				break;
 			}
 			MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
@@ -182,8 +184,9 @@ public class CalculatorActivity extends PanicButtonActivity {
 		return multiClickEvent;
 	}
 
-	private void handleButtonPress(Calculator.Button button) {
+	private void handleButtonPress(CalculatorImpl.Button button) {
 		TextView display = (TextView) findViewById(R.id.display);
-		display.setText(calculator.handleButtonPress(button));
+		String displayText = calculator.handleButtonPress(button);
+		display.setText(displayText);
 	}
 }
