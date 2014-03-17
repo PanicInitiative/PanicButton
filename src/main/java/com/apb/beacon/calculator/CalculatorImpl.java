@@ -6,8 +6,13 @@ import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static java.math.MathContext.DECIMAL32;
 
-class CalculatorImpl implements Calculator {
+public class CalculatorImpl {
 
+	public enum Button {
+		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO,
+		EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE
+	}
+	
 	private enum Operation { PLUS, MINUS, MULTIPLY, DIVIDE };
 
 	private boolean clearOnDigit = false, negativeNumber = false;

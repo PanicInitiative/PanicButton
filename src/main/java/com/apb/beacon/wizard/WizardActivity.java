@@ -49,13 +49,13 @@ public class WizardActivity extends FragmentActivity {
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
+        intentFilter.addAction("com.apb.beacon.ACTION_LOGOUT");
         registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
-        Log.e(">>>>>>>", "pageId = " + pageId);
+        Log.e("WizardActivity.onCreate", "pageId = " + pageId);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -147,9 +147,17 @@ public class WizardActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(">>>>>", "onPause");
-        if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        Log.e("WizardActivity.onPause", ".");
+        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
+        		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+
+        		getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+                getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
 
         if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action
@@ -161,19 +169,19 @@ public class WizardActivity extends FragmentActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        Log.d(">>>>>>>>>>", "onStop");
+        Log.d("WizardActivity.onStop", ".");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(">>>>>>>>>>", "onStart");
+        Log.d("WizardActivity.onStart", ".");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(">>>>>", "onResume with flagRiseFromPause = " + flagRiseFromPause);
+        Log.e("WizardActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
 
         int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
 
@@ -182,26 +190,18 @@ public class WizardActivity extends FragmentActivity {
         }
 
         if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-            Log.e(">>>>>>>>", "returning from not-implemented page.");
+            Log.e("WizardActivity.onResume", "returning from not-implemented page.");
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
             return;
         }
 
         if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
-            Log.e(">>>>>>>>", "back button pressed");
+            Log.e("WizardActivity.onResume", "back button pressed");
             AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-            getPackageManager().setComponentEnabledSetting(
-                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-            getPackageManager().setComponentEnabledSetting(
-                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
             Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
@@ -233,7 +233,7 @@ public class WizardActivity extends FragmentActivity {
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
             Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+            broadcastIntent.setAction("com.apb.beacon.ACTION_LOGOUT");
             sendBroadcast(broadcastIntent);
 
             finish();
@@ -273,8 +273,10 @@ public class WizardActivity extends FragmentActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("onReceive","Logout in progress");
-            finish();
+            if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
+                Log.d("WizardActivity.onReceive","Logout in progress");
+                finish();
+            }
         }
     };
 }

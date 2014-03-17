@@ -25,12 +25,14 @@ import android.widget.TextView;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.trigger.HardwareTriggerReceiver;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -100,6 +102,7 @@ public class AlarmTestHardwareFragment extends Fragment {
             if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else {
+                Log.e(">>>>>", "content = " + currentPage.getContent());
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 updateImages(true, currentPage.getContent());
             }
@@ -134,6 +137,35 @@ public class AlarmTestHardwareFragment extends Fragment {
                 new Html.ImageGetter() {
                     @Override
                     public Drawable getDrawable(final String source) {
+                        if(!AppUtil.hasInternet(activity) && downloadImages){
+                            try {
+                                Log.e(">>>>>>>>>>>", "Source = " + source);
+                                Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
+
+                                int width, height;
+                                int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 2.25);
+                                int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 2.25);
+                                if (originalWidthScaled > metrics.widthPixels) {
+                                    height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
+                                    width = metrics.widthPixels;
+                                } else {
+                                    height = originalHeightScaled;
+                                    width = originalWidthScaled;
+                                }
+                                try {
+                                    drawable.setBounds(0, 0, width, height);
+                                    Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
+                                } catch (Exception ex) {
+                                }
+                                mImageCache.put(source, drawable);
+                                updateImages(false, textHtml);
+                                return drawable;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+
+                        }
                         Log.e(">>>>>>", "image src = " + source);
                         Drawable drawable = mImageCache.get(source);
                         if (drawable != null) {

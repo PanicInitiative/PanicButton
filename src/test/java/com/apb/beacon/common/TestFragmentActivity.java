@@ -1,8 +1,8 @@
 package com.apb.beacon.common;
 
-import roboguice.activity.RoboFragmentActivity;
+import android.support.v4.app.FragmentActivity;
 
-public class TestFragmentActivity extends RoboFragmentActivity{
+public class TestFragmentActivity extends FragmentActivity {
     private boolean actionButtonEnabled;
 
 //    @Override
