@@ -270,7 +270,7 @@
       "title" : "Panic Button",
       "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
       "action" : [{"title":"Basic Settings","link":"","status":"checked"},{"title":"Setup Alarm","link":"","status":"checked"},{"title":"Setup Disguise","link":"setup-disguise"}],
-      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Language Settings","link":"setup-language"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"help"},{"title":"Language Settings","link":"setup-language"}],
       "content" : "<p>You cannot use Panic Button until it is fully setup.</p>"
     },
     {
@@ -280,7 +280,7 @@
       "title" : "Panic Button",
       "status" : [{"title":"Instalación en proceso","color":"red","link":"help-not-configured"}],
       "action" : [{"title":"Configuraciones Básicas","link":"","status":"checked"},{"title":"Instalar Alerta","link":"setup-alarm"},{"title":"Setup Disguise","link":"Instalar Disfraz","status":"disabled"}],
-      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Configuraciones de Lenguage","link":"setup-language"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"help"},{"title":"Configuraciones de Lenguage","link":"setup-language"}],
       "content" : "<p>No podrás hacer uso del Boton de Pánico hasta que el proceso de instalación haya sido completado.</p>"
     },
     {
