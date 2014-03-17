@@ -298,7 +298,6 @@
       "title" : "Panic Button",
       "status" : [{"title":"Alerting","color":"red","link":"help-alerting"}],
       "action" : [{"title":"Stop Alerting","link":"home-ready"}],
-      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
       "content" : "<p>Panic Button is currently sending alert messages. Click Stop Alerting to cancel messages. </p>"
     },
     {
