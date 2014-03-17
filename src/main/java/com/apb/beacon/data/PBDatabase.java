@@ -27,7 +27,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -206,8 +206,15 @@ public class PBDatabase {
     /*
     Page-HelpPage methods
     */
-    public void insertOrUpdateHelpPage(HelpPage pList) {
-        HelpPageDbManager.insertOrUpdate(this.db, pList);
+    public void insertOrUpdateHelpPage(HelpPage page) {
+        HelpPageDbManager.insertOrUpdate(this.db, page);
+
+        deletePageItems(page.getId(), page.getLang());
+
+        if (page.getItems() != null) {
+            for (PageItem item : page.getItems())
+                insertPageItem(item, page.getId(), page.getLang());
+        }
     }
 
     public List<HelpPage> retrieveHelpPage(String lang) {

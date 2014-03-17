@@ -75,7 +75,11 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
-
+		<activity android:name=".MainModalActivity"
+		    android:theme="@style/Theme.Transparent"
+                  android:screenOrientation="portrait"
+                  android:excludeFromRecents="true"/>
+        
         <service android:name=".trigger.HardwareTriggerService"/>
 
         <receiver android:name=".trigger.BootReceiver" android:enabled="true" android:exported="false">
@@ -96,8 +100,6 @@
             </intent-filter>
         </receiver>
         
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015"/>
-         
     </application>
 </manifest>
 

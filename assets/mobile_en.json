@@ -198,6 +198,13 @@
       "content" : "<p>Now learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alert from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
     },
     {
+      "id" : "setup-about",
+      "lang" : "en",
+      "type" : "simple",
+      "title" : "About",
+      "content" : "<p>Panic Button turns your mobile phone into a secret alarm for when you&#39;re in trouble.</p><p><strong>How Does Panic Button Work?</strong></p><ul><li>TAKE TIME to set-up Panic Button somewhere safe and quiet</li><li>Create a plan with your contacts so that they are PREPARED to ACT</li><li>CHECK you are ready and that your mobile phone has credit and battery</li><li>ACTIVATE Panic Button in an emergency by rapidly pressing the phone&#39;s power button</li><li>Your network will receive an SMS and regular updates of your location helping them to ACT FAST</li></ul><p>The Panic Button project is an initiative of Amnesty International in collaboration with key advisors and partners including Frontline Defenders, iilab and the engine room.</p>"
+    },
+    {
       "id" : "settings-message",
       "lang" : "en",
       "type" : "interactive",
@@ -252,7 +259,7 @@
       "title" : "Panic Button",
       "status" : [{"title":"Ready","color":"green","link":"help-ready"}],
       "action" : [{"title":"Disguise","link":"checklist"}],
-      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
+      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"setup-about"},{"title":"Help","link":"help"}],
       "content" : "<p>Panic Button is set-up and ready. Click Disguise to exit and hide the application.</p>"
     },
     {
@@ -262,7 +269,7 @@
       "title" : "Panic Button",
       "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
       "action" : [{"title":"Basic Settings","link":"","status":"checked"},{"title":"Setup Alarm","link":"","status":"checked"},{"title":"Setup Disguise","link":"setup-disguise"}],
-      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Language Settings","link":"setup-language"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"help"},{"title":"Language Settings","link":"setup-language"}],
       "content" : "<p>You cannot use Panic Button until it is fully setup.</p>"
     },
     {
@@ -272,7 +279,7 @@
       "title" : "Panic Button",
       "status" : [{"title":"Setup not complete","color":"red","link":"help-not-configured"}],
       "action" : [{"title":"Basic Settings","link":"","status":"checked"},{"title":"Setup Alarm","link":"setup-alarm"},{"title":"Setup Disguise","link":"setup-disguise","status":"disabled"}],
-      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"setup-help"},{"title":"Language Settings","link":"setup-language"}],
+      "items" : [{"title":"About","link":"setup-about"},{"title":"Help","link":"help"},{"title":"Language Settings","link":"setup-language"}],
       "content" : "<p>You cannot use Panic Button until it is fully setup.</p>"
     },
     {
@@ -291,7 +298,6 @@
       "title" : "Panic Button",
       "status" : [{"title":"Alerting","color":"red","link":"help-alerting"}],
       "action" : [{"title":"Stop Alerting","link":"home-ready"}],
-      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"about"},{"title":"Help","link":"help"}],
       "content" : "<p>Panic Button is currently sending alert messages. Click Stop Alerting to cancel messages. </p>"
     },
     {

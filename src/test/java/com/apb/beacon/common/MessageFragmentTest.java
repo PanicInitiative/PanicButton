@@ -1,6 +1,7 @@
 package com.apb.beacon.common;
 
 import android.content.res.TypedArray;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
@@ -20,8 +21,6 @@ import org.robolectric.shadows.ShadowEditText;
 
 import java.util.List;
 
-import roboguice.activity.RoboFragmentActivity;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.when;
@@ -36,7 +35,7 @@ public class MessageFragmentTest {
     private TextView charsLeftTextView;
     private TextView messageHeaderView;
     @Mock
-    RoboFragmentActivity mockFragmentActivity;
+    FragmentActivity mockFragmentActivity;
     @Mock
     TypedArray mockTypedArrays;
     @Mock
@@ -51,7 +50,7 @@ public class MessageFragmentTest {
         when(mockTypedArrays.getString(R.styleable.MessageFragmentArguments_message_header)).thenReturn("Emergency Message");
         messageFragment.onInflate(mockFragmentActivity, mockAttrs, null);
 
-        RoboFragmentActivity roboFragmentActivity = new RoboFragmentActivity();
+        FragmentActivity roboFragmentActivity = new FragmentActivity();
         FragmentManager fragmentManager = roboFragmentActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(messageFragment, null);

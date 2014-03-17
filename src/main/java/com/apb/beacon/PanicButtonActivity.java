@@ -1,5 +1,6 @@
 package com.apb.beacon;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,7 @@ import android.view.ViewGroup;
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 
-import roboguice.activity.RoboActivity;
-
-public abstract class PanicButtonActivity extends RoboActivity {
+public abstract class PanicButtonActivity extends Activity {
     public static final int ADD_TO_TOP = 0;
 
     @Override

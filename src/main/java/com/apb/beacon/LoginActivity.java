@@ -9,9 +9,7 @@ import android.widget.EditText;
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.common.AppUtil;
 
-import roboguice.inject.ContentView;
 
-@ContentView(R.layout.login_screen_layout)
 public class LoginActivity extends PanicButtonActivity {
 
     private EditText passwordEditText;
@@ -21,6 +19,7 @@ public class LoginActivity extends PanicButtonActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_screen_layout);
 
         passwordEditText = (EditText) findViewById(R.id.create_pin_edittext);
 
@@ -40,7 +39,7 @@ public class LoginActivity extends PanicButtonActivity {
                     }
                     startActivity(i);
 
-
+                    finish();
                     return;
                 }
                 AppUtil.setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
@@ -48,4 +47,5 @@ public class LoginActivity extends PanicButtonActivity {
             }
         });
     }
+    
 }
