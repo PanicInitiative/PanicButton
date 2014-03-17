@@ -77,7 +77,7 @@ public class MainActivity extends FragmentActivity {
                 fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             } else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                Intent i = new Intent(MainActivity.this, WizardModalActivity.class);
+                Intent i = new Intent(MainActivity.this, MainModalActivity.class);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_MAIN_ACTIVITY);
                 startActivity(i);
