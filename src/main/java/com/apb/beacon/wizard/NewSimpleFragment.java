@@ -270,25 +270,25 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(">>>>>", "onPause NewSimpleFragment");
+        Log.e("NewSimpleFragment.onPause", currentPage.getId());
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(">>>>>>>>>>", "onStop NewSimpleFragment");
+        Log.d("NewSimpleFragment.onStop", currentPage.getId());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(">>>>>>>>>>", "onStart NewSimpleFragment");
+        Log.d("NewSimpleFragment.onStart", currentPage.getId());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(">>>>>>>>>>", "onResume NewSimpleFragment");
+        Log.d("NewSimpleFragment.onResume", currentPage.getId());
         if(currentPage.getId().equals("home-not-configured-alarm")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
         } else if(currentPage.getId().equals("home-not-configured-disguise")){
@@ -312,12 +312,17 @@ public class NewSimpleFragment extends Fragment {
                                 Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
 
                                 int width, height;
-                                int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 2.25);
-                                int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 2.25);
+                                
+                                //int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 2.25);
+                                //int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 2.25);
+                                int originalWidthScaled = (int) drawable.getIntrinsicWidth();
+                                int originalHeightScaled = (int) drawable.getIntrinsicHeight();
                                 if (originalWidthScaled > metrics.widthPixels) {
                                     height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
                                     width = metrics.widthPixels;
                                 } else {
+                                    //    height = originalHeightScaled;
+                                    //    width = originalWidthScaled;
                                     height = originalHeightScaled;
                                     width = originalWidthScaled;
                                 }
