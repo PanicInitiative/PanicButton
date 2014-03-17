@@ -39,7 +39,7 @@ public class LoginActivity extends PanicButtonActivity {
                     }
                     startActivity(i);
 
-
+                    finish();
                     return;
                 }
                 AppUtil.setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
@@ -47,4 +47,5 @@ public class LoginActivity extends PanicButtonActivity {
             }
         });
     }
+    
 }
