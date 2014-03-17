@@ -133,7 +133,7 @@
                     <zipalign>
                         <verbose>true</verbose>
                         <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}-${app.version.prefix}.apk</outputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-dev.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>
