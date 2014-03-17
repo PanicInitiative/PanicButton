@@ -37,7 +37,7 @@ Install `calabash-android` by running
  
 
 
-[Steps for tests](https://github.com/calabash/calabash-android/blob/master/documentation/ruby_api.md)
+[Steps for tests](https://github.com/calabash/calabash-android/blob/master/ruby-gem/lib/calabash-android/canned_steps.md)
 
 
 
