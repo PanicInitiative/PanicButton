@@ -51,3 +51,5 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 Check the instructions to setup IDE [here](https://github.com/PanicButton/PanicButton/wiki/IDE-Setup-Instructions)
 
 THAT'S ALL FOLKS :-)
+
+Check for merging
