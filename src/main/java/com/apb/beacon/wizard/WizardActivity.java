@@ -219,6 +219,7 @@ public class WizardActivity extends FragmentActivity {
 
             if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
                 pageId = "home-not-configured";
+//            	pageId = "setup-contacts";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
