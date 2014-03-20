@@ -135,14 +135,15 @@ public class AlarmTestHardwareFragment extends Fragment {
         if (textHtml == null) return;
         Spanned spanned = Html.fromHtml(textHtml,
                 new Html.ImageGetter() {
-                    @Override
+                    @SuppressWarnings("unchecked")
+					@Override
                     public Drawable getDrawable(final String source) {
                         if(!AppUtil.hasInternet(activity) && downloadImages){
                             try {
                                 Log.e(">>>>>>>>>>>", "Source = " + source);
                                 Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
 
-                                int width, height;
+                                /*int width, height;
                                 int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 2.25);
                                 int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 2.25);
                                 if (originalWidthScaled > metrics.widthPixels) {
@@ -156,7 +157,10 @@ public class AlarmTestHardwareFragment extends Fragment {
                                     drawable.setBounds(0, 0, width, height);
                                     Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
                                 } catch (Exception ex) {
-                                }
+                                }*/
+                                
+                              //densityRatio = 2.25 here because on top @KHOBAIB the values are 2.25 (line 147-148)
+                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 2.25);
                                 mImageCache.put(source, drawable);
                                 updateImages(false, textHtml);
                                 return drawable;
@@ -174,26 +178,35 @@ public class AlarmTestHardwareFragment extends Fragment {
                             new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
                                 @Override
                                 public void onImageDownloadComplete(byte[] bitmapData) {
-                                    Drawable drawable = new BitmapDrawable(getResources(),
-                                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
-
-                                    int width, height;
-                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
-                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
-                                    if (originalWidthScaled > metrics.widthPixels) {
-                                        height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
-                                        width = metrics.widthPixels;
-                                    } else {
-                                        height = originalHeightScaled;
-                                        width = originalWidthScaled;
-                                    }
                                     try {
-                                        drawable.setBounds(0, 0, width, height);
-                                        Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
-                                    } catch (Exception ex) {
-                                    }
-                                    mImageCache.put(source, drawable);
-                                    updateImages(false, textHtml);
+										Drawable drawable = new BitmapDrawable(getResources(),
+										        BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
+
+										/*int width, height;
+										int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
+										int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
+										if (originalWidthScaled > metrics.widthPixels) {
+										    height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
+										    width = metrics.widthPixels;
+										} else {
+										    height = originalHeightScaled;
+										    width = originalWidthScaled;
+										}
+										try {
+										    drawable.setBounds(0, 0, width, height);
+										    Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
+										} catch (Exception ex) {
+										}*/
+										
+//										TODO: @Khobaib please validate the Refactored code
+										//densityRatio = 0.75 here because on top @KHOBAIB the values are 0.75 (line 360-361)
+										drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.75);
+										mImageCache.put(source, drawable);
+										updateImages(false, textHtml);
+									} catch (Exception e) {
+										e.printStackTrace();
+										Log.e(">>>>>>>>>>>>>>","Failed to download image");
+									}
                                 }
 
                                 @Override

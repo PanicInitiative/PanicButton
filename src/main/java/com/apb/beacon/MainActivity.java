@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
@@ -43,6 +44,8 @@ public class MainActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
+        
+//        AppUtil.CheckCurrentRunningActivity(MainActivity.this);
 
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 //        tvToastMessage.setVisibility(View.GONE);

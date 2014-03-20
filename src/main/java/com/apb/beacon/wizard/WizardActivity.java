@@ -24,6 +24,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -46,6 +47,8 @@ public class WizardActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
 
+        AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
+        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
         IntentFilter intentFilter = new IntentFilter();

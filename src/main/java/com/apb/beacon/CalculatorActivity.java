@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.apb.beacon.calculator.CalculatorImpl;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
 
@@ -32,6 +33,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
 
+		AppUtil.CheckCurrentRunningActivity(CalculatorActivity.this);
 		calculator = new CalculatorImpl();
 		
         ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
