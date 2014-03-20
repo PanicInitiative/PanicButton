@@ -41,7 +41,7 @@ public class CheckRunningApplicationReceiver extends BroadcastReceiver {
 				    || aTask.topActivity.getClassName().equals("com.android.contacts.DialtactsActivity"))
 				{
 					// When user on call screen show a alert message
-                    Toast.makeText(aContext, "Phone Call Screen.", Toast.LENGTH_LONG).show();	
+//                    Toast.makeText(aContext, "Phone Call Screen.", Toast.LENGTH_LONG).show();	
 				}
 				
 				// Used to check for SMS screen
@@ -50,7 +50,7 @@ public class CheckRunningApplicationReceiver extends BroadcastReceiver {
 					    || aTask.topActivity.getClassName().equals("com.android.mms.ui.ComposeMessageActivity"))
 				{
 					// When user on Send SMS screen show a alert message
-                    Toast.makeText(aContext, "Send SMS Screen.", Toast.LENGTH_LONG).show();	
+//                    Toast.makeText(aContext, "Send SMS Screen.", Toast.LENGTH_LONG).show();	
 				}
 				
 				
@@ -61,7 +61,7 @@ public class CheckRunningApplicationReceiver extends BroadcastReceiver {
 				if (aTask.topActivity.getClassName().equals(
 						packageName + ".Main"))
 				{
-                   Toast.makeText(aContext, "Current Example Screen.", Toast.LENGTH_LONG).show();	
+//                   Toast.makeText(aContext, "Current Example Screen.", Toast.LENGTH_LONG).show();	
 				}
 				
 				

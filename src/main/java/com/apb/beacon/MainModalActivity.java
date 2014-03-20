@@ -43,8 +43,6 @@ public class MainModalActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
         
-//        AppUtil.CheckCurrentRunningActivity(MainModalActivity.this);
-
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
         tvContent = (TextView) findViewById(R.id.fragment_contents);

@@ -1,16 +1,12 @@
 package com.apb.beacon.wizard;
 
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +18,7 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
@@ -31,7 +28,7 @@ import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
-public class WizardActivity extends FragmentActivity {
+public class WizardActivity extends BaseFragmentActivity {
 //    private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -46,14 +43,13 @@ public class WizardActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
+        
+        callFinishActivityReceivier();
 
         AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.apb.beacon.ACTION_LOGOUT");
-        registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
@@ -271,20 +267,5 @@ public class WizardActivity extends FragmentActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(activityFinishReceiver);
-    }
 
-    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
-                Log.d("WizardActivity.onReceive","Logout in progress");
-                finish();
-            }
-        }
-    };
 }
