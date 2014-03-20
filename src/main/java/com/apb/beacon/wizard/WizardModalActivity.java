@@ -18,6 +18,7 @@ import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageCheckListAdapter;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -118,8 +119,7 @@ public class WizardModalActivity extends Activity {
                         }
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i = AppUtil.clearBackStack(i);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
@@ -165,8 +165,7 @@ public class WizardModalActivity extends Activity {
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
 //                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i = AppUtil.clearBackStack(i);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 

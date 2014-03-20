@@ -94,8 +94,7 @@ public class HomeActivity extends Activity {
 
     private void startFacade() {
     	Intent i = new Intent(this, CalculatorActivity.class);
-    	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	i = AppUtil.clearBackStack(i);
         startActivity(i);
     }
 
@@ -104,6 +103,7 @@ public class HomeActivity extends Activity {
             @Override
             public void run() {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -249,10 +249,13 @@ public class HomeActivity extends Activity {
 					}
                 if (isFirstRun(HomeActivity.this)) {
                     Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     i.putExtra("page_id", pageId);
                     startActivity(i);
                 } else {
-                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
+                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+                	i = AppUtil.clearBackStack(i);
+                    startActivity(i);
                 }
             }
         }
@@ -315,9 +318,12 @@ public class HomeActivity extends Activity {
 
                 if (isFirstRun(HomeActivity.this)) {
                     Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     i.putExtra("page_id", pageId);
                     startActivity(i);
                 } else {
+                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
                 }
             }

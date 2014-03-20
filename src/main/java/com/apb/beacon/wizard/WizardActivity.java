@@ -87,8 +87,7 @@ public class WizardActivity extends FragmentActivity {
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
                 startActivity(i);
@@ -208,6 +207,7 @@ public class WizardActivity extends FragmentActivity {
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
             Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            i = AppUtil.clearBackStack(i);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
@@ -234,8 +234,7 @@ public class WizardActivity extends FragmentActivity {
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i = AppUtil.clearBackStack(i);
             i.putExtra("page_id", pageId);
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
@@ -263,8 +262,7 @@ public class WizardActivity extends FragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-        }
-        else{
+        }else{
             super.onBackPressed();
         }
         AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
