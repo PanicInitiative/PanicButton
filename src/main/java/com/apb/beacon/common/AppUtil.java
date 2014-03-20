@@ -134,6 +134,14 @@ public class AppUtil {
             ((ViewGroup) view).removeAllViews();
         }
     }
+    
+    
+    //clear background activity
+    public static Intent clearBackStack(Intent i){
+    	i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return i;
+    }
 
 
 }
