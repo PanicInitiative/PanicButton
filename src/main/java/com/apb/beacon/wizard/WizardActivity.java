@@ -262,6 +262,8 @@ public class WizardActivity extends FragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
+//        	finish();
+        	startActivity(AppUtil.behaveAsHomeButton());
         }else{
             super.onBackPressed();
         }

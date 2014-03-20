@@ -142,6 +142,14 @@ public class AppUtil {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return i;
     }
+    
+    //change the behave of device back button to device HomeButton
+    public static Intent behaveAsHomeButton(){
+		   Intent i = new Intent(Intent.ACTION_MAIN);
+		   i.addCategory(Intent.CATEGORY_HOME);
+		   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		   return i;
+    }
 
 
 }
