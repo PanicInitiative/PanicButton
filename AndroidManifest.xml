@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application android:icon="@drawable/icon_calculator"
                  android:theme="@android:style/Theme.Light.NoTitleBar"
@@ -99,6 +100,17 @@
                 <action android:name="com.apb.beacon.SEND_ALERT_ACTION"/>
             </intent-filter>
         </receiver>
+        
+        
+        <!--Check Current Running Activity Receivers -->
+        <receiver android:name=".trigger.StartupReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="StartupReceiver_Manual_Start" />
+			</intent-filter>
+		</receiver>
+		
+        <receiver android:name = ".trigger.CheckRunningApplicationReceiver"/>
         
     </application>
 </manifest>

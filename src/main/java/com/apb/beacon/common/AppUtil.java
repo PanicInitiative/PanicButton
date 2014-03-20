@@ -1,16 +1,21 @@
 package com.apb.beacon.common;
 
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.Html;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class AppUtil {
     public static void setError(Context context, EditText editText, int messageId) {
@@ -82,5 +87,53 @@ public class AppUtil {
             return true;
         return false;
     }
+    
+    
+    //set display metrics of drawable for downloaded image
+	public static Drawable setDownloadedImageMetrices(Drawable drawable,
+			DisplayMetrics metrics, double densityRatio) {
+
+		int width, height;
+		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
+		int originalHeightScaled = (int) (drawable.getIntrinsicHeight()* metrics.density * densityRatio);
+		if (originalWidthScaled > metrics.widthPixels) {
+			height = drawable.getIntrinsicHeight() * metrics.widthPixels/ drawable.getIntrinsicWidth();
+			width = metrics.widthPixels;
+		} else {
+			height = originalHeightScaled;
+			width = originalWidthScaled;
+		}
+		try {
+			drawable.setBounds(0, 0, width, height);
+			Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = "+ height);
+		} catch (Exception ex) {
+		}
+
+		return drawable;
+	}
+	
+	//call the receiver to check the current running activity
+    public static void CheckCurrentRunningActivity(Context context) {
+		
+		// Start receiver with the name StartupReceiver_Manual_Start
+		// Check AndroidManifest.xml file
+    	context.getApplicationContext().sendBroadcast(
+				new Intent("StartupReceiver_Manual_Start"));
+	}
+    
+    
+    //remove all the views of previous activity to clear memory
+    public void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
+            }
+            ((ViewGroup) view).removeAllViews();
+        }
+    }
+
 
 }
