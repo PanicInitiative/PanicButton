@@ -123,7 +123,7 @@ public class AppUtil {
     
     
     //remove all the views of previous activity to clear memory
-    public void unbindDrawables(View view) {
+    public static void unbindDrawables(View view) {
         if (view.getBackground() != null) {
             view.getBackground().setCallback(null);
         }

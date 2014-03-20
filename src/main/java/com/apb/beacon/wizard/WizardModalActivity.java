@@ -118,6 +118,8 @@ public class WizardModalActivity extends Activity {
                         }
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
@@ -163,6 +165,8 @@ public class WizardModalActivity extends Activity {
 
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
 //                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 

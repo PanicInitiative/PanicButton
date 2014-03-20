@@ -87,6 +87,8 @@ public class WizardActivity extends FragmentActivity {
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
                 startActivity(i);
@@ -232,6 +234,8 @@ public class WizardActivity extends FragmentActivity {
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.putExtra("page_id", pageId);
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);

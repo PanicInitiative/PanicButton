@@ -191,4 +191,19 @@ public class CalculatorActivity extends PanicButtonActivity {
 		String displayText = calculator.handleButtonPress(button);
 		display.setText(displayText);
 	}
+	
+	@Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+        System.gc();
+    }
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+        System.gc();
+		finish();
+	}
 }
