@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.apb.beacon.ApplicationSettings.getLocalDataInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
-import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
 
 public class HomeActivity extends Activity {
 
@@ -40,6 +38,8 @@ public class HomeActivity extends Activity {
 
     int lastUpdatedVersion;
     int latestVersion;
+    long lastRunTimeInMillis;
+    int lastDBVersion;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +62,30 @@ public class HomeActivity extends Activity {
             pageId = "home-ready";
         }
 
-        checkIfUpdateNeeded();
-        if (!isFirstRun(HomeActivity.this)) {
-            startFacade();
+        selectedLang = ApplicationSettings.getSelectedLanguage(this);
+        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
+
+        lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
+
+        lastDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
+//        Log.e(">>>>>>", "lastDBVersion = " + lastDBVersion);
+
+        if(lastDBVersion < AppConstants.DATABASE_VERSION){
+            ApplicationSettings.setLocalDataInsertion(this, false);
+            lastRunTimeInMillis = -1;
+        }
+
+        if (!ApplicationSettings.getLocalDataInsertion(HomeActivity.this)) {
+            new InitializeLocalData().execute();
+        }
+
+        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+            Log.e(">>>>", "last run not today");
+            new GetLatestVersion().execute();
+        }
+
+        else{
+            startNextActivity();
         }
     }
     
@@ -75,28 +96,17 @@ public class HomeActivity extends Activity {
         System.gc();
     }
 
-    private void checkIfUpdateNeeded() {
-        long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
-
-        if (!getLocalDataInsertion(HomeActivity.this)) {
-            new InitializeLocalData().execute();
-        } 
-
-        if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
-            Log.e(">>>>", "last run not today");
-
-            selectedLang = ApplicationSettings.getSelectedLanguage(this);
-            helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
-            
-            new GetLatestVersion().execute();
+    private void startNextActivity(){
+        if (isFirstRun(HomeActivity.this)) {
+            Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+            startActivity(i);
         }
     }
 
-    private void startFacade() {
-    	Intent i = new Intent(this, CalculatorActivity.class);
-    	i = AppUtil.clearBackStack(i);
-        startActivity(i);
-    }
 
     private void startWizard() {
         new Timer().schedule(new TimerTask() {
@@ -123,63 +133,63 @@ public class HomeActivity extends Activity {
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            lastUpdatedVersion = mobileObj.getInt("version");
 	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	        
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            lastUpdatedVersion = mobileObj.getInt("version");
 	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
@@ -198,12 +208,15 @@ public class HomeActivity extends Activity {
 					e.printStackTrace();
 				}
 
-            setLocalDataInsertion(HomeActivity.this, true);
-            
-            if (isFirstRun(HomeActivity.this)) {
-            	startWizard();
-                return;
-            } 
+            ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
+            ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, AppConstants.DATABASE_VERSION);
+
+            if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+                Log.e(">>>>", "last run not today");
+                new GetLatestVersion().execute();
+            } else{
+                startNextActivity();;
+            }
         }
     }
     
@@ -241,22 +254,14 @@ public class HomeActivity extends Activity {
             if (latestVersion > lastUpdatedVersion) {
                 new GetMobileDataUpdate().execute();
             } else {
+                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
                 if (pDialog.isShowing())
 					try {
 						pDialog.dismiss();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-                if (isFirstRun(HomeActivity.this)) {
-                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                    i = AppUtil.clearBackStack(i);
-                    i.putExtra("page_id", pageId);
-                    startActivity(i);
-                } else {
-                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
-                	i = AppUtil.clearBackStack(i);
-                    startActivity(i);
-                }
+                    startNextActivity();
             }
         }
     }
@@ -320,16 +325,7 @@ public class HomeActivity extends Activity {
                 if (pDialog.isShowing())
                     pDialog.dismiss();
 
-                if (isFirstRun(HomeActivity.this)) {
-                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                    i = AppUtil.clearBackStack(i);
-                    i.putExtra("page_id", pageId);
-                    startActivity(i);
-                } else {
-                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
-                    i = AppUtil.clearBackStack(i);
-                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
-                }
+                startNextActivity();
             }
         }
     }
@@ -381,13 +377,7 @@ public class HomeActivity extends Activity {
 					e.printStackTrace();
 				}
 
-            if (isFirstRun(HomeActivity.this)) {
-                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                i.putExtra("page_id", pageId);
-                startActivity(i);
-            } else {
-                startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
-            }
+            startNextActivity();
         }
     }
 
