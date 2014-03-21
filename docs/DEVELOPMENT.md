@@ -19,7 +19,7 @@ Select "Android 4.2 (API 17) > SDK Platform"
 Click on Install packages button.
 ```
 
-![Android SDK Manager](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/1.png)
+![Android SDK Manager](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/1.png)
 
 ```
 Accept the licenses
@@ -27,7 +27,7 @@ Click Install
 (Note that this will take a while)
 ```
 
-![Licenses](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/2.png)
+![Licenses](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/2.png)
 
 ```
 Close the SDK Manager.
@@ -102,7 +102,7 @@ Navigate to /usr/local/Cellar/maven/3.1.1/libexec
 Yes that's right. No copy and pasting the path on OSX... Still here? Wishing you'd helped us move to Gradle instead yet?
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/a.4.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/a.4.png)
 
 ```
 Last step.
