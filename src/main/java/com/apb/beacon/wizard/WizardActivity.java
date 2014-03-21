@@ -1,16 +1,12 @@
 package com.apb.beacon.wizard;
 
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -22,15 +18,17 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
-public class WizardActivity extends FragmentActivity {
+public class WizardActivity extends BaseFragmentActivity {
 //    private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -45,12 +43,13 @@ public class WizardActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
+        
+        callFinishActivityReceivier();
 
+        AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
+        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.apb.beacon.ACTION_LOGOUT");
-        registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
@@ -84,6 +83,7 @@ public class WizardActivity extends FragmentActivity {
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
                 startActivity(i);
@@ -203,6 +203,7 @@ public class WizardActivity extends FragmentActivity {
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
             Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            i = AppUtil.clearBackStack(i);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
@@ -219,6 +220,7 @@ public class WizardActivity extends FragmentActivity {
 
             if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
                 pageId = "home-not-configured";
+//            	pageId = "setup-contacts";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
@@ -228,6 +230,7 @@ public class WizardActivity extends FragmentActivity {
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i = AppUtil.clearBackStack(i);
             i.putExtra("page_id", pageId);
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
@@ -255,28 +258,14 @@ public class WizardActivity extends FragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-        }
-        else{
+//        	finish();
+        	startActivity(AppUtil.behaveAsHomeButton());
+        }else{
             super.onBackPressed();
         }
         AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(activityFinishReceiver);
-    }
 
-    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
-                Log.d("WizardActivity.onReceive","Logout in progress");
-                finish();
-            }
-        }
-    };
 }

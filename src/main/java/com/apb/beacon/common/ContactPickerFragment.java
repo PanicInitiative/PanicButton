@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -55,6 +56,7 @@ public class ContactPickerFragment extends Fragment {
         contactPickerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+            	AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
                 launchContactPicker(v);
             }
         });

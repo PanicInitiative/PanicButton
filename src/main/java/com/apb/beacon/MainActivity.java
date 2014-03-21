@@ -1,14 +1,11 @@
 package com.apb.beacon;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -23,13 +20,11 @@ import com.apb.beacon.sms.SetupMessageFragment;
 import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
-import com.apb.beacon.wizard.WizardActivity;
-import com.apb.beacon.wizard.WizardModalActivity;
 
 /**
  * Created by aoe on 2/15/14.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     TextView tvToastMessage;
 
@@ -43,13 +38,11 @@ public class MainActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
-
+        
+        callFinishActivityReceivier();
+        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 //        tvToastMessage.setVisibility(View.GONE);
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.apb.beacon.ACTION_LOGOUT");
-        registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
@@ -162,22 +155,8 @@ public class MainActivity extends FragmentActivity {
         AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(activityFinishReceiver);
-    }
 
-    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
-                Log.d("MainActivity.onReceive","Logout in progress");
-                finish();
-            }
-        }
-    };
 
 
 }
