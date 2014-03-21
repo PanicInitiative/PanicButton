@@ -18,7 +18,11 @@ public class BaseFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(activityFinishReceiver);
+		try {
+			unregisterReceiver(activityFinishReceiver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
@@ -26,7 +30,7 @@ public class BaseFragmentActivity extends FragmentActivity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
-				Log.d("MainActivity.onReceive", "Logout in progress");
+//				Log.d("MainActivity.onReceive", "Logout in progress");
 				finish();
 			}
 		}

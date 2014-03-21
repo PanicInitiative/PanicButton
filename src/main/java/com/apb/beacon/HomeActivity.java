@@ -268,7 +268,11 @@ public class HomeActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+            try {
+				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
        }
 
         @Override
@@ -338,7 +342,11 @@ public class HomeActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
+            try {
+				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
 
         @Override
@@ -367,7 +375,11 @@ public class HomeActivity extends Activity {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
-                pDialog.dismiss();
+				try {
+					pDialog.dismiss();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
             if (isFirstRun(HomeActivity.this)) {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
