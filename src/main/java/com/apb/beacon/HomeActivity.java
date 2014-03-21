@@ -45,6 +45,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
 
+        AppUtil.CheckCurrentRunningActivity(HomeActivity.this);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
@@ -66,6 +67,13 @@ public class HomeActivity extends Activity {
             startFacade();
         }
     }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+        System.gc();
+    }
 
     private void checkIfUpdateNeeded() {
         long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
@@ -85,7 +93,9 @@ public class HomeActivity extends Activity {
     }
 
     private void startFacade() {
-        startActivity(new Intent(this, CalculatorActivity.class));
+    	Intent i = new Intent(this, CalculatorActivity.class);
+    	i = AppUtil.clearBackStack(i);
+        startActivity(i);
     }
 
     private void startWizard() {
@@ -93,6 +103,7 @@ public class HomeActivity extends Activity {
             @Override
             public void run() {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -181,7 +192,11 @@ public class HomeActivity extends Activity {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
-                pDialog.dismiss();
+				try {
+					pDialog.dismiss();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
             setLocalDataInsertion(HomeActivity.this, true);
             
@@ -227,13 +242,20 @@ public class HomeActivity extends Activity {
                 new GetMobileDataUpdate().execute();
             } else {
                 if (pDialog.isShowing())
-                    pDialog.dismiss();
+					try {
+						pDialog.dismiss();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
                 if (isFirstRun(HomeActivity.this)) {
                     Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     i.putExtra("page_id", pageId);
                     startActivity(i);
                 } else {
-                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
+                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+                	i = AppUtil.clearBackStack(i);
+                    startActivity(i);
                 }
             }
         }
@@ -296,9 +318,12 @@ public class HomeActivity extends Activity {
 
                 if (isFirstRun(HomeActivity.this)) {
                     Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     i.putExtra("page_id", pageId);
                     startActivity(i);
                 } else {
+                	Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+                    i = AppUtil.clearBackStack(i);
                     startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
                 }
             }

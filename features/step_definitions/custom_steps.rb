@@ -13,3 +13,24 @@ end
 Then /^I enter "(.*?)" into contact field (\d+)$/ do |text_to_enter, index|
   query("editText id:'contact_edit_text' index:#{index}", {:setText => text_to_enter})
 end
+
+Then /^I press back button$/ do
+  Device.adb_command("shell input keyevent 4")
+end
+
+Then /^I press home button$/ do
+  Device.adb_command("shell input keyevent 3")
+end
+
+Then /^I tern off wifi$/ do
+  Device.install_development_app
+  Device.open_dev_app_connection_settings
+  Device.adb_command("shell input keyevent 61")
+  Device.adb_command("shell input keyevent 23")
+end
+
+Then /^I tern on wifi$/ do
+  Device.install_development_app
+  Device.open_dev_app_connection_settings
+  Device.adb_command("shell input keyevent 23")
+end

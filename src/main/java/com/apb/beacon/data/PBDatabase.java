@@ -27,7 +27,7 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 11;
+    private static final int DATABASE_VERSION = 12;
 
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -48,15 +48,15 @@ public class PBDatabase {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            //PageDbManager.dropTable(db);
-            //PageStatusDbManager.dropTable(db);
-            //PageItemDbManager.dropTable(db);
-            //PageActionDbManager.dropTable(db);
-            //PageTimerDbManager.dropTable(db);
-            //PageChecklistDbManager.dropTable(db);
-            //HelpPageDbManager.dropTable(db);
+            PageDbManager.dropTable(db);
+            PageStatusDbManager.dropTable(db);
+            PageItemDbManager.dropTable(db);
+            PageActionDbManager.dropTable(db);
+            PageTimerDbManager.dropTable(db);
+            PageChecklistDbManager.dropTable(db);
+            HelpPageDbManager.dropTable(db);
 
-            //onCreate(db);
+            onCreate(db);
         }
     }
 
