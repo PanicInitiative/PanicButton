@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
@@ -27,12 +28,10 @@ public class PBDatabase {
     private Context mContext;
 
     private static final String DATABASE_NAME = "pb_db";
-    private static final int DATABASE_VERSION = 12;
-
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context ctx) {
-            super(ctx, DATABASE_NAME, null, DATABASE_VERSION);
+            super(ctx, DATABASE_NAME, null, AppConstants.DATABASE_VERSION);
         }
 
         @Override
