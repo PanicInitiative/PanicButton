@@ -1,9 +1,6 @@
 package com.apb.beacon;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
@@ -115,9 +113,7 @@ public class MainActivity extends BaseFragmentActivity {
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
+            callFinishActivityReceivier();
 
             finish();
             return;
@@ -148,6 +144,8 @@ public class MainActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
+        	finish();
+        	startActivity(AppUtil.behaveAsHomeButton());
         }
         else{
             super.onBackPressed();

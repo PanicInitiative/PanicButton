@@ -202,16 +202,16 @@ public class WizardActivity extends BaseFragmentActivity {
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-            Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            
+        	callFinishActivityReceivier();
+            finish();
+        	
+        	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
             i = AppUtil.clearBackStack(i);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
-
-            finish();
+            
             return;
         }
 
@@ -235,9 +235,7 @@ public class WizardActivity extends BaseFragmentActivity {
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.apb.beacon.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
+            callFinishActivityReceivier();
 
             finish();
         }
@@ -258,7 +256,7 @@ public class WizardActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-//        	finish();
+        	finish();
         	startActivity(AppUtil.behaveAsHomeButton());
         }else{
             super.onBackPressed();

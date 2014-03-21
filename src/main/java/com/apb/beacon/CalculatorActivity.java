@@ -202,7 +202,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	@Override
 	public void onBackPressed() {
 //		super.onBackPressed();
-		finish();
+//		finish();
 		Log.d("CDA", "onBackPressed Called");
 		   startActivity(AppUtil.behaveAsHomeButton());
 	}
