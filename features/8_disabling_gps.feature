@@ -2,7 +2,7 @@
 Feature: Sending sms with different gps status
 
   Scenario: Setting up
-    Given I wait upto 60 seconds for the "WizardActivity" screen to appear
+    Given I wait upto 120 seconds for the "WizardActivity" screen to appear
     And I press "Set-Up"
     And I press "Get started"
     And I wait for 1 second

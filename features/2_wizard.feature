@@ -2,7 +2,7 @@
 Feature: One time setup wizard
 
   Background: Start the wizard
-    Given I wait upto 60 seconds for the "WizardActivity" screen to appear
+    Given I wait upto 120 seconds for the "WizardActivity" screen to appear
 
   Scenario: Phone book return
     And I see the text "Panic Button"
