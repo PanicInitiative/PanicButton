@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import com.apb.beacon.AppConstants;
-import com.apb.beacon.model.HelpImage;
 import com.apb.beacon.model.HelpPage;
+import com.apb.beacon.model.PageItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,25 +27,24 @@ public class HelpPageDbManager {
     private static final String PAGE_TYPE = "page_type";
     private static final String PAGE_TITLE = "page_title";
     private static final String PAGE_HEADING = "page_heading";
-    private static final String PAGE_CATEGORIES = "page_categories";
+//    private static final String PAGE_CATEGORIES = "page_categories";
     private static final String PAGE_SECTION_ORDER = "page_section_order";
-    private static final String PAGE_TOC = "page_toc";
-    private static final String PAGE_IMAGE_TITLE = "page_image_title";
-    private static final String PAGE_IMAGE_CAPTION = "page_image_caption";
-    private static final String PAGE_IMAGE_SRC = "page_image_src";
-    private static final String PAGE_ALERT = "page_alert";
+//    private static final String PAGE_TOC = "page_toc";
+//    private static final String PAGE_IMAGE_TITLE = "page_image_title";
+//    private static final String PAGE_IMAGE_CAPTION = "page_image_caption";
+//    private static final String PAGE_IMAGE_SRC = "page_image_src";
+//    private static final String PAGE_ALERT = "page_alert";
     private static final String PAGE_CONTENT = "page_content";
 
 
     private static final String CREATE_TABLE_CONTENT_HELP = "create table " + TABLE_CONTENT_HELP + " ( "
-            + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
-            + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_HEADING + " text, " + PAGE_CATEGORIES + " text, "
-            + PAGE_SECTION_ORDER + " text, " + PAGE_TOC + " text, " + PAGE_IMAGE_TITLE + " text, " + PAGE_IMAGE_CAPTION + " text, "
-            + PAGE_IMAGE_SRC + " text, " + PAGE_CONTENT + " text, " + PAGE_ALERT + " text);";
+            + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, "
+            + PAGE_LANGUAGE + " text, " + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_HEADING + " text, "
+            + PAGE_SECTION_ORDER + " text, " + PAGE_CONTENT + " text);";
 
-    private static final String INSERT_SQL = "insert into  " + TABLE_CONTENT_HELP + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
-            + PAGE_TITLE + ", " + PAGE_HEADING + ", " + PAGE_CATEGORIES + ", " + PAGE_SECTION_ORDER + ", " + PAGE_TOC + ", " + PAGE_CONTENT
-            + ", " + PAGE_ALERT + ", " + PAGE_IMAGE_TITLE + ", " + PAGE_IMAGE_CAPTION + ", " + PAGE_IMAGE_SRC + ") values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_SQL = "insert into  " + TABLE_CONTENT_HELP + " (" + PAGE_ID + ", "
+            + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", " + PAGE_TITLE + ", " + PAGE_HEADING + ", " + PAGE_SECTION_ORDER
+            + ", " + PAGE_CONTENT + ") values (?,?,?,?,?,?,?)";
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CONTENT_HELP);
@@ -71,25 +70,10 @@ public class HelpPageDbManager {
             insertStatement.bindString(4, page.getTitle());
         if (page.getHeading() != null)
             insertStatement.bindString(5, page.getHeading());
-        if (page.getCategories() != null)
-            insertStatement.bindString(6, page.getCategories());
         if (page.getSectionOrder() != null)
-            insertStatement.bindString(7, page.getSectionOrder());
-        if (page.getToc() != null)
-            insertStatement.bindString(8, page.getToc());
+            insertStatement.bindString(6, page.getSectionOrder());
         if (page.getContent() != null)
-            insertStatement.bindString(9, page.getContent());
-        if (page.getAlert() != null)
-            insertStatement.bindString(10, page.getAlert());
-
-        if (page.getImage() != null) {
-            if (page.getImage().getTitle() != null)
-                insertStatement.bindString(11, page.getImage().getTitle());
-            if (page.getImage().getCaption() != null)
-                insertStatement.bindString(12, page.getImage().getCaption());
-            if (page.getImage().getSrc() != null)
-                insertStatement.bindString(13, page.getImage().getSrc());
-        }
+            insertStatement.bindString(7, page.getContent());
 
         return insertStatement.executeInsert();
 
@@ -128,18 +112,13 @@ public class HelpPageDbManager {
                 String pageType = c.getString(c.getColumnIndex(PAGE_TYPE));
                 String pageTitle = c.getString(c.getColumnIndex(PAGE_TITLE));
                 String pageHeading = c.getString(c.getColumnIndex(PAGE_HEADING));
-                String pageCat = c.getString(c.getColumnIndex(PAGE_CATEGORIES));
                 String pageSectionOrder = c.getString(c.getColumnIndex(PAGE_SECTION_ORDER));
-                String pageToc = c.getString(c.getColumnIndex(PAGE_TOC));
-                String pageImageTitle = c.getString(c.getColumnIndex(PAGE_IMAGE_TITLE));
-                String pageImageCaption = c.getString(c.getColumnIndex(PAGE_IMAGE_CAPTION));
-                String pageImageSrc = c.getString(c.getColumnIndex(PAGE_IMAGE_SRC));
                 String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
-                String pageAlert = c.getString(c.getColumnIndex(PAGE_ALERT));
 
-                HelpImage image = new HelpImage(pageImageTitle, pageImageCaption, pageImageSrc);
-                HelpPage page = new HelpPage(pageId, lang, pageType, pageTitle, pageHeading, pageCat, pageSectionOrder, pageAlert,
-                        pageToc, pageContent, image);
+                List<PageItem> itemList = PageItemDbManager.retrieve(db, pageId, lang);
+
+                HelpPage page = new HelpPage(pageId, lang, pageType, pageTitle, pageHeading,
+                        pageSectionOrder, pageContent, itemList);
                 pageList.add(page);
                 c.moveToNext();
             }
@@ -156,17 +135,8 @@ public class HelpPageDbManager {
         cv.put(PAGE_TYPE, page.getType());
         cv.put(PAGE_TITLE, page.getTitle());
         cv.put(PAGE_HEADING, page.getHeading());
-        cv.put(PAGE_CATEGORIES, page.getCategories());
         cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
-        cv.put(PAGE_TOC, page.getToc());
         cv.put(PAGE_CONTENT, page.getContent());
-        cv.put(PAGE_ALERT, page.getAlert());
-
-        if (page.getImage() != null) {
-            cv.put(PAGE_IMAGE_TITLE, page.getImage().getTitle());
-            cv.put(PAGE_IMAGE_CAPTION, page.getImage().getCaption());
-            cv.put(PAGE_IMAGE_SRC, page.getImage().getSrc());
-        }
 
         return db.update(TABLE_CONTENT_HELP, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
     }

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,12 +31,14 @@ import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageActionFakeAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -194,8 +197,10 @@ public class NewSimpleFragment extends Fragment {
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
-            else
-                tvContent.setText(currentPage.getContent());
+            else {
+                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+            }
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
@@ -265,25 +270,25 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(">>>>>", "onPause NewSimpleFragment");
+        Log.e("NewSimpleFragment.onPause", currentPage.getId());
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d(">>>>>>>>>>", "onStop NewSimpleFragment");
+        Log.d("NewSimpleFragment.onStop", currentPage.getId());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(">>>>>>>>>>", "onStart NewSimpleFragment");
+        Log.d("NewSimpleFragment.onStart", currentPage.getId());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(">>>>>>>>>>", "onResume NewSimpleFragment");
+        Log.d("NewSimpleFragment.onResume", currentPage.getId());
         if(currentPage.getId().equals("home-not-configured-alarm")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
         } else if(currentPage.getId().equals("home-not-configured-disguise")){
@@ -293,12 +298,53 @@ public class NewSimpleFragment extends Fragment {
         }
     }
 
+
+
     private void updateImages(final boolean downloadImages, final String textHtml) {
         if (textHtml == null) return;
         Spanned spanned = Html.fromHtml(textHtml,
                 new Html.ImageGetter() {
-                    @Override
+                    @SuppressWarnings("unchecked")
+					@Override
                     public Drawable getDrawable(final String source) {
+                        if(!AppUtil.hasInternet(activity) && downloadImages){
+                            try {
+                                Log.e(">>>>>>>>>>>", "Source = " + source);
+                                Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
+
+                                /*int width, height;
+                                
+                                //int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 2.25);
+                                //int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 2.25);
+                                int originalWidthScaled = (int) drawable.getIntrinsicWidth();
+                                int originalHeightScaled = (int) drawable.getIntrinsicHeight();
+                                if (originalWidthScaled > metrics.widthPixels) {
+                                    height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
+                                    width = metrics.widthPixels;
+                                } else {
+                                    //    height = originalHeightScaled;
+                                    //    width = originalWidthScaled;
+                                    height = originalHeightScaled;
+                                    width = originalWidthScaled;
+                                }
+                                try {
+                                    drawable.setBounds(0, 0, width, height);
+                                    Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
+                                } catch (Exception ex) {
+                                }*/
+                                
+                              //densityRatio = 1 here because on top @KHOBAIB had commented the value 2.25 (line 316-317)
+                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 1); 
+                                mImageCache.put(source, drawable);
+                                updateImages(false, textHtml);
+                                return drawable;
+                            } catch (IOException e) {
+                            	Log.e(">>>>>>>>>>>>>>","Failed to download image");
+                                e.printStackTrace();
+                            }
+                            return null;
+
+                        }
                         Log.e(">>>>>>", "image src = " + source);
                         Drawable drawable = mImageCache.get(source);
                         if (drawable != null) {
@@ -307,26 +353,34 @@ public class NewSimpleFragment extends Fragment {
                             new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
                                 @Override
                                 public void onImageDownloadComplete(byte[] bitmapData) {
-                                    Drawable drawable = new BitmapDrawable(getResources(),
-                                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
-
-                                    int width, height;
-                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
-                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
-                                    if (originalWidthScaled > metrics.widthPixels) {
-                                        height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
-                                        width = metrics.widthPixels;
-                                    } else {
-                                        height = originalHeightScaled;
-                                        width = originalWidthScaled;
-                                    }
                                     try {
-                                        drawable.setBounds(0, 0, width, height);
-                                        Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
-                                    } catch (Exception ex) {
-                                    }
-                                    mImageCache.put(source, drawable);
-                                    updateImages(false, textHtml);
+										Drawable drawable = new BitmapDrawable(getResources(),
+										        BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
+
+										/*int width, height;
+										int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
+										int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
+										if (originalWidthScaled > metrics.widthPixels) {
+										    height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
+										    width = metrics.widthPixels;
+										} else {
+										    height = originalHeightScaled;
+										    width = originalWidthScaled;
+										}
+										try {
+										    drawable.setBounds(0, 0, width, height);
+										    Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
+										} catch (Exception ex) {
+										}*/
+										
+										//densityRatio = 0.75 here because on top @KHOBAIB the values are 0.75 (line 360-361)
+										drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.75);
+										mImageCache.put(source, drawable);
+										updateImages(false, textHtml);
+									} catch (Exception e) {
+										e.printStackTrace();
+										Log.e(">>>>>>>>>>>>>>","Failed to download image");
+									}
                                 }
 
                                 @Override

@@ -3,6 +3,7 @@ package com.apb.beacon.common;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.EditText;
@@ -16,8 +17,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.tester.android.database.SimpleTestCursor;
-
-import roboguice.activity.RoboFragmentActivity;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -45,7 +44,7 @@ public class ContactPickerFragmentTest {
                 return simpleTestCursor;
             }
         };
-        FragmentManager fragmentManager = new RoboFragmentActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = new FragmentActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(contactPickerFragment, null);
         fragmentTransaction.commit();

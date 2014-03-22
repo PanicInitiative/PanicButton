@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
     <artifactId>panic-button</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.2</version>
     <packaging>apk</packaging>
     <name>Panic Button</name>
 
@@ -19,8 +19,8 @@
     
     <properties>
         <platform.version>4.1.1.4</platform.version>
-        <app.version.prefix>master</app.version.prefix>
-        <app.version.name>${project.version}</app.version.name>
+        <app.version.prefix>dev</app.version.prefix>
+        <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
 
         <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
         <coverageRate>50</coverageRate> <!-- expected coverage rate -->
@@ -41,11 +41,11 @@
             <version>r12</version>
         </dependency>
  
-        <dependency>
+<!--        <dependency>
             <groupId>org.roboguice</groupId>
             <artifactId>roboguice</artifactId>
             <version>2.0</version>
-        </dependency>
+        </dependency>-->
 
         <!-- Test dependencies -->
         <dependency>
@@ -132,8 +132,8 @@
                     <zipalignSkip>false</zipalignSkip>
                     <zipalign>
                         <verbose>true</verbose>
-                        <inputApk>${project.build.directory}/${project.artifactId}-${app.version.name}.apk</inputApk>
-                        <outputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</outputApk>
+                        <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
+                        <outputApk>${project.build.directory}/${project.artifactId}-dev.apk</outputApk>
                     </zipalign>
                     <lint>
                         <config>${project.basedir}/lint.xml</config>

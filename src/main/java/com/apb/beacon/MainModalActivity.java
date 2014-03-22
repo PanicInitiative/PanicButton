@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
-import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageCheckListAdapter;
@@ -28,7 +27,7 @@ import com.apb.beacon.model.Page;
 /**
  * Created by aoe on 1/16/14.
  */
-public class WizardModalActivity extends BaseFragmentActivity {
+public class MainModalActivity extends Activity {
 
     Page currentPage;
     PageCheckListAdapter pageCheckListAdapter;
@@ -43,7 +42,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
-
+        
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
         tvContent = (TextView) findViewById(R.id.fragment_contents);
@@ -107,8 +106,8 @@ public class WizardModalActivity extends BaseFragmentActivity {
 
                     if (pageId.equals("close")) {
 
-                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
+                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                            ApplicationSettings.setFirstRun(MainModalActivity.this, false);
 
                             getPackageManager().setComponentEnabledSetting(
                                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -119,18 +118,19 @@ public class WizardModalActivity extends BaseFragmentActivity {
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                         }
 
-                        Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
-                        i = AppUtil.clearBackStack(i);
+                        Intent i = new Intent(MainModalActivity.this, CalculatorActivity.class);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                        sendBroadcast(broadcastIntent);
 
                         finish();
                     } else {
-                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+                            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -150,8 +150,8 @@ public class WizardModalActivity extends BaseFragmentActivity {
 
                     if (pageId.equals("close")) {
 
-                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
+                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                            ApplicationSettings.setFirstRun(MainModalActivity.this, false);
 
                             getPackageManager().setComponentEnabledSetting(
                                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -162,19 +162,20 @@ public class WizardModalActivity extends BaseFragmentActivity {
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                         }
 
-                        Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
+                        Intent i = new Intent(MainModalActivity.this, CalculatorActivity.class);
 //                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        i = AppUtil.clearBackStack(i);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        Intent broadcastIntent = new Intent();
+                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+                        sendBroadcast(broadcastIntent);
 
                         finish();
                     } else {
-                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+                            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -193,18 +194,10 @@ public class WizardModalActivity extends BaseFragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
         }
-    }
-    
-    @Override
-    protected void onStop() {
-    	// TODO Auto-generated method stub
-    	super.onStop();
-    	callFinishActivityReceivier();
-    	finish();
     }
 
 }

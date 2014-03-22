@@ -20,8 +20,9 @@ import static com.apb.beacon.R.id.first_contact;
 import static com.apb.beacon.R.id.second_contact;
 import static com.apb.beacon.R.id.third_contact;
 
+import static com.apb.beacon.AppConstants.PHONE_NUMBER_LIMIT;
+
 public class ContactEditTexts {
-    public static final int PHONE_NUMBER_LIMIT = 4;
     private List<EditText> contacts = new ArrayList<EditText>();
     private Context context;
 

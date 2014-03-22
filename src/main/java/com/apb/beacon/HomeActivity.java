@@ -1,5 +1,6 @@
 package com.apb.beacon;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,15 +25,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-
-import static com.apb.beacon.ApplicationSettings.getLocalDataInsertion;
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
-import static com.apb.beacon.ApplicationSettings.setLocalDataInsertion;
 
-@ContentView(R.layout.welcome_screen)
-public class HomeActivity extends RoboActivity {
+public class HomeActivity extends Activity {
 
     ProgressDialog pDialog;
 
@@ -43,18 +38,21 @@ public class HomeActivity extends RoboActivity {
 
     int lastUpdatedVersion;
     int latestVersion;
+    long lastRunTimeInMillis;
+    int lastDBVersion;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        hard-code initial data to the database.
-         */
+        setContentView(R.layout.welcome_screen);
 
+        AppUtil.CheckCurrentRunningActivity(HomeActivity.this);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
         int wizardState = ApplicationSettings.getWizardState(this);
-        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
+        if (AppConstants.SKIP_WIZARD) {
+            pageId = "home-ready";
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
             pageId = "home-not-configured";
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = "home-not-configured-alarm";
@@ -64,38 +62,58 @@ public class HomeActivity extends RoboActivity {
             pageId = "home-ready";
         }
 
-        checkIfUpdateNeeded();
-        if (!isFirstRun(HomeActivity.this)) {
-            startFacade();
+        selectedLang = ApplicationSettings.getSelectedLanguage(this);
+        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
+
+        lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
+
+        lastDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
+//        Log.e(">>>>>>", "lastDBVersion = " + lastDBVersion);
+
+        if(lastDBVersion < AppConstants.DATABASE_VERSION){
+            ApplicationSettings.setLocalDataInsertion(this, false);
+            lastRunTimeInMillis = -1;
         }
-    }
 
-    private void checkIfUpdateNeeded() {
-        long lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
-
-        if (!getLocalDataInsertion(HomeActivity.this)) {
+        if (!ApplicationSettings.getLocalDataInsertion(HomeActivity.this)) {
             new InitializeLocalData().execute();
-        } 
+        }
 
-        if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
             Log.e(">>>>", "last run not today");
-
-            selectedLang = ApplicationSettings.getSelectedLanguage(this);
-            helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
-            
             new GetLatestVersion().execute();
         }
+
+        else{
+            startNextActivity();
+        }
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+        System.gc();
     }
 
-    private void startFacade() {
-        startActivity(new Intent(this, CalculatorActivity.class));
+    private void startNextActivity(){
+        if (isFirstRun(HomeActivity.this)) {
+            Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+        } else {
+            Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+            startActivity(i);
+        }
     }
+
 
     private void startWizard() {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -115,63 +133,63 @@ public class HomeActivity extends RoboActivity {
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            lastUpdatedVersion = mobileObj.getInt("version");
 	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	        
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            lastUpdatedVersion = mobileObj.getInt("version");
 	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
 	            e.printStackTrace();
 	        }
-	
+
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-	
+
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
@@ -184,14 +202,21 @@ public class HomeActivity extends RoboActivity {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
-                pDialog.dismiss();
+				try {
+					pDialog.dismiss();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-            setLocalDataInsertion(HomeActivity.this, true);
-            
-            if (isFirstRun(HomeActivity.this)) {
-            	startWizard();
-                return;
-            } 
+            ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
+            ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, AppConstants.DATABASE_VERSION);
+
+            if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+                Log.e(">>>>", "last run not today");
+                new GetLatestVersion().execute();
+            } else{
+                startNextActivity();;
+            }
         }
     }
     
@@ -229,15 +254,14 @@ public class HomeActivity extends RoboActivity {
             if (latestVersion > lastUpdatedVersion) {
                 new GetMobileDataUpdate().execute();
             } else {
+                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
                 if (pDialog.isShowing())
-                    pDialog.dismiss();
-                if (isFirstRun(HomeActivity.this)) {
-                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                    i.putExtra("page_id", pageId);
-                    startActivity(i);
-                } else {
-                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
-                }
+					try {
+						pDialog.dismiss();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+                    startNextActivity();
             }
         }
     }
@@ -249,7 +273,11 @@ public class HomeActivity extends RoboActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+            try {
+				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
        }
 
         @Override
@@ -297,13 +325,7 @@ public class HomeActivity extends RoboActivity {
                 if (pDialog.isShowing())
                     pDialog.dismiss();
 
-                if (isFirstRun(HomeActivity.this)) {
-                    Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                    i.putExtra("page_id", pageId);
-                    startActivity(i);
-                } else {
-                    startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
-                }
+                startNextActivity();
             }
         }
     }
@@ -316,7 +338,11 @@ public class HomeActivity extends RoboActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
+            try {
+				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
 
         @Override
@@ -345,15 +371,13 @@ public class HomeActivity extends RoboActivity {
         protected void onPostExecute(Boolean response) {
             super.onPostExecute(response);
             if (pDialog.isShowing())
-                pDialog.dismiss();
+				try {
+					pDialog.dismiss();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-            if (isFirstRun(HomeActivity.this)) {
-                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                i.putExtra("page_id", pageId);
-                startActivity(i);
-            } else {
-                startActivity(new Intent(HomeActivity.this, CalculatorActivity.class));
-            }
+            startNextActivity();
         }
     }
 

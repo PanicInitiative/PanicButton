@@ -1,6 +1,18 @@
 package com.apb.beacon;
 
 public class AppConstants {
+    //Test values
+	//public static final boolean SKIP_WIZARD = true;
+    //public static final int PHONE_NUMBER_LIMIT = 3;
+
+    //Trainer values
+	//public static final long ALERT_FREQUENCY = 1000 * 30;
+	
+	//Prod values
+    public static final boolean SKIP_WIZARD = false;
+    public static final int PHONE_NUMBER_LIMIT = 4;
+	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
+	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
     public static final float GPS_MIN_DISTANCE = 0;
@@ -9,8 +21,7 @@ public class AppConstants {
     public static final float NETWORK_MIN_DISTANCE = 0;
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
-    public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
-
+    
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
     public static final int HTTP_REQUEST_TYPE_GET = 1;
@@ -25,8 +36,10 @@ public class AppConstants {
 
 
     public static boolean WIZARD_IS_BACK_BUTTON_PRESSED = false;
+    public static boolean MAIN_IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
-
+//    public static boolean WIZARD_IS_FROM_CONTACTS_PICKER = false;
+    
     public static final int FROM_WIZARD_ACTIVITY = 1;
     public static final int FROM_MAIN_ACTIVITY = 2;
 
@@ -36,6 +49,8 @@ public class AppConstants {
 //    public static final String MOBILE_DATA_URL = "mobile.json";
     public static final String HELP_DATA_URL = "help.json";
     public static final String VERSION_CHECK_URL = "version.json";
+
+    public static final int DATABASE_VERSION = 13;
 
     public static final int SPLASH_DELAY_TIME = 200;
 

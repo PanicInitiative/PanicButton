@@ -1,12 +1,8 @@
 package com.apb.beacon;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -14,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
@@ -21,12 +18,11 @@ import com.apb.beacon.sms.SetupMessageFragment;
 import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
-import com.apb.beacon.wizard.WizardModalActivity;
 
 /**
  * Created by aoe on 2/15/14.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseFragmentActivity {
 
     TextView tvToastMessage;
 
@@ -34,21 +30,22 @@ public class MainActivity extends FragmentActivity {
     String pageId;
     String selectedLang;
 
-
+    Boolean flagRiseFromPause = false;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
-
+        
+        callFinishActivityReceivier();
+        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 //        tvToastMessage.setVisibility(View.GONE);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(activityFinishReceiver, intentFilter);
-
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
+
+        Log.e("MainActivity.onCreate", "pageId = " + pageId);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -56,9 +53,10 @@ public class MainActivity extends FragmentActivity {
         dbInstance.close();
 
         if (currentPage == null) {
-            Log.e(">>>>>>", "page = null");
+            Log.e("MainActivity.onCreate", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
-            return;
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
+            finish();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -70,7 +68,7 @@ public class MainActivity extends FragmentActivity {
                 fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             } else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                Intent i = new Intent(MainActivity.this, WizardModalActivity.class);
+                Intent i = new Intent(MainActivity.this, MainModalActivity.class);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_MAIN_ACTIVITY);
                 startActivity(i);
@@ -94,31 +92,69 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("MainActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
+
+        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+            Log.e("MainActivity.onResume", "returning from not-implemented page.");
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+            return;
+        }
+
+        if(AppConstants.MAIN_IS_BACK_BUTTON_PRESSED){
+            Log.e("MainActivity.onResume", "back button pressed");
+            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = false;
+            return;
+        }
+        
+        if (flagRiseFromPause) {
+            Intent i = new Intent(MainActivity.this, CalculatorActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+
+            callFinishActivityReceivier();
+
+            finish();
+            return;
+        }
+        return;
+    }
+    
+    @Override
     protected void onPause() {
         super.onPause();
-//        unregisterReceiver(activityFinishReceiver);
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-        sendBroadcast(broadcastIntent);
-
-        finish();
+        Log.e("MainActivity.onPause", ".");
+        Log.e("MainActivity.onPause", "flagRiseFromPause = " + true);
+        flagRiseFromPause = true;
+    }
+    
+    protected void onStop(){
+        super.onStop();
+        Log.d("MainActivity.onStop", ".");
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(activityFinishReceiver);
+    protected void onStart() {
+        super.onStart();
+        Log.d("MainActivity.onStart", ".");
     }
 
-    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("onReceive","Logout in progress");
-            finish();
+    @Override
+    public void onBackPressed() {
+        if(pageId.equals("home-ready")){
+            // don't go back
+        	finish();
+        	startActivity(AppUtil.behaveAsHomeButton());
         }
-    };
+        else{
+            super.onBackPressed();
+        }
+        AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
+    }
+
+
+
 
 
 }

@@ -29,14 +29,15 @@ public class Page {
     private String successId;
     private String failedId;
     private List<PageChecklist> checklist;
+    private String heading;
+    private String section_order;
 
     public Page() {
     }
 
-
-    public Page(String id, String lang, String type, String title, String introduction, String warning, String component,
-                List<PageStatus> status, List<PageAction> action, List<PageItem> items, String content, PageTimer timers,
-                String successId, String failedId, List<PageChecklist> checklist) {
+    public Page(String id, String lang, String type, String title, String introduction, String warning, String component, List<PageStatus> status,
+                List<PageAction> action, List<PageItem> items, String content, PageTimer timers, String successId, String failedId,
+                List<PageChecklist> checklist, String heading, String section_order) {
         this.id = id;
         this.lang = lang;
         this.type = type;
@@ -52,8 +53,9 @@ public class Page {
         this.successId = successId;
         this.failedId = failedId;
         this.checklist = checklist;
+        this.heading = heading;
+        this.section_order = section_order;
     }
-
 
     public static List<Page> parsePages(JSONArray pageArray){
         List<Page> pageList = new ArrayList<Page>();
@@ -210,5 +212,21 @@ public class Page {
 
     public void setChecklist(List<PageChecklist> checklist) {
         this.checklist = checklist;
+    }
+
+    public String getHeading() {
+        return heading;
+    }
+
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
+
+    public String getSectionOrder() {
+        return section_order;
+    }
+
+    public void setSectionOrder(String section_order) {
+        this.section_order = section_order;
     }
 }

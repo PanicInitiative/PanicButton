@@ -36,15 +36,17 @@ public class PageDbManager {
     private static final String PAGE_CONTENT = "page_content";
     private static final String PAGE_SUCCESS_ID = "page_success_id";
     private static final String PAGE_FAILED_ID = "page_failed_id";
+    private static final String PAGE_HEADING = "page_heading";
+    private static final String PAGE_SECTION_ORDER = "page_section_order";
 
     private static final String CREATE_TABLE_WIZARD_PAGE = "create table " + TABLE_PAGE + " ( "
             + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
             + PAGE_TYPE + " text, " + PAGE_TITLE + " text, " + PAGE_INTRODUCTION + " text, " + PAGE_WARNING + " text, " + PAGE_COMPONENT + " text, "
-            + PAGE_CONTENT + " text, " + PAGE_SUCCESS_ID + " text, " + PAGE_FAILED_ID + " text);";
+            + PAGE_CONTENT + " text, " + PAGE_SUCCESS_ID + " text, " + PAGE_FAILED_ID + " text, " + PAGE_HEADING + " text, " + PAGE_SECTION_ORDER + " text);";
 
     private static final String INSERT_SQL = "insert into  " + TABLE_PAGE + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", " + PAGE_TYPE + ", "
-            + PAGE_TITLE + ", " + PAGE_INTRODUCTION + ", " + PAGE_WARNING + ", " + PAGE_COMPONENT + ", "+ PAGE_CONTENT + ", " + PAGE_SUCCESS_ID
-            + ", " + PAGE_FAILED_ID + ") values (?,?,?,?,?,?,?,?,?,?)";
+            + PAGE_TITLE + ", " + PAGE_INTRODUCTION + ", " + PAGE_WARNING + ", " + PAGE_COMPONENT + ", " + PAGE_CONTENT + ", " + PAGE_SUCCESS_ID
+            + ", " + PAGE_FAILED_ID + ", " + PAGE_HEADING + ", " + PAGE_SECTION_ORDER + ") values (?,?,?,?,?,?,?,?,?,?,?,?)";
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_WIZARD_PAGE);
@@ -79,6 +81,10 @@ public class PageDbManager {
             insertStatement.bindString(9, page.getSuccessId());
         if(page.getFailedId() != null)
             insertStatement.bindString(10, page.getFailedId());
+        if(page.getHeading() != null)
+            insertStatement.bindString(11, page.getHeading());
+        if(page.getSectionOrder() != null)
+            insertStatement.bindString(12, page.getSectionOrder());
 
         return insertStatement.executeInsert();
     }
@@ -98,6 +104,8 @@ public class PageDbManager {
             String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
             String successId = c.getString(c.getColumnIndex(PAGE_SUCCESS_ID));
             String failedId = c.getString(c.getColumnIndex(PAGE_FAILED_ID));
+            String heading = c.getString(c.getColumnIndex(PAGE_HEADING));
+            String secOrder = c.getString(c.getColumnIndex(PAGE_SECTION_ORDER));
 
             List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
             List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
@@ -106,7 +114,7 @@ public class PageDbManager {
             List<PageChecklist> checkList = PageChecklistDbManager.retrieve(db, pageId, lang);
 
             page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent, statusList, actionList,
-                    itemList, pageContent, timer, successId, failedId, checkList);
+                    itemList, pageContent, timer, successId, failedId, checkList, heading, secOrder);
         }
         c.close();
         return page;
@@ -128,6 +136,8 @@ public class PageDbManager {
                 String pageContent = c.getString(c.getColumnIndex(PAGE_CONTENT));
                 String successId = c.getString(c.getColumnIndex(PAGE_SUCCESS_ID));
                 String failedId = c.getString(c.getColumnIndex(PAGE_FAILED_ID));
+                String heading = c.getString(c.getColumnIndex(PAGE_HEADING));
+                String secOrder = c.getString(c.getColumnIndex(PAGE_SECTION_ORDER));
 
                 List<PageStatus> statusList = PageStatusDbManager.retrieve(db, pageId, lang);
                 List<PageAction> actionList = PageActionDbManager.retrieve(db, pageId, lang);
@@ -136,7 +146,7 @@ public class PageDbManager {
                 List<PageChecklist> checkList = PageChecklistDbManager.retrieve(db, pageId, lang);
 
                 Page page = new Page(pageId, lang, pageType, pageTitle, pageIntro, pageWarning, pageComponent,
-                        statusList, actionList, itemList, pageContent, timer, successId, failedId, checkList);
+                        statusList, actionList, itemList, pageContent, timer, successId, failedId, checkList, heading, secOrder);
                 pageList.add(page);
                 c.moveToNext();
             }
@@ -158,6 +168,8 @@ public class PageDbManager {
         cv.put(PAGE_CONTENT, page.getContent());
         cv.put(PAGE_SUCCESS_ID, page.getSuccessId());
         cv.put(PAGE_FAILED_ID, page.getFailedId());
+        cv.put(PAGE_HEADING, page.getHeading());
+        cv.put(PAGE_SECTION_ORDER, page.getSectionOrder());
 
         return db.update(TABLE_PAGE, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{page.getId(), page.getLang()});
     }

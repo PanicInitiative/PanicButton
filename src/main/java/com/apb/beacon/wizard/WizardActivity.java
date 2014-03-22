@@ -1,16 +1,12 @@
 package com.apb.beacon.wizard;
 
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -22,15 +18,17 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
-public class WizardActivity extends FragmentActivity {
+public class WizardActivity extends BaseFragmentActivity {
 //    private WizardViewPager viewPager;
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -45,17 +43,18 @@ public class WizardActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
+        
+        callFinishActivityReceivier();
 
+        AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
+        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.package.ACTION_LOGOUT");
-        registerReceiver(activityFinishReceiver, intentFilter);
 
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
-        Log.e(">>>>>>>", "pageId = " + pageId);
+        Log.e("WizardActivity.onCreate", "pageId = " + pageId);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -84,6 +83,7 @@ public class WizardActivity extends FragmentActivity {
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
+                i = AppUtil.clearBackStack(i);
                 i.putExtra("page_id", pageId);
                 i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
                 startActivity(i);
@@ -147,9 +147,17 @@ public class WizardActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(">>>>>", "onPause");
-        if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        Log.e("WizardActivity.onPause", ".");
+        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
+        		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+
+        		getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+                getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
 
         if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action
@@ -161,19 +169,19 @@ public class WizardActivity extends FragmentActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        Log.d(">>>>>>>>>>", "onStop");
+        Log.d("WizardActivity.onStop", ".");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(">>>>>>>>>>", "onStart");
+        Log.d("WizardActivity.onStart", ".");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(">>>>>", "onResume with flagRiseFromPause = " + flagRiseFromPause);
+        Log.e("WizardActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
 
         int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
 
@@ -182,35 +190,28 @@ public class WizardActivity extends FragmentActivity {
         }
 
         if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-            Log.e(">>>>>>>>", "returning from not-implemented page.");
+            Log.e("WizardActivity.onResume", "returning from not-implemented page.");
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
             return;
         }
 
         if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
-            Log.e(">>>>>>>>", "back button pressed");
+            Log.e("WizardActivity.onResume", "back button pressed");
             AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-            getPackageManager().setComponentEnabledSetting(
-                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
-                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-            getPackageManager().setComponentEnabledSetting(
-                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-
-            Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            
+        	callFinishActivityReceivier();
+            finish();
+        	
+        	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            i = AppUtil.clearBackStack(i);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
-
-            finish();
+            
             return;
         }
 
@@ -219,6 +220,7 @@ public class WizardActivity extends FragmentActivity {
 
             if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
                 pageId = "home-not-configured";
+//            	pageId = "setup-contacts";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
@@ -228,13 +230,12 @@ public class WizardActivity extends FragmentActivity {
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i = AppUtil.clearBackStack(i);
             i.putExtra("page_id", pageId);
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
+            callFinishActivityReceivier();
 
             finish();
         }
@@ -255,26 +256,14 @@ public class WizardActivity extends FragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-        }
-        else{
+        	finish();
+        	startActivity(AppUtil.behaveAsHomeButton());
+        }else{
             super.onBackPressed();
         }
         AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(activityFinishReceiver);
-    }
 
-    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d("onReceive","Logout in progress");
-            finish();
-        }
-    };
 }
