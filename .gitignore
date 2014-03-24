@@ -29,3 +29,5 @@ tmp/
 coverage.ec
 /test_servers/
 /*.png
+*.html
+*.json

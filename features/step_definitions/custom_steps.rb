@@ -30,7 +30,7 @@ And(/^I clear log$/) do
   Device.cmd_command("adb logcat -c")
 end
 
-And(/^I check sms text contains    b vm .mn ,"(.*?)"$/) do |sms_text|
+And(/^I check sms text contains "(.*?)"$/) do |sms_text|
   # Get sms text
   log_input = "adb logcat -d -n5 -s \"com.apb.beacon.sms.SMSAdapter\""
   log_output = `#{log_input}`
