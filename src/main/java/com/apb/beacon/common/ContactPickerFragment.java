@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.apb.beacon.AppConstants;
+import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
+import com.apb.beacon.wizard.WizardActivity;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.ACTION_GET_CONTENT;
@@ -56,7 +58,11 @@ public class ContactPickerFragment extends Fragment {
         contactPickerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+            	 int wizardState = ApplicationSettings.getWizardState(getActivity());
+//            	 if(wizardState != AppConstants.WIZARD_FLAG_HOME_READY){
+            		 AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+            		 AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
+//            	 }
                 launchContactPicker(v);
             }
         });

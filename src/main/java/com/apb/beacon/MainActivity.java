@@ -144,6 +144,7 @@ public class MainActivity extends BaseFragmentActivity {
         if(pageId.equals("home-not-configured")){
         	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
         	Intent i = new Intent(MainActivity.this, WizardActivity.class);
+        	i.putExtra("page_id", "home-not-configured");
         	startActivity(i);
         }
         Log.d("MainActivity.onStart", ".");
