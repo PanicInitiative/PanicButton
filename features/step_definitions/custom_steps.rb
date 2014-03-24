@@ -43,7 +43,7 @@ And(/^I check sms text contains    b vm .mn ,"(.*?)"$/) do |sms_text|
 
 end
 
-Then /^I tern off wifi$/ do
+Then /^I turn off wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
   Device.adb_command("shell input keyevent 61")
@@ -54,7 +54,7 @@ Then /^I switch gps$/ do
   Device.cmd_command("monkeyrunner #{Device.get_more_dir}/gpsmonkey.py")
 end
 
-Then /^I tern on wifi$/ do
+Then /^I turn on wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
   Device.adb_command("shell input keyevent 23")

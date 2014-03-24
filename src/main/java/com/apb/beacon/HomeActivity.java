@@ -125,7 +125,7 @@ public class HomeActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "First installation...", true, false);
+            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Installing...", true, false);
         }
 
         @Override
