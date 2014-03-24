@@ -17,6 +17,7 @@ import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
+import com.apb.beacon.wizard.SetupAlertFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
 
 /**
@@ -81,6 +82,8 @@ public class MainActivity extends BaseFragmentActivity {
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                else if (currentPage.getComponent().equals("alert"))
+                    fragment = new SetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
                     fragment = new LanguageSettingsFragment().newInstance(pageId);
                 else

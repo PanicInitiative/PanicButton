@@ -32,8 +32,8 @@ public class LoginActivity extends PanicButtonActivity {
                 String password = passwordEditText.getText().toString();
                 if (ApplicationSettings.passwordMatches(getApplicationContext(), password)) {
 
-                    Intent i = new Intent(LoginActivity.this, WizardActivity.class);
-                    i = AppUtil.clearBackStack(i);
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                    i = AppUtil.clearBackStack(i);
                     if (getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE)) {
                         i.putExtra("page_id", "home-alerting");
                     } else{

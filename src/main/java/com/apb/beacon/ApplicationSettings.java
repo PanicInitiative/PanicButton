@@ -18,6 +18,8 @@ public class ApplicationSettings {
     public static final String SELECTED_LANGUAGE = "SELECTED_LANGUAGE";
     public static final String LAST_UPDATED_VERSION = "LAST_UPDATED_VERSION";
     public static final String LAST_UPDATED_DB_VERSION = "LAST_UPDATED_DB_VERSION";
+    public static final String ALERT_DELAY = "ALERT_DELAY";
+    
 
     public static void setFirstRun(Context context, boolean isFirstRun) {
         saveBoolean(context, FIRST_RUN, isFirstRun);
@@ -138,4 +140,14 @@ public class ApplicationSettings {
     public static void setLastUpdatedDBVersion(Context context, int versionNumber) {
         saveInt(context, LAST_UPDATED_DB_VERSION , versionNumber);
     }
+    
+    public static void setAlertDelay(Context context, int alertDelay) {
+        saveInt(context, ALERT_DELAY , alertDelay);
+    }
+
+    public static int getAlertDelay(Context context) {
+        return sharedPreferences(context).getInt(ALERT_DELAY, 5);
+    }
+    
+    
 }

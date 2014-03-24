@@ -11,7 +11,8 @@ public class AppConstants {
 	//Prod values
     public static final boolean SKIP_WIZARD = false;
     public static final int PHONE_NUMBER_LIMIT = 4;
-	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
+//	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
+    public static final long ONE_MINUTE = 1000 * 60;
 	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
