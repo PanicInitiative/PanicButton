@@ -19,6 +19,7 @@ import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
 import com.apb.beacon.wizard.SetupAlertFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
+import com.apb.beacon.wizard.WizardActivity;
 
 /**
  * Created by aoe on 2/15/14.
@@ -140,6 +141,11 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(pageId.equals("home-not-configured")){
+        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+        	Intent i = new Intent(MainActivity.this, WizardActivity.class);
+        	startActivity(i);
+        }
         Log.d("MainActivity.onStart", ".");
     }
 

@@ -51,7 +51,12 @@ public class WizardActivity extends BaseFragmentActivity {
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
 
-        pageId = getIntent().getExtras().getString("page_id");
+        try {
+			pageId = getIntent().getExtras().getString("page_id");
+		} catch (Exception e) {
+			pageId = "home-not-configured";
+			e.printStackTrace();
+		}
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         Log.e("WizardActivity.onCreate", "pageId = " + pageId);
