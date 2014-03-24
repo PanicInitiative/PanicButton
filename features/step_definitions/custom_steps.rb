@@ -22,6 +22,27 @@ Then /^I press home button$/ do
   Device.adb_command("shell input keyevent 3")
 end
 
+And(/^I start application$/) do
+  Device.adb_command("shell am start -n com.apb.beacon/.HomeActivity")
+end
+
+And(/^I clear log$/) do
+  Device.cmd_command("adb logcat -c")
+end
+
+And(/^I check sms text contains    b vm .mn ,"(.*?)"$/) do |sms_text|
+  # Get sms text
+  log_input = "adb logcat -d -n5 -s \"com.apb.beacon.sms.SMSAdapter\""
+  log_output = `#{log_input}`
+  print log_output
+
+  #check sms text
+  if not log_output.include? sms_text
+    fail(msg="text not found")
+  end
+
+end
+
 Then /^I turn off wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
@@ -29,8 +50,32 @@ Then /^I turn off wifi$/ do
   Device.adb_command("shell input keyevent 23")
 end
 
+Then /^I switch gps$/ do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/gpsmonkey.py")
+end
+
 Then /^I turn on wifi$/ do
   Device.install_development_app
   Device.open_dev_app_connection_settings
   Device.adb_command("shell input keyevent 23")
 end
+
+And(/^I press power button 5 times$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/presspowr5times.py")
+end
+
+And(/^I unlock device$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/unlockscreen.py")
+end
+
+
+And(/^I click 5 times fast on calculation$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/clikingoncalculation.py")
+end
+
+And(/^I long press custom$/) do
+  Device.cmd_command("monkeyrunner #{Device.get_more_dir}/longpress.py")
+end
+
+
+

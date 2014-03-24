@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.apb.beacon</groupId>
     <artifactId>panic-button</artifactId>
@@ -16,15 +16,18 @@
             <url>file://${project.basedir}/lib</url>
         </repository>
     </repositories>
-    
+
     <properties>
         <platform.version>4.1.1.4</platform.version>
         <app.version.prefix>dev</app.version.prefix>
         <app.version.name>${project.version}-${app.version.prefix}</app.version.name>
 
-        <skipCoverage>false</skipCoverage> <!-- if true then do not count coverage at all -->
-        <coverageRate>50</coverageRate> <!-- expected coverage rate -->
-        <failBuildIfCoverage>true</failBuildIfCoverage> <!-- fail build if coverage less then expected -->
+        <skipCoverage>false</skipCoverage>
+        <!-- if true then do not count coverage at all -->
+        <coverageRate>50</coverageRate>
+        <!-- expected coverage rate -->
+        <failBuildIfCoverage>true</failBuildIfCoverage>
+        <!-- fail build if coverage less then expected -->
     </properties>
 
     <dependencies>
@@ -40,12 +43,12 @@
             <artifactId>support-v4</artifactId>
             <version>r12</version>
         </dependency>
- 
-<!--        <dependency>
-            <groupId>org.roboguice</groupId>
-            <artifactId>roboguice</artifactId>
-            <version>2.0</version>
-        </dependency>-->
+
+        <!--        <dependency>
+                    <groupId>org.roboguice</groupId>
+                    <artifactId>roboguice</artifactId>
+                    <version>2.0</version>
+                </dependency>-->
 
         <!-- Test dependencies -->
         <dependency>
@@ -152,7 +155,7 @@
                     <source>1.6</source>
                     <target>1.6</target>
                     <debug>true</debug>
-                	<optimize>true</optimize>
+                    <optimize>true</optimize>
                 </configuration>
             </plugin>
             <plugin>
@@ -198,9 +201,26 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}</directory>
+                            <includes>
+                                <include>screenshot_*.png</include>
+                            </includes>
+                            <excludes>
+                            </excludes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 
 
     <reporting>
@@ -214,7 +234,7 @@
                     <formats>
                         <format>html</format>
                     </formats>
-                    <check />
+                    <check/>
                 </configuration>
             </plugin>
         </plugins>
