@@ -3,6 +3,7 @@ package com.apb.beacon.adapter;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.DisplayMetrics;
@@ -16,12 +17,16 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.parser.JsonParser;
+import com.apb.beacon.wizard.LanguageSettingsFragment;
+import com.apb.beacon.wizard.WizardActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,18 +45,25 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     private ProgressDialog pDialog;
     private String currentLang;
     private String selectedLang;
-
     private int lastUpdatedVersion;
     private int latestVersion;
+    
+    private String pageId;
+    private int parentActivity;
+    
+    private Page currentPage;
 
-    public PageLanguageSettingsAdapter(Context context, List<PageAction> actionList) {
+    public PageLanguageSettingsAdapter(Context context, List<PageAction> actionList,String pageId,Page currentPage, int parentActivity) {
         super(context, R.layout.row_page_language_settings);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.currentLang = ApplicationSettings.getSelectedLanguage(mContext);
-
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(mContext);
+        
+        this.pageId = pageId;
+        this.currentPage = currentPage;
+        this.parentActivity = parentActivity;
     }
 
 
@@ -85,9 +97,16 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             public void onClick(View v) {
                 String url = null;
                 selectedLang = item.getLanguage();
-
+                
                 if (currentLang.equals(selectedLang)) {
-                    ((Activity) mContext).finish();
+                	AppUtil.showToast("Language already appliead.", 1000, mContext);
+                	/*Intent i = new Intent(((Activity) mContext), WizardActivity.class);
+                    i.putExtra("page_id", "home-ready");
+                    ((Activity) mContext).startActivity(i);
+                    ((Activity) mContext).finish();*/
+                	
+//                	String pageId = currentPage.getAction().get(0).getLink();
+                	redirectTO();
                     return;
                 }
                 new GetLatestVersion().execute();
@@ -98,6 +117,25 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     }
 
 
+    public void redirectTO(){
+    	
+    	Intent i;
+
+        if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+            i = new Intent(mContext, WizardActivity.class);
+            i.putExtra("page_id", "home-not-configured");
+        } else{
+            i = new Intent(mContext, MainActivity.class);
+            i.putExtra("page_id", "home-ready");
+        }
+
+        mContext.startActivity(i);
+
+        if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
+        	((Activity) mContext).finish();
+        }
+    }
+    
     public void setData(List<PageAction> actionList) {
         clear();
         if (actionList != null) {
@@ -164,8 +202,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         conf.locale = new Locale(selectedLang);
         res.updateConfiguration(conf, dm);
 
-        ((Activity) mContext).finish();
-
+//        ((Activity) mContext).finish();
+//        ((Activity) mContext).onBackPressed();
+        redirectTO();
 
     }
 
