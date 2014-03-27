@@ -46,7 +46,6 @@ public class WizardActivity extends BaseFragmentActivity {
         
         callFinishActivityReceivier();
 
-        AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 

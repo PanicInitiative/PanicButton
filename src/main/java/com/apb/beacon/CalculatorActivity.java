@@ -33,7 +33,6 @@ public class CalculatorActivity extends PanicButtonActivity {
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
 
-//		AppUtil.CheckCurrentRunningActivity(CalculatorActivity.this);
 		calculator = new CalculatorImpl();
 		
         ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
