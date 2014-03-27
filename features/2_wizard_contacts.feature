@@ -1,3 +1,4 @@
+@wizard
 Feature: Setup Contacts in Wizard
   In order to setup the application after installation
   As a user

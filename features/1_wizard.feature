@@ -1,4 +1,4 @@
-@welcome
+@wizard
 Feature: Wizard
 
   Scenario: Wizard is displayed and can get started after Installation
