@@ -19,7 +19,7 @@ Feature: Message setup in the Wizard
 
   Scenario: Navigating back to start screen
     When I go back
-     And I see the text "Setup Contacts"
+     And I see the text "enter contact number"
      And I go back
     Then I see the text "Get started"
 
