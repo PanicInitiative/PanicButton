@@ -1,5 +1,5 @@
-@gps_settings
-Feature: Sending sms with different gps status
+@welcome
+Feature: Wizard complete
 
   Scenario: Setting up
     Given I wait up to 60 seconds for "Set-Up" to appear
@@ -34,38 +34,3 @@ Feature: Sending sms with different gps status
     And I press "go"
     And I press "Finish"
     Then I see "Ready"
-
-  Scenario: Start alarm with hardware button
-    Given I clear log
-    And I wait up to 5 seconds for "=" to appear
-    And I press power button 5 times
-    And I unlock device
-    And I start application
-    And I long press custom
-    And I enter "1234" into input field number 1
-    And I press "go"
-    Then I see "Alerting"
-    And I press "Stop Alerting"
-    Then I see "Ready"
-    Then I check sms text contains "Help me, I'm in danger"
-
-
-  Scenario: Change GPS status
-    Then I switch gps
-
-
-  Scenario: Start alarm with clicking in calculation
-    Given I clear log
-    And I wait up to 5 seconds for "=" to appear
-    And I click 5 times fast on calculation
-    And I start application
-    And I long press custom
-    And I enter "1234" into input field number 1
-    And I press "go"
-    Then I see "Alerting"
-    And I press "Stop Alerting"
-    Then I see "Ready"
-    Then I check sms text contains "Help me, I'm in danger"
-
-  Scenario: Change GPS status
-    Then I switch gps

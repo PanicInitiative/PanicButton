@@ -43,8 +43,10 @@ Feature: Setup Contacts in Wizard
   Scenario: Clicking the phone book icon and back button returns to Setup Contacts
     When I press "Choose your emergency contact"
      And I wait for 5 seconds
+    Then I take a screenshot
      And I press back button
-    Then I wait up to 5 seconds for "Setup contacts" to appear
+    Then I take a screenshot
+    Then I wait up to 5 seconds for "Think about who can" to appear
 
   Scenario: Hardware back in wizard takes back to previous screen
     When I go back
