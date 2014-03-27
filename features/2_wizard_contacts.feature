@@ -4,7 +4,7 @@ Feature: Setup Contacts in Wizard
   I want to go through the installation wizard
 
   Background: Go to Setup Contacts screen
-    Given I wait up to 60 seconds for "Panic Button" to appear
+    Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
       And I see the text "Get started"
       And I press "Get started"
@@ -13,7 +13,7 @@ Feature: Setup Contacts in Wizard
   Scenario: Next button is disabled
     Then I verify "Next" button is "disabled"
 
-  Scenario: Phone numbers are validated
+  Scenario Outline: Phone numbers are validated
     When I enter <number0> into contact field 0
     When I enter <number1> into contact field 1
     When I enter <number2> into contact field 2
@@ -37,7 +37,7 @@ Feature: Setup Contacts in Wizard
      Then I see the text "Setup contacts"
      Then I verify "Next" button is "enabled"
      Then I see the text "*******89"
-     Then I see the text "**********22"
+     Then I see the text "********22"
      Then I see the text "*00"
 
   Scenario: Clicking the phone book icon and back button returns to Setup Contacts

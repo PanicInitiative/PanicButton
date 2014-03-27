@@ -2,7 +2,7 @@
 Feature: Message setup in the Wizard
 
   Background: Go to the Message Setup screen
-    Given I wait up to 60 seconds for "Panic Button" to appear
+    Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
       And I see the text "Get started"
       And I press "Get started"
@@ -12,8 +12,8 @@ Feature: Message setup in the Wizard
       And I see the text "Setup alert message"
 
   Scenario: Emergency alert set message
-    Then I verify action button text is "Next"
-    Then I verify action button is "enabled"
+    Then I see the text "Next"
+    Then I verify "Next" button is "enabled"
     Then I see the text "Help me, I'm in danger"
     Then I see the text "I'm at http://maps.google.com/GPS-location"
 

@@ -1,5 +1,5 @@
 Then /^I verify "(.*?)" button is "(.*?)"$/ do|button_id,button_status|
-  query("button id:'#{button_id}'")[0]["button_status"]
+  query("button text:'#{button_id}'")[0]["button_status"]
 end
 
 Then /^I verify action button is "(.*?)"$/ do|button_status|
