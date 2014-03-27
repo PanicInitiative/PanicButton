@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AppUtil {
     public static void setError(Context context, EditText editText, int messageId) {
@@ -142,6 +143,11 @@ public class AppUtil {
 		   i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		   return i;
     }
+    
+    /*-----This method show Toast.-----*/
+	public static void showToast(String message, int time,Context context) {
+		Toast.makeText(context, message, time).show();
+	}
 
 
 }

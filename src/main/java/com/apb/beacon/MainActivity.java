@@ -86,7 +86,7 @@ public class MainActivity extends BaseFragmentActivity {
                 else if (currentPage.getComponent().equals("alert"))
                     fragment = new SetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
-                    fragment = new LanguageSettingsFragment().newInstance(pageId);
+                    fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
