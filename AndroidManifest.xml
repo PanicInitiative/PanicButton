@@ -102,15 +102,6 @@
         </receiver>
         
         
-        <!--Check Current Running Activity Receivers -->
-        <receiver android:name=".trigger.StartupReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="StartupReceiver_Manual_Start" />
-			</intent-filter>
-		</receiver>
-		
-        <receiver android:name = ".trigger.CheckRunningApplicationReceiver"/>
         
     </application>
 </manifest>

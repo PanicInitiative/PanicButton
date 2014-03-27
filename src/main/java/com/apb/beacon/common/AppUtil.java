@@ -112,14 +112,6 @@ public class AppUtil {
 		return drawable;
 	}
 	
-	//call the receiver to check the current running activity
-    public static void CheckCurrentRunningActivity(Context context) {
-		
-		// Start receiver with the name StartupReceiver_Manual_Start
-		// Check AndroidManifest.xml file
-    	context.getApplicationContext().sendBroadcast(
-				new Intent("StartupReceiver_Manual_Start"));
-	}
     
     
     //remove all the views of previous activity to clear memory

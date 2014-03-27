@@ -45,7 +45,6 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
 
-        AppUtil.CheckCurrentRunningActivity(HomeActivity.this);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
