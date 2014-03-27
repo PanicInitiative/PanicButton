@@ -98,8 +98,9 @@ public class NewSimpleFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY || pageId.equalsIgnoreCase("home-not-configured")){
                     i = new Intent(activity, WizardActivity.class);
+                    i = AppUtil.clearBackStack(i);
                 } else{
                     i = new Intent(activity, MainActivity.class);
                 }
@@ -289,7 +290,9 @@ public class NewSimpleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("NewSimpleFragment.onResume", currentPage.getId());
-        if(currentPage.getId().equals("home-not-configured-alarm")){
+        if(currentPage.getId().equals("home-not-configured")){
+        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+        }else if(currentPage.getId().equals("home-not-configured-alarm")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
         } else if(currentPage.getId().equals("home-not-configured-disguise")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);

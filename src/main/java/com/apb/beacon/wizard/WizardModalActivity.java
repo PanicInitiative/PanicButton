@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageCheckListAdapter;
@@ -27,7 +28,7 @@ import com.apb.beacon.model.Page;
 /**
  * Created by aoe on 1/16/14.
  */
-public class WizardModalActivity extends Activity {
+public class WizardModalActivity extends BaseFragmentActivity {
 
     Page currentPage;
     PageCheckListAdapter pageCheckListAdapter;
@@ -123,9 +124,7 @@ public class WizardModalActivity extends Activity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastIntent);
+                        callFinishActivityReceivier();
 
                         finish();
                     } else {
@@ -169,9 +168,7 @@ public class WizardModalActivity extends Activity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastIntent);
+                        callFinishActivityReceivier();
 
                         finish();
                     } else {
@@ -200,6 +197,14 @@ public class WizardModalActivity extends Activity {
             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
             AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
         }
+    }
+    
+    @Override
+    protected void onStop() {
+    	// TODO Auto-generated method stub
+    	super.onStop();
+    	callFinishActivityReceivier();
+    	finish();
     }
 
 }

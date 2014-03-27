@@ -12,6 +12,7 @@ public class AppConstants {
     //public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
 	public static final boolean SKIP_WIZARD = false;
     public static final int PHONE_NUMBER_LIMIT = 4;
+    public static final long ONE_MINUTE = 1000 * 60;
 	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
@@ -48,6 +49,8 @@ public class AppConstants {
 //    public static final String MOBILE_DATA_URL = "mobile.json";
     public static final String HELP_DATA_URL = "help.json";
     public static final String VERSION_CHECK_URL = "version.json";
+
+    public static final int DATABASE_VERSION = 13;
 
     public static final int SPLASH_DELAY_TIME = 200;
 
