@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
@@ -29,8 +28,8 @@ import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
 public class WizardActivity extends BaseFragmentActivity {
-//    private WizardViewPager viewPager;
-    private FragmentStatePagerAdapter pagerAdapter;
+////    private WizardViewPager viewPager;
+//    private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
     String pageId;
@@ -50,12 +49,13 @@ public class WizardActivity extends BaseFragmentActivity {
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
 
-        try {
-			pageId = getIntent().getExtras().getString("page_id");
-		} catch (Exception e) {
-			pageId = "home-not-configured";
-			e.printStackTrace();
-		}
+//        try {
+//			pageId = getIntent().getExtras().getString("page_id");
+//		} catch (Exception e) {
+//			pageId = "home-not-configured";
+//			e.printStackTrace();
+//		}
+        pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         Log.e("WizardActivity.onCreate", "pageId = " + pageId);
@@ -199,9 +199,9 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         }
 
-        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
+        if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("WizardActivity.onResume", "back button pressed");
-            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
+            AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
@@ -265,7 +265,7 @@ public class WizardActivity extends BaseFragmentActivity {
         }else{
             super.onBackPressed();
         }
-        AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+        AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
 
 

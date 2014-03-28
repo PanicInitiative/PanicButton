@@ -1,6 +1,5 @@
 package com.apb.beacon.wizard;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -130,7 +129,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+                            AppConstants.IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -174,7 +173,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-                            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+                            AppConstants.IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
                     }
@@ -195,13 +194,12 @@ public class WizardModalActivity extends BaseFragmentActivity {
         super.onBackPressed();
         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
             ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
-            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+            AppConstants.IS_BACK_BUTTON_PRESSED = true;
         }
     }
     
     @Override
     protected void onStop() {
-    	// TODO Auto-generated method stub
     	super.onStop();
     	callFinishActivityReceivier();
     	finish();
