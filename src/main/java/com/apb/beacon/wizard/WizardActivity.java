@@ -19,6 +19,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
@@ -154,6 +155,9 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.e("WizardActivity.onPause", ".");
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
         		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        		Intent i = new Intent(WizardActivity.this, MainActivity.class);
+                i.putExtra("page_id", currentPage.getId());
+                startActivity(i);
 
         		getPackageManager().setComponentEnabledSetting(
                         new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
