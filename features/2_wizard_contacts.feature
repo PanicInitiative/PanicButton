@@ -14,17 +14,17 @@ Feature: Setup Contacts in Wizard
   Scenario: Next button is disabled
     Then I verify "Next" button is "disabled"
 
-  Scenario Outline: Phone numbers are validated
-    When I enter <number0> into contact field 0
-    When I enter <number1> into contact field 1
-    When I enter <number2> into contact field 2
-    Then I verify "Next" button is <status>
+#  Scenario Outline: Phone numbers are validated
+#    When I enter <number0> into contact field 0
+#    When I enter <number1> into contact field 1
+#    When I enter <number2> into contact field 2
+#    Then I verify "Next" button is <status>
 
-    Examples:
-      | number0  | number1 | number2 | status     |
-      | "123456" |         |         | "enabled"  | 
-      | "1234"   |         |         | "disabled" | 
-      | "123"    | "1234"  | "12345" | "enabled"  | 
+#    Examples:
+#      | number0  | number1 | number2 | status     |
+#      | "123456" |         |         | "enabled"  | 
+#      | "1234"   |         |         | "disabled" | 
+#      | "123"    | "1234"  | "12345" | "enabled"  | 
 
   Scenario: Saved phone numbers are obfuscated
     When I enter "123456789" into contact field 0
