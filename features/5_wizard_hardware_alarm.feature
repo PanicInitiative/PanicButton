@@ -5,12 +5,12 @@ Feature: Hardware Alarm Test in the Wizard
     Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
       And I press "Get started"
-      And I wait for 1 second
+      And I wait
       And I enter "123456" into contact field 0
       And I press "Next"
-      And I wait for 1 second
+      And I wait
       And I press "Next"
-      And I wait for 1 second
+      And I wait
       And I enter "1234" into input field number 1
       And I press "Next"
       And I press "Setup Alarm"
