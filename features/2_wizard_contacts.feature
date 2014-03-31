@@ -1,4 +1,3 @@
-@wizard
 Feature: Setup Contacts in Wizard
   In order to setup the application after installation
   As a user
@@ -41,11 +40,21 @@ Feature: Setup Contacts in Wizard
      Then I see the text "********22"
      Then I see the text "*00"
 
-  @current
+  @current @android-10 @android-11 @android-12 @android-13 @android-14 @android-15 @android-16 @android-17 @android-18
   Scenario: Clicking the phone book icon and back button returns to Setup Contacts
     When I press "Choose your emergency contact"
      And I wait for 5 seconds
     Then I take a screenshot
+     And I press back button
+    Then I take a screenshot
+    Then I wait up to 5 seconds for "Think about who can" to appear
+
+  @current @android-19
+  Scenario: Clicking the phone book icon and back button returns to Setup Contacts
+    When I press "Choose your emergency contact"
+     And I wait for 5 seconds
+    Then I take a screenshot
+     And I press back button
      And I press back button
     Then I take a screenshot
     Then I wait up to 5 seconds for "Think about who can" to appear

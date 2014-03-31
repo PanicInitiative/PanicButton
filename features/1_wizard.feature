@@ -1,4 +1,4 @@
-@wizard
+@android-10 @android-11 @android-12 @android-13 @android-14 @android-15 @android-16 @android-17 @android-18 @android-19
 Feature: Wizard
 
   Scenario: Wizard is displayed and can get started after Installation
