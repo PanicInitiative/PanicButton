@@ -51,7 +51,7 @@ Then /^I turn off wifi$/ do
 end
 
 Then /^I switch gps$/ do
-  Device.cmd_command(ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/gpsmonkey.py")
+  Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/gpsmonkey.py")
 end
 
 Then /^I turn on wifi$/ do
@@ -62,18 +62,18 @@ end
 
 And(/^I press power button 5 times$/) do
   log ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py"
-  Device.cmd_command(ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py")
+  Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py")
 end
 
 And(/^I unlock device$/) do
-  Device.cmd_command(ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/unlockscreen.py")
+  Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/unlockscreen.py")
 end
 
 
 And(/^I click 5 times fast on calculation$/) do
-  Device.cmd_command(ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/clikingoncalculation.py")
+  Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/clikingoncalculation.py")
 end
 
 And(/^I long press custom$/) do
-  Device.cmd_command(ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/longpress.py")
+  Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/longpress.py")
 end
