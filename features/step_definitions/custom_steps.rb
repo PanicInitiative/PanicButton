@@ -61,7 +61,7 @@ Then /^I turn on wifi$/ do
 end
 
 And(/^I press power button 5 times$/) do
-  log ENV["ANDROID_HOME"] + "tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py"
+  log ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py"
   Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/presspowr5times.py")
 end
 
