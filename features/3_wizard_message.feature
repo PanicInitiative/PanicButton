@@ -4,11 +4,14 @@ Feature: Message setup in the Wizard
   Background: Go to the Message Setup screen
     Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
+      And I wait
       And I see the text "Get started"
       And I press "Get started"
+      And I wait
       And I see the text "Setup contacts"
       And I enter "123456" into contact field 0
       And I press "Next"
+      And I wait
       And I see the text "Setup alert message"
 
   Scenario: Emergency alert set message
@@ -19,8 +22,10 @@ Feature: Message setup in the Wizard
 
   Scenario: Navigating back to start screen
     When I go back
+     And I wait
      And I see the text "enter contact number"
      And I go back
+     And I wait
     Then I see the text "Get started"
 
  # Scenario: Emergency alert 1-2-3

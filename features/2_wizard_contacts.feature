@@ -6,8 +6,11 @@ Feature: Setup Contacts in Wizard
   Background: Go to Setup Contacts screen
     Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
+      And I wait
       And I see the text "Get started"
+      And I wait
       And I press "Get started"
+      And I wait
       And I see the text "Setup contacts"
 
   Scenario: Next button is disabled

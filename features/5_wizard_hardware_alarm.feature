@@ -13,8 +13,11 @@ Feature: Hardware Alarm Test in the Wizard
       And I wait
       And I enter "1234" into input field number 1
       And I press "Next"
+      And I wait
       And I press "Setup Alarm"
+      And I wait
       And I press "Learn"
+      And I wait
       Then I see "Try Now! Repeatedly press the power button fast until you feel a vibration."
 
   @current @PB-721
