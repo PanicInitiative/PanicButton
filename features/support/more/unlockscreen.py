@@ -5,8 +5,9 @@ device = MonkeyRunner.waitForConnection()
 
 print "Unlocking"
 
+MonkeyRunner.sleep(2)
 device.wake()
-MonkeyRunner.sleep(1)
+MonkeyRunner.sleep(2)
 #Unloking device
 width = int(device.getProperty('display.width'))
 height = int(device.getProperty('display.height'))

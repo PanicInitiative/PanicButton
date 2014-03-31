@@ -41,6 +41,7 @@ Feature: Setup Contacts in Wizard
      Then I see the text "********22"
      Then I see the text "*00"
 
+  @current
   Scenario: Clicking the phone book icon and back button returns to Setup Contacts
     When I press "Choose your emergency contact"
      And I wait for 5 seconds
