@@ -1,7 +1,7 @@
 @android-10 @android-11 @android-12 @android-13 @android-14 @android-15 @android-16 @android-17 @android-18 @android-19
 Feature: Hardware Alarm Test in the Wizard
 
-  Background: Go to the Message Setup screen
+  Background: Go to the Hardware Alarm screen
     Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
       And I wait
