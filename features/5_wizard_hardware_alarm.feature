@@ -4,6 +4,7 @@ Feature: Hardware Alarm Test in the Wizard
   Background: Go to the Message Setup screen
     Given I wait up to 60 seconds for "Set-Up" to appear
       And I press "Set-Up"
+      And I wait
       And I press "Get started"
       And I wait
       And I enter "123456" into contact field 0
