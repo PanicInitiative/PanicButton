@@ -217,7 +217,7 @@
                             <directory>${basedir}</directory>
                             <includes>
                                 <include>screenshot_*.png</include>
-                                <include>reports.html</include>
+                                <include>cucumber.json</include>
                             </includes>
                             <excludes>
                             </excludes>
