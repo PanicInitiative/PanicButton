@@ -293,7 +293,7 @@
       "title" : "Panic Button",
       "action" : [{"title":"Set-Up","link":"setup-warning"}],
       "items" : [{"title":"About","link":"setup-about"},{"title":"Language Settings","link":"setup-language"}],
-      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para que tus contactos mas confiables puedan actuar si te encuentres en riesgo.</p>"
+      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Le Panic Button transforme votre téléphone mobile en une alarme secrète qui previent vos contacts lorsque vous êtes en difficulté. L'application est déguisée sur votre téléphone et apparait comme une simple calculatrice.</p>"
     },
     {
       "id" : "home-alerting",
