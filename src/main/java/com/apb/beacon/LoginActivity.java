@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.wizard.WizardActivity;
 
 
 public class LoginActivity extends PanicButtonActivity {
@@ -32,6 +33,7 @@ public class LoginActivity extends PanicButtonActivity {
                 if (ApplicationSettings.passwordMatches(getApplicationContext(), password)) {
 
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                    i = AppUtil.clearBackStack(i);
                     if (getPanicAlert().getAlertStatus().equals(AlertStatus.ACTIVE)) {
                         i.putExtra("page_id", "home-alerting");
                     } else{

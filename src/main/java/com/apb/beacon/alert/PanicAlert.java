@@ -79,8 +79,8 @@ public class PanicAlert {
 
     private void scheduleFutureAlert() {
         PendingIntent alarmPendingIntent = alarmPendingIntent(context);
-        long timeFromNow = SystemClock.elapsedRealtime() + AppConstants.ALERT_FREQUENCY;
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeFromNow, AppConstants.ALERT_FREQUENCY, alarmPendingIntent);
+        long timeFromNow = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeFromNow, AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context), alarmPendingIntent);
     }
 
     private void registerLocationUpdate() {

@@ -1,11 +1,10 @@
-@welcome
+@android-10 @android-11 @android-12 @android-13 @android-14 @android-15 @android-16 @android-17 @android-18 @android-19
 Feature: Offline work
 
   Scenario: Open app without internet connection
-    Then I wait upto 10 seconds for the "WizardActivity" screen to appear
-    Then I wait for "Set-Up" to appear
+    Then I wait up to 60 seconds for "Set-Up" to appear
 
-  Scenario: Terning on wifi after TC
-    Then I tern on wifi
+  Scenario: Turning on wifi after TC
+    Then I turn on wifi
     Then I wait for 10 seconds
     Then I press back button

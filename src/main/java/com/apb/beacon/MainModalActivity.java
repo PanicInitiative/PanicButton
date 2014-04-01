@@ -1,24 +1,17 @@
 package com.apb.beacon;
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
-import com.apb.beacon.CalculatorActivity;
-import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageCheckListAdapter;
-import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -27,7 +20,7 @@ import com.apb.beacon.model.Page;
 /**
  * Created by aoe on 1/16/14.
  */
-public class MainModalActivity extends Activity {
+public class MainModalActivity extends BaseFragmentActivity {
 
     Page currentPage;
     PageCheckListAdapter pageCheckListAdapter;
@@ -106,32 +99,21 @@ public class MainModalActivity extends Activity {
 
                     if (pageId.equals("close")) {
 
-                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(MainModalActivity.this, false);
-
-                            getPackageManager().setComponentEnabledSetting(
-                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
-                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-                            getPackageManager().setComponentEnabledSetting(
-                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
-                                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                        }
-
                         Intent i = new Intent(MainModalActivity.this, CalculatorActivity.class);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastIntent);
+//                        Intent broadcastIntent = new Intent();
+//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+//                        sendBroadcast(broadcastIntent);
+                        callFinishActivityReceivier();
 
                         finish();
                     } else {
-                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
-                            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
-                        }
+//                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+//                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+//                            AppConstants.IS_BACK_BUTTON_PRESSED = true;
+//                        }
                         finish();
                     }
                 }
@@ -150,33 +132,34 @@ public class MainModalActivity extends Activity {
 
                     if (pageId.equals("close")) {
 
-                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(MainModalActivity.this, false);
-
-                            getPackageManager().setComponentEnabledSetting(
-                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
-                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-                            getPackageManager().setComponentEnabledSetting(
-                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
-                                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-                        }
+//                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+//                            ApplicationSettings.setFirstRun(MainModalActivity.this, false);
+//
+//                            getPackageManager().setComponentEnabledSetting(
+//                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+//                                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+//
+//                            getPackageManager().setComponentEnabledSetting(
+//                                    new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+//                                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+//                        }
 
                         Intent i = new Intent(MainModalActivity.this, CalculatorActivity.class);
 //                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        Intent broadcastIntent = new Intent();
-                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-                        sendBroadcast(broadcastIntent);
+                        callFinishActivityReceivier();
+//                        Intent broadcastIntent = new Intent();
+//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+//                        sendBroadcast(broadcastIntent);
 
                         finish();
                     } else {
-                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
-                            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
-                        }
+//                        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+//                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+//                            AppConstants.IS_BACK_BUTTON_PRESSED = true;
+//                        }
                         finish();
                     }
                 }
@@ -194,10 +177,19 @@ public class MainModalActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
-            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
-        }
+//        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+//            Log.e("<<<<<<", "Setting first run = true");
+//            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
+//            AppConstants.IS_BACK_BUTTON_PRESSED = true;
+//        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(">>>>>>>>>", "MainModal -> onStop");
+        callFinishActivityReceivier();
+        finish();
     }
 
 }

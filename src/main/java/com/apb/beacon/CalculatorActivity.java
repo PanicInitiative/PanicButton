@@ -33,7 +33,6 @@ public class CalculatorActivity extends PanicButtonActivity {
 		registerButtonEvents();
 		startService(new Intent(this, HardwareTriggerService.class));
 
-		AppUtil.CheckCurrentRunningActivity(CalculatorActivity.this);
 		calculator = new CalculatorImpl();
 		
         ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
@@ -202,7 +201,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	@Override
 	public void onBackPressed() {
 //		super.onBackPressed();
-		finish();
+//		finish();
 		Log.d("CDA", "onBackPressed Called");
 		   startActivity(AppUtil.behaveAsHomeButton());
 	}

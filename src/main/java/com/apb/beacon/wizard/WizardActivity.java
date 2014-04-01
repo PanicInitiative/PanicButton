@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
@@ -20,6 +19,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
@@ -29,8 +29,8 @@ import com.apb.beacon.sms.SetupContactsFragment;
 import com.apb.beacon.sms.SetupMessageFragment;
 
 public class WizardActivity extends BaseFragmentActivity {
-//    private WizardViewPager viewPager;
-    private FragmentStatePagerAdapter pagerAdapter;
+////    private WizardViewPager viewPager;
+//    private FragmentStatePagerAdapter pagerAdapter;
 
     Page currentPage;
     String pageId;
@@ -46,11 +46,16 @@ public class WizardActivity extends BaseFragmentActivity {
         
         callFinishActivityReceivier();
 
-        AppUtil.CheckCurrentRunningActivity(WizardActivity.this);
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
 
+//        try {
+//			pageId = getIntent().getExtras().getString("page_id");
+//		} catch (Exception e) {
+//			pageId = "home-not-configured";
+//			e.printStackTrace();
+//		}
         pageId = getIntent().getExtras().getString("page_id");
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
@@ -98,7 +103,7 @@ public class WizardActivity extends BaseFragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
-                    fragment = new LanguageSettingsFragment().newInstance(pageId);
+                    fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("alarm-test-hardware")){
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if(currentPage.getIntroduction() != null){
@@ -150,6 +155,9 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.e("WizardActivity.onPause", ".");
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
         		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        		Intent i = new Intent(WizardActivity.this, MainActivity.class);
+                i.putExtra("page_id", currentPage.getId());
+                startActivity(i);
 
         		getPackageManager().setComponentEnabledSetting(
                         new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -195,23 +203,23 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         }
 
-        if(AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED){
+        if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("WizardActivity.onResume", "back button pressed");
-            AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = false;
+            AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-            Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+            
+        	callFinishActivityReceivier();
+            finish();
+        	
+        	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
             i = AppUtil.clearBackStack(i);
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
-
-            finish();
+            
             return;
         }
 
@@ -235,9 +243,7 @@ public class WizardActivity extends BaseFragmentActivity {
             startActivity(i);
 //            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction("com.apb.beacon.ACTION_LOGOUT");
-            sendBroadcast(broadcastIntent);
+            callFinishActivityReceivier();
 
             finish();
         }
@@ -258,12 +264,12 @@ public class WizardActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-//        	finish();
+        	finish();
         	startActivity(AppUtil.behaveAsHomeButton());
         }else{
             super.onBackPressed();
         }
-        AppConstants.WIZARD_IS_BACK_BUTTON_PRESSED = true;
+        AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
 
 

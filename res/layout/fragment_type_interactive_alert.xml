@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/wizard_start_root"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/wizard_static_panel">
+
+
+            <TextView
+                android:id="@+id/fragment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/page_title_text"
+                android:textSize="32sp"
+                android:paddingBottom="5dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/fragment_intro"
+                style="@style/wizard_intro_style"
+                android:layout_below="@+id/fragment_title" />
+
+            <LinearLayout
+                android:id="@+id/ll_fragment_warning"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/fragment_intro">
+
+                <ImageView
+                    android:layout_height="50dp"
+                    android:layout_width="50dp"
+                    android:background="@drawable/warning" />
+
+                <TextView
+                    android:id="@+id/fragment_warning"
+                    style="@style/wizard_warning_style" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fragment_contents"
+                android:layout_below="@+id/ll_fragment_warning"
+                style="@style/wizard_content_style" />
+
+            <TextView
+                android:id="@+id/alertDelay_edittext"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                style="@android:style/Widget.EditText"
+                android:textSize="30sp"
+                android:focusableInTouchMode="true"
+                android:layout_below="@+id/fragment_contents"
+                android:layout_width="fill_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/fragment_action"
+                android:text="@string/page_button_action_text"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:background="@drawable/drawable_wizard_button"
+                style="@style/activate_disguise_button"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_below="@+id/alertDelay_edittext"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/fragment_item_list"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
