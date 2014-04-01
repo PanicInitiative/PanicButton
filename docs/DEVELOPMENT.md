@@ -19,7 +19,7 @@ Select "Android 4.2 (API 17) > SDK Platform"
 Click on Install packages button.
 ```
 
-![Android SDK Manager](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/1.png)
+![Android SDK Manager](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/1.png)
 
 ```
 Accept the licenses
@@ -27,7 +27,7 @@ Click Install
 (Note that this will take a while)
 ```
 
-![Licenses](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/2.png)
+![Licenses](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/2.png)
 
 ```
 Close the SDK Manager.
@@ -44,7 +44,7 @@ Click Next, Accept the License and Finish.
 Accept to Restart.
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/a.1.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/a.1.png)
 
 ```
 Go to Help > Eclipse MarketPlace
@@ -53,7 +53,7 @@ Click Next, Accept the License and Finish.
 
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/a.2.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/a.2.png)
 
 * Clone the repository
 
@@ -68,19 +68,19 @@ git clone https://github.com/TeamPanicButton/PanicButton.git
 Go to File > Import
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/3.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/3.png)
 
 ```
 Select Maven > Import Maven Project
 ```
 
-![Android](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/4.png)
+![Android](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/4.png)
 
 ```
 Locate the git folder you've cloned.
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/5.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/5.png)
 
 ```
 Accept the proposed Maven Plugins (resolve later is fine).
@@ -88,7 +88,7 @@ Once the project is open you should have some errors in the Problem window.
 Choose the Quick Fix for the comsumer-aar related error and choose to 
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/6.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/6.png)
 
 ```
 Upgrade to maven 3.1.1 
@@ -102,7 +102,7 @@ Navigate to /usr/local/Cellar/maven/3.1.1/libexec
 Yes that's right. No copy and pasting the path on OSX... Still here? Wishing you'd helped us move to Gradle instead yet?
 ```
 
-![Import](https://raw.github.com/TeamPanicButton/PanicButton/raw/master/docs/setup_images/a.4.png)
+![Import](https://raw.githubusercontent.com/TeamPanicButton/PanicButton/master/docs/setup_images/a.4.png)
 
 ```
 Last step.

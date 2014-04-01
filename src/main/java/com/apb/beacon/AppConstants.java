@@ -1,13 +1,17 @@
 package com.apb.beacon;
 
 public class AppConstants {
-    //Emulator SMS Test values
+    //Test values
 	//public static final boolean SKIP_WIZARD = true;
     //public static final int PHONE_NUMBER_LIMIT = 3;
 
-	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
-	public static final boolean SKIP_WIZARD = false;
+    //Trainer values
+	//public static final long ALERT_FREQUENCY = 1000 * 30;
+	
+	//Prod values
+    public static final boolean SKIP_WIZARD = false;
     public static final int PHONE_NUMBER_LIMIT = 4;
+//	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
     public static final long ONE_MINUTE = 1000 * 60;
 	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
@@ -18,6 +22,7 @@ public class AppConstants {
     public static final float NETWORK_MIN_DISTANCE = 0;
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
+    
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
     public static final int HTTP_REQUEST_TYPE_GET = 1;
@@ -31,8 +36,8 @@ public class AppConstants {
     public static final int WIZARD_FLAG_COMPLETE = 605;
 
 
-    public static boolean WIZARD_IS_BACK_BUTTON_PRESSED = false;
-    public static boolean MAIN_IS_BACK_BUTTON_PRESSED = false;
+    public static boolean IS_BACK_BUTTON_PRESSED = false;
+//    public static boolean MAIN_IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
 //    public static boolean WIZARD_IS_FROM_CONTACTS_PICKER = false;
     

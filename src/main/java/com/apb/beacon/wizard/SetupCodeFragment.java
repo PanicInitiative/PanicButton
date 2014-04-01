@@ -23,6 +23,7 @@ import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -72,7 +73,7 @@ public class SetupCodeFragment extends Fragment {
             public void onClick(View v) {
                 Log.e(">>>>", "action button pressed");
                 ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
-
+                
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
@@ -80,6 +81,7 @@ public class SetupCodeFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
+                	AppUtil.showToast("New pincode saved.", 1000, activity);
                     i = new Intent(activity, MainActivity.class);
                 }
 
@@ -118,6 +120,7 @@ public class SetupCodeFragment extends Fragment {
 //                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
+                
 
             }
         });

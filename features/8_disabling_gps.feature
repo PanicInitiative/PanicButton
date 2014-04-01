@@ -1,8 +1,8 @@
-@gps_settings
+@android-10 @android-11 @android-12 @android-13 @android-14 @android-15 @android-16 @android-17 @android-18 @android-19
 Feature: Sending sms with different gps status
 
   Scenario: Setting up
-    Given I wait upto 120 seconds for the "WizardActivity" screen to appear
+    Given I wait up to 60 seconds for "Set-Up" to appear
     And I press "Set-Up"
     And I press "Get started"
     And I wait for 1 second

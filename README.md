@@ -1,53 +1,46 @@
-#PanicButton
-  
-###Tech stack
- * Android min version supported : **2.3.3 (Api 10)**
- * Build tool : **maven**
- * Unit Testing : **robolectric**
+# Panic Button
 
-###Machine Setup instructions
-Note : These steps are done in Linux Mint 15 (should work fine in ubuntu without any change)
+**Panic Button turns your mobile phone into a secret alarm for when you're in trouble**
 
-* Install git  
-```sudo apt-get install git```
-* Install maven  
-```sudo apt-get install maven```
-* You need to install the below lib for 64-bit OS   
-```sudo apt-get install ia32-libs```
+## How does Panic Button work?
 
-* Download and extract Oracle JDK to any location  
-  For example : I download the jdk and extracted to the folder ```/opt/jdk1.7.0_45```
-* Download and extract Android SDK to any location  
-  For example : I download the sdk and extracted to the folder ```/opt/android-sdk-linux```
+![TAKE TIME](https://panicbutton.iilab.org/images/illustration_2.gif)
 
-* Update your .bash_profile or .bashrc  with the below details  
-```
-export JAVA_HOME=/opt/jdk1.7.0_45  
-export ANDROID_HOME=/opt/android-sdk-linux  
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-```
-* Execute the below command to update your current shell  
-    * ```cd ~```  
-    * ```. ~/.bashrc```
-* Make the downloaded java SDK as the default  
-    * ```sudo update-alternatives --install "/usr/bin/java" "java" "/opt/jdk1.7.0_45/bin/java" 1```
-    * ```sudo update-alternatives --install "/usr/bin/javac" "javac" "/opt/jdk1.7.0_45/bin/javac" 1```
-    * ```sudo update-alternatives --config java``` and choose the oracle jdk
-    * ```sudo update-alternatives --config javac```
-    * Make sure it is updated properly by executing ```java -version```
-* Open android sdk manager using the command  
-    * ```cd /opt/android-sdk-linux```  
-    * ```./tools/android```
-    * Select and Install Android 2.3.3 Api
-* Download and extract Android Studio to any location.
-  For example : I extracted to ```/opt/android-studio```
+**TAKE TIME to set-up Panic Button somewhere safe and quiet**
 
-* Clone panic button source code  
-  ```git clone https://github.com/PanicButton/PanicButton.git```
-* Run maven compile to download necessary libs and compile
-    * ```cd ./PanicButton```
-    * ```mvn compile```
-  
-Check the instructions to setup IDE [here](https://github.com/PanicButton/PanicButton/wiki/IDE-Setup-Instructions)
+![TAKE TIME](https://panicbutton.iilab.org/images/illustration_3.gif)
 
-THAT'S ALL FOLKS :-)
+**Create a plan with your contacts so that they are PREPARED to ACT**
+
+![TAKE TIME](https://panicbutton.iilab.org/images/illustration_4.gif)
+
+**CHECK you are ready and that your mobile phone has credit and battery**
+
+![TAKE TIME](https://panicbutton.iilab.org/images/illustration_5.gif)
+
+**ACTIVATE Panic Button in an emergency by rapidly pressing the phone's power button**
+
+![TAKE TIME](https://panicbutton.iilab.org/images/illustration_6.gif)
+
+**Your network will receive an SMS and regular updates of your location helping them to ACT FAST**
+
+## The Organisations behind PANIC BUTTON
+
+The Panic Button project is an initiative of Amnesty International in collaboration with key advisors and partners including Frontline Defenders, iilab and the engine room.
+
+Panic Button also belongs to a wider community of advisors and friends. Special thanks go to the network of human rights activists from more than ten countries who have worked with us over the months to collaboratively design the app and have given many hours feeding back on the usability and functionality of the app.
+
+A huge thanks is also owed to the many programmers and designers who have donated their time and skills to develop the app over the past two years. We are especially grateful to the OpenIDEO community for kick-starting the project and to ThoughtWorks who generously helped to develop the first working prototype of the app.
+
+## Technology
+
+### Requirements
+
+You need an Android phone with a minimum version of 2.3.3 
+
+### Building
+
+See the [notes to build your own APK](./docs/BUILD.md)
+
+### Contributing
+See the [notes to setup a development environment](./docs/DEVELOPMENT.md)

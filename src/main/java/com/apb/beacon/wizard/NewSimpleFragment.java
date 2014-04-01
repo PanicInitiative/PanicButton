@@ -298,6 +298,7 @@ public class NewSimpleFragment extends Fragment {
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
         } else if(currentPage.getId().equals("home-ready")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
+            
         }
     }
 

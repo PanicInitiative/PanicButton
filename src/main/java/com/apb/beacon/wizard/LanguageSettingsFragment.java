@@ -21,7 +21,8 @@ import com.apb.beacon.model.Page;
  */
 public class LanguageSettingsFragment extends Fragment {
 
-    private static final String PAGE_ID = "page_id";
+	private static final String PAGE_ID = "page_id";
+    private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
 
     TextView tvTitle, tvContent, tvIntro;
@@ -31,10 +32,11 @@ public class LanguageSettingsFragment extends Fragment {
     PageLanguageSettingsAdapter pageLanguageSettingsAdapter;
 
 
-    public static LanguageSettingsFragment newInstance(String pageId) {
+    public static LanguageSettingsFragment newInstance(String pageId, int parentActivity) {
         LanguageSettingsFragment f = new LanguageSettingsFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
+        args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
         return (f);
     }
@@ -61,6 +63,7 @@ public class LanguageSettingsFragment extends Fragment {
         if (activity != null) {
 
             String pageId = getArguments().getString(PAGE_ID);
+            int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
@@ -81,7 +84,7 @@ public class LanguageSettingsFragment extends Fragment {
                 tvIntro.setText(currentPage.getIntroduction());
 
 
-            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity, null);
+            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity, null,pageId, currentPage,parentActivity);
             lvActions.setAdapter(pageLanguageSettingsAdapter);
 
             pageLanguageSettingsAdapter.setData(currentPage.getAction());

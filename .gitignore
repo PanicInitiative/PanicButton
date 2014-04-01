@@ -27,9 +27,12 @@ out/
 target/
 tmp/
 coverage.ec
+
+# calabash files
+
 /test_servers/
 /*.png
 *.html
-*.json
+cucumber.json
 *.keystore
 calabash_settings

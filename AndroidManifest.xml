@@ -74,10 +74,10 @@
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
         <activity android:name=".MainActivity"
-                  android:screenOrientation="portrait"
-                  android:excludeFromRecents="true"/>
-		    <activity android:name=".MainModalActivity"
-		              android:theme="@style/Theme.Transparent"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+		<activity android:name=".MainModalActivity"
+		    android:theme="@style/Theme.Transparent"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
         
@@ -101,17 +101,7 @@
             </intent-filter>
         </receiver>
         
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015"/>
         
-        <!--Check Current Running Activity Receivers -->
-        <receiver android:name=".trigger.StartupReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="StartupReceiver_Manual_Start" />
-			</intent-filter>
-		</receiver>
-		
-        <receiver android:name = ".trigger.CheckRunningApplicationReceiver"/>
         
     </application>
 </manifest>

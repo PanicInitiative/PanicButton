@@ -45,7 +45,6 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
 
-        AppUtil.CheckCurrentRunningActivity(HomeActivity.this);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
@@ -164,6 +163,16 @@ public class HomeActivity extends Activity {
 	        }
 
 	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_fr.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+
+	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
 
@@ -178,6 +187,16 @@ public class HomeActivity extends Activity {
 
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("help");
+
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_fr.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
 
 	            JSONArray dataArray = mobileObj.getJSONArray("data");

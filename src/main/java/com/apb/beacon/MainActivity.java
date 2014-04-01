@@ -49,6 +49,16 @@ public class MainActivity extends BaseFragmentActivity {
 
         Log.e("MainActivity.onCreate", "pageId = " + pageId);
 
+        if(pageId.equals("home-not-configured")){
+            Log.e("??????????????", "home-not-configured");
+            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+            Intent i = new Intent(MainActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+            finish();
+            return;
+        }
+
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
         currentPage = dbInstance.retrievePage(pageId, selectedLang);
@@ -86,7 +96,7 @@ public class MainActivity extends BaseFragmentActivity {
                 else if (currentPage.getComponent().equals("alert"))
                     fragment = new SetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
-                    fragment = new LanguageSettingsFragment().newInstance(pageId);
+                    fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else
                     fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
@@ -106,9 +116,9 @@ public class MainActivity extends BaseFragmentActivity {
             return;
         }
 
-        if(AppConstants.MAIN_IS_BACK_BUTTON_PRESSED){
+        if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("MainActivity.onResume", "back button pressed");
-            AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = false;
+            AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
         }
         
@@ -135,19 +145,20 @@ public class MainActivity extends BaseFragmentActivity {
     
     protected void onStop(){
         super.onStop();
-        Log.d("MainActivity.onStop", ".");
+        Log.e("MainActivity.onStop", ".");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(pageId.equals("home-not-configured")){
-        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
-        	Intent i = new Intent(MainActivity.this, WizardActivity.class);
-        	i.putExtra("page_id", "home-not-configured");
-        	startActivity(i);
-        }
-        Log.d("MainActivity.onStart", ".");
+//        if(pageId.equals("home-not-configured")){
+//            Log.e("??????????????", "home-not-configured");
+//        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+//        	Intent i = new Intent(MainActivity.this, WizardActivity.class);
+//        	i.putExtra("page_id", "home-not-configured");
+//        	startActivity(i);
+//        }
+        Log.e("MainActivity.onStart", ".");
     }
 
     @Override
@@ -160,7 +171,7 @@ public class MainActivity extends BaseFragmentActivity {
         else{
             super.onBackPressed();
         }
-        AppConstants.MAIN_IS_BACK_BUTTON_PRESSED = true;
+        AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
 
 
