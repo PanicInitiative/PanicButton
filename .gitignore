@@ -32,3 +32,4 @@ coverage.ec
 *.html
 *.json
 *.keystore
+calabash_settings

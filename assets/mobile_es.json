@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 2,
+    "version" : 4,
     "data":[
     {
       "id" : "setup-warning",
@@ -28,7 +28,7 @@
       "title" : "Configuraciones de lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"}]
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Français","language":"fr"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -222,7 +222,7 @@
       "title" : "Configuraciones de Lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"}]
+      "action" : [{"title":"Ingles","language":"en"},{"title":"Español","language":"es"},{"title":"Français","language":"fr"}]
     },
     {
       "id" : "settings-contacts",
@@ -247,11 +247,21 @@
       "action" : [{"title":"Save","link":"home-ready"}]
     },
     {
+      "id" : "settings-alert",
+      "lang" : "es",
+      "type" : "interactive",
+      "title" : "Alert settings",
+      "introduction" : "Setup the frequency.",
+      "warning" : "Be careful about your battery! Sending alerts too often might drain your battery.",
+      "component" : "alert",
+      "action" : [{"title":"Save","link":"home-ready"}]
+    },
+    {
       "id" : "settings",
       "lang" : "es",
       "type" : "simple",
       "title" : "Configuraciones",
-      "items" : [{"title":"Configuraciones de lenguage","link":"settings-language"},{"title":"Configuraciones de mensaje","link":"settings-message"},{"title":"Configuraciones de contactos","link":"settings-contacts"},{"title":"Configuraciones de clave de acceso","link":"settings-code"},{"title":"Reiniciar la instalación","link":"home-not-configured"}]
+      "items" : [{"title":"Configuraciones de lenguage","link":"settings-language"},{"title":"Configuraciones de mensaje","link":"settings-message"},{"title":"Configuraciones de contactos","link":"settings-contacts"},{"title":"Configuraciones de clave de acceso","link":"settings-code"},{"title":"Alert Settings","link":"settings-alert"},{"title":"Reiniciar la instalación","link":"settings-reset-confirm"}]
     },
     {
       "id" : "home-ready",
