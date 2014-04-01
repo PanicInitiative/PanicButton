@@ -37,7 +37,7 @@ public class PanicAlert {
     public void activate() {
         AppUtil.close(context);
         vibrate();
-        if (isActive()) {
+        if (isActive() || ApplicationSettings.isRestartedSetup(context)) {
             return;
         }
         ApplicationSettings.setAlertActive(context, true);

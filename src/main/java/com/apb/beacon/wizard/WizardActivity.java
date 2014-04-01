@@ -153,8 +153,14 @@ public class WizardActivity extends BaseFragmentActivity {
     protected void onPause() {
         super.onPause();
         Log.e("WizardActivity.onPause", ".");
+        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isRestartedSetup(WizardActivity.this)){
+        	Log.e("WizardActivity.onPause", "false->RestartedSetup");
+        	ApplicationSettings.setRestartedSetup(WizardActivity.this, false);
+        }
+        
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
         		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+        		
         		Intent i = new Intent(WizardActivity.this, MainActivity.class);
                 i.putExtra("page_id", currentPage.getId());
                 startActivity(i);

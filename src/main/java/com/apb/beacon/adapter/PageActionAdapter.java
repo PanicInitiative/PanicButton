@@ -98,6 +98,8 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     } else{
 //                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
                     	new PanicAlert(mContext).deActivate();
+                    	if(pageId.equalsIgnoreCase("home-not-configured"))
+                    		ApplicationSettings.setRestartedSetup(mContext, true);
                         i = new Intent(mContext, MainActivity.class);
                         i = AppUtil.clearBackStack(i);
                     }
