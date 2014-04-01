@@ -103,9 +103,6 @@ public class MainModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-//                        Intent broadcastIntent = new Intent();
-//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-//                        sendBroadcast(broadcastIntent);
                         callFinishActivityReceivier();
 
                         finish();
@@ -150,9 +147,6 @@ public class MainModalActivity extends BaseFragmentActivity {
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
                         callFinishActivityReceivier();
-//                        Intent broadcastIntent = new Intent();
-//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-//                        sendBroadcast(broadcastIntent);
 
                         finish();
                     } else {

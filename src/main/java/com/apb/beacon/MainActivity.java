@@ -19,6 +19,7 @@ import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.NewSimpleFragment;
 import com.apb.beacon.wizard.SetupAlertFragment;
 import com.apb.beacon.wizard.SetupCodeFragment;
+import com.apb.beacon.wizard.WarningFragment;
 import com.apb.beacon.wizard.WizardActivity;
 
 /**
@@ -78,6 +79,10 @@ public class MainActivity extends BaseFragmentActivity {
             if (currentPage.getType().equals("simple")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+            }else if (currentPage.getType().equals("warning")) {
+                    tvToastMessage.setVisibility(View.INVISIBLE);
+                    fragment = new WarningFragment().newInstance(pageId,AppConstants.FROM_MAIN_ACTIVITY);
+                
             } else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(MainActivity.this, MainModalActivity.class);

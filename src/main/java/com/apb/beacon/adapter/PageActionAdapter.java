@@ -15,6 +15,8 @@ import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.wizard.WizardActivity;
 
@@ -94,12 +96,16 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                         i = new Intent(mContext, WizardActivity.class);
                     } else{
+//                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
+                    	new PanicAlert(mContext).deActivate();
                         i = new Intent(mContext, MainActivity.class);
+                        i = AppUtil.clearBackStack(i);
                     }
 
 //                    Intent i = new Intent(mContext, WizardActivity.class);
                     i.putExtra("page_id", pageId);
                     mContext.startActivity(i);
+                    
                 }
             }
         });

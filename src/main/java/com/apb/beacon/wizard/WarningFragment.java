@@ -25,6 +25,8 @@ import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
@@ -39,6 +41,7 @@ import java.util.HashMap;
 public class WarningFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
+    private static final String PARENT_ACTIVITY = "parent_activity";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
@@ -53,10 +56,11 @@ public class WarningFragment extends Fragment {
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
 
-    public static WarningFragment newInstance(String pageId) {
+    public static WarningFragment newInstance(String pageId, int parentActivity) {
         WarningFragment f = new WarningFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
+        args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
         return(f);
     }
@@ -76,9 +80,10 @@ public class WarningFragment extends Fragment {
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pageId = currentPage.getStatus().get(0).getLink();
 
-                Intent i = new Intent(activity, WizardActivity.class);
+                String pageId = currentPage.getStatus().get(0).getLink();
+                
+                Intent i= new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
             }
@@ -95,12 +100,12 @@ public class WarningFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
-
                 String pageId = selectedItem.getLink();
-
-                Intent i = new Intent(activity, WizardActivity.class);
+                
+                Intent i= new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
+                
             }
         });
         return view;
@@ -152,8 +157,8 @@ public class WarningFragment extends Fragment {
                 llWarning.setVisibility(View.GONE);
             else
                 tvWarning.setText(currentPage.getWarning());
-
-            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, AppConstants.FROM_WIZARD_ACTIVITY);
+            int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+            pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, parentActivity);
             lvActions.setAdapter(pageActionAdapter);
             pageActionAdapter.setData(currentPage.getAction());
 

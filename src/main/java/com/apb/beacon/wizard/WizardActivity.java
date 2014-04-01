@@ -83,7 +83,7 @@ public class WizardActivity extends BaseFragmentActivity {
             }
             else if (currentPage.getType().equals("warning")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new WarningFragment().newInstance(pageId);
+                fragment = new WarningFragment().newInstance(pageId,AppConstants.FROM_WIZARD_ACTIVITY);
             }
             else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
