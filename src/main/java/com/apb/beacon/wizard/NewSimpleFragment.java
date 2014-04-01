@@ -117,6 +117,8 @@ public class NewSimpleFragment extends Fragment {
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+
                 String pageId = currentPage.getStatus().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
@@ -143,6 +145,8 @@ public class NewSimpleFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
 //                AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;

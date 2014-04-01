@@ -19,7 +19,6 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
-import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
@@ -153,17 +152,18 @@ public class WizardActivity extends BaseFragmentActivity {
     protected void onPause() {
         super.onPause();
         Log.e("WizardActivity.onPause", ".");
+        Log.e(">>>>>", "item pressed = " + AppConstants.IS_ACTION_ITEM_PRESSED);
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isRestartedSetup(WizardActivity.this)){
         	Log.e("WizardActivity.onPause", "false->RestartedSetup");
         	ApplicationSettings.setRestartedSetup(WizardActivity.this, false);
         }
         
-        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this)) {
+        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this) && !AppConstants.IS_ACTION_ITEM_PRESSED) {
         		ApplicationSettings.setFirstRun(WizardActivity.this, false);
         		
-        		Intent i = new Intent(WizardActivity.this, MainActivity.class);
-                i.putExtra("page_id", currentPage.getId());
-                startActivity(i);
+//        		Intent i = new Intent(WizardActivity.this, MainActivity.class);
+//                i.putExtra("page_id", currentPage.getId());
+//                startActivity(i);
 
         		getPackageManager().setComponentEnabledSetting(
                         new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -213,6 +213,11 @@ public class WizardActivity extends BaseFragmentActivity {
             Log.e("WizardActivity.onResume", "back button pressed");
             AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
+        }
+
+        if(AppConstants.IS_ACTION_ITEM_PRESSED){
+            Log.e("WizardActivity.onResume", "item-pressed flag becoming false in onResume");
+            AppConstants.IS_ACTION_ITEM_PRESSED = false;
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){

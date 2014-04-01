@@ -37,6 +37,7 @@ public class AppConstants {
 
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
+    public static boolean IS_ACTION_ITEM_PRESSED = false;
 //    public static boolean MAIN_IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
 //    public static boolean WIZARD_IS_FROM_CONTACTS_PICKER = false;
