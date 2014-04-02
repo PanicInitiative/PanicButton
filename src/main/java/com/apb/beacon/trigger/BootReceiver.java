@@ -15,8 +15,10 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(ACTION_BOOT_COMPLETED)) {
 //        	new PanicAlert(context).deActivate();
-        	ApplicationSettings.setAlertActive(context, false);
-        	new PanicAlert(context).activate();
+        	if(ApplicationSettings.isAlertActive(context)){
+	        	ApplicationSettings.setAlertActive(context, false);
+	        	new PanicAlert(context).activate();
+        	}
             context.startService(new Intent(context, HardwareTriggerService.class));
         }
     }
