@@ -97,6 +97,12 @@ public class CalculatorActivity extends PanicButtonActivity {
 			case R.id.divide:
 				handleButtonPress(CalculatorImpl.Button.DIVIDE);
 				break;
+			case R.id.char_c:
+				handleButtonPress(CalculatorImpl.Button.CHAR_C);
+				break;
+			case R.id.decimal_point:
+				handleButtonPress(CalculatorImpl.Button.DECIMAL_POINT);
+				break;
 			}
 			MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
 			if (multiClickEvent == null) {

@@ -10,7 +10,7 @@ public class CalculatorImpl {
 
 	public enum Button {
 		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO,
-		EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE
+		EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE, CHAR_C, DECIMAL_POINT
 	}
 	
 	private enum Operation { PLUS, MINUS, MULTIPLY, DIVIDE };
