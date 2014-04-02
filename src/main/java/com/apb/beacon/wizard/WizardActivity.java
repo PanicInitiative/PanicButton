@@ -157,13 +157,13 @@ public class WizardActivity extends BaseFragmentActivity {
         	Log.e("WizardActivity.onPause", "false->RestartedSetup");
         	ApplicationSettings.setRestartedSetup(WizardActivity.this, false);
         }
-        
+
+        /*
+        If action-item is not pressed then the following code-snippets will be executed.
+        So these will take effect if home-ready is paused by home or power button.
+         */
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this) && !AppConstants.IS_ACTION_ITEM_PRESSED) {
         		ApplicationSettings.setFirstRun(WizardActivity.this, false);
-        		
-//        		Intent i = new Intent(WizardActivity.this, MainActivity.class);
-//                i.putExtra("page_id", currentPage.getId());
-//                startActivity(i);
 
         		getPackageManager().setComponentEnabledSetting(
                         new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -235,11 +235,9 @@ public class WizardActivity extends BaseFragmentActivity {
         }
 
         if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
-//        if (flagRiseFromPause) {
 
             if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
                 pageId = "home-not-configured";
-//            	pageId = "setup-contacts";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
@@ -252,7 +250,6 @@ public class WizardActivity extends BaseFragmentActivity {
             i = AppUtil.clearBackStack(i);
             i.putExtra("page_id", pageId);
             startActivity(i);
-//            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
             callFinishActivityReceivier();
 

@@ -38,9 +38,7 @@ public class AppConstants {
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
     public static boolean IS_ACTION_ITEM_PRESSED = false;
-//    public static boolean MAIN_IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
-//    public static boolean WIZARD_IS_FROM_CONTACTS_PICKER = false;
     
     public static final int FROM_WIZARD_ACTIVITY = 1;
     public static final int FROM_MAIN_ACTIVITY = 2;
@@ -48,7 +46,6 @@ public class AppConstants {
     public static final String TABLE_PRIMARY_KEY = "_id";
 
     public static final String BASE_URL = "https://panicbutton.iilab.org/api/";
-//    public static final String MOBILE_DATA_URL = "mobile.json";
     public static final String HELP_DATA_URL = "help.json";
     public static final String VERSION_CHECK_URL = "version.json";
 
