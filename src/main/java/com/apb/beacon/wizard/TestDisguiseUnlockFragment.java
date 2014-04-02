@@ -27,7 +27,7 @@ public class TestDisguiseUnlockFragment extends Fragment {
     private Activity activity;
 
     private int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight,
-            R.id.nine, R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply, R.id.divide};
+            R.id.nine, R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply, R.id.divide, R.id.decimal_point, R.id.char_c};
 
     private Handler inactiveHandler = new Handler();
     private Handler failHandler = new Handler();

@@ -7,7 +7,7 @@
     <LinearLayout style="@style/calculator_btn_container">
         
         <Button
-            android:id="@+id/btn_c"
+            android:id="@+id/char_c"
             style="@style/calculator_btn"
             android:layout_marginTop="5dp"
             android:text="@string/char_c" android:layout_weight=".75"/>
@@ -102,7 +102,7 @@
             android:text="@string/zero" />
 
         <Button
-            android:id="@+id/digit_sign"
+            android:id="@+id/decimal_point"
             style="@style/calculator_btn"
             android:text="@string/decimal_point" />
 

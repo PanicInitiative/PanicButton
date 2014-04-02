@@ -18,7 +18,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
-		R.id.divide};
+		R.id.divide, R.id.decimal_point, R.id.char_c};
 
 	private CalculatorImpl calculator;
 	private int lastClickId = -1;
