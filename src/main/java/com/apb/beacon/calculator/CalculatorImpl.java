@@ -51,6 +51,10 @@ public class CalculatorImpl {
 			return pushOperation(Operation.MULTIPLY) ? "\u00d7" : "0";
 		case DIVIDE:
 			return pushOperation(Operation.DIVIDE) ? "\u00f7" : "0";
+		case CHAR_C:
+			return clearDisplay().toPlainString();
+		case DECIMAL_POINT:
+			return clearDisplay().toPlainString();
 		default:
 			throw new IllegalStateException();
 		}
@@ -99,6 +103,12 @@ public class CalculatorImpl {
 		clearOnDigit = negativeNumber = false;
 		operand1 = operand2 = null;
 		operation = null;
+	}
+	
+	private BigDecimal clearDisplay(){
+		clear();
+		return ZERO;
+		
 	}
 
 	private BigDecimal popResult() {
