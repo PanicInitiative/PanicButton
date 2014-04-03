@@ -98,7 +98,23 @@ public class CalculatorImpl {
 	}
 	
 	private BigDecimal pushDecimal() {
-		if (operand1 != null) {
+		if(!decimalPoint){
+			decimalPointPlace = 0;
+			if(clearOnDigit || operand1 == null) {
+				if(negativeNumber) operand1 = BigDecimal.valueOf(-0.);
+				else operand1 = BigDecimal.valueOf(0.);
+			}
+			if (operand1.signum() == -1) {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length() - 1;
+			} else {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length();
+			}
+			decimalPoint = true;
+			
+		}
+		/*if (operand1 != null) {
 			if (!decimalPoint) {
 				decimalPointPlace = 0;
 				if (operand1.signum() == -1) {
@@ -111,8 +127,26 @@ public class CalculatorImpl {
 				decimalPoint = true;
 			}
 			return operand1;
+		}else{
+			decimalPointPlace = 0;
+			if(clearOnDigit || operand1 == null) {
+				if(negativeNumber) operand1 = BigDecimal.valueOf(-0.);
+				else operand1 = BigDecimal.valueOf(0.);
+			}
+			if (operand1.signum() == -1) {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length() - 1;
+			} else {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length();
+			}
+			decimalPoint = true;
+			
+			return operand1;
 		}
-		return ZERO;
+		*/
+		return operand1;
+		
 		
 	}
 
