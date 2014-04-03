@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.crashlytics.android.Crashlytics;
+
 import static com.apb.beacon.ApplicationSettings.isFirstRun;
 
 public class HomeActivity extends Activity {
@@ -43,6 +45,8 @@ public class HomeActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
         setContentView(R.layout.welcome_screen);
 
         latestVersion = -1;
