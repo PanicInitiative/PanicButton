@@ -123,7 +123,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -167,7 +167,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -201,7 +201,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
     @Override
     protected void onStop() {
     	super.onStop();
-    	callFinishActivityReceivier();
+        callFinishActivityReceiver();
     	finish();
     }
 

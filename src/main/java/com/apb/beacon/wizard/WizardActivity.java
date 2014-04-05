@@ -19,6 +19,7 @@ import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.BaseFragmentActivity;
 import com.apb.beacon.CalculatorActivity;
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.MyTagHandler;
@@ -43,7 +44,7 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
         
-        callFinishActivityReceivier();
+//        registerFinishActivityReceivier();
 
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
@@ -70,7 +71,14 @@ public class WizardActivity extends BaseFragmentActivity {
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
-        } else {
+        } else if(currentPage.getId().equals("home-ready")){
+            Intent i = new Intent(WizardActivity.this, MainActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+            finish();
+            return;
+        }
+        else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -174,7 +182,15 @@ public class WizardActivity extends BaseFragmentActivity {
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
         }
 
-        if(!pageId.equals("setup-alarm-test-hardware")){            // we block this page for pause-resume action
+
+        /*
+        It's part of setup-alarm-test-hardware page testing to press power button consecutively 5 times that calls the activity's onPause method every time
+        the device goes locked & onResume method every time the device is unlocked. That's why we omit this page for this below condition, otherwise every time
+        device goes to pause state by pressing power button, flagRiseFromPause becomes true & display home-not-configured-alarm page, thus our test can't be successful.
+
+        In short, we block this page - setup-alarm-test-hardware for pause-resume action
+         */
+        if(!pageId.equals("setup-alarm-test-hardware")){
             Log.e(">>>>>>", "assert flagRiseFromPause = " + true);
             flagRiseFromPause = true;
         }
@@ -221,8 +237,8 @@ public class WizardActivity extends BaseFragmentActivity {
         }
 
         if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-            
-        	callFinishActivityReceivier();
+
+            callFinishActivityReceiver();
             finish();
         	
         	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
@@ -234,9 +250,25 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         }
 
+        /*
+        1. !pageId.equals("setup-alarm-test-hardware-success") -
+        It's part of setup-alarm-test-hardware page test to press power button consecutively 5 times that calls the activity's onPause
+        method every time the device goes locked & onResume method every time the device is unlocked. setup-alarm-test-hardware-success
+        comes when we successfully test this scenario.
+        We have to make sure every time this test gets success, it shouldn't be treated as - we come from background app stack. Otherwise
+        every time device test is successful, home-not-configured-alarm page appears forcefully, thus we can't proceed forward.
+
+        2. flagRiseFromPause -
+        Every time device gets resumed from setup-alarm-test-hardware page at test time, we want to continue the test, not to go to
+        home-not-configured-alarm page thinking that "it comes from onPause, so possibly we need to show the flag-point". That's why
+        we keep this flag flagRiseFromPause = false if the page is - setup-alarm-test-hardware.
+        A side-effect is - if we are in setup-alarm-test-hardware page, & we press home button, it won't be treated differently, as
+        it goes to same onPause, so this page won't have any onPause/onResume effect according to the app.
+        SHOULDN'T WE TURN OFF THE FLAG IN THIS IF-BLOCK?
+         */
         if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
 
-            if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
+            if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
                 pageId = "home-not-configured";
             } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
                 pageId = "home-not-configured-alarm";
@@ -251,7 +283,7 @@ public class WizardActivity extends BaseFragmentActivity {
             i.putExtra("page_id", pageId);
             startActivity(i);
 
-            callFinishActivityReceivier();
+            callFinishActivityReceiver();
 
             finish();
         }

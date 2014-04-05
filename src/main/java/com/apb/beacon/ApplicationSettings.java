@@ -73,7 +73,7 @@ public class ApplicationSettings {
 
 
     public static int getWizardState(Context context) {
-        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
     }
 
     public static void setWizardState(Context context, int state) {

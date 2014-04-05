@@ -51,7 +51,7 @@ public class HomeActivity extends Activity {
         int wizardState = ApplicationSettings.getWizardState(this);
         if (AppConstants.SKIP_WIZARD) {
             pageId = "home-ready";
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED) {
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
             pageId = "home-not-configured";
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = "home-not-configured-alarm";

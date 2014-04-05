@@ -39,8 +39,8 @@ public class MainActivity extends BaseFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
-        
-        callFinishActivityReceivier();
+
+//        registerFinishActivityReceivier();
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 //        tvToastMessage.setVisibility(View.GONE);
@@ -52,7 +52,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         if(pageId.equals("home-not-configured")){
             Log.e("??????????????", "home-not-configured");
-            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
@@ -132,7 +132,7 @@ public class MainActivity extends BaseFragmentActivity {
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            callFinishActivityReceivier();
+            callFinishActivityReceiver();
 
             finish();
             return;
@@ -158,7 +158,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.onStart();
 //        if(pageId.equals("home-not-configured")){
 //            Log.e("??????????????", "home-not-configured");
-//        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+//        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
 //        	Intent i = new Intent(MainActivity.this, WizardActivity.class);
 //        	i.putExtra("page_id", "home-not-configured");
 //        	startActivity(i);

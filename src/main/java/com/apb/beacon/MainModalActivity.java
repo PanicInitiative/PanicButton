@@ -103,7 +103,7 @@ public class MainModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -146,7 +146,7 @@ public class MainModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -182,7 +182,7 @@ public class MainModalActivity extends BaseFragmentActivity {
     protected void onStop() {
         super.onStop();
         Log.e(">>>>>>>>>", "MainModal -> onStop");
-        callFinishActivityReceivier();
+        callFinishActivityReceiver();
         finish();
     }
 

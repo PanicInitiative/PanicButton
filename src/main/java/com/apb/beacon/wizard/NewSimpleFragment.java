@@ -295,7 +295,7 @@ public class NewSimpleFragment extends Fragment {
         super.onResume();
         Log.d("NewSimpleFragment.onResume", currentPage.getId());
         if(currentPage.getId().equals("home-not-configured")){
-        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
         }else if(currentPage.getId().equals("home-not-configured-alarm")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
         } else if(currentPage.getId().equals("home-not-configured-disguise")){
