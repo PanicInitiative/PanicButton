@@ -77,6 +77,7 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type_simple, container, false);
+        Log.e(">>>>>", "NewSimpleFragment.onCreateView");
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -117,7 +118,7 @@ public class NewSimpleFragment extends Fragment {
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
 
                 String pageId = currentPage.getStatus().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
@@ -145,7 +146,7 @@ public class NewSimpleFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
 
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
@@ -170,6 +171,7 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e(">>>>>", "NewSimpleFragment.onActivityCreated");
 
         activity = getActivity();
         if (activity != null) {
@@ -281,19 +283,19 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onStop(){
         super.onStop();
-        Log.d("NewSimpleFragment.onStop", currentPage.getId());
+        Log.e("NewSimpleFragment.onStop", currentPage.getId());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("NewSimpleFragment.onStart", currentPage.getId());
+        Log.e("NewSimpleFragment.onStart", currentPage.getId());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("NewSimpleFragment.onResume", currentPage.getId());
+        Log.e("NewSimpleFragment.onResume", currentPage.getId());
         if(currentPage.getId().equals("home-not-configured")){
         	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
         }else if(currentPage.getId().equals("home-not-configured-alarm")){
@@ -302,7 +304,6 @@ public class NewSimpleFragment extends Fragment {
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
         } else if(currentPage.getId().equals("home-ready")){
             ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
-            
         }
     }
 

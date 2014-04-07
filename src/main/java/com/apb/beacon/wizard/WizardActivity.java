@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.BaseFragmentActivity;
-import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
@@ -44,7 +43,7 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
         
-//        registerFinishActivityReceivier();
+//        registerFinishActivityReceiver();
 
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
@@ -72,9 +71,15 @@ public class WizardActivity extends BaseFragmentActivity {
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
         } else if(currentPage.getId().equals("home-ready")){
+            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+            changeAppIcon();
+
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
+
+            callFinishActivityReceiver();
+
             finish();
             return;
         }
@@ -156,11 +161,21 @@ public class WizardActivity extends BaseFragmentActivity {
         }
     }
 
+    private void changeAppIcon() {
+        getPackageManager().setComponentEnabledSetting(
+                new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        getPackageManager().setComponentEnabledSetting(
+                new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
         Log.e("WizardActivity.onPause", ".");
-        Log.e(">>>>>", "item pressed = " + AppConstants.IS_ACTION_ITEM_PRESSED);
+//        Log.e(">>>>>", "item pressed = " + AppConstants.IS_ACTION_ITEM_PRESSED);
         if(currentPage.getId().equals("home-ready") && ApplicationSettings.isRestartedSetup(WizardActivity.this)){
         	Log.e("WizardActivity.onPause", "false->RestartedSetup");
         	ApplicationSettings.setRestartedSetup(WizardActivity.this, false);
@@ -170,17 +185,17 @@ public class WizardActivity extends BaseFragmentActivity {
         If action-item is not pressed then the following code-snippets will be executed.
         So these will take effect if home-ready is paused by home or power button.
          */
-        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this) && !AppConstants.IS_ACTION_ITEM_PRESSED) {
-        		ApplicationSettings.setFirstRun(WizardActivity.this, false);
-
-        		getPackageManager().setComponentEnabledSetting(
-                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
-
-                getPackageManager().setComponentEnabledSetting(
-                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
-        }
+//        if(currentPage.getId().equals("home-ready") && ApplicationSettings.isFirstRun(WizardActivity.this) && !AppConstants.IS_ACTION_ITEM_PRESSED) {
+//        		ApplicationSettings.setFirstRun(WizardActivity.this, false);
+//
+//        		getPackageManager().setComponentEnabledSetting(
+//                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+//                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+//
+//                getPackageManager().setComponentEnabledSetting(
+//                        new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+//                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+//        }
 
 
         /*
@@ -215,15 +230,15 @@ public class WizardActivity extends BaseFragmentActivity {
 
         int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
 
-        if(wizardState == AppConstants.WIZARD_FLAG_COMPLETE){
-            return;
-        }
+//        if(wizardState == AppConstants.WIZARD_FLAG_COMPLETE){
+//            return;
+//        }
 
-        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-            Log.e("WizardActivity.onResume", "returning from not-implemented page.");
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
-            return;
-        }
+//        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+//            Log.e("WizardActivity.onResume", "returning from not-implemented page.");
+//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+//            return;
+//        }
 
         if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("WizardActivity.onResume", "back button pressed");
@@ -231,42 +246,44 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         }
 
-        if(AppConstants.IS_ACTION_ITEM_PRESSED){
-            Log.e("WizardActivity.onResume", "item-pressed flag becoming false in onResume");
-            AppConstants.IS_ACTION_ITEM_PRESSED = false;
-        }
+//        if(AppConstants.IS_ACTION_ITEM_PRESSED){
+//            Log.e("WizardActivity.onResume", "item-pressed flag becoming false in onResume");
+//            AppConstants.IS_ACTION_ITEM_PRESSED = false;
+//        }
 
-        if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
-
-            callFinishActivityReceiver();
-            finish();
-        	
-        	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
-            i = AppUtil.clearBackStack(i);
-            startActivity(i);
-            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
-
-            
-            return;
-        }
+//        if(!ApplicationSettings.isFirstRun(WizardActivity.this) && currentPage.getId().equals("home-ready")){
+//
+//            callFinishActivityReceiver();
+//            finish();
+//
+//        	Intent i = new Intent(WizardActivity.this, CalculatorActivity.class);
+//            i = AppUtil.clearBackStack(i);
+//            startActivity(i);
+//            overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+//
+//
+//            return;
+//        }
 
         /*
-        1. !pageId.equals("setup-alarm-test-hardware-success") -
+        The below code snippet partitions the wizard into 3 check-point, so if we pass the latest one, that will be marked as the opening page of the app
+        if we closes the app at some point of wizard-configuration & resume later. We have 2 conditions to make this code executed -
+
+        1. flagRiseFromPause -
+        Every time device gets resumed, flagRiseFromPause becomes true(except for setup-alarm-test-hardware) & we only want this part of code executed in that case.
+        if we don't user flagRiseFromPause flag, every-time activity comes to onResume, this code executes, calls another activity, which will make an infinite loop.
+
+        2. !pageId.equals("setup-alarm-test-hardware-success") -
         It's part of setup-alarm-test-hardware page test to press power button consecutively 5 times that calls the activity's onPause
         method every time the device goes locked & onResume method every time the device is unlocked. setup-alarm-test-hardware-success
         comes when we successfully test this scenario.
-        We have to make sure every time this test gets success, it shouldn't be treated as - we come from background app stack. Otherwise
-        every time device test is successful, home-not-configured-alarm page appears forcefully, thus we can't proceed forward.
-
-        2. flagRiseFromPause -
-        Every time device gets resumed from setup-alarm-test-hardware page at test time, we want to continue the test, not to go to
-        home-not-configured-alarm page thinking that "it comes from onPause, so possibly we need to show the flag-point". That's why
-        we keep this flag flagRiseFromPause = false if the page is - setup-alarm-test-hardware.
-        A side-effect is - if we are in setup-alarm-test-hardware page, & we press home button, it won't be treated differently, as
-        it goes to same onPause, so this page won't have any onPause/onResume effect according to the app.
-        SHOULDN'T WE TURN OFF THE FLAG IN THIS IF-BLOCK?
+        So setup-alarm-test-hardware-success always comes with flagRiseFromPause = true, so we have to handle this page explicitly so that app shouldn't
+        go to the mile-stone page every time this page loads.
+        Side Effect - if we are in this page - setup-alarm-test-hardware-success & go to home & come back, still this page will be there as the
+        opening page of the app.
          */
-        if (!pageId.equals("setup-alarm-test-hardware-success") && flagRiseFromPause) {
+        if (flagRiseFromPause && !pageId.equals("setup-alarm-test-hardware-success")) {
+            flagRiseFromPause = false;
 
             if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
                 pageId = "home-not-configured";

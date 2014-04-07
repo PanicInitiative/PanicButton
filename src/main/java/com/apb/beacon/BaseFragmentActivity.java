@@ -13,11 +13,11 @@ public class BaseFragmentActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(">>>>>", "Registering finish activity");
-        registerFinishActivityReceivier();
+        registerFinishActivityReceiver();
 
     }
 
-    public void registerFinishActivityReceivier() {
+    public void registerFinishActivityReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.apb.beacon.ACTION_LOGOUT");
         registerReceiver(activityFinishReceiver, intentFilter);

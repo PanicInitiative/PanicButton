@@ -22,10 +22,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static com.apb.beacon.ApplicationSettings.isFirstRun;
 
 public class HomeActivity extends Activity {
 
@@ -39,7 +35,7 @@ public class HomeActivity extends Activity {
     int lastUpdatedVersion;
     int latestVersion;
     long lastRunTimeInMillis;
-    int lastDBVersion;
+    int lastLocalDBVersion;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,24 +62,26 @@ public class HomeActivity extends Activity {
 
         lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
 
-        lastDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
-//        Log.e(">>>>>>", "lastDBVersion = " + lastDBVersion);
-
-        if(lastDBVersion < AppConstants.DATABASE_VERSION){
+        /*
+        lastLocalDBVersion is used for local db version update. If local db version is changed, then all local data will be deleted,
+        tables will be reformed & database is blank. So at that point we will force local-data update from assets, then a retrieval-try
+        from the remote database even if the data was retrieved within last 24-hours period.
+         */
+        lastLocalDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
+        if(lastLocalDBVersion < AppConstants.DATABASE_VERSION){
+            Log.e("<<<<<", "local db version changed. needs a force update");
             ApplicationSettings.setLocalDataInsertion(this, false);
             lastRunTimeInMillis = -1;
         }
 
         if (!ApplicationSettings.getLocalDataInsertion(HomeActivity.this)) {
+            Log.e("???????", "Initializing local data");
             new InitializeLocalData().execute();
-        }
-
-        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
-            Log.e(">>>>", "last run not today");
+        } else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+            Log.e(">>>>", "local data initialized but last run not today");
             new GetLatestVersion().execute();
-        }
-
-        else{
+        } else{
+            Log.e(">>>>>", "no update needed");
             startNextActivity();
         }
     }
@@ -91,33 +89,36 @@ public class HomeActivity extends Activity {
     @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
-        System.gc();
+//    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+//        System.gc();
     }
 
     private void startNextActivity(){
-        if (isFirstRun(HomeActivity.this)) {
+        Log.e(">>>>>>>>>>>>", "starting next activity");
+        if (ApplicationSettings.isFirstRun(HomeActivity.this)) {
+            Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
         } else {
+            Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
             startActivity(i);
         }
     }
 
 
-    private void startWizard() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-                i = AppUtil.clearBackStack(i);
-                i.putExtra("page_id", pageId);
-                startActivity(i);
-            }
-        }, AppConstants.SPLASH_DELAY_TIME);
-    }
+//    private void startWizard() {
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+//                i = AppUtil.clearBackStack(i);
+//                i.putExtra("page_id", pageId);
+//                startActivity(i);
+//            }
+//        }, AppConstants.SPLASH_DELAY_TIME);
+//    }
 
     private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
 
@@ -257,7 +258,7 @@ public class HomeActivity extends Activity {
                 try {
                     JSONObject responseObj = response.getjObj();
                     latestVersion = responseObj.getInt("version");
-                    Log.e("??????", "latest version = " + latestVersion);
+                    Log.e("??????", "latest version = " + latestVersion + " last updated version = " + lastUpdatedVersion);
                     return true;
                 } catch (JSONException e) {
                     e.printStackTrace();

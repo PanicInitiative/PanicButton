@@ -40,7 +40,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
 
-//        registerFinishActivityReceivier();
+//        registerFinishActivityReceiver();
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 //        tvToastMessage.setVisibility(View.GONE);
