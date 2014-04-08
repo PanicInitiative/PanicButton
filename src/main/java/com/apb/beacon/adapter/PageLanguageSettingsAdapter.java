@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.apb.beacon.AppConstants;
 import com.apb.beacon.ApplicationSettings;
-import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
@@ -25,7 +24,6 @@ import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.ServerResponse;
 import com.apb.beacon.parser.JsonParser;
-import com.apb.beacon.wizard.LanguageSettingsFragment;
 import com.apb.beacon.wizard.WizardActivity;
 
 import org.json.JSONArray;
@@ -47,23 +45,14 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     private String selectedLang;
     private int lastUpdatedVersion;
     private int latestVersion;
-    
-    private String pageId;
-    private int parentActivity;
-    
-    private Page currentPage;
 
-    public PageLanguageSettingsAdapter(Context context, List<PageAction> actionList,String pageId,Page currentPage, int parentActivity) {
+    public PageLanguageSettingsAdapter(Context context) {
         super(context, R.layout.row_page_language_settings);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.currentLang = ApplicationSettings.getSelectedLanguage(mContext);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(mContext);
-        
-        this.pageId = pageId;
-        this.currentPage = currentPage;
-        this.parentActivity = parentActivity;
     }
 
 
@@ -99,14 +88,8 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 selectedLang = item.getLanguage();
                 
                 if (currentLang.equals(selectedLang)) {
-                	AppUtil.showToast("Language already appliead.", 1000, mContext);
-                	/*Intent i = new Intent(((Activity) mContext), WizardActivity.class);
-                    i.putExtra("page_id", "home-ready");
-                    ((Activity) mContext).startActivity(i);
-                    ((Activity) mContext).finish();*/
-                	
-//                	String pageId = currentPage.getAction().get(0).getLink();
-                	redirectTO();
+                    ((Activity) mContext).finish();
+                	AppUtil.showToast("Language already applied.", Toast.LENGTH_SHORT, mContext);
                     return;
                 }
                 new GetLatestVersion().execute();
@@ -116,24 +99,26 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         return convertView;
     }
 
+    public void restartApp(){
 
-    public void redirectTO(){
-    	
-    	Intent i;
-
-        if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
-            i = new Intent(mContext, WizardActivity.class);
-            i.putExtra("page_id", "home-not-configured");
-        } else{
-            i = new Intent(mContext, MainActivity.class);
-            i.putExtra("page_id", "home-ready");
+        int wizardState = ApplicationSettings.getWizardState(mContext);
+        String pageId = null;
+        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+            pageId = "home-not-configured";
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
+            pageId = "home-not-configured-alarm";
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
+            pageId = "home-not-configured-disguise";
+        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
+            pageId = "home-ready";
         }
 
+        Intent i = new Intent(mContext, WizardActivity.class);
+        i.putExtra("page_id", pageId);
         mContext.startActivity(i);
 
-        if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
-        	((Activity) mContext).finish();
-        }
+        ((WizardActivity) mContext).callFinishActivityReceiver();
+        ((Activity) mContext).finish();
     }
     
     public void setData(List<PageAction> actionList) {
@@ -178,6 +163,8 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             super.onPostExecute(response);
 
             if (!response) {
+                if (pDialog.isShowing())
+                    pDialog.dismiss();
                 Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
             } else {
                 if (latestVersion > lastUpdatedVersion) {
@@ -202,10 +189,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         conf.locale = new Locale(selectedLang);
         res.updateConfiguration(conf, dm);
 
-//        ((Activity) mContext).finish();
-//        ((Activity) mContext).onBackPressed();
-        redirectTO();
-
+        restartApp();
     }
 
 
@@ -264,53 +248,6 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             }
         }
     }
-
-
-//    private class GetMobileDataUpdate extends AsyncTask<String, Void, Boolean> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            pDialog = ProgressDialog.show(mContext, "Panic Button", "Checking for updates...", true, false);
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(String... params) {
-//            String url = params[0];
-//            JsonParser jsonParser = new JsonParser();
-//            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
-//            if (response.getStatus() == 200) {
-//                Log.d(">>>><<<<", "success in retrieving update of new language = " + url);
-////                ApplicationSettings.setLastRunTimeInMillis(mContext, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
-//
-//                try {
-//                    JSONObject responseObj = response.getjObj();
-//                    JSONObject mobObj = responseObj.getJSONObject("mobile");
-//                    JSONArray dataArray = mobObj.getJSONArray("data");
-//                    insertJsonDataToLocalDB(dataArray);
-//                    return true;
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            return false;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean response) {
-//            super.onPostExecute(response);
-//            if (pDialog.isShowing())
-//                pDialog.dismiss();
-//
-//            if(!response){
-//                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
-//            } else{
-//                Toast.makeText(mContext, "New language applied.", Toast.LENGTH_SHORT).show();
-//                ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
-//                ((Activity)mContext).finish();
-//            }
-//        }
-//    }
 
 
     private void insertMobileDataToLocalDB(JSONArray dataArray) {

@@ -44,7 +44,6 @@ public class BaseFragmentActivity extends FragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("com.apb.beacon.ACTION_LOGOUT")) {
-//				Log.d("MainActivity.onReceive", "Logout in progress");
                 finish();
             }
         }

@@ -68,7 +68,7 @@ public class MainActivity extends BaseFragmentActivity {
         if (currentPage == null) {
             Log.e("MainActivity.onCreate", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
+//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -115,11 +115,11 @@ public class MainActivity extends BaseFragmentActivity {
         super.onResume();
         Log.e("MainActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
 
-        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-            Log.e("MainActivity.onResume", "returning from not-implemented page.");
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
-            return;
-        }
+//        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+//            Log.e("MainActivity.onResume", "returning from not-implemented page.");
+//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+//            return;
+//        }
 
         if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("MainActivity.onResume", "back button pressed");

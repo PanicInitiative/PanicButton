@@ -296,15 +296,15 @@ public class NewSimpleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.e("NewSimpleFragment.onResume", currentPage.getId());
-        if(currentPage.getId().equals("home-not-configured")){
-        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
-        }else if(currentPage.getId().equals("home-not-configured-alarm")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
-        } else if(currentPage.getId().equals("home-not-configured-disguise")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
-        } else if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
-        }
+//        if(currentPage.getId().equals("home-not-configured")){
+//        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
+//        }else if(currentPage.getId().equals("home-not-configured-alarm")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
+//        } else if(currentPage.getId().equals("home-not-configured-disguise")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
+//        } else if(currentPage.getId().equals("home-ready")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
+//        }
     }
 
 
