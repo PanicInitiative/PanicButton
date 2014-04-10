@@ -9,7 +9,7 @@ public class AppConstants {
 	//public static final long ALERT_FREQUENCY = 1000 * 30;
 	
 	//Prod values
-    public static final boolean SKIP_WIZARD = false;
+//    public static final boolean SKIP_WIZARD = false;
     public static final int PHONE_NUMBER_LIMIT = 4;
 //	public static final long ALERT_FREQUENCY = 1000 * 60 * 5;
     public static final long ONE_MINUTE = 1000 * 60;
@@ -33,7 +33,7 @@ public class AppConstants {
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE = 603;
     public static final int WIZARD_FLAG_HOME_READY = 604;
-    public static final int WIZARD_FLAG_COMPLETE = 605;
+//    public static final int WIZARD_FLAG_COMPLETE = 605;
 
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;

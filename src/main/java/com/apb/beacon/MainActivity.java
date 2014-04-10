@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -39,23 +40,32 @@ public class MainActivity extends BaseFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
-
-//        registerFinishActivityReceiver();
         
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
-//        tvToastMessage.setVisibility(View.GONE);
 
-        pageId = getIntent().getExtras().getString("page_id");
+        try {
+            pageId = getIntent().getExtras().getString("page_id");
+        } catch (Exception e) {
+            pageId = "home-not-configured";
+            e.printStackTrace();
+        }
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         Log.e("MainActivity.onCreate", "pageId = " + pageId);
 
         if(pageId.equals("home-not-configured")){
             Log.e("??????????????", "home-not-configured");
+
+            if((ApplicationSettings.isAlertActive(this))){
+                new PanicAlert(this).deActivate();
+            }
+
             ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
+
+            callFinishActivityReceiver();
             finish();
             return;
         }
@@ -66,10 +76,11 @@ public class MainActivity extends BaseFragmentActivity {
         dbInstance.close();
 
         if (currentPage == null) {
-            Log.e("MainActivity.onCreate", "page = null");
+            Log.e(">>>>>>", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
-//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
+            return;
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

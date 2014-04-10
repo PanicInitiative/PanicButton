@@ -120,12 +120,12 @@ public class PanicAlertTest {
     @Test
     public void shouldReturnActiveAlertStatus() throws Exception {
         ApplicationSettings.setAlertActive(context, true);
-        assertEquals(AlertStatus.ACTIVE, panicAlert.getAlertStatus());
+        assertEquals(AlertStatus.ACTIVE, panicAlert.isActive());
     }
 
     @Test
     public void shouldReturnStandByAlertStatus() throws Exception {
-        assertEquals(AlertStatus.STANDBY, panicAlert.getAlertStatus());
+        assertEquals(AlertStatus.STANDBY, panicAlert.isActive());
     }
 
     @Test

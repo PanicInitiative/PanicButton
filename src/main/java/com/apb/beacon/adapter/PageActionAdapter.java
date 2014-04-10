@@ -15,8 +15,6 @@ import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.wizard.WizardActivity;
 
@@ -85,23 +83,24 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 String pageId = getItem(position).getLink();
 
                 if (pageId.equals("close")) {
-                    ApplicationSettings.setFirstRun(mContext, false);
-                    Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    ApplicationSettings.setFirstRun(mContext, false);
+                    Intent i = new Intent(mContext, CalculatorActivity.class);
+//                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
-                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
+                    ((MainActivity)mContext).callFinishActivityReceiver();
+//                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 } else {
 
-                    Intent i;
+                    Intent i = new Intent(mContext, WizardActivity.class);
                     if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                         i = new Intent(mContext, WizardActivity.class);
                     } else{
 //                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
-                    	new PanicAlert(mContext).deActivate();
-                    	if(pageId.equalsIgnoreCase("home-not-configured"))
-                    		ApplicationSettings.setRestartedSetup(mContext, true);
+//                    	new PanicAlert(mContext).deActivate();
+//                    	if(pageId.equalsIgnoreCase("home-not-configured"))
+//                    		ApplicationSettings.setRestartedSetup(mContext, true);
                         i = new Intent(mContext, MainActivity.class);
-                        i = AppUtil.clearBackStack(i);
+//                        i = AppUtil.clearBackStack(i);
                     }
 
 //                    Intent i = new Intent(mContext, WizardActivity.class);

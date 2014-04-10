@@ -35,10 +35,10 @@ public class CalculatorActivityTest {
 	public void setUp() {
 		initMocks(this);
 		calculatorActivity = new CalculatorActivity() {
-			@Override
-			PanicAlert getPanicAlert() {
-				return mockPanicAlert;
-			}
+//			@Override
+//			PanicAlert getPanicAlert() {
+//				return mockPanicAlert;
+//			}
 		};
 		calculatorActivity.onCreate(null);
 		equalsButton = (Button) calculatorActivity.findViewById(R.id.equals_sign);
@@ -122,8 +122,8 @@ public class CalculatorActivityTest {
 		assertEquals(HardwareTriggerService.class, shadowIntent.getIntentClass());
 	}
 
-	@Test
-	public void shouldCreateNewPanicAlert() {
-		assertNotNull(new CalculatorActivity().getPanicAlert());
-	}
+//	@Test
+//	public void shouldCreateNewPanicAlert() {
+//		assertNotNull(new CalculatorActivity().getPanicAlert());
+//	}
 }

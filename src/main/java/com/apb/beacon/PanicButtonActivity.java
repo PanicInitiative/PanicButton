@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.apb.beacon.alert.AlertStatus;
-import com.apb.beacon.alert.PanicAlert;
-
 public abstract class PanicButtonActivity extends Activity {
     public static final int ADD_TO_TOP = 0;
 
@@ -20,7 +17,7 @@ public abstract class PanicButtonActivity extends Activity {
     }
 
     private int alertStatusStripColor() {
-        return AlertStatus.ACTIVE.equals(getPanicAlert().getAlertStatus()) ?
+        return ApplicationSettings.isAlertActive(this) ?
                 getResources().getColor(R.color.active_color) : getResources().getColor(R.color.standby_color);
     }
 
@@ -38,7 +35,7 @@ public abstract class PanicButtonActivity extends Activity {
         findViewById(R.id.alert_status_strip).setBackgroundColor(alertStatusStripColor());
     }
 
-    PanicAlert getPanicAlert() {
-        return new PanicAlert(this);
-    }
+//    PanicAlert getPanicAlert() {
+//        return new PanicAlert(this);
+//    }
 }

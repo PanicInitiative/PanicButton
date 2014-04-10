@@ -2,7 +2,6 @@ package com.apb.beacon;
 
 import android.view.ViewGroup;
 
-import com.apb.beacon.alert.AlertStatus;
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.test.support.PanicButtonRobolectricTestRunner;
 
@@ -30,10 +29,10 @@ public class PanicButtonActivityTest {
     public void setUp() {
         initMocks(this);
         activity = new CalculatorActivity() {
-            @Override
-            PanicAlert getPanicAlert() {
-                return mockPanicAlert;
-            }
+//            @Override
+//            PanicAlert getPanicAlert() {
+//                return mockPanicAlert;
+//            }
         };
         activity.onCreate(null);
         activity.onPostCreate(null);
@@ -44,14 +43,14 @@ public class PanicButtonActivityTest {
 
     @Test
     public void shouldShowRedAlertStripWhenAlertStatusIsActive(){
-        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.ACTIVE);
+        when(mockPanicAlert.isActive()).thenReturn(true);
         activity.onResume();
         assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.active_color)));
     }
 
     @Test
     public void shouldShowAmberAlertStripWhenAlertStatusIsStandby(){
-        when(mockPanicAlert.getAlertStatus()).thenReturn(AlertStatus.STANDBY);
+        when(mockPanicAlert.isActive()).thenReturn(false);
         activity.onResume();
         assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.standby_color)));
     }

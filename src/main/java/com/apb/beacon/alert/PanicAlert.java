@@ -52,6 +52,7 @@ public class PanicAlert {
     }
 
     private void activateAlert() {
+        ApplicationSettings.setAlertActive(context, true);
         sendFirstAlert();
         registerLocationUpdate();
         scheduleFutureAlert();
@@ -117,12 +118,12 @@ public class PanicAlert {
         return location;
     }
 
-    public AlertStatus getAlertStatus() {
-        if (isActive()) {
-            return AlertStatus.ACTIVE;
-        }
-        return AlertStatus.STANDBY;
-    }
+//    public AlertStatus getAlertStatus() {
+//        if (isActive()) {
+//            return AlertStatus.ACTIVE;
+//        }
+//        return AlertStatus.STANDBY;
+//    }
 
     ExecutorService getExecutorService() {
         return Executors.newSingleThreadExecutor();

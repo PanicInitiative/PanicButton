@@ -45,9 +45,10 @@ public class HomeActivity extends Activity {
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
         int wizardState = ApplicationSettings.getWizardState(this);
-        if (AppConstants.SKIP_WIZARD) {
-            pageId = "home-ready";
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+//        if (AppConstants.SKIP_WIZARD) {
+//            pageId = "home-ready";
+//        } else
+        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
             pageId = "home-not-configured";
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = "home-not-configured-alarm";
@@ -95,7 +96,9 @@ public class HomeActivity extends Activity {
 
     private void startNextActivity(){
         Log.e(">>>>>>>>>>>>", "starting next activity");
-        if (ApplicationSettings.isFirstRun(HomeActivity.this)) {
+
+        int wizardState = ApplicationSettings.getWizardState(this);
+        if (wizardState != AppConstants.WIZARD_FLAG_HOME_READY) {
             Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);

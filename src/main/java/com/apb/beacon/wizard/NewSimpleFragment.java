@@ -88,6 +88,7 @@ public class NewSimpleFragment extends Fragment {
 
         /*
         special case for page id = "home-alerting"
+        This button will be visible only when we are in home-alerting page.
          */
         bAction = (Button) view.findViewById(R.id.b_action);
         bAction.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +100,7 @@ public class NewSimpleFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
+                // This part needs to be changed.
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY || pageId.equalsIgnoreCase("home-not-configured")){
                     i = new Intent(activity, WizardActivity.class);
                     i = AppUtil.clearBackStack(i);
