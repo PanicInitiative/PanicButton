@@ -11,17 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
-import com.apb.beacon.sms.SetupContactsFragment;
-import com.apb.beacon.sms.SetupMessageFragment;
-import com.apb.beacon.wizard.LanguageSettingsFragment;
-import com.apb.beacon.wizard.NewSimpleFragment;
-import com.apb.beacon.wizard.SetupAlertFragment;
-import com.apb.beacon.wizard.SetupCodeFragment;
-import com.apb.beacon.wizard.WarningFragment;
-import com.apb.beacon.wizard.WizardActivity;
+import com.apb.beacon.fragment.SetupContactsFragment;
+import com.apb.beacon.fragment.SetupMessageFragment;
+import com.apb.beacon.fragment.LanguageSettingsFragment;
+import com.apb.beacon.fragment.SimpleFragment;
+import com.apb.beacon.fragment.MainSetupAlertFragment;
+import com.apb.beacon.fragment.SetupCodeFragment;
+import com.apb.beacon.fragment.WarningFragment;
 
 /**
  * Created by aoe on 2/15/14.
@@ -89,7 +90,7 @@ public class MainActivity extends BaseFragmentActivity {
 
             if (currentPage.getType().equals("simple")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }else if (currentPage.getType().equals("warning")) {
                     tvToastMessage.setVisibility(View.INVISIBLE);
                     fragment = new WarningFragment().newInstance(pageId,AppConstants.FROM_MAIN_ACTIVITY);
@@ -110,11 +111,11 @@ public class MainActivity extends BaseFragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("alert"))
-                    fragment = new SetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                    fragment = new MainSetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
                     fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else
-                    fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                    fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();

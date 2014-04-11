@@ -1,4 +1,4 @@
-package com.apb.beacon;
+package com.apb.beacon.common;
 
 public class AppConstants {
     //Test values

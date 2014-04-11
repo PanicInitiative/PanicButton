@@ -12,7 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.location.CurrentLocationProvider;
 
 import org.junit.Before;

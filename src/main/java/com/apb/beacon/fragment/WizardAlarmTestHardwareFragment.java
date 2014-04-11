@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -22,9 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
+import com.apb.beacon.WizardActivity;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 /**
  * Created by aoe on 1/9/14.
  */
-public class AlarmTestHardwareFragment extends Fragment {
+public class WizardAlarmTestHardwareFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -54,8 +55,8 @@ public class AlarmTestHardwareFragment extends Fragment {
 
     Page currentPage;
 
-    public static AlarmTestHardwareFragment newInstance(String pageId) {
-        AlarmTestHardwareFragment f = new AlarmTestHardwareFragment();
+    public static WizardAlarmTestHardwareFragment newInstance(String pageId) {
+        WizardAlarmTestHardwareFragment f = new WizardAlarmTestHardwareFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         f.setArguments(args);
@@ -112,13 +113,13 @@ public class AlarmTestHardwareFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e(">>>>>", "onPause AlarmTestHardwareFragment");
+        Log.e(">>>>>", "onPause WizardAlarmTestHardwareFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(">>>>>", "onResume AlarmTestHardwareFragment");
+        Log.e(">>>>>", "onResume WizardAlarmTestHardwareFragment");
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.apb.beacon.sms;
 
 import android.telephony.SmsManager;
 
+import com.apb.beacon.alert.SMSAdapter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

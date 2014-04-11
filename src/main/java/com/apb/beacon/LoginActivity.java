@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 
 
 public class LoginActivity extends PanicButtonActivity {

@@ -15,16 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageAction;
 import com.apb.beacon.model.ServerResponse;
-import com.apb.beacon.parser.JsonParser;
-import com.apb.beacon.wizard.WizardActivity;
+import com.apb.beacon.common.JsonParser;
+import com.apb.beacon.WizardActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

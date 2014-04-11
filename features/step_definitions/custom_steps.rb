@@ -32,7 +32,7 @@ end
 
 And(/^I check sms text contains "(.*?)"$/) do |sms_text|
   # Get sms text
-  log_input = "adb logcat -d -n5 -s \"com.apb.beacon.sms.SMSAdapter\""
+  log_input = "adb logcat -d -n5 -s \"com.apb.beacon.alert.SMSAdapter\""
   log_output = `#{log_input}`
   print log_output
 

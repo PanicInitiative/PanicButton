@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apb.beacon.common.ApplicationSettings;
+
 public abstract class PanicButtonActivity extends Activity {
     public static final int ADD_TO_TOP = 0;
 

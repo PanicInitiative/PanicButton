@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.Intents;
 
 public class AlarmReceiver extends BroadcastReceiver {

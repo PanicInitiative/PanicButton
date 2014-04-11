@@ -10,13 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.model.PageAction;
-import com.apb.beacon.wizard.WizardActivity;
+import com.apb.beacon.WizardActivity;
 
 import java.util.List;
 

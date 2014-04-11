@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -12,13 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
-import com.apb.beacon.BaseFragmentActivity;
-import com.apb.beacon.CalculatorActivity;
-import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageCheckListAdapter;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;

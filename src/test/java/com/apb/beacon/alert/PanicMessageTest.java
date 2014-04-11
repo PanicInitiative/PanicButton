@@ -6,7 +6,6 @@ import android.location.LocationManager;
 
 import com.apb.beacon.location.LocationTestUtil;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.sms.SMSAdapter;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -9,8 +9,8 @@ import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.location.CurrentLocationProvider;
 

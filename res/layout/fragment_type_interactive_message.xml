@@ -59,7 +59,7 @@
 
                 <fragment
                     android:id="@+id/sms_message"
-                    android:name="com.apb.beacon.common.MessageFragment"
+                    android:name="com.apb.beacon.fragment.MessageTextFragment"
                     custom:max_characters="85"
                     custom:message_header="@string/emergency_message_header"
                     android:layout_width="wrap_content"

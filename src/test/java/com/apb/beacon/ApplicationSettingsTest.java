@@ -3,6 +3,8 @@ package com.apb.beacon;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.apb.beacon.common.ApplicationSettings;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +12,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
-import static com.apb.beacon.ApplicationSettings.setFirstRun;
-import static com.apb.beacon.ApplicationSettings.isFirstRun;
+import static com.apb.beacon.common.ApplicationSettings.setFirstRun;
+import static com.apb.beacon.common.ApplicationSettings.isFirstRun;
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

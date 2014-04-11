@@ -7,8 +7,6 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-
 import static java.lang.String.valueOf;
 
 public class MessageLimitWatcher implements TextWatcher {

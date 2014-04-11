@@ -3,6 +3,8 @@ package com.apb.beacon.wizard;
 import android.app.Application;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.apb.beacon.WizardActivity;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

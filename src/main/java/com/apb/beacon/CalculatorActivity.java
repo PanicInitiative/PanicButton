@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.calculator.CalculatorImpl;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
 

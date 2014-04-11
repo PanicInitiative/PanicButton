@@ -1,8 +1,7 @@
-package com.apb.beacon.parser;
+package com.apb.beacon.common;
 
 import android.util.Log;
 
-import com.apb.beacon.AppConstants;
 import com.apb.beacon.model.ServerResponse;
 
 import org.apache.http.HttpEntity;

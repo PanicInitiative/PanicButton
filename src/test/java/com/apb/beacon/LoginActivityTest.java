@@ -3,6 +3,8 @@ package com.apb.beacon;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.apb.beacon.common.ApplicationSettings;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

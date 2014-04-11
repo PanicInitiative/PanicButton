@@ -1,4 +1,4 @@
-package com.apb.beacon;
+package com.apb.beacon.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;

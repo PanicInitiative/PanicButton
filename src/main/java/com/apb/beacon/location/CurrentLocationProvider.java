@@ -1,6 +1,6 @@
 package com.apb.beacon.location;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 
 import android.content.Context;
 import android.location.Location;

@@ -58,10 +58,10 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name=".wizard.WizardActivity"
+        <activity android:name=".WizardActivity"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
-        <activity android:name=".wizard.WizardModalActivity"
+        <activity android:name=".WizardModalActivity"
             android:theme="@style/Theme.Transparent"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>

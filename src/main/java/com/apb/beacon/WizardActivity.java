@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon;
 
 
 import android.content.ComponentName;
@@ -15,16 +15,22 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
-import com.apb.beacon.BaseFragmentActivity;
-import com.apb.beacon.MainActivity;
-import com.apb.beacon.R;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
-import com.apb.beacon.sms.SetupContactsFragment;
-import com.apb.beacon.sms.SetupMessageFragment;
+import com.apb.beacon.fragment.SetupContactsFragment;
+import com.apb.beacon.fragment.SetupMessageFragment;
+import com.apb.beacon.fragment.WizardAlarmTestDisguiseFragment;
+import com.apb.beacon.fragment.WizardAlarmTestHardwareFragment;
+import com.apb.beacon.fragment.LanguageSettingsFragment;
+import com.apb.beacon.fragment.SimpleFragment;
+import com.apb.beacon.fragment.SetupCodeFragment;
+import com.apb.beacon.fragment.WizardTestDisguiseCodeFragment;
+import com.apb.beacon.fragment.WizardTestDisguiseOpenFragment;
+import com.apb.beacon.fragment.WizardTestDisguiseUnlockFragment;
+import com.apb.beacon.fragment.WarningFragment;
 
 public class WizardActivity extends BaseFragmentActivity {
 
@@ -77,6 +83,10 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         } else {
 
+            /*
+            setup the milestone of the wizard state if the app flow reaches to THREE specific page,
+            i.e. home-not-configured, home-not-configured-alarm and home-not-configured-disguise.
+             */
             if (currentPage.getId().equals("home-not-configured")) {
                 ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
             } else if (currentPage.getId().equals("home-not-configured-alarm")) {
@@ -92,7 +102,7 @@ public class WizardActivity extends BaseFragmentActivity {
 
             if (currentPage.getType().equals("simple")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
             } else if (currentPage.getType().equals("warning")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new WarningFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
@@ -121,35 +131,35 @@ public class WizardActivity extends BaseFragmentActivity {
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
-                    fragment = new AlarmTestHardwareFragment().newInstance(pageId);
+                    fragment = new WizardAlarmTestHardwareFragment().newInstance(pageId);
                 } else if (currentPage.getComponent().equals("alarm-test-disguise")) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
-                    fragment = new AlarmTestDisguiseFragment().newInstance(pageId);
+                    fragment = new WizardAlarmTestDisguiseFragment().newInstance(pageId);
                 } else if (currentPage.getComponent().equals("disguise-test-open")) {
                     findViewById(R.id.wizard_layout_root).setBackgroundColor(Color.BLACK);
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
-                    fragment = new TestDisguiseOpenFragment().newInstance(pageId);
+                    fragment = new WizardTestDisguiseOpenFragment().newInstance(pageId);
                 } else if (currentPage.getComponent().equals("disguise-test-unlock")) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
 
-                    fragment = new TestDisguiseUnlockFragment().newInstance(pageId);
+                    fragment = new WizardTestDisguiseUnlockFragment().newInstance(pageId);
                 } else if (currentPage.getComponent().equals("disguise-test-code")) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
-                    fragment = new TestDisguiseCodeFragment().newInstance(pageId);
+                    fragment = new WizardTestDisguiseCodeFragment().newInstance(pageId);
                 } else
-                    fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                    fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();

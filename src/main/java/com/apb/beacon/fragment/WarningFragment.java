@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,13 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
+import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
-import com.apb.beacon.alert.PanicAlert;
-import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ImageDownloader;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;

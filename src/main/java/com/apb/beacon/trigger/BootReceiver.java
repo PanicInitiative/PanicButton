@@ -1,6 +1,6 @@
 package com.apb.beacon.trigger;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.alert.PanicAlert;
 
 import android.content.BroadcastReceiver;
