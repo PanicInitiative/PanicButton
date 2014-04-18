@@ -114,14 +114,14 @@ public class CalculatorActivityTest {
 		assertEquals("45090", display.getText());
 	}
 
-	@Test
+/*	@Test
 	public void shouldStartHardwareTriggerServiceOnApplicationCreation() {
 		Intent startedIntent = shadowActivity.getNextStartedService();
 		ShadowIntent shadowIntent = shadowOf(startedIntent);
 		assertNotNull(startedIntent);
 		assertEquals(HardwareTriggerService.class, shadowIntent.getIntentClass());
 	}
-
+*/
 	@Test
 	public void shouldCreateNewPanicAlert() {
 		assertNotNull(new CalculatorActivity().getPanicAlert());
