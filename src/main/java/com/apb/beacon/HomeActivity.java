@@ -29,8 +29,6 @@ import java.util.TimerTask;
 
 import com.crashlytics.android.Crashlytics;
 
-import static com.apb.beacon.ApplicationSettings.isFirstRun;
-
 public class HomeActivity extends Activity {
 
     ProgressDialog pDialog;
