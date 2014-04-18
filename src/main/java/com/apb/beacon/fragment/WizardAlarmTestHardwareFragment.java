@@ -220,12 +220,11 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             super.onReceive(context, intent);
-//            Log.e("????", "onReceive in subclass also");
+            Log.e("????", "in onReceive in WizardAlarmTest");
             ((WizardActivity) getActivity()).hideToastMessageInInteractiveFragment();
 
             inactiveHandler.removeCallbacks(runnableInteractive);
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-            Log.e(">>>>>", "trying to ACQUIRE wake-locker");
         }
 
         @Override

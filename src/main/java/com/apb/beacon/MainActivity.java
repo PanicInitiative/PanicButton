@@ -23,6 +23,7 @@ import com.apb.beacon.fragment.SimpleFragment;
 import com.apb.beacon.fragment.MainSetupAlertFragment;
 import com.apb.beacon.fragment.SetupCodeFragment;
 import com.apb.beacon.fragment.WarningFragment;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 /**
  * Created by aoe on 2/15/14.
@@ -55,11 +56,14 @@ public class MainActivity extends BaseFragmentActivity {
         Log.e("MainActivity.onCreate", "pageId = " + pageId);
 
         if(pageId.equals("home-not-configured")){
-            Log.e("??????????????", "home-not-configured");
+            Log.e("??????????????", "Restarting the Wizard");
 
             if((ApplicationSettings.isAlertActive(this))){
                 new PanicAlert(this).deActivate();
             }
+
+            // We're restarting the wizard so we deactivate the HardwareTriggerService
+            stopService(new Intent(this, HardwareTriggerService.class));
 
             ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
@@ -70,6 +74,9 @@ public class MainActivity extends BaseFragmentActivity {
             finish();
             return;
         }
+
+        // The app is now configured. Start HardwareTriggerService 
+		startService(new Intent(this, HardwareTriggerService.class));
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();

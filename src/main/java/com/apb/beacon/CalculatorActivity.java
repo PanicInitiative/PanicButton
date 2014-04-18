@@ -34,7 +34,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_layout);
 		registerButtonEvents();
-		startService(new Intent(this, HardwareTriggerService.class));
+//		startService(new Intent(this, HardwareTriggerService.class));
 
 		calculator = new CalculatorImpl();
 		
@@ -117,7 +117,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 			multiClickEvent.registerClick(System.currentTimeMillis());
 			if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
-                new PanicAlert(CalculatorActivity.this).activate();
+                getPanicAlert().activate();
 				resetEvent(view);
 			}
 		}

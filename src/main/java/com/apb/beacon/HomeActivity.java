@@ -14,6 +14,7 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.ServerResponse;
+import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.common.JsonParser;
 
 import org.json.JSONArray;
@@ -46,9 +47,9 @@ public class HomeActivity extends Activity {
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
         int wizardState = ApplicationSettings.getWizardState(this);
-//        if (AppConstants.SKIP_WIZARD) {
-//            pageId = "home-ready";
-//        } else
+        if (AppConstants.SKIP_WIZARD) {
+            pageId = "home-ready";
+        } else
         if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
             pageId = "home-not-configured";
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
@@ -107,6 +108,8 @@ public class HomeActivity extends Activity {
         } else {
             Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+            // Make sure the HardwareTriggerService is started
+    		startService(new Intent(this, HardwareTriggerService.class));
             startActivity(i);
         }
     }

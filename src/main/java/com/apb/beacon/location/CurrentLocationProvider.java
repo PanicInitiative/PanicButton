@@ -32,7 +32,8 @@ public class CurrentLocationProvider extends LocationListenerAdapter {
         latestLocation = getLatest(latestLocation,
             manager.getLastKnownLocation(PASSIVE_PROVIDER));
         currentLocation = latestLocation;
-        ApplicationSettings.setCurrentBestLocation(context, currentLocation);
+        if (currentLocation != null) 
+        	ApplicationSettings.setCurrentBestLocation(context, currentLocation);
         return;
     }
 
