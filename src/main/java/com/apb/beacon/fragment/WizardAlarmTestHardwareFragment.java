@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -49,7 +48,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     private Handler failHandler = new Handler();
 
     DisplayMetrics metrics;
-    PowerManager.WakeLock wakeLock;
 
     TextView tvContent;
 
@@ -80,10 +78,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         if (activity != null) {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-            PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
-            wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "TEST");
-
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_ON);
             filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -126,7 +120,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("????", "onDestroy");
-        finishWakeLocker();
         inactiveHandler.removeCallbacks(runnableInteractive);
         failHandler.removeCallbacks(runnableFailed);
         activity.unregisterReceiver(wizardHardwareReceiver);
@@ -233,18 +226,11 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             inactiveHandler.removeCallbacks(runnableInteractive);
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
             Log.e(">>>>>", "trying to ACQUIRE wake-locker");
-            if(wakeLock.isHeld()){
-                wakeLock.release();
-            }
-            wakeLock.acquire();
         }
 
         @Override
         protected void onActivation(Context context) {
             Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
-
-            finishWakeLocker();
-
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
@@ -261,19 +247,9 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
 
     };
 
-
-    public void finishWakeLocker(){
-        Log.e(">>>>>", "trying to DESTROY wake-locker");
-        if (wakeLock.isHeld())
-            wakeLock.release();
-    }
-
-
-
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
 
-            finishWakeLocker();
             failHandler.removeCallbacks(runnableFailed);
 
             String pageId = currentPage.getFailedId();
@@ -288,7 +264,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     private Runnable runnableFailed = new Runnable() {
         public void run() {
 
-            finishWakeLocker();
             inactiveHandler.removeCallbacks(runnableInteractive);
 
             String pageId = currentPage.getFailedId();
