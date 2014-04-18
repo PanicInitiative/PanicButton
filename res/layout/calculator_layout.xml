@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout style="@style/calculator_btn_container">
@@ -15,9 +15,12 @@
         <TextView
             android:id="@+id/display"
             style="@style/calculator_display"
+            android:layout_weight=".25"
             android:maxLines="1"
+            android:padding="5dp"
             android:text="@string/zero"
-            android:layout_weight=".25" />
+            android:textSize="78sp" />
+
     </LinearLayout>
 
     <LinearLayout style="@style/calculator_btn_container" >
