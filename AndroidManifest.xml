@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -58,10 +57,10 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name=".wizard.WizardActivity"
+        <activity android:name=".WizardActivity"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>
-        <activity android:name=".wizard.WizardModalActivity"
+        <activity android:name=".WizardModalActivity"
             android:theme="@style/Theme.Transparent"
                   android:screenOrientation="portrait"
                   android:excludeFromRecents="true"/>

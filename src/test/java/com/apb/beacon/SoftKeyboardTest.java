@@ -1,5 +1,7 @@
 package com.apb.beacon;
 
+import com.apb.beacon.common.SoftKeyboard;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

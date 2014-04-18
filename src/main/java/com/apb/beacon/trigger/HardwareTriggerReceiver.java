@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.apb.beacon.alert.PanicAlert;
 
@@ -21,12 +22,8 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        Log.e(">>>>>>>", "in onReceive of wizardHWReceiver");
+        Log.e(">>>>>>>", "in onReceive of HWReceiver");
         String action = intent.getAction();
-
-//        if(isScreenLocked(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
-//            process(context);
-//        }
 
         if (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON)) {
             multiClickEvent.registerClick(System.currentTimeMillis());
@@ -37,20 +34,8 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
         }
     }
 
-    private boolean isScreenLocked(Context context) {
-        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        return keyguardManager.inKeyguardRestrictedInputMode();
-    }
-
-//    private void process(Context context) {
-//        multiClickEvent.registerClick(System.currentTimeMillis());
-//        if (multiClickEvent.isActivated()) {
-//            getPanicAlert(context).activate();
-//            resetEvent();
-//        }
-//    }
-
     protected void onActivation(Context context) {
+        Log.e(">>>>>>>", "in onActivation of HWReceiver");
         activateAlert(new PanicAlert(context));
     }
 
@@ -66,8 +51,4 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     PanicAlert getPanicAlert(Context context) {
         return new PanicAlert(context);
     }
-
-//    private void resetEvent() {
-//        multiClickEvent = new MultiClickEvent();
-//    }
 }

@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.adapter.PageCheckListAdapter;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -103,10 +104,7 @@ public class MainModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-//                        Intent broadcastIntent = new Intent();
-//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-//                        sendBroadcast(broadcastIntent);
-                        callFinishActivityReceivier();
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -149,10 +147,7 @@ public class MainModalActivity extends BaseFragmentActivity {
                         startActivity(i);
                         overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-                        callFinishActivityReceivier();
-//                        Intent broadcastIntent = new Intent();
-//                        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-//                        sendBroadcast(broadcastIntent);
+                        callFinishActivityReceiver();
 
                         finish();
                     } else {
@@ -188,7 +183,7 @@ public class MainModalActivity extends BaseFragmentActivity {
     protected void onStop() {
         super.onStop();
         Log.e(">>>>>>>>>", "MainModal -> onStop");
-        callFinishActivityReceivier();
+        callFinishActivityReceiver();
         finish();
     }
 

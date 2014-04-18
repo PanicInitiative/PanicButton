@@ -1,4 +1,4 @@
-package com.apb.beacon.sms;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,33 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.AppUtil;
-import com.apb.beacon.common.ContactEditTexts;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.wizard.WizardActivity;
-
-import java.util.List;
+import com.apb.beacon.WizardActivity;
 
 /**
- * Created by aoe on 12/11/13.
+ * Created by aoe on 12/12/13.
  */
-public class SetupContactsFragment extends Fragment {
-//    public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
-    private ContactEditTexts contactEditTexts;
-//    private EditText smsEditText;
+public class SetupMessageFragment extends Fragment {
+    private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
@@ -51,8 +47,8 @@ public class SetupContactsFragment extends Fragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
-    public static SetupContactsFragment newInstance(String pageId, int parentActivity) {
-        SetupContactsFragment f = new SetupContactsFragment();
+    public static SetupMessageFragment newInstance(String pageId, int parentActivity) {
+        SetupMessageFragment f = new SetupMessageFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         args.putInt(PARENT_ACTIVITY, parentActivity);
@@ -60,18 +56,11 @@ public class SetupContactsFragment extends Fragment {
         return(f);
     }
 
-//    public static SMSSettingsFragment create(int headerTextId) {
-//        SMSSettingsFragment smsSettingsFragment = new SMSSettingsFragment();
-//        Bundle bundle = new Bundle();
-////        bundle.putInt(HEADER_TEXT_ID, headerTextId);
-//        smsSettingsFragment.setArguments(bundle);
-//
-//        return smsSettingsFragment;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_type_interactive_contacts, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_type_interactive_message, container, false);
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -82,10 +71,10 @@ public class SetupContactsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.e(">>>>", "action button pressed");
-                SMSSettings newSMSSettings = getSMSSettingsFromView();
+                String msg =  getSMSSettingsFromView();
 
-                SMSSettings.saveContacts(activity, newSMSSettings);
-                displaySettings(newSMSSettings);
+                SMSSettings.saveMessage(activity, msg);
+                displaySettings(msg);
 
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
@@ -94,7 +83,7 @@ public class SetupContactsFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("Contacts saved.", 1000, activity);
+                	AppUtil.showToast("Message saved.", 1000, activity);
                     i = new Intent(activity, MainActivity.class);
                 }
 
@@ -129,6 +118,7 @@ public class SetupContactsFragment extends Fragment {
                 } else{
                     i = new Intent(activity, MainActivity.class);
                 }
+
 //                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
@@ -136,10 +126,9 @@ public class SetupContactsFragment extends Fragment {
             }
         });
 
-//        initializeViews(view);
-
         return view;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -147,13 +136,15 @@ public class SetupContactsFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
-            contactEditTexts = new ContactEditTexts(getFragmentManager(), bAction, activity);
+            Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
+            ((MessageTextFragment)fragment).setActionButtonStateListener(bAction);
+            smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
 
-            SMSSettings currentSettings = SMSSettings.retrieve(activity);
-            if(currentSettings.isConfigured()) {
-                displaySettings(currentSettings);
+            String currentMsg = SMSSettings.retrieveMessage(activity);
+            if(currentMsg != null) {
+                displaySettings(currentMsg);
             }
-            bAction.setEnabled(contactEditTexts.hasAtleastOneValidPhoneNumber());
+            bAction.setEnabled(!smsEditText.getText().toString().trim().equals(""));
 
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
@@ -184,43 +175,27 @@ public class SetupContactsFragment extends Fragment {
 
             pageItemAdapter = new PageItemAdapter(activity, null);
             lvItems.setAdapter(pageItemAdapter);
-//            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
             pageItemAdapter.setData(currentPage.getItems());
 
         }
     }
 
-    private void initializeViews(View inflate) {
-//        contactEditTexts = new ContactEditTexts(getFragmentManager(), actionButtonStateListener, getActivity());
-//        Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
-//        smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
 
-//        TextView headerTextView = (TextView) inflate.findViewById(R.id.sms_settings_header);
-//        headerTextView.setText(getString(getArguments().getInt(HEADER_TEXT_ID)));
-    }
-
-    private void displaySettings(SMSSettings settings) {
-//        smsEditText.setText(settings.message());
-        contactEditTexts.maskPhoneNumbers();
+    private void displaySettings(String msg) {
+        smsEditText.setText(msg);
     }
 
 
-    private SMSSettings getSMSSettingsFromView() {
-//        String message = smsEditText.getText().toString();
-        List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
-        return new SMSSettings(phoneNumbers);
+    private String getSMSSettingsFromView() {
+        String message = smsEditText.getText().toString().trim();
+        return message;
     }
 
 //    @Override
 //    public void onFragmentSelected() {
-//        Log.e(">>>>>>", "in onFragmentSelected");
 ////        if (actionButtonStateListener != null) {
-////            actionButtonStateListener.enableActionButton(contactEditTexts.hasAtleastOneValidPhoneNumber());
+////            actionButtonStateListener.enableActionButton(!smsEditText.getText().toString().trim().equals(""));
 ////        }
 //    }
 
-    public boolean hasSettingsChanged() {
-        SMSSettings existingSettings = SMSSettings.retrieve(getActivity());
-        return !existingSettings.equals(getSMSSettingsFromView());
-    }
 }

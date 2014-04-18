@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,10 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageActionFakeAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
@@ -45,7 +46,7 @@ import java.util.HashMap;
 /**
  * Created by aoe on 1/3/14.
  */
-public class NewSimpleFragment extends Fragment {
+public class SimpleFragment extends Fragment {
 
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
@@ -64,8 +65,8 @@ public class NewSimpleFragment extends Fragment {
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
 
-    public static NewSimpleFragment newInstance(String pageId, int parentActivity) {
-        NewSimpleFragment f = new NewSimpleFragment();
+    public static SimpleFragment newInstance(String pageId, int parentActivity) {
+        SimpleFragment f = new SimpleFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         args.putInt(PARENT_ACTIVITY, parentActivity);
@@ -77,6 +78,7 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type_simple, container, false);
+        Log.e(">>>>>", "SimpleFragment.onCreateView");
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -87,6 +89,7 @@ public class NewSimpleFragment extends Fragment {
 
         /*
         special case for page id = "home-alerting"
+        This button will be visible only when we are in home-alerting page.
          */
         bAction = (Button) view.findViewById(R.id.b_action);
         bAction.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +101,7 @@ public class NewSimpleFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
+                // This part needs to be changed.
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY || pageId.equalsIgnoreCase("home-not-configured")){
                     i = new Intent(activity, WizardActivity.class);
                     i = AppUtil.clearBackStack(i);
@@ -117,6 +121,8 @@ public class NewSimpleFragment extends Fragment {
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+
                 String pageId = currentPage.getStatus().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
@@ -143,6 +149,8 @@ public class NewSimpleFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
+
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
 
 //                AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
@@ -166,6 +174,7 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.e(">>>>>", "SimpleFragment.onActivityCreated");
 
         activity = getActivity();
         if (activity != null) {
@@ -271,35 +280,34 @@ public class NewSimpleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("NewSimpleFragment.onPause", currentPage.getId());
+        Log.e("SimpleFragment.onPause", currentPage.getId());
     }
 
     @Override
     public void onStop(){
         super.onStop();
-        Log.d("NewSimpleFragment.onStop", currentPage.getId());
+        Log.e("SimpleFragment.onStop", currentPage.getId());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("NewSimpleFragment.onStart", currentPage.getId());
+        Log.e("SimpleFragment.onStart", currentPage.getId());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("NewSimpleFragment.onResume", currentPage.getId());
-        if(currentPage.getId().equals("home-not-configured")){
-        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
-        }else if(currentPage.getId().equals("home-not-configured-alarm")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
-        } else if(currentPage.getId().equals("home-not-configured-disguise")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
-        } else if(currentPage.getId().equals("home-ready")){
-            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
-            
-        }
+        Log.e("SimpleFragment.onResume", currentPage.getId());
+//        if(currentPage.getId().equals("home-not-configured")){
+//        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
+//        }else if(currentPage.getId().equals("home-not-configured-alarm")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
+//        } else if(currentPage.getId().equals("home-not-configured-disguise")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
+//        } else if(currentPage.getId().equals("home-ready")){
+//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
+//        }
     }
 
 

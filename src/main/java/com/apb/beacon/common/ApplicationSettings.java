@@ -1,4 +1,4 @@
-package com.apb.beacon;
+package com.apb.beacon.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 public class ApplicationSettings {
     public static final String FIRST_RUN = "FIRST_RUN";
+    public static final String RESTARTED_SETUP = "RESTARTED_SETUP";
     public static final String HARDCODE_INSERT = "HARDCODE_INSERT";
     public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
@@ -27,6 +28,14 @@ public class ApplicationSettings {
 
     public static boolean isFirstRun(Context context) {
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
+    }
+    
+    public static void setRestartedSetup(Context context, boolean isRestartedSetup) {
+        saveBoolean(context, RESTARTED_SETUP, isRestartedSetup);
+    }
+
+    public static boolean isRestartedSetup(Context context) {
+        return sharedPreferences(context).getBoolean(RESTARTED_SETUP, false);
     }
 
     public static void setLocalDataInsertion(Context context, boolean flag) {
@@ -64,7 +73,7 @@ public class ApplicationSettings {
 
 
     public static int getWizardState(Context context) {
-        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
     }
 
     public static void setWizardState(Context context, int state) {

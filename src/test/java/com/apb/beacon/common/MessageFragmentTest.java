@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.apb.beacon.R;
+import com.apb.beacon.fragment.MessageTextFragment;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ import static org.robolectric.Robolectric.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class MessageFragmentTest {
-    private MessageFragment messageFragment;
+    private MessageTextFragment messageFragment;
     private EditText messageEditText;
     private TextView charsLeftTextView;
     private TextView messageHeaderView;
@@ -44,7 +45,7 @@ public class MessageFragmentTest {
     @Before
     public void setup() {
         initMocks(this);
-        messageFragment = new MessageFragment();
+        messageFragment = new MessageTextFragment();
         when(mockFragmentActivity.obtainStyledAttributes(mockAttrs, R.styleable.MessageFragmentArguments)).thenReturn(mockTypedArrays);
         when(mockTypedArrays.getInt(R.styleable.MessageFragmentArguments_max_characters, -1)).thenReturn(85);
         when(mockTypedArrays.getString(R.styleable.MessageFragmentArguments_message_header)).thenReturn("Emergency Message");

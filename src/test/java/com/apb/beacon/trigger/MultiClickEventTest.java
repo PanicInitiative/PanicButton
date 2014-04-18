@@ -13,7 +13,7 @@ public class MultiClickEventTest {
     public void setUp() {
         multiClickEvent = new MultiClickEvent();
     }
-
+/*
     @Test
     public void shouldBeActivatedWhenEventsAreFiredWithInTheTimeLimit() {
         registerClick(5, 15000l,15001l,15002l,15003l,15004l);
@@ -33,7 +33,7 @@ public class MultiClickEventTest {
         registerClick(5, 15000l, 15001l, 25002l, 25003l, 25004l);
         assertFalse(multiClickEvent.isActivated());
     }
-
+*/
     private void registerClick(int noOfTimes, long... eventTimes) {
         for (int i = 0; i < noOfTimes; i++) {
             multiClickEvent.registerClick(eventTimes[i]);

@@ -9,8 +9,11 @@ import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.calculator.CalculatorImpl;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.trigger.HardwareTriggerService;
 import com.apb.beacon.trigger.MultiClickEvent;
 
@@ -18,7 +21,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
-		R.id.divide};
+		R.id.divide, R.id.decimal_point, R.id.char_c};
 
 	private CalculatorImpl calculator;
 	private int lastClickId = -1;
@@ -31,11 +34,11 @@ public class CalculatorActivity extends PanicButtonActivity {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_layout);
 		registerButtonEvents();
-		startService(new Intent(this, HardwareTriggerService.class));
+//		startService(new Intent(this, HardwareTriggerService.class));
 
 		calculator = new CalculatorImpl();
 		
-        ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_COMPLETE);
+        ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_HOME_READY);
 	}
 
 	private void registerButtonEvents() {
@@ -97,6 +100,12 @@ public class CalculatorActivity extends PanicButtonActivity {
 			case R.id.divide:
 				handleButtonPress(CalculatorImpl.Button.DIVIDE);
 				break;
+			case R.id.char_c:
+				handleButtonPress(CalculatorImpl.Button.CHAR_C);
+				break;
+			case R.id.decimal_point:
+				handleButtonPress(CalculatorImpl.Button.DECIMAL_POINT);
+				break;
 			}
 			MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
 			if (multiClickEvent == null) {
@@ -108,7 +117,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 			multiClickEvent.registerClick(System.currentTimeMillis());
 			if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
-				getPanicAlert().activate();
+                getPanicAlert().activate();
 				resetEvent(view);
 			}
 		}

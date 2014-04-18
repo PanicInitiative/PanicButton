@@ -10,16 +10,20 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
-import com.apb.beacon.sms.SetupContactsFragment;
-import com.apb.beacon.sms.SetupMessageFragment;
-import com.apb.beacon.wizard.LanguageSettingsFragment;
-import com.apb.beacon.wizard.NewSimpleFragment;
-import com.apb.beacon.wizard.SetupAlertFragment;
-import com.apb.beacon.wizard.SetupCodeFragment;
-import com.apb.beacon.wizard.WizardActivity;
+import com.apb.beacon.fragment.SetupContactsFragment;
+import com.apb.beacon.fragment.SetupMessageFragment;
+import com.apb.beacon.fragment.LanguageSettingsFragment;
+import com.apb.beacon.fragment.SimpleFragment;
+import com.apb.beacon.fragment.MainSetupAlertFragment;
+import com.apb.beacon.fragment.SetupCodeFragment;
+import com.apb.beacon.fragment.WarningFragment;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 /**
  * Created by aoe on 2/15/14.
@@ -39,25 +43,40 @@ public class MainActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_layout);
         
-        callFinishActivityReceivier();
-        
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
-//        tvToastMessage.setVisibility(View.GONE);
 
-        pageId = getIntent().getExtras().getString("page_id");
+        try {
+            pageId = getIntent().getExtras().getString("page_id");
+        } catch (Exception e) {
+            pageId = "home-not-configured";
+            e.printStackTrace();
+        }
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
         Log.e("MainActivity.onCreate", "pageId = " + pageId);
 
         if(pageId.equals("home-not-configured")){
-            Log.e("??????????????", "home-not-configured");
-            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+            Log.e("??????????????", "Restarting the Wizard");
+
+            if((ApplicationSettings.isAlertActive(this))){
+                new PanicAlert(this).deActivate();
+            }
+
+            // We're restarting the wizard so we deactivate the HardwareTriggerService
+            stopService(new Intent(this, HardwareTriggerService.class));
+
+            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
+
+            callFinishActivityReceiver();
             finish();
             return;
         }
+
+        // The app is now configured. Start HardwareTriggerService 
+		startService(new Intent(this, HardwareTriggerService.class));
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -65,10 +84,11 @@ public class MainActivity extends BaseFragmentActivity {
         dbInstance.close();
 
         if (currentPage == null) {
-            Log.e("MainActivity.onCreate", "page = null");
+            Log.e(">>>>>>", "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
+            return;
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -77,7 +97,11 @@ public class MainActivity extends BaseFragmentActivity {
 
             if (currentPage.getType().equals("simple")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+            }else if (currentPage.getType().equals("warning")) {
+                    tvToastMessage.setVisibility(View.INVISIBLE);
+                    fragment = new WarningFragment().newInstance(pageId,AppConstants.FROM_MAIN_ACTIVITY);
+                
             } else if (currentPage.getType().equals("modal")){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(MainActivity.this, MainModalActivity.class);
@@ -94,11 +118,11 @@ public class MainActivity extends BaseFragmentActivity {
                 else if (currentPage.getComponent().equals("code"))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("alert"))
-                    fragment = new SetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                    fragment = new MainSetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals("language"))
                     fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else
-                    fragment = new NewSimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                    fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
@@ -110,11 +134,11 @@ public class MainActivity extends BaseFragmentActivity {
         super.onResume();
         Log.e("MainActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
 
-        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-            Log.e("MainActivity.onResume", "returning from not-implemented page.");
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
-            return;
-        }
+//        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
+//            Log.e("MainActivity.onResume", "returning from not-implemented page.");
+//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+//            return;
+//        }
 
         if(AppConstants.IS_BACK_BUTTON_PRESSED){
             Log.e("MainActivity.onResume", "back button pressed");
@@ -127,7 +151,7 @@ public class MainActivity extends BaseFragmentActivity {
             startActivity(i);
             overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
 
-            callFinishActivityReceivier();
+            callFinishActivityReceiver();
 
             finish();
             return;
@@ -153,7 +177,7 @@ public class MainActivity extends BaseFragmentActivity {
         super.onStart();
 //        if(pageId.equals("home-not-configured")){
 //            Log.e("??????????????", "home-not-configured");
-//        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_COMPLETED);
+//        	ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
 //        	Intent i = new Intent(MainActivity.this, WizardActivity.class);
 //        	i.putExtra("page_id", "home-not-configured");
 //        	startActivity(i);

@@ -5,7 +5,6 @@ import android.location.Location;
 
 import com.apb.beacon.location.LocationFormatter;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.sms.SMSAdapter;
 
 import static android.telephony.SmsMessage.MAX_USER_DATA_SEPTETS;
 

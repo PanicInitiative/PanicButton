@@ -10,12 +10,14 @@ public class CalculatorImpl {
 
 	public enum Button {
 		ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO,
-		EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE
+		EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE, CHAR_C, DECIMAL_POINT
 	}
 	
 	private enum Operation { PLUS, MINUS, MULTIPLY, DIVIDE };
 
 	private boolean clearOnDigit = false, negativeNumber = false;
+	private boolean decimalPoint = false;
+	private int decimalPointPlace = 0;
 	private BigDecimal operand1 = null, operand2 = null;
 	private Operation operation = null;
 
@@ -51,6 +53,10 @@ public class CalculatorImpl {
 			return pushOperation(Operation.MULTIPLY) ? "\u00d7" : "0";
 		case DIVIDE:
 			return pushOperation(Operation.DIVIDE) ? "\u00f7" : "0";
+		case CHAR_C:
+			return clearDisplay().toPlainString();
+		case DECIMAL_POINT:
+			return pushDecimal().toPlainString();
 		default:
 			throw new IllegalStateException();
 		}
@@ -61,18 +67,91 @@ public class CalculatorImpl {
 			if(negativeNumber) operand1 = BigDecimal.valueOf(-digit);
 			else operand1 = BigDecimal.valueOf(digit);
 		} else {
-			operand1 = operand1.multiply(TEN);
+			if(!decimalPoint){
+				operand1 = operand1.multiply(TEN);
+			}
 			if(operand1.signum() == -1) {
-				operand1 = operand1.subtract(BigDecimal.valueOf(digit));
+				if(decimalPoint){
+					BigDecimal temp = BigDecimal.valueOf(digit);
+					temp = temp.movePointLeft(decimalPointPlace);
+					double v = operand1.doubleValue()-temp.doubleValue();
+					operand1 = BigDecimal.valueOf(v);
+					decimalPointPlace = decimalPointPlace+1;
+				}else{
+					operand1 = operand1.subtract(BigDecimal.valueOf(digit));
+				}
 			} else {
-				operand1 = operand1.add(BigDecimal.valueOf(digit));
+				if(decimalPoint){
+					BigDecimal temp = BigDecimal.valueOf(digit);
+					temp = temp.movePointLeft(decimalPointPlace);
+					double v = operand1.doubleValue()+temp.doubleValue();
+					operand1 = BigDecimal.valueOf(v);
+					decimalPointPlace = decimalPointPlace+1;
+				}else{
+					operand1 = operand1.add(BigDecimal.valueOf(digit));
+				}
 			}
 		}
+		
 		clearOnDigit = negativeNumber = false;
 		return operand1;
 	}
+	
+	private BigDecimal pushDecimal() {
+		if(!decimalPoint){
+			decimalPointPlace = 0;
+			if(clearOnDigit || operand1 == null) {
+				if(negativeNumber) operand1 = BigDecimal.valueOf(-0.);
+				else operand1 = BigDecimal.valueOf(0.);
+			}
+			if (operand1.signum() == -1) {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length() - 1;
+			} else {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length();
+			}
+			decimalPoint = true;
+			
+		}
+		/*if (operand1 != null) {
+			if (!decimalPoint) {
+				decimalPointPlace = 0;
+				if (operand1.signum() == -1) {
+					decimalPointPlace = String.valueOf(operand1.intValue())
+							.length() - 1;
+				} else {
+					decimalPointPlace = String.valueOf(operand1.intValue())
+							.length();
+				}
+				decimalPoint = true;
+			}
+			return operand1;
+		}else{
+			decimalPointPlace = 0;
+			if(clearOnDigit || operand1 == null) {
+				if(negativeNumber) operand1 = BigDecimal.valueOf(-0.);
+				else operand1 = BigDecimal.valueOf(0.);
+			}
+			if (operand1.signum() == -1) {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length() - 1;
+			} else {
+				decimalPointPlace = String.valueOf(operand1.intValue())
+						.length();
+			}
+			decimalPoint = true;
+			
+			return operand1;
+		}
+		*/
+		return operand1;
+		
+		
+	}
 
 	private boolean pushOperation(Operation o) {
+		decimalPoint=false;
 		if(operand1 == null) {
 			if(o == Operation.MINUS && !negativeNumber) {
 				negativeNumber = true;
@@ -99,6 +178,13 @@ public class CalculatorImpl {
 		clearOnDigit = negativeNumber = false;
 		operand1 = operand2 = null;
 		operation = null;
+		decimalPoint=false;
+	}
+	
+	private BigDecimal clearDisplay(){
+		clear();
+		return ZERO;
+		
 	}
 
 	private BigDecimal popResult() {
@@ -132,6 +218,7 @@ public class CalculatorImpl {
 		operand1 = result;
 		operand2 = null;
 		operation = null;
+		decimalPoint=false;
 		return result;
 	}
 }

@@ -1,4 +1,4 @@
-package com.apb.beacon.common;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
@@ -14,10 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.apb.beacon.R;
+import com.apb.beacon.common.MessageLimitWatcher;
 
 import static java.lang.String.valueOf;
 
-public class MessageFragment extends Fragment {
+public class MessageTextFragment extends Fragment {
 
     private TextView charactersLeftView;
     private TextView messageHeaderView;

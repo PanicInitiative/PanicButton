@@ -45,6 +45,8 @@
     <string name="multiplication">&#215;</string>
     <string name="division">&#247;</string>
     <string name="equal_to">=</string>
+    <string name="decimal_point">.</string>
+    <string name="char_c">C</string>
 
     <string name="first_contact">&#160;1.&#160;</string>
     <string name="second_contact">&#160;2.&#160;</string>

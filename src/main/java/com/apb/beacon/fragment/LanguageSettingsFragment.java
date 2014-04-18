@@ -1,4 +1,4 @@
-package com.apb.beacon.wizard;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageLanguageSettingsAdapter;
 import com.apb.beacon.data.PBDatabase;
@@ -84,7 +84,7 @@ public class LanguageSettingsFragment extends Fragment {
                 tvIntro.setText(currentPage.getIntroduction());
 
 
-            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity, null,pageId, currentPage,parentActivity);
+            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity);
             lvActions.setAdapter(pageLanguageSettingsAdapter);
 
             pageLanguageSettingsAdapter.setData(currentPage.getAction());

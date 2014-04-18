@@ -1,6 +1,8 @@
-package com.apb.beacon.sms;
+package com.apb.beacon.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,37 +10,50 @@ import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.AppConstants;
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.AppUtil;
-import com.apb.beacon.common.MessageFragment;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
-import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.wizard.WizardActivity;
 
-/**
- * Created by aoe on 12/12/13.
- */
-public class SetupMessageFragment extends Fragment {
-    private EditText smsEditText;
+public class MainSetupAlertFragment extends Fragment implements OnClickListener{
+
+    private static final int EXACT_CHARACTERS = 4;
+
+    private TextView alertDelayEditText;
 
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+    private String[] time_options = 
+    		{"1", "2" , "3", "4", "5" , "6", "7", "8", "9" , "10",
+    		 "11", "12" , "13", "14", "15" , "16", "17", "18", "19" , "20",
+    		 "21", "22" , "23", "24", "25" , "26", "27", "28", "29" , "30",
+    		 "31", "32" , "33", "34", "35" , "36", "37", "38", "39" , "40",
+    		 "41", "42" , "43", "44", "45" , "46", "47", "48", "49" , "50",
+    		 "51", "52" , "53", "54", "55" , "56", "57", "58", "59" , "60",
+    		 "61", "62" , "63", "64", "65" , "66", "67", "68", "69" , "70",
+    		 "71", "72" , "73", "74", "75" , "76", "77", "78", "79" , "80",
+    		 "81", "82" , "83", "84", "85" , "86", "87", "88", "89" , "90",
+    		 "91", "92" , "93", "94", "95" , "96", "97", "98", "99" , "100",
+    		 "101", "102" , "103", "104", "105" , "106", "107", "108", "109" , "110",
+    		 "111", "112" , "113", "114", "115" , "116", "117", "118", "119" , "120",
+    		};
+    AlertDialog actions;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -48,8 +63,8 @@ public class SetupMessageFragment extends Fragment {
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
-    public static SetupMessageFragment newInstance(String pageId, int parentActivity) {
-        SetupMessageFragment f = new SetupMessageFragment();
+    public static MainSetupAlertFragment newInstance(String pageId, int parentActivity) {
+        MainSetupAlertFragment f = new MainSetupAlertFragment();
         Bundle args = new Bundle();
         args.putString(PAGE_ID, pageId);
         args.putInt(PARENT_ACTIVITY, parentActivity);
@@ -60,8 +75,19 @@ public class SetupMessageFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_type_interactive_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_type_interactive_alert, container, false);
+        alertDelayEditText = (TextView) view.findViewById(R.id.alertDelay_edittext);
+        alertDelayEditText.setText(String.valueOf(ApplicationSettings.getAlertDelay(getActivity()))+" min");
+        
+        delayDialogSettings();
+        
+        alertDelayEditText.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				actions.show();
+			}
+		});
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -72,11 +98,9 @@ public class SetupMessageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.e(">>>>", "action button pressed");
-                String msg =  getSMSSettingsFromView();
+                ApplicationSettings.setAlertDelay(getActivity(), ApplicationSettings.getAlertDelay(getActivity()));
 
-                SMSSettings.saveMessage(activity, msg);
-                displaySettings(msg);
-
+                
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
@@ -84,7 +108,7 @@ public class SetupMessageFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("Message saved.", 1000, activity);
+                	AppUtil.showToast("New frequency saved.", 1000, activity);
                     i = new Intent(activity, MainActivity.class);
                 }
 
@@ -130,22 +154,31 @@ public class SetupMessageFragment extends Fragment {
         return view;
     }
 
+    
+	public void delayDialogSettings() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	    builder.setTitle("Choose an Option");
+	    builder.setItems(time_options, actionListener);
+	    builder.setNegativeButton("Cancel", null);
+	    actions = builder.create();
+		
+	}
+	
+	DialogInterface.OnClickListener actionListener = new DialogInterface.OnClickListener() {
+	    @Override
+	    public void onClick(DialogInterface dialog, int which) {
+	    	  ApplicationSettings.setAlertDelay(getActivity(), which+1);
+	    	  alertDelayEditText.setText(time_options[which].toString()+" min");
+	    }
+	  };
+	
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         activity = getActivity();
         if (activity != null) {
-            Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
-            ((MessageFragment)fragment).setActionButtonStateListener(bAction);
-            smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
-
-            String currentMsg = SMSSettings.retrieveMessage(activity);
-            if(currentMsg != null) {
-                displaySettings(currentMsg);
-            }
-            bAction.setEnabled(!smsEditText.getText().toString().trim().equals(""));
+//            bAction.setEnabled(isComplete());
 
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
@@ -179,24 +212,15 @@ public class SetupMessageFragment extends Fragment {
             pageItemAdapter.setData(currentPage.getItems());
 
         }
+
     }
 
 
-    private void displaySettings(String msg) {
-        smsEditText.setText(msg);
-    }
+    
 
-
-    private String getSMSSettingsFromView() {
-        String message = smsEditText.getText().toString().trim();
-        return message;
-    }
-
-//    @Override
-//    public void onFragmentSelected() {
-////        if (actionButtonStateListener != null) {
-////            actionButtonStateListener.enableActionButton(!smsEditText.getText().toString().trim().equals(""));
-////        }
-//    }
-
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
 }

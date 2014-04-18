@@ -12,7 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.location.CurrentLocationProvider;
 
 import org.junit.Before;
@@ -120,12 +120,14 @@ public class PanicAlertTest {
     @Test
     public void shouldReturnActiveAlertStatus() throws Exception {
         ApplicationSettings.setAlertActive(context, true);
-        assertEquals(AlertStatus.ACTIVE, panicAlert.getAlertStatus());
+//        assertEquals(AlertStatus.ACTIVE, panicAlert.isActive());
+        assertEquals(true, panicAlert.isActive());
     }
 
     @Test
     public void shouldReturnStandByAlertStatus() throws Exception {
-        assertEquals(AlertStatus.STANDBY, panicAlert.getAlertStatus());
+//        assertEquals(AlertStatus.STANDBY, panicAlert.isActive());
+        assertEquals(false, panicAlert.isActive());
     }
 
     @Test

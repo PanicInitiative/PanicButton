@@ -1,4 +1,4 @@
-package com.apb.beacon;
+package com.apb.beacon.common;
 
 import android.app.Activity;
 import android.content.Context;

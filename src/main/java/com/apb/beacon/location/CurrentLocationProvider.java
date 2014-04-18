@@ -1,6 +1,6 @@
 package com.apb.beacon.location;
 
-import com.apb.beacon.ApplicationSettings;
+import com.apb.beacon.common.ApplicationSettings;
 
 import android.content.Context;
 import android.location.Location;
@@ -32,7 +32,8 @@ public class CurrentLocationProvider extends LocationListenerAdapter {
         latestLocation = getLatest(latestLocation,
             manager.getLastKnownLocation(PASSIVE_PROVIDER));
         currentLocation = latestLocation;
-        ApplicationSettings.setCurrentBestLocation(context, currentLocation);
+        if (currentLocation != null) 
+        	ApplicationSettings.setCurrentBestLocation(context, currentLocation);
         return;
     }
 
