@@ -21,7 +21,7 @@ public class LocationFormatterTest {
         double latitude = -183.123456;
         double longitude = 78.654321;
         Location location = LocationTestUtil.location(NETWORK_PROVIDER, latitude, longitude, currentTimeMillis(), 10.0f);
-        String expectedMessage = ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
+        String expectedMessage = ". I\'m at http://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
         LocationFormatter locationFormatter = new LocationFormatter(location);
 
         assertEquals(expectedMessage, locationFormatter.format(context));
