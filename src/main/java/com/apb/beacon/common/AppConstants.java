@@ -41,9 +41,9 @@ public class AppConstants {
 
     public static final String TABLE_PRIMARY_KEY = "_id";
 
-    public static final String BASE_URL = "https://panicbutton.iilab.org/api/";
-    public static final String HELP_DATA_URL = "help.json";
-    public static final String VERSION_CHECK_URL = "version.json";
+    public static final String BASE_URL = "https://panicbutton.io";
+    public static final String HELP_DATA_URL = "/api/help.json";
+    public static final String VERSION_CHECK_URL = "/api/version.json";
 
     public static final int DATABASE_VERSION = 13;
 
