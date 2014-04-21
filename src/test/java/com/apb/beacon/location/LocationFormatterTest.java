@@ -1,9 +1,11 @@
 package com.apb.beacon.location;
 
+import android.content.Context;
 import android.location.Location;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import static android.location.LocationManager.NETWORK_PROVIDER;
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
 public class LocationFormatterTest {
+    Context context = Robolectric.application;
 
     @Test
     public void shouldReturnGoogleMapUrlForTheGivenLocation() {
@@ -21,12 +24,12 @@ public class LocationFormatterTest {
         String expectedMessage = ". I'm at http://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
         LocationFormatter locationFormatter = new LocationFormatter(location);
 
-        assertEquals(expectedMessage, locationFormatter.format());
+        assertEquals(expectedMessage, locationFormatter.format(context));
     }
 
     @Test
     public void shouldReturnEmptyStringIfTheGivenLocationIsNull() {
         LocationFormatter locationFormatter = new LocationFormatter(null);
-        assertEquals("", locationFormatter.format());
+        assertEquals("", locationFormatter.format(context));
     }
 }
