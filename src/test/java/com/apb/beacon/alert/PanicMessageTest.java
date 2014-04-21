@@ -47,8 +47,8 @@ public class PanicMessageTest {
         double finerLongitude = 80.246778812345;
 
         message = "Normal test message.Normal test message.Normal test message.Normal test message.12345";
-        normalLocationText = ". I'm at http://maps.google.com/maps?q=12.9839562,80.2467788 via network";
-        finerLocationText = ". I'm at http://maps.google.com/maps?q=12.983956212345,80.246778812345 via network";
+        normalLocationText = ". I\'m at http://maps.google.com/maps?q=12.9839562,80.2467788 via network";
+        finerLocationText = ". I\'m at http://maps.google.com/maps?q=12.983956212345,80.246778812345 via network";
 
         location = LocationTestUtil.location(LocationManager.NETWORK_PROVIDER, latitude, longitude, currentTimeMillis(), 10.0f);
         finerLocation = LocationTestUtil.location(LocationManager.NETWORK_PROVIDER, finerLatitude, finerLongitude, currentTimeMillis(), 10.0f);
