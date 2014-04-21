@@ -82,7 +82,7 @@ public class PanicMessageTest {
 
     @Test
     public void shouldTruncateTheMessagePartIfItExceeds() {
-        String expectedMessage = "Normal test message.Normal test message.Normal test message.Normal test messag" + finerLocationText;
+        String expectedMessage = "Normal test message.Normal test message.Normal test message.Normal test messa" + finerLocationText;
 
         PanicMessage panicMessage = createPanicMessage();
         panicMessage.send(finerLocation);
