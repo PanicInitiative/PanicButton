@@ -41,7 +41,7 @@ public class PanicMessage {
 //    }
 
     private String trimMessage(String message, int maxLength) {
-        String locationString = new LocationFormatter(location).format();
+        String locationString = new LocationFormatter(location).format(context);
         String smsText = message + locationString;
         if(smsText.length() > maxLength) {
             smsText = message.substring(0, (maxLength - locationString.length()) ) + locationString;
