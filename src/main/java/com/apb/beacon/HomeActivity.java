@@ -313,9 +313,9 @@ public class HomeActivity extends Activity {
             int version = 0;
             for(version = lastUpdatedVersion + 1; version <= latestVersion; version ++){
                 if (selectedLang.equals("en")) {
-                    mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
+                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
                 } else {
-                    mobileDataUrl = AppConstants.BASE_URL + selectedLang + "/" + "mobile." + version + ".json";
+                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
                 }
 
                 JsonParser jsonParser = new JsonParser();

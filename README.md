@@ -4,23 +4,23 @@
 
 ## How does Panic Button work?
 
-![TAKE TIME](https://panicbutton.iilab.org/images/illustration_2.gif)
+![TAKE TIME](https://panicbutton.io/images/illustration_2.gif)
 
 **TAKE TIME to set-up Panic Button somewhere safe and quiet**
 
-![TAKE TIME](https://panicbutton.iilab.org/images/illustration_3.gif)
+![TAKE TIME](https://panicbutton.io/images/illustration_3.gif)
 
 **Create a plan with your contacts so that they are PREPARED to ACT**
 
-![TAKE TIME](https://panicbutton.iilab.org/images/illustration_4.gif)
+![TAKE TIME](https://panicbutton.io/images/illustration_4.gif)
 
 **CHECK you are ready and that your mobile phone has credit and battery**
 
-![TAKE TIME](https://panicbutton.iilab.org/images/illustration_5.gif)
+![TAKE TIME](https://panicbutton.io/images/illustration_5.gif)
 
 **ACTIVATE Panic Button in an emergency by rapidly pressing the phone's power button**
 
-![TAKE TIME](https://panicbutton.iilab.org/images/illustration_6.gif)
+![TAKE TIME](https://panicbutton.io/images/illustration_6.gif)
 
 **Your network will receive an SMS and regular updates of your location helping them to ACT FAST**
 

@@ -144,6 +144,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
             String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
             JsonParser jsonParser = new JsonParser();
+            Log.d(">>>><<<<", "attempting to retrieve server-response for url = " + url);
             ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
             if (response.getStatus() == 200) {
                 try {
@@ -207,9 +208,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             String mobileDataUrl;
             for (version = lastUpdatedVersion + 1; version <= latestVersion; version++) {
                 if (selectedLang.equals("en")) {
-                    mobileDataUrl = AppConstants.BASE_URL + "mobile." + version + ".json";
+                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
                 } else {
-                    mobileDataUrl = AppConstants.BASE_URL + selectedLang + "/" + "mobile." + version + ".json";
+                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
                 }
 
                 JsonParser jsonParser = new JsonParser();
