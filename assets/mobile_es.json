@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 4,
+    "version" : 5,
     "data":[
     {
       "id" : "setup-warning",
@@ -16,7 +16,7 @@
       "type" : "interactive",
       "title" : "Instalar el mensaje de alerta",
       "introduction" : "Este sera el mensaje que se enviara junto con tu ubicacion.",
-      "warning" : "Make sure your contacts know what to do if they receive this message",
+      "warning" : "Asegúrate de que tus contactos sepan que hacer si reciben este mensaje.",
       "component" : "message",
       "action" : [{"title":"Siguiente","link":"setup-code"}],
       "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que sólo tú y tus contactos lo entiendan. </li><li>No tendrás tiempo para cambiar tu mensaje durante una emergencia, así que crea algo que pueda funcionar en cualquier escenario.</li><li>Activa el rastreador GPS desde las configuraciones de tu teléfono si deseas que tu ubicación se incluya en el mensaje.</li></ul>"
@@ -55,7 +55,7 @@
       "lang" : "es",
       "type" : "simple",
       "title" : "¡Bien hecho!",
-      "action" : [{"title":"Finish","link":"home-ready"}],
+      "action" : [{"title":"Terminar","link":"home-ready"}],
       "content" : "<p>¡Felicidades! ¡Lograste instalar la aplicación del Botón de Pánico exitosamente!</p>"
     },
     {
@@ -93,7 +93,7 @@
       "introduction" : "¡Bien hecho! Ahora ingresa tu clave para acceder a configuraciones.",
       "component" : "disguise-test-code",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
-      "action" : [{"title":"Ok","link":"setup-disguise-test-success"}],
+      "action" : [{"title":"OK","link":"setup-disguise-test-success"}],
       "success" : {"link":"setup-disguise-test-success"},
       "fail" : {"link":"setup-disguise-test-code-fail"}
     },
@@ -159,7 +159,7 @@
       "lang" : "es",
       "type" : "simple",
       "title" : "¡Bien hecho!",
-      "action" : [{"title":"Next","link":"home-not-configured-disguise"}],
+      "action" : [{"title":"Siguiente","link":"home-not-configured-disguise"}],
       "content" : "<p>¡Tu prueba fue exitosa! En una emergencia real, tu alerta se enviará.</p>"
     },
     {
@@ -186,7 +186,7 @@
       "lang" : "es",
       "type" : "simple",
       "title" : "Instalar Alerta",
-      "action" : [{"title":"Learn","link":"setup-alarm-test-disguise"}],
+      "action" : [{"title":"Aprende","link":"setup-alarm-test-disguise"}],
       "content" : "<p>De manera alterna, puedes activar la alerta directamente desde la pantalla disfrazada de calculadora en tu aplicación. </p>"
     },
     {
@@ -267,10 +267,10 @@
       "id" : "home-ready",
       "lang" : "es",
       "type" : "simple",
-      "title" : "Panic Button",
-      "status" : [{"title":"Ready","color":"green","link":"help-ready"}],
-      "action" : [{"title":"Disguise","link":"checklist"}],
-      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"setup-about"},{"title":"Help","link":"help"}],
+      "title" : "Botón de Pánico",
+      "status" : [{"title":"Listo","color":"green","link":"help-ready"}],
+      "action" : [{"title":"Disfrazar","link":"checklist"}],
+      "items" : [{"title":"Conguraciones","link":"settings"},{"title":"Acerca del Botón de Pánico","link":"setup-about"},{"title":"Ayuda","link":"help"}],
       "content" : "<p>El Botón de Pánico está instalado y listo para usarse en caso de emergencia. Presiona Disfrazar para salir y ocultar la aplicación. </p>"
     },
     {
@@ -297,9 +297,9 @@
       "id" : "home-not-configured",
       "lang" : "es",
       "type" : "simple",
-      "title" : "Panic Button",
-      "action" : [{"title":"Set-Up","link":"setup-warning"}],
-      "items" : [{"title":"About","link":"setup-about"},{"title":"Language Settings","link":"setup-language"}],
+      "title" : "Botón de Pánico",
+      "action" : [{"title":"Instalar","link":"setup-warning"}],
+      "items" : [{"title":"Acerca de","link":"setup-about"},{"title":"Configuraciones de lenguaje","link":"setup-language"}],
       "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para que tus contactos mas confiables puedan actuar si te encuentres en riesgo.</p>"
     },
     {
@@ -317,7 +317,7 @@
       "type" : "interactive",
       "title" : "Code",
       "component" : "code",
-      "action" : [{"title":"go","link":"home-ready"}],
+      "action" : [{"title":"Ok","link":"home-ready"}],
       "fail" : "Si has olvidado tu clave de acceso, por favor, des-instala completamente la aplicación y vuelve a instalarla."
     },
     {
@@ -325,9 +325,9 @@
       "lang" : "es",
       "type" : "modal",
       "title" : "Lista de verificación",
-      "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
+      "action" : [{"title":"Aceptar","link":"close"},{"title":"Cancelar","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"Revisar plan de seguridad y actualizar contactos regularmente"},{"title":"Prueba la alerta para asegurarte que funcione"},{"title":"Asegurate de tener suficiente crédito en tu teléfono móvil"},{"title":"Activa el GPS (si deseas que tu ubicación se incluya en el mensaje)"},{"title":"Carga la batería de tu teléfono completamente"}],
-      "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
+      "content" : "<p><a href=\"#help-charge\">Consejos sobre la seguridad...</a></p>"
     }]
   }
 }
