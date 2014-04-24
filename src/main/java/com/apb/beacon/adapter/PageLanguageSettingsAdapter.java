@@ -45,14 +45,16 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     private String selectedLang;
     private int lastUpdatedVersion;
     private int latestVersion;
+    private int parentActivity;
 
-    public PageLanguageSettingsAdapter(Context context) {
+    public PageLanguageSettingsAdapter(Context context, int parentActivity) {
         super(context, R.layout.row_page_language_settings);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.currentLang = ApplicationSettings.getSelectedLanguage(mContext);
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(mContext);
+        this.parentActivity = parentActivity;
     }
 
 
@@ -117,6 +119,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         i.putExtra("page_id", pageId);
         mContext.startActivity(i);
 
+        if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+            ((WizardActivity) mContext).callFinishActivityReceiver();
+        }
        	((Activity) mContext).finish();
     }
     

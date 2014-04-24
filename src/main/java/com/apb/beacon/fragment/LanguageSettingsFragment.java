@@ -84,7 +84,7 @@ public class LanguageSettingsFragment extends Fragment {
                 tvIntro.setText(currentPage.getIntroduction());
 
 
-            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity);
+            pageLanguageSettingsAdapter = new PageLanguageSettingsAdapter(activity, parentActivity);
             lvActions.setAdapter(pageLanguageSettingsAdapter);
 
             pageLanguageSettingsAdapter.setData(currentPage.getAction());
