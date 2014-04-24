@@ -88,13 +88,17 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             public void onClick(View v) {
                 String url = null;
                 selectedLang = item.getLanguage();
-                
+
                 if (currentLang.equals(selectedLang)) {
                     ((Activity) mContext).finish();
-                	AppUtil.showToast("Language already applied.", Toast.LENGTH_SHORT, mContext);
+                    AppUtil.showToast("Language already applied.", Toast.LENGTH_SHORT, mContext);
+                    return;
+                } else if (!AppUtil.hasInternet(mContext)) {
+                    changeStaticLanguageSettings();
                     return;
                 }
                 new GetLatestVersion().execute();
+
             }
         });
 
