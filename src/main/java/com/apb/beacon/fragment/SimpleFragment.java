@@ -346,7 +346,10 @@ public class SimpleFragment extends Fragment {
                                 }*/
                                 
                               //densityRatio = 1 here because on top @KHOBAIB had commented the value 2.25 (line 316-317)
-                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 1); 
+                                Log.e(">>>>>", "BEFORE set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
+
+                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.5 * metrics.scaledDensity);
+                                Log.e(">>>>>", "AFTER set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
                                 mImageCache.put(source, drawable);
                                 updateImages(false, textHtml);
                                 return drawable;
@@ -386,7 +389,10 @@ public class SimpleFragment extends Fragment {
 										}*/
 										
 										//densityRatio = 0.75 here because on top @KHOBAIB the values are 0.75 (line 360-361)
-										drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.75);
+                                        Log.e(">>>>>", "BEFORE set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
+
+                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.5);
+                                        Log.e(">>>>>", "AFTER set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
 										mImageCache.put(source, drawable);
 										updateImages(false, textHtml);
 									} catch (Exception e) {
