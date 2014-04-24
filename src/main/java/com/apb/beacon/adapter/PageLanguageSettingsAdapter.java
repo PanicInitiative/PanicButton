@@ -117,8 +117,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         i.putExtra("page_id", pageId);
         mContext.startActivity(i);
 
-        ((WizardActivity) mContext).callFinishActivityReceiver();
-        ((Activity) mContext).finish();
+       	((Activity) mContext).finish();
     }
     
     public void setData(List<PageAction> actionList) {
