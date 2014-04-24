@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.apb.beacon.common.AppConstants;
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
@@ -32,8 +30,11 @@ import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageActionFakeAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.alert.PanicAlert;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.ImageDownloader;
+import com.apb.beacon.common.ListViewHelper;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -56,7 +57,8 @@ public class SimpleFragment extends Fragment {
     DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
-    ListView lvItems, lvActions;
+    ListView lvItems;
+    ListView lvActions;
     LinearLayout llWarning, llStatus;
     Button bAction;
 
@@ -252,12 +254,15 @@ public class SimpleFragment extends Fragment {
                 lvActions.setAdapter(pageActionAdapter);
                 pageActionAdapter.setData(currentPage.getAction());
             }
+            ListViewHelper.getListViewSize(lvActions);
 
 
             pageItemAdapter = new PageItemAdapter(activity, null);
             lvItems.setAdapter(pageItemAdapter);
+            ListViewHelper.getListViewSize(lvItems);
 
             pageItemAdapter.setData(currentPage.getItems());
+            ListViewHelper.getListViewSize(lvItems);
 
             updateImages(true, currentPage.getContent());
         }
@@ -346,7 +351,10 @@ public class SimpleFragment extends Fragment {
                                 }*/
                                 
                               //densityRatio = 1 here because on top @KHOBAIB had commented the value 2.25 (line 316-317)
-                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 1); 
+//                                Log.e(">>>>>", "BEFORE set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
+
+                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.5 * metrics.scaledDensity);
+//                                Log.e(">>>>>", "AFTER set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
                                 mImageCache.put(source, drawable);
                                 updateImages(false, textHtml);
                                 return drawable;
@@ -386,7 +394,10 @@ public class SimpleFragment extends Fragment {
 										}*/
 										
 										//densityRatio = 0.75 here because on top @KHOBAIB the values are 0.75 (line 360-361)
-										drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.75);
+//                                        Log.e(">>>>>", "BEFORE set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
+
+                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, 0.5);
+//                                        Log.e(">>>>>", "AFTER set-metrics drawable width = " + drawable.getIntrinsicWidth() + " and height = " + drawable.getIntrinsicHeight());
 										mImageCache.put(source, drawable);
 										updateImages(false, textHtml);
 									} catch (Exception e) {

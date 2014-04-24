@@ -1,8 +1,5 @@
 package com.apb.beacon.common;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Calendar;
+import java.util.List;
 
 public class AppUtil {
     public static void setError(Context context, EditText editText, int messageId) {
@@ -94,9 +94,11 @@ public class AppUtil {
 	public static Drawable setDownloadedImageMetrices(Drawable drawable,
 			DisplayMetrics metrics, double densityRatio) {
 
+//        Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
 		int width, height;
 		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
 		int originalHeightScaled = (int) (drawable.getIntrinsicHeight()* metrics.density * densityRatio);
+//        Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
 		if (originalWidthScaled > metrics.widthPixels) {
 			height = drawable.getIntrinsicHeight() * metrics.widthPixels/ drawable.getIntrinsicWidth();
 			width = metrics.widthPixels;
@@ -104,6 +106,7 @@ public class AppUtil {
 			height = originalHeightScaled;
 			width = originalWidthScaled;
 		}
+//        Log.e("AppUtil -> setDownloadedImageMetrices", "final width = " + width + " and height = " + height);
 		try {
 			drawable.setBounds(0, 0, width, height);
 			Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = "+ height);
