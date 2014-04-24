@@ -36,3 +36,6 @@ coverage.ec
 cucumber.json
 *.keystore
 calabash_settings
+
+# Crashlytics
+res/values/com_crashlytics_export_strings.xml
