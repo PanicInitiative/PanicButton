@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.MainActivity;
@@ -34,8 +33,8 @@ import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.ImageDownloader;
-import com.apb.beacon.common.ListViewHelper;
 import com.apb.beacon.common.MyTagHandler;
+import com.apb.beacon.common.NestedListView;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
@@ -57,8 +56,8 @@ public class SimpleFragment extends Fragment {
     DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
-    ListView lvItems;
-    ListView lvActions;
+    NestedListView lvItems;
+    NestedListView lvActions;
     LinearLayout llWarning, llStatus;
     Button bAction;
 
@@ -141,8 +140,8 @@ public class SimpleFragment extends Fragment {
             }
         });
 
-        lvItems = (ListView) view.findViewById(R.id.fragment_item_list);
-        lvActions = (ListView) view.findViewById(R.id.fragment_action_list);
+        lvItems = (NestedListView) view.findViewById(R.id.fragment_item_list);
+        lvActions = (NestedListView) view.findViewById(R.id.fragment_action_list);
 
         llWarning = (LinearLayout) view.findViewById(R.id.ll_fragment_warning);
         tvWarning  = (TextView) view.findViewById(R.id.fragment_warning);
@@ -254,15 +253,15 @@ public class SimpleFragment extends Fragment {
                 lvActions.setAdapter(pageActionAdapter);
                 pageActionAdapter.setData(currentPage.getAction());
             }
-            ListViewHelper.getListViewSize(lvActions);
 
 
             pageItemAdapter = new PageItemAdapter(activity, null);
             lvItems.setAdapter(pageItemAdapter);
-            ListViewHelper.getListViewSize(lvItems);
 
             pageItemAdapter.setData(currentPage.getItems());
-            ListViewHelper.getListViewSize(lvItems);
+
+            tvTitle.setFocusableInTouchMode(true);
+            tvTitle.requestFocus();
 
             updateImages(true, currentPage.getContent());
         }
