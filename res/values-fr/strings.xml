@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_setup">Bouton d\'urgence</string>
+    <string name="app_name">Calculer!</string>
+
+    <string name="characters_left">Caractères:&#160;</string>
+    <string name="save_text">Enregistrer</string>
+
+    <string name="enter_message_hint">Saisir le message</string>
+
+    <string name="i_am_at">Je suis ici:</string>
+    <string name="i_am_at_url">Je suis ici: http://maps.google.com/GPS-location</string>
+    <string name="panic_button">Bouton\nd\'Urgence</string>
+    <string name="page_title_text">Titre</string>
+
+    <string name="page_status_text">Statut</string>
+    <string name="page_modal_button1_text">Bouton1</string>
+    <string name="page_modal_button2_text">Bouton2</string>
+
+    <string name="page_button_action_text">Action</string>
+    <string name="contact_hint_text">Entrer le numéro de contact</string>
+    <string name="default_emergency_message">Aidez-moi</string>
+    <string name="emergency_message_header">Message d\'urgence</string>
+    <string name="sms_settings_subtitle">Ajoutez au plus trois contacts d\'urgence</string>
+    <string name="alert_status_standby">L\'alerte est en mode veille</string>
+    <string name="send_emergency_alert">&#160;&#160;Envoyer l\'alerte d\'urgence</string>
+    <string name="stop_alert">&#160;&#160;Arrêter l\'alerte</string>
+    <string name="alert_status_active">L\'alerte est active et émet toutes les cinq minutes</string>
+
+    <string name="incorrect_pin">Saisissez le code PIN</string>
+    <string name="incorrect_pin_3_times">En cas d\'oubli de votre code PIN, veuillez réinstaller l\'application</string>
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="addition">+</string>
+    <string name="subtraction">&#8722;</string>
+    <string name="multiplication">&#215;</string>
+    <string name="division">&#247;</string>
+    <string name="equal_to">=</string>
+    <string name="decimal_point">.</string>
+    <string name="char_c">C</string>
+
+    <string name="first_contact">&#160;1.&#160;</string>
+    <string name="second_contact">&#160;2.&#160;</string>
+    <string name="third_contact">&#160;3.&#160;</string>
+
+    <string name="choose_contact">Choisissez votre contact d\'urgence</string>
+    <string name="wizard_training_contacts_details">Réfléchissez bien! Vos contacts d\'urgence doivent être des personnes que vous connaissez personnellement, prêtes et capables d\'agir de manière rapide.</string>
+</resources>
