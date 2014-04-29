@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 5,
+    "version" : 6,
     "data":[
     {
       "id" : "setup-warning",
@@ -34,7 +34,7 @@
       "id" : "setup-disguise-test-unlock-fail",
       "lang" : "fr",
       "type" : "simple",
-      "title" : "Setup the Disguise",
+      "title" : "Configurer le camouflage",
       "action" : [{"title":"Réessayer","link":"setup-disguise-test-open"}],
       "content" : "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas: appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
     },
@@ -83,17 +83,17 @@
       "type" : "simple",
       "title" : "Configurer le camouflage",
       "action" : [{"title":"Réessayer","link":"setup-disguise-test-unlock"}],
-      "content" : "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas : appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
+      "content" : "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas: appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
     },
     {
       "id" : "setup-disguise-test-code",
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Tester le camouflage",
-      "introduction" : "¡Bien hecho! Ahora ingresa tu clave para acceder a configuraciones.",
+      "introduction" : "Bravo! Entrez votre code de sécurité pour accéder aux paramètres.",
       "component" : "disguise-test-code",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
-      "action" : [{"title":"Ok","link":"setup-disguise-test-success"}],
+      "action" : [{"title":"Accepter","link":"setup-disguise-test-success"}],
       "success" : {"link":"setup-disguise-test-success"},
       "fail" : {"link":"setup-disguise-test-code-fail"}
     },
@@ -132,7 +132,7 @@
       "type" : "simple",
       "title" : "Bravo!",
       "action" : [{"title":"Suivant","link":"setup-alarm-disguise"}],
-      "content" : "<p>Votre test a fonctionné ! Dans une véritable situation d&#39;urgence, votre alerte aurait été envoyée.</p>"
+      "content" : "<p>Votre test a fonctionné! Dans une véritable situation d&#39;urgence, votre alerte aurait été envoyée.</p>"
     },
     {
       "id" : "setup-alarm-test-hardware-fail",
@@ -140,7 +140,7 @@
       "type" : "simple",
       "title" : "Configurer l'alerte",
       "action" : [{"title":"Réessayer","link":"setup-alarm-test-hardware"}],
-      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte en utilisant le bouton marche/arrêt de votre téléphone.</p><p>Recuerda: Presiona el botón  de encender/apagar lo mas rápido posible hasta que sientas una vibración.  </p>"
+      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte en utilisant le bouton marche/arrêt de votre téléphone.</p><p>N&#39;oubliez pas: Appuyez plusieurs fois rapidement sur le bouton marche/arrêt de votre téléphone jusqu&#39;à ce que le téléphone vibre. </p>"
     },
     {
       "id" : "setup-alarm-test-hardware",
@@ -201,8 +201,8 @@
       "id" : "setup-about",
       "lang" : "fr",
       "type" : "simple",
-      "title" : "About",
-      "content" : "<p>Panic Button turns your mobile phone into a secret alarm for when you&#39;re in trouble.</p><p><strong>How Does Panic Button Work?</strong></p><ul><li>TAKE TIME to set-up Panic Button somewhere safe and quiet</li><li>Create a plan with your contacts so that they are PREPARED to ACT</li><li>CHECK you are ready and that your mobile phone has credit and battery</li><li>ACTIVATE Panic Button in an emergency by rapidly pressing the phone&#39;s power button</li><li>Your network will receive an SMS and regular updates of your location helping them to ACT FAST</li></ul><p>The Panic Button project is an initiative of Amnesty International in collaboration with key advisors and partners including Frontline Defenders, iilab and the engine room.</p>"
+      "title" : "A propos",
+      "content" : "<p>Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret d&#39;envoi d&#39;alerte lorsque vous êtes en danger.</p><p><strong>Comment fonctionne le Bouton d&#39;urgence?</strong></p><ul><li>Choisissez un endroit sûr et tranquille pour paramétrer votre Bouton d&#39;urgence.</li><li>Mettez au point un plan d&#39;action avec vos contacts pour qu&#39;ils sachent quoi faire au moment voulu.</li><li>Vérifiez que tout est prêt et qu&#39;il y a suffisamment de crédit et de batterie sur votre téléphone.</li><li>En cas de danger, activez le Bouton d&#39;urgence en appuyant rapidement sur le bouton de mise en marche de votre téléphone.</li><li>Les membres de votre réseau recevront un SMS et des mises à jour régulières sur l&#39;endroit où vous vous trouvez, ce qui les aidera à agir rapidement.</li></ul><p>Le projet Bouton d&#39;urgence est une initiative d&#39;Amnesty International en collaboration avec des conseillers et des partenaires tels que Frontline Defenders, iilab et Engine room.</p>"
     },
     {
       "id" : "settings-message",
@@ -250,21 +250,21 @@ Mémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application
       "id" : "settings-alert",
       "lang" : "fr",
       "type" : "interactive",
-      "title" : "Alert settings",
-      "introduction" : "Setup the frequency.",
-      "warning" : "Be careful about your battery! Sending alerts too often might drain your battery.",
+      "title" : "Paramétrage de l'alerte",
+      "introduction" : "Régler la fréquence (des envois de messages).",
+      "warning" : "Ménagez votre batterie ! Envoyer des alertes trop fréquentes peut vider votre batterie.",
       "component" : "alert",
-      "action" : [{"title":"Save","link":"home-ready"}]
+      "action" : [{"title":"Enregistrer","link":"home-ready"}]
     },
     {
       "id" : "home-ready",
       "lang" : "fr",
       "type" : "simple",
-      "title" : "Panic Button",
-      "status" : [{"title":"Ready","color":"green","link":"help-ready"}],
-      "action" : [{"title":"Disguise","link":"checklist"}],
-      "items" : [{"title":"Settings","link":"settings"},{"title":"About","link":"setup-about"},{"title":"Help","link":"help"}],
-      "content" : "<p>El Botón de Pánico está instalado y listo para usarse en caso de emergencia. Presiona Disfrazar para salir y ocultar la aplicación. </p>"
+      "title" : "Bouton d'urgence",
+      "status" : [{"title":"Prêt","color":"green","link":"help-ready"}],
+      "action" : [{"title":"Cacher","link":"checklist"}],
+      "items" : [{"title":"Paramètres","link":"settings"},{"title":"A propos","link":"setup-about"},{"title":"Aide","link":"help"}],
+      "content" : "<p>Le Bouton d’urgence est désormais installé et prêt à être utilisé en cas de danger. Appuyez sur « cacher » pour quitter et cacher l’application.</p>"
     },
     {
       "id" : "home-not-configured-disguise",
@@ -290,10 +290,10 @@ Mémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application
       "id" : "home-not-configured",
       "lang" : "fr",
       "type" : "simple",
-      "title" : "Botón de Pánico",
-      "action" : [{"title":"Instalar","link":"setup-warning"}],
-      "items" : [{"title":"Acerca de","link":"setup-about"},{"title":"Configuraciones de lenguaje","link":"setup-language"}],
-      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para que tus contactos mas confiables puedan actuar si te encuentres en riesgo.</p>"
+      "title" : "Bouton d'urgence",
+      "action" : [{"title":"Installation","link":"setup-warning"}],
+      "items" : [{"title":"A propos","link":"setup-about"},{"title":"Paramètres de langues","link":"setup-language"}],
+      "content" : "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret pour alerter rapidement les membres de votre réseau lorsque vous êtes en danger. </p>"
     },
     {
       "id" : "home-alerting",
@@ -310,17 +310,17 @@ Mémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application
       "type" : "interactive",
       "title" : "Code",
       "component" : "code",
-      "action" : [{"title":"go","link":"home-ready"}],
-      "fail" : "Mémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application."
+      "action" : [{"title":"Aller","link":"home-ready"}],
+      "fail" : "Mémorisez votre code! Si vous l'oubliez vous devrez réinstaller l'application."
     },
     {
       "id" : "checklist",
       "lang" : "fr",
       "type" : "modal",
       "title" : "Check-list",
-      "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
+      "action" : [{"title":"OK","link":"close"},{"title":"Annuler ","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"Revoir la stratégie de sécurité et mettre à jour les contacts régulièrement"},{"title":"Tester l'alerte pour vérifier qu'elle fonctionne"},{"title":"Vérifier qu'il y a assez de crédit sur le téléphone"},{"title":"Activer le GPS (si vous souhaitez signaler votre position géographique"},{"title":"Recharger complètement la batterie"}],
-      "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
+      "content" : "<p>More <a href=\"#help-charge\">conseils de sécurité...</a></p>"
     }]
   }
 }
