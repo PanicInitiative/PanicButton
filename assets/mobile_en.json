@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 5,
+    "version" : 6,
     "data":[
     {
       "id" : "setup-warning",
@@ -216,17 +216,9 @@
       "id" : "settings-reset-confirm",
       "lang" : "en",
       "type" : "warning",
-      "title" : "Confirm the re-installation",
+      "title" : "Confirmez la ré-installation.",
       "action" : [{"title":"Confirm","link":"home-not-configured"}],
-      "content" : "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alert will be deactivated until you complete the wizard</p>"
-    },
-    {
-      "id" : "settings-reset-confirm",
-      "lang" : "en",
-      "type" : "warning",
-      "title" : "Confirm the re-installation",
-      "action" : [{"title":"Confirm","link":"home-not-configured"}],
-      "content" : "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alert will be deactivated until you complete the wizard</p>"
+      "content" : "<p>Veuillez confirmer le redémarrage de l’installation. Si vous redémarrez l’installation, l’alerte sera désactivée jusqu&#39;à ce que vous terminiez l’assistant.</p>"
     },
     {
       "id" : "settings-reset-confirm",
