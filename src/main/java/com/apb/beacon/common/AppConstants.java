@@ -51,6 +51,6 @@ public class AppConstants {
 
     public static final int SPLASH_DELAY_TIME = 200;
 
-    public static final int IMAGE_DOWNLOAD_TIMEOUT_MS = 1000;
+    public static final int IMAGE_DOWNLOAD_TIMEOUT_MS = 3000;
 
 }
