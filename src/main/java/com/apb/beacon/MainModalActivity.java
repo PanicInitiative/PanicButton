@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.adapter.PageCheckListAdapter;
+import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
@@ -27,6 +30,8 @@ public class MainModalActivity extends BaseFragmentActivity {
     PageCheckListAdapter pageCheckListAdapter;
     int parentActivity;
 
+    DisplayMetrics metrics;
+
     LinearLayout llWarning, llStatus;
     TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
     ListView checkList;
@@ -36,6 +41,9 @@ public class MainModalActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
+
+        metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
@@ -86,8 +94,10 @@ public class MainModalActivity extends BaseFragmentActivity {
 
         if(currentPage.getContent() == null)
             tvContent.setVisibility(View.GONE);
-        else
+        else{
             tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
+            tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+        }
 
         if (currentPage.getAction().size() > 1) {
             bAction2.setText(currentPage.getAction().get(1).getTitle());
@@ -166,6 +176,8 @@ public class MainModalActivity extends BaseFragmentActivity {
         pageCheckListAdapter = new PageCheckListAdapter(this, null);
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
+
+        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent);
     }
 
 

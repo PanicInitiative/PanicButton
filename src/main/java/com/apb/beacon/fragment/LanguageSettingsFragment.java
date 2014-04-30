@@ -3,6 +3,7 @@ package com.apb.beacon.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.adapter.PageLanguageSettingsAdapter;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 
@@ -76,7 +78,8 @@ public class LanguageSettingsFragment extends Fragment {
             if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else
-                tvContent.setText(currentPage.getContent());
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
+//                tvContent.setText(currentPage.getContent());
 
             if (currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);

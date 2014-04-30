@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,6 +31,8 @@ public class WizardModalActivity extends BaseFragmentActivity {
     PageCheckListAdapter pageCheckListAdapter;
     int parentActivity;
 
+    DisplayMetrics metrics;
+
     LinearLayout llWarning, llStatus;
     TextView tvTitle, tvContent, tvIntro, tvWarning, tvStatus;
     ListView checkList;
@@ -39,6 +42,9 @@ public class WizardModalActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wizard_modal);
+
+        metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         tvTitle = (TextView) findViewById(R.id.fragment_title);
         tvIntro = (TextView) findViewById(R.id.fragment_intro);
@@ -183,6 +189,8 @@ public class WizardModalActivity extends BaseFragmentActivity {
         pageCheckListAdapter = new PageCheckListAdapter(this, null);
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
+
+        AppUtil.updateImages(true, currentPage.getContent(), WizardModalActivity.this, metrics, tvContent);
     }
 
 

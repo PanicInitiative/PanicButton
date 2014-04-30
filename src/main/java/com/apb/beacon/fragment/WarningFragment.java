@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
@@ -138,8 +140,10 @@ public class WarningFragment extends Fragment {
 
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
-            else
-                tvContent.setText(currentPage.getContent());
+            else{
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
+//                tvContent.setText(currentPage.getContent());
+            }
 
             if(currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
@@ -162,7 +166,6 @@ public class WarningFragment extends Fragment {
             pageItemAdapter.setData(currentPage.getItems());
 
             AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
-//            updateImages(true, currentPage.getContent());
         }
     }
 
