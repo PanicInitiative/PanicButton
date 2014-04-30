@@ -4,21 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 public class AppUtil {
+
+    public static HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
+
     public static void setError(Context context, EditText editText, int messageId) {
         editText.setError(
                 Html.fromHtml("<font color='red'>"
@@ -94,11 +103,11 @@ public class AppUtil {
 	public static Drawable setDownloadedImageMetrices(Drawable drawable,
 			DisplayMetrics metrics, double densityRatio) {
 
-//        Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
+        Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
 		int width, height;
 		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
 		int originalHeightScaled = (int) (drawable.getIntrinsicHeight()* metrics.density * densityRatio);
-//        Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
+        Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
 		if (originalWidthScaled > metrics.widthPixels) {
 			height = drawable.getIntrinsicHeight() * metrics.widthPixels/ drawable.getIntrinsicWidth();
 			width = metrics.widthPixels;
@@ -106,7 +115,7 @@ public class AppUtil {
 			height = originalHeightScaled;
 			width = originalWidthScaled;
 		}
-//        Log.e("AppUtil -> setDownloadedImageMetrices", "final width = " + width + " and height = " + height);
+        Log.e("AppUtil -> setDownloadedImageMetrices", "final width = " + width + " and height = " + height);
 		try {
 			drawable.setBounds(0, 0, width, height);
 			Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = "+ height);
@@ -151,6 +160,88 @@ public class AppUtil {
 	public static void showToast(String message, int time,Context context) {
 		Toast.makeText(context, message, time).show();
 	}
+
+
+
+
+
+
+    public static void updateImages(final boolean downloadImages, final String textHtml, final Context context, final DisplayMetrics metrics, final TextView tvContent) {
+
+        if (textHtml == null) return;
+        Spanned spanned = Html.fromHtml(textHtml,
+                new Html.ImageGetter() {
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public Drawable getDrawable(final String source) {
+                        if(!AppUtil.hasInternet(context) && downloadImages){
+                            try {
+                                Log.e(">>>>>>>>>>>", "Source = " + source);
+                                Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
+
+                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
+                                mImageCache.put(source, drawable);
+                                updateImages(false, textHtml, context, metrics, tvContent);
+                                return drawable;
+                            } catch (IOException e) {
+                                Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+                                e.printStackTrace();
+                            }
+                            return null;
+
+                        }
+                        Log.e(">>>>>>", "image src = " + source);
+                        Drawable drawable = mImageCache.get(source);
+                        if (drawable != null) {
+                            return drawable;
+                        } else if (downloadImages) {
+                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
+                                @Override
+                                public void onImageDownloadComplete(byte[] bitmapData) {
+                                    try {
+                                        Drawable drawable = new BitmapDrawable(context.getResources(),
+                                                BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
+
+                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR);
+                                        mImageCache.put(source, drawable);
+                                        updateImages(false, textHtml, context, metrics, tvContent);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        Log.e(">>>>>>>>>>>>>>","Failed to download image");
+                                        try {
+                                            Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
+
+                                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
+                                            mImageCache.put(source, drawable);
+                                            updateImages(false, textHtml, context, metrics, tvContent);
+                                        } catch (IOException e1) {
+                                            Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+                                            e1.printStackTrace();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onImageDownloadFailed(Exception ex) {
+                                    Log.e("onImageDownloadFailed", "ImageDownloadFailed");
+                                    try {
+                                        Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
+
+                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
+                                        mImageCache.put(source, drawable);
+                                        updateImages(false, textHtml, context, metrics, tvContent);
+                                    } catch (IOException e1) {
+                                        Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+                                        e1.printStackTrace();
+                                    }
+                                }
+                            }).execute(source);
+                        }
+                        return null;
+                    }
+                }, new MyTagHandler());
+        tvContent.setText(spanned);
+    }
 
 
 }

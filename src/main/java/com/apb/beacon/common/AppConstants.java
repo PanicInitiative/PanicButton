@@ -39,6 +39,8 @@ public class AppConstants {
     public static final int FROM_WIZARD_ACTIVITY = 1;
     public static final int FROM_MAIN_ACTIVITY = 2;
 
+    public static final double IMAGE_SCALABILITY_FACTOR = 0.5;
+
     public static final String TABLE_PRIMARY_KEY = "_id";
 
     public static final String BASE_URL = "https://panicbutton.io";
@@ -48,5 +50,7 @@ public class AppConstants {
     public static final int DATABASE_VERSION = 13;
 
     public static final int SPLASH_DELAY_TIME = 200;
+
+    public static final int IMAGE_DOWNLOAD_TIMEOUT_MS = 1000;
 
 }
