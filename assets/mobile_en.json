@@ -28,7 +28,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Français","language":"fr"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -213,22 +213,6 @@
       "content" : "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alert will be deactivated until you complete the wizard</p>"
     },
     {
-      "id" : "settings-reset-confirm",
-      "lang" : "en",
-      "type" : "warning",
-      "title" : "Confirmez la ré-installation.",
-      "action" : [{"title":"Confirm","link":"home-not-configured"}],
-      "content" : "<p>Veuillez confirmer le redémarrage de l’installation. Si vous redémarrez l’installation, l’alerte sera désactivée jusqu&#39;à ce que vous terminiez l’assistant.</p>"
-    },
-    {
-      "id" : "settings-reset-confirm",
-      "lang" : "en",
-      "type" : "warning",
-      "title" : "Confirm the re-installation",
-      "action" : [{"title":"Confirm","link":"home-not-configured"}],
-      "content" : "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alert will be deactivated until you complete the wizard</p>"
-    },
-    {
       "id" : "settings-message",
       "lang" : "en",
       "type" : "interactive",
@@ -236,7 +220,7 @@
       "introduction" : "This is the message that will be sent with your location.",
       "warning" : "Create a plan so your contacts know what to do when they receive this",
       "component" : "message",
-      "action" : [{"title":"Save","link":"home-ready"}],
+      "action" : [{"title":"Save","link":"home-ready","confirmation":"Message saved"}],
       "content" : "<p>Security tips</p><ul><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all situations. </li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message<br></li></ul>"
     },
     {
@@ -246,7 +230,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Français","language":"fr"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "settings-contacts",
@@ -256,7 +240,7 @@
       "introduction" : "These people will receive the alert.",
       "warning" : "They should know you personally and be able to respond fast.",
       "component" : "contacts",
-      "action" : [{"title":"Save","link":"home-ready"}],
+      "action" : [{"title":"Save","link":"home-ready","confirmation":"Contacts saved"}],
       "content" : "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
     },
     {
@@ -267,7 +251,7 @@
       "introduction" : "This pincode is needed to access the app settings. It is not needed to alert contacts in an emergency.",
       "warning" : "Remember your pincode! If you forget it you will need to reinstall the app.",
       "component" : "code",
-      "action" : [{"title":"Save","link":"home-ready"}]
+      "action" : [{"title":"Save","link":"home-ready","confirmation":"Pincode saved"}]
     },
     {
       "id" : "settings-alert",
@@ -277,7 +261,7 @@
       "introduction" : "Setup the frequency.",
       "warning" : "Be careful about your battery! Sending alerts too often might drain your battery.",
       "component" : "alert",
-      "action" : [{"title":"Save","link":"home-ready"}]
+      "action" : [{"title":"Save","link":"home-ready","confirmation":"New alert frequency saved"}]
     },
     {
       "id" : "settings",

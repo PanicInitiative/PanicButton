@@ -28,7 +28,7 @@
       "title" : "Configuraciones de lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
+      "action" : [{"title":"Inglés","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Francés","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -220,7 +220,7 @@
       "introduction" : "Este será el mensaje que se enviará junto con tu ubicación.",
       "warning" : "Asegúrate de que tus contactos sepan que hacer si reciben este mensaje.",
       "component" : "message",
-      "action" : [{"title":"Guardar","link":"home-ready"}],
+      "action" : [{"title":"Guardar","link":"home-ready","confirmation":""}],
       "content" : "<p>Tips de seguridad</p><ul><li>Considera crear palabras o frases secretas en tu mensaje para que sólo tu y tus contactos lo entiendan.</li><li>No tendrás tiempo para cambiar tu mensaje durante una emergencia, asi que crea algo que pueda funcionar en cualquier escenario.</li><li>Activa el rastreador GPS desde las configuraciones de tu teléfono si deseas que tu ubicación se incluya en el mensaje.</li></ul>"
     },
     {
@@ -230,7 +230,7 @@
       "title" : "Configuraciones de Lenguage",
       "introduction" : "Selecciona un lenguaje para la aplicación.",
       "component" : "language",
-      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
+      "action" : [{"title":"Inglés","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Francés","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "settings-contacts",
@@ -240,7 +240,7 @@
       "introduction" : "Estas son las personas que recibirán tu alerta.",
       "warning" : "Estas personas deberán de conocerte personalmente y ser capaces de responder rápidamente.",
       "component" : "contacts",
-      "action" : [{"title":"Guardar","link":"home-ready"}],
+      "action" : [{"title":"Guardar","link":"home-ready","confirmation":"Nueva clave guardada"}],
       "content" : "<p>Tips de seguridad</p><ul><li>Piensa acerca de quién puede ayudarte de manera práctica- No tiene caso que alguien se entere que estás en problemas si no puede ayudarte</li><li>Diseña un plan con tus contactos seleccionados para que puedan estar preparados y actuar rápidamente </li><li>Considera los riesgos- ¿Cómo es que tu contacto podría ponerse en riesgo?</li></ul>"
     },
     {
@@ -252,7 +252,7 @@
 ¡Recuerda tu clave! Si la olvidas necesitarás re-instalar la aplicación.
 ",
       "component" : "code",
-      "action" : [{"title":"Guardar","link":"home-ready"}]
+      "action" : [{"title":"Guardar","link":"home-ready","confirmation":"Tu clave ha sido guardada"}]
     },
     {
       "id" : "settings-alert",
@@ -262,7 +262,7 @@
       "introduction" : "Configurar la frequencia de la alerta.",
       "warning" : "¡Mantente al pendiente de tu batería! Enviar alertas demasiado seguido puede absorber tu batería.",
       "component" : "alert",
-      "action" : [{"title":"Guardar","link":"home-ready"}]
+      "action" : [{"title":"Guardar","link":"home-ready","confirmation":"Nueva frecuencia de envío de mensajes guardada"}]
     },
     {
       "id" : "settings",

@@ -28,7 +28,7 @@
       "title" : "Langue",
       "introduction" : "Sélectionner une langue pour l'application.",
       "component" : "language",
-      "action" : [{"title":"Anglais","language":"en"},{"title":"Espagnol","language":"es"},{"title":"Français","language":"fr"}]
+      "action" : [{"title":"Anglais","language":"en","confirmation":"New language applied"},{"title":"Espagnol","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -205,6 +205,14 @@
       "content" : "<p>Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret d&#39;envoi d&#39;alerte lorsque vous êtes en danger.</p><p><strong>Comment fonctionne le Bouton d&#39;urgence?</strong></p><ul><li>Choisissez un endroit sûr et tranquille pour paramétrer votre Bouton d&#39;urgence.</li><li>Mettez au point un plan d&#39;action avec vos contacts pour qu&#39;ils sachent quoi faire au moment voulu.</li><li>Vérifiez que tout est prêt et qu&#39;il y a suffisamment de crédit et de batterie sur votre téléphone.</li><li>En cas de danger, activez le Bouton d&#39;urgence en appuyant rapidement sur le bouton de mise en marche de votre téléphone.</li><li>Les membres de votre réseau recevront un SMS et des mises à jour régulières sur l&#39;endroit où vous vous trouvez, ce qui les aidera à agir rapidement.</li></ul><p>Le projet Bouton d&#39;urgence est une initiative d&#39;Amnesty International en collaboration avec des conseillers et des partenaires tels que Frontline Defenders, iilab et Engine room.</p>"
     },
     {
+      "id" : "settings-reset-confirm",
+      "lang" : "fr",
+      "type" : "warning",
+      "title" : "Confirmez la ré-installation.",
+      "action" : [{"title":"Confirm","link":"home-not-configured"}],
+      "content" : "<p>Veuillez confirmer le redémarrage de l’installation. Si vous redémarrez l’installation, l’alerte sera désactivée jusqu&#39;à ce que vous terminiez l’assistant.</p>"
+    },
+    {
       "id" : "settings-message",
       "lang" : "fr",
       "type" : "interactive",
@@ -212,7 +220,7 @@
       "introduction" : "C'est le message qui sera envoyé avec votre position géographique.",
       "warning" : "Veillez à ce que vos contacts sachent ce qu'ils ont à faire s'ils reçoivent ce message.",
       "component" : "message",
-      "action" : [{"title":"Enregistrer","link":"home-ready"}],
+      "action" : [{"title":"Enregistrer","link":"home-ready","confirmation":"Message sauvegardé"}],
       "content" : "<p>Conseils de sécurité</p><ul><li>Envisagez l&#39;idée d&#39;insérer dans votre message des mots ou des phrases codés que seuls vos contacts peuvent comprendre.</li><li>Vous n&#39;aurez pas le temps de changer le message en cas d&#39;urgence, alors préparez quelque chose qui fonctionne en toutes circonstances.</li><li>Activez le traçage GPS à partir des paramètres de votre téléphone si vous souhaitez que le message indique où vous êtes.</li></ul>"
     },
     {
@@ -222,7 +230,7 @@
       "title" : "Langue",
       "introduction" : "Sélectionner une langue pour l'application.",
       "component" : "language",
-      "action" : [{"title":"Anglais","language":"en"},{"title":"Espagnol","language":"es"},{"title":"Français","language":"fr"}]
+      "action" : [{"title":"Anglais","language":"en","confirmation":"New language applied"},{"title":"Espagnol","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
     },
     {
       "id" : "settings-contacts",
@@ -232,7 +240,7 @@
       "introduction" : "Ce sont les personnes qui recevront vos alertes.",
       "warning" : "Elles doivent vous connaître personnellement et pouvoir réagir rapidement.",
       "component" : "contacts",
-      "action" : [{"title":"Enregistrer","link":"home-ready"}],
+      "action" : [{"title":"Enregistrer","link":"home-ready","confirmation":"Contacts sauvegardés"}],
       "content" : "<p>Conseils de sécurité</p><ul><li>Demandez-vous qui peut vous apporter une aide concrète. Inutile d&#39;alerter quelqu&#39;un qui ne peut pas vous aider. </li><li>Élaborez une stratégie avec vos contacts afin qu&#39;ils soient prêts à agir vite.<br></li><li>Ayez conscience des dangers - quels sont les risques pour vos contacts?</li></ul>"
     },
     {
