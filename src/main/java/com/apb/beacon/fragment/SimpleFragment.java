@@ -29,6 +29,7 @@ import com.apb.beacon.alert.PanicAlert;
 import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
+import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.common.NestedListView;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -203,7 +204,8 @@ public class SimpleFragment extends Fragment {
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else {
-                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+//                tvContent.setText(Html.fromHtml(currentPage.getContent()));
+                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             }
 

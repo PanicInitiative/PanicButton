@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,8 @@ public class SetupCodeFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+
+    DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -135,6 +138,9 @@ public class SetupCodeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             bAction.setEnabled(isComplete());
 
             String pageId = getArguments().getString(PAGE_ID);
@@ -168,6 +174,7 @@ public class SetupCodeFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
         }
 
     }

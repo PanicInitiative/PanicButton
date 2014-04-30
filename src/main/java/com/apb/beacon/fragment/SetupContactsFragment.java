@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,8 @@ public class SetupContactsFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+
+    DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -147,6 +150,9 @@ public class SetupContactsFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             contactEditTexts = new ContactEditTexts(getFragmentManager(), bAction, activity);
 
             SMSSettings currentSettings = SMSSettings.retrieve(activity);
@@ -186,6 +192,8 @@ public class SetupContactsFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
 //            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
             pageItemAdapter.setData(currentPage.getItems());
+
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
 
         }
     }

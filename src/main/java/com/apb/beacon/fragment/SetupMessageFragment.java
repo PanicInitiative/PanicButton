@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,8 @@ public class SetupMessageFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+
+    DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -136,6 +139,9 @@ public class SetupMessageFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
             ((MessageTextFragment)fragment).setActionButtonStateListener(bAction);
             smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
@@ -176,6 +182,8 @@ public class SetupMessageFragment extends Fragment {
             pageItemAdapter = new PageItemAdapter(activity, null);
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
+
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
 
         }
     }
