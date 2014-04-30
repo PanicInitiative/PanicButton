@@ -2,15 +2,12 @@ package com.apb.beacon.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,11 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
 import com.apb.beacon.common.AppUtil;
-import com.apb.beacon.common.ImageDownloader;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -117,7 +113,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
                 tvContent.setVisibility(View.GONE);
             else {
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-                updateImages(true, currentPage.getContent());
+                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+//                updateImages(true, currentPage.getContent());
             }
         }
     }
@@ -185,54 +182,54 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         }
     };
 
-    private void updateImages(final boolean downloadImages, final String textHtml) {
-        if (textHtml == null) return;
-        Spanned spanned = Html.fromHtml(textHtml,
-                new Html.ImageGetter() {
-                    @Override
-                    public Drawable getDrawable(final String source) {
-                        Log.e(">>>>>>", "image src = " + source);
-//                        if(!source.startsWith("http")){
-//                            source = "http://teampanicbutton.github.io/" + source;
+//    private void updateImages(final boolean downloadImages, final String textHtml) {
+//        if (textHtml == null) return;
+//        Spanned spanned = Html.fromHtml(textHtml,
+//                new Html.ImageGetter() {
+//                    @Override
+//                    public Drawable getDrawable(final String source) {
+//                        Log.e(">>>>>>", "image src = " + source);
+////                        if(!source.startsWith("http")){
+////                            source = "http://teampanicbutton.github.io/" + source;
+////                        }
+//                        Drawable drawable = mImageCache.get(source);
+//                        if (drawable != null) {
+//                            return drawable;
+//                        } else if (downloadImages) {
+//                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
+//                                @Override
+//                                public void onImageDownloadComplete(byte[] bitmapData) {
+//                                    Drawable drawable = new BitmapDrawable(getResources(),
+//                                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
+//
+//                                    int width, height;
+//                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
+//                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
+//                                    if (originalWidthScaled > metrics.widthPixels) {
+//                                        height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
+//                                        width = metrics.widthPixels;
+//                                    } else {
+//                                        height = originalHeightScaled;
+//                                        width = originalWidthScaled;
+//                                    }
+//                                    try {
+//                                        drawable.setBounds(0, 0, width, height);
+//                                        Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
+//                                    } catch (Exception ex) {
+//                                    }
+//                                    mImageCache.put(source, drawable);
+//                                    updateImages(false, textHtml);
+//                                }
+//
+//                                @Override
+//                                public void onImageDownloadFailed(Exception ex) {
+//                                }
+//                            }).execute(source);
 //                        }
-                        Drawable drawable = mImageCache.get(source);
-                        if (drawable != null) {
-                            return drawable;
-                        } else if (downloadImages) {
-                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
-                                @Override
-                                public void onImageDownloadComplete(byte[] bitmapData) {
-                                    Drawable drawable = new BitmapDrawable(getResources(),
-                                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
-
-                                    int width, height;
-                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
-                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
-                                    if (originalWidthScaled > metrics.widthPixels) {
-                                        height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
-                                        width = metrics.widthPixels;
-                                    } else {
-                                        height = originalHeightScaled;
-                                        width = originalWidthScaled;
-                                    }
-                                    try {
-                                        drawable.setBounds(0, 0, width, height);
-                                        Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
-                                    } catch (Exception ex) {
-                                    }
-                                    mImageCache.put(source, drawable);
-                                    updateImages(false, textHtml);
-                                }
-
-                                @Override
-                                public void onImageDownloadFailed(Exception ex) {
-                                }
-                            }).execute(source);
-                        }
-                        return null;
-                    }
-                }, new MyTagHandler());
-        tvContent.setText(spanned);
-    }
+//                        return null;
+//                    }
+//                }, new MyTagHandler());
+//        tvContent.setText(spanned);
+//    }
 }
 

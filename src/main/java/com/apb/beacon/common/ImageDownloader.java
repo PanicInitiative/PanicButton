@@ -1,12 +1,15 @@
 package com.apb.beacon.common;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.apb.beacon.model.AsyncTaskResult;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by aoe on 1/3/14.
@@ -29,7 +32,14 @@ public class ImageDownloader extends AsyncTask {
         ByteArrayOutputStream baos = null;
         InputStream mIn = null;
         try {
-            mIn = new java.net.URL(url).openStream();
+            long timeBeforeConnection = System.currentTimeMillis();
+            URLConnection urlCon = new URL(url).openConnection();
+            urlCon.setConnectTimeout(AppConstants.IMAGE_DOWNLOAD_TIMEOUT_MS);
+            urlCon.setReadTimeout(AppConstants.IMAGE_DOWNLOAD_TIMEOUT_MS);
+            mIn = urlCon.getInputStream();
+            long timeAfterConnection = System.currentTimeMillis();
+            Log.e("try", "connection timeout = " + (float)(timeAfterConnection - timeBeforeConnection)/1000 + " seconds");
+
             int bytesRead;
             byte[] buffer = new byte[64];
             baos = new ByteArrayOutputStream();
@@ -40,9 +50,11 @@ public class ImageDownloader extends AsyncTask {
             return new AsyncTaskResult<byte[]>(baos.toByteArray());
 
         } catch (Exception ex) {
+            Log.e("catch", "couldn't retrieve the image");
             return new AsyncTaskResult<byte[]>(ex);
         }
         finally {
+            Log.e("finally", "couldn't retrieve the image");
             try {
                 mIn.close();
                 baos.close();
