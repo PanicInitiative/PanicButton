@@ -248,9 +248,7 @@
       "lang" : "es",
       "type" : "interactive",
       "title" : "Crea tu clave de acceso",
-      "introduction" : "Esta clave es necesaria para acceder a las configuraciones de la aplicación. No se necesita para enviar alerta a tus contactos en caso de emergencia.
-¡Recuerda tu clave! Si la olvidas necesitarás re-instalar la aplicación.
-",
+      "introduction" : "Esta clave es necesaria para acceder a las configuraciones de la aplicación. No se necesita para enviar alerta a tus contactos en caso de emergencia. ¡Recuerda tu clave! Si la olvidas necesitarás re-instalar la aplicación.",
       "component" : "code",
       "action" : [{"title":"Guardar","link":"home-ready","confirmation":"Tu clave ha sido guardada"}]
     },

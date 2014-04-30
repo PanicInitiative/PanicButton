@@ -28,7 +28,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -222,7 +222,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"English","language":"en"},{"title":"Español","language":"es"},{"title":"Filipino","language":"ph"}]
+      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
     },
     {
       "id" : "settings-contacts",
@@ -243,7 +243,7 @@
       "introduction" : "This pincode is needed to access the app settings. It is not needed to alert in an emergency.",
       "warning" : "Remember your pin! If you forget it you will need to reinstall the app.",
       "component" : "code",
-      "action" : [{"title":"Save","link":"home-ready"}]
+      "action" : [{"title":"Guardar","link":"home-ready"}]
     },
     {
       "id" : "settings",
@@ -305,7 +305,7 @@
       "id" : "code",
       "lang" : "ph",
       "type" : "interactive",
-      "title" : "Code",
+      "title" : "Código",
       "component" : "code",
       "action" : [{"title":"Go","link":"home-ready"}],
       "fail" : "If you have forgotten your pin number, please completely uninstall the application and reinstall it."
@@ -318,6 +318,6 @@
       "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"The application will be disguised"},{"title":"Review security plan and update trusted contacts regularly"},{"title":"Test setting off the alarm to ensure it is working"},{"title":"Ensure sufficient credit on the phone"},{"title":"Activate GPS (if you want to enable location tracking)"},{"title":"Charge phone battery to full"}],
       "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
-    },]
+    }]
   }
 }
