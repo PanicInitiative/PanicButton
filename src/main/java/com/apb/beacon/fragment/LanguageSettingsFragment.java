@@ -104,18 +104,18 @@ public class LanguageSettingsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(">>>>>>>>>>", "onStop LanguageSettingsFragment");
+        Log.e(">>>>>>>>>>", "onStop LanguageSettingsFragment");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(">>>>>>>>>>", "onStart LanguageSettingsFragment");
+        Log.e(">>>>>>>>>>", "onStart LanguageSettingsFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(">>>>>>>>>>", "onResume LanguageSettingsFragment");
+        Log.e(">>>>>>>>>>", "onResume LanguageSettingsFragment");
     }
 }
