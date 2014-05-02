@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.ApplicationSettings;
@@ -86,7 +87,12 @@ public class SetupMessageFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("Message saved.", 1000, activity);
+//                	AppUtil.showToast("Message saved.", 1000, activity);
+                    String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
+                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            : currentPage.getAction().get(0).getConfirmation();
+                    Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
+
                     i = new Intent(activity, MainActivity.class);
                 }
 

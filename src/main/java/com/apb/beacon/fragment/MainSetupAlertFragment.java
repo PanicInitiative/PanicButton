@@ -17,14 +17,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.apb.beacon.common.AppConstants;
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageItemAdapter;
-import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
@@ -108,7 +108,12 @@ public class MainSetupAlertFragment extends Fragment implements OnClickListener{
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("New frequency saved.", 1000, activity);
+//                	AppUtil.showToast("New frequency saved.", 1000, activity);
+                    String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
+                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            : currentPage.getAction().get(0).getConfirmation();
+                    Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
+
                     i = new Intent(activity, MainActivity.class);
                 }
 
