@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -43,6 +44,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     private Handler failHandler = new Handler();
 
     DisplayMetrics metrics;
+    PowerManager.WakeLock wakeLock;
 
     TextView tvContent;
 
@@ -73,6 +75,10 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         if (activity != null) {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+            wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "TEST");
+
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_ON);
             filter.addAction(Intent.ACTION_SCREEN_OFF);
@@ -191,6 +197,9 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         @Override
         protected void onActivation(Context context) {
             Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
+
+            wakeLock.acquire();
+
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
@@ -198,6 +207,8 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             failHandler.removeCallbacks(runnableFailed);
 
             String pageId = currentPage.getSuccessId();
+
+            wakeLock.release();
 
             Intent i = new Intent(activity, WizardActivity.class);
             i.putExtra("page_id", pageId);
