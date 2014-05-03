@@ -13,7 +13,7 @@ import com.apb.beacon.common.ApplicationSettings;
 public class LoginActivity extends PanicButtonActivity {
 
     private EditText passwordEditText;
-    private Button bGo;
+    private Button bAction;
     private int tryCount = 0;
 
     @Override
@@ -23,9 +23,9 @@ public class LoginActivity extends PanicButtonActivity {
 
         passwordEditText = (EditText) findViewById(R.id.create_pin_edittext);
 
-        bGo = (Button) findViewById(R.id.b_action);
-        bGo.setText("Go");
-        bGo.setOnClickListener(new View.OnClickListener() {
+        bAction = (Button) findViewById(R.id.b_action);
+        bAction.setText(getResources().getString(R.string.code_ok));
+        bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String password = passwordEditText.getText().toString();
@@ -35,7 +35,7 @@ public class LoginActivity extends PanicButtonActivity {
 //                    i = AppUtil.clearBackStack(i);
                     if (ApplicationSettings.isAlertActive(LoginActivity.this)) {
                         i.putExtra("page_id", "home-alerting");
-                    } else{
+                    } else {
                         i.putExtra("page_id", "home-ready");
                     }
                     startActivity(i);

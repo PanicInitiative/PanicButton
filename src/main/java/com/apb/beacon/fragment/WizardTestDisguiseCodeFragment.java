@@ -35,7 +35,7 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
 
     private EditText passwordEditText;
     private TextView tvContent;
-    private Button bGo;
+    private Button bAction;
 
     private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -66,9 +66,9 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
 
         passwordEditText.addTextChangedListener(passwordTextChangeListener);
 
-        bGo = (Button) view.findViewById(R.id.b_action);
-        bGo.setText("Go");
-        bGo.setOnClickListener(new View.OnClickListener() {
+        bAction = (Button) view.findViewById(R.id.b_action);
+        bAction.setText("Go");
+        bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String password = passwordEditText.getText().toString();
@@ -77,7 +77,12 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
                     inactiveHandler.removeCallbacks(runnableInteractive);
                     failHandler.removeCallbacks(runnableFailed);
 
-                    String pageId = currentPage.getSuccessId();
+//                    String pageId = currentPage.getSuccessId();
+                    String pageId = null;
+                    if (currentPage.getAction().size() > 0)
+                        pageId = currentPage.getAction().get(0).getLink();
+                    else
+                        pageId = currentPage.getSuccessId();
 
                     Intent i = new Intent(activity, WizardActivity.class);
                     i.putExtra("page_id", pageId);
@@ -108,6 +113,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
             dbInstance.open();
             currentPage = dbInstance.retrievePage(pageId, selectedLang);
             dbInstance.close();
+
+            bAction.setText(currentPage.getAction().get(0).getTitle());
 
             if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
