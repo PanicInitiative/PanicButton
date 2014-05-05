@@ -248,7 +248,7 @@
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Créer un code de sécurité ",
-      "introduction" : "Ce code est nécessaire pour accéder aux paramètres de l'application. Il n'est pas nécessaire pour envoyer des alertes à vos contacts en cas d'urgence. Mémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application.",
+      "introduction" : "Ce code est nécessaire pour accéder aux paramètres de l'application. Il n'est pas nécessaire pour envoyer des alertes à vos contacts en cas d'urgence. \nMémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application.\n",
       "component" : "code",
       "action" : [{"title":"Enregistrer","link":"home-ready"}]
     },
@@ -261,6 +261,13 @@
       "warning" : "Ménagez votre batterie ! Envoyer des alertes trop fréquentes peut vider votre batterie.",
       "component" : "alert",
       "action" : [{"title":"Enregistrer","link":"home-ready"}]
+    },
+    {
+      "id" : "settings",
+      "lang" : "fr",
+      "type" : "simple",
+      "title" : "Paramètres",
+      "items" : [{"title":"Langue","link":"settings-language"},{"title":"Message","link":"settings-message"},{"title":"Contacts","link":"settings-contacts"},{"title":"Code de sécurité","link":"settings-code"},{"title":"Paramétrage de l'alerte","link":"settings-alert"},{"title":"Relancer l'installation","link":"settings-reset-confirm"}]
     },
     {
       "id" : "home-ready",
