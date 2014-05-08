@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
@@ -43,8 +42,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
 
     DisplayMetrics metrics;
 
-    private Handler inactiveHandler = new Handler();
-    private Handler failHandler = new Handler();
+//    private Handler inactiveHandler = new Handler();
+//    private Handler failHandler = new Handler();
 
 
     Page currentPage;
@@ -74,8 +73,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
                 String password = passwordEditText.getText().toString();
                 if (ApplicationSettings.passwordMatches(activity, password)) {
 
-                    inactiveHandler.removeCallbacks(runnableInteractive);
-                    failHandler.removeCallbacks(runnableFailed);
+//                    inactiveHandler.removeCallbacks(runnableInteractive);
+//                    failHandler.removeCallbacks(runnableFailed);
 
 //                    String pageId = currentPage.getSuccessId();
                     String pageId = null;
@@ -131,8 +130,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         super.onPause();
         Log.e(">>>>>", "onPause WizardTestDisguiseCodeFragment");
 
-        inactiveHandler.removeCallbacks(runnableInteractive);
-        failHandler.removeCallbacks(runnableFailed);
+//        inactiveHandler.removeCallbacks(runnableInteractive);
+//        failHandler.removeCallbacks(runnableFailed);
     }
 
     @Override
@@ -140,8 +139,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         super.onResume();
         Log.e(">>>>>", "onResume WizardTestDisguiseCodeFragment");
 
-        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+//        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 
@@ -152,8 +151,8 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
 
         @Override
         public void onTextChanged(CharSequence text, int start, int before, int count) {
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
         }
 
         @Override
@@ -161,33 +160,33 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         }
     };
 
-    private Runnable runnableInteractive = new Runnable() {
-        public void run() {
-
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
-
-    private Runnable runnableFailed = new Runnable() {
-        public void run() {
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
+//    private Runnable runnableInteractive = new Runnable() {
+//        public void run() {
+//
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
+//
+//    private Runnable runnableFailed = new Runnable() {
+//        public void run() {
+//
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
 
 //    private void updateImages(final boolean downloadImages, final String textHtml) {
 //        if (textHtml == null) return;

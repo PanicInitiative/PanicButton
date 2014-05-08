@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.apb.beacon.common.AppConstants;
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.trigger.MultiClickEvent;
@@ -32,8 +31,8 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
     private int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight,
             R.id.nine, R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply, R.id.divide, R.id.decimal_point, R.id.char_c};
 
-    private Handler inactiveHandler = new Handler();
-    private Handler failHandler = new Handler();
+//    private Handler inactiveHandler = new Handler();
+//    private Handler failHandler = new Handler();
 
     private int lastClickId = -1;
 
@@ -75,8 +74,8 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         super.onPause();
         Log.e(">>>>>", "onPause WizardAlarmTestDisguiseFragment");
 
-        inactiveHandler.removeCallbacks(runnableInteractive);
-        failHandler.removeCallbacks(runnableFailed);
+//        inactiveHandler.removeCallbacks(runnableInteractive);
+//        failHandler.removeCallbacks(runnableFailed);
     }
 
     @Override
@@ -84,8 +83,8 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         super.onResume();
         Log.e(">>>>>", "onResume WizardAlarmTestDisguiseFragment");
 
-        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+//        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 
@@ -101,8 +100,8 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         public void onClick(View view) {
             int id = view.getId();
 
-            inactiveHandler.removeCallbacks(runnableInteractive);
-            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
 
             MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
             if (multiClickEvent == null) {
@@ -117,8 +116,8 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
                 vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
                 resetEvent(view);
 
-                inactiveHandler.removeCallbacks(runnableInteractive);
-                failHandler.removeCallbacks(runnableFailed);
+//                inactiveHandler.removeCallbacks(runnableInteractive);
+//                failHandler.removeCallbacks(runnableFailed);
 
                 String pageId = currentPage.getSuccessId();
 
@@ -137,32 +136,32 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
     }
 
 
-    private Runnable runnableInteractive = new Runnable() {
-        public void run() {
-
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
-
-
-    private Runnable runnableFailed = new Runnable() {
-        public void run() {
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
+//    private Runnable runnableInteractive = new Runnable() {
+//        public void run() {
+//
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
+//
+//
+//    private Runnable runnableFailed = new Runnable() {
+//        public void run() {
+//
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
 }

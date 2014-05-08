@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,8 +39,8 @@ public class WizardTestDisguiseOpenFragment extends Fragment {
 
     DisplayMetrics metrics;
 
-    private Handler inactiveHandler = new Handler();
-    private Handler failHandler = new Handler();
+//    private Handler inactiveHandler = new Handler();
+//    private Handler failHandler = new Handler();
 
     List<AppInfo> appList;
     GridView gvAppList;
@@ -70,13 +69,13 @@ public class WizardTestDisguiseOpenFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                inactiveHandler.removeCallbacks(runnableInteractive);
+//                inactiveHandler.removeCallbacks(runnableInteractive);
 
                 AppInfo selectedAppInfo = (AppInfo) parent.getItemAtPosition(position);
 
                 if (selectedAppInfo.getPackageName().equals(activity.getPackageName())) {
 
-                    failHandler.removeCallbacks(runnableFailed);
+//                    failHandler.removeCallbacks(runnableFailed);
 
                     String pageId = currentPage.getSuccessId();
 
@@ -86,7 +85,7 @@ public class WizardTestDisguiseOpenFragment extends Fragment {
                     activity.finish();
                 } else {
                     Toast.makeText(activity, "Please press the Panic Button app icon.", Toast.LENGTH_SHORT).show();
-                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//                    inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
                 }
             }
         });
@@ -146,8 +145,8 @@ public class WizardTestDisguiseOpenFragment extends Fragment {
         super.onPause();
         Log.e(">>>>>", "onPause WizardTestDisguiseOpenFragment");
 
-        inactiveHandler.removeCallbacks(runnableInteractive);
-        failHandler.removeCallbacks(runnableFailed);
+//        inactiveHandler.removeCallbacks(runnableInteractive);
+//        failHandler.removeCallbacks(runnableFailed);
     }
 
     @Override
@@ -155,38 +154,38 @@ public class WizardTestDisguiseOpenFragment extends Fragment {
         super.onResume();
         Log.e(">>>>>", "onResume WizardTestDisguiseOpenFragment");
 
-        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+//        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
+//        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 
-    private Runnable runnableInteractive = new Runnable() {
-        public void run() {
-
-            failHandler.removeCallbacks(runnableFailed);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
-
-    private Runnable runnableFailed = new Runnable() {
-        public void run() {
-
-            inactiveHandler.removeCallbacks(runnableInteractive);
-
-            String pageId = currentPage.getFailedId();
-
-            Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
-            activity.startActivity(i);
-            activity.finish();
-        }
-    };
+//    private Runnable runnableInteractive = new Runnable() {
+//        public void run() {
+//
+//            failHandler.removeCallbacks(runnableFailed);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
+//
+//    private Runnable runnableFailed = new Runnable() {
+//        public void run() {
+//
+//            inactiveHandler.removeCallbacks(runnableInteractive);
+//
+//            String pageId = currentPage.getFailedId();
+//
+//            Intent i = new Intent(activity, WizardActivity.class);
+//            i.putExtra("page_id", pageId);
+//            activity.startActivity(i);
+//            activity.finish();
+//        }
+//    };
 
 
 //    private void updateImages(final boolean downloadImages, final String textHtml) {

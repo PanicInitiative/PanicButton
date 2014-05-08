@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,6 +41,8 @@ public class WizardActivity extends BaseFragmentActivity {
 
     TextView tvToastMessage;
     Boolean flagRiseFromPause = false;
+
+    private Handler inactiveHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -205,6 +208,16 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.d("WizardActivity.onStop", "page = " + pageId);
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("WizardActivity", "onDestroy");
+        inactiveHandler.removeCallbacks(runnableInteractive);
+    }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -282,8 +295,20 @@ public class WizardActivity extends BaseFragmentActivity {
 
     @Override
     public void onUserInteraction() {
+        Log.e("WizardActivity", "onUserInteraction");
         super.onUserInteraction();
         hideToastMessageInInteractiveFragment();
+        if (currentPage.getComponent() != null &&
+                (
+                        currentPage.getComponent().equals("alarm-test-hardware")
+                        || currentPage.getComponent().equals("alarm-test-disguise")
+                        || currentPage.getComponent().equals("disguise-test-open")
+                        || currentPage.getComponent().equals("disguise-test-unlock")
+                        || currentPage.getComponent().equals("disguise-test-code")
+                )
+        ) {
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+        }
     }
 
     public void hideToastMessageInInteractiveFragment() {
@@ -296,6 +321,22 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onBackPressed();
         AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
+
+
+
+    private Runnable runnableInteractive = new Runnable() {
+        public void run() {
+
+//            failHandler.removeCallbacks(runnableFailed);
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+            finish();
+        }
+    };
 
 
 }
