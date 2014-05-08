@@ -109,18 +109,7 @@ public class WizardActivity extends BaseFragmentActivity {
             } else if (currentPage.getType().equals("warning")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new WarningFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-            }
-//            else if (currentPage.getType().equals("modal")) {
-//                tvToastMessage.setVisibility(View.INVISIBLE);
-//                Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
-////                i = AppUtil.clearBackStack(i);
-//                i.putExtra("page_id", pageId);
-//                i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
-//                startActivity(i);
-//                finish();
-//                return;
-//            }
-            else {          // type = interactive
+            } else {          // type = interactive
                 if (currentPage.getComponent().equals("contacts"))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("message"))
@@ -298,7 +287,7 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.e("WizardActivity", "onUserInteraction");
         super.onUserInteraction();
         hideToastMessageInInteractiveFragment();
-        if (currentPage.getComponent() != null &&
+        if (currentPage != null && currentPage.getComponent() != null &&
                 (
                         currentPage.getComponent().equals("alarm-test-hardware")
                         || currentPage.getComponent().equals("alarm-test-disguise")
@@ -326,8 +315,6 @@ public class WizardActivity extends BaseFragmentActivity {
 
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
-
-//            failHandler.removeCallbacks(runnableFailed);
 
             String pageId = currentPage.getFailedId();
 

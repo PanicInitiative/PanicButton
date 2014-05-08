@@ -31,9 +31,6 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
     private int[] buttonIds = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight,
             R.id.nine, R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply, R.id.divide, R.id.decimal_point, R.id.char_c};
 
-//    private Handler inactiveHandler = new Handler();
-//    private Handler failHandler = new Handler();
-
     private int lastClickId = -1;
 
     Page currentPage;
@@ -73,18 +70,12 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.e(">>>>>", "onPause WizardAlarmTestDisguiseFragment");
-
-//        inactiveHandler.removeCallbacks(runnableInteractive);
-//        failHandler.removeCallbacks(runnableFailed);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.e(">>>>>", "onResume WizardAlarmTestDisguiseFragment");
-
-//        inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-//        failHandler.postDelayed(runnableFailed, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
     }
 
 
@@ -100,9 +91,6 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         public void onClick(View view) {
             int id = view.getId();
 
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getInactive()) * 1000);
-
             MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
             if (multiClickEvent == null) {
                 multiClickEvent = resetEvent(view);
@@ -115,9 +103,6 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
                 Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
                 resetEvent(view);
-
-//                inactiveHandler.removeCallbacks(runnableInteractive);
-//                failHandler.removeCallbacks(runnableFailed);
 
                 String pageId = currentPage.getSuccessId();
 
@@ -134,34 +119,4 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         view.setTag(multiClickEvent);
         return multiClickEvent;
     }
-
-
-//    private Runnable runnableInteractive = new Runnable() {
-//        public void run() {
-//
-//            failHandler.removeCallbacks(runnableFailed);
-//
-//            String pageId = currentPage.getFailedId();
-//
-//            Intent i = new Intent(activity, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            activity.startActivity(i);
-//            activity.finish();
-//        }
-//    };
-//
-//
-//    private Runnable runnableFailed = new Runnable() {
-//        public void run() {
-//
-//            inactiveHandler.removeCallbacks(runnableInteractive);
-//
-//            String pageId = currentPage.getFailedId();
-//
-//            Intent i = new Intent(activity, WizardActivity.class);
-//            i.putExtra("page_id", pageId);
-//            activity.startActivity(i);
-//            activity.finish();
-//        }
-//    };
 }
