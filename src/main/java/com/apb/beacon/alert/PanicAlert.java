@@ -37,7 +37,9 @@ public class PanicAlert {
     public void activate() {
         AppUtil.close(context);
         vibrate();
-        if (isActive() || ApplicationSettings.isRestartedSetup(context)) {
+        if (isActive()
+//                || ApplicationSettings.isRestartedSetup(context)
+                ) {
             return;
         }
         ApplicationSettings.setAlertActive(context, true);
@@ -118,12 +120,12 @@ public class PanicAlert {
         return location;
     }
 
-    public AlertStatus getAlertStatus() {
-        if (isActive()) {
-            return AlertStatus.ACTIVE;
-        }
-        return AlertStatus.STANDBY;
-    }
+//    public AlertStatus getAlertStatus() {
+//        if (isActive()) {
+//            return AlertStatus.ACTIVE;
+//        }
+//        return AlertStatus.STANDBY;
+//    }
 
     ExecutorService getExecutorService() {
         return Executors.newSingleThreadExecutor();

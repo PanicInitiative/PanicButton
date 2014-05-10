@@ -10,13 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.apb.beacon.common.AppConstants;
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.CalculatorActivity;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
-import com.apb.beacon.model.PageAction;
 import com.apb.beacon.WizardActivity;
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.model.PageAction;
 
 import java.util.List;
 
@@ -133,7 +132,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 String pageId = getItem(position).getLink();
 
                 if (pageId.equals("close")) {
-                    ApplicationSettings.setFirstRun(mContext, false);
+//                    ApplicationSettings.setFirstRun(mContext, false);
                     Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
