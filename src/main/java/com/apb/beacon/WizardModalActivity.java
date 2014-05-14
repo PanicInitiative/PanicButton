@@ -110,7 +110,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                     if (pageId.equals("close")) {
 
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
+//                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
                             getPackageManager().setComponentEnabledSetting(
                                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -131,7 +131,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                         finish();
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+//                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
                             AppConstants.IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
@@ -153,7 +153,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                     if (pageId.equals("close")) {
 
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
+//                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
                             getPackageManager().setComponentEnabledSetting(
                                     new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
@@ -175,7 +175,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                         finish();
                     } else {
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+//                            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
                             AppConstants.IS_BACK_BUTTON_PRESSED = true;
                         }
                         finish();
@@ -198,7 +198,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         super.onBackPressed();
         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
+//            ApplicationSettings.setFirstRun(WizardModalActivity.this, true);
             AppConstants.IS_BACK_BUTTON_PRESSED = true;
         }
     }

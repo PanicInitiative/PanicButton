@@ -20,18 +20,19 @@ import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.Page;
+import com.apb.beacon.fragment.LanguageSettingsFragment;
+import com.apb.beacon.fragment.SetupCodeFragment;
 import com.apb.beacon.fragment.SetupContactsFragment;
 import com.apb.beacon.fragment.SetupMessageFragment;
+import com.apb.beacon.fragment.SimpleFragment;
+import com.apb.beacon.fragment.WarningFragment;
 import com.apb.beacon.fragment.WizardAlarmTestDisguiseFragment;
 import com.apb.beacon.fragment.WizardAlarmTestHardwareFragment;
-import com.apb.beacon.fragment.LanguageSettingsFragment;
-import com.apb.beacon.fragment.SimpleFragment;
-import com.apb.beacon.fragment.SetupCodeFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseCodeFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseOpenFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseUnlockFragment;
-import com.apb.beacon.fragment.WarningFragment;
+import com.apb.beacon.model.Page;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 public class WizardActivity extends BaseFragmentActivity {
 
@@ -73,15 +74,18 @@ public class WizardActivity extends BaseFragmentActivity {
             finish();
             return;
         } else if (currentPage.getId().equals("home-ready")) {
-            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+//            ApplicationSettings.setFirstRun(WizardActivity.this, false);
             ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_READY);
             changeAppIcon();
+
+            startService(new Intent(this, HardwareTriggerService.class));
 
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
+
             finish();
             return;
         } else {

@@ -1,6 +1,8 @@
 package com.apb.beacon;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -62,21 +64,29 @@ public class MainActivity extends BaseFragmentActivity {
                 new PanicAlert(this).deActivate();
             }
 
+            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
+            changeAppIcon();
+
             // We're restarting the wizard so we deactivate the HardwareTriggerService
             stopService(new Intent(this, HardwareTriggerService.class));
 
-            ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
+
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
+
+            Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction("com.apb.beacon.RESTART_INSTALL");
+            sendBroadcast(broadcastIntent);
+
             finish();
             return;
         }
 
         // The app is now configured. Start HardwareTriggerService - NEED to remove this from here.
-		startService(new Intent(this, HardwareTriggerService.class));
+//		startService(new Intent(this, HardwareTriggerService.class));
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -127,6 +137,17 @@ public class MainActivity extends BaseFragmentActivity {
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
         }
+    }
+
+
+    private void changeAppIcon() {
+        getPackageManager().setComponentEnabledSetting(
+                new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+
+        getPackageManager().setComponentEnabledSetting(
+                new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
     @Override

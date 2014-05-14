@@ -2,6 +2,9 @@ package com.apb.beacon.trigger;
 
 import android.content.Intent;
 
+import com.apb.beacon.common.AppConstants;
+import com.apb.beacon.common.ApplicationSettings;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,15 +22,17 @@ import static org.robolectric.Robolectric.shadowOf;
 public class BootReceiverTest {
     private BootReceiver bootReceiver;
     private Intent bootIntent;
+    private int wizardState;
 
     @Before
     public void setUp() {
         bootReceiver = new BootReceiver();
         bootIntent = new Intent(ACTION_BOOT_COMPLETED);
+        ApplicationSettings.setWizardState(Robolectric.application, AppConstants.WIZARD_FLAG_HOME_READY);
     }
 
     @Test
-    public void shouldStartHardwareTriggerServiceOnBoot() {
+    public void shouldStartHardwareTriggerServiceOnBootWhenHomeReady() {
         bootReceiver.onReceive(Robolectric.application, bootIntent);
 
         Intent startedIntent = Robolectric.getShadowApplication().getNextStartedService();
