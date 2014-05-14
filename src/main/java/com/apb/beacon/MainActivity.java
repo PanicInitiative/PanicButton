@@ -75,7 +75,7 @@ public class MainActivity extends BaseFragmentActivity {
             return;
         }
 
-        // The app is now configured. Start HardwareTriggerService 
+        // The app is now configured. Start HardwareTriggerService - NEED to remove this from here.
 		startService(new Intent(this, HardwareTriggerService.class));
 
         PBDatabase dbInstance = new PBDatabase(this);
@@ -132,19 +132,31 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("MainActivity.onResume", "flagRiseFromPause = " + flagRiseFromPause);
+        Log.e("MainActivity.onResume", "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
 
-//        if(AppConstants.PAGE_FROM_NOT_IMPLEMENTED){
-//            Log.e("MainActivity.onResume", "returning from not-implemented page.");
-//            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
-//            return;
-//        }
 
-        if(AppConstants.IS_BACK_BUTTON_PRESSED){
+                /*
+        Check-1
+        if this page is resumed from the page still not implemented, then we'll handle it here.
+        If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
+         */
+        if (AppConstants.PAGE_FROM_NOT_IMPLEMENTED) {
+            Log.e("MainActivity.onResume", "returning from not-implemented page.");
+            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+            return;
+        }
+
+        /*
+        Check-2
+        if this page is resumed by navigating-back from the next page, then we'll handle it here.
+        If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
+         */
+        if (AppConstants.IS_BACK_BUTTON_PRESSED) {
             Log.e("MainActivity.onResume", "back button pressed");
             AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
         }
+
         
         if (flagRiseFromPause) {
             Intent i = new Intent(MainActivity.this, CalculatorActivity.class);

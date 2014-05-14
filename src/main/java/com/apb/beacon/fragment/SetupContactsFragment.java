@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +15,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.apb.beacon.common.AppConstants;
-import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.MainActivity;
 import com.apb.beacon.R;
+import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
+import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.ContactEditTexts;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.PageItem;
 import com.apb.beacon.model.SMSSettings;
-import com.apb.beacon.WizardActivity;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class SetupContactsFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+
+    DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -94,7 +98,12 @@ public class SetupContactsFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("Contacts saved.", 1000, activity);
+//                	AppUtil.showToast("Contacts saved.", 1000, activity);
+                    String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
+                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            : currentPage.getAction().get(0).getConfirmation();
+                    Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
+
                     i = new Intent(activity, MainActivity.class);
                 }
 
@@ -147,6 +156,9 @@ public class SetupContactsFragment extends Fragment {
 
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             contactEditTexts = new ContactEditTexts(getFragmentManager(), bAction, activity);
 
             SMSSettings currentSettings = SMSSettings.retrieve(activity);
@@ -186,6 +198,8 @@ public class SetupContactsFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
 //            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
             pageItemAdapter.setData(currentPage.getItems());
+
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
 
         }
     }

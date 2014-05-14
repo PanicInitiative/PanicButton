@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.apb.beacon.MainActivity;
 import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.R;
@@ -90,14 +91,22 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 selectedLang = item.getLanguage();
 
                 if (currentLang.equals(selectedLang)) {
-                    ((Activity) mContext).finish();
                     AppUtil.showToast("Language already applied.", Toast.LENGTH_SHORT, mContext);
+
+                    /* why we need to restart app here?
+                    we are finishing this fragment & activity just below, so it will go to previous activity's onResume.
+                    As we are not handling the scenario explicitly in Main/Wizard activity's onResume method that what will happen
+                    when we return from language-fragment, we do a restart app so that the flow will go to home-ready page automatically after the restart.
+                     */
+                    restartApp();
+
+                    ((Activity) mContext).finish();
                     return;
                 } else if (!AppUtil.hasInternet(mContext)) {
-                    changeStaticLanguageSettings();
+                    changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
                     return;
                 }
-                new GetLatestVersion().execute();
+                new GetLatestVersion(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation())).execute();
 
             }
         });
@@ -119,13 +128,22 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             pageId = "home-ready";
         }
 
-        Intent i = new Intent(mContext, WizardActivity.class);
-        i.putExtra("page_id", pageId);
-        mContext.startActivity(i);
+        Log.e(">>>>>>>", "restarting app with pageId = " + pageId);
 
         if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+            Intent i = new Intent(mContext, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            mContext.startActivity(i);
+
             ((WizardActivity) mContext).callFinishActivityReceiver();
+        } else{
+            Intent i = new Intent(mContext, MainActivity.class);
+            i.putExtra("page_id", pageId);
+            mContext.startActivity(i);
+
+            ((MainActivity) mContext).callFinishActivityReceiver();
         }
+
        	((Activity) mContext).finish();
     }
     
@@ -140,6 +158,12 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
 
     private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
+
+        private String confirmationMsg;
+
+        private GetLatestVersion(String confirmationMsg) {
+            this.confirmationMsg = confirmationMsg;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -177,18 +201,18 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
             } else {
                 if (latestVersion > lastUpdatedVersion) {
-                    new GetMobileDataUpdate().execute();
+                    new GetMobileDataUpdate(confirmationMsg).execute();
                 } else {
                     if (pDialog.isShowing())
                         pDialog.dismiss();
-                    changeStaticLanguageSettings();
+                    changeStaticLanguageSettings(confirmationMsg);
                 }
             }
         }
     }
 
-    private void changeStaticLanguageSettings() {
-        Toast.makeText(mContext, "New language applied.", Toast.LENGTH_SHORT).show();
+    private void changeStaticLanguageSettings(String confirmation) {
+        Toast.makeText(mContext, confirmation, Toast.LENGTH_SHORT).show();
         ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
 
         Resources res = mContext.getResources();
@@ -203,6 +227,12 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
 
     private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
+
+        String confirmationMsg;
+
+        private GetMobileDataUpdate(String confirmationMsg) {
+            this.confirmationMsg = confirmationMsg;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -253,7 +283,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             if (!response) {
                 Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
             } else {
-                changeStaticLanguageSettings();
+                changeStaticLanguageSettings(confirmationMsg);
             }
         }
     }
