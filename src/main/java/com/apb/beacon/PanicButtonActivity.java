@@ -1,7 +1,12 @@
 package com.apb.beacon;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,13 @@ import com.apb.beacon.common.ApplicationSettings;
 
 public abstract class PanicButtonActivity extends Activity {
     public static final int ADD_TO_TOP = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e(">>>>>", "Registering Restart Install receiver");
+        registerRestartInstallReceiver();
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -34,6 +46,17 @@ public abstract class PanicButtonActivity extends Activity {
         updateAlertStatusStrip();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unregisterReceiver(activityFinishReceiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     protected void updateAlertStatusStrip() {
         findViewById(R.id.alert_status_strip).setBackgroundColor(alertStatusStripColor());
     }
@@ -41,4 +64,21 @@ public abstract class PanicButtonActivity extends Activity {
     PanicAlert getPanicAlert() {
         return new PanicAlert(this);
     }
+
+
+    public void registerRestartInstallReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.apb.beacon.RESTART_INSTALL");
+        registerReceiver(activityFinishReceiver, intentFilter);
+    }
+
+    BroadcastReceiver activityFinishReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.apb.beacon.RESTART_INSTALL")) {
+                finish();
+            }
+        }
+    };
 }

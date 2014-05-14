@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.ApplicationSettings;
@@ -39,6 +41,8 @@ public class SetupCodeFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
+
+    DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
@@ -82,7 +86,12 @@ public class SetupCodeFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-                	AppUtil.showToast("New pincode saved.", 1000, activity);
+//                	AppUtil.showToast("New pincode saved.", 1000, activity);
+                    String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
+                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            : currentPage.getAction().get(0).getConfirmation();
+                    Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
+
                     i = new Intent(activity, MainActivity.class);
                 }
 
@@ -135,6 +144,9 @@ public class SetupCodeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         activity = getActivity();
         if (activity != null) {
+            metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             bAction.setEnabled(isComplete());
 
             String pageId = getArguments().getString(PAGE_ID);
@@ -168,6 +180,7 @@ public class SetupCodeFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
         }
 
     }

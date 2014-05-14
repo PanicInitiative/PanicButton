@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,18 +20,19 @@ import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
 import com.apb.beacon.data.PBDatabase;
-import com.apb.beacon.model.Page;
+import com.apb.beacon.fragment.LanguageSettingsFragment;
+import com.apb.beacon.fragment.SetupCodeFragment;
 import com.apb.beacon.fragment.SetupContactsFragment;
 import com.apb.beacon.fragment.SetupMessageFragment;
+import com.apb.beacon.fragment.SimpleFragment;
+import com.apb.beacon.fragment.WarningFragment;
 import com.apb.beacon.fragment.WizardAlarmTestDisguiseFragment;
 import com.apb.beacon.fragment.WizardAlarmTestHardwareFragment;
-import com.apb.beacon.fragment.LanguageSettingsFragment;
-import com.apb.beacon.fragment.SimpleFragment;
-import com.apb.beacon.fragment.SetupCodeFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseCodeFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseOpenFragment;
 import com.apb.beacon.fragment.WizardTestDisguiseUnlockFragment;
-import com.apb.beacon.fragment.WarningFragment;
+import com.apb.beacon.model.Page;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 public class WizardActivity extends BaseFragmentActivity {
 
@@ -40,6 +42,8 @@ public class WizardActivity extends BaseFragmentActivity {
 
     TextView tvToastMessage;
     Boolean flagRiseFromPause = false;
+
+    private Handler inactiveHandler = new Handler();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,15 +74,18 @@ public class WizardActivity extends BaseFragmentActivity {
             finish();
             return;
         } else if (currentPage.getId().equals("home-ready")) {
-            ApplicationSettings.setFirstRun(WizardActivity.this, false);
+//            ApplicationSettings.setFirstRun(WizardActivity.this, false);
             ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_READY);
             changeAppIcon();
+
+            startService(new Intent(this, HardwareTriggerService.class));
 
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
             i.putExtra("page_id", pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
+
             finish();
             return;
         } else {
@@ -106,18 +113,7 @@ public class WizardActivity extends BaseFragmentActivity {
             } else if (currentPage.getType().equals("warning")) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new WarningFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-            }
-//            else if (currentPage.getType().equals("modal")) {
-//                tvToastMessage.setVisibility(View.INVISIBLE);
-//                Intent i = new Intent(WizardActivity.this, WizardModalActivity.class);
-////                i = AppUtil.clearBackStack(i);
-//                i.putExtra("page_id", pageId);
-//                i.putExtra("parent_activity", AppConstants.FROM_WIZARD_ACTIVITY);
-//                startActivity(i);
-//                finish();
-//                return;
-//            }
-            else {          // type = interactive
+            } else {          // type = interactive
                 if (currentPage.getComponent().equals("contacts"))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals("message"))
@@ -205,6 +201,16 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.d("WizardActivity.onStop", "page = " + pageId);
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("WizardActivity", "onDestroy");
+        inactiveHandler.removeCallbacks(runnableInteractive);
+    }
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -282,8 +288,20 @@ public class WizardActivity extends BaseFragmentActivity {
 
     @Override
     public void onUserInteraction() {
+        Log.e("WizardActivity", "onUserInteraction");
         super.onUserInteraction();
         hideToastMessageInInteractiveFragment();
+        if (currentPage != null && currentPage.getComponent() != null &&
+                (
+                        currentPage.getComponent().equals("alarm-test-hardware")
+                        || currentPage.getComponent().equals("alarm-test-disguise")
+                        || currentPage.getComponent().equals("disguise-test-open")
+                        || currentPage.getComponent().equals("disguise-test-unlock")
+                        || currentPage.getComponent().equals("disguise-test-code")
+                )
+        ) {
+            inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
+        }
     }
 
     public void hideToastMessageInInteractiveFragment() {
@@ -296,6 +314,20 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onBackPressed();
         AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
+
+
+
+    private Runnable runnableInteractive = new Runnable() {
+        public void run() {
+
+            String pageId = currentPage.getFailedId();
+
+            Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+            i.putExtra("page_id", pageId);
+            startActivity(i);
+            finish();
+        }
+    };
 
 
 }

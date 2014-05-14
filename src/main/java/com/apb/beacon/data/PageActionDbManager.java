@@ -27,13 +27,16 @@ public class PageActionDbManager {
     private static final String ACTION_LINK = "action_link";
     private static final String ACTION_STATUS = "action_status";
     private static final String ACTION_LANGUAGE = "action_language";
+    private static final String ACTION_CONFIRMATION = "action_confirmation";
 
     private static final String CREATE_TABLE_PAGE_ACTION = "create table " + TABLE_PAGE_ACTION + " ( "
-            + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " + PAGE_LANGUAGE + " text, "
-            + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text, " + ACTION_LANGUAGE + " text);";
+            + AppConstants.TABLE_PRIMARY_KEY + " integer primary key autoincrement, " + PAGE_ID + " text, " +
+            PAGE_LANGUAGE + " text, " + ACTION_TITLE + " text, " + ACTION_LINK + " text, " + ACTION_STATUS + " text, "
+            + ACTION_LANGUAGE + " text, " + ACTION_CONFIRMATION + " text);";
 
     private static final String INSERT_SQL = "insert into  " + TABLE_PAGE_ACTION + " (" + PAGE_ID + ", " + PAGE_LANGUAGE + ", "
-            + ACTION_TITLE + ", " + ACTION_LINK + ", " + ACTION_STATUS + ", " + ACTION_LANGUAGE + ") values (?,?,?,?,?,?)";
+            + ACTION_TITLE + ", " + ACTION_LINK + ", " + ACTION_STATUS + ", " + ACTION_LANGUAGE +
+            ", " + ACTION_CONFIRMATION + ") values (?,?,?,?,?,?,?)";
 
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_PAGE_ACTION);
@@ -59,6 +62,8 @@ public class PageActionDbManager {
             insertStatement.bindString(5, action.getStatus());
         if(action.getLanguage() != null)
             insertStatement.bindString(6, action.getLanguage());
+        if(action.getConfirmation() != null)
+            insertStatement.bindString(7, action.getConfirmation());
 
         return insertStatement.executeInsert();
 
@@ -86,7 +91,9 @@ public class PageActionDbManager {
                 String actionLink = c.getString(c.getColumnIndex(ACTION_LINK));
                 String actionStatus = c.getString(c.getColumnIndex(ACTION_STATUS));
                 String actionLang = c.getString(c.getColumnIndex(ACTION_LANGUAGE));
-                PageAction action = new PageAction(actionTitle, actionLink, actionStatus, actionLang);
+                String confirmation = c.getString(c.getColumnIndex(ACTION_CONFIRMATION));
+
+                PageAction action = new PageAction(actionTitle, actionLink, actionStatus, actionLang, confirmation);
                 actionList.add(action);
                 c.moveToNext();
             }
@@ -104,6 +111,8 @@ public class PageActionDbManager {
         cv.put(ACTION_LINK, action.getLink());
         cv.put(ACTION_STATUS, action.getStatus());
         cv.put(ACTION_LANGUAGE, action.getLanguage());
+        cv.put(ACTION_CONFIRMATION, action.getConfirmation());
+
 
         return db.update(TABLE_PAGE_ACTION, cv, PAGE_ID + "=? AND " + PAGE_LANGUAGE + "=?", new String[]{pageId, lang});
     }

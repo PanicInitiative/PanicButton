@@ -4,7 +4,7 @@
     "data":[    
     {
       "id" : "help",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Help",
       "items" : [
@@ -22,7 +22,7 @@
     },
     {
       "id" : "help_reading",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Reading List",
       "section_order" : "3",
@@ -33,7 +33,7 @@
     },
     {
       "id" : "help_risk",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Managing Your Risks",
       "heading" : "Managing Your Risks",
@@ -51,7 +51,7 @@
     },
     {
       "id" : "help_risk_assessing",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Assessing your risk",
       "heading" : "Assessing your risk",
@@ -69,7 +69,7 @@
     },
     {
       "id" : "help_risk_assessing_threat",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Assessing the threat",
       "heading" : "First step: assessing the threat",
@@ -78,7 +78,7 @@
     },
     {
       "id" : "help_risk_assessing_vulnerability",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Reducing your vulnerability",
       "heading" : "Second step: reducing your vulnerability to a threat",
@@ -87,7 +87,7 @@
     },
     {
       "id" : "help_risk_mobile",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Safer mobile",
       "heading" : "Safer mobile",
@@ -99,7 +99,7 @@
     },
     {
       "id" : "help_using",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Using Panic Button",
       "section_order" : "2",
@@ -121,7 +121,7 @@
     },
     {
       "id" : "help_using_installation",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Installation",
       "heading" : "Installation",
@@ -133,7 +133,7 @@
     },
     {
       "id" : "help_using_configuration",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Configuration",
       "heading" : "Configuration",
@@ -159,7 +159,7 @@
     },
     {
       "id" : "help_using_configuration_contacts",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Setting Up Contacts",
       "heading" : "Setting Up Contacts",
@@ -169,7 +169,7 @@
     },
     {
       "id" : "help_using_configuration_alert_messages",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Create your alert message",
       "heading" : "Create your alert message",
@@ -178,7 +178,7 @@
     },
     {
       "id" : "help_using_configuration_code",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Create pin code",
       "heading" : "Create pin code",
@@ -187,7 +187,7 @@
     },
     {
       "id" : "help_using_configuration_alert",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Learn how to alert",
       "heading" : "Learn how to alert",
@@ -196,7 +196,7 @@
     },
     {
       "id" : "help_using_configuration_disguise",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Activate disguise",
       "heading" : "Activate disguise",
@@ -205,7 +205,7 @@
     },
     {
       "id" : "help_using_tips",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Preparing for Panic",
       "heading" : "Tips for testing",
@@ -217,7 +217,7 @@
     },
     {
       "id" : "help_using_faq",
-      "lang" : "en",
+      "lang" : "ph",
       "type" : "simple",
       "title" : "Frequently Ask Questions",
       "heading" : "Frequently Ask Questions",
