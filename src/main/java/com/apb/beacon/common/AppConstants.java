@@ -55,4 +55,7 @@ public class AppConstants {
 
     public static final int IMAGE_DOWNLOAD_TIMEOUT_MS = 3000;
 
+    public static final int IMAGE_FULL_WIDTH = 1;
+    public static final int IMAGE_INLINE = 2;
+
 }

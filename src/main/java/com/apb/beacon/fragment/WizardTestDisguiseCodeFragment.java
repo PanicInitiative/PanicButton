@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
@@ -107,7 +108,7 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
                 tvContent.setVisibility(View.GONE);
             else {
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
             }
         }
     }

@@ -259,7 +259,7 @@ public class SimpleFragment extends Fragment {
             tvTitle.setFocusableInTouchMode(true);
             tvTitle.requestFocus();
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
 //            tvContent.setText(spanned);
 //            updateImages(true, currentPage.getContent(), activity);
         }

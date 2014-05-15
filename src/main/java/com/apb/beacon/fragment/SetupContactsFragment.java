@@ -199,7 +199,7 @@ public class SetupContactsFragment extends Fragment {
 //            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
 
         }
     }

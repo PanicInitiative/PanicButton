@@ -21,6 +21,7 @@ import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
@@ -165,7 +166,7 @@ public class WarningFragment extends Fragment {
 
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }
     }
 

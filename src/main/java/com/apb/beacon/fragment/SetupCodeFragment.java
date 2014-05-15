@@ -180,7 +180,7 @@ public class SetupCodeFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }
 
     }
