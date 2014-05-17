@@ -204,7 +204,6 @@ public class SimpleFragment extends Fragment {
             if(currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else {
-//                tvContent.setText(Html.fromHtml(currentPage.getContent()));
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             }
@@ -260,8 +259,6 @@ public class SimpleFragment extends Fragment {
             tvTitle.requestFocus();
 
             AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
-//            tvContent.setText(spanned);
-//            updateImages(true, currentPage.getContent(), activity);
         }
     }
 
@@ -301,93 +298,6 @@ public class SimpleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.e("SimpleFragment.onResume", currentPage.getId());
-//        if(currentPage.getId().equals("home-not-configured")){
-//        	ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
-//        }else if(currentPage.getId().equals("home-not-configured-alarm")){
-//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
-//        } else if(currentPage.getId().equals("home-not-configured-disguise")){
-//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
-//        } else if(currentPage.getId().equals("home-ready")){
-//            ApplicationSettings.setWizardState(activity, AppConstants.WIZARD_FLAG_HOME_READY);
-//        }
     }
-
-
-
-//    private void updateImages(final boolean downloadImages, final String textHtml, final Context context) {
-//        if (textHtml == null) return;
-//        Spanned spanned = Html.fromHtml(textHtml,
-//                new Html.ImageGetter() {
-//                    @SuppressWarnings("unchecked")
-//					@Override
-//                    public Drawable getDrawable(final String source) {
-//                        if(!AppUtil.hasInternet(activity) && downloadImages){
-//                            try {
-//                                Log.e(">>>>>>>>>>>", "Source = " + source);
-//                                Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
-//
-//                                drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
-//                                mImageCache.put(source, drawable);
-//                                updateImages(false, textHtml, context);
-//                                return drawable;
-//                            } catch (IOException e) {
-//                            	Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
-//                                e.printStackTrace();
-//                            }
-//                            return null;
-//
-//                        }
-//                        Log.e(">>>>>>", "image src = " + source);
-//                        Drawable drawable = mImageCache.get(source);
-//                        if (drawable != null) {
-//                            return drawable;
-//                        } else if (downloadImages) {
-//                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
-//                                @Override
-//                                public void onImageDownloadComplete(byte[] bitmapData) {
-//                                    try {
-//										Drawable drawable = new BitmapDrawable(getResources(),
-//										        BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
-//
-//                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR);
-//										mImageCache.put(source, drawable);
-//										updateImages(false, textHtml, context);
-//									} catch (Exception e) {
-//										e.printStackTrace();
-//										Log.e(">>>>>>>>>>>>>>","Failed to download image");
-//                                        try {
-//                                            Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
-//
-//                                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
-//                                            mImageCache.put(source, drawable);
-//                                            updateImages(false, textHtml, context);
-//                                        } catch (IOException e1) {
-//                                            Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
-//                                            e1.printStackTrace();
-//                                        }
-//									}
-//                                }
-//
-//                                @Override
-//                                public void onImageDownloadFailed(Exception ex) {
-//                                    Log.e("onImageDownloadFailed", "ImageDownloadFailed");
-//                                    try {
-//                                        Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
-//
-//                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity);
-//                                        mImageCache.put(source, drawable);
-//                                        updateImages(false, textHtml, context);
-//                                    } catch (IOException e1) {
-//                                        Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
-//                                        e1.printStackTrace();
-//                                    }
-//                                }
-//                            }).execute(source);
-//                        }
-//                        return null;
-//                    }
-//                }, new MyTagHandler());
-//        tvContent.setText(spanned);
-//    }
 
 }
