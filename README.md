@@ -44,3 +44,5 @@ See the [notes to build your own APK](./docs/BUILD.md)
 
 ### Contributing
 See the [notes to setup a development environment](./docs/DEVELOPMENT.md)
+
+Code contributions should be sent via github from [feature](http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/) [branches](https://guides.github.com/introduction/flow/) (named feature/__descriptive_name_of_feature__) as pull requests [as explained here](https://help.github.com/articles/using-pull-requests).
