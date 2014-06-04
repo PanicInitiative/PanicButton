@@ -170,6 +170,16 @@ public class HomeActivity extends Activity {
 	        }
 
 	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_pt.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+
+	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_fr.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
 
@@ -214,6 +224,16 @@ public class HomeActivity extends Activity {
 
 	        try {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
+	            JSONObject mobileObj = jsonObj.getJSONObject("help");
+
+	            JSONArray dataArray = mobileObj.getJSONArray("data");
+	            insertMobileDataToLocalDB(dataArray);
+	        } catch (JSONException e) {
+	            e.printStackTrace();
+	        }
+
+	        try {
+	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_pt.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
 
 	            JSONArray dataArray = mobileObj.getJSONArray("data");

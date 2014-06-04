@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 6,
+    "version" : 7,
     "data":[
     {
       "id" : "setup-warning",
@@ -28,7 +28,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"},{"title":"Português","language":"pt","confirmation":"Novo idioma aplicado"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -46,7 +46,6 @@
       "introduction" : "Try now! Hold down any button on the calculator.",
       "component" : "disguise-test-unlock",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
-      "action" : [{"title":"Skip","link":"setup-disguise-test-code"}],
       "success" : {"link":"setup-disguise-test-code"},
       "fail" : {"link":"setup-disguise-test-unlock-fail"}
     },
@@ -222,7 +221,7 @@
       "title" : "Language settings",
       "introduction" : "Choose a language for the application.",
       "component" : "language",
-      "action" : [{"title":"Inglés","language":"en"},{"title":"Español","language":"es"},{"title":"Francés","language":"fr"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"},{"title":"Português","language":"pt","confirmation":"Novo idioma aplicado"}]
     },
     {
       "id" : "settings-contacts",
@@ -243,7 +242,7 @@
       "introduction" : "This pincode is needed to access the app settings. It is not needed to alert in an emergency.",
       "warning" : "Remember your pin! If you forget it you will need to reinstall the app.",
       "component" : "code",
-      "action" : [{"title":"Guardar","link":"home-ready"}]
+      "action" : [{"title":"Save","link":"home-ready"}]
     },
     {
       "id" : "settings",
@@ -305,7 +304,7 @@
       "id" : "code",
       "lang" : "ph",
       "type" : "interactive",
-      "title" : "Código",
+      "title" : "Code",
       "component" : "code",
       "action" : [{"title":"Go","link":"home-ready"}],
       "fail" : "If you have forgotten your pin number, please completely uninstall the application and reinstall it."
@@ -318,6 +317,6 @@
       "action" : [{"title":"OK","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"The application will be disguised"},{"title":"Review security plan and update trusted contacts regularly"},{"title":"Test setting off the alarm to ensure it is working"},{"title":"Ensure sufficient credit on the phone"},{"title":"Activate GPS (if you want to enable location tracking)"},{"title":"Charge phone battery to full"}],
       "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
-    }]
+    },]
   }
 }

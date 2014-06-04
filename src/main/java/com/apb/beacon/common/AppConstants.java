@@ -47,7 +47,7 @@ public class AppConstants {
     public static final String HELP_DATA_URL = "/api/help.json";
     public static final String VERSION_CHECK_URL = "/api/version.json";
 
-    public static final int DATABASE_VERSION = 15;
+    public static final int DATABASE_VERSION = 16;
 
     public static final String DEFAULT_CONFIRMATION_MESSAGE = "Settings saved";
 
