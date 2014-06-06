@@ -42,10 +42,5 @@
     <LinearLayout android:layout_height="fill_parent"
                   android:layout_width="fill_parent"
                   android:background="#66ffffff">
-        <TextView android:id="@+id/panic_button_text"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:text="@string/panic_button"
-                  style="@style/wizard_panic_button"/>
     </LinearLayout>
 </FrameLayout>
