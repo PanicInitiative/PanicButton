@@ -47,12 +47,15 @@ public class AppConstants {
     public static final String HELP_DATA_URL = "/api/help.json";
     public static final String VERSION_CHECK_URL = "/api/version.json";
 
-    public static final int DATABASE_VERSION = 15;
+    public static final int DATABASE_VERSION = 16;
 
     public static final String DEFAULT_CONFIRMATION_MESSAGE = "Settings saved";
 
     public static final int SPLASH_DELAY_TIME = 200;
 
     public static final int IMAGE_DOWNLOAD_TIMEOUT_MS = 3000;
+
+    public static final int IMAGE_FULL_WIDTH = 1;
+    public static final int IMAGE_INLINE = 2;
 
 }

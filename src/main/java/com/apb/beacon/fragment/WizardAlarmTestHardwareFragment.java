@@ -93,7 +93,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             else {
                 Log.e(">>>>>", "content = " + currentPage.getContent());
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_FULL_WIDTH);
             }
         }
     }

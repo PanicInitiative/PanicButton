@@ -190,7 +190,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
 
-        AppUtil.updateImages(true, currentPage.getContent(), WizardModalActivity.this, metrics, tvContent);
+        AppUtil.updateImages(true, currentPage.getContent(), WizardModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
     }
 
 

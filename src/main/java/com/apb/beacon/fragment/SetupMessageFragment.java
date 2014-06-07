@@ -95,8 +95,6 @@ public class SetupMessageFragment extends Fragment {
 
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 
@@ -127,8 +125,6 @@ public class SetupMessageFragment extends Fragment {
                 } else{
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 
@@ -189,7 +185,7 @@ public class SetupMessageFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
 
         }
     }
@@ -204,12 +200,4 @@ public class SetupMessageFragment extends Fragment {
         String message = smsEditText.getText().toString().trim();
         return message;
     }
-
-//    @Override
-//    public void onFragmentSelected() {
-////        if (actionButtonStateListener != null) {
-////            actionButtonStateListener.enableActionButton(!smsEditText.getText().toString().trim().equals(""));
-////        }
-//    }
-
 }

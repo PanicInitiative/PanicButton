@@ -94,8 +94,6 @@ public class SetupCodeFragment extends Fragment {
 
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 
@@ -126,8 +124,6 @@ public class SetupCodeFragment extends Fragment {
                 } else{
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
                 
@@ -180,7 +176,7 @@ public class SetupCodeFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }
 
     }

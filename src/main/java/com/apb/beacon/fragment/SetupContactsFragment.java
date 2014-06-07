@@ -37,9 +37,7 @@ import java.util.List;
  * Created by aoe on 12/11/13.
  */
 public class SetupContactsFragment extends Fragment {
-//    public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
     private ContactEditTexts contactEditTexts;
-//    private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
@@ -63,15 +61,6 @@ public class SetupContactsFragment extends Fragment {
         f.setArguments(args);
         return(f);
     }
-
-//    public static SMSSettingsFragment create(int headerTextId) {
-//        SMSSettingsFragment smsSettingsFragment = new SMSSettingsFragment();
-//        Bundle bundle = new Bundle();
-////        bundle.putInt(HEADER_TEXT_ID, headerTextId);
-//        smsSettingsFragment.setArguments(bundle);
-//
-//        return smsSettingsFragment;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,7 +87,6 @@ public class SetupContactsFragment extends Fragment {
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
-//                	AppUtil.showToast("Contacts saved.", 1000, activity);
                     String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
                             ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
                             : currentPage.getAction().get(0).getConfirmation();
@@ -106,8 +94,6 @@ public class SetupContactsFragment extends Fragment {
 
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 
@@ -138,7 +124,6 @@ public class SetupContactsFragment extends Fragment {
                 } else{
                     i = new Intent(activity, MainActivity.class);
                 }
-//                Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 startActivity(i);
 
@@ -196,45 +181,21 @@ public class SetupContactsFragment extends Fragment {
 
             pageItemAdapter = new PageItemAdapter(activity, null);
             lvItems.setAdapter(pageItemAdapter);
-//            Log.e(">>>>>>>>", "item count = " + currentPage.getItems().size());
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
 
         }
     }
 
-    private void initializeViews(View inflate) {
-//        contactEditTexts = new ContactEditTexts(getFragmentManager(), actionButtonStateListener, getActivity());
-//        Fragment fragment = getFragmentManager().findFragmentById(R.id.sms_message);
-//        smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
-
-//        TextView headerTextView = (TextView) inflate.findViewById(R.id.sms_settings_header);
-//        headerTextView.setText(getString(getArguments().getInt(HEADER_TEXT_ID)));
-    }
 
     private void displaySettings(SMSSettings settings) {
-//        smsEditText.setText(settings.message());
         contactEditTexts.maskPhoneNumbers();
     }
 
 
     private SMSSettings getSMSSettingsFromView() {
-//        String message = smsEditText.getText().toString();
         List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
         return new SMSSettings(phoneNumbers);
-    }
-
-//    @Override
-//    public void onFragmentSelected() {
-//        Log.e(">>>>>>", "in onFragmentSelected");
-////        if (actionButtonStateListener != null) {
-////            actionButtonStateListener.enableActionButton(contactEditTexts.hasAtleastOneValidPhoneNumber());
-////        }
-//    }
-
-    public boolean hasSettingsChanged() {
-        SMSSettings existingSettings = SMSSettings.retrieve(getActivity());
-        return !existingSettings.equals(getSMSSettingsFromView());
     }
 }

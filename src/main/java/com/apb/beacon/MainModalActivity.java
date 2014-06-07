@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.apb.beacon.adapter.PageCheckListAdapter;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
@@ -177,7 +178,7 @@ public class MainModalActivity extends BaseFragmentActivity {
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
 
-        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent);
+        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
     }
 
 

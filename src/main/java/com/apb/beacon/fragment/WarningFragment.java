@@ -21,6 +21,7 @@ import com.apb.beacon.R;
 import com.apb.beacon.WizardActivity;
 import com.apb.beacon.adapter.PageActionAdapter;
 import com.apb.beacon.adapter.PageItemAdapter;
+import com.apb.beacon.common.AppConstants;
 import com.apb.beacon.common.AppUtil;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.MyTagHandler;
@@ -142,7 +143,6 @@ public class WarningFragment extends Fragment {
                 tvContent.setVisibility(View.GONE);
             else{
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-//                tvContent.setText(currentPage.getContent());
             }
 
             if(currentPage.getIntroduction() == null)
@@ -165,7 +165,7 @@ public class WarningFragment extends Fragment {
 
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent);
+            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }
     }
 
@@ -192,51 +192,4 @@ public class WarningFragment extends Fragment {
         super.onResume();
         Log.d(">>>>>>>>>>", "onResume WarningFragment");
     }
-
-//    private void updateImages(final boolean downloadImages, final String textHtml) {
-//        if (textHtml == null) return;
-//        Spanned spanned = Html.fromHtml(textHtml,
-//                new Html.ImageGetter() {
-//                    @Override
-//                    public Drawable getDrawable(final String source) {
-//                        Log.e(">>>>>>", "image src = " + source);
-//                        Drawable drawable = mImageCache.get(source);
-//                        if (drawable != null) {
-//                            return drawable;
-//                        } else if (downloadImages) {
-//                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
-//                                @Override
-//                                public void onImageDownloadComplete(byte[] bitmapData) {
-//                                    Drawable drawable = new BitmapDrawable(getResources(),
-//                                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
-//
-//                                    int width, height;
-//                                    int originalWidthScaled = (int) (drawable.getIntrinsicWidth() * metrics.density * 0.75);
-//                                    int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * 0.75);
-//                                    if (originalWidthScaled > metrics.widthPixels) {
-//                                        height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
-//                                        width = metrics.widthPixels;
-//                                    } else {
-//                                        height = originalHeightScaled;
-//                                        width = originalWidthScaled;
-//                                    }
-//                                    try {
-//                                        drawable.setBounds(0, 0, width, height);
-//                                        Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = " + height);
-//                                    } catch (Exception ex) {
-//                                    }
-//                                    mImageCache.put(source, drawable);
-//                                    updateImages(false, textHtml);
-//                                }
-//
-//                                @Override
-//                                public void onImageDownloadFailed(Exception ex) {
-//                                }
-//                            }).execute(source);
-//                        }
-//                        return null;
-//                    }
-//                }, new MyTagHandler());
-//        tvContent.setText(spanned);
-//    }
 }
