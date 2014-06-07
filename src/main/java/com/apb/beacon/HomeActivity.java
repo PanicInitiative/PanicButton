@@ -15,6 +15,7 @@ import com.apb.beacon.data.PBDatabase;
 import com.apb.beacon.model.HelpPage;
 import com.apb.beacon.model.Page;
 import com.apb.beacon.model.ServerResponse;
+import com.apb.beacon.trigger.HardwareTriggerService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,7 +109,7 @@ public class HomeActivity extends Activity {
             Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
             // Make sure the HardwareTriggerService is started
-//    		startService(new Intent(this, HardwareTriggerService.class));
+    		startService(new Intent(this, HardwareTriggerService.class));
             startActivity(i);
         }
     }

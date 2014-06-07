@@ -65,7 +65,7 @@ public class MainActivity extends BaseFragmentActivity {
             }
 
             ApplicationSettings.setWizardState(MainActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
-            changeAppIcon();
+            changeAppIcontoPB();
 
             // We're restarting the wizard so we deactivate the HardwareTriggerService
             stopService(new Intent(this, HardwareTriggerService.class));
@@ -84,9 +84,6 @@ public class MainActivity extends BaseFragmentActivity {
             finish();
             return;
         }
-
-        // The app is now configured. Start HardwareTriggerService - NEED to remove this from here.
-//		startService(new Intent(this, HardwareTriggerService.class));
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -140,7 +137,7 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-    private void changeAppIcon() {
+    private void changeAppIcontoPB() {
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-setup"),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);

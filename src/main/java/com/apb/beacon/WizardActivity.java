@@ -76,7 +76,7 @@ public class WizardActivity extends BaseFragmentActivity {
         } else if (currentPage.getId().equals("home-ready")) {
 //            ApplicationSettings.setFirstRun(WizardActivity.this, false);
             ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_READY);
-            changeAppIcon();
+            changeAppIcontoCalculator();
 
             startService(new Intent(this, HardwareTriggerService.class));
 
@@ -162,7 +162,7 @@ public class WizardActivity extends BaseFragmentActivity {
         }
     }
 
-    private void changeAppIcon() {
+    private void changeAppIcontoCalculator() {
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("com.apb.beacon", "com.apb.beacon.HomeActivity-calculator"),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
