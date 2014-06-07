@@ -27,6 +27,9 @@
     <string name="stop_alert">&#160;&#160;Stop alert</string>
     <string name="alert_status_active">Alert is active and Sending every five minutes</string>
 
+    <string name="choose_contact">Choose your emergency contact</string>
+
+    <string name="code_ok">Ok</string>
     <string name="incorrect_pin">Please enter the correct pin</string>
     <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
 
@@ -52,8 +55,4 @@
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
 
-    <string name="choose_contact">Choose your emergency contact</string>
-    <string name="wizard_training_contacts_details">Think first! Your trusted contacts should be people that you know personally and should be prepared and able to respond fast.</string>
-
-    <string name="code_ok">Ok</string>
 </resources>

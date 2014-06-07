@@ -131,9 +131,9 @@ public class HomeActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Installing...", true, false);
+            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Installing...", true, false);
         }
-
+        
         @Override
         protected Boolean doInBackground(Void... params) {
 	        try {
@@ -271,7 +271,7 @@ public class HomeActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Starting...", true, false);
+            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Starting...", true, false);
         }
 
         @Override
@@ -320,7 +320,7 @@ public class HomeActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             try {
-				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading updates...", true, false);
+				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading updates...", true, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -385,7 +385,7 @@ public class HomeActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             try {
-				pDialog = ProgressDialog.show(HomeActivity.this, "Panic Button", "Downloading help pages...", true, false);
+				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading help pages...", true, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
