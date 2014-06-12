@@ -97,14 +97,14 @@
                 android:layout_below="@+id/fragment_contents"
                 android:layout_centerHorizontal="true" />
 
-            <com.apb.beacon.common.NestedListView
+            <org.iilab.pb.common.NestedListView
                 android:id="@+id/fragment_action_list"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/b_action"
                 android:divider="@android:drawable/screen_background_light_transparent"
                 android:layout_width="match_parent" />
 
-            <com.apb.beacon.common.NestedListView
+            <org.iilab.pb.common.NestedListView
                 android:id="@+id/fragment_item_list"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"

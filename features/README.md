@@ -11,7 +11,7 @@ To run your test:
 
 For example:
 
-     calabash-android run target/panic-button-dev.apk MAIN_ACTIVITY=com.apb.beacon.HomeActivity
+     calabash-android run target/panic-button-dev.apk MAIN_ACTIVITY=org.iilab.pb.HomeActivity
 
 Calabash-android will install an instrumentation along with your app when executing the app. We call this instrumentation for "test server". The "test server" has special permission that allows it to interact very closely with your app during test.
 Everytime you test a new binary or use an upgraded version of calabash a new test server will be build.

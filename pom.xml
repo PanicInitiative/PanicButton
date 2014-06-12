@@ -3,22 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.apb.beacon</groupId>
+    <groupId>org.iilab.pb</groupId>
     <artifactId>panic-button</artifactId>
     <version>1.2.6b</version>
     <packaging>apk</packaging>
     <name>Panic Button</name>
 
-    <repositories>
-        <repository>
-            <id>android-support-local</id>
-            <name>Android support v4 local repo</name>
-            <url>file://${project.basedir}/lib</url>
-        </repository>
-    </repositories>
-
     <properties>
         <platform.version>4.1.1.4</platform.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <app.version.prefix>master</app.version.prefix>
         <app.version.name>${project.version}</app.version.name>
 
@@ -28,13 +21,6 @@
         <!-- expected coverage rate -->
         <failBuildIfCoverage>true</failBuildIfCoverage>
         <!-- fail build if coverage less then expected -->
-
-
-        <!-- for singing. ONLY TEST DATA HERE, NOT REAL KEYSTORE -->
-        <sign.keystore>my-release-key.keystore</sign.keystore>
-        <sign.alias>testAlias</sign.alias>
-        <sign.storepass>123456</sign.storepass>
-        <sign.keypass>123456</sign.keypass>
     </properties>
 
     <dependencies>
@@ -45,17 +31,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>android</groupId>
-            <artifactId>support-v4</artifactId>
-            <version>r12</version>
-        </dependency>
-
-        <!--        <dependency>
-                    <groupId>org.roboguice</groupId>
-                    <artifactId>roboguice</artifactId>
-                    <version>2.0</version>
-                </dependency>-->
+		<dependency>
+		  <groupId>com.google.android</groupId>
+		  <artifactId>support-v4</artifactId>
+		  <version>r12</version>
+		</dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -172,20 +152,20 @@
                     <skip>${skipCoverage}</skip>
                     <instrumentation>
                         <excludes>
-                            <exclude>com/apb/beacon/R*.class</exclude>
-                            <exclude>com/apb/beacon/Manifest.class</exclude>
-                            <exclude>com/apb/beacon/BuildConfig.class</exclude>
+                            <exclude>org/iilab/pb/R*.class</exclude>
+                            <exclude>org/iilab/pb/Manifest.class</exclude>
+                            <exclude>org/iilab/pb/BuildConfig.class</exclude>
 
-                            <exclude>com/apb/beacon/location/LocationListenerAdapter.class</exclude>
-                            <exclude>com/apb/beacon/common/Intents.class</exclude>
-                            <exclude>com/apb/beacon/common/AppUtil.class</exclude>
-                            <exclude>com/apb/beacon/AppConstants.class</exclude>
-                            <exclude>com/apb/beacon/twitter/OnItemSelectedListenerAdapter.class
+                            <exclude>org/iilab/pb/location/LocationListenerAdapter.class</exclude>
+                            <exclude>org/iilab/pb/common/Intents.class</exclude>
+                            <exclude>org/iilab/pb/common/AppUtil.class</exclude>
+                            <exclude>org/iilab/pb/AppConstants.class</exclude>
+                            <exclude>org/iilab/pb/twitter/OnItemSelectedListenerAdapter.class
                             </exclude>
-                            <exclude>com/apb/beacon/twitter/HintSpinnerAdapter.class</exclude>
+                            <exclude>org/iilab/pb/twitter/HintSpinnerAdapter.class</exclude>
 
-                            <exclude>com/apb/beacon/HomeActivity*.class</exclude>
-                            <exclude>com/apb/beacon/ApplicationSettings.class</exclude>
+                            <exclude>org/iilab/pb/HomeActivity*.class</exclude>
+                            <exclude>org/iilab/pb/ApplicationSettings.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
@@ -248,7 +228,7 @@
 
     <profiles>
         <profile>
-            <id>release</id>
+            <id>sign</id>
             <!-- via this activation the profile is automatically used when the release
                 is done with the maven release plugin -->
             <activation>
@@ -262,6 +242,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jarsigner-plugin</artifactId>
+                        <version>1.3.2</version>
                         <executions>
                             <execution>
                                 <id>signing</id>
@@ -277,11 +258,11 @@
                                     <includes>
                                         <include>${project.build.directory}/${project.artifactId}.apk</include>
                                     </includes>
-                                    <keystore>${sign.keystore}</keystore>
-                                    <alias>${sign.alias}</alias>
-                                    <storepass>${sign.storepass}</storepass>
-                                    <keypass>${sign.keypass}</keypass>
-                                    <verbose>false</verbose>
+                                    <verbose>true</verbose>
+                                    <keystore></keystore>
+                                    <storepass></storepass>
+                                    <keypass></keypass>
+                                    <alias>pb</alias>
                                     <arguments>
                                         <argument>-sigalg</argument><argument>MD5withRSA</argument>
                                         <argument>-digestalg</argument><argument>SHA1</argument>
@@ -312,7 +293,92 @@
                             <!-- Change to true to skip Proguard -->
                             <proguard>
                                 <skip>true</skip>
-                                <config>proguard.conf</config>
+                                <config>proguard-project.txt</config>
+                            </proguard>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>manifestUpdate</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>manifest-update</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>alignApk</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>zipalign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.9</version>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.artifactId}-signed-aligned.apk</file>
+                                    <type>apk</type>
+                                    <classifier>signed-aligned</classifier>
+                                </artifact>
+                                <!--<artifact>-->
+                                    <!--<file>${project.build.directory}/proguard/mapping.txt</file>-->
+                                    <!--<type>map</type>-->
+                                    <!--<classifier>release</classifier>-->
+                                <!--</artifact>-->
+                            </artifacts>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-signed-aligned</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attach-artifact</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>postsign</id>
+            <!-- via this activation the profile is automatically used when the release
+                is done with the maven release plugin -->
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                        <artifactId>android-maven-plugin</artifactId>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <release>true</release>
+                            <sign>
+                                <debug>false</debug>
+                            </sign>
+                            <zipalign>
+                                <skip>false</skip>
+                                <verbose>true</verbose>
+                                <inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
+                                <outputApk>${project.build.directory}/${project.artifactId}-signed-aligned.apk</outputApk>
+                            </zipalign>
+                            <manifest>
+                                <debuggable>false</debuggable>
+                                <!--<versionCodeAutoIncrement>true</versionCodeAutoIncrement>-->
+                            </manifest>
+                            <!-- Change to true to skip Proguard -->
+                            <proguard>
+                                <skip>true</skip>
+                                <config>proguard-project.txt</config>
                             </proguard>
                         </configuration>
                         <executions>
