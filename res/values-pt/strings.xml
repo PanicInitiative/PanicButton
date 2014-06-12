@@ -9,7 +9,7 @@
     <string name="enter_message_hint">Inserir mensagem</string>
 
     <string name="i_am_at">Estou em</string>
-    <string name="i_am_at_url">Estou em http://maps.google.com/GPS-location</string>
+    <string name="i_am_at_url">Estou em https://maps.google.com/GPS-location</string>
     <string name="panic_button">Botão\nPânico</string>
     <string name="page_title_text">Title</string>
 

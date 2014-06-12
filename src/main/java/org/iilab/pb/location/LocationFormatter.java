@@ -8,7 +8,7 @@ import android.location.Location;
 import android.content.Context;
 
 public class LocationFormatter {
-    public static final String GOOGLE_MAP_URL = "http://maps.google.com/maps?q=";
+    public static final String GOOGLE_MAP_URL = "https://maps.google.com/maps?q=";
 //    public static final String GOOGLE_MAP_URL =    "https://maps.google.com/maps?q=https:%2F%2Floc_panicbutton.iilab.org%2F%3Flat%3D33.66121%26long%3D-95.563889%26rad%3D100000"
 //    public static final String IAMAT = "I'm at";
     public static final String VIA = " via ";
