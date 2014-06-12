@@ -18,7 +18,7 @@ Feature: Message setup in the Wizard
     Then I see the text "Next"
     Then I verify "Next" button is "enabled"
     Then I see the text "Help me, I'm in danger"
-    Then I see the text "I'm at http://maps.google.com/GPS-location"
+    Then I see the text "I'm at https://maps.google.com/GPS-location"
 
   Scenario: Navigating back to start screen
     When I go back
