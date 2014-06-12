@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
+import com.apb.beacon.alert.PanicMessage;
 import com.apb.beacon.common.ApplicationSettings;
 import com.apb.beacon.common.Intents;
 
@@ -19,8 +20,14 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if(intent.getAction().equals(Intents.LOCATION_UPDATE_ACTION)) {
+            Log.e(">>>>>>>>", "location update received in LocationUpdateReceiver");
             this.context = context;
             processNewLocation(intent);
+
+            if(!ApplicationSettings.getFirstMsgWithLocationTriggered(context)){
+                new PanicMessage(context).send(getCurrentBestLocation());
+                ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+            }
         }
     }
 
@@ -38,35 +45,50 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
         if (currentBestLocation == null) {
             return true;
         }
+
+        // Check whether the new location fix is newer or older
         long timeDelta = location.getTime() - currentBestLocation.getTime();
+        boolean isSignificantlyNewer = timeDelta > MIN_UPDATE_INTERVAL;
+        boolean isSignificantlyOlder = timeDelta < -MIN_UPDATE_INTERVAL;
         boolean isNewer = timeDelta > 0;
-        
-        if (timeDelta > MIN_UPDATE_INTERVAL) {
+
+        // If it's been more than two minutes since the current location, use the new location
+        // because the user has likely moved
+        if (isSignificantlyNewer) {
             return true;
-        } /*else if (timeDelta < -MIN_UPDATE_INTERVAL) {
+            // If the new location is more than two minutes older, it must be worse
+        } else if (isSignificantlyOlder) {
             return false;
-        }*/
-
-        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
-        boolean isMoreAccurate = accuracyDelta < 0;
-        boolean isAlmostSame = accuracyDelta == 0;
-        boolean isSignificantlyLessAccurate = accuracyDelta > ACCURACY_THRESHOLD;
-        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
-
-        if (isMoreAccurate) {
-            return true;
-        } else if (isFromSameProvider && isNewer) {
-            return true;
-        } else if (isNewer && !isSignificantlyLessAccurate) {
-            return true;
         }
 
+        // Check whether the new location fix is more or less accurate
+        int accuracyDelta = (int) (location.getAccuracy() - currentBestLocation.getAccuracy());
+        boolean isLessAccurate = accuracyDelta > 0;
+        boolean isMoreAccurate = accuracyDelta < 0;
+        boolean isSignificantlyLessAccurate = accuracyDelta > ACCURACY_THRESHOLD;
+
+        // Check if the old and new location are from the same provider
+        boolean isFromSameProvider = isSameProvider(location.getProvider(), currentBestLocation.getProvider());
+
+        // Determine location quality using a combination of timeliness and accuracy
+        if (isMoreAccurate) {
+            return true;
+        } else if (isNewer && !isLessAccurate) {
+            return true;
+        } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+            return true;
+        }
         return false;
     }
 
+    /** Checks whether two providers are the same */
     private boolean isSameProvider(String provider1, String provider2) {
+        if (provider1 == null) {
+            return provider2 == null;
+        }
         return provider1.equals(provider2);
     }
+
 
     Location getCurrentBestLocation() {
         return ApplicationSettings.getCurrentBestLocation(context);

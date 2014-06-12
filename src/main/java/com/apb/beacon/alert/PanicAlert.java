@@ -64,11 +64,15 @@ public class PanicAlert {
         ApplicationSettings.setAlertActive(context, false);
         locationManager.removeUpdates(locationPendingIntent(context));
         alarmManager.cancel(alarmPendingIntent(context));
+        ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
     }
 
     private void sendFirstAlert() {
         CurrentLocationProvider currentLocationProvider = getCurrentLocationProvider();
         Location loc = getLocation(currentLocationProvider);
+        if(loc != null){
+            ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+        }
         createPanicMessage().send(loc);
     }
 
@@ -82,8 +86,9 @@ public class PanicAlert {
 
     private void scheduleFutureAlert() {
         PendingIntent alarmPendingIntent = alarmPendingIntent(context);
-        long timeFromNow = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, timeFromNow, AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context), alarmPendingIntent);
+        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        long interval = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, interval, alarmPendingIntent);
     }
 
     private void registerLocationUpdate() {

@@ -1,10 +1,9 @@
 package com.apb.beacon.location;
 
-import com.apb.beacon.R;
-import android.content.res.TypedArray;
-
-import android.location.Location;
 import android.content.Context;
+import android.location.Location;
+
+import com.apb.beacon.R;
 
 public class LocationFormatter {
     public static final String GOOGLE_MAP_URL = "http://maps.google.com/maps?q=";
@@ -28,6 +27,6 @@ public class LocationFormatter {
 //            return ". " + getString(R.string.i_am_at) + " " + GOOGLE_MAP_URL + "%2F%3Flat%3D33.66121" + latitude + "%26long%3D-95.563889" + longitude + "%26rad%3D" + radius + " " VIA + provider;
 
         }
-        return "";
+        return "Searching for Location...";
     }
 }

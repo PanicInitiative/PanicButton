@@ -8,6 +8,9 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 
 public class ApplicationSettings {
+
+    private static final int ALERT_FREQUENCY = 10 * 60000;           // 10 minute
+
     public static final String FIRST_RUN = "FIRST_RUN";
 //    public static final String RESTARTED_SETUP = "RESTARTED_SETUP";
     public static final String HARDCODE_INSERT = "HARDCODE_INSERT";
@@ -20,7 +23,8 @@ public class ApplicationSettings {
     public static final String LAST_UPDATED_VERSION = "LAST_UPDATED_VERSION";
     public static final String LAST_UPDATED_DB_VERSION = "LAST_UPDATED_DB_VERSION";
     public static final String ALERT_DELAY = "ALERT_DELAY";
-    
+    public static final String IS_FIRST_MSG_WITH_LOCATION_TRIGGERED = "is_first_msg_with_location_triggered";
+
 
     // these 2 methods with first time run won't be needed any more. I'll get rid of it after further analysis.
     public static void setFirstRun(Context context, boolean isFirstRun) {
@@ -89,9 +93,8 @@ public class ApplicationSettings {
 
     private static Location constructLocation(String locationJson) {
         Location location = new Gson().fromJson(locationJson, Location.class);
-//        long timeDelta = System.currentTimeMillis() - location.getTime();
-//        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
-        return location;
+        long timeDelta = System.currentTimeMillis() - location.getTime();
+        return (timeDelta <= ALERT_FREQUENCY) ? location : null;
     }
 
     public static void setCurrentBestLocation(Context context, Location location) {
@@ -158,6 +161,15 @@ public class ApplicationSettings {
 
     public static int getAlertDelay(Context context) {
         return sharedPreferences(context).getInt(ALERT_DELAY, 5);
+    }
+
+
+    public static void setFirstMsgWithLocationTriggered(Context context, Boolean flag) {
+        saveBoolean(context, IS_FIRST_MSG_WITH_LOCATION_TRIGGERED , flag);
+    }
+
+    public static Boolean getFirstMsgWithLocationTriggered(Context context) {
+        return sharedPreferences(context).getBoolean(IS_FIRST_MSG_WITH_LOCATION_TRIGGERED, false);
     }
     
     
