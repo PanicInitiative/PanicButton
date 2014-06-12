@@ -9,6 +9,14 @@
     <packaging>apk</packaging>
     <name>Panic Button</name>
 
+    <repositories>
+        <repository>
+            <id>android-support-local</id>
+            <name>Android support v4 local repo</name>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <properties>
         <platform.version>4.1.1.4</platform.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,7 +39,7 @@
             <scope>provided</scope>
         </dependency>
 
-		<dependency>
+        <dependency>
             <groupId>android</groupId>
             <artifactId>support-v4</artifactId>
             <version>r12</version>
