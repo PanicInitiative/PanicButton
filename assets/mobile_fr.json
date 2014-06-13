@@ -15,7 +15,7 @@
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Configurer le message d'alerte",
-      "introduction" : "C'est le message qui sera envoyé avec votre position géographique.",
+      "introduction" : "Voici le message qui sera envoyé avec votre position géographique.",
       "warning" : "Veillez à ce que vos contacts sachent ce qu'ils ont à faire s'ils reçoivent ce message.",
       "component" : "message",
       "action" : [{"title":"Suivant","link":"setup-code"}],
@@ -28,7 +28,7 @@
       "title" : "Langue",
       "introduction" : "Sélectionner une langue pour l'application.",
       "component" : "language",
-      "action" : [{"title":"Anglais","language":"en","confirmation":"New language applied"},{"title":"Espagnol","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"},{"title":"Português","language":"pt","confirmation":"Novo idioma aplicado"}]
     },
     {
       "id" : "setup-disguise-test-unlock-fail",
@@ -46,7 +46,6 @@
       "introduction" : "Essayez ! Appuyez sur n'importe quel bouton de la calculatrice.",
       "component" : "disguise-test-unlock",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
-      "action" : [{"title":"Passer","link":"setup-disguise-test-code"}],
       "success" : {"link":"setup-disguise-test-code"},
       "fail" : {"link":"setup-disguise-test-unlock-fail"}
     },
@@ -217,7 +216,7 @@
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Configurer le message d'alerte",
-      "introduction" : "C'est le message qui sera envoyé avec votre position géographique.",
+      "introduction" : "Voici le message qui sera envoyé avec votre position géographique.",
       "warning" : "Veillez à ce que vos contacts sachent ce qu'ils ont à faire s'ils reçoivent ce message.",
       "component" : "message",
       "action" : [{"title":"Enregistrer","link":"home-ready","confirmation":"Message sauvegardé"}],
@@ -230,7 +229,7 @@
       "title" : "Langue",
       "introduction" : "Sélectionner une langue pour l'application.",
       "component" : "language",
-      "action" : [{"title":"Anglais","language":"en","confirmation":"New language applied"},{"title":"Espagnol","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"}]
+      "action" : [{"title":"English","language":"en","confirmation":"New language applied"},{"title":"Español","language":"es","confirmation":"Nuevo lenguaje seleccionado"},{"title":"Français","language":"fr","confirmation":"Nouveau language selectionné"},{"title":"Português","language":"pt","confirmation":"Novo idioma aplicado"}]
     },
     {
       "id" : "settings-contacts",
@@ -276,7 +275,7 @@
       "title" : "Bouton d'urgence",
       "status" : [{"title":"Prêt","color":"green","link":"help-ready"}],
       "action" : [{"title":"Cacher","link":"checklist"}],
-      "items" : [{"title":"Paramètres","link":"settings"},{"title":"A propos","link":"setup-about"},{"title":"Aide","link":"help"}],
+      "items" : [{"title":"Paramètres","link":"settings"},{"title":"À propos","link":"setup-about"},{"title":"Aide","link":"help"}],
       "content" : "<p>Le Bouton d’urgence est désormais installé et prêt à être utilisé en cas de danger. Appuyez sur « cacher » pour quitter et cacher l’application.</p>"
     },
     {

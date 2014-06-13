@@ -77,7 +77,8 @@
         android:layout_height="wrap_content"
         android:divider="@android:drawable/screen_background_light_transparent"
         android:layout_below="@+id/ll_fragment_warning"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:cacheColorHint="#00000000" />
 
     <TextView
         android:id="@+id/fragment_contents"

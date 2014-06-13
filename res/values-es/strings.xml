@@ -9,7 +9,7 @@
     <string name="enter_message_hint">Ingresa tu mensaje</string>
 
     <string name="i_am_at">Estoy en</string>
-    <string name="i_am_at_url">Estoy en :  http://maps.google.com/GPS-ubicación </string>
+    <string name="i_am_at_url">Estoy en :  https://maps.google.com/GPS-ubicación </string>
     <string name="panic_button">Boton de Panico</string>
     <string name="page_title_text">Titulo</string>
 
@@ -27,6 +27,9 @@
     <string name="stop_alert">&#160;&#160;Detener alerta</string>
     <string name="alert_status_active">La alerta esta activada y se enviara cada cinco minutos </string>
 
+    <string name="choose_contact">Escoge a tus contactos de emergencia</string>
+
+    <string name="code_ok">Acceptar</string>
     <string name="incorrect_pin">Por favor, introduce la clave correcta</string>
     <string name="incorrect_pin_3_times">Por favor, re-instala la aplicacion si  no puedes recordar tu numero clave</string>
 
@@ -52,8 +55,4 @@
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
 
-    <string name="choose_contact">Escoge a tus contactos de emergencia</string>
-    <string name="wizard_training_contacts_details">Piensa primero! Tus contactos de emergencia deben de ser pesonas que conozcas personalmente y que esten preparadas y listas para reaccionar rapidamente.</string>
-
-    <string name="code_ok">Acceptar</string>
 </resources>

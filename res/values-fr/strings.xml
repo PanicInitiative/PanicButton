@@ -27,6 +27,9 @@
     <string name="stop_alert">&#160;&#160;Arrêter l\'alerte</string>
     <string name="alert_status_active">L\'alerte est active et émet toutes les cinq minutes</string>
 
+     <string name="choose_contact">Choisissez votre contact d\'urgence</string>
+
+    <string name="code_ok">Accepter</string>
     <string name="incorrect_pin">Saisissez le code PIN</string>
     <string name="incorrect_pin_3_times">En cas d\'oubli de votre code PIN, veuillez réinstaller l\'application</string>
 
@@ -52,8 +55,4 @@
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
 
-    <string name="choose_contact">Choisissez votre contact d\'urgence</string>
-    <string name="wizard_training_contacts_details">Réfléchissez bien! Vos contacts d\'urgence doivent être des personnes que vous connaissez personnellement, prêtes et capables d\'agir de manière rapide.</string>
-
-    <string name="code_ok">Accepter</string>
 </resources>

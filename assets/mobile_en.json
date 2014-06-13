@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 6,
+    "version" : 7,
     "data":[
     {
       "id" : "setup-warning",
@@ -46,7 +46,6 @@
       "introduction" : "Try now! Hold down any button on the calculator.",
       "component" : "disguise-test-unlock",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
-      "action" : [{"title":"Skip","link":"setup-disguise-test-code"}],
       "success" : {"link":"setup-disguise-test-code"},
       "fail" : {"link":"setup-disguise-test-unlock-fail"}
     },
@@ -78,7 +77,7 @@
       "fail" : {"link":"setup-disguise-test-open-fail"}
     },
     {
-      "id" : "setup-disguise-test-unlock-fail",
+      "id" : "setup-disguise-test-code-fail",
       "lang" : "en",
       "type" : "simple",
       "title" : "Setup the Disguise",
