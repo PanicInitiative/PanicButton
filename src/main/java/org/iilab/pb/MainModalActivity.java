@@ -1,18 +1,9 @@
 package org.iilab.pb;
 
-import org.iilab.pb.adapter.PageCheckListAdapter;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.common.MyTagHandler;
-import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.model.Page;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +11,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.iilab.pb.adapter.PageCheckListAdapter;
+import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.common.CustomLinkMovementMethod;
+import org.iilab.pb.common.MyTagHandler;
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.model.Page;
 
 
 
@@ -98,7 +96,7 @@ public class MainModalActivity extends BaseFragmentActivity {
             tvContent.setVisibility(View.GONE);
         else{
             tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-            tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+            tvContent.setMovementMethod(CustomLinkMovementMethod.getInstance(MainModalActivity.this));
         }
 
         if (currentPage.getAction().size() > 1) {
@@ -179,7 +177,7 @@ public class MainModalActivity extends BaseFragmentActivity {
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
 
-        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
+//        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
     }
 
 
