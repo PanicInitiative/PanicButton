@@ -27,6 +27,6 @@ public class LocationFormatter {
 //            return ". " + getString(R.string.i_am_at) + " " + GOOGLE_MAP_URL + "%2F%3Flat%3D33.66121" + latitude + "%26long%3D-95.563889" + longitude + "%26rad%3D" + radius + " " VIA + provider;
 
         }
-        return "Searching for Location...";
+        return " - searching for location";
     }
 }
