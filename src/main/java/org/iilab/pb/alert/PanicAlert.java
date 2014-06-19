@@ -9,14 +9,13 @@ import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
 
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.CurrentLocationProvider;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
@@ -71,8 +70,10 @@ public class PanicAlert {
     private void sendFirstAlert() {
         CurrentLocationProvider currentLocationProvider = getCurrentLocationProvider();
         Location loc = getLocation(currentLocationProvider);
-        if(loc != null){
+        if(loc != null) {
             ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+        } else {
+            scheduleFirstLocationAlert();
         }
         createPanicMessage().send(loc);
     }
@@ -83,6 +84,13 @@ public class PanicAlert {
 
     CurrentLocationProvider getCurrentLocationProvider() {
         return new CurrentLocationProvider(context);
+    }
+
+    private void scheduleFirstLocationAlert() {
+        PendingIntent alarmPendingIntent = alarmPendingIntent(context);
+        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * 1;             // we schedule this alarm after 1 minute
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, alarmPendingIntent);
+//        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, interval, alarmPendingIntent);
     }
 
     private void scheduleFutureAlert() {
