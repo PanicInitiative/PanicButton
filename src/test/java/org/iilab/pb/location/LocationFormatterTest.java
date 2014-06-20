@@ -3,6 +3,7 @@ package org.iilab.pb.location;
 import android.content.Context;
 import android.location.Location;
 
+import org.iilab.pb.common.AppConstants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -30,6 +31,6 @@ public class LocationFormatterTest {
     @Test
     public void shouldReturnEmptyStringIfTheGivenLocationIsNull() {
         LocationFormatter locationFormatter = new LocationFormatter(null);
-        assertEquals(" - searching for location", locationFormatter.format(context));
+        assertEquals(AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND, locationFormatter.format(context));
     }
 }

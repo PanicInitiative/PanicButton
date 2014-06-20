@@ -1,5 +1,6 @@
 package org.iilab.pb.common;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -7,7 +8,7 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
-public class ApplicationSettings {
+public class ApplicationSettings extends Application{
 
     private static final int ALERT_FREQUENCY = 10 * 60000;           // 10 minute
 
@@ -25,6 +26,9 @@ public class ApplicationSettings {
     public static final String ALERT_DELAY = "ALERT_DELAY";
     public static final String IS_FIRST_MSG_WITH_LOCATION_TRIGGERED = "is_first_msg_with_location_triggered";
 
+    public static Context getAppContext(){
+        return getAppContext();
+    }
 
     // these 2 methods with first time run won't be needed any more. I'll get rid of it after further analysis.
     public static void setFirstRun(Context context, boolean isFirstRun) {
@@ -160,7 +164,7 @@ public class ApplicationSettings {
     }
 
     public static int getAlertDelay(Context context) {
-        return sharedPreferences(context).getInt(ALERT_DELAY, 5);
+        return sharedPreferences(context).getInt(ALERT_DELAY, 2);           // need to change it to default value = 5
     }
 
 

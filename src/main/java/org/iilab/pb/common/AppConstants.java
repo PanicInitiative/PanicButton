@@ -13,11 +13,14 @@ public class AppConstants {
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
     public static final float GPS_MIN_DISTANCE = 0;
+    public static final long GPS_MIN_TIME_IN_FIRST_ONE_MINUTE = 1000 * 20;
     public static final long GPS_MIN_TIME = 1000 * 60 * 2;
 
     public static final float NETWORK_MIN_DISTANCE = 0;
+    public static final long NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE = 1000 * 20;
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
+    public static final String CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND = " - trying to identify location";
     
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 

@@ -19,14 +19,19 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.e(">>>>>>>>", "onReceive - LocationUpdateReceiver");
         if(intent.getAction().equals(Intents.LOCATION_UPDATE_ACTION)) {
             Log.e(">>>>>>>>", "location update received in LocationUpdateReceiver at current time in millis = " + System.currentTimeMillis() % 100000);
             this.context = context;
             processNewLocation(intent);
 
-            new PanicMessage(context).send(getCurrentBestLocation());
-            if (!ApplicationSettings.getFirstMsgWithLocationTriggered(context))
-                ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+            if (!ApplicationSettings.getFirstMsgWithLocationTriggered(context)) {
+                Location location =  getCurrentBestLocation();
+                if(location != null) {
+                    new PanicMessage(context).send(getCurrentBestLocation());
+                    ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+                }
+            }
 
         }
     }
