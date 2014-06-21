@@ -23,7 +23,6 @@ public class AppConstants {
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
     public static final String CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND = " - trying to identify location";
-    
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
     public static final int HTTP_REQUEST_TYPE_GET = 1;
