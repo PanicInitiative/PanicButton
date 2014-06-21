@@ -62,22 +62,27 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         passwordEditText.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
-                String password = passwordEditText.getText().toString();
-                if (ApplicationSettings.passwordMatches(activity, password)) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                      // Perform action on key press
 
-                    String pageId = null;
-                    if (currentPage.getAction().size() > 0)
-                        pageId = currentPage.getAction().get(0).getLink();
-                    else
-                        pageId = currentPage.getSuccessId();
-
-                    Intent i = new Intent(activity, WizardActivity.class);
-                    i.putExtra("page_id", pageId);
-                    activity.startActivity(i);
-                    activity.finish();
-                    return true;
+	                String password = passwordEditText.getText().toString();
+	                if (ApplicationSettings.passwordMatches(activity, password)) {
+	
+	                    String pageId = null;
+	                    if (currentPage.getAction().size() > 0)
+	                        pageId = currentPage.getAction().get(0).getLink();
+	                    else
+	                        pageId = currentPage.getSuccessId();
+	
+	                    Intent i = new Intent(activity, WizardActivity.class);
+	                    i.putExtra("page_id", pageId);
+	                    activity.startActivity(i);
+	                    activity.finish();
+	                    return true;
+	                }
+	                AppUtil.setError(activity, passwordEditText, R.string.incorrect_pin);
                 }
-                AppUtil.setError(activity, passwordEditText, R.string.incorrect_pin);
                 return false;
             }
         });
