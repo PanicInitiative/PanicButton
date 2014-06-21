@@ -106,18 +106,13 @@ public class HomeActivity extends Activity {
             Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
             // Removing default homescreen shortcut when installed via Google Play.
-            Intent shortcutIntent = new Intent(getApplicationContext(),
-                    MainActivity.class);
-            shortcutIntent.setAction(Intent.ACTION_MAIN);
-             
-            Intent addIntent = new Intent();
-            addIntent
-                    .putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "HelloWorldShortcut");
+            /*i.setAction(Intent.ACTION_MAIN);
+            
+            i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+            i.putExtra(Intent.EXTRA_SHORTCUT_NAME, "HelloWorldShortcut");
          
-            addIntent
-                    .setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
-            getApplicationContext().sendBroadcast(addIntent);
+            i.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+            getApplicationContext().sendBroadcast(i);*/
             i.putExtra("page_id", pageId);
             startActivity(i);
         } else {
