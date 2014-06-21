@@ -1,12 +1,10 @@
 package org.iilab.pb.alert;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
@@ -106,30 +104,56 @@ public class PanicAlert {
 
     private void registerLocationUpdate() {
 
-        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
-        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+//        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+//            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+//        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+//            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+//
+        int threadRunCount = 0;
+        while(!ApplicationSettings.getFirstMsgWithLocationTriggered(context) && threadRunCount < 4){
+            try {
+                Thread.sleep(20000);
+                threadRunCount++;
 
-
-        ((Activity)context).runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Handler locationRefreshIntervalHandler = new Handler();
-                locationRefreshIntervalHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (locationManager != null && locationPendingIntent(context) != null) {
-                            locationManager.removeUpdates(locationPendingIntent(context));
-                        }
-                        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-                            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
-                        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-                    }
-                }, 60 * 1000);          // after 1 minute
+                if (locationManager != null && locationPendingIntent(context) != null) {
+                    locationManager.removeUpdates(locationPendingIntent(context));
+                }
+                if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+                    locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+                if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+                    locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+                Log.e(">>>>>>>>", "threadRunCount = " + threadRunCount);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        });
+        }
+
+        if (locationManager != null && locationPendingIntent(context) != null) {
+            locationManager.removeUpdates(locationPendingIntent(context));
+        }
+        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+
+//        HomeActivity.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Handler locationRefreshIntervalHandler = new Handler();
+//                locationRefreshIntervalHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (locationManager != null && locationPendingIntent(context) != null) {
+//                            locationManager.removeUpdates(locationPendingIntent(context));
+//                        }
+//                        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+//                            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+//                        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+//                            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+//                    }
+//                }, 60 * 1000);          // after 1 minute
+//            }
+//        });
 
      }
 
