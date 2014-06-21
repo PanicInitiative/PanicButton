@@ -25,9 +25,9 @@ public class AppConstants {
     public static final String CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND = " - trying to identify location";
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
-    public static final int HTTP_REQUEST_TYPE_GET = 1;
-    public static final int HTTP_REQUEST_TYPE_POST = 2;
-    public static final int HTTP_REQUEST_TYPE_PUT = 3;
+//    public static final int HTTP_REQUEST_TYPE_GET = 1;
+//    public static final int HTTP_REQUEST_TYPE_POST = 2;
+//    public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED = 601;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
@@ -47,9 +47,9 @@ public class AppConstants {
 
     public static final String TABLE_PRIMARY_KEY = "_id";
 
-    public static final String BASE_URL = "https://panicbutton.io";
-    public static final String HELP_DATA_URL = "/api/help.json";
-    public static final String VERSION_CHECK_URL = "/api/version.json";
+//    public static final String BASE_URL = "https://panicbutton.io";
+//    public static final String HELP_DATA_URL = "/api/help.json";
+//    public static final String VERSION_CHECK_URL = "/api/version.json";
 
     public static final int DATABASE_VERSION = 16;
 

@@ -56,13 +56,13 @@ public class ApplicationSettings extends Application{
         return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
     }
 
-    public static long getLastRunTimeInMillis(Context context) {
-        return sharedPreferences(context).getLong(LAST_RUN, -1);
-    }
-
-    public static void setLastRunTimeInMillis(Context context, Long time) {
-        saveLong(context, LAST_RUN, time);
-    }
+//    public static long getLastRunTimeInMillis(Context context) {
+//        return sharedPreferences(context).getLong(LAST_RUN, -1);
+//    }
+//
+//    public static void setLastRunTimeInMillis(Context context, Long time) {
+//        saveLong(context, LAST_RUN, time);
+//    }
 
     public static void savePassword(Context context, String password) {
         saveString(context, PASS_CODE, password);

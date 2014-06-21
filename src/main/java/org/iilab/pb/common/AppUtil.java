@@ -4,11 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -58,20 +54,20 @@ public class AppUtil {
     }
 
 
-    public static boolean hasInternet(Context context) {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null){
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null){
-                for (int i = 0; i < info.length; i++){
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
+//    public static boolean hasInternet(Context context) {
+//        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (connectivity != null){
+//            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+//            if (info != null){
+//                for (int i = 0; i < info.length; i++){
+//                    if (info[i].getState() == NetworkInfo.State.CONNECTED){
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     public static String capitalizeString(String str){
         if(str == null || str.equals("") || str.length() == 0)
@@ -181,7 +177,9 @@ public class AppUtil {
                     @SuppressWarnings("unchecked")
                     @Override
                     public Drawable getDrawable(final String source) {
-                        if(!AppUtil.hasInternet(context) && downloadImages){
+                        if(
+//                                !AppUtil.hasInternet(context) &&
+                                        downloadImages){
                             try {
                                 Log.e(">>>>>>>>>>>", "Source = " + source);
                                 Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
@@ -195,55 +193,56 @@ public class AppUtil {
                                 e.printStackTrace();
                             }
                             return null;
-
                         }
-                        Log.e(">>>>>>", "image src = " + source);
-                        Drawable drawable = mImageCache.get(source);
-                        if (drawable != null) {
-                            return drawable;
-                        } else if (downloadImages) {
-                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
-                                @Override
-                                public void onImageDownloadComplete(byte[] bitmapData) {
-                                    try {
-                                        Drawable drawable = new BitmapDrawable(context.getResources(),
-                                                BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
 
-                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR, imageScaleFlag);
-                                        mImageCache.put(source, drawable);
-                                        updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        Log.e(">>>>>>>>>>>>>>","Failed to download image");
-                                        try {
-                                            Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
-
-                                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
-                                            mImageCache.put(source, drawable);
-                                            updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
-                                        } catch (IOException e1) {
-                                            Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
-                                            e1.printStackTrace();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onImageDownloadFailed(Exception ex) {
-                                    Log.e("onImageDownloadFailed", "ImageDownloadFailed");
-                                    try {
-                                        Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
-
-                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
-                                        mImageCache.put(source, drawable);
-                                        updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
-                                    } catch (IOException e1) {
-                                        Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
-                                        e1.printStackTrace();
-                                    }
-                                }
-                            }).execute(source);
-                        }
+//                        Log.e(">>>>>>", "image src = " + source);
+//                        Drawable drawable = mImageCache.get(source);
+//                        if (drawable != null) {
+//                            return drawable;
+//                        }
+//                        else if (downloadImages) {
+//                            new ImageDownloader(new ImageDownloader.ImageDownloadListener() {
+//                                @Override
+//                                public void onImageDownloadComplete(byte[] bitmapData) {
+//                                    try {
+//                                        Drawable drawable = new BitmapDrawable(context.getResources(),
+//                                                BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length));
+//
+//                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR, imageScaleFlag);
+//                                        mImageCache.put(source, drawable);
+//                                        updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                        Log.e(">>>>>>>>>>>>>>","Failed to download image");
+//                                        try {
+//                                            Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
+//
+//                                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
+//                                            mImageCache.put(source, drawable);
+//                                            updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
+//                                        } catch (IOException e1) {
+//                                            Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+//                                            e1.printStackTrace();
+//                                        }
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onImageDownloadFailed(Exception ex) {
+//                                    Log.e("onImageDownloadFailed", "ImageDownloadFailed");
+//                                    try {
+//                                        Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
+//
+//                                        drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
+//                                        mImageCache.put(source, drawable);
+//                                        updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
+//                                    } catch (IOException e1) {
+//                                        Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+//                                        e1.printStackTrace();
+//                                    }
+//                                }
+//                            }).execute(source);
+//                        }
                         return null;
                     }
                 }, new MyTagHandler());
