@@ -12,6 +12,8 @@ public class AppConstants {
 	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
+    public static final int DEFAULT_ALARM_INTERVAL = 5;             // in minute
+
     public static final float GPS_MIN_DISTANCE = 0;
     public static final long GPS_MIN_TIME_IN_FIRST_ONE_MINUTE = 1000 * 20;
     public static final long GPS_MIN_TIME = 1000 * 60 * 2;
@@ -60,5 +62,4 @@ public class AppConstants {
 
     public static final int IMAGE_FULL_WIDTH = 1;
     public static final int IMAGE_INLINE = 2;
-
 }

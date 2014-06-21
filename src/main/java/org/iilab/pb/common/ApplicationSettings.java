@@ -164,7 +164,7 @@ public class ApplicationSettings extends Application{
     }
 
     public static int getAlertDelay(Context context) {
-        return sharedPreferences(context).getInt(ALERT_DELAY, 2);           // need to change it to default value = 5
+        return sharedPreferences(context).getInt(ALERT_DELAY, AppConstants.DEFAULT_ALARM_INTERVAL);           // need to change it to default value = 5
     }
 
 
