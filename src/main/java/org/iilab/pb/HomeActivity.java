@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.iilab.pb.R;
+
 public class HomeActivity extends Activity {
 
     ProgressDialog pDialog;
