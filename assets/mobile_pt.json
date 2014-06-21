@@ -325,7 +325,7 @@
       "title" : "Lista de Controle",
       "action" : [{"title":"Disfarce agora","link":"close"},{"title":"Cancelar","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"Revisar plano de segurança  e atualizar os contatos regularmente"},{"title":"Testar o alerta para garantir que  está funcionando"},{"title":"Verificar se tem  crédito suficiente no telefone"},{"title":"Ativar GPS (se quiser habilitar o rastreamento de localização)"},{"title":"Carregar completamente a bateria do telefone"}],
-      "content" : "<p>Mais <a href=\"#help-charge\">dicas de segurança... </a></p>"
+      "content" : "<p>Mais <a href=\"help_risk\">dicas de segurança... </a></p>"
     }]
   }
 }

@@ -333,7 +333,7 @@
       "title" : "Checklist",
       "action" : [{"title":"Disguise Now","link":"close"},{"title":"Cancel","link":"home-ready","status":"disabled"}],
       "checklist" : [{"title":"Review security plan and update contacts regularly"},{"title":"Test the alert to ensure it is working"},{"title":"Ensure sufficient credit on the phone"},{"title":"Activate GPS (if you want to enable location tracking)"},{"title":"Charge phone battery to full"}],
-      "content" : "<p>More <a href=\"#help-charge\">security tips...</a></p>"
+      "content" : "<p>More <a href=\"help_risk\">security tips...</a></p>"
     }]
   }
 }
