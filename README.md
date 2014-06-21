@@ -2,6 +2,8 @@
 
 **Panic Button turns your mobile phone into a secret alarm for when you're in trouble**
 
+Master [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button)](https://ci.iilab.org/job/panic-button/) Dev [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button-dev)](https://ci.iilab.org/job/panic-button-dev/)
+
 ## How does Panic Button work?
 
 ![TAKE TIME](https://panicbutton.io/images/illustration_2.gif)
