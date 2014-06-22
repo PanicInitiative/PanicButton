@@ -2,7 +2,6 @@ package org.iilab.pb.common;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.text.Layout;
 import android.text.Spannable;
@@ -12,7 +11,8 @@ import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.iilab.pb.MainActivity;
 
 
 /**
@@ -50,10 +50,12 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
                     movementContext.startActivity(browserIntent);
                     return true;
                 } else {
-                    Log.d("Link", url);
-                    widget.setHighlightColor(Color.WHITE);
-                    Toast.makeText(movementContext, "Invalid link.", Toast.LENGTH_LONG).show();
-                    return false;
+                    String pageId = url;
+                    Log.e(">>>", "page id = " + pageId);
+                    Intent i = new Intent(movementContext, MainActivity.class);
+                    i.putExtra("page_id", pageId);
+                    movementContext.startActivity(i);
+                    return true;
                 }
 
             }
