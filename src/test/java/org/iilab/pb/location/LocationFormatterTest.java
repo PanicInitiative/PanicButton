@@ -31,6 +31,6 @@ public class LocationFormatterTest {
     @Test
     public void shouldReturnEmptyStringIfTheGivenLocationIsNull() {
         LocationFormatter locationFormatter = new LocationFormatter(null);
-        assertEquals(AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND, locationFormatter.format(context));
+        assertEquals("", locationFormatter.format(context));
     }
 }

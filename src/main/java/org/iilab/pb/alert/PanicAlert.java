@@ -75,6 +75,7 @@ public class PanicAlert {
         if(loc != null) {
             ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
         } else {
+            ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
             scheduleFirstLocationAlert();
         }
         createPanicMessage().send(loc);

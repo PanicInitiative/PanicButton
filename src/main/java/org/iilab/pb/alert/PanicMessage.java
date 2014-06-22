@@ -1,5 +1,7 @@
 package org.iilab.pb.alert;
 
+import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.LocationFormatter;
 import org.iilab.pb.model.SMSSettings;
 
@@ -44,6 +46,11 @@ public class PanicMessage {
     private String trimMessage(String message, int maxLength) {
         String locationString = new LocationFormatter(location).format(context);
         String smsText = message + locationString;
+        if (locationString == "") {
+        	if (ApplicationSettings.getFirstMsgWithLocationTriggered(context)) {
+        		smsText = AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND;
+        	}
+        }
         if(smsText.length() > maxLength) {
             smsText = message.substring(0, (maxLength - locationString.length()) ) + locationString;
         }

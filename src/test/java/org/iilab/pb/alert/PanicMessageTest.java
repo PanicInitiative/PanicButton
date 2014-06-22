@@ -74,8 +74,8 @@ public class PanicMessageTest {
         PanicMessage panicMessage = createPanicMessage();
         panicMessage.send(null);
 
-        verify(mockSMSAdapter).sendSMS(mobile1, message +  AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND);
-        verify(mockSMSAdapter).sendSMS(mobile3, message + AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND);
+        verify(mockSMSAdapter).sendSMS(mobile1, AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND);
+        verify(mockSMSAdapter).sendSMS(mobile3, AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND);
         verifyNoMoreInteractions(mockSMSAdapter);
     }
 

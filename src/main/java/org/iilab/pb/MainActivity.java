@@ -139,7 +139,8 @@ public class MainActivity extends BaseFragmentActivity {
 
 
     private void changeAppIcontoPB() {
-        getPackageManager().setComponentEnabledSetting(
+    	Log.e("MainActivity.changeAppIcontoPB", "");
+    	getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
