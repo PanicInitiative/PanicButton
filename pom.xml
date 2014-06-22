@@ -268,7 +268,7 @@
                             </manifest>
                             <!-- Change to true to skip Proguard -->
                             <proguard>
-                                <skip>false</skip>
+                                <skip>true</skip>
                                 <config>proguard-project.txt</config>
                             </proguard>
                         </configuration>
