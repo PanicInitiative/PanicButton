@@ -12,6 +12,8 @@ public class AppConstants {
 	
     public static final int HAPTIC_FEEDBACK_DURATION = 3000;
 
+    public static final int DEFAULT_ALARM_INTERVAL = 5;             // in minute
+
     public static final float GPS_MIN_DISTANCE = 0;
     public static final long GPS_MIN_TIME_IN_FIRST_ONE_MINUTE = 1000 * 20;
     public static final long GPS_MIN_TIME = 1000 * 60 * 2;
@@ -21,12 +23,11 @@ public class AppConstants {
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
     public static final String CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND = " - trying to identify location";
-    
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
-    public static final int HTTP_REQUEST_TYPE_GET = 1;
-    public static final int HTTP_REQUEST_TYPE_POST = 2;
-    public static final int HTTP_REQUEST_TYPE_PUT = 3;
+//    public static final int HTTP_REQUEST_TYPE_GET = 1;
+//    public static final int HTTP_REQUEST_TYPE_POST = 2;
+//    public static final int HTTP_REQUEST_TYPE_PUT = 3;
 
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED = 601;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
@@ -46,9 +47,9 @@ public class AppConstants {
 
     public static final String TABLE_PRIMARY_KEY = "_id";
 
-    public static final String BASE_URL = "https://panicbutton.io";
-    public static final String HELP_DATA_URL = "/api/help.json";
-    public static final String VERSION_CHECK_URL = "/api/version.json";
+//    public static final String BASE_URL = "https://panicbutton.io";
+//    public static final String HELP_DATA_URL = "/api/help.json";
+//    public static final String VERSION_CHECK_URL = "/api/version.json";
 
     public static final int DATABASE_VERSION = 16;
 
@@ -60,5 +61,4 @@ public class AppConstants {
 
     public static final int IMAGE_FULL_WIDTH = 1;
     public static final int IMAGE_INLINE = 2;
-
 }

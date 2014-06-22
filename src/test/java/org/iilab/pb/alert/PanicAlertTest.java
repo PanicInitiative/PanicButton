@@ -12,9 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Vibrator;
 
-
-import org.iilab.pb.alert.PanicAlert;
-import org.iilab.pb.alert.PanicMessage;
+import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.CurrentLocationProvider;
 import org.junit.Before;
@@ -167,7 +165,7 @@ public class PanicAlertTest {
         assertTrue(requestLocationUpdates.values().containsAll(Arrays.asList(NETWORK_PROVIDER, GPS_PROVIDER)));
 
         assertEquals(1, scheduledAlarms.size());
-        assertEquals(5 * 1000 * 60, alarm.interval);
+        assertEquals(AppConstants.DEFAULT_ALARM_INTERVAL * 1000 * 60, alarm.interval);
         assertEquals(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarm.type);
         Intent startedIntent = shadowOf(context).peekNextStartedActivity();
         List<String> categories = new ArrayList<String>(startedIntent.getCategories());

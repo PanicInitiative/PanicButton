@@ -56,13 +56,13 @@ public class ApplicationSettings extends Application{
         return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
     }
 
-    public static long getLastRunTimeInMillis(Context context) {
-        return sharedPreferences(context).getLong(LAST_RUN, -1);
-    }
-
-    public static void setLastRunTimeInMillis(Context context, Long time) {
-        saveLong(context, LAST_RUN, time);
-    }
+//    public static long getLastRunTimeInMillis(Context context) {
+//        return sharedPreferences(context).getLong(LAST_RUN, -1);
+//    }
+//
+//    public static void setLastRunTimeInMillis(Context context, Long time) {
+//        saveLong(context, LAST_RUN, time);
+//    }
 
     public static void savePassword(Context context, String password) {
         saveString(context, PASS_CODE, password);
@@ -164,7 +164,7 @@ public class ApplicationSettings extends Application{
     }
 
     public static int getAlertDelay(Context context) {
-        return sharedPreferences(context).getInt(ALERT_DELAY, 2);           // need to change it to default value = 5
+        return sharedPreferences(context).getInt(ALERT_DELAY, AppConstants.DEFAULT_ALARM_INTERVAL);           // need to change it to default value = 5
     }
 
 
