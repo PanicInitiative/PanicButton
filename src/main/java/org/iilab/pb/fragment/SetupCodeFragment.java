@@ -1,5 +1,6 @@
 package org.iilab.pb.fragment;
 
+import org.iilab.pb.LoginActivity;
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
@@ -21,9 +22,11 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +71,40 @@ public class SetupCodeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_type_interactive_code, container, false);
         passwordEditText = (EditText) view.findViewById(R.id.create_pin_edittext);
         passwordEditText.addTextChangedListener(passwordTextChangeListener);
+        passwordEditText.setOnKeyListener(new OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                  // Perform action on key press
+                    Log.e(">>>>", "action button pressed");
+                    ApplicationSettings.savePassword(getActivity(), passwordEditText.getText().toString());
+                    
+                    String pageId = currentPage.getAction().get(0).getLink();
+                    int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+                    Intent i;
+
+                    if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                        i = new Intent(activity, WizardActivity.class);
+                    } else{
+//                    	AppUtil.showToast("New pincode saved.", 1000, activity);
+                        String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
+                                ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                                : currentPage.getAction().get(0).getConfirmation();
+                        Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
+
+                        i = new Intent(activity, MainActivity.class);
+                    }
+                    i.putExtra("page_id", pageId);
+                    startActivity(i);
+
+                    if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
+                        activity.finish();
+                    }
+                }
+                return false;
+            }
+        });
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);

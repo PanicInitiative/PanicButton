@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,21 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.common.JsonParser;
-import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageAction;
-import org.iilab.pb.model.ServerResponse;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Locale;
@@ -102,11 +93,13 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
                     ((Activity) mContext).finish();
                     return;
-                } else if (!AppUtil.hasInternet(mContext)) {
-                    changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
-                    return;
                 }
-                new GetLatestVersion(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation())).execute();
+//                else if (!AppUtil.hasInternet(mContext)) {
+//                    changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
+//                    return;
+//                }
+                changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
+//                new GetLatestVersion(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation())).execute();
 
             }
         });
@@ -157,59 +150,59 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     }
 
 
-    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
-
-        private String confirmationMsg;
-
-        private GetLatestVersion(String confirmationMsg) {
-            this.confirmationMsg = confirmationMsg;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = ProgressDialog.show(mContext, "Panic Button", "Checking for updates...", true, false);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
-            JsonParser jsonParser = new JsonParser();
-            Log.d(">>>><<<<", "attempting to retrieve server-response for url = " + url);
-            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
-            if (response.getStatus() == 200) {
-                try {
-                    JSONObject responseObj = response.getjObj();
-                    latestVersion = responseObj.getInt("version");
-                    Log.e("??????", "latest version = " + latestVersion);
-                    return true;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-
-            if (!response) {
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
-            } else {
-                if (latestVersion > lastUpdatedVersion) {
-                    new GetMobileDataUpdate(confirmationMsg).execute();
-                } else {
-                    if (pDialog.isShowing())
-                        pDialog.dismiss();
-                    changeStaticLanguageSettings(confirmationMsg);
-                }
-            }
-        }
-    }
+//    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
+//
+//        private String confirmationMsg;
+//
+//        private GetLatestVersion(String confirmationMsg) {
+//            this.confirmationMsg = confirmationMsg;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pDialog = ProgressDialog.show(mContext, "Panic Button", "Checking for updates...", true, false);
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
+//            JsonParser jsonParser = new JsonParser();
+//            Log.d(">>>><<<<", "attempting to retrieve server-response for url = " + url);
+//            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
+//            if (response.getStatus() == 200) {
+//                try {
+//                    JSONObject responseObj = response.getjObj();
+//                    latestVersion = responseObj.getInt("version");
+//                    Log.e("??????", "latest version = " + latestVersion);
+//                    return true;
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            return false;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean response) {
+//            super.onPostExecute(response);
+//
+//            if (!response) {
+//                if (pDialog.isShowing())
+//                    pDialog.dismiss();
+//                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                if (latestVersion > lastUpdatedVersion) {
+//                    new GetMobileDataUpdate(confirmationMsg).execute();
+//                } else {
+//                    if (pDialog.isShowing())
+//                        pDialog.dismiss();
+//                    changeStaticLanguageSettings(confirmationMsg);
+//                }
+//            }
+//        }
+//    }
 
     private void changeStaticLanguageSettings(String confirmation) {
         Toast.makeText(mContext, confirmation, Toast.LENGTH_SHORT).show();
@@ -226,80 +219,80 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
     }
 
 
-    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
+//    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
+//
+//        String confirmationMsg;
+//
+//        private GetMobileDataUpdate(String confirmationMsg) {
+//            this.confirmationMsg = confirmationMsg;
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            int version = 0;
+//            String mobileDataUrl;
+//            for (version = lastUpdatedVersion + 1; version <= latestVersion; version++) {
+//                if (selectedLang.equals("en")) {
+//                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
+//                } else {
+//                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
+//                }
+//
+//                JsonParser jsonParser = new JsonParser();
+//                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
+//                if (response.getStatus() == 200) {
+//                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
+//                    try {
+//                        JSONObject responseObj = response.getjObj();
+//                        JSONObject mobObj = responseObj.getJSONObject("mobile");
+//                        JSONArray dataArray = mobObj.getJSONArray("data");
+//                        insertMobileDataToLocalDB(dataArray);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        return false;
+//                    }
+//                }
+//            }
+//
+//            if (version > latestVersion) {
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean response) {
+//            super.onPostExecute(response);
+//
+//            if (pDialog.isShowing())
+//                pDialog.dismiss();
+//            if (!response) {
+//                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                changeStaticLanguageSettings(confirmationMsg);
+//            }
+//        }
+//    }
 
-        String confirmationMsg;
 
-        private GetMobileDataUpdate(String confirmationMsg) {
-            this.confirmationMsg = confirmationMsg;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            int version = 0;
-            String mobileDataUrl;
-            for (version = lastUpdatedVersion + 1; version <= latestVersion; version++) {
-                if (selectedLang.equals("en")) {
-                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
-                } else {
-                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
-                }
-
-                JsonParser jsonParser = new JsonParser();
-                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
-                if (response.getStatus() == 200) {
-                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
-                    try {
-                        JSONObject responseObj = response.getjObj();
-                        JSONObject mobObj = responseObj.getJSONObject("mobile");
-                        JSONArray dataArray = mobObj.getJSONArray("data");
-                        insertMobileDataToLocalDB(dataArray);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        return false;
-                    }
-                }
-            }
-
-            if (version > latestVersion) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-
-            if (pDialog.isShowing())
-                pDialog.dismiss();
-            if (!response) {
-                Toast.makeText(mContext, "App content couldn't be updated for the selected language. Please try again.", Toast.LENGTH_SHORT).show();
-            } else {
-                changeStaticLanguageSettings(confirmationMsg);
-            }
-        }
-    }
-
-
-    private void insertMobileDataToLocalDB(JSONArray dataArray) {
-        List<Page> pageList = Page.parsePages(dataArray);
-
-        PBDatabase dbInstance = new PBDatabase(mContext);
-        dbInstance.open();
-
-        for (int i = 0; i < pageList.size(); i++) {
-            dbInstance.insertOrUpdatePage(pageList.get(i));
-        }
-        dbInstance.close();
-    }
+//    private void insertMobileDataToLocalDB(JSONArray dataArray) {
+//        List<Page> pageList = Page.parsePages(dataArray);
+//
+//        PBDatabase dbInstance = new PBDatabase(mContext);
+//        dbInstance.open();
+//
+//        for (int i = 0; i < pageList.size(); i++) {
+//            dbInstance.insertOrUpdatePage(pageList.get(i));
+//        }
+//        dbInstance.close();
+//    }
 
 
 }

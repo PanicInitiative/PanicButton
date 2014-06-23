@@ -22,7 +22,8 @@
 -dontobfuscate
 -forceprocessing
 -optimizationpasses 5
-
+-dontwarn android.support.v4.view.**
+-keep class android.support.v4.** { *; }
 -keep class * extends android.app.Activity
 -assumenosideeffects class android.util.Log {
     public static *** d(...);

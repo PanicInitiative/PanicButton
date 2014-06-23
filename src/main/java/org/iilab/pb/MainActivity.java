@@ -1,20 +1,5 @@
 package org.iilab.pb;
 
-import org.iilab.pb.alert.PanicAlert;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.fragment.LanguageSettingsFragment;
-import org.iilab.pb.fragment.MainSetupAlertFragment;
-import org.iilab.pb.fragment.SetupCodeFragment;
-import org.iilab.pb.fragment.SetupContactsFragment;
-import org.iilab.pb.fragment.SetupMessageFragment;
-import org.iilab.pb.fragment.SimpleFragment;
-import org.iilab.pb.fragment.WarningFragment;
-import org.iilab.pb.model.Page;
-import org.iilab.pb.trigger.HardwareTriggerService;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,6 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.iilab.pb.alert.PanicAlert;
+import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.fragment.LanguageSettingsFragment;
+import org.iilab.pb.fragment.MainSetupAlertFragment;
+import org.iilab.pb.fragment.SetupCodeFragment;
+import org.iilab.pb.fragment.SetupContactsFragment;
+import org.iilab.pb.fragment.SetupMessageFragment;
+import org.iilab.pb.fragment.SimpleFragment;
+import org.iilab.pb.fragment.WarningFragment;
+import org.iilab.pb.model.Page;
+import org.iilab.pb.trigger.HardwareTriggerService;
 
 
 /**
@@ -114,7 +113,7 @@ public class MainActivity extends BaseFragmentActivity {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(MainActivity.this, MainModalActivity.class);
                 i.putExtra("page_id", pageId);
-                i.putExtra("parent_activity", AppConstants.FROM_MAIN_ACTIVITY);
+//                i.putExtra("parent_activity", AppConstants.FROM_MAIN_ACTIVITY);
                 startActivity(i);
                 finish();
                 return;
@@ -221,13 +220,13 @@ public class MainActivity extends BaseFragmentActivity {
     public void onBackPressed() {
         if(pageId.equals("home-ready")){
             // don't go back
-        	finish();
-        	startActivity(AppUtil.behaveAsHomeButton());
+//        	finish();
+//        	startActivity(AppUtil.behaveAsHomeButton());
         }
         else{
             super.onBackPressed();
+            AppConstants.IS_BACK_BUTTON_PRESSED = true;
         }
-        AppConstants.IS_BACK_BUTTON_PRESSED = true;
     }
 
 

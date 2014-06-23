@@ -12,7 +12,7 @@ public class BaseFragmentActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(">>>>>", "Registering finish activity");
+        Log.e(">>>>>", "Registering finish activity in oncreate -> BaseFragmentActivity");
         registerFinishActivityReceiver();
 
     }

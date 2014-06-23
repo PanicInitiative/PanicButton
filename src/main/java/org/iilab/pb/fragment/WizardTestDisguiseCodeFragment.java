@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,6 +59,34 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_type_interactive_disguise_test_code, container, false);
 
         passwordEditText = (EditText) view.findViewById(R.id.create_pin_edittext);
+        passwordEditText.setOnKeyListener(new OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                      // Perform action on key press
+
+	                String password = passwordEditText.getText().toString();
+	                if (ApplicationSettings.passwordMatches(activity, password)) {
+	
+	                    String pageId = null;
+	                    if (currentPage.getAction().size() > 0)
+	                        pageId = currentPage.getAction().get(0).getLink();
+	                    else
+	                        pageId = currentPage.getSuccessId();
+	
+	                    Intent i = new Intent(activity, WizardActivity.class);
+	                    i.putExtra("page_id", pageId);
+	                    activity.startActivity(i);
+	                    activity.finish();
+	                    return true;
+	                }
+	                AppUtil.setError(activity, passwordEditText, R.string.incorrect_pin);
+                }
+                return false;
+            }
+        });
+
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 
         bAction = (Button) view.findViewById(R.id.b_action);

@@ -1,18 +1,9 @@
 package org.iilab.pb;
 
-import org.iilab.pb.adapter.PageCheckListAdapter;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.common.MyTagHandler;
-import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.model.Page;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +11,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.iilab.pb.adapter.PageCheckListAdapter;
+import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.common.CustomLinkMovementMethod;
+import org.iilab.pb.common.MyTagHandler;
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.model.Page;
 
 
 
@@ -30,7 +29,7 @@ public class MainModalActivity extends BaseFragmentActivity {
 
     Page currentPage;
     PageCheckListAdapter pageCheckListAdapter;
-    int parentActivity;
+//    int parentActivity;
 
     DisplayMetrics metrics;
 
@@ -64,7 +63,7 @@ public class MainModalActivity extends BaseFragmentActivity {
 
         String pageId = getIntent().getExtras().getString("page_id");
         String selectedLang = ApplicationSettings.getSelectedLanguage(this);
-        parentActivity = getIntent().getExtras().getInt("parent_activity");
+//        parentActivity = getIntent().getExtras().getInt("parent_activity");
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -98,7 +97,7 @@ public class MainModalActivity extends BaseFragmentActivity {
             tvContent.setVisibility(View.GONE);
         else{
             tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-            tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+            tvContent.setMovementMethod(CustomLinkMovementMethod.getInstance(MainModalActivity.this));
         }
 
         if (currentPage.getAction().size() > 1) {
@@ -124,6 +123,7 @@ public class MainModalActivity extends BaseFragmentActivity {
 //                            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
 //                            AppConstants.IS_BACK_BUTTON_PRESSED = true;
 //                        }
+                        AppConstants.IS_BACK_BUTTON_PRESSED = true;
                         finish();
                     }
                 }
@@ -179,13 +179,14 @@ public class MainModalActivity extends BaseFragmentActivity {
         checkList.setAdapter(pageCheckListAdapter);
         pageCheckListAdapter.setData(currentPage.getChecklist());
 
-        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
+//        AppUtil.updateImages(true, currentPage.getContent(), MainModalActivity.this, metrics, tvContent, AppConstants.IMAGE_INLINE);
     }
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        AppConstants.IS_BACK_BUTTON_PRESSED = true;
 //        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
 //            Log.e("<<<<<<", "Setting first run = true");
 //            ApplicationSettings.setFirstRun(MainModalActivity.this, true);
@@ -193,12 +194,19 @@ public class MainModalActivity extends BaseFragmentActivity {
 //        }
     }
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(">>>>>>>>>", "MainModal -> onPause");
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
         Log.e(">>>>>>>>>", "MainModal -> onStop");
-        callFinishActivityReceiver();
-        finish();
+//        callFinishActivityReceiver();
+//        finish();
     }
 
 }

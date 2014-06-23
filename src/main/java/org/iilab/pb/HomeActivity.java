@@ -7,15 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
-
 import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.common.JsonParser;
 import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.model.HelpPage;
 import org.iilab.pb.model.Page;
-import org.iilab.pb.model.ServerResponse;
 import org.iilab.pb.trigger.HardwareTriggerService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,20 +20,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.iilab.pb.R;
-
 public class HomeActivity extends Activity {
 
     ProgressDialog pDialog;
 
     String pageId;
     String selectedLang;
-    String mobileDataUrl;
-    String helpDataUrl;
+//    String mobileDataUrl;
+//    String helpDataUrl;
 
     int lastUpdatedVersion;
     int latestVersion;
-    long lastRunTimeInMillis;
+//    long lastRunTimeInMillis;
     int lastLocalDBVersion;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -63,9 +56,9 @@ public class HomeActivity extends Activity {
         }
 
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
-        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
+//        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
 
-        lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
+//        lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
 
         /*
         lastLocalDBVersion is used for local db version update. If local db version is changed, then all local data will be deleted,
@@ -76,16 +69,18 @@ public class HomeActivity extends Activity {
         if(lastLocalDBVersion < AppConstants.DATABASE_VERSION){
             Log.e("<<<<<", "local db version changed. needs a force update");
             ApplicationSettings.setLocalDataInsertion(this, false);
-            lastRunTimeInMillis = -1;
+//            lastRunTimeInMillis = -1;
         }
 
         if (!ApplicationSettings.getLocalDataInsertion(HomeActivity.this)) {
             Log.e("???????", "Initializing local data");
             new InitializeLocalData().execute();
-        } else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
-            Log.e(">>>>", "local data initialized but last run not today");
-            new GetLatestVersion().execute();
-        } else{
+        }
+//        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+//            Log.e(">>>>", "local data initialized but last run not today");
+//            new GetLatestVersion().execute();
+//        }
+        else{
             Log.e(">>>>>", "no update needed");
             startNextActivity();
         }
@@ -105,6 +100,14 @@ public class HomeActivity extends Activity {
         if (wizardState != AppConstants.WIZARD_FLAG_HOME_READY) {
             Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+            // Removing default homescreen shortcut when installed via Google Play.
+            /*i.setAction(Intent.ACTION_MAIN);
+            
+            i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+            i.putExtra(Intent.EXTRA_SHORTCUT_NAME, "HelloWorldShortcut");
+         
+            i.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+            getApplicationContext().sendBroadcast(i);*/
             i.putExtra("page_id", pageId);
             startActivity(i);
         } else {
@@ -260,189 +263,191 @@ public class HomeActivity extends Activity {
             ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
             ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, AppConstants.DATABASE_VERSION);
 
-            if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
-                Log.e(">>>>", "last run not today");
-                new GetLatestVersion().execute();
-            } else{
-                startNextActivity();
-            }
+            startNextActivity();
+
+//            if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
+//                Log.e(">>>>", "last run not today");
+//                new GetLatestVersion().execute();
+//            } else{
+//                startNextActivity();
+//            }
         }
     }
     
-    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Starting...", true, false);
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
-            JsonParser jsonParser = new JsonParser();
-            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
-            if (response.getStatus() == 200) {
-                try {
-                    JSONObject responseObj = response.getjObj();
-                    latestVersion = responseObj.getInt("version");
-                    Log.e("??????", "latest version = " + latestVersion + " last updated version = " + lastUpdatedVersion);
-                    return true;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-
-            if (latestVersion > lastUpdatedVersion) {
-                new GetMobileDataUpdate().execute();
-            } else {
-                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
-                if (pDialog.isShowing())
-					try {
-						pDialog.dismiss();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-                    startNextActivity();
-            }
-        }
-    }
-
-
-
-    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading updates...", true, false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-       }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            int version = 0;
-            for(version = lastUpdatedVersion + 1; version <= latestVersion; version ++){
-                if (selectedLang.equals("en")) {
-                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
-                } else {
-                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
-                }
-
-                JsonParser jsonParser = new JsonParser();
-                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
-                if (response.getStatus() == 200) {
-                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
-                    try {
-                        JSONObject responseObj = response.getjObj();
-                        JSONObject mobObj = responseObj.getJSONObject("mobile");
-                        JSONArray dataArray = mobObj.getJSONArray("data");
-                        insertMobileDataToLocalDB(dataArray);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        return false;
-                    }
-                }
-            }
-
-            if(version > latestVersion){
-                return true;
-            } else{
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-
-            if(response){
-                new GetHelpDataUpdate().execute();
-            }
-            else{
-                if (pDialog.isShowing())
-                    pDialog.dismiss();
-
-                startNextActivity();
-            }
-        }
-    }
+//    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Starting...", true, false);
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            String url = AppConstants.BASE_URL + AppConstants.VERSION_CHECK_URL;
+//            JsonParser jsonParser = new JsonParser();
+//            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, url, null, null, null);
+//            if (response.getStatus() == 200) {
+//                try {
+//                    JSONObject responseObj = response.getjObj();
+//                    latestVersion = responseObj.getInt("version");
+//                    Log.e("??????", "latest version = " + latestVersion + " last updated version = " + lastUpdatedVersion);
+//                    return true;
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            return false;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean response) {
+//            super.onPostExecute(response);
+//
+//            if (latestVersion > lastUpdatedVersion) {
+//                new GetMobileDataUpdate().execute();
+//            } else {
+//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
+//                if (pDialog.isShowing())
+//					try {
+//						pDialog.dismiss();
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//                    startNextActivity();
+//            }
+//        }
+//    }
 
 
 
+//    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            try {
+//				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading updates...", true, false);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//       }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            int version = 0;
+//            for(version = lastUpdatedVersion + 1; version <= latestVersion; version ++){
+//                if (selectedLang.equals("en")) {
+//                    mobileDataUrl = AppConstants.BASE_URL + "/api/mobile." + version + ".json";
+//                } else {
+//                    mobileDataUrl = AppConstants.BASE_URL + "/api/" + selectedLang + "/" + "mobile." + version + ".json";
+//                }
+//
+//                JsonParser jsonParser = new JsonParser();
+//                ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, mobileDataUrl, null, null, null);
+//                if (response.getStatus() == 200) {
+//                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
+//                    try {
+//                        JSONObject responseObj = response.getjObj();
+//                        JSONObject mobObj = responseObj.getJSONObject("mobile");
+//                        JSONArray dataArray = mobObj.getJSONArray("data");
+//                        insertMobileDataToLocalDB(dataArray);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                        return false;
+//                    }
+//                }
+//            }
+//
+//            if(version > latestVersion){
+//                return true;
+//            } else{
+//                return false;
+//            }
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean response) {
+//            super.onPostExecute(response);
+//
+//            if(response){
+//                new GetHelpDataUpdate().execute();
+//            }
+//            else{
+//                if (pDialog.isShowing())
+//                    pDialog.dismiss();
+//
+//                startNextActivity();
+//            }
+//        }
+//    }
 
-    private class GetHelpDataUpdate extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading help pages...", true, false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            JsonParser jsonParser = new JsonParser();
-            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, helpDataUrl, null, null, null);
-            if (response.getStatus() == 200) {
-                Log.d(">>>><<<<", "success in retrieving server-response for url = " + helpDataUrl);
-                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
-                try {
-                    JSONObject responseObj = response.getjObj();
-                    JSONObject mobObj = responseObj.getJSONObject("help");
-                    JSONArray dataArray = mobObj.getJSONArray("data");
-                    insertHelpDataToLocalDB(dataArray);
-                    ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
-                    return true;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-            if (pDialog.isShowing())
-				try {
-					pDialog.dismiss();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-            startNextActivity();
-        }
-    }
 
 
 
-    private void insertHelpDataToLocalDB(JSONArray dataArray) {
-        List<HelpPage> pageList = HelpPage.parseHelpPages(dataArray);
+//    private class GetHelpDataUpdate extends AsyncTask<Void, Void, Boolean> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            try {
+//				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Downloading help pages...", true, false);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//            JsonParser jsonParser = new JsonParser();
+//            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, helpDataUrl, null, null, null);
+//            if (response.getStatus() == 200) {
+//                Log.d(">>>><<<<", "success in retrieving server-response for url = " + helpDataUrl);
+//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+//                try {
+//                    JSONObject responseObj = response.getjObj();
+//                    JSONObject mobObj = responseObj.getJSONObject("help");
+//                    JSONArray dataArray = mobObj.getJSONArray("data");
+//                    insertHelpDataToLocalDB(dataArray);
+//                    ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
+//                    return true;
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            return false;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean response) {
+//            super.onPostExecute(response);
+//            if (pDialog.isShowing())
+//				try {
+//					pDialog.dismiss();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//
+//            startNextActivity();
+//        }
+//    }
 
-        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
-        dbInstance.open();
 
-        for (int i = 0; i < pageList.size(); i++) {
-            dbInstance.insertOrUpdateHelpPage(pageList.get(i));
-        }
-        dbInstance.close();
-    }
+
+//    private void insertHelpDataToLocalDB(JSONArray dataArray) {
+//        List<HelpPage> pageList = HelpPage.parseHelpPages(dataArray);
+//
+//        PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
+//        dbInstance.open();
+//
+//        for (int i = 0; i < pageList.size(); i++) {
+//            dbInstance.insertOrUpdateHelpPage(pageList.get(i));
+//        }
+//        dbInstance.close();
+//    }
 
 
     private void insertMobileDataToLocalDB(JSONArray dataArray) {
