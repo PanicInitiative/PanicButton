@@ -22,7 +22,6 @@ public class AppConstants {
     public static final long NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE = 1000 * 20;
     public static final long NETWORK_MIN_TIME = 1000 * 60 * 2;
 
-    public static final String CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND = "Trying to identify location";
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
 //    public static final int HTTP_REQUEST_TYPE_GET = 1;
@@ -51,7 +50,7 @@ public class AppConstants {
 //    public static final String HELP_DATA_URL = "/api/help.json";
 //    public static final String VERSION_CHECK_URL = "/api/version.json";
 
-    public static final int DATABASE_VERSION = 16;
+    public static final int DATABASE_VERSION = 17;
 
     public static final String DEFAULT_CONFIRMATION_MESSAGE = "Settings saved";
 

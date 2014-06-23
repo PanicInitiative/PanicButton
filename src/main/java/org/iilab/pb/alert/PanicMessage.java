@@ -3,7 +3,7 @@ package org.iilab.pb.alert;
 import android.content.Context;
 import android.location.Location;
 
-import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.R;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.LocationFormatter;
 import org.iilab.pb.model.SMSSettings;
@@ -54,7 +54,7 @@ public class PanicMessage {
             }
         } else {
             if (locationString == "") {
-                smsText = AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND;
+                smsText = context.getResources().getString(R.string.location_not_found);
             } else {
                 smsText = locationString;
             }

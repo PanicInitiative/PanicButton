@@ -38,7 +38,7 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
 
-        deleteShortCut();
+        //deleteShortCut();
 
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);

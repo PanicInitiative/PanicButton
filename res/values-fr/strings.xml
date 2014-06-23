@@ -10,6 +10,7 @@
 
     <string name="i_am_at">Je suis ici:</string>
     <string name="i_am_at_url">Je suis ici: http://maps.google.com/GPS-location</string>
+    <string name="location_not_found">En cours d\'identification de l\'emplacement</string>
     <string name="panic_button">Bouton\nd\'Urgence</string>
     <string name="page_title_text">Titre</string>
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 
+import org.iilab.pb.R;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.LocationTestUtil;
@@ -103,7 +104,7 @@ public class PanicMessageTest {
         PanicMessage panicMessage = createPanicMessage();
         panicMessage.send(null);
 
-        String messageWithoutLocation = AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND;
+        String messageWithoutLocation = context.getResources().getString(R.string.location_not_found);
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithoutLocation);
         verify(mockSMSAdapter).sendSMS(context, mobile3, messageWithoutLocation);
         verifyNoMoreInteractions(mockSMSAdapter);

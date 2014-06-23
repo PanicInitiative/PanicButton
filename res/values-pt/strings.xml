@@ -10,6 +10,7 @@
 
     <string name="i_am_at">Estou em</string>
     <string name="i_am_at_url">Estou em https://maps.google.com/GPS-location</string>
+    <string name="location_not_found">Tentando identificar a localização</string>
     <string name="panic_button">Botão\nPânico</string>
     <string name="page_title_text">Title</string>
 
