@@ -38,6 +38,8 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_screen);
 
+        deleteShortCut();
+
         latestVersion = -1;
         lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
 
@@ -92,6 +94,24 @@ public class HomeActivity extends Activity {
 //    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
 //        System.gc();
     }
+
+
+    private void deleteShortCut() {
+
+        Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
+        shortcutIntent.setClassName("org.iilab.pb", "HomeActivity");
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        Intent removeIntent = new Intent();
+        removeIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        removeIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "ShortcutName");
+        removeIntent.putExtra("duplicate", false);
+
+        removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+        sendBroadcast(removeIntent);
+    }
+
 
     private void startNextActivity(){
         Log.e(">>>>>>>>>>>>", "starting next activity");
