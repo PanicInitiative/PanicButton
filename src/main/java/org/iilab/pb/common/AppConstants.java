@@ -2,7 +2,7 @@ package org.iilab.pb.common;
 
 public class AppConstants {
     //Test values
-	public static final boolean SKIP_WIZARD = true;
+	public static final boolean SKIP_WIZARD = false;
     //public static final int PHONE_NUMBER_LIMIT = 3;
 
 	//Prod values

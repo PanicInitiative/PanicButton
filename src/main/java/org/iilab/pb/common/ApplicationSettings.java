@@ -25,6 +25,7 @@ public class ApplicationSettings extends Application{
     public static final String LAST_UPDATED_DB_VERSION = "LAST_UPDATED_DB_VERSION";
     public static final String ALERT_DELAY = "ALERT_DELAY";
     public static final String IS_FIRST_MSG_WITH_LOCATION_TRIGGERED = "is_first_msg_with_location_triggered";
+    public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
 
     public static Context getAppContext(){
         return getAppContext();
@@ -164,7 +165,7 @@ public class ApplicationSettings extends Application{
     }
 
     public static int getAlertDelay(Context context) {
-        return sharedPreferences(context).getInt(ALERT_DELAY, AppConstants.DEFAULT_ALARM_INTERVAL);           // need to change it to default value = 5
+        return sharedPreferences(context).getInt(ALERT_DELAY, AppConstants.DEFAULT_ALARM_INTERVAL);
     }
 
 
@@ -172,8 +173,16 @@ public class ApplicationSettings extends Application{
         saveBoolean(context, IS_FIRST_MSG_WITH_LOCATION_TRIGGERED , flag);
     }
 
-    public static Boolean getFirstMsgWithLocationTriggered(Context context) {
+    public static Boolean isFirstMsgWithLocationTriggered(Context context) {
         return sharedPreferences(context).getBoolean(IS_FIRST_MSG_WITH_LOCATION_TRIGGERED, false);
+    }
+
+    public static void setFirstMsgSent(Context context, Boolean flag) {
+        saveBoolean(context, IS_FIRST_MSG_SENT , flag);
+    }
+
+    public static Boolean isFirstMsgSent(Context context) {
+        return sharedPreferences(context).getBoolean(IS_FIRST_MSG_SENT, false);
     }
     
     

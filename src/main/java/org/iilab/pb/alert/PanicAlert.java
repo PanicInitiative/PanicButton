@@ -67,6 +67,7 @@ public class PanicAlert {
         locationManager.removeUpdates(locationPendingIntent(context));
         alarmManager2.cancel(Intents.alarmPendingIntent(context));
         ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
+        ApplicationSettings.setFirstMsgSent(context, false);
     }
 
     private void sendFirstAlert() {
@@ -75,7 +76,7 @@ public class PanicAlert {
         if(loc != null) {
             ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
         } else {
-            ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
+//            ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
             scheduleFirstLocationAlert();
         }
         createPanicMessage().send(loc);
@@ -111,7 +112,7 @@ public class PanicAlert {
 //            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
 //
         int threadRunCount = 0;
-        while(!ApplicationSettings.getFirstMsgWithLocationTriggered(context) && threadRunCount < 4){
+        while(!ApplicationSettings.isFirstMsgWithLocationTriggered(context) && threadRunCount < 4){
             try {
                 Thread.sleep(20000);
                 threadRunCount++;
