@@ -1,12 +1,12 @@
 package org.iilab.pb.alert;
 
+import android.content.Context;
 import android.telephony.SmsManager;
 
-
-import org.iilab.pb.alert.SMSAdapter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowSmsManager;
 
@@ -19,10 +19,13 @@ import static org.robolectric.Robolectric.shadowOf;
 @RunWith(RobolectricTestRunner.class)
 public class SMSAdapterTest {
     private SMSAdapter smsAdapter;
+    private Context context;
 
     @Before
     public void setUp() {
+
         smsAdapter = new SMSAdapter();
+        context = Robolectric.application;
     }
 
     @Test
@@ -30,7 +33,7 @@ public class SMSAdapterTest {
         String message = "Test Message";
         String phoneNumber = "123-123-1222";
 
-        smsAdapter.sendSMS(phoneNumber, message);
+        smsAdapter.sendSMS(context, phoneNumber, message);
 
         ShadowSmsManager shadowSmsManager = shadowOf(SmsManager.getDefault());
         ShadowSmsManager.TextSmsParams lastSentTextMessageParams = shadowSmsManager.getLastSentTextMessageParams();
@@ -52,7 +55,7 @@ public class SMSAdapterTest {
             }
         };
 
-        smsAdapter.sendSMS(phoneNumber, message);
+        smsAdapter.sendSMS(context, phoneNumber, message);
 
         verify(mockSmsManager).sendTextMessage(phoneNumber, null, message, null, null);
     }

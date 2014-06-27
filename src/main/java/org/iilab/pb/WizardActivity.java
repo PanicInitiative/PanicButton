@@ -164,6 +164,8 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
     private void changeAppIcontoCalculator() {
+    	Log.e("WizardActivity.changeAppIcontoCalculator", "");
+
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);

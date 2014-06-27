@@ -109,7 +109,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                     String pageId = currentPage.getAction().get(1).getLink();
 
                     if (pageId.equals("close")) {
-
+/*
                         if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
 //                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
@@ -121,7 +121,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                                     new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                         }
-
+*/
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
                         i = AppUtil.clearBackStack(i);
                         startActivity(i);
@@ -153,7 +153,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
 
                     if (pageId.equals("close")) {
 
-                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+/*                        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
 //                            ApplicationSettings.setFirstRun(WizardModalActivity.this, false);
 
                             getPackageManager().setComponentEnabledSetting(
@@ -164,7 +164,7 @@ public class WizardModalActivity extends BaseFragmentActivity {
                                     new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                         }
-
+*/
                         Intent i = new Intent(WizardModalActivity.this, CalculatorActivity.class);
 //                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i = AppUtil.clearBackStack(i);

@@ -3,7 +3,6 @@ package org.iilab.pb.location;
 import android.content.Context;
 import android.location.Location;
 
-import org.iilab.pb.common.AppConstants;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -22,7 +21,7 @@ public class LocationFormatterTest {
         double latitude = -183.123456;
         double longitude = 78.654321;
         Location location = LocationTestUtil.location(NETWORK_PROVIDER, latitude, longitude, currentTimeMillis(), 10.0f);
-        String expectedMessage = ". I\\'m at https://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
+        String expectedMessage = "I\\'m at https://maps.google.com/maps?q=" + latitude + "," + longitude +" via network";
         LocationFormatter locationFormatter = new LocationFormatter(location);
 
         assertEquals(expectedMessage, locationFormatter.format(context));
@@ -31,6 +30,6 @@ public class LocationFormatterTest {
     @Test
     public void shouldReturnEmptyStringIfTheGivenLocationIsNull() {
         LocationFormatter locationFormatter = new LocationFormatter(null);
-        assertEquals(AppConstants.CUSTOM_ALERT_MSG_WHEN_LOCATION_NOT_FOUND, locationFormatter.format(context));
+        assertEquals("", locationFormatter.format(context));
     }
 }

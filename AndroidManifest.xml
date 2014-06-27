@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="128" android:versionName="1.2.8" package="org.iilab.pb">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="132" android:versionName="1.3.0" package="org.iilab.pb">
     <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="17"/>
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>

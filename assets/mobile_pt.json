@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version" : 7,
+    "version" : 8,
     "data":[
     {
       "id" : "setup-warning",
@@ -8,7 +8,7 @@
       "type" : "warning",
       "title" : "Advertência",
       "action" : [{"title":"Começa","link":"setup-contacts"}],
-      "content" : "<p>O Botão de Pânico é uma ferramenta útil para alertar sua rede rapidamente quando você precisar de ajuda. Ele não pode garantir a sua segurança! Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</p>"
+      "content" : "<p>O Botão de Pânico é uma ferramenta útil para alertar sua rede rapidamente quando você precisa de ajuda. Ele não pode garantir a sua segurança! Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</p>"
     },
     {
       "id" : "setup-message",
@@ -19,7 +19,7 @@
       "warning" : "Combine um plano com seus contatos para que saibam o que fazer quando receberem isto",
       "component" : "message",
       "action" : [{"title":"Próximo","link":"setup-code"}],
-      "content" : "<p>Dicas de segurança</p><ul><li>Procure criar palavras ou frases de código na sua mensagem, que só seus contatos vão entender.</li><li>Numa emergência, você não terá tempo de modificar uma mensagem, portanto crie algo funcione em qualquer situação.</li><li>Se você quiser que sua localização seja incluída na mensagem, ativar rastreamento GPS de configurações do telefone.</li></ul>"
+      "content" : "<p>Dicas de segurança</p><ul><li>Procure criar palavras ou frases de código na sua mensagem, que só seus contatos vão entender.</li><li>Numa emergência, você não terá tempo de modificar uma mensagem, portanto crie algo funcione em qualquer situação.</li><li>Se você quiser que sua localização seja incluída na mensagem, ativar rastreamento GPS nas configurações do telefone.</li></ul>"
     },
     {
       "id" : "setup-language",
@@ -36,7 +36,7 @@
       "type" : "simple",
       "title" : "Configurar o Disfarce",
       "action" : [{"title":"Tente Novamente","link":"setup-disguise-test-open"}],
-      "content" : "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Mantenha o botão pressionado e aparecerá o pedido de digitar sua senha </p>"
+      "content" : "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Mantenha o botão pressionado e aparecerá o pedido de digitar seu código PIN</p>"
     },
     {
       "id" : "setup-disguise-test-unlock",
@@ -58,6 +58,14 @@
       "content" : "<p>Parabéns, você configurou o aplicativo Botão de Pânico!</p>"
     },
     {
+      "id" : "setup-disguise-test-open-fail",
+      "lang" : "pt",
+      "type" : "simple",
+      "title" : "Configurar o Disfarce",
+      "action" : [{"title":"Tente Novamente","link":"setup-disguise-test-open"}],
+      "content" : "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora.</p><p>Lembre-se: o ícone do aplicativo é uma calculadora quando ele está disfarçado.</p>"
+    },
+    {
       "id" : "setup-disguise-test-open",
       "lang" : "pt",
       "type" : "interactive",
@@ -74,14 +82,14 @@
       "type" : "simple",
       "title" : "Configurar o Disfarce",
       "action" : [{"title":"Tente novamente","link":"setup-disguise-test-unlock"}],
-      "content" : "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Digite a senha que você escolheu nos primeiros passos da configuração. Se você não lembrar da sua senha, desinstale o aplicativo e reinstale.</p>"
+      "content" : "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Digite o código PIN que você escolheu nos primeiros passos da configuração. Se você não lembrar do seu código, desinstale o aplicativo e reinstale.</p>"
     },
     {
       "id" : "setup-disguise-test-code",
       "lang" : "pt",
       "type" : "interactive",
       "title" : "Testar o Disfarce",
-      "introduction" : "Muito Bem! Agora digite sua senha para acessar as configurações.",
+      "introduction" : "Muito Bem! Agora digite seu código PIN para acessar as configurações.",
       "component" : "disguise-test-code",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "action" : [{"title":"Ok","link":"setup-disguise-test-success"}],
@@ -111,9 +119,9 @@
       "id" : "setup-code",
       "lang" : "pt",
       "type" : "interactive",
-      "title" : "Criar uma Senha",
-      "introduction" : "Esta senha é necessária para acessar as configurações do aplicativo. Ela não é necessária para alertar os contatos em caso de emergência.",
-      "warning" : "Lembre-se a sua senha! Se esquecer, terá que reinstalar o aplicativo.",
+      "title" : "Criar Um Código PIN",
+      "introduction" : "Este código é necessário para acessar as configurações do aplicativo. Ele não é necessário para alertar os contatos em caso de emergência.",
+      "warning" : "Lembre-se do seu código! Se esquecer, terá que reinstalar o aplicativo.",
       "component" : "code",
       "action" : [{"title":"Próximo","link":"home-not-configured-alarm"}]
     },
@@ -235,16 +243,6 @@
       "content" : "<p>Dicas de Segurança</p><ul><li>Pense em quem pode ajudá-lo de verdade - não adianta alguém saber que você está em apuros se não tiver como ajudar.</li><li>Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</li><li>Esteja ciente dos riscos - de que maneira seus contatos podem ser colocados em risco ?</li></ul>"
     },
     {
-      "id" : "settings-code",
-      "lang" : "pt",
-      "type" : "interactive",
-      "title" : "Criar Uma Senha",
-      "introduction" : "Esta senha é necessária para acessar as configurações do aplicativo. Ela não é necessária para alertar os contatos em caso de emergência.",
-      "warning" : "Lembre-se de sua senha! Se esquecer, terá que reinstalar o aplicativo.",
-      "component" : "code",
-      "action" : [{"title":"Salvar","link":"home-ready","confirmation":"Senha salva"}]
-    },
-    {
       "id" : "settings-alert",
       "lang" : "pt",
       "type" : "interactive",
@@ -324,8 +322,8 @@
       "type" : "modal",
       "title" : "Lista de Controle",
       "action" : [{"title":"Disfarce agora","link":"close"},{"title":"Cancelar","link":"home-ready","status":"disabled"}],
-      "checklist" : [{"title":"Revisar plano de segurança  e atualizar os contatos regularmente"},{"title":"Testar o alerta para garantir que  está funcionando"},{"title":"Verificar se tem  crédito suficiente no telefone"},{"title":"Ativar GPS (se quiser habilitar o rastreamento de localização)"},{"title":"Carregar completamente a bateria do telefone"}],
-      "content" : "<p>Mais <a href=\"help_risk\">dicas de segurança... </a></p>"
+      "checklist" : [{"title":"Revisar o plano de segurança e atualizar os contatos regularmente"},{"title":"Testar o alerta para garantir que está funcionando"},{"title":"Verificar se tem crédito suficiente no telefone"},{"title":"Ativar GPS (se quiser habilitar o rastreamento de localização)"},{"title":"Carregar completamente a bateria do telefone"}],
+      "content" : "<p>Mais <a href=\"#help-charge\">dicas de segurança... </a></p>"
     }]
   }
 }
