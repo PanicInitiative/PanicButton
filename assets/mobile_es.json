@@ -58,6 +58,11 @@
                         "title": "Português",
                         "language": "pt",
                         "confirmation": "Novo idioma aplicado"
+                    },
+                    {
+                        "title": "Deutsch",
+                        "language": "de",
+                        "confirmation": "Neue Sprache eingestellt"
                     }
                 ]
             },
@@ -401,6 +406,11 @@
                         "title": "Português",
                         "language": "pt",
                         "confirmation": "Novo idioma aplicado"
+                    },
+                    {
+                        "title": "Deutsch",
+                        "language": "de",
+                        "confirmation": "Neue Sprache eingestellt"
                     }
                 ]
             },

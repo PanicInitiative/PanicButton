@@ -40,11 +40,6 @@
 				"component": "language",
 				"action": [
 					{
-						"title": "Deutsch",
-						"language": "de",
-						"confirmation": "Neue Sprache eingestellt"
-					},
-					{
 						"title": "English",
 						"language": "en",
 						"confirmation": "New language applied"
@@ -63,6 +58,11 @@
 						"title": "Português",
 						"language": "pt",
 						"confirmation": "Novo idioma aplicado"
+					},
+					{
+						"title": "Deutsch",
+						"language": "de",
+						"confirmation": "Neue Sprache eingestellt"
 					}
 				]
 			},
@@ -388,11 +388,6 @@
 				"component": "language",
 				"action": [
 					{
-						"title": "Deutsch",
-						"language": "de",
-						"confirmation": "Neue Sprache eingestellt"
-					},
-					{
 						"title": "English",
 						"language": "en",
 						"confirmation": "New language applied"
@@ -411,6 +406,11 @@
 						"title": "Português",
 						"language": "pt",
 						"confirmation": "Novo idioma aplicado"
+					},
+					{
+						"title": "Deutsch",
+						"language": "de",
+						"confirmation": "Neue Sprache eingestellt"
 					}
 				]
 			},
