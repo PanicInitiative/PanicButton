@@ -26,7 +26,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
         Log.e(">>>>>>>", "in onReceive of HWReceiver");
         String action = intent.getAction();
 
-        if (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON)) {
+        if (isScreenLocked(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {
                 onActivation(context);
@@ -51,5 +51,10 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
     PanicAlert getPanicAlert(Context context) {
         return new PanicAlert(context);
+    }
+    
+    private boolean isScreenLocked(Context context) {
+        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        return keyguardManager.inKeyguardRestrictedInputMode();
     }
 }
