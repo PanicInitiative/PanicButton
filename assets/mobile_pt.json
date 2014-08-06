@@ -146,7 +146,7 @@
       "lang" : "pt",
       "type" : "interactive",
       "title" : "Testar Alerta de Hardware",
-      "introduction" : "Experimente agora! Pressione repetidamente o botão de ligar,  até sentir uma vibração.",
+      "introduction" : "Experimente agora! Pressione repetidamente o botão de ligar, até sentir uma vibração.",
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
@@ -201,7 +201,7 @@
       "lang" : "pt",
       "type" : "simple",
       "title" : "Sobre",
-      "content" : "<p>O Botão de Pânico transforma seu celular em um alarme secreto para quando você está em apuros</p><p><strong>Como funciona o Botão de Pânico?</strong></p><ul><li>Reserve uma hora e lugar SEGURO e TRANQUILO para configurar o Botão de Pânico </li><li>Combine um plano com seus contatos para que estejam PREPARADOS para AGIR</li><li>VERIFIQUE se você está pronto e se o seu celular tem crédito e bateria</li><li>ATIVE o Botão de Pânico em caso de emergência, pressionando rapidamente o botão de ligar o telefone</li><li>Sua rede receberá um SMS e atualizações regulares da sua localização, permitindo uma AÇÃO RÁPIDA</li></ul><p>O projeto do Botão de Pânico é uma iniciativa da Anistia Internacional, em colaboração com consultores e parceiros chave, incluindo Frontline Defenders, iilab e the engine room</p>"
+      "content" : "<p>O Botão de Pânico transforma seu celular em um alarme secreto para quando você está em apuros</p><p><strong>Como funciona o Botão de Pânico?</strong></p><ul><li>Reserve uma hora e lugar SEGURO e TRANQUILO para configurar o Botão de Pânico </li><li>Combine um plano com seus contatos para que estejam PREPARADOS para AGIR</li><li>VERIFIQUE se você está pronto e se o seu celular tem crédito e bateria</li><li>ATIVE o Botão de Pânico em caso de emergência, pressionando o botão de ligar o telefone</li><li>Sua rede receberá um SMS e atualizações regulares da sua localização, permitindo uma AÇÃO RÁPIDA</li></ul><p>O projeto do Botão de Pânico é uma iniciativa da Anistia Internacional, em colaboração com consultores e parceiros chave, incluindo Frontline Defenders, iilab e the engine room</p>"
     },
     {
       "id" : "settings-reset-confirm",

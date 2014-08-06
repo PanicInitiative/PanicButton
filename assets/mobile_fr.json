@@ -139,14 +139,14 @@
       "type" : "simple",
       "title" : "Configurer l'alerte",
       "action" : [{"title":"Réessayer","link":"setup-alarm-test-hardware"}],
-      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte en utilisant le bouton marche/arrêt de votre téléphone.</p><p>N&#39;oubliez pas: Appuyez plusieurs fois rapidement sur le bouton marche/arrêt de votre téléphone jusqu&#39;à ce que le téléphone vibre. </p>"
+      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte en utilisant le bouton marche/arrêt de votre téléphone.</p><p>N&#39;oubliez pas: Appuyez plusieurs fois sur le bouton marche/arrêt de votre téléphone jusqu&#39;à ce que le téléphone vibre. </p>"
     },
     {
       "id" : "setup-alarm-test-hardware",
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Tester l'alerte hors application",
-      "introduction" : "Essayez! Appuyez plusieurs fois rapidement sur le bouton marche/arrêt de votre téléphone jusqu'à ce que le téléphone vibre.",
+      "introduction" : "Essayez! Appuyez plusieurs fois sur le bouton marche/arrêt de votre téléphone jusqu'à ce que le téléphone vibre.",
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
@@ -167,14 +167,14 @@
       "type" : "simple",
       "title" : "Configurer l'alerte",
       "action" : [{"title":"Réessayer","link":"setup-alarm-test-disguise"}],
-      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte.</p><p>N&#39;oubliez pas : appuyez plusieurs fois rapidement sur une touche de la calculatrice jusqu&#39;à ce que le téléphone vibre. </p>"
+      "content" : "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte.</p><p>N&#39;oubliez pas : appuyez plusieurs fois sur une touche de la calculatrice jusqu&#39;à ce que le téléphone vibre. </p>"
     },
     {
       "id" : "setup-alarm-test-disguise",
       "lang" : "fr",
       "type" : "interactive",
       "title" : "Tester le camouflage",
-      "introduction" : "Essayez! Appuyez plusieurs fois rapidement sur un bouton de la calculatrice jusqu'à ce que le téléphone vibre.",
+      "introduction" : "Essayez! Appuyez plusieurs fois sur un bouton de la calculatrice jusqu'à ce que le téléphone vibre.",
       "component" : "alarm-test-disguise",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-disguise-success"},
@@ -201,7 +201,7 @@
       "lang" : "fr",
       "type" : "simple",
       "title" : "A propos",
-      "content" : "<p>Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret d&#39;envoi d&#39;alerte lorsque vous êtes en danger.</p><p><strong>Comment fonctionne le Bouton d&#39;urgence?</strong></p><ul><li>Choisissez un endroit sûr et tranquille pour paramétrer votre Bouton d&#39;urgence.</li><li>Mettez au point un plan d&#39;action avec vos contacts pour qu&#39;ils sachent quoi faire au moment voulu.</li><li>Vérifiez que tout est prêt et qu&#39;il y a suffisamment de crédit et de batterie sur votre téléphone.</li><li>En cas de danger, activez le Bouton d&#39;urgence en appuyant rapidement sur le bouton de mise en marche de votre téléphone.</li><li>Les membres de votre réseau recevront un SMS et des mises à jour régulières sur l&#39;endroit où vous vous trouvez, ce qui les aidera à agir rapidement.</li></ul><p>Le projet Bouton d&#39;urgence est une initiative d&#39;Amnesty International en collaboration avec des conseillers et des partenaires tels que Frontline Defenders, iilab et Engine room.</p>"
+      "content" : "<p>Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret d&#39;envoi d&#39;alerte lorsque vous êtes en danger.</p><p><strong>Comment fonctionne le Bouton d&#39;urgence?</strong></p><ul><li>Choisissez un endroit sûr et tranquille pour paramétrer votre Bouton d&#39;urgence.</li><li>Mettez au point un plan d&#39;action avec vos contacts pour qu&#39;ils sachent quoi faire au moment voulu.</li><li>Vérifiez que tout est prêt et qu&#39;il y a suffisamment de crédit et de batterie sur votre téléphone.</li><li>En cas de danger, activez le Bouton d&#39;urgence en appuyant sur le bouton de mise en marche de votre téléphone.</li><li>Les membres de votre réseau recevront un SMS et des mises à jour régulières sur l&#39;endroit où vous vous trouvez, ce qui les aidera à agir rapidement.</li></ul><p>Le projet Bouton d&#39;urgence est une initiative d&#39;Amnesty International en collaboration avec des conseillers et des partenaires tels que Frontline Defenders, iilab et Engine room.</p>"
     },
     {
       "id" : "settings-reset-confirm",

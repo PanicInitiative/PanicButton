@@ -244,14 +244,14 @@
                         "link": "setup-alarm-test-hardware"
                     }
                 ],
-                "content": "<p>Parece que la activación de la alarma desde el botón de encender/apagar de tu teléfono no tuvo éxito.</p><p>Recuerda: Presiona el botón  de encender/apagar lo mas rápido posible hasta que sientas una vibración.  </p>"
+                "content": "<p>Parece que la activación de la alarma desde el botón de encender/apagar de tu teléfono no tuvo éxito.</p><p>Recuerda: Presiona el botón de encender/apagar hasta que sientas una vibración.</p>"
             },
             {
                 "id": "setup-alarm-test-hardware",
                 "lang": "es",
                 "type": "interactive",
                 "title": "Test Hardware Alarm",
-                "introduction": "¡Intenta ahora! Presiona repetidamente el botón de encender/apagar lo mas rápido posible hasta que sientas una vibración.",
+                "introduction": "¡Intenta ahora! Presiona repetidamente el botón de encender/apagar hasta que sientas una vibración.",
                 "component": "alarm-test-hardware",
                 "timers": {
                     "info": "0",
@@ -290,14 +290,14 @@
                         "link": "setup-alarm-test-disguise"
                     }
                 ],
-                "content": "<p>Parece que la activación de la alarma no tuvo éxito.</p><p>Recuerda: Presiona repetidamente un mismo botón de la calculadora lo mas rápido posible hasta que sientas una vibración. </p>"
+                "content": "<p>Parece que la activación de la alarma no tuvo éxito.</p><p>Recuerda: Presiona repetidamente un mismo botón de la calculadora hasta que sientas una vibración. </p>"
             },
             {
                 "id": "setup-alarm-test-disguise",
                 "lang": "es",
                 "type": "interactive",
                 "title": "Test Disguised Alarm",
-                "introduction": "¡Intenta ahora! Presiona repetidamente un mismo botón de la calculadora lo mas rápido posible hasta que sientas una vibración.",
+                "introduction": "¡Intenta ahora! Presiona repetidamente un mismo botón de la calculadora hasta que sientas una vibración.",
                 "component": "alarm-test-disguise",
                 "timers": {
                     "info": "0",
@@ -342,7 +342,7 @@
                 "lang": "es",
                 "type": "simple",
                 "title": "Acerca de",
-                "content": "<p>El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para cuando te encuentres en una situación de emergencia.</p><p><strong>¿Cómo funciona el Botón de Pánico?</strong></p><ul><li>Tómate un tiempo para programar el Botón de Pánico en un lugar seguro y tranquilo.</li><li>Crea un plan con tus contactos para que estén preparados para actuar.</li><li>Checa que todo este listo  y que tu teléfono móvil tenga crédito y batería.</li><li>Activa el Botón de Pánico en una emergencia presionando rápidamente el botón de prender/apagar de tu teléfono.</li><li>Tu red de contactos recibirá un SMS y actualizaciones acerca de tu ubicación para ayudarlos a actuar rápido.</li></ul><p>El proyecto del Botón de Pánico es una iniciativa de Amnistía Internacional, en colaboración con Frontline Defenders, iilab y the engine room.</p>"
+                "content": "<p>El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para cuando te encuentres en una situación de emergencia.</p><p><strong>¿Cómo funciona el Botón de Pánico?</strong></p><ul><li>Tómate un tiempo para programar el Botón de Pánico en un lugar seguro y tranquilo.</li><li>Crea un plan con tus contactos para que estén preparados para actuar.</li><li>Checa que todo este listo  y que tu teléfono móvil tenga crédito y batería.</li><li>Activa el Botón de Pánico en una emergencia presionando el botón de prender/apagar de tu teléfono.</li><li>Tu red de contactos recibirá un SMS y actualizaciones acerca de tu ubicación para ayudarlos a actuar rápido.</li></ul><p>El proyecto del Botón de Pánico es una iniciativa de Amnistía Internacional, en colaboración con Frontline Defenders, iilab y the engine room.</p>"
             },
             {
                 "id": "settings-reset-confirm",

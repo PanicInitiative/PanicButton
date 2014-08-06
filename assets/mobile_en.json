@@ -244,14 +244,14 @@
                         "link": "setup-alarm-test-hardware"
                     }
                 ],
-                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert using the phone&#39;s power button.</p><p>Remember: repeatedly press a button on the calculator fast until you feel a vibration.</p>"
+                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert using the phone&#39;s power button.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration.</p>"
             },
             {
                 "id": "setup-alarm-test-hardware",
                 "lang": "en",
                 "type": "interactive",
                 "title": "Test Hardware Alarm",
-                "introduction": "Try Now! Repeatedly press the power button fast until you feel a vibration.",
+                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration.",
                 "component": "alarm-test-hardware",
                 "timers": {
                     "info": "0",
@@ -290,14 +290,14 @@
                         "link": "setup-alarm-test-disguise"
                     }
                 ],
-                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert.</p><p>Remember: repeatedly press a button on the calculator fast until you feel a vibration.</p>"
+                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration.</p>"
             },
             {
                 "id": "setup-alarm-test-disguise",
                 "lang": "en",
                 "type": "interactive",
                 "title": "Test Disguised Alarm",
-                "introduction": "Try Now! Repeatedly press a button on the calculator fast until you feel a vibration.",
+                "introduction": "Try Now! Repeatedly press a button on the calculator until you feel a vibration.",
                 "component": "alarm-test-disguise",
                 "timers": {
                     "info": "0",
