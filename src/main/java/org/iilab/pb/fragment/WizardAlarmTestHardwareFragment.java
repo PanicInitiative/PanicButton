@@ -134,14 +134,10 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         protected void onActivation(Context context) {
             Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
 
-            wakeLock.acquire();
-
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 
             String pageId = currentPage.getSuccessId();
-
-            wakeLock.release();
 
             Intent i = new Intent(activity, WizardActivity.class);
             i.putExtra("page_id", pageId);
