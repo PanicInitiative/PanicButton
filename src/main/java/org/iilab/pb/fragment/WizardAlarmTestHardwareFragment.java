@@ -16,20 +16,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-
-import java.util.HashMap;
 
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.common.GifDecoderView;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.trigger.HardwareTriggerReceiver;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 /**
  * Created by aoe on 1/9/14.
@@ -43,7 +43,8 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     DisplayMetrics metrics;
     PowerManager.WakeLock wakeLock;
 
-    TextView tvContent;
+//    TextView tvContent;
+    GifDecoderView gifView;
 
     Page currentPage;
 
@@ -59,7 +60,8 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type_interactive_test_hardware, container, false);
 
-        tvContent = (TextView) view.findViewById(R.id.fragment_contents);
+//        tvContent = (TextView) view.findViewById(R.id.fragment_contents);
+        gifView = (GifDecoderView) view.findViewById(R.id.gif_view);
 
         return view;
     }
@@ -90,11 +92,34 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             dbInstance.close();
 
             if (currentPage.getContent() == null)
-                tvContent.setVisibility(View.GONE);
+                gifView.setVisibility(View.GONE);
             else {
+                Html.fromHtml(currentPage.getContent(), new Html.ImageGetter() {
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public Drawable getDrawable(final String source) {
+                        try {
+                            Log.e(">>>>>>>>>>>", "Source = " + source);
+                            Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
+
+                            InputStream is = activity.getAssets().open(source.substring(1, source.length()));
+                            gifView.playGif(is, metrics);
+
+//                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
+                            mImageCache.put(source, drawable);
+//                            updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
+                            return drawable;
+                        } catch (IOException e) {
+                            Log.e(">>>>>>>>>>>>>>", "Failed to load gif image from asset");
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                }, new MyTagHandler());
+
                 Log.e(">>>>>", "content = " + currentPage.getContent());
-                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_FULL_WIDTH);
+//                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
+//                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_FULL_WIDTH);
             }
         }
     }
