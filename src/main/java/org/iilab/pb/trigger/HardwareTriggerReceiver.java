@@ -1,5 +1,6 @@
 package org.iilab.pb.trigger;
 
+import android.media.AudioManager;
 import org.iilab.pb.alert.PanicAlert;
 
 import android.app.KeyguardManager;
@@ -14,7 +15,7 @@ import static android.content.Intent.ACTION_SCREEN_ON;
 
 public class HardwareTriggerReceiver extends BroadcastReceiver {
     private static final String TAG = HardwareTriggerReceiver.class.getName();
-//    private MultiClickEvent multiClickEvent;
+    //    private MultiClickEvent multiClickEvent;
     protected MultiClickEvent multiClickEvent;
 
     public HardwareTriggerReceiver() {
@@ -26,7 +27,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
         Log.e(">>>>>>>", "in onReceive of HWReceiver");
         String action = intent.getAction();
 
-        if (isScreenLocked(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
+        if (!isCallActive(context) && isScreenLocked(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
             multiClickEvent.registerClick(System.currentTimeMillis());
             if (multiClickEvent.isActivated()) {
                 onActivation(context);
@@ -52,9 +53,14 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     PanicAlert getPanicAlert(Context context) {
         return new PanicAlert(context);
     }
-    
+
     private boolean isScreenLocked(Context context) {
         KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         return keyguardManager.inKeyguardRestrictedInputMode();
+    }
+
+    private boolean isCallActive(Context context) {
+        AudioManager manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        return manager.getMode() == AudioManager.MODE_IN_CALL;
     }
 }
