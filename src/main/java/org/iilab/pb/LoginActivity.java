@@ -22,6 +22,7 @@ public class LoginActivity extends PanicButtonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen_layout);
         passwordEditText = (EditText) findViewById(R.id.create_pin_edittext);
+        passwordEditText.requestFocus();
         passwordEditText.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
