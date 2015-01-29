@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:windowSoftInputMode="stateVisible">
 
     <ScrollView
         android:id="@+id/wizard_start_root"
@@ -67,7 +68,9 @@
                 android:layout_width="fill_parent"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
 
             <Button
                 android:id="@+id/fragment_action"
