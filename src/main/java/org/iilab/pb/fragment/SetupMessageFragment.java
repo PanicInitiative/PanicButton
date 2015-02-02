@@ -158,7 +158,7 @@ public class SetupMessageFragment extends Fragment {
             }
             bAction.setEnabled(!smsEditText.getText().toString().trim().equals(""));
             smsEditText.setImeOptions(EditorInfo.IME_FLAG_NAVIGATE_NEXT);
-            
+            smsEditText.selectAll();
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
