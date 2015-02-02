@@ -120,6 +120,16 @@ public class PanicMessageTest {
         verify(mockSMSAdapter).sendSMS(context, mobile1, expectedMessage);
     }
 
+    @Test
+    public void shouldSendStopAlertMessage(){
+        PanicMessage panicMessage = createPanicMessage();
+        panicMessage.sendStopAlertMessage();
+
+        String expectedMessage = "I am out of danger";
+
+        verify(mockSMSAdapter).sendSMS(context, mobile1, expectedMessage);
+    }
+
     private PanicMessage createPanicMessage() {
         return new PanicMessage(context) {
             @Override
