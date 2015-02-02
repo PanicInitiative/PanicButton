@@ -29,6 +29,7 @@ import org.iilab.pb.adapter.PageActionAdapter;
 import org.iilab.pb.adapter.PageActionFakeAdapter;
 import org.iilab.pb.adapter.PageItemAdapter;
 import org.iilab.pb.alert.PanicAlert;
+import org.iilab.pb.alert.PanicMessage;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
@@ -92,7 +93,7 @@ public class SimpleFragment extends Fragment {
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleAlert();
+                stopAlert();
                 String pageId = currentPage.getAction().get(0).getLink();
 
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
@@ -263,14 +264,11 @@ public class SimpleFragment extends Fragment {
         }
     }
 
-    private void toggleAlert() {
+    private void stopAlert() {
         PanicAlert panicAlert = getPanicAlert();
-        if(panicAlert.isActive()) {
-            panicAlert.deActivate();
-        } else{
-            panicAlert.activate();
-        }
-//        activity.finish();
+        panicAlert.deActivate();
+
+        new PanicMessage(activity.getApplicationContext()).sendStopAlertMessage();
     }
 
     PanicAlert getPanicAlert() {

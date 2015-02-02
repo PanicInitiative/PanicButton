@@ -26,6 +26,7 @@
     <string name="alert_status_standby">La alerta se encuentra en pausa </string>
     <string name="send_emergency_alert">&#160;&#160;Enviar alerta de emergencia</string>
     <string name="stop_alert">&#160;&#160;Detener alerta</string>
+    <string name="stop_alert_message">Estoy fuera de peligro</string>
     <string name="alert_status_active">La alerta esta activada y se enviara cada cinco minutos </string>
 
     <string name="choose_contact">Escoge a tus contactos de emergencia</string>

@@ -26,6 +26,7 @@
     <string name="alert_status_standby">Alarm ist in Bereitschaft</string>
     <string name="send_emergency_alert">&#160;&#160;Sende Notfall-Alarm</string>
     <string name="stop_alert">&#160;&#160;Beende Alarmzustand</string>
+    <string name="stop_alert_message">Ich bin aus der Gefahrenzone</string>
     <string name="alert_status_active">Die App ist im Alarmzustand und sendet alle 5 Minuten</string>
 
     <string name="first_contact">&#160;1.&#160;</string>

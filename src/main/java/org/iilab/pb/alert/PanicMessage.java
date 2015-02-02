@@ -8,6 +8,8 @@ import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.LocationFormatter;
 import org.iilab.pb.model.SMSSettings;
 
+import java.util.List;
+
 import static android.telephony.SmsMessage.MAX_USER_DATA_SEPTETS;
 
 public class PanicMessage {
@@ -19,17 +21,31 @@ public class PanicMessage {
         this.context = context;
     }
 
-    public void send(Location location) {
+    public void sendAlertMessage(Location location) {
         this.location = location;
-        sendSMS();
+
+        SMSSettings smsSettings = SMSSettings.retrieve(context);
+
+        String message = getSMSText(smsSettings.trimmedMessage());
+        List<String> phoneNumbers = getPhoneNumbers();
+
+        sendMessage(message, phoneNumbers);
     }
 
-    private void sendSMS() {
-        SMSSettings smsSettings = SMSSettings.retrieve(context);
-        SMSAdapter smsAdapter = getSMSAdapter();
-        String message = getSMSText(smsSettings.trimmedMessage());
+    public void sendStopAlertMessage() {
+        String message = context.getResources().getString(R.string.stop_alert_message);
 
-        for (String phoneNumber : smsSettings.validPhoneNumbers()) {
+        sendMessage(message, getPhoneNumbers());
+    }
+
+    private List<String> getPhoneNumbers(){
+        SMSSettings smsSettings = SMSSettings.retrieve(context);
+        return smsSettings.validPhoneNumbers();
+    }
+
+    private void sendMessage(String message, List<String> phoneNumbers){
+        SMSAdapter smsAdapter = getSMSAdapter();
+        for (String phoneNumber : phoneNumbers) {
             smsAdapter.sendSMS(context, phoneNumber, message);
         }
     }

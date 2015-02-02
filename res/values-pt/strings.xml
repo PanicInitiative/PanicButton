@@ -26,6 +26,7 @@
     <string name="alert_status_standby">Alerta está em modo de espera</string>
     <string name="send_emergency_alert">&#160;&#160;Enviar alerta de emergência</string>
     <string name="stop_alert">&#160;&#160;Parar alerta</string>
+    <string name="stop_alert_message">Estou fora de perigo</string>
     <string name="alert_status_active">Alerta está ativo e enviando a cada 5 minutos</string>
 
     <string name="choose_contact">Escolher contato de emergência</string>

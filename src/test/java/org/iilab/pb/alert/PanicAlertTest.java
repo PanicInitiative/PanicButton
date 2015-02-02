@@ -137,7 +137,7 @@ public class PanicAlertTest {
 
         panicAlert.activate();
 
-        verify(mockPanicMessage).send(mockLocation);
+        verify(mockPanicMessage).sendAlertMessage(mockLocation);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class PanicAlertTest {
 
         panicAlert.activate();
 
-        verify(mockPanicMessage).send(null);
+        verify(mockPanicMessage).sendAlertMessage(null);
     }
 
     @Test

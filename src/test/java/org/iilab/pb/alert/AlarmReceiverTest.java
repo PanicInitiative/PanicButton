@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.location.Location;
 
 
-import org.iilab.pb.alert.AlarmReceiver;
-import org.iilab.pb.alert.PanicMessage;
 import org.iilab.pb.common.Intents;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,14 +38,14 @@ public class AlarmReceiverTest {
     public void shouldSendAlertOnReceivingAlarmIntent() {
         doReturn(mockPanicMessage).when(alarmReceiver).getPanicMessage(any(Context.class));
         alarmReceiver.onReceive(context, new Intent(Intents.SEND_ALERT_ACTION));
-        verify(mockPanicMessage).send(any(Location.class));
+        verify(mockPanicMessage).sendAlertMessage(any(Location.class));
     }
 
     @Test
     public void shouldIgnoreOtherIntents() {
         doReturn(mockPanicMessage).when(alarmReceiver).getPanicMessage(any(Context.class));
         alarmReceiver.onReceive(context, new Intent(Intent.ACTION_ANSWER));
-        verify(mockPanicMessage, never()).send(any(Location.class));
+        verify(mockPanicMessage, never()).sendAlertMessage(any(Location.class));
     }
 
     @Test
