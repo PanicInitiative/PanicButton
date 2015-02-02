@@ -39,6 +39,7 @@
             android:textColor="@android:color/black"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:selectAllOnFocus="true"
             style="@style/message_box" />
 
         <TextView
