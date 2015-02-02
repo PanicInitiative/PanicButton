@@ -20,7 +20,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mContext = context.getApplicationContext();
         if(intent.getAction().equals(Intents.SEND_ALERT_ACTION)) {
             Log.e(">>>>>>>>", "alert update received in AlarmReceiver at current time in millis = " + System.currentTimeMillis() % 100000);
-            getPanicMessage(mContext).send(getCurrentBestLocation());
+            getPanicMessage(mContext).sendAlertMessage(getCurrentBestLocation());
 
             if (!ApplicationSettings.isFirstMsgWithLocationTriggered(context)) {
                 ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
@@ -29,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             Log.e(">>>>>>>>", "alert update(single) received in AlarmReceiver at current time in millis = " + System.currentTimeMillis() % 100000);
 
             if (!ApplicationSettings.isFirstMsgWithLocationTriggered(context)) {
-                getPanicMessage(mContext).send(getCurrentBestLocation());
+                getPanicMessage(mContext).sendAlertMessage(getCurrentBestLocation());
                 ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
             }
         }

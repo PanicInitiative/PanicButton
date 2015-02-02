@@ -1,0 +1,714 @@
+{
+	"mobile": {
+		"version": 8,
+		"data": [
+			{
+				"id": "setup-warning",
+				"lang": "de",
+				"type": "warning",
+				"title": "Warnung",
+				"action": [
+					{
+						"title": "Los geht's",
+						"link": "setup-contacts"
+					}
+				],
+				"content": "<p> Panik Knopf ist ein nützliches Werkzeug, um dein Netzwer schnell wissen zu lassen, wenn du Hilfe brauchst. Es kann nicht deine Sicherheit garantieren! Mache einen Plan mit deinen Kontakten, sodass sie vorbereitet sind, schnell zu agieren. </p>"
+			},
+			{
+				"id": "setup-message",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Einrichten der Alarm-Nachricht",
+				"introduction": "Dies ist eine Nachricht, die zusammen mit deiner Position gesendet wird.",
+				"warning": "Bespreche einen Plan mit deinen Kontakten, sodass sie wissen, was sie tun müssen, wenn sie dies empfangen.",
+				"component": "message",
+				"action": [
+					{
+						"title": "Weiter",
+						"link": "setup-code"
+					}
+				],
+				"content": "<p> Sicherheits-Tipps </p><ul><li> Überlege, Kode-Wörter oder Formulierungen in der Nachricht zu nutzen, die nur dein Kontakt versteht. </li><li> Du wirst in einem Notfall keine Zeit haben die Nachricht zu ändern, also nutze etwas, das in allen Situation funktioniert. </li><li> Schalte GPS-Empfang ein in den Einstellungen deines Telefons wenn du möchtest, daß die Position in der Nachricht mitgesendet werden soll. </li></ul>"
+			},
+			{
+				"id": "setup-language",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Sprach-Einstellungen",
+				"introduction": "Wähle die Sprache für die App",
+				"component": "language",
+				"action": [
+					{
+						"title": "English",
+						"language": "en",
+						"confirmation": "New language applied"
+					},
+					{
+						"title": "Español",
+						"language": "es",
+						"confirmation": "Nuevo lenguaje seleccionado"
+					},
+					{
+						"title": "Français",
+						"language": "fr",
+						"confirmation": "Nouveau language selectionné"
+					},
+					{
+						"title": "Português",
+						"language": "pt",
+						"confirmation": "Novo idioma aplicado"
+					},
+					{
+						"title": "Deutsch",
+						"language": "de",
+						"confirmation": "Neue Sprache eingestellt"
+					}
+				]
+			},
+			{
+				"id": "setup-disguise-test-unlock-fail",
+				"lang": "de",
+				"type": "simple",
+				"title": "Einstellung der Tarnung",
+				"action": [
+					{
+						"title": "Versuch's nochmal",
+						"link": "setup-disguise-test-open"
+					}
+				],
+				"content": "<p> Es scheint, du warst nicht erfolgreich, die App aus der Rechner!-Tarnung zu öffnen. </p><p> Zur Erinnerung: Drücke irgendeinen Knopf des Rechners für längere Zeit, dann wirst du gefragt, die PIN einzugeben. /p>"
+			},
+			{
+				"id": "setup-disguise-test-unlock",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Test der Tarnung",
+				"introduction": "Versuch's! Halte irgendeinen Knopf des Rechners für längere Zeit.",
+				"component": "disguise-test-unlock",
+				"timers": {
+					"info": "0",
+					"inactive": "10",
+					"fail": "20"
+				},
+				"success": {
+					"link": "setup-disguise-test-code"
+				},
+				"fail": {
+					"link": "setup-disguise-test-unlock-fail"
+				}
+			},
+			{
+				"id": "setup-disguise-test-success",
+				"lang": "de",
+				"type": "simple",
+				"title": "Sehr gut",
+				"action": [
+					{
+						"title": "Fertig",
+						"link": "home-ready"
+					}
+				],
+				"content": "<p>Gratuliere, du hast die Panik Knopf App erfolgreich konfiguriert!</p>"
+			},
+			{
+				"id": "setup-disguise-test-open-fail",
+				"lang": "de",
+				"type": "simple",
+				"title": "Einstellung der Tarnung",
+				"action": [
+					{
+						"title": "Versuch's nochmal",
+						"link": "setup-disguise-test-open"
+					}
+				],
+				"content": "<p> Es scheint, als hättest du die Rechner!-Tarnung nicht gestartet. </p><p> Zur Erinnerung: Das App-Symbol ist zur Tarnung ein Taschenrechner.</p>"
+			},
+			{
+				"id": "setup-disguise-test-open",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Test der Tarnung",
+				"introduction": "Versuch's jetzt! Öffne die App indem du auch das Rechner!-Symbol klickst",
+				"component": "disguise-test-open",
+				"timers": {
+					"info": "0",
+					"inactive": "10",
+					"fail": "20"
+				},
+				"success": {
+					"link": "setup-disguise-test-unlock"
+				},
+				"fail": {
+					"link": "setup-disguise-test-open-fail"
+				}
+			},
+			{
+				"id": "setup-disguise-test-code-fail",
+				"lang": "de",
+				"type": "simple",
+				"title": "Einstellung der Tarnung",
+				"action": [
+					{
+						"title": "Versuch's nochmal",
+						"link": "setup-disguise-test-unlock"
+					}
+				],
+				"content": "<p> Es scheint als hättest du die App aus dem Rechner nicht gestartet. </p><p> Zur Erinnerung: Gebe die PIN ein, die du in den ersten Schritten der Einstellungen erfasst hast. Solltest du dich an die PIN nicht erinnern, musst du die App deinstallieren und neu installieren. </p>"
+			},
+			{
+				"id": "setup-disguise-test-code",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Test der Tarnung",
+				"introduction": "Sehr gut! Nun gebe die PIN ein um zu den Einstellungen zu gelangen.",
+				"component": "disguise-test-code",
+				"timers": {
+					"info": "0",
+					"inactive": "10",
+					"fail": "20"
+				},
+				"action": [
+					{
+						"title": "Okay",
+						"link": "setup-disguise-test-success"
+					}
+				],
+				"success": {
+					"link": "setup-disguise-test-success"
+				},
+				"fail": {
+					"link": "setup-disguise-test-code-fail"
+				}
+			},
+			{
+				"id": "setup-disguise",
+				"lang": "de",
+				"type": "simple",
+				"title": "Einstellung der Tarnung",
+				"action": [
+					{
+						"title": "Übungen",
+						"link": "setup-disguise-test-open"
+					}
+				],
+				"content": "<p> Panik Knopf verteckt sich indem es wie ein einfacher Rechner aussieht. Ab jetzt wird du die Rechner-Tarnung sehen, wenn du die App startest. Erfahre, wie es funktionert... </p>"
+			},
+			{
+				"id": "setup-contacts",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Einstellung der Kontakte",
+				"introduction": "Diese Menschen werden den Alarm empfangen.",
+				"warning": "Sie sollten dich persönlich kennen und in der Lage sein, schnell zu reagieren.",
+				"component": "contacts",
+				"action": [
+					{
+						"title": "Weiter",
+						"link": "setup-message"
+					}
+				],
+				"content": "<p>Sicherheits Tipps</p><ul><li> Überlege, wer dir wirklich helfen kann - es ist sinnlos, wenn jemand weiss, daß du in Schwierigkeiten bist, aber nicht helfen kann. </li><li> Erarbeite einen Plan mit deinen ausgewählten Kontakten, sodass sie vorbereitet sind, schnell zu agieren. </li><li> Sei die der Risikenn bewusst - wie könnte dein Kontakt in Gefahr geraten? </li></ul>"
+			},
+			{
+				"id": "setup-code",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Erfasse eine PIN",
+				"introduction": "Diese PIN wird benötigt, um die Einstellungen zu ändern und den Alarm zu beenden. Die PIN wird nicht benötigt, um den Alarm auszulösen.",
+				"warning": "Merke dir deine PIN! Wenn du die PIN vergessen hast, musst du die App neu installieren.",
+				"component": "code",
+				"action": [
+					{
+						"title": "Weiter",
+						"link": "home-not-configured-alarm"
+					}
+				]
+			},
+			{
+				"id": "setup-alarm-test-hardware-success",
+				"lang": "de",
+				"type": "simple",
+				"title": "Sehr gut!",
+				"action": [
+					{
+						"title": "Weiter",
+						"link": "setup-alarm-disguise"
+					}
+				],
+				"content": "<p> Dein Test was erfolgreich! In einem echten Notfall würde der Alarm nun zu deinen Kontakten gesendet. </p>"
+			},
+			{
+				"id": "setup-alarm-test-hardware-fail",
+				"lang": "de",
+				"type": "simple",
+				"title": "Einrichten des Alarms",
+				"action": [
+					{
+						"title": "Versuch's nochmal",
+						"link": "setup-alarm-test-hardware"
+					}
+				],
+				"content": "<p> Es scheint als ob du den Alarm mit dem Einschaltknopf deines Telefon nicht auslösen konntest. </p><p> Zur Erinnerung:  Drücke den Einschaltknopf deines Telefons wiederholt immer wieder, bis du den Vibrationsalarm spürst. </p>"
+			},
+			{
+				"id": "setup-alarm-test-hardware",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Test des Alarms",
+				"introduction": "Versuch's jetzt! Drücke den Einschaltknopf wiederholt immer wieder, bis du den Vibrationsalarm spürst.",
+				"component": "alarm-test-hardware",
+				"timers": {
+					"info": "0",
+					"inactive": "10",
+					"fail": "20"
+				},
+				"success": {
+					"link": "setup-alarm-test-hardware-success"
+				},
+				"fail": {
+					"link": "setup-alarm-test-hardware-fail"
+				},
+				"content": "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
+			},
+			{
+				"id": "setup-alarm-test-disguise-success",
+				"lang": "de",
+				"type": "simple",
+				"title": "Sehr gut!",
+				"action": [
+					{
+						"title": "Weiter",
+						"link": "home-not-configured-disguise"
+					}
+				],
+				"content": "<p> Dein Test was erfolgreich! In einem echten Notfall würde der Alarm nun zu deinen Kontakten gesendet. </p>"
+			},
+			{
+				"id": "setup-alarm-test-disguise-fail",
+				"lang": "de",
+				"type": "simple",
+				"title": "Setup Alert",
+				"action": [
+					{
+						"title": "Versuch's nochmal",
+						"link": "setup-alarm-test-disguise"
+					}
+				],
+				"content": "<p> Es scheint als ob du den Alarm mit dem Einschaltknopf deines Telefon nicht auslösen konntest. </p><p> Zur Erinnerung:  Drücke den Einschaltknopf deines Telefons wiederholt immer wieder, bis du den Vibrationsalarm spürst. </p>"
+			},
+			{
+				"id": "setup-alarm-test-disguise",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Test des Alarms",
+				"introduction": "Versuch's jetzt! Drücke den Einschaltknopf deines Telefons wiederholt immer wieder, bis du den Vibrationsalarm spürst.",
+				"component": "alarm-test-disguise",
+				"timers": {
+					"info": "0",
+					"inactive": "10",
+					"fail": "20"
+				},
+				"success": {
+					"link": "setup-alarm-test-disguise-success"
+				},
+				"fail": {
+					"link": "setup-alarm-test-disguise-fail"
+				}
+			},
+			{
+				"id": "setup-alarm-disguise",
+				"lang": "de",
+				"type": "simple",
+				"title": "Setup Alert",
+				"action": [
+					{
+						"title": "Übungen",
+						"link": "setup-alarm-test-disguise"
+					}
+				],
+				"content": "<p>Du kannst den Alarm aber auch direkt vom Tarn-Bildschirm auslösen. </p>"
+			},
+			{
+				"id": "setup-alarm",
+				"lang": "de",
+				"type": "simple",
+				"title": "Setup Alert",
+				"action": [
+					{
+						"title": "Übungen",
+						"link": "setup-alarm-test-hardware"
+					}
+				],
+				"content": "<p> Nun versuche den Panik-Knopf im Fall eines Notfalls auzulösen. </p><p> Panik Knopf ist besonders, da du den Alarm mit dem Einschaltknopf aulösen kannst. Das bedeutet, daß du dies sicher tun kannst - zum Beispiel in deiner Jackentasche. </p>"
+			},
+			{
+				"id": "setup-about",
+				"lang": "de",
+				"type": "simple",
+				"title": "Über",
+				"content": "<p> Panik Knopf verwandelt dein Handy in einen stillen Notfall-Alarm wenn du in Schwierigkeiten bist. </p><p><strong> Wie funktioniert Panik Knopf? </strong></p><ul><li> Nimm dir Zeit an einem ruhigen, sicheren Ort um Panik Knopf aufzusetzen. </li><li> Mache einen Plan mit deinen Kontakten, sodass sie vorbereitet sind zu agieren. </li><li> Prüfe, ob dein Handy genug Guthaben und Akku hat. </li><li> Aktiviere Panik Knopf in einem Notfall indem du wiederholt den Einschaltknopf drückst. </li><li> Deine Kontakte werden in regelmäßigen Abständen eine SMS mit deiner Position erhalten, damit sie schnell reagieren können. </li></ul><p> Das Panik Knopf Projekt ist eine Initiative von Amnesty International in Zusammenarbeit mit Beratern und Partnern wie zum Beispiel Frontline Defenders, iilab und engine room.</p>"
+			},
+			{
+				"id": "settings-reset-confirm",
+				"lang": "de",
+				"type": "warning",
+				"title": "Bestästige die Neuinstallation",
+				"action": [
+					{
+						"title": "Bestästigung",
+						"link": "home-not-configured"
+					}
+				],
+				"content": "<p>Bestätige, daß du die App neuinstallieren willst. Wenn du die App neu installierst, wird der Alarm deaktiviert, bis du den Einstellungs-Wizard abgeschlossen hast. </p>"
+			},
+			{
+				"id": "settings-message",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Setup alert message",
+				"introduction": "Dieses ist die Nachricht, die zusammen mit deiner Position gesendet wird.",
+				"warning": "Besprich dich mit deinen Kontakten, damit sie wissen was zu tun ist, wenn sie dies empfangen.",
+				"component": "message",
+				"action": [
+					{
+						"title": "Speichern",
+						"link": "home-ready",
+						"confirmation": "Nachricht gespeichert"
+					}
+				],
+				"content": "<p> Sicherheits-Tipps </p><ul><li> Überlege, Kode-Wörter oder Formulierungen in der Nachricht zu nutzen, die nur dein Kontakt versteht. </li><li> Du wirst in einem Notfall keine Zeit haben die Nachricht zu ändern, also nutze etwas, das in allen Situation funktioniert. </li><li> Schalte GPS-Empfang ein in den Einstellungen deines Telefons wenn du möchtest, daß die Position in der Nachricht mitgesendet werden soll. </li></ul>"
+			},
+			{
+				"id": "settings-language",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Sprach-Einstellungen",
+				"introduction": "Wähle die Sprache für die App",
+				"component": "language",
+				"action": [
+					{
+						"title": "English",
+						"language": "en",
+						"confirmation": "New language applied"
+					},
+					{
+						"title": "Español",
+						"language": "es",
+						"confirmation": "Nuevo lenguaje seleccionado"
+					},
+					{
+						"title": "Français",
+						"language": "fr",
+						"confirmation": "Nouveau language selectionné"
+					},
+					{
+						"title": "Português",
+						"language": "pt",
+						"confirmation": "Novo idioma aplicado"
+					},
+					{
+						"title": "Deutsch",
+						"language": "de",
+						"confirmation": "Neue Sprache eingestellt"
+					}
+				]
+			},
+			{
+				"id": "settings-contacts",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Einstellung der Kontakte",
+				"introduction": "Diese Menschen werden den Alarm empfangen.",
+				"warning": "Sie sollten dich persönlich kennen und in der Lage sein, schnell zu reagieren.",
+				"component": "contacts",
+				"action": [
+					{
+						"title": "Speichern",
+						"link": "home-ready",
+						"confirmation": "Contacts saved"
+					}
+				],
+				"content": "<p>Sicherheits Tipps</p><ul><li> Überlege, wer dir wirklich helfen kann - es ist sinnlos, wenn jemand weiss, daß du in Schwierigkeiten bist, aber nicht helfen kann. </li><li> Erarbeite einen Plan mit deinen ausgewählten Kontakten, sodass sie vorbereitet sind, schnell zu agieren. </li><li> Sei die der Risikenn bewusst - wie könnte dein Kontakt in Gefahr geraten? </li></ul>"
+			},
+			{
+				"id": "settings-code",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Erfasse eine PIN",
+				"introduction": "Diese PIN wird benötigt, um die Einstellungen zu ändern und den Alarm zu beenden. Die PIN wird nicht benötigt, um den Alarm auszulösen.",
+				"warning": "Merke dir deine PIN! Wenn du die PIN vergessen hast, musst du die App neu installieren.",
+				"component": "code",
+				"action": [
+					{
+						"title": "Speichern",
+						"link": "home-ready",
+						"confirmation": "Pincode saved"
+					}
+				]
+			},
+			{
+				"id": "settings-alert",
+				"lang": "de",
+				"type": "interactive",
+				"title": "Einstellung des Alarms",
+				"introduction": "Einstellung der Alarmhäufigkeit.",
+				"warning": "Vorsicht, eine zu hohe Häufigkeit entläd schnell den Akku.",
+				"component": "alert",
+				"action": [
+					{
+						"title": "Speichern",
+						"link": "home-ready",
+						"confirmation": "New alert frequency saved"
+					}
+				]
+			},
+			{
+				"id": "settings",
+				"lang": "de",
+				"type": "simple",
+				"title": "Settings",
+				"items": [
+					{
+						"title": "Sprach-Einstellungen",
+						"link": "settings-language"
+					},
+					{
+						"title": "Nachrichten-Einstellungen",
+						"link": "settings-message"
+					},
+					{
+						"title": "Kontakt-Einstellungen",
+						"link": "settings-contacts"
+					},
+					{
+						"title": "Alarm-Einstellungen",
+						"link": "settings-alert"
+					},
+					{
+						"title": "PIN-Einstellungen",
+						"link": "settings-code"
+					},
+					{
+						"title": "Neuinstallation der App",
+						"link": "settings-reset-confirm"
+					}
+				]
+			},
+			{
+				"id": "home-ready",
+				"lang": "de",
+				"type": "simple",
+				"title": "Panik Knopf",
+				"status": [
+					{
+						"title": "Fertig",
+						"color": "green",
+						"link": "help-ready"
+					}
+				],
+				"action": [
+					{
+						"title": "Tarnen",
+						"link": "checklist"
+					}
+				],
+				"items": [
+					{
+						"title": "Einstellungen",
+						"link": "settings"
+					},
+					{
+						"title": "Über diese App",
+						"link": "setup-about"
+					},
+					{
+						"title": "Hilfe",
+						"link": "help"
+					}
+				],
+				"content": "<p>Die Einstellungen von Panik Knopf sind nun vollständig. Klicke 'Tarnen' um die die App wieder zu verstecken.</p>"
+			},
+			{
+				"id": "home-not-configured-disguise",
+				"lang": "de",
+				"type": "simple",
+				"title": "Panik Knopf",
+				"status": [
+					{
+						"title": "Die Einstellungen sind noch nicht vollständig",
+						"color": "red",
+						"link": "help-not-configured"
+					}
+				],
+				"action": [
+					{
+						"title": "Grundeinstellungen",
+						"link": "",
+						"status": "checked"
+					},
+					{
+						"title": "Alarm-Einstellung",
+						"link": "",
+						"status": "checked"
+					},
+					{
+						"title": "Einstellung der Tarnung",
+						"link": "setup-disguise"
+					}
+				],
+				"items": [
+					{
+						"title": "Über diese App",
+						"link": "setup-about"
+					},
+					{
+						"title": "Hilfe",
+						"link": "help"
+					},
+					{
+						"title": "Sprach-Einstellung",
+						"link": "setup-language"
+					}
+				],
+				"content": "<p>Panik Knopf kann nicht benutzt werden, wenn die Einstellungen nicht vollständig sind.</p>"
+			},
+			{
+				"id": "home-not-configured-alarm",
+				"lang": "de",
+				"type": "simple",
+				"title": "Panik Knopf",
+				"status": [
+					{
+						"title": "Die Einstellungen sind nicht vollständig",
+						"color": "red",
+						"link": "help-not-configured"
+					}
+				],
+				"action": [
+					{
+						"title": "Grundeinstellungen",
+						"link": "",
+						"status": "checked"
+					},
+					{
+						"title": "Alarm-Einstellungen",
+						"link": "setup-alarm"
+					},
+					{
+						"title": "Einstellung der Tarnung",
+						"link": "setup-disguise",
+						"status": "disabled"
+					}
+				],
+				"items": [
+					{
+						"title": "Über",
+						"link": "setup-about"
+					},
+					{
+						"title": "Hilfe",
+						"link": "help"
+					},
+					{
+						"title": "Sprach-Einstellung",
+						"link": "setup-language"
+					}
+				],
+				"content": "<p>Panik Knopf kann nicht benutzt werden, wenn die Einstellungen nicht vollständig sind.</p>"
+			},
+			{
+				"id": "home-not-configured",
+				"lang": "de",
+				"type": "simple",
+				"title": "Panik Knopf",
+				"action": [
+					{
+						"title": "Einstellungen",
+						"link": "setup-warning"
+					}
+				],
+				"items": [
+					{
+						"title": "Über",
+						"link": "setup-about"
+					},
+					{
+						"title": "Sprach-Einstellung",
+						"link": "setup-language"
+					}
+				],
+				"content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panik Knopf ist eine Android App, die einen stillen Alarm ein deine Kontakte sendet, wenn du in Schwierigkeiten bist. Die App bleibt auf deinem Handy verborgen und sieht wir ein einfacher Rechner aus. </p>"
+			},
+			{
+				"id": "home-alerting",
+				"lang": "de",
+				"type": "simple",
+				"title": "Panik Knopf",
+				"status": [
+					{
+						"title": "Alarmzustand",
+						"color": "red",
+						"link": "help-alerting"
+					}
+				],
+				"action": [
+					{
+						"title": "Beende den Alarmzustand",
+						"link": "home-ready"
+					}
+				],
+				"content": "<p>Panik Knopf ist im Moment im Alarmzustand. Klicke 'Beende', um den Alarmzustand zu beenden und keine weiteren Nachrichten zu senden. </p>"
+			},
+			{
+				"id": "code",
+				"lang": "de",
+				"type": "interactive",
+				"title": "PIN",
+				"component": "code",
+				"action": [
+					{
+						"title": "OK",
+						"link": "home-ready"
+					}
+				],
+				"fail": "Wenn du deine PIN vergessen hast, deinstalliere die App und installiere sie erneut."
+			},
+			{
+				"id": "checklist",
+				"lang": "de",
+				"type": "modal",
+				"title": "Checkliste",
+				"action": [
+					{
+						"title": "Jetzt tarnen",
+						"link": "close"
+					},
+					{
+						"title": "Abbrechen",
+						"link": "home-ready",
+						"status": "disabled"
+					}
+				],
+				"checklist": [
+					{
+						"title": "Kontrolliere den Sicherheits-Plan und aktualisiere deine Kontakte regelmäßig"
+					},
+					{
+						"title": "Teste den Alarm, damit du sicher bist, daß er funktioniert"
+					},
+					{
+						"title": "Stelle sicher, daß du genug Guthaben hast"
+					},
+					{
+						"title": "Aktiviere GPS, wenn du deine Position mitsenden willst"
+					},
+					{
+						"title": "Achte darauf, daß der Akkku voll geladen ist"
+					}
+				],
+				"content": "<p>More <a href=\"#help_risk\">security tips...</a></p>"
+			}
+		]
+	}
+}

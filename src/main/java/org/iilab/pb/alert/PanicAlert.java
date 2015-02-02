@@ -79,7 +79,7 @@ public class PanicAlert {
 //            ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
             scheduleFirstLocationAlert();
         }
-        createPanicMessage().send(loc);
+        createPanicMessage().sendAlertMessage(loc);
     }
 
     PanicMessage createPanicMessage() {

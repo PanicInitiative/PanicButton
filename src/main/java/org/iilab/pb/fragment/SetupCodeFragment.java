@@ -105,6 +105,7 @@ public class SetupCodeFragment extends Fragment {
                 return false;
             }
         });
+        passwordEditText.requestFocus();
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);

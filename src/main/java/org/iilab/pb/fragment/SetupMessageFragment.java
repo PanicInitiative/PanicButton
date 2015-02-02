@@ -1,5 +1,8 @@
 package org.iilab.pb.fragment;
 
+import android.content.Context;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
@@ -154,7 +157,8 @@ public class SetupMessageFragment extends Fragment {
                 displaySettings(currentMsg);
             }
             bAction.setEnabled(!smsEditText.getText().toString().trim().equals(""));
-
+            smsEditText.setImeOptions(EditorInfo.IME_FLAG_NAVIGATE_NEXT);
+            smsEditText.selectAll();
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 

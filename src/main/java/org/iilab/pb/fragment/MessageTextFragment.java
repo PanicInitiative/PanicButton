@@ -48,7 +48,7 @@ public class MessageTextFragment extends Fragment {
         charactersLeftView = (TextView) view.findViewById(R.id.characters_left_view);
         messageHeaderView = (TextView) view.findViewById(R.id.message_fragment_header);
         messageEditText = (EditText) view.findViewById(R.id.message_edit_text);
-
+        messageEditText.requestFocus();
         return view;
     }
 

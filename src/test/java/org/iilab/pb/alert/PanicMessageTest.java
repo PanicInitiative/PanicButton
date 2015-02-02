@@ -5,7 +5,6 @@ import android.location.Location;
 import android.location.LocationManager;
 
 import org.iilab.pb.R;
-import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.location.LocationTestUtil;
 import org.iilab.pb.model.SMSSettings;
@@ -64,7 +63,7 @@ public class PanicMessageTest {
     public void shouldSendFirstSMSWithLocationToAllConfiguredPhoneNumbersIgnoringInValidNumbers() {
         PanicMessage panicMessage = createPanicMessage();
         ApplicationSettings.setFirstMsgSent(context, false);
-        panicMessage.send(location);
+        panicMessage.sendAlertMessage(location);
 
         String messageWithLocation = message + " - " + normalLocationText;
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithLocation);
@@ -77,7 +76,7 @@ public class PanicMessageTest {
     public void shouldSendLaterSMSWithLocationToAllConfiguredPhoneNumbersIgnoringInValidNumbers() {
         ApplicationSettings.setFirstMsgSent(context, true);
         PanicMessage panicMessage = createPanicMessage();
-        panicMessage.send(location);
+        panicMessage.sendAlertMessage(location);
 
         String messageWithLocation = normalLocationText;
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithLocation);
@@ -88,7 +87,7 @@ public class PanicMessageTest {
     @Test
     public void shouldSendFirstSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailable() {
         PanicMessage panicMessage = createPanicMessage();
-        panicMessage.send(null);
+        panicMessage.sendAlertMessage(null);
         ApplicationSettings.setFirstMsgSent(context, false);
 
         String messageWithoutLocation = message;
@@ -102,7 +101,7 @@ public class PanicMessageTest {
     public void shouldSendLaterSMSWithOutLocationToAllConfiguredPhoneNumbersIfTheLocationIsNotAvailable() {
         ApplicationSettings.setFirstMsgSent(context, true);
         PanicMessage panicMessage = createPanicMessage();
-        panicMessage.send(null);
+        panicMessage.sendAlertMessage(null);
 
         String messageWithoutLocation = context.getResources().getString(R.string.location_not_found);
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithoutLocation);
@@ -116,7 +115,17 @@ public class PanicMessageTest {
         String expectedMessage = "Normal test message.Normal test message.Normal test message.Normal test messag" + finerLocationText;
 
         PanicMessage panicMessage = createPanicMessage();
-        panicMessage.send(finerLocation);
+        panicMessage.sendAlertMessage(finerLocation);
+
+        verify(mockSMSAdapter).sendSMS(context, mobile1, expectedMessage);
+    }
+
+    @Test
+    public void shouldSendStopAlertMessage(){
+        PanicMessage panicMessage = createPanicMessage();
+        panicMessage.sendStopAlertMessage();
+
+        String expectedMessage = "I am out of danger";
 
         verify(mockSMSAdapter).sendSMS(context, mobile1, expectedMessage);
     }

@@ -26,6 +26,7 @@
     <string name="alert_status_standby">L\'alerte est en mode veille</string>
     <string name="send_emergency_alert">&#160;&#160;Envoyer l\'alerte d\'urgence</string>
     <string name="stop_alert">&#160;&#160;Arrêter l\'alerte</string>
+    <string name="stop_alert_message">Je suis hors de danger</string>
     <string name="alert_status_active">L\'alerte est active et émet toutes les cinq minutes</string>
 
      <string name="choose_contact">Choisissez votre contact d\'urgence</string>

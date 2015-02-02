@@ -28,7 +28,7 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
             if (!ApplicationSettings.isFirstMsgWithLocationTriggered(context)) {
                 Location location =  getCurrentBestLocation();
                 if(location != null) {
-                    new PanicMessage(context).send(getCurrentBestLocation());
+                    new PanicMessage(context).sendAlertMessage(getCurrentBestLocation());
                     ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
                 }
             }

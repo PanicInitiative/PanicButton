@@ -86,6 +86,7 @@ public class WizardTestDisguiseCodeFragment extends Fragment {
                 return false;
             }
         });
+        passwordEditText.requestFocus();
 
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 
