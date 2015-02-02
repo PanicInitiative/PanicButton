@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_screen_layout_root"
-    android:orientation="vertical"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:windowSoftInputMode="stateVisible">
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:descendantFocusability="beforeDescendants"
+              android:focusableInTouchMode="true"
+              android:windowSoftInputMode="stateVisible">
 
+    <ScrollView
+            android:id="@+id/login_screen_layout_root"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent">
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/wizard_static_panel">
     <EditText
         android:id="@+id/create_pin_edittext"
         android:layout_height="wrap_content"
@@ -35,5 +42,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:visibility="visible"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/create_pin_edittext"/>
+    </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
