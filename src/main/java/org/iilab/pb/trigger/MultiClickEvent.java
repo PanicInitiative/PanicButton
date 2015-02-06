@@ -23,18 +23,17 @@ public class MultiClickEvent {
     }
 
     public void registerClick(Long eventTime) {
-        if(isPowerClickBecauseOfUser()) {
-            if (isFirstClick() || notWithinLimit(eventTime)) {
-                firstEventTime = eventTime;
-                clickCount = 1;
-                return;
-            }
+
+        if (isFirstClick() || notWithinLimit(eventTime) || !isPowerClickBecauseOfUser()) {
+            firstEventTime = eventTime;
+            clickCount = 1;
+            return;
+        }
+        else {
             clickCount++;
             Log.e(">>>>>>", "MultiClickEvent clickCount = " + clickCount);
         }
-        else{
-            Log.e(">>>>>>", "rejected click as a non user triggerred click");
-        }
+
     }
 
     //TODO: move this to a class like PowerStateEventLogReader
