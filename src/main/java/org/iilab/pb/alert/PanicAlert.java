@@ -37,7 +37,6 @@ public class PanicAlert {
 
     public void activate() {
         AppUtil.close(context);
-        vibrate();
         if (isActive()
 //                || ApplicationSettings.isRestartedSetup(context)
                 ) {
@@ -163,7 +162,7 @@ public class PanicAlert {
         return ApplicationSettings.isAlertActive(context);
     }
 
-    private void vibrate() {
+    public void vibrate() {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
     }

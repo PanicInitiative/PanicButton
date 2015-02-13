@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.alert.PanicAlert;
+import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.trigger.HardwareTriggerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,44 +57,59 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldActivateAlertOnPressingButtonRepeatedlyFiveTimes() {
-		for (int i = 0; i < 5; i++) {
-			equalsButton.performClick();
-		}
-		verify(mockPanicAlert).activate();
-		assertTrue(shadowActivity.isFinishing());
-	}
-
-	@Test
-	public void shouldActivateAlertOnPressingButtonRepeatedlyFiveTimesAfterOtherButtons() {
-		zeroButton.performClick();
-		for (int i = 0; i < 5; i++) {
-			equalsButton.performClick();
-		}
-		verify(mockPanicAlert).activate();
-		assertTrue(shadowActivity.isFinishing());
-	}
-
-	@Test
-	public void shouldNotActivateAlertOnPressingButtonRepeatedlyLessThanFiveTimes() {
+	public void shouldVibrateOnPressingButtonRepeatedlyFourTimes() {
 		for (int i = 0; i < 4; i++) {
+			equalsButton.performClick();
+		}
+		verify(mockPanicAlert).vibrate();
+	}
+
+	@Test
+	public void shouldActivateAlertOnPressingButtonFifthTime() {
+		for (int i = 0; i < 4; i++) {
+			equalsButton.performClick();
+		}
+		try {
+				Thread.sleep(AppConstants.HAPTIC_FEEDBACK_DURATION + 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		equalsButton.performClick();
+
+		verify(mockPanicAlert).vibrate();
+		verify(mockPanicAlert).activate();
+	}
+
+	@Test
+	public void shouldVibrateOnPressingButtonRepeatedlyFourTimesAfterOtherButtons() {
+		zeroButton.performClick();
+		for (int i = 0; i < 4; i++) {
+			equalsButton.performClick();
+		}
+		verify(mockPanicAlert).vibrate();
+	}
+
+	@Test
+	public void shouldNotVibrateOnPressingButtonRepeatedlyLessThanFiveTimes() {
+		for (int i = 0; i < 3; i++) {
 			equalsButton.performClick();
 		}
 		verifyNoMoreInteractions(mockPanicAlert);
 	}
 
 	@Test
-	public void shouldNotActivateAlertOnPressingButtonRepeatedlyLessThanFiveTimesAfterOtherButtons() {
+	public void shouldNotVibrateOnPressingButtonRepeatedlyLessThanFiveTimesAfterOtherButtons() {
 		zeroButton.performClick();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			equalsButton.performClick();
 		}
 		verifyNoMoreInteractions(mockPanicAlert);
 	}
 
 	@Test
-	public void shouldNotActivateAlertOnPressingButtonRepeatedlyMixedWithOtherButtons() {
-		for (int i = 0; i < 5; i++) {
+	public void shouldNotVibrateOnPressingButtonRepeatedlyMixedWithOtherButtons() {
+		for (int i = 0; i < 4; i++) {
 			equalsButton.performClick();
 			zeroButton.performClick();
 		}

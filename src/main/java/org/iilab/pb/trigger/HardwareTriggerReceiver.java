@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Debug;
 import android.util.Log;
 import org.iilab.pb.alert.PanicAlert;
 
@@ -23,10 +24,15 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e(">>>>>>>", "in onReceive of HWReceiver");
         String action = intent.getAction();
-
         if (!isCallActive(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
             multiClickEvent.registerClick(System.currentTimeMillis());
-            if (multiClickEvent.isActivated()) {
+
+            if(multiClickEvent.canStartVibration()){
+                PanicAlert panicAlert = getPanicAlert(context);
+                panicAlert.vibrate();
+            }
+
+            else if (multiClickEvent.isActivated()) {
                 onActivation(context);
                 resetEvent();
             }
@@ -35,7 +41,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
     protected void onActivation(Context context) {
         Log.e(">>>>>>>", "in onActivation of HWReceiver");
-        activateAlert(new PanicAlert(context));
+        activateAlert(getPanicAlert(context));
     }
 
     void activateAlert(PanicAlert panicAlert) {
@@ -47,7 +53,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
         multiClickEvent = new MultiClickEvent();
     }
 
-    PanicAlert getPanicAlert(Context context) {
+    protected PanicAlert getPanicAlert(Context context) {
         return new PanicAlert(context);
     }
 

@@ -1,5 +1,7 @@
 package org.iilab.pb;
 
+import android.os.Debug;
+import android.widget.Toast;
 import org.iilab.pb.alert.PanicAlert;
 import org.iilab.pb.calculator.CalculatorImpl;
 import org.iilab.pb.common.AppConstants;
@@ -116,7 +118,12 @@ public class CalculatorActivity extends PanicButtonActivity {
 			if(id != lastClickId) multiClickEvent.reset();
 			lastClickId = id;
 			multiClickEvent.registerClick(System.currentTimeMillis());
-			if (multiClickEvent.isActivated()) {
+			if(multiClickEvent.canStartVibration()){
+				getPanicAlert().vibrate();
+				CharSequence text = ((Button) view).getText();
+				Toast.makeText(getApplicationContext(), "Quickly press the button '" + text + "' again to send alerts.", Toast.LENGTH_LONG).show();
+			}
+			else if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
                 getPanicAlert().activate();
 				resetEvent(view);

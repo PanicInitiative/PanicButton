@@ -1,5 +1,7 @@
 package org.iilab.pb.fragment;
 
+import android.os.Debug;
+import android.widget.Toast;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
@@ -100,9 +102,15 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
             if (id != lastClickId) multiClickEvent.reset();
             lastClickId = id;
             multiClickEvent.registerClick(System.currentTimeMillis());
-            if (multiClickEvent.isActivated()) {
+            if(multiClickEvent.canStartVibration()) {
+                int vibratingDuration = AppConstants.HAPTIC_FEEDBACK_DURATION;
                 Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+                vibrator.vibrate(vibratingDuration);
+
+                CharSequence text = ((Button) view).getText();
+                Toast.makeText(activity, "Quickly press the button '" + text + "' again to send alerts.", Toast.LENGTH_LONG).show();
+            }
+            else if(multiClickEvent.isActivated()){
                 resetEvent(view);
 
                 String pageId = currentPage.getSuccessId();
