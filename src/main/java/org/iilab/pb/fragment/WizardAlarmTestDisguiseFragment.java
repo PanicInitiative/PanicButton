@@ -108,7 +108,7 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
                 vibrator.vibrate(vibratingDuration);
 
                 CharSequence text = ((Button) view).getText();
-                Toast.makeText(activity, "Quickly press the button '" + text + "' again to send alerts.", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
             }
             else if(multiClickEvent.isActivated()){
                 resetEvent(view);

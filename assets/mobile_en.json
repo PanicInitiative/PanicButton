@@ -256,7 +256,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Test Hardware Alarm",
-                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration.",
+                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Once the vibration ends, press the power button again to trigger alerts.",
                 "component": "alarm-test-hardware",
                 "timers": {
                     "info": "0",

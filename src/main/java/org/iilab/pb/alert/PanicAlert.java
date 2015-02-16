@@ -37,11 +37,14 @@ public class PanicAlert {
 
     public void activate() {
         AppUtil.close(context);
+        vibrateOnce();
+
         if (isActive()
 //                || ApplicationSettings.isRestartedSetup(context)
                 ) {
             return;
         }
+
         ApplicationSettings.setAlertActive(context, true);
         getExecutorService().execute(
                 new Runnable() {
@@ -51,6 +54,11 @@ public class PanicAlert {
                     }
                 }
         );
+    }
+
+    private void vibrateOnce() {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION);
     }
 
     private void activateAlert() {

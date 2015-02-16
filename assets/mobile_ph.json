@@ -146,7 +146,7 @@
       "lang" : "ph",
       "type" : "interactive",
       "title" : "Test Hardware Alarm",
-      "introduction" : "Try Now! Repeatedly press the power button fast until you feel a vibration.",
+      "introduction" : "Try Now! Repeatedly press the power button fast until you feel a vibration. Once the vibration ends, press the power button again to trigger alerts.",
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},

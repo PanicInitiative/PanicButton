@@ -121,7 +121,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 			if(multiClickEvent.canStartVibration()){
 				getPanicAlert().vibrate();
 				CharSequence text = ((Button) view).getText();
-				Toast.makeText(getApplicationContext(), "Quickly press the button '" + text + "' again to send alerts.", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
 			}
 			else if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
@@ -130,7 +130,6 @@ public class CalculatorActivity extends PanicButtonActivity {
 			}
 		}
 	};
-
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
 

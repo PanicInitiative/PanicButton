@@ -10,7 +10,8 @@ public class AppConstants {
     public static final int PHONE_NUMBER_LIMIT = 3;
     public static final long ONE_MINUTE = 1000 * 60;
 	
-    public static final int HAPTIC_FEEDBACK_DURATION = 3000;
+    public static final int HAPTIC_FEEDBACK_DURATION = 2000;
+    public static final int ALERT_CONFIRMATION_VIBRATION_DURATION = 1000;
 
     public static final int DEFAULT_ALARM_INTERVAL = 5;             // in minute
 
