@@ -9,7 +9,7 @@ Feature: Message setup in the Wizard
       And I press "Get started"
       And I wait
       And I see the text "Setup contacts"
-      And I enter "123456" into contact field 0
+      And I enter "123456" into contact field 1
       And I press "Next"
       And I wait
       And I see the text "Setup alert message"
@@ -17,13 +17,14 @@ Feature: Message setup in the Wizard
   Scenario: Emergency alert set message
     Then I see the text "Next"
     Then I verify "Next" button is "enabled"
-    Then I see the text "Help me, I'm in danger"
-    Then I see the text "I'm at https://maps.google.com/GPS-location"
+#    Then I see the text "Help me, I'm in danger"
+    Then I should see text "Help me, I'm in danger" in message view
+    Then I see the text "I'm at https://maps.google.com/GPS-location" with special chars
 
   Scenario: Navigating back to start screen
     When I go back
      And I wait
-     And I see the text "enter contact number"
+     And I should see text "****56" in contact edit
      And I go back
      And I wait
     Then I see the text "Get started"

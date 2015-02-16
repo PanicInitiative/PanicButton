@@ -19,7 +19,7 @@ Feature: Wizard complete
       And I wait
 	    And I press "Learn"
       And I wait
-     Then I see "Try Now! Repeatedly press the power button fast until you feel a vibration."
+     Then I see "Try Now! Repeatedly press the power button until you feel a vibration."
 	    And I press power button 5 times
 	    And I unlock device
       And I wait
@@ -44,8 +44,8 @@ Feature: Wizard complete
       And I wait
      Then I see "Well done! Now enter your pincode to access settings."
       And I enter "1234" into input field number 1
-      And I press "Go"
+      And I press "Ok"
       And I wait
       And I press "Finish"
-      And I wait
-     Then I see "Ready"
+#      And I wait
+#     Then I see "Ready"

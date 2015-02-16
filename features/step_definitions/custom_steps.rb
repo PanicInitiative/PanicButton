@@ -77,3 +77,26 @@ end
 And(/^I long press custom$/) do
   Device.cmd_command(ENV["ANDROID_HOME"] + "/tools/monkeyrunner #{Device.get_more_dir}/longpress.py")
 end
+
+Then (/^I should see text "(.*?)" in message view$/) do |expected_email|
+  actual_email = query("editText id:'message_edit_text'", :text).first
+  unless expected_email == actual_email
+    fail "Text in message field is incorrect. Expected '#{expected_email}', but got '#{actual_email}'."
+  end
+end
+
+Then (/^I should see text "(.*?)" in contact edit$/) do |expected_text|
+  actual_text = query("editText index:1", :text).first
+  unless expected_text == actual_text
+    fail "Text in contact field is incorrect. Expected '#{expected_text}', but got '#{actual_text}'."
+  end
+end
+
+Then (/^I see the text "(.*?)" with special chars$/) do |expected_text|
+  element = query("* {text CONTAINS \"#{expected_text}\"}")
+  unless element.size != 0
+    fail "Text '#{expected_text}' not found"
+  end
+end
+
+# id:'contact_edit_text'

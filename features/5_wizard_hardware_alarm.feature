@@ -19,7 +19,7 @@ Feature: Hardware Alarm Test in the Wizard
       And I wait
       And I press "Learn"
       And I wait
-      Then I see "Try Now! Repeatedly press the power button fast until you feel a vibration."
+      Then I see "Try Now! Repeatedly press the power button until you feel a vibration."
 
   @current @PB-721
   Scenario: Triggering Alert with Hardware Button 

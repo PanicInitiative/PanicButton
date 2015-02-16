@@ -15,13 +15,15 @@ Feature: Sending sms with different gps status
     And I press "Next"
     And I press "Setup Alarm"
     And I press "Learn"
-    Then I see "Try Now! Repeatedly press the power button fast until you feel a vibration."
+    Then I see "Try Now! Repeatedly press the power button until you feel a vibration."
     And I press power button 5 times
     And I unlock device
+    And I wait for 5 seconds
     Then I see "Well done!"
     And I press "Next"
     And I press "Learn"
     And I click 5 times fast on calculation
+    And I wait for 5 seconds
     Then I see "Well done!"
     And I press "Next"
     And I press "Setup Disguise"
@@ -31,9 +33,8 @@ Feature: Sending sms with different gps status
     And I long press custom
     Then I see "Well done! Now enter your pincode to access settings."
     And I enter "1234" into input field number 1
-    And I press "go"
+    And I press "Ok"
     And I press "Finish"
-    Then I see "Ready"
 
   Scenario: Start alarm with hardware button
     Given I clear log
@@ -43,7 +44,7 @@ Feature: Sending sms with different gps status
     And I start application
     And I long press custom
     And I enter "1234" into input field number 1
-    And I press "go"
+    And I press "Ok"
     Then I see "Alerting"
     And I press "Stop Alerting"
     Then I see "Ready"
@@ -61,11 +62,11 @@ Feature: Sending sms with different gps status
     And I start application
     And I long press custom
     And I enter "1234" into input field number 1
-    And I press "go"
+    And I press "Ok"
     Then I see "Alerting"
     And I press "Stop Alerting"
     Then I see "Ready"
-    Then I check sms text contains "Help me, I'm in danger"
+    Then I check sms text contains "I am out of danger"
 
   Scenario: Change GPS status
     Then I switch gps
