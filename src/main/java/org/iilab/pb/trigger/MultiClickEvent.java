@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MultiClickEvent {
-    private static final int TIME_INTERVAL = 10000;
+    private static final int TIME_INTERVAL = 8000;
     private static final int TIME_INTERVAL_FOR_CONFIRMATION = 3000;
     private static final int TOTAL_CLICKS = 4;
     private final int IS_STATE_CHANGE_USER_TRIGERRED = 2;
@@ -28,20 +28,12 @@ public class MultiClickEvent {
     }
 
     public void registerClick(Long eventTime) {
-        Log.e("*****", "initial clickCount=" + clickCount);
-        Log.e("*****", "initial waitforConfirmation=" + waitForConfirmation);
-        Log.e("*****", "initial isActivated=" + isActivated());
         if(waitForConfirmation){
-
             long confirmationDuration = eventTime - vibrationStartTime;
-            Log.e("*****", "confirmationDurationd=" + confirmationDuration);
             int vibrationDuration = AppConstants.HAPTIC_FEEDBACK_DURATION;
-            Log.e("*****", "vibrationDuration=" + vibrationDuration);
 
             boolean isVibrationEnded = confirmationDuration >= vibrationDuration;
-            Log.e("*****", "isVibrationEnded=" + isVibrationEnded);
             boolean isConfirmationClickWithinTimeLimit = (vibrationDuration + TIME_INTERVAL_FOR_CONFIRMATION) >= confirmationDuration;
-            Log.e("*****", "isConfirmationClickWithinTimeLimit=" + isConfirmationClickWithinTimeLimit);
 
             if(isVibrationEnded && isConfirmationClickWithinTimeLimit){
                 isActivated = true;
@@ -54,23 +46,18 @@ public class MultiClickEvent {
             return;
         }
 
-//        if (isFirstClick() || notWithinLimit(eventTime) || !isPowerClickBecauseOfUser()) {
-        if (isFirstClick() || !isPowerClickBecauseOfUser()) {
+        if (isFirstClick() || notWithinLimit(eventTime) || !isPowerClickBecauseOfUser()) {
             resetClickCount(eventTime);
             return;
         }
         else {
             clickCount++;
-            Log.e("*****", "MultiClickEvent clickCount = " + clickCount);
 
             if (clickCount >= TOTAL_CLICKS) {
                 waitForConfirmation = true;
                 vibrationStartTime = eventTime;
                 return;
             }
-            Log.e("*****", "Final clickCount=" + clickCount);
-            Log.e("*****", "Final waitforConfirmation=" + waitForConfirmation);
-            Log.e("*****", "Final isActivated=" + isActivated());
         }
     }
 
@@ -78,7 +65,7 @@ public class MultiClickEvent {
         firstEventTime = eventTime;
         clickCount = 1;
         waitForConfirmation=false;
-        Log.e("*****", "MultiClickEvent clickCount = " + clickCount);
+        Log.e(">>>>>>", "MultiClickEvent clickCount = " + clickCount);
     }
 
     //TODO: move this to a class like PowerStateEventLogReader
@@ -123,7 +110,4 @@ public class MultiClickEvent {
         return waitForConfirmation;
     }
 
-    public void waitForConfirmation() {
-        waitForConfirmation = true;
-    }
 }
