@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Debug;
 import android.util.Log;
 import org.iilab.pb.alert.PanicAlert;
 
@@ -46,7 +45,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
     void activateAlert(PanicAlert panicAlert) {
 //        panicAlert.start();
-        panicAlert.activate();
+        panicAlert.activate(multiClickEvent.getEventLog());
     }
 
     protected void resetEvent() {

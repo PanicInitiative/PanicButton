@@ -1,15 +1,5 @@
 package org.iilab.pb;
 
-import android.os.Debug;
-import android.widget.Toast;
-import org.iilab.pb.alert.PanicAlert;
-import org.iilab.pb.calculator.CalculatorImpl;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.trigger.HardwareTriggerService;
-import org.iilab.pb.trigger.MultiClickEvent;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +8,12 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import org.iilab.pb.calculator.CalculatorImpl;
+import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.AppUtil;
+import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.trigger.MultiClickEvent;
 
 public class CalculatorActivity extends PanicButtonActivity {
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
@@ -125,7 +120,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 			}
 			else if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
-                getPanicAlert().activate();
+                getPanicAlert().activate(multiClickEvent.getEventLog());
 				resetEvent(view);
 			}
 		}

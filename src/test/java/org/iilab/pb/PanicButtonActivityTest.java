@@ -1,10 +1,7 @@
 package org.iilab.pb;
 
 import android.view.ViewGroup;
-
-
 import org.hamcrest.core.Is;
-import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.alert.PanicAlert;
 import org.iilab.pb.test.support.PanicButtonRobolectricTestRunner;
 import org.junit.Before;
@@ -13,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowViewGroup;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
@@ -44,7 +43,7 @@ public class PanicButtonActivityTest {
 
     @Test
     public void shouldShowRedAlertStripWhenAlertStatusIsActive(){
-    	mockPanicAlert.activate();
+    	mockPanicAlert.activate(new HashMap<String, String>());
     	when(mockPanicAlert.isActive()).thenReturn(true);
         activity.onResume();
 //        assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.active_color)));

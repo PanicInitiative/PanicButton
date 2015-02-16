@@ -26,10 +26,7 @@ import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowLocationManager;
 import org.robolectric.shadows.ShadowVibrator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -61,6 +58,7 @@ public class PanicAlertTest {
     @Mock
     private Location mockLocation;
     private ShadowLocationManager shadowLocationManager;
+    private Map<String, String> eventLog = new HashMap<String, String>();
     private ShadowAlarmManager shadowAlarmManager;
     @Mock
     private PackageManager mockPackageManager;
@@ -100,7 +98,7 @@ public class PanicAlertTest {
 
     @Test
     public void shouldActiveTheAlertWithHapticFeedback() throws IllegalAccessException {
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
         assertTrue(panicAlert.isActive());
         verify(mockExecutor).execute(any(Runnable.class));
 
@@ -111,7 +109,7 @@ public class PanicAlertTest {
     @Test
     public void shouldNotActiveAgainIfItIsAlreadyActive() throws IllegalAccessException {
         ApplicationSettings.setAlertActive(context, true);
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
         verifyZeroInteractions(mockExecutor);
     }
 
@@ -133,7 +131,7 @@ public class PanicAlertTest {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
 
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
 
         verify(mockPanicMessage).sendAlertMessage(mockLocation);
     }
@@ -143,7 +141,7 @@ public class PanicAlertTest {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(null);
 
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
 
         verify(mockPanicMessage).sendAlertMessage(null);
     }
@@ -153,7 +151,7 @@ public class PanicAlertTest {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
 
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
 
         Map<PendingIntent, String> requestLocationUpdates = shadowLocationManager.getRequestLocationUdpateProviderPendingIntents();
         List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();
@@ -175,7 +173,7 @@ public class PanicAlertTest {
     public void shouldDeactivateTheAlert() {
         panicAlert = getPanicAlert(new TestExecutorService());
         when(mockCurrentLocationProvider.getLocation()).thenReturn(mockLocation);
-        panicAlert.activate();
+        panicAlert.activate(eventLog);
         panicAlert.deActivate();
 
         List<ShadowAlarmManager.ScheduledAlarm> scheduledAlarms = shadowAlarmManager.getScheduledAlarms();

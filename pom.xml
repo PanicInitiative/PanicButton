@@ -45,6 +45,12 @@
             <version>r12</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.parse.bolts</groupId>
+            <artifactId>bolts-android</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
         <!--        <dependency>
                     <groupId>org.roboguice</groupId>
                     <artifactId>roboguice</artifactId>

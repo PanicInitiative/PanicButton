@@ -8,8 +8,6 @@ import android.content.Intent;
 
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.iilab.pb.alert.PanicAlert;
-import org.iilab.pb.trigger.HardwareTriggerReceiver;
-import org.iilab.pb.trigger.MultiClickEvent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +16,9 @@ import org.mockito.Mock;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowKeyguardManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.Intent.ACTION_CAMERA_BUTTON;
 import static android.content.Intent.ACTION_SCREEN_OFF;
@@ -40,6 +41,7 @@ public class HardwareTriggerReceiverTest {
     @Mock
     private PanicAlert mockPanicAlert;
     private ShadowKeyguardManager shadowKeyguardManager;
+    private Map<String, String> eventLog = new HashMap<String, String>();
 
     @Before
     public void setUp() throws IllegalAccessException {
@@ -69,7 +71,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verify(mockMultiClickEvent).registerClick(anyLong());
-        verify(mockPanicAlert, never()).activate();
+        verify(mockPanicAlert, never()).activate(eventLog);
     }
 
     @Test
@@ -77,7 +79,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
 
         verifyNoMoreInteractions(mockMultiClickEvent);
-        verify(mockPanicAlert, never()).activate();
+        verify(mockPanicAlert, never()).activate(eventLog);
     }
 
 //    @Test

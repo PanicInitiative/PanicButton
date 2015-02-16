@@ -7,6 +7,9 @@ import org.iilab.pb.common.AppConstants;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MultiClickEvent {
     private static final int TIME_INTERVAL = 8000;
@@ -21,10 +24,12 @@ public class MultiClickEvent {
     private boolean waitForConfirmation = false;
     private Long vibrationStartTime;
     private boolean isActivated;
+    private Map<String, String> eventLog = new HashMap<String, String>();
 
     public void reset() {
     	firstEventTime = null;
     	clickCount = 0;
+        eventLog = new HashMap<String, String>();
     }
 
     public void registerClick(Long eventTime) {
@@ -52,9 +57,10 @@ public class MultiClickEvent {
         }
         else {
             clickCount++;
-
+            eventLog.put(Integer.toString(clickCount) + " click", new Date(eventTime).toString());
             if (clickCount >= TOTAL_CLICKS) {
                 waitForConfirmation = true;
+                eventLog.put("Waiting for confirmation", new Date(eventTime).toString());
                 vibrationStartTime = eventTime;
                 return;
             }
@@ -66,6 +72,8 @@ public class MultiClickEvent {
         clickCount = 1;
         waitForConfirmation=false;
         Log.e(">>>>>>", "MultiClickEvent clickCount = " + clickCount);
+        eventLog = new HashMap<String, String>();
+        eventLog.put(Integer.toString(clickCount) + " click", new Date(eventTime).toString());
     }
 
     //TODO: move this to a class like PowerStateEventLogReader
@@ -108,6 +116,10 @@ public class MultiClickEvent {
 
     public boolean canStartVibration() {
         return waitForConfirmation;
+    }
+
+    public Map<String, String> getEventLog(){
+        return eventLog;
     }
 
 }

@@ -5,8 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
-
 import com.google.gson.Gson;
+import com.parse.Parse;
+import com.parse.ParseCrashReporting;
 
 public class ApplicationSettings extends Application{
 
@@ -29,6 +30,12 @@ public class ApplicationSettings extends Application{
 
     public static Context getAppContext(){
         return getAppContext();
+    }
+
+    @Override
+    public void onCreate() {
+        ParseCrashReporting.enable(this);
+        Parse.initialize(this, "vsCAKlCJGDTG68GApk5EtvThcdBXVxeV3bK66RPI", "H0ESOlPTJwVTxrX9RWwrqkxKqJJ42aqRSHeWHbeb");
     }
 
     // these 2 methods with first time run won't be needed any more. I'll get rid of it after further analysis.

@@ -1,20 +1,26 @@
 package org.iilab.pb.alert;
 
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.telephony.TelephonyManager;
 import android.util.Log;
-
+import com.parse.ParseObject;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.Intents;
 import org.iilab.pb.location.CurrentLocationProvider;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,7 +41,7 @@ public class PanicAlert {
         alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
-    public void activate() {
+    public void activate(Map<String, String> eventLog) {
         AppUtil.close(context);
         vibrateOnce();
 
@@ -54,6 +60,31 @@ public class PanicAlert {
                     }
                 }
         );
+        sendAnalyticsReport(eventLog);
+    }
+
+    private void sendAnalyticsReport(Map<String, String> eventLog){
+        TelephonyManager TelephonyMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceId = TelephonyMgr.getDeviceId();
+
+        ParseObject alarmEvent = new ParseObject("AlarmEvent");
+        alarmEvent.put("deviceModel", Build.MODEL);
+        alarmEvent.put("deviceId", deviceId);
+        alarmEvent.put("androidVersion", Build.VERSION.RELEASE);
+        alarmEvent.put("process", getRunningProcess());
+        alarmEvent.put("eventLog", eventLog);
+        alarmEvent.saveInBackground();
+    }
+
+    private String getRunningProcess(){
+        String runningProcess = null;
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningProcessesInfo = manager.getRunningAppProcesses();
+        Iterator<ActivityManager.RunningAppProcessInfo> processInfo = runningProcessesInfo.iterator();
+        while (processInfo.hasNext()){
+            runningProcess = (runningProcess == null) ? processInfo.next().processName : runningProcess + ", " + processInfo.next().processName;
+        }
+        return runningProcess;
     }
 
     private void vibrateOnce() {

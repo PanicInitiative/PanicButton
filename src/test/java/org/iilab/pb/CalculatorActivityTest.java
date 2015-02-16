@@ -3,23 +3,19 @@ package org.iilab.pb;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.TextView;
-
-
-import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.alert.PanicAlert;
 import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.trigger.HardwareTriggerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowIntent;
+
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -78,7 +74,7 @@ public class CalculatorActivityTest {
 		equalsButton.performClick();
 
 		verify(mockPanicAlert).vibrate();
-		verify(mockPanicAlert).activate();
+		verify(mockPanicAlert).activate(new HashMap<String, String>());
 	}
 
 	@Test
