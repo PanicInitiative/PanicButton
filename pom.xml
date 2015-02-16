@@ -46,6 +46,18 @@
         </dependency>
 
         <dependency>
+            <groupId>android</groupId>
+            <artifactId>parse-core</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>android</groupId>
+            <artifactId>parse-crashreporting</artifactId>
+            <version>1.8.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.parse.bolts</groupId>
             <artifactId>bolts-android</artifactId>
             <version>1.1.2</version>
