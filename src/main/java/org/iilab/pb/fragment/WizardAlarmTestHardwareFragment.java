@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.DisplayMetrics;
@@ -157,6 +158,9 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         @Override
         protected void onActivation(Context context) {
             Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
+
+            Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION);
 
             String pageId = currentPage.getSuccessId();
 
