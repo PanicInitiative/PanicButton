@@ -8,14 +8,21 @@ import org.iilab.pb.common.AppConstants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -62,19 +69,41 @@ public class CalculatorActivityTest {
 
 	@Test
 	public void shouldActivateAlertOnPressingButtonFifthTime() {
-		for (int i = 0; i < 4; i++) {
-			equalsButton.performClick();
-		}
-		try {
-				Thread.sleep(AppConstants.HAPTIC_FEEDBACK_DURATION + 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+        try {
+            DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss zzz yyyy");
+            long startTime = df.parse(df.format(new Date())).getTime();
+            for (int i = 0; i < 4; i++) {
+                equalsButton.performClick();
+            }
+            try {
+                    Thread.sleep(AppConstants.HAPTIC_FEEDBACK_DURATION + 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-		equalsButton.performClick();
+            ArgumentCaptor<HashMap> mapArgCaptor = ArgumentCaptor.forClass(HashMap.class);
 
-		verify(mockPanicAlert).vibrate();
-		verify(mockPanicAlert).activate(new HashMap<String, String>());
+            equalsButton.performClick();
+
+            long endTime = df.parse(df.format(new Date())).getTime();
+
+
+            verify(mockPanicAlert).vibrate();
+            verify(mockPanicAlert).activate(mapArgCaptor.capture());
+            HashMap<String, String> logMapArgument = mapArgCaptor.getValue();
+            assertEquals(5, logMapArgument.size());
+
+            long clickedTime = 0;
+
+            for(String clickCapturedTime : logMapArgument.values()){
+                clickedTime = df.parse(clickCapturedTime).getTime();
+                boolean isGreaterThanStartTime =  clickedTime >= startTime;
+                boolean isLessThanEndTime = endTime >= clickedTime;
+                assertTrue(isGreaterThanStartTime && isLessThanEndTime);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Test

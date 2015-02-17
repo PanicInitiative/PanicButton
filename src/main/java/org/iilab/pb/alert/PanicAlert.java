@@ -63,7 +63,7 @@ public class PanicAlert {
         sendAnalyticsReport(eventLog);
     }
 
-    private void sendAnalyticsReport(Map<String, String> eventLog){
+    void sendAnalyticsReport(Map<String, String> eventLog){
         TelephonyManager TelephonyMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         String deviceId = TelephonyMgr.getDeviceId();
 
