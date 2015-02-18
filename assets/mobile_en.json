@@ -192,14 +192,14 @@
                         "link": "setup-disguise-test-open"
                     }
                 ],
-                "content": "<p>Panic Button stays hidden on your phone by looking like a simple calculator. From now on, you will see the calculator disguise whenever you open the app. Learn how it works. </p>"
+                "content": "<p>Panic Button stays hidden on your phone by looking like a simple calculator. From now on, you will see the calculator disguise whenever you open the app. You will need to learn how to unlock the disguise to stop the automatic sending of the alert every 5 minutes. Learn how it works. </p>"
             },
             {
                 "id": "setup-contacts",
                 "lang": "en",
                 "type": "interactive",
                 "title": "Setup contacts",
-                "introduction": "These people will receive the alert.",
+                "introduction": "These people will receive the alert every 5 minutes if you activate it.",
                 "warning": "They should know you personally and be able to respond fast.",
                 "component": "contacts",
                 "action": [
@@ -215,7 +215,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Create a pincode",
-                "introduction": "This pincode is needed to access the app settings. It is not needed to alert contacts in an emergency.",
+                "introduction": "This pincode is needed to stop the app from sending the alert automatically and to access the app settings. It is not needed to alert contacts in an emergency.",
                 "warning": "Remember your pincode! If you forget it you will need to reinstall the app.",
                 "component": "code",
                 "action": [
@@ -236,7 +236,7 @@
                         "link": "setup-alarm-disguise"
                     }
                 ],
-                "content": "<p>Your test was successful! In an actual emergency, your alert would have been sent.</p>"
+                "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
             },
             {
                 "id": "setup-alarm-test-hardware-fail",
@@ -282,7 +282,7 @@
                         "link": "home-not-configured-disguise"
                     }
                 ],
-                "content": "<p>Your test was successful! In an actual emergency, your alert would have been sent.</p>"
+                "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
             },
             {
                 "id": "setup-alarm-test-disguise-fail",
@@ -419,7 +419,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Setup contacts",
-                "introduction": "These people will receive the alert.",
+                "introduction": "These people will receive the alert every 5 minutes if you activate it.",
                 "warning": "They should know you personally and be able to respond fast.",
                 "component": "contacts",
                 "action": [
@@ -436,7 +436,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Create a pincode",
-                "introduction": "This pincode is needed to access the app settings. It is not needed to alert contacts in an emergency.",
+                "introduction": "This pincode is needed to stop the app from sending the alert automatically and to access the app settings. It is not needed to alert contacts in an emergency.",
                 "warning": "Remember your pincode! If you forget it you will need to reinstall the app.",
                 "component": "code",
                 "action": [
@@ -638,7 +638,7 @@
                         "link": "setup-language"
                     }
                 ],
-                "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panic Button is an Android app that secretly alerts your contacts when you are in trouble. The app stays hidden on your phone by looking like a simple calculator.</p>"
+                "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panic Button is an Android app that secretly alerts your contacts when you are in trouble. When triggered, it will sends alerts every 5 minutes with your location. The app stays hidden on your phone by looking like a simple calculator.</p>"
             },
             {
                 "id": "home-alerting",
