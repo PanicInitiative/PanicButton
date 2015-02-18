@@ -25,6 +25,7 @@ public class MultiClickEvent {
     private Long vibrationStartTime;
     private boolean isActivated;
     private Map<String, String> eventLog = new HashMap<String, String>();
+    private boolean skipClick = false;
 
     public void reset() {
     	firstEventTime = null;
@@ -37,15 +38,19 @@ public class MultiClickEvent {
             long confirmationDuration = eventTime - vibrationStartTime;
             int vibrationDuration = AppConstants.HAPTIC_FEEDBACK_DURATION;
 
-            boolean isVibrationEnded = confirmationDuration >= vibrationDuration;
-            boolean isConfirmationClickWithinTimeLimit = (vibrationDuration + TIME_INTERVAL_FOR_CONFIRMATION) >= confirmationDuration;
+            boolean isConfirmationClickedBeforeVibrationEnded = confirmationDuration <= vibrationDuration;
+            boolean isConfirmationClickedWithinTimeLimit = (vibrationDuration + TIME_INTERVAL_FOR_CONFIRMATION) >= confirmationDuration;
 
-            if(isVibrationEnded && isConfirmationClickWithinTimeLimit){
+            if(isConfirmationClickedBeforeVibrationEnded){
+                skipClick = true;
+                return;
+            }
+            if(!isConfirmationClickedBeforeVibrationEnded && isConfirmationClickedWithinTimeLimit){
                 isActivated = true;
                 waitForConfirmation = false;
                 return;
             }
-            if(isVibrationEnded) {
+            if(!isConfirmationClickedWithinTimeLimit) {
                 resetClickCount(eventTime);
             }
             return;
@@ -122,4 +127,11 @@ public class MultiClickEvent {
         return eventLog;
     }
 
+    public boolean skipCurrentClick() {
+        return skipClick;
+    }
+
+    public void resetSkipCurrentClickFlag() {
+        skipClick = false;
+    }
 }

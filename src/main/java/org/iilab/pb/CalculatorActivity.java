@@ -113,6 +113,11 @@ public class CalculatorActivity extends PanicButtonActivity {
 			if(id != lastClickId) multiClickEvent.reset();
 			lastClickId = id;
 			multiClickEvent.registerClick(System.currentTimeMillis());
+
+			if(multiClickEvent.skipCurrentClick()){
+				multiClickEvent.resetSkipCurrentClickFlag();
+				return;
+			}
 			if(multiClickEvent.canStartVibration()){
 				getPanicAlert().vibrate();
 				CharSequence text = ((Button) view).getText();

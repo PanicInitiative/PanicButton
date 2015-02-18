@@ -101,6 +101,11 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
             if (id != lastClickId) multiClickEvent.reset();
             lastClickId = id;
             multiClickEvent.registerClick(System.currentTimeMillis());
+
+            if(multiClickEvent.skipCurrentClick()){
+                multiClickEvent.resetSkipCurrentClickFlag();
+                return;
+            }
             if(multiClickEvent.canStartVibration()) {
                 vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
 

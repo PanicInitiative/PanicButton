@@ -26,12 +26,19 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
         if (!isCallActive(context) && (action.equals(ACTION_SCREEN_OFF) || action.equals(ACTION_SCREEN_ON))) {
             multiClickEvent.registerClick(System.currentTimeMillis());
 
-            if(multiClickEvent.canStartVibration()){
+            if(multiClickEvent.skipCurrentClick()){
+                Log.e("*****", "skipped click");
+                multiClickEvent.resetSkipCurrentClickFlag();
+            }
+
+            else if(multiClickEvent.canStartVibration()){
+                Log.e("*****", "vibration started");
                 PanicAlert panicAlert = getPanicAlert(context);
                 panicAlert.vibrate();
             }
 
             else if (multiClickEvent.isActivated()) {
+                Log.e("*****", "alerts activated");
                 onActivation(context);
                 resetEvent();
             }
