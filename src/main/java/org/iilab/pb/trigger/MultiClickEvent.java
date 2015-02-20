@@ -84,13 +84,18 @@ public class MultiClickEvent {
     //TODO: move this to a class like PowerStateEventLogReader
     private boolean isPowerClickBecauseOfUser() {
         ArrayList<EventLog.Event> events = new ArrayList<EventLog.Event>();
+        StringBuilder eventData = new StringBuilder();
         try {
             int powerScreenStateTagCode = EventLog.getTagCode(EVENT_LOG_TAG_POWER_SCREEN_STATE);
             EventLog.readEvents(new int[]{powerScreenStateTagCode}, events);
             if(!events.isEmpty()){
+                eventData.append("hasEvents ").append(events.size()).append(" last - ");
                 EventLog.Event event = events.get(events.size() - 1);
                 try {
                     Object[] powerEventLogData = (Object[]) event.getData();
+                    for(Object eventBit: powerEventLogData) {
+                        eventData.append(new Gson().toJson(eventBit));
+                    }
                     if(powerEventLogData.length > 2 && (Integer)powerEventLogData[0] == IS_POWER_STATE_ASLEEP){
                         boolean isPowerChangeUserTriggered = (Integer) powerEventLogData[1] == IS_STATE_CHANGE_USER_TRIGERRED;
                         Log.e(">>>>>> is Power change user triggered? ", "" + isPowerChangeUserTriggered);
@@ -100,6 +105,10 @@ public class MultiClickEvent {
                     Object data = event.getData();
                     Log.e(">>>>>>", "could not read event data" + new Gson().toJson(data));
                 }
+                if(eventLog.containsKey("event log")){
+                    eventData.append(" prev click - ").append(eventLog.get("event log"));
+                }
+                eventLog.put("event log", eventData.toString());
             }
         } catch (IOException e) {
             Log.e(">>>>>>", "could not read event logs");
