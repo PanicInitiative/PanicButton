@@ -1,24 +1,6 @@
 package org.iilab.pb;
 
 
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.ApplicationSettings;
-import org.iilab.pb.common.MyTagHandler;
-import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.fragment.LanguageSettingsFragment;
-import org.iilab.pb.fragment.SetupCodeFragment;
-import org.iilab.pb.fragment.SetupContactsFragment;
-import org.iilab.pb.fragment.SetupMessageFragment;
-import org.iilab.pb.fragment.SimpleFragment;
-import org.iilab.pb.fragment.WarningFragment;
-import org.iilab.pb.fragment.WizardAlarmTestDisguiseFragment;
-import org.iilab.pb.fragment.WizardAlarmTestHardwareFragment;
-import org.iilab.pb.fragment.WizardTestDisguiseCodeFragment;
-import org.iilab.pb.fragment.WizardTestDisguiseOpenFragment;
-import org.iilab.pb.fragment.WizardTestDisguiseUnlockFragment;
-import org.iilab.pb.model.Page;
-import org.iilab.pb.trigger.HardwareTriggerService;
-
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,8 +13,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.ApplicationSettings;
+import org.iilab.pb.common.MyTagHandler;
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.fragment.*;
+import org.iilab.pb.model.Page;
+import org.iilab.pb.trigger.HardwareTriggerService;
 
 
 public class WizardActivity extends BaseFragmentActivity {
@@ -129,6 +119,7 @@ public class WizardActivity extends BaseFragmentActivity {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardAlarmTestHardwareFragment().newInstance(pageId);
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                 } else if (currentPage.getComponent().equals("alarm-test-disguise")) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
@@ -311,6 +302,11 @@ public class WizardActivity extends BaseFragmentActivity {
         tvToastMessage.setVisibility(View.INVISIBLE);
     }
 
+
+    public void confirmationToastMessage() {
+        tvToastMessage.setText(Html.fromHtml(getApplication().getString(R.string.confirmation_message), null, new MyTagHandler()));
+        tvToastMessage.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onBackPressed() {

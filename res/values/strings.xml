@@ -55,6 +55,7 @@
     <string name="third_contact">&#160;3.&#160;</string>
 
     <string name="choose_contact">Choose your emergency contact</string>
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
 
     <string name="code_ok">Ok</string>
 </resources>

@@ -55,4 +55,7 @@
     <string name="equal_to">=</string>
     <string name="decimal_point">.</string>
     <string name="char_c">C</string>
+
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+
 </resources>

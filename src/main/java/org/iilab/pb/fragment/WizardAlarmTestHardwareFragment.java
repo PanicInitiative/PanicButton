@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
@@ -153,6 +152,10 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             ((WizardActivity) getActivity()).hideToastMessageInInteractiveFragment();
 
             getActivity().onUserInteraction();
+
+            if(multiClickEvent.canStartVibration()){
+                ((WizardActivity) getActivity()).confirmationToastMessage();
+            }
         }
 
         @Override
