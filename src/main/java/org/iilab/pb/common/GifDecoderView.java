@@ -15,14 +15,16 @@ import java.io.InputStream;
 public class GifDecoderView extends ImageView {
 
 	private boolean mIsPlayingGif = false;
+	private boolean mShouldClear = false;
 	public static int IMAGE_FULL_WIDTH = 1;
 	private GifDecoder mGifDecoder;
 	private Bitmap mTmpBitmap;
+	private Thread mAnimationThread;
 
-	DisplayMetrics metrics;
+	private DisplayMetrics metrics;
 
-	final Handler mHandler = new Handler();
-	final Runnable mUpdateResults = new Runnable() {
+	private final Handler mHandler = new Handler();
+	private final Runnable mUpdateResults = new Runnable() {
 		public void run() {
 			if (mTmpBitmap != null && !mTmpBitmap.isRecycled()) {
 				Drawable drawable = new BitmapDrawable(getResources(), mTmpBitmap);
@@ -32,6 +34,18 @@ public class GifDecoderView extends ImageView {
 		}
 	};
 
+    private final Runnable mCleanupRunnable = new Runnable() {
+//        @Override
+        public void run() {
+            if (mTmpBitmap != null && !mTmpBitmap.isRecycled())
+            	mTmpBitmap.recycle();
+            mTmpBitmap = null;
+            mGifDecoder = null;
+            mAnimationThread = null;
+            mShouldClear = false;
+        }
+    };
+    
 	public GifDecoderView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -41,11 +55,17 @@ public class GifDecoderView extends ImageView {
 		mGifDecoder = new GifDecoder();
 		mGifDecoder.read(stream);
 		mIsPlayingGif = true;
-		new Thread(new Runnable() {
+		mAnimationThread = new Thread(new Runnable() {
 			public void run() {
 				final int n = mGifDecoder.getFrameCount();
 				final int ntimes = mGifDecoder.getLoopCount();
 				int repetitionCounter = 0;
+
+				if (mShouldClear) {
+		            mHandler.post(mCleanupRunnable);
+		            return;
+		        }
+				
 				do {
 					for (int i = 0; i < n; i++) {
 						mTmpBitmap = mGifDecoder.getFrame(i);
@@ -62,8 +82,25 @@ public class GifDecoderView extends ImageView {
 					}
 				} while (mIsPlayingGif && (repetitionCounter <= ntimes));
 			}
-		}).start();
+		});
+		mAnimationThread.start();
 	}
+
+
+    public void stopGif() {
+    	mIsPlayingGif = false;
+
+        if (mAnimationThread != null) {
+        	mAnimationThread.interrupt();
+        	mAnimationThread = null;
+        }
+    }
+
+    public void clear() {
+    	mIsPlayingGif = false;
+        mShouldClear = true;
+        stopGif();
+    }
 
 	public Drawable setDownloadedImageMetrices(Drawable drawable, DisplayMetrics metrics, double densityRatio,
 			int imageScaleFlag) {

@@ -43,7 +43,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     PowerManager.WakeLock wakeLock;
 
 //    TextView tvContent;
-    GifDecoderView gifView;
+    private GifDecoderView gifView;
 
     Page currentPage;
 
@@ -126,6 +126,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        gifView.stopGif();
         Log.e(">>>>>", "onPause WizardAlarmTestHardwareFragment");
     }
 
@@ -140,6 +141,14 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         super.onDestroy();
         Log.e("????", "onDestroy");
         activity.unregisterReceiver(wizardHardwareReceiver);
+    }
+    
+    @Override
+    public void onDestroyView() {
+    	gifView.clear();
+    	gifView = null;
+        super.onDestroyView();
+        Log.e("????", "onDestroyView");
     }
 
 
