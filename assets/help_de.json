@@ -4,7 +4,7 @@
     "data":[    
     {
       "id" : "help",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Hilfe",
       "items" : [
@@ -22,7 +22,7 @@
     },
     {
       "id" : "help_reading",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Liste hilfreicher Lektüre",
       "section_order" : "3",
@@ -33,7 +33,7 @@
     },
     {
       "id" : "help_risk",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Umgang mit deinem Risiko",
       "heading" : "Umgang mit deinem Risiko",
@@ -51,7 +51,7 @@
     },
     {
       "id" : "help_risk_assessing",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Einschätzung deines Risikos",
       "heading" : "Einschätzung deines Risikos",
@@ -69,7 +69,7 @@
     },
     {
       "id" : "help_risk_assessing_threat",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Einschätzung der Bedrohung",
       "heading" : "Schritt eins: Einschätzung der Bedrohung",
@@ -78,7 +78,7 @@
     },
     {
       "id" : "help_risk_assessing_vulnerability",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Reduzierung deiner Schwachstellen",
       "heading" : "Schritt zwei: Reduzierung der Schwachstellen für eine Bedrohung",
@@ -87,7 +87,7 @@
     },
     {
       "id" : "help_risk_mobile",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Safer mobile",
       "heading" : "Safer mobile",
@@ -99,7 +99,7 @@
     },
     {
       "id" : "help_using",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Benutzung von Panik Knopf",
       "section_order" : "2",
@@ -124,7 +124,7 @@
     },
     {
       "id" : "help_using_security",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Security Information",
       "heading" : "Important Security Information",
@@ -136,7 +136,7 @@
     },
     {
       "id" : "help_using_installation",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Installation",
       "heading" : "Installation",
@@ -148,7 +148,7 @@
     },
     {
       "id" : "help_using_configuration",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Configuration",
       "heading" : "Configuration",
@@ -174,7 +174,7 @@
     },
     {
       "id" : "help_using_configuration_contacts",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Setting Up Contacts",
       "heading" : "Setting Up Contacts",
@@ -184,7 +184,7 @@
     },
     {
       "id" : "help_using_configuration_alert_messages",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Create your alert message",
       "heading" : "Create your alert message",
@@ -193,7 +193,7 @@
     },
     {
       "id" : "help_using_configuration_code",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Create pin code",
       "heading" : "Create pin code",
@@ -202,7 +202,7 @@
     },
     {
       "id" : "help_using_configuration_alert",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Learn how to alert",
       "heading" : "Learn how to alert",
@@ -211,7 +211,7 @@
     },
     {
       "id" : "help_using_configuration_disguise",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Activate disguise",
       "heading" : "Activate disguise",
@@ -220,7 +220,7 @@
     },
     {
       "id" : "help_using_tips",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Preparing for Panic",
       "heading" : "Tips for testing",
@@ -232,7 +232,7 @@
     },
     {
       "id" : "help_using_faq",
-      "lang" : "en",
+      "lang" : "de",
       "type" : "simple",
       "title" : "Frequently Ask Questions",
       "heading" : "Frequently Ask Questions",
