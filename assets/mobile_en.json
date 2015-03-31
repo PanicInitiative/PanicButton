@@ -249,7 +249,7 @@
                         "link": "setup-alarm-test-hardware"
                     }
                 ],
-                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert using the phone&#39;s power button.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration.</p>"
+                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert using the phone&#39;s power button.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration. On some phones, you might need to press the button more than 10 times, and then 2 more times to confirm.</p>"
             },
             {
                 "id": "setup-alarm-test-hardware",
