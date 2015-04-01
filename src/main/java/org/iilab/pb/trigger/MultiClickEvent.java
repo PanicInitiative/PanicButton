@@ -42,26 +42,31 @@ public class MultiClickEvent {
             boolean isConfirmationClickedWithinTimeLimit = (vibrationDuration + TIME_INTERVAL_FOR_CONFIRMATION) >= confirmationDuration;
 
             if(isConfirmationClickedBeforeVibrationEnded){
-                skipClick = true;
+            	Log.e("MultiClick", "isConfirmationClickedBeforeVibrationEnded");
+            	skipClick = true;
                 return;
             }
             if(!isConfirmationClickedBeforeVibrationEnded && isConfirmationClickedWithinTimeLimit){
+            	Log.e("MultiClick", "!isConfirmationClickedBeforeVibrationEnded && isConfirmationClickedWithinTimeLimit");
                 isActivated = true;
                 waitForConfirmation = false;
                 return;
             }
             if(!isConfirmationClickedWithinTimeLimit) {
+            	Log.e("MultiClick", "!isConfirmationClickedWithinTimeLimit");
                 resetClickCount(eventTime);
             }
             return;
         }
 
         if (isFirstClick() || notWithinLimit(eventTime) || !isPowerClickBecauseOfUser()) {
+        	Log.e("MultiClick", "isFirstClick() || notWithinLimit(eventTime) || !isPowerClickBecauseOfUser()");
             resetClickCount(eventTime);
             return;
         }
         else {
             clickCount++;
+            Log.e(">>>>>>", "MultiClickEvent clickCount = " + clickCount);
             eventLog.put(Integer.toString(clickCount) + " click", new Date(eventTime).toString());
             if (clickCount >= TOTAL_CLICKS) {
                 waitForConfirmation = true;
@@ -76,7 +81,7 @@ public class MultiClickEvent {
         firstEventTime = eventTime;
         clickCount = 1;
         waitForConfirmation=false;
-        Log.e(">>>>>>", "MultiClickEvent clickCount = " + clickCount);
+        Log.e(">>>>>>", "MultiClickEvent Reset clickCount = " + clickCount);
         eventLog = new HashMap<String, String>();
         eventLog.put(Integer.toString(clickCount) + " click", new Date(eventTime).toString());
     }

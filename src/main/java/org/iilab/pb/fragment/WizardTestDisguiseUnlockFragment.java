@@ -79,6 +79,17 @@ public class WizardTestDisguiseUnlockFragment extends Fragment {
         Log.e(">>>>>", "onResume WizardTestDisguiseUnlockFragment");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e(">>>>>", "onDestroyView WizardTestDisguiseUnlockFragment");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(">>>>>", "onDestroy WizardTestDisguiseUnlockFragment");
+    }
 
     private void registerButtonEvents(View view) {
         for (int buttonId : buttonIds) {
@@ -87,6 +98,12 @@ public class WizardTestDisguiseUnlockFragment extends Fragment {
         }
     }
 
+    private void unregisterButtonEvents(Activity activity) {
+        for (int buttonId : buttonIds) {
+            Button button = (Button) activity.findViewById(buttonId);
+            button.setOnTouchListener(null);
+        }
+    }
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
 
@@ -95,29 +112,35 @@ public class WizardTestDisguiseUnlockFragment extends Fragment {
 
             switch (event.getAction()) {
                 case MotionEvent.ACTION_UP:
-
+                	Log.e(">>>>>", "ACTION_UP");
+                	Log.e(">>>>>", event.toString());
                     if (!mHasPerformedLongPress) {
+                    	Log.e(">>>>>", "ACTION_UP No Long Press");
                         // This is a tap, so remove the long-press check
                         if (mPendingCheckForLongPress != null) {
                             v.removeCallbacks(mPendingCheckForLongPress);
+                        	Log.e(">>>>>", "ACTION_UP Removed Callbacks");
                         }
                     }
 
                     break;
                 case MotionEvent.ACTION_DOWN:
+                	Log.e(">>>>>", "ACTION_DOWN");
                     if (mPendingCheckForLongPress == null) {
                         mPendingCheckForLongPress = new Runnable() {
                             public void run() {
+                            	Log.e(">>>>>", "RUNNING RUNNABLE");
 
                                 String pageId = currentPage.getSuccessId();
-
+                                unregisterButtonEvents(activity);
                                 Intent i = new Intent(activity, WizardActivity.class);
                                 i.putExtra("page_id", pageId);
                                 activity.startActivity(i);
                                 activity.finish();
                             }
                         };
-                    }
+                       	Log.e(">>>>>", "ACTION_DOWN CREATED RUNNABLE");
+                   }
 
 
                     mHasPerformedLongPress = false;

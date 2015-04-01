@@ -47,8 +47,11 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e(">>>>>", "onCreateView before inflate");
         View view = inflater.inflate(R.layout.calculator_layout, container, false);
+        Log.e(">>>>>", "onCreateView before registerButtonEvents");
         registerButtonEvents(view);
+        Log.e(">>>>>", "onCreateView after registerButtonEvents");
         return view;
     }
 
@@ -80,6 +83,18 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         Log.e(">>>>>", "onResume WizardAlarmTestDisguiseFragment");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e(">>>>>", "onDestroyView WizardAlarmTestDisguiseFragment");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(">>>>>", "onDestroy WizardAlarmTestDisguiseFragment");
+    }
+
 
     private void registerButtonEvents(View view) {
         for (int buttonId : buttonIds) {
@@ -88,13 +103,23 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
         }
     }
 
+    private void unregisterButtonEvents(Activity activity) {
+        for (int buttonId : buttonIds) {
+            Button button = (Button) activity.findViewById(buttonId);
+            button.setOnClickListener(null);
+        }
+    }
+
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             int id = view.getId();
+        	Log.e(">>>>>", "onClick id " + id);
+        	Log.e(">>>>>", "onClick lastClickId " + lastClickId);
 
             MultiClickEvent multiClickEvent = (MultiClickEvent) view.getTag();
             if (multiClickEvent == null) {
+            	Log.e(">>>>>", "multiClickEvent reset");
                 multiClickEvent = resetEvent(view);
             }
 
@@ -103,6 +128,7 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
             multiClickEvent.registerClick(System.currentTimeMillis());
 
             if(multiClickEvent.skipCurrentClick()){
+            	Log.e(">>>>>", "multiClickEvent skip");
                 multiClickEvent.resetSkipCurrentClickFlag();
                 return;
             }
@@ -113,12 +139,13 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
                 Toast.makeText(activity, "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
             }
             else if(multiClickEvent.isActivated()){
+            	Log.e(">>>>>", "multiClickEvent isActivated");
                 vibrate(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION);
 
                 resetEvent(view);
+                //unregisterButtonEvents(activity);
 
                 String pageId = currentPage.getSuccessId();
-
                 Intent i = new Intent(activity, WizardActivity.class);
                 i.putExtra("page_id", pageId);
                 activity.startActivity(i);
