@@ -245,9 +245,6 @@ public class HomeActivity extends Activity {
 	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
 	            JSONObject mobileObj = jsonObj.getJSONObject("help");
 
-	            lastUpdatedVersion = mobileObj.getInt("version");
-	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
-
 	            JSONArray dataArray = mobileObj.getJSONArray("data");
 	            insertMobileDataToLocalDB(dataArray);
 	        } catch (JSONException e) {
