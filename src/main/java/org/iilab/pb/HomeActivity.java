@@ -29,8 +29,9 @@ public class HomeActivity extends Activity {
 //    String mobileDataUrl;
 //    String helpDataUrl;
 
-    int lastUpdatedVersion;
-    int latestVersion;
+    int currentLocalContentVersion;
+    int lastLocalContentVersion;
+//    int latestVersion;
 //    long lastRunTimeInMillis;
     int lastLocalDBVersion;
 
@@ -42,8 +43,7 @@ public class HomeActivity extends Activity {
 
         //deleteShortCut();
 
-        latestVersion = -1;
-        lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
+        //latestVersion = -1;
 
         int wizardState = ApplicationSettings.getWizardState(this);
         if (AppConstants.SKIP_WIZARD) {
@@ -76,8 +76,21 @@ public class HomeActivity extends Activity {
 //            lastRunTimeInMillis = -1;
         }
 
-        if (!ApplicationSettings.getLocalDataInsertion(HomeActivity.this)) {
-            Log.e("???????", "Initializing local data");
+        currentLocalContentVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
+
+        try {
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
+            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+
+            lastLocalContentVersion = mobileObj.getInt("version");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        
+        // We update all the content if the english mobile_en.json version has increased.
+        
+		if (lastLocalContentVersion > currentLocalContentVersion) {
+            Log.e("???????", "Update local data");
             new InitializeLocalData().execute();
         }
 //        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
@@ -154,8 +167,9 @@ public class HomeActivity extends Activity {
 //        }, AppConstants.SPLASH_DELAY_TIME);
 //    }
 
-    private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
-
+	private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
+		int lastUpdatedVersion;
+		
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
