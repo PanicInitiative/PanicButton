@@ -2,7 +2,7 @@
 
 ## Submit a translation
 
-Unfortunately it is not as straightforward as we would like right now, but if you have resources or skills to help make the process better, that would be a great contribution to the project.
+Unfortunately it is not as straightforward as we would like right now, but if you have resources or skills to help make the process better, [that would be a great contribution](#improve-how-translations-are-managed) to the project.
 
 In the meantime you can contribute by:
  - [forking](https://help.github.com/articles/fork-a-repo/) the project
