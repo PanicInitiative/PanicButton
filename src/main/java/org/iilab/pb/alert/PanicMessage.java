@@ -63,19 +63,14 @@ public class PanicMessage {
         boolean isFirstMsgSent = ApplicationSettings.isFirstMsgSent(context);
 
         String smsText = "";
-        if(!isFirstMsgSent) {
-            smsText = message;
-            if(!locationString.equals("")){
-                smsText = smsText + " - " + locationString;
-            }
-        } else {
-            if (locationString == "") {
-                smsText = context.getResources().getString(R.string.location_not_found);
-            } else {
-                smsText = locationString;
-            }
+        smsText = message;
+        
+        if(locationString.equals("")){
+        	locationString = context.getResources().getString(R.string.location_not_found);
         }
 
+        smsText = smsText + " - " + locationString;
+        
         if(smsText.length() > maxLength) {
             smsText = message.substring(0, (maxLength - locationString.length()) ) + locationString;
         }
