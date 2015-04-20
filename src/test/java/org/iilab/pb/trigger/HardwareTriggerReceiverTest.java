@@ -71,7 +71,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_SCREEN_ON));
 
         verify(mockMultiClickEvent).registerClick(anyLong());
-        verify(mockPanicAlert, never()).activate(eventLog);
+        verify(mockPanicAlert, never()).activate();
     }
 
     @Test
@@ -79,7 +79,7 @@ public class HardwareTriggerReceiverTest {
         spyHardwareTriggerReceiver.onReceive(context, new Intent(ACTION_CAMERA_BUTTON));
 
         verifyNoMoreInteractions(mockMultiClickEvent);
-        verify(mockPanicAlert, never()).activate(eventLog);
+        verify(mockPanicAlert, never()).activate();
     }
 
 //    @Test

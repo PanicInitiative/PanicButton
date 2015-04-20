@@ -125,7 +125,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 			}
 			else if (multiClickEvent.isActivated()) {
 				CalculatorActivity.this.finish();
-                getPanicAlert().activate(multiClickEvent.getEventLog());
+                getPanicAlert().activate();
 				resetEvent(view);
 			}
 		}

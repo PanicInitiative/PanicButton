@@ -43,7 +43,7 @@ public class PanicButtonActivityTest {
 
     @Test
     public void shouldShowRedAlertStripWhenAlertStatusIsActive(){
-    	mockPanicAlert.activate(new HashMap<String, String>());
+    	mockPanicAlert.activate();
     	when(mockPanicAlert.isActive()).thenReturn(true);
         activity.onResume();
 //        assertThat(alertStatusStrip.getBackgroundColor(), Is.is(Robolectric.application.getResources().getColor(R.color.active_color)));

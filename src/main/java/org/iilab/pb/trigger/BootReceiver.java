@@ -25,7 +25,7 @@ public class BootReceiver extends BroadcastReceiver {
         	if(ApplicationSettings.isAlertActive(context)){
                 Log.e("BootReceiver", "Alarm is active");
 	        	ApplicationSettings.setAlertActive(context, false);
-	        	new PanicAlert(context).activate(eventLog);
+	        	new PanicAlert(context).activate();
         	}
 
             int wizardState = ApplicationSettings.getWizardState(context.getApplicationContext());

@@ -89,7 +89,7 @@ public class CalculatorActivityTest {
 
 
             verify(mockPanicAlert).vibrate();
-            verify(mockPanicAlert).activate(mapArgCaptor.capture());
+            verify(mockPanicAlert).activate();
             HashMap<String, String> logMapArgument = mapArgCaptor.getValue();
             assertEquals(5, logMapArgument.size());
 

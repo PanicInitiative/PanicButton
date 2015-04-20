@@ -52,7 +52,7 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
     void activateAlert(PanicAlert panicAlert) {
 //        panicAlert.start();
-        panicAlert.activate(multiClickEvent.getEventLog());
+        panicAlert.activate();
     }
 
     protected void resetEvent() {

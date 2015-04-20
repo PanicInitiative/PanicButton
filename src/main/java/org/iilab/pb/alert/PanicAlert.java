@@ -19,7 +19,6 @@ import org.iilab.pb.location.CurrentLocationProvider;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,7 +39,7 @@ public class PanicAlert {
         alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
-    public void activate(Map<String, String> eventLog) {
+    public void activate() {
         AppUtil.close(context);
         vibrateOnce();
 
