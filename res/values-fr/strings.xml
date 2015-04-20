@@ -11,6 +11,7 @@
     <string name="i_am_at">Je suis ici:</string>
     <string name="i_am_at_url">Je suis ici: http://maps.google.com/GPS-location</string>
     <string name="location_not_found">En cours d\'identification de l\'emplacement</string>
+    <string name="stop_alert_message">L\'alerte à été désactivée</string>
     <string name="panic_button">Bouton\nd\'Urgence</string>
     <string name="page_title_text">Titre</string>
 
@@ -26,7 +27,6 @@
     <string name="alert_status_standby">L\'alerte est en mode veille</string>
     <string name="send_emergency_alert">&#160;&#160;Envoyer l\'alerte d\'urgence</string>
     <string name="stop_alert">&#160;&#160;Arrêter l\'alerte</string>
-    <string name="stop_alert_message">Je suis hors de danger</string>
     <string name="alert_status_active">L\'alerte est active et émet toutes les cinq minutes</string>
 
      <string name="choose_contact">Choisissez votre contact d\'urgence</string>
@@ -57,6 +57,6 @@
     <string name="second_contact">&#160;2.&#160;</string>
     <string name="third_contact">&#160;3.&#160;</string>
 
-    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+    <string name="confirmation_message">Aprés la vibration, appuyer à nouveau sur le bouton marche-arrêt dans les 3 secondes pour confirmer.</string>
 
 </resources>

@@ -11,6 +11,7 @@
     <string name="i_am_at">I\'m at</string>
     <string name="i_am_at_url">I\'m at https://maps.google.com/GPS-location</string>
     <string name="location_not_found">Trying to identify location</string>
+    <string name="stop_alert_message">The alert has been stopped</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="page_title_text">Title</string>
 
@@ -26,7 +27,6 @@
     <string name="alert_status_standby">Alert is in standby</string>
     <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
     <string name="stop_alert">&#160;&#160;Stop alert</string>
-    <string name="stop_alert_message">I am out of danger</string>
     <string name="alert_status_active">Alert is active and Sending every five minutes</string>
 
     <string name="first_contact">&#160;1.&#160;</string>

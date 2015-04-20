@@ -11,6 +11,7 @@
     <string name="i_am_at">Estoy en</string>
     <string name="i_am_at_url">Estoy en :  https://maps.google.com/GPS-ubicación </string>
     <string name="location_not_found">Tratando de identificar la ubicación</string>
+    <string name="stop_alert_message">La alarma fue desactivada</string>
     <string name="panic_button">Boton de Panico</string>
     <string name="page_title_text">Titulo</string>
 
@@ -26,7 +27,6 @@
     <string name="alert_status_standby">La alerta se encuentra en pausa </string>
     <string name="send_emergency_alert">&#160;&#160;Enviar alerta de emergencia</string>
     <string name="stop_alert">&#160;&#160;Detener alerta</string>
-    <string name="stop_alert_message">Estoy fuera de peligro</string>
     <string name="alert_status_active">La alerta esta activada y se enviara cada cinco minutos </string>
 
     <string name="choose_contact">Escoge a tus contactos de emergencia</string>
