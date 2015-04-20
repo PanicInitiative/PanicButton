@@ -69,41 +69,19 @@ public class CalculatorActivityTest {
 
 	@Test
 	public void shouldActivateAlertOnPressingButtonFifthTime() {
-        try {
-            DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss zzz yyyy");
-            long startTime = df.parse(df.format(new Date())).getTime();
-            for (int i = 0; i < 4; i++) {
-                equalsButton.performClick();
-            }
-            try {
-                    Thread.sleep(AppConstants.HAPTIC_FEEDBACK_DURATION + 1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            ArgumentCaptor<HashMap> mapArgCaptor = ArgumentCaptor.forClass(HashMap.class);
-
+        for (int i = 0; i < 4; i++) {
             equalsButton.performClick();
-
-            long endTime = df.parse(df.format(new Date())).getTime();
-
-
-            verify(mockPanicAlert).vibrate();
-            verify(mockPanicAlert).activate();
-            HashMap<String, String> logMapArgument = mapArgCaptor.getValue();
-            assertEquals(5, logMapArgument.size());
-
-            long clickedTime = 0;
-
-            for(String clickCapturedTime : logMapArgument.values()){
-                clickedTime = df.parse(clickCapturedTime).getTime();
-                boolean isGreaterThanStartTime =  clickedTime >= startTime;
-                boolean isLessThanEndTime = endTime >= clickedTime;
-                assertTrue(isGreaterThanStartTime && isLessThanEndTime);
-            }
-        } catch (ParseException e) {
+        }
+        try {
+            Thread.sleep(AppConstants.HAPTIC_FEEDBACK_DURATION + 1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        equalsButton.performClick();
+
+        verify(mockPanicAlert).vibrate();
+        verify(mockPanicAlert).activate();
 	}
 
 	@Test

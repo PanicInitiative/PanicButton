@@ -101,7 +101,7 @@ public class PanicAlertTest {
     @Test
     public void shouldActiveTheAlertWithHapticFeedback() throws IllegalAccessException {
         panicAlert.activate();
-        assertEquals(3000, shadowVibrator.getMilliseconds());
+        assertEquals(500, shadowVibrator.getMilliseconds());
         assertTrue(panicAlert.isActive());
         verify(mockExecutor).execute(any(Runnable.class));
 
@@ -113,7 +113,7 @@ public class PanicAlertTest {
     public void shouldNotActiveAgainIfItIsAlreadyActive() throws IllegalAccessException {
         ApplicationSettings.setAlertActive(context, true);
         panicAlert.activate();
-        assertEquals(3000, shadowVibrator.getMilliseconds());
+        assertEquals(500, shadowVibrator.getMilliseconds());
         verifyZeroInteractions(mockExecutor);
     }
 

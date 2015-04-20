@@ -78,7 +78,7 @@ public class PanicMessageTest {
         PanicMessage panicMessage = createPanicMessage();
         panicMessage.sendAlertMessage(location);
 
-        String messageWithLocation = normalLocationText;
+        String messageWithLocation = message + " - " + normalLocationText;
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithLocation);
         verify(mockSMSAdapter).sendSMS(context, mobile3, messageWithLocation);
         verifyNoMoreInteractions(mockSMSAdapter);
@@ -90,7 +90,7 @@ public class PanicMessageTest {
         panicMessage.sendAlertMessage(null);
         ApplicationSettings.setFirstMsgSent(context, false);
 
-        String messageWithoutLocation = message;
+        String messageWithoutLocation = message + " - " + context.getResources().getString(R.string.location_not_found);
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithoutLocation);
         verify(mockSMSAdapter).sendSMS(context, mobile3, messageWithoutLocation);
         verifyNoMoreInteractions(mockSMSAdapter);
@@ -103,7 +103,7 @@ public class PanicMessageTest {
         PanicMessage panicMessage = createPanicMessage();
         panicMessage.sendAlertMessage(null);
 
-        String messageWithoutLocation = context.getResources().getString(R.string.location_not_found);
+        String messageWithoutLocation = message + " - " + context.getResources().getString(R.string.location_not_found);
         verify(mockSMSAdapter).sendSMS(context, mobile1, messageWithoutLocation);
         verify(mockSMSAdapter).sendSMS(context, mobile3, messageWithoutLocation);
         verifyNoMoreInteractions(mockSMSAdapter);
