@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import com.parse.ParseAnalytics;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
@@ -37,7 +36,6 @@ public class HomeActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
         setContentView(R.layout.welcome_screen);
 
