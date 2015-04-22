@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#ff000000"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+        <TextView style="@style/calculator_display" android:hint="@string/zero" android:textColor="#ffff00"/>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="@string/division" />
+            <Button style="@style/calculator_btn" android:text="@string/seven" />
+            <Button style="@style/calculator_btn" android:text="@string/eight" />
+            <Button style="@style/calculator_btn" android:text="@string/nine" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="@string/multiplication" />
+            <Button style="@style/calculator_btn" android:text="@string/four" />
+            <Button style="@style/calculator_btn" android:text="@string/five" />
+            <Button style="@style/calculator_btn" android:text="@string/six" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="@string/subtraction" />
+            <Button style="@style/calculator_btn" android:text="@string/one" />
+            <Button style="@style/calculator_btn" android:text="@string/two" />
+            <Button style="@style/calculator_btn" android:text="@string/three" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/calculator_btn_container">
+            <Button style="@style/calculator_btn" android:text="@string/addition" android:layout_weight="1" />
+            <Button style="@style/calculator_btn" android:text="@string/zero" android:layout_weight="1" />
+            <Button style="@style/calculator_btn" android:text="@string/equal_to" android:layout_weight="0.66"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_height="fill_parent"
+                  android:layout_width="fill_parent"
+                  android:background="#66ffffff">
+    </LinearLayout>
+</FrameLayout>
+<!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/layout/welcome_screen.xml -->

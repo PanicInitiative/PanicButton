@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/contact_edit_text"
+        android:layout_height="52dp"
+        android:layout_width="fill_parent"
+        android:hint="@string/contact_hint_text"
+        android:textSize="20sp"
+        android:inputType="phone" />
+
+    <ImageButton
+        android:id="@+id/contact_picker_button"
+        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/socialperson"
+        android:contentDescription="@string/choose_contact"
+        style="@style/contact_select_button" />
+</RelativeLayout><!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/layout/contact_picker_fragment.xml -->

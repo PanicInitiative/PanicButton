@@ -1,0 +1,698 @@
+{
+  "mobile": {
+    "version": 8,
+    "data": [
+      {
+        "id": "setup-warning",
+        "lang": "pt",
+        "type": "warning",
+        "title": "Advertência",
+        "action": [
+          {
+            "title": "Começa",
+            "link": "setup-contacts"
+          }
+        ],
+        "content": "<p>O Botão de Pânico é uma ferramenta útil para alertar sua rede rapidamente quando você precisa de ajuda. Ele não pode garantir a sua segurança! Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</p>"
+      },
+      {
+        "id": "setup-message",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configuração de Mensagem de Alerta",
+        "introduction": "Esta é a mensagem que será enviada com a sua localização",
+        "warning": "Combine um plano com seus contatos para que saibam o que fazer quando receberem isto",
+        "component": "message",
+        "action": [
+          {
+            "title": "Próximo",
+            "link": "setup-code"
+          }
+        ],
+        "content": "<p>Dicas de segurança</p><ul><li>Procure criar palavras ou frases de código na sua mensagem, que só seus contatos vão entender.</li><li>Numa emergência, você não terá tempo de modificar uma mensagem, portanto crie algo funcione em qualquer situação.</li><li>Se você quiser que sua localização seja incluída na mensagem, ativar rastreamento GPS nas configurações do telefone.</li></ul>"
+      },
+      {
+        "id": "setup-language",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configurações de Idioma",
+        "introduction": "Escolha um idioma para a aplicação.",
+        "component": "language",
+        "action": [
+          {
+            "title": "English",
+            "language": "en",
+            "confirmation": "New language applied"
+          },
+          {
+            "title": "Español",
+            "language": "es",
+            "confirmation": "Nuevo lenguaje seleccionado"
+          },
+          {
+            "title": "Français",
+            "language": "fr",
+            "confirmation": "Nouveau language selectionné"
+          },
+          {
+            "title": "Português",
+            "language": "pt",
+            "confirmation": "Novo idioma aplicado"
+          },
+          {
+            "title": "Deutsch",
+            "language": "de",
+            "confirmation": "Neue Sprache eingestellt"
+          }
+        ]
+      },
+      {
+        "id": "setup-disguise-test-unlock-fail",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar o Disfarce",
+        "action": [
+          {
+            "title": "Tente Novamente",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Mantenha o botão pressionado e aparecerá o pedido de digitar seu código PIN</p>"
+      },
+      {
+        "id": "setup-disguise-test-unlock",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Testar o Disfarce",
+        "introduction": "Experimente agora! Mantenha pressionado qualquer botão na calculadora",
+        "component": "disguise-test-unlock",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-disguise-test-code"
+        },
+        "fail": {
+          "link": "setup-disguise-test-unlock-fail"
+        }
+      },
+      {
+        "id": "setup-disguise-test-success",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Muito Bem!",
+        "action": [
+          {
+            "title": "Concluir",
+            "link": "home-ready"
+          }
+        ],
+        "content": "<p>Parabéns, você configurou o aplicativo Botão de Pânico!</p>"
+      },
+      {
+        "id": "setup-disguise-test-open-fail",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar o Disfarce",
+        "action": [
+          {
+            "title": "Tente Novamente",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora.</p><p>Lembre-se: o ícone do aplicativo é uma calculadora quando ele está disfarçado.</p>"
+      },
+      {
+        "id": "setup-disguise-test-open",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Testar o Disfarce",
+        "introduction": "Experimente agora ! Abra o aplicativo clicando no icone  ** Calculate!** ",
+        "component": "disguise-test-open",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-disguise-test-unlock"
+        },
+        "fail": {
+          "link": "setup-disguise-test-open-fail"
+        }
+      },
+      {
+        "id": "setup-disguise-test-code-fail",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar o Disfarce",
+        "action": [
+          {
+            "title": "Tente novamente",
+            "link": "setup-disguise-test-unlock"
+          }
+        ],
+        "content": "<p>Parece que você não conseguiu abrir o app a partir do disfarce de calculadora</p><p>Lembre-se: Digite o código PIN que você escolheu nos primeiros passos da configuração. Se você não lembrar do seu código, desinstale o aplicativo e reinstale.</p>"
+      },
+      {
+        "id": "setup-disguise-test-code",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Testar o Disfarce",
+        "introduction": "Muito Bem! Agora digite seu código PIN para acessar as configurações.",
+        "component": "disguise-test-code",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "action": [
+          {
+            "title": "Ok",
+            "link": "setup-disguise-test-success"
+          }
+        ],
+        "success": {
+          "link": "setup-disguise-test-success"
+        },
+        "fail": {
+          "link": "setup-disguise-test-code-fail"
+        }
+      },
+      {
+        "id": "setup-disguise",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar o Disfarce",
+        "action": [
+          {
+            "title": "Aprender",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>O Botão de Pânico fica escondido em seu telefone, parecendo  uma calculadora simples. A partir de agora, você vai ver o disfarce da calculadora sempre que você abrir o aplicativo. Aprende como ele funciona.</p>"
+      },
+      {
+        "id": "setup-contacts",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configurar Contatos",
+        "introduction": "Estas são as pessoas que vão receber o seu alerta.",
+        "warning": "Eles precisam conhecer você pessoalmente, e conseguir responder rapidamente.",
+        "component": "contacts",
+        "action": [
+          {
+            "title": "Próximo",
+            "link": "setup-message"
+          }
+        ],
+        "content": "<p>Dicas de Segurança</p><ul><li>Pense em quem pode ajudá-lo de verdade - não adianta alguém saber que você está em apuros, se não tiver como ajudar.</li><li>Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</li><li>Esteja ciente dos riscos - de que maneira seu contato podem ser colocado em risco ?</li></ul>"
+      },
+      {
+        "id": "setup-code",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Criar Um Código PIN",
+        "introduction": "Este código é necessário para acessar as configurações do aplicativo. Ele não é necessário para alertar os contatos em caso de emergência.",
+        "warning": "Lembre-se do seu código! Se esquecer, terá que reinstalar o aplicativo.",
+        "component": "code",
+        "action": [
+          {
+            "title": "Próximo",
+            "link": "home-not-configured-alarm"
+          }
+        ]
+      },
+      {
+        "id": "setup-alarm-test-hardware-success",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Muito Bem!",
+        "action": [
+          {
+            "title": "Próximo",
+            "link": "setup-alarm-disguise"
+          }
+        ],
+        "content": "<p>Teste bem sucedido! Em caso de emergência real, o seu alerta seria enviado.</p>"
+      },
+      {
+        "id": "setup-alarm-test-hardware-fail",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar Alertas",
+        "action": [
+          {
+            "title": "Tente Novamente",
+            "link": "setup-alarm-test-hardware"
+          }
+        ],
+        "content": "<p>Parece que você não conseguiu acionar o alerta usando o botão de ligar o telefone.</p><p>Lembre-se: pressione repetidamente um botão na calculadora rápida até sentir uma vibração.</p>"
+      },
+      {
+        "id": "setup-alarm-test-hardware",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Testar Alerta de Hardware",
+        "introduction": "Experimente agora! Pressione repetidamente o botão de ligar, até sentir uma vibração.",
+        "component": "alarm-test-hardware",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-alarm-test-hardware-success"
+        },
+        "fail": {
+          "link": "setup-alarm-test-hardware-fail"
+        },
+        "content": "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise-success",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Muito Bem!",
+        "action": [
+          {
+            "title": "Próximo",
+            "link": "home-not-configured-disguise"
+          }
+        ],
+        "content": "<p>Teste bem sucedido! Numa emergência real, o seu alerta seria enviado</p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise-fail",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar Alertas",
+        "action": [
+          {
+            "title": "Tentar novamente",
+            "link": "setup-alarm-test-disguise"
+          }
+        ],
+        "content": "<p>Parece que você não conseguiu acionar o alerta.</p><p>Lembre-se: pressione repetidamente um botão na calculadora rápida até sentir uma vibração.</p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Testar Alarme Disfarçado",
+        "introduction": "Experimente agora! Pressione repetidamente o botão de ligar, até sentir uma vibração.",
+        "component": "alarm-test-disguise",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-alarm-test-disguise-success"
+        },
+        "fail": {
+          "link": "setup-alarm-test-disguise-fail"
+        }
+      },
+      {
+        "id": "setup-alarm-disguise",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar Alertas",
+        "action": [
+          {
+            "title": "Aprender",
+            "link": "setup-alarm-test-disguise"
+          }
+        ],
+        "content": "<p>Alternativamente, você pode acionar o alerta diretamente da tela de desfarce do aplicativo.</p>"
+      },
+      {
+        "id": "setup-alarm",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurar Alertas",
+        "action": [
+          {
+            "title": "Aprender",
+            "link": "setup-alarm-test-hardware"
+          }
+        ],
+        "content": "<p>Agora aprenda como acionar o Botão de Pânico em caso de emergência.</p><p>O Botão de Pânico é único, você pode acionar o alerta a partir do botão de ligar do telefone. Isto significa que você pode fazê-lo secretamente - por exemplo, de dentro de um bolso da jaqueta.</p>"
+      },
+      {
+        "id": "setup-about",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Sobre",
+        "content": "<p>O Botão de Pânico transforma seu celular em um alarme secreto para quando você está em apuros</p><p><strong>Como funciona o Botão de Pânico?</strong></p><ul><li>Reserve uma hora e lugar SEGURO e TRANQUILO para configurar o Botão de Pânico </li><li>Combine um plano com seus contatos para que estejam PREPARADOS para AGIR</li><li>VERIFIQUE se você está pronto e se o seu celular tem crédito e bateria</li><li>ATIVE o Botão de Pânico em caso de emergência, pressionando o botão de ligar o telefone</li><li>Sua rede receberá um SMS e atualizações regulares da sua localização, permitindo uma AÇÃO RÁPIDA</li></ul><p>O projeto do Botão de Pânico é uma iniciativa da Anistia Internacional, em colaboração com consultores e parceiros chave, incluindo Frontline Defenders, iilab e the engine room</p>"
+      },
+      {
+        "id": "settings-reset-confirm",
+        "lang": "pt",
+        "type": "warning",
+        "title": "Confirme a Reinstalação",
+        "action": [
+          {
+            "title": "Confirmar",
+            "link": "home-not-configured"
+          }
+        ],
+        "content": "<p>Confirme que você quer reiniciar a instalação. Ao reiniciar a instalação, o alerta ficará desativado até você terminar de usar o assistente.</p>"
+      },
+      {
+        "id": "settings-message",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configuração de Mensagem de Alerta",
+        "introduction": "Esta é a mensagem que será enviada com a sua localização.",
+        "warning": "Combine um plano com seus contatos para que saibam o que fazer quando receberem isto.",
+        "component": "message",
+        "action": [
+          {
+            "title": "Salvar",
+            "link": "home-ready",
+            "confirmation": "Mensagem salvo"
+          }
+        ],
+        "content": "<p>Dicas de segurança</p><ul><li>Procure criar palavras ou frases de código na sua mensagem, que só seus contatos vão entender.</li><li>Numa emergência, você não terá tempo de modificar uma mensagem, portanto crie algo que funciona em qualquer situação. </li><li>Se você quiser que sua localização seja incluída na mensagem, ativar rastreamento GPS nas configurações do telefone.</li></ul>"
+      },
+      {
+        "id": "settings-language",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configurações de Idioma",
+        "introduction": "Escolha um idioma para o aplicativo.",
+        "component": "language",
+        "action": [
+          {
+            "title": "English",
+            "language": "en",
+            "confirmation": "New language applied"
+          },
+          {
+            "title": "Español",
+            "language": "es",
+            "confirmation": "Nuevo lenguaje seleccionado"
+          },
+          {
+            "title": "Français",
+            "language": "fr",
+            "confirmation": "Nouveau language selectionné"
+          },
+          {
+            "title": "Português",
+            "language": "pt",
+            "confirmation": "Novo idioma aplicado"
+          },
+          {
+            "title": "Deutsch",
+            "language": "de",
+            "confirmation": "Neue Sprache eingestellt"
+          }
+        ]
+      },
+      {
+        "id": "settings-contacts",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configurar Contatos",
+        "introduction": "Estas são as pessoas que vão receber o seu alerta.",
+        "warning": "Eles precisam te conhecer pessoalmente, e serem capazes de responder rapidamente.",
+        "component": "contacts",
+        "action": [
+          {
+            "title": "Salvar",
+            "link": "home-ready",
+            "confirmation": "Contatos salvos"
+          }
+        ],
+        "content": "<p>Dicas de Segurança</p><ul><li>Pense em quem pode ajudá-lo de verdade - não adianta alguém saber que você está em apuros se não tiver como ajudar.</li><li>Combine um plano com seus contatos selecionados para que estejam preparados para agir rápido.</li><li>Esteja ciente dos riscos - de que maneira seus contatos podem ser colocados em risco ?</li></ul>"
+      },
+      {
+        "id": "settings-alert",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Configurações de alerta",
+        "introduction": "Configurar a frequência.",
+        "warning": "Cuidado com sua bateria! O envio frequente de alertas pode gastar rapidamente a bateria.",
+        "component": "alert",
+        "action": [
+          {
+            "title": "Salvar",
+            "link": "home-ready",
+            "confirmation": "Novo alerta de frequência salvo."
+          }
+        ]
+      },
+      {
+        "id": "settings",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Configurações",
+        "items": [
+          {
+            "title": "Configurações de Idioma",
+            "link": "settings-language"
+          },
+          {
+            "title": "Configurações de Mensagens",
+            "link": "settings-message"
+          },
+          {
+            "title": "Configurações dos Contatos",
+            "link": "settings-contacts"
+          },
+          {
+            "title": "Configurações de Alerta",
+            "link": "settings-alert"
+          },
+          {
+            "title": "Configurações da Senha",
+            "link": "settings-code"
+          },
+          {
+            "title": "Reiniciar a Instalação",
+            "link": "settings-reset-confirm"
+          }
+        ]
+      },
+      {
+        "id": "home-ready",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Botão de Pânico",
+        "status": [
+          {
+            "title": "Pronto",
+            "color": "green",
+            "link": "help-ready"
+          }
+        ],
+        "action": [
+          {
+            "title": "Disfarce",
+            "link": "checklist"
+          }
+        ],
+        "items": [
+          {
+            "title": "Configurações",
+            "link": "settings"
+          },
+          {
+            "title": "Sobre",
+            "link": "setup-about"
+          },
+          {
+            "title": "Ajuda",
+            "link": "help"
+          }
+        ],
+        "content": "<p>O Botão de Pânico está configurado e pronto para ser usado. Clique Disfarce para sair e esconder o aplicativo.</p>"
+      },
+      {
+        "id": "home-not-configured-disguise",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Botão de Pânico",
+        "status": [
+          {
+            "title": "A instalação não é concluída",
+            "color": "red",
+            "link": "help-not-configured"
+          }
+        ],
+        "action": [
+          {
+            "title": "Configurações Básicas",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configure o Alerta",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configure o Disfarce",
+            "link": "setup-disguise"
+          }
+        ],
+        "items": [
+          {
+            "title": "Sobre",
+            "link": "setup-about"
+          },
+          {
+            "title": "Ajuda",
+            "link": "help"
+          },
+          {
+            "title": "Configurações de Idioma",
+            "link": "setup-language"
+          }
+        ],
+        "content": "<p>O Botão de Pânico só poderá ser usado depois de estar totalmente configurado.</p>"
+      },
+      {
+        "id": "home-not-configured-alarm",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Botão de Pânico",
+        "status": [
+          {
+            "title": "Instalação não concluída",
+            "color": "red",
+            "link": "help-not-configured"
+          }
+        ],
+        "action": [
+          {
+            "title": "Configurações Básicas",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configure o Alerta",
+            "link": "setup-alarm"
+          },
+          {
+            "title": "Configure o Disfarce",
+            "link": "setup-disguise",
+            "status": "disabled"
+          }
+        ],
+        "items": [
+          {
+            "title": "Sobre",
+            "link": "setup-about"
+          },
+          {
+            "title": "Ajuda",
+            "link": "help"
+          },
+          {
+            "title": "Configurações de Idioma",
+            "link": "setup-language"
+          }
+        ],
+        "content": "<p>O Botão de Pânico só poderá ser usado depois de estar totalmente configurado</p>"
+      },
+      {
+        "id": "home-not-configured",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Botão de Pânico",
+        "action": [
+          {
+            "title": "Instalação",
+            "link": "setup-warning"
+          }
+        ],
+        "items": [
+          {
+            "title": "Sobre",
+            "link": "setup-about"
+          },
+          {
+            "title": "Configurações de Idioma",
+            "link": "setup-language"
+          }
+        ],
+        "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> O Botão de Pânico é um aplicativo Android que alerta secretamente seus contatos quando você está em apuros. O aplicativo fica escondido em seu telefone, parecendo uma simples calculadora.</p>"
+      },
+      {
+        "id": "home-alerting",
+        "lang": "pt",
+        "type": "simple",
+        "title": "Botão de Pânico",
+        "status": [
+          {
+            "title": "Enviando alertas",
+            "color": "red",
+            "link": "help-alerting"
+          }
+        ],
+        "action": [
+          {
+            "title": "Parar Alertas",
+            "link": "home-ready"
+          }
+        ],
+        "content": "<p>O Botão de Pânico está enviando alertas. Clique Parar Alertas para cancelar o envio de mensagem. </p>"
+      },
+      {
+        "id": "code",
+        "lang": "pt",
+        "type": "interactive",
+        "title": "Código PIN",
+        "component": "code",
+        "action": [
+          {
+            "title": "Prosseguir",
+            "link": "home-ready"
+          }
+        ],
+        "fail": "Se esquecer o seu código PIN, desinstale o aplicativo nas configurações do seu telefone e, em seguida, reinstale."
+      },
+      {
+        "id": "checklist",
+        "lang": "pt",
+        "type": "modal",
+        "title": "Lista de Controle",
+        "action": [
+          {
+            "title": "Disfarce agora",
+            "link": "close"
+          },
+          {
+            "title": "Cancelar",
+            "link": "home-ready",
+            "status": "disabled"
+          }
+        ],
+        "checklist": [
+          {
+            "title": "Revisar o plano de segurança e atualizar os contatos regularmente"
+          },
+          {
+            "title": "Testar o alerta para garantir que está funcionando"
+          },
+          {
+            "title": "Verificar se tem crédito suficiente no telefone"
+          },
+          {
+            "title": "Ativar GPS (se quiser habilitar o rastreamento de localização)"
+          },
+          {
+            "title": "Carregar completamente a bateria do telefone"
+          }
+        ],
+        "content": "<p>Mais <a href=\"#help-charge\">dicas de segurança... </a></p>"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:padding="5dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_tick"
+        android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/tick_green"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tv_action"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/iv_tick"
+        android:text="@string/page_button_action_text"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+</RelativeLayout><!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/layout/row_page_checklist.xml -->

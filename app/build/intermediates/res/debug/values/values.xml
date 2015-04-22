@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/values/roboguice.xml -->
+    <eat-comment/>
+    <string-array name="roboguice_modules">
+        <item>org.iilab.pb.calculator.CalculatorModule</item>
+    </string-array>
+    <!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="active_color">#fc2d2d</color>
+    <color name="standby_color">#ff0000ff</color>
+    <color name="yellow">#fcc542</color>
+    <declare-styleable name="MessageFragmentArguments"><attr format="integer" name="max_characters"/><attr format="string" name="message_header"/></declare-styleable>
+    <!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="addition">+</string>
+    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
+    <string name="alert_status_standby">Alert is in standby</string>
+    <string name="app_name">Calculate!</string>
+    <string name="app_name_setup">Panic Button</string>
+    <string name="char_c">C</string>
+    <string name="characters_left">Characters: </string>
+    <string name="choose_contact">Choose your emergency contact</string>
+    <string name="code_ok">Ok</string>
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+    <string name="contact_hint_text">enter contact number</string>
+    <string name="decimal_point">.</string>
+    <string name="default_emergency_message">Help me, I\'m in danger</string>
+    <string name="division">÷</string>
+    <string name="eight">8</string>
+    <string name="emergency_message_header">Emergency message</string>
+    <string name="enter_message_hint">Enter Message</string>
+    <string name="equal_to">=</string>
+    <string name="first_contact"> 1. </string>
+    <string name="five">5</string>
+    <string name="four">4</string>
+    <string name="i_am_at">I\'m at</string>
+    <string name="i_am_at_url">I\'m at https://maps.google.com/GPS-location</string>
+    <string name="incorrect_pin">Please enter the correct pin</string>
+    <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
+    <string name="location_not_found">Trying to identify location</string>
+    <string name="multiplication">×</string>
+    <string name="nine">9</string>
+    <string name="one">1</string>
+    <string name="page_button_action_text">Action</string>
+    <string name="page_modal_button1_text">Button1</string>
+    <string name="page_modal_button2_text">Button2</string>
+    <string name="page_status_text">Status</string>
+    <string name="page_title_text">Title</string>
+    <string name="panic_button">Panic\nButton</string>
+    <string name="save_text">Save</string>
+    <string name="second_contact"> 2. </string>
+    <string name="send_emergency_alert">  Send emergency alert</string>
+    <string name="seven">7</string>
+    <string name="six">6</string>
+    <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="stop_alert">  Stop alert</string>
+    <string name="stop_alert_message">The alert has been stopped</string>
+    <string name="subtraction">−</string>
+    <string name="third_contact"> 3. </string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="zero">0</string>
+    <!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="activate_disguise_button">
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="alert_strip_display">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@color/standby_color</item>
+    </style>
+    <style name="back_button">
+        <item name="android:drawableLeft">@drawable/back</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+    <style name="calculator_btn">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="calculator_btn_container">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="calculator_display">
+        <item name="android:textSize">80sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+    <style name="contact_number">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <style name="contact_select_button">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+    <style name="custom_action_bar">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#eeeeee</item>
+    </style>
+    <style name="custom_action_bar_sep">
+        <item name="android:background">#767272</item>
+    </style>
+    <style name="i_am_at_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+    </style>
+    <style name="message_box">
+        <item name="android:gravity">top|left</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+    <style name="page_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="save_button">
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="wizard_content_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="wizard_intro_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:text">@string/page_title_text</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="wizard_page_title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+    <style name="wizard_panic_button">
+        <item name="android:background">#ff0072bc</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginTop">80dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name="wizard_static_panel">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+    <style name="wizard_text">
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
+    <style name="wizard_title_sep">
+        <item name="android:background">#666666</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+    <style name="wizard_warning_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>

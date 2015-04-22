@@ -1,0 +1,711 @@
+{
+  "mobile": {
+    "version": 8,
+    "data": [
+      {
+        "id": "setup-warning",
+        "lang": "fr",
+        "type": "warning",
+        "title": "Avertissement",
+        "action": [
+          {
+            "title": "Commencer",
+            "link": "setup-contacts"
+          }
+        ],
+        "content": "<p>Le Bouton d&#39;urgence est un outil pratique qui sert à alerter rapidement votre réseau quand vous avez besoin d&#39;aide. Il ne peut pas garantir votre sécurité ! Élaborez une stratégie avec vos contacts afin qu&#39;ils soient prêts à agir vite. </p>"
+      },
+      {
+        "id": "setup-message",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Configurer le message d'alerte",
+        "introduction": "Voici le message qui sera envoyé avec votre position géographique.",
+        "warning": "Veillez à ce que vos contacts sachent ce qu'ils ont à faire s'ils reçoivent ce message.",
+        "component": "message",
+        "action": [
+          {
+            "title": "Suivant",
+            "link": "setup-code"
+          }
+        ],
+        "content": "<p>Conseils de sécurité</p><ul><li>Envisagez l&#39;idée d&#39;insérer dans votre message des mots ou des phrases codés que seuls vos contacts peuvent comprendre.</li><li>Vous n&#39;aurez pas le temps de changer le message en cas d&#39;urgence, alors préparez quelque chose qui fonctionne en toutes circonstances. </li><li>Activez le traçage GPS à partir des paramètres de votre téléphone si vous souhaitez que le message indique où vous êtes.</li></ul>"
+      },
+      {
+        "id": "setup-language",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Langue",
+        "introduction": "Sélectionner une langue pour l'application.",
+        "component": "language",
+        "action": [
+          {
+            "title": "English",
+            "language": "en",
+            "confirmation": "New language applied"
+          },
+          {
+            "title": "Español",
+            "language": "es",
+            "confirmation": "Nuevo lenguaje seleccionado"
+          },
+          {
+            "title": "Français",
+            "language": "fr",
+            "confirmation": "Nouveau language selectionné"
+          },
+          {
+            "title": "Português",
+            "language": "pt",
+            "confirmation": "Novo idioma aplicado"
+          },
+          {
+            "title": "Deutsch",
+            "language": "de",
+            "confirmation": "Neue Sprache eingestellt"
+          }
+        ]
+      },
+      {
+        "id": "setup-disguise-test-unlock-fail",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer le camouflage",
+        "action": [
+          {
+            "title": "Réessayer",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas: appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
+      },
+      {
+        "id": "setup-disguise-test-unlock",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Tester le camouflage",
+        "introduction": "Essayez ! Appuyez sur n'importe quel bouton de la calculatrice.",
+        "component": "disguise-test-unlock",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-disguise-test-code"
+        },
+        "fail": {
+          "link": "setup-disguise-test-unlock-fail"
+        }
+      },
+      {
+        "id": "setup-disguise-test-success",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bravo!",
+        "action": [
+          {
+            "title": "Terminer",
+            "link": "home-ready"
+          }
+        ],
+        "content": "<p>Félicitations, votre application Bouton d&#39;urgence est désormais paramétrée. </p>"
+      },
+      {
+        "id": "setup-disguise-test-open-fail",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer le camouflage",
+        "action": [
+          {
+            "title": "Réessayer",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas: appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
+      },
+      {
+        "id": "setup-disguise-test-open",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Tester le camouflage",
+        "introduction": "Essayez! Ouvrez l'application en appuyant sur l'icône **Calculate!**.",
+        "component": "disguise-test-open",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-disguise-test-unlock"
+        },
+        "fail": {
+          "link": "setup-disguise-test-open-fail"
+        }
+      },
+      {
+        "id": "setup-disguise-test-unlock-fail",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer le camouflage",
+        "action": [
+          {
+            "title": "Réessayer",
+            "link": "setup-disguise-test-unlock"
+          }
+        ],
+        "content": "<p>Il semble que vous n&#39;ayez pas pu ouvrir l&#39;application depuis le camouflage Calculate! </p><p>N&#39;oubliez pas: appuyez sur n&#39;importe quel bouton et un message vous demandera d&#39;entrer votre code de sécurité.</p>"
+      },
+      {
+        "id": "setup-disguise-test-code",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Tester le camouflage",
+        "introduction": "Bravo! Entrez votre code de sécurité pour accéder aux paramètres.",
+        "component": "disguise-test-code",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "action": [
+          {
+            "title": "Accepter",
+            "link": "setup-disguise-test-success"
+          }
+        ],
+        "success": {
+          "link": "setup-disguise-test-success"
+        },
+        "fail": {
+          "link": "setup-disguise-test-code-fail"
+        }
+      },
+      {
+        "id": "setup-disguise",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer le camouflage",
+        "action": [
+          {
+            "title": "Apprendre",
+            "link": "setup-disguise-test-open"
+          }
+        ],
+        "content": "<p>Le Bouton d&#39;urgence reste dissimulé dans votre téléphone sous l&#39;apparence d&#39;une simple calculatrice. Désormais, vous verrez la calculatrice servant de camouflage à chaque fois que vous ouvrirez l&#39;application. Apprenez à vous en servir.</p>"
+      },
+      {
+        "id": "setup-contacts",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Configurer les contacts",
+        "introduction": "Ce sont les personnes qui recevront vos alertes.",
+        "warning": "Elles doivent vous connaître personnellement et pouvoir réagir rapidement.",
+        "component": "contacts",
+        "action": [
+          {
+            "title": "Suivant",
+            "link": "setup-message"
+          }
+        ],
+        "content": "<p>Conseils de sécurité</p><ul><li>Demandez-vous qui peut vous apporter une aide concrète. Inutile d&#39;alerter quelqu&#39;un qui ne peut pas vous aider. </li><li>Élaborez une stratégie avec vos contacts afin qu&#39;ils soient prêts à agir vite. </li><li>Ayez conscience des dangers - quels sont les risques pour vos contacts? </li></ul>"
+      },
+      {
+        "id": "setup-code",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Définir un code de sécurité",
+        "introduction": "Ce code est nécessaire pour accéder aux paramètres de l'application. Il n'est pas nécessaire pour envoyer des alertes à vos contacts en cas d'urgence.",
+        "warning": "Mémorisez votre code ! Si vous l'oubliez, vous devrez réinstaller l'application.",
+        "component": "code",
+        "action": [
+          {
+            "title": "Suivant",
+            "link": "home-not-configured-alarm"
+          }
+        ]
+      },
+      {
+        "id": "setup-alarm-test-hardware-success",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bravo!",
+        "action": [
+          {
+            "title": "Suivant",
+            "link": "setup-alarm-disguise"
+          }
+        ],
+        "content": "<p>Votre test a fonctionné! Dans une véritable situation d&#39;urgence, votre alerte aurait été envoyée.</p>"
+      },
+      {
+        "id": "setup-alarm-test-hardware-fail",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer l'alerte",
+        "action": [
+          {
+            "title": "Réessayer",
+            "link": "setup-alarm-test-hardware"
+          }
+        ],
+        "content": "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte en utilisant le bouton marche/arrêt de votre téléphone.</p><p>N&#39;oubliez pas: Appuyez plusieurs fois sur le bouton marche/arrêt de votre téléphone jusqu&#39;à ce que le téléphone vibre. </p>"
+      },
+      {
+        "id": "setup-alarm-test-hardware",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Tester l'alerte hors application",
+        "introduction": "Essayez! Appuyez plusieurs fois sur le bouton marche/arrêt de votre téléphone jusqu'à ce que le téléphone vibre.",
+        "component": "alarm-test-hardware",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-alarm-test-hardware-success"
+        },
+        "fail": {
+          "link": "setup-alarm-test-hardware-fail"
+        },
+        "content": "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise-success",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bravo!",
+        "action": [
+          {
+            "title": "Suivant",
+            "link": "home-not-configured-disguise"
+          }
+        ],
+        "content": "<p>Votre test a fonctionné ! Dans une véritable situation d&#39;urgence, votre alerte aurait été envoyée.</p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise-fail",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer l'alerte",
+        "action": [
+          {
+            "title": "Réessayer",
+            "link": "setup-alarm-test-disguise"
+          }
+        ],
+        "content": "<p>Il semble que vous n&#39;ayez pas réussi à déclencher l&#39;alerte.</p><p>N&#39;oubliez pas : appuyez plusieurs fois sur une touche de la calculatrice jusqu&#39;à ce que le téléphone vibre. </p>"
+      },
+      {
+        "id": "setup-alarm-test-disguise",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Tester le camouflage",
+        "introduction": "Essayez! Appuyez plusieurs fois sur un bouton de la calculatrice jusqu'à ce que le téléphone vibre.",
+        "component": "alarm-test-disguise",
+        "timers": {
+          "info": "0",
+          "inactive": "10",
+          "fail": "20"
+        },
+        "success": {
+          "link": "setup-alarm-test-disguise-success"
+        },
+        "fail": {
+          "link": "setup-alarm-test-disguise-fail"
+        }
+      },
+      {
+        "id": "setup-alarm-disguise",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer l'alerte",
+        "action": [
+          {
+            "title": "Apprendre",
+            "link": "setup-alarm-test-disguise"
+          }
+        ],
+        "content": "<p>Vous pouvez également lancer une alerte depuis l&#39;écran de camouflage de l&#39;application. </p>"
+      },
+      {
+        "id": "setup-alarm",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Configurer l'alerte ",
+        "action": [
+          {
+            "title": "Apprendre",
+            "link": "setup-alarm-test-hardware"
+          }
+        ],
+        "content": "<p>Apprenez à activer le Bouton d&#39;urgence en situation d&#39;urgence. </p><p>Le Bouton d&#39;urgence est unique en son genre car vous pouvez l&#39;activer grâce au bouton marche/arrêt de votre téléphone. Vous pouvez le faire discrètement, par exemple dans la poche de votre veste. </p>"
+      },
+      {
+        "id": "setup-about",
+        "lang": "fr",
+        "type": "simple",
+        "title": "A propos",
+        "content": "<p>Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret d&#39;envoi d&#39;alerte lorsque vous êtes en danger.</p><p><strong>Comment fonctionne le Bouton d&#39;urgence?</strong></p><ul><li>Choisissez un endroit sûr et tranquille pour paramétrer votre Bouton d&#39;urgence.</li><li>Mettez au point un plan d&#39;action avec vos contacts pour qu&#39;ils sachent quoi faire au moment voulu.</li><li>Vérifiez que tout est prêt et qu&#39;il y a suffisamment de crédit et de batterie sur votre téléphone.</li><li>En cas de danger, activez le Bouton d&#39;urgence en appuyant sur le bouton de mise en marche de votre téléphone.</li><li>Les membres de votre réseau recevront un SMS et des mises à jour régulières sur l&#39;endroit où vous vous trouvez, ce qui les aidera à agir rapidement.</li></ul><p>Le projet Bouton d&#39;urgence est une initiative d&#39;Amnesty International en collaboration avec des conseillers et des partenaires tels que Frontline Defenders, iilab et Engine room.</p>"
+      },
+      {
+        "id": "settings-reset-confirm",
+        "lang": "fr",
+        "type": "warning",
+        "title": "Confirmez la ré-installation.",
+        "action": [
+          {
+            "title": "Confirm",
+            "link": "home-not-configured"
+          }
+        ],
+        "content": "<p>Veuillez confirmer le redémarrage de l’installation. Si vous redémarrez l’installation, l’alerte sera désactivée jusqu&#39;à ce que vous terminiez l’assistant.</p>"
+      },
+      {
+        "id": "settings-message",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Configurer le message d'alerte",
+        "introduction": "Voici le message qui sera envoyé avec votre position géographique.",
+        "warning": "Veillez à ce que vos contacts sachent ce qu'ils ont à faire s'ils reçoivent ce message.",
+        "component": "message",
+        "action": [
+          {
+            "title": "Enregistrer",
+            "link": "home-ready",
+            "confirmation": "Message sauvegardé"
+          }
+        ],
+        "content": "<p>Conseils de sécurité</p><ul><li>Envisagez l&#39;idée d&#39;insérer dans votre message des mots ou des phrases codés que seuls vos contacts peuvent comprendre.</li><li>Vous n&#39;aurez pas le temps de changer le message en cas d&#39;urgence, alors préparez quelque chose qui fonctionne en toutes circonstances.</li><li>Activez le traçage GPS à partir des paramètres de votre téléphone si vous souhaitez que le message indique où vous êtes.</li></ul>"
+      },
+      {
+        "id": "settings-language",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Langue",
+        "introduction": "Sélectionner une langue pour l'application.",
+        "component": "language",
+        "action": [
+          {
+            "title": "English",
+            "language": "en",
+            "confirmation": "New language applied"
+          },
+          {
+            "title": "Español",
+            "language": "es",
+            "confirmation": "Nuevo lenguaje seleccionado"
+          },
+          {
+            "title": "Français",
+            "language": "fr",
+            "confirmation": "Nouveau language selectionné"
+          },
+          {
+            "title": "Português",
+            "language": "pt",
+            "confirmation": "Novo idioma aplicado"
+          },
+          {
+            "title": "Deutsch",
+            "language": "de",
+            "confirmation": "Neue Sprache eingestellt"
+          }
+        ]
+      },
+      {
+        "id": "settings-contacts",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Configurer les contacts",
+        "introduction": "Ce sont les personnes qui recevront vos alertes.",
+        "warning": "Elles doivent vous connaître personnellement et pouvoir réagir rapidement.",
+        "component": "contacts",
+        "action": [
+          {
+            "title": "Enregistrer",
+            "link": "home-ready",
+            "confirmation": "Contacts sauvegardés"
+          }
+        ],
+        "content": "<p>Conseils de sécurité</p><ul><li>Demandez-vous qui peut vous apporter une aide concrète. Inutile d&#39;alerter quelqu&#39;un qui ne peut pas vous aider. </li><li>Élaborez une stratégie avec vos contacts afin qu&#39;ils soient prêts à agir vite.<br></li><li>Ayez conscience des dangers - quels sont les risques pour vos contacts?</li></ul>"
+      },
+      {
+        "id": "settings-code",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Créer un code de sécurité ",
+        "introduction": "Ce code est nécessaire pour accéder aux paramètres de l'application. Il n'est pas nécessaire pour envoyer des alertes à vos contacts en cas d'urgence. \nMémorisez votre code ! Si vous l'oubliez vous devrez réinstaller l'application.\n",
+        "component": "code",
+        "action": [
+          {
+            "title": "Enregistrer",
+            "link": "home-ready"
+          }
+        ]
+      },
+      {
+        "id": "settings-alert",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Paramétrage de l'alerte",
+        "introduction": "Régler la fréquence (des envois de messages).",
+        "warning": "Ménagez votre batterie ! Envoyer des alertes trop fréquentes peut vider votre batterie.",
+        "component": "alert",
+        "action": [
+          {
+            "title": "Enregistrer",
+            "link": "home-ready"
+          }
+        ]
+      },
+      {
+        "id": "settings",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Paramètres",
+        "items": [
+          {
+            "title": "Langue",
+            "link": "settings-language"
+          },
+          {
+            "title": "Message",
+            "link": "settings-message"
+          },
+          {
+            "title": "Contacts",
+            "link": "settings-contacts"
+          },
+          {
+            "title": "Code de sécurité",
+            "link": "settings-code"
+          },
+          {
+            "title": "Paramétrage de l'alerte",
+            "link": "settings-alert"
+          },
+          {
+            "title": "Relancer l'installation",
+            "link": "settings-reset-confirm"
+          }
+        ]
+      },
+      {
+        "id": "home-ready",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bouton d'urgence",
+        "status": [
+          {
+            "title": "Prêt",
+            "color": "green",
+            "link": "help-ready"
+          }
+        ],
+        "action": [
+          {
+            "title": "Cacher",
+            "link": "checklist"
+          }
+        ],
+        "items": [
+          {
+            "title": "Paramètres",
+            "link": "settings"
+          },
+          {
+            "title": "À propos",
+            "link": "setup-about"
+          },
+          {
+            "title": "Aide",
+            "link": "help"
+          }
+        ],
+        "content": "<p>Le Bouton d’urgence est désormais installé et prêt à être utilisé en cas de danger. Appuyez sur « cacher » pour quitter et cacher l’application.</p>"
+      },
+      {
+        "id": "home-not-configured-disguise",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bouton d'urgence",
+        "status": [
+          {
+            "title": "Configuration incomplète",
+            "color": "red",
+            "link": "help-not-configured"
+          }
+        ],
+        "action": [
+          {
+            "title": "Paramètres de base",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configurer l'alerte",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configurer le camouflage",
+            "link": "setup-disguise"
+          }
+        ],
+        "items": [
+          {
+            "title": "À propos",
+            "link": "setup-about"
+          },
+          {
+            "title": "Aide",
+            "link": "help"
+          },
+          {
+            "title": "Language Settings",
+            "link": "Langue"
+          }
+        ],
+        "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"
+      },
+      {
+        "id": "home-not-configured-alarm",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bouton d'urgence",
+        "status": [
+          {
+            "title": "Configuration incomplète",
+            "color": "red",
+            "link": "help-not-configured"
+          }
+        ],
+        "action": [
+          {
+            "title": "Paramètres de base",
+            "link": "",
+            "status": "checked"
+          },
+          {
+            "title": "Configurer l'alerte",
+            "link": "setup-alarm"
+          },
+          {
+            "title": "Configurer le camouflage",
+            "link": "Setup Disguise",
+            "status": "disabled"
+          }
+        ],
+        "items": [
+          {
+            "title": "À propos",
+            "link": "setup-about"
+          },
+          {
+            "title": "Aide",
+            "link": "help"
+          },
+          {
+            "title": "Langue",
+            "link": "setup-language"
+          }
+        ],
+        "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"
+      },
+      {
+        "id": "home-not-configured",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bouton d'urgence",
+        "action": [
+          {
+            "title": "Installation",
+            "link": "setup-warning"
+          }
+        ],
+        "items": [
+          {
+            "title": "A propos",
+            "link": "setup-about"
+          },
+          {
+            "title": "Paramètres de langues",
+            "link": "setup-language"
+          }
+        ],
+        "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret pour alerter rapidement les membres de votre réseau lorsque vous êtes en danger. </p>"
+      },
+      {
+        "id": "home-alerting",
+        "lang": "fr",
+        "type": "simple",
+        "title": "Bouton d'urgence",
+        "status": [
+          {
+            "title": "Envoi d'alerte",
+            "color": "red",
+            "link": "help-alerting"
+          }
+        ],
+        "action": [
+          {
+            "title": "Interrompre l'envoi d'alerte",
+            "link": "home-ready"
+          }
+        ],
+        "content": "<p>Envoi de messages d&#39;alerte en cours. Appuyer sur Interrompre l&#39;envoi d&#39;alerte pour annuler les messages.</p>"
+      },
+      {
+        "id": "code",
+        "lang": "fr",
+        "type": "interactive",
+        "title": "Code",
+        "component": "code",
+        "action": [
+          {
+            "title": "Aller",
+            "link": "home-ready"
+          }
+        ],
+        "fail": "Mémorisez votre code! Si vous l'oubliez vous devrez réinstaller l'application."
+      },
+      {
+        "id": "checklist",
+        "lang": "fr",
+        "type": "modal",
+        "title": "Check-list",
+        "action": [
+          {
+            "title": "OK",
+            "link": "close"
+          },
+          {
+            "title": "Annuler ",
+            "link": "home-ready",
+            "status": "disabled"
+          }
+        ],
+        "checklist": [
+          {
+            "title": "Revoir la stratégie de sécurité et mettre à jour les contacts régulièrement"
+          },
+          {
+            "title": "Tester l'alerte pour vérifier qu'elle fonctionne"
+          },
+          {
+            "title": "Vérifier qu'il y a assez de crédit sur le téléphone"
+          },
+          {
+            "title": "Activer le GPS (si vous souhaitez signaler votre position géographique"
+          },
+          {
+            "title": "Recharger complètement la batterie"
+          }
+        ],
+        "content": "<p>More <a href=\"#help-charge\">conseils de sécurité...</a></p>"
+      }
+    ]
+  }
+}

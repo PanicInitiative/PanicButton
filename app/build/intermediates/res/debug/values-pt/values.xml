@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/values-pt/strings.xml -->
+    <eat-comment/>
+    <string name="addition">+</string>
+    <string name="alert_status_active">Alerta está ativo e enviando a cada 5 minutos</string>
+    <string name="alert_status_standby">Alerta está em modo de espera</string>
+    <string name="app_name">Calculate!</string>
+    <string name="app_name_setup">Panic Button</string>
+    <string name="char_c">C</string>
+    <string name="characters_left">Caracteres: </string>
+    <string name="choose_contact">Escolher contato de emergência</string>
+    <string name="code_ok">Ok</string>
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+    <string name="contact_hint_text">inserir contato</string>
+    <string name="decimal_point">.</string>
+    <string name="default_emergency_message">Ajude-me. Estou em perigo.</string>
+    <string name="division">÷</string>
+    <string name="eight">8</string>
+    <string name="emergency_message_header">Mensagem de emergência</string>
+    <string name="enter_message_hint">Inserir mensagem</string>
+    <string name="equal_to">=</string>
+    <string name="first_contact"> 1. </string>
+    <string name="five">5</string>
+    <string name="four">4</string>
+    <string name="i_am_at">Estou em</string>
+    <string name="i_am_at_url">Estou em https://maps.google.com/GPS-location</string>
+    <string name="incorrect_pin">Favor inserir o PIN correto</string>
+    <string name="incorrect_pin_3_times">Favor reinstalar o aplicativo se você não consegue se lembrar do código PIN</string>
+    <string name="location_not_found">Tentando identificar a localização</string>
+    <string name="multiplication">×</string>
+    <string name="nine">9</string>
+    <string name="one">1</string>
+    <string name="page_button_action_text">Action</string>
+    <string name="page_modal_button1_text">Button1</string>
+    <string name="page_modal_button2_text">Button2</string>
+    <string name="page_status_text">Status</string>
+    <string name="page_title_text">Title</string>
+    <string name="panic_button">Botão\nPânico</string>
+    <string name="save_text">Salvar</string>
+    <string name="second_contact"> 2. </string>
+    <string name="send_emergency_alert">  Enviar alerta de emergência</string>
+    <string name="seven">7</string>
+    <string name="six">6</string>
+    <string name="sms_settings_subtitle">Insira até três contatos de emergência</string>
+    <string name="stop_alert">  Parar alerta</string>
+    <string name="stop_alert_message">Alerta foi desativado</string>
+    <string name="subtraction">−</string>
+    <string name="third_contact"> 3. </string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="zero">0</string>
+</resources>
