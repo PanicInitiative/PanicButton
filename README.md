@@ -45,6 +45,9 @@ You need an Android phone with a minimum version of 2.3.3
 See the [notes to build your own APK](./docs/BUILD.md)
 
 ### Contributing
-See the [notes to setup a development environment](./docs/DEVELOPMENT.md)
+
+See the [issues tagged with "Help Wanted"](https://github.com/iilab/PanicButton/labels/help%20wanted).
+
+~~See the [notes to setup a development environment](./docs/DEVELOPMENT.md)~~ Outdated. Migration to Android Studio/Gradle in progress see #76.
 
 Code contributions should be sent via github from [feature](http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/) [branches](https://guides.github.com/introduction/flow/) (named feature/__descriptive_name_of_feature__) as pull requests [as explained here](https://help.github.com/articles/using-pull-requests).
