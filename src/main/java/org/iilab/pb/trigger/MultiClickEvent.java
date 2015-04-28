@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MultiClickEvent {
-    private static final int TIME_INTERVAL = 8000;
+    private static final int TIME_INTERVAL = 6000;
     private static final int TIME_INTERVAL_FOR_CONFIRMATION = 3000;
-    private static final int TOTAL_CLICKS = 4;
+    private static final int TOTAL_CLICKS = 5;
     private final int IS_STATE_CHANGE_USER_TRIGERRED = 2;
     private final String EVENT_LOG_TAG_POWER_SCREEN_STATE = "power_screen_state";
 
