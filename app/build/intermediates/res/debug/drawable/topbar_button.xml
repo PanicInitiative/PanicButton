@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:drawable="@drawable/topbar_button_disabled"></item>
-    <item android:state_pressed="true" android:drawable="@drawable/topbar_button_pressed"></item>
-    <item android:state_focused="true" android:drawable="@drawable/topbar_button_pressed"></item>
-    <item android:drawable="@drawable/topbar_button_normal"></item>
-</selector><!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/drawable/topbar_button.xml -->

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/alert_strip_display" android:id="@+id/alert_status_strip" android:orientation="horizontal"/><!-- From: file:/Users/jun/dev/PanicButton/panic-button/app/src/main/res/layout/alert_status_strip.xml -->
