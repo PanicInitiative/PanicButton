@@ -1,7 +1,5 @@
 package org.iilab.pb.common;
 
-import org.iilab.pb.R;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
+import org.iilab.pb.R;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.ACTION_GET_CONTENT;
@@ -25,6 +25,7 @@ public class ContactPickerFragment extends Fragment {
 
     private ImageButton contactPickerButton;
     private EditText phoneNumberEditText;
+    private static  int FRAGMENT_ID ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,12 +70,13 @@ public class ContactPickerFragment extends Fragment {
     public void launchContactPicker(View view) {
         Intent contactPickerIntent = new Intent(ACTION_GET_CONTENT);
         contactPickerIntent.setType(CONTENT_ITEM_TYPE);
-        startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
+        FRAGMENT_ID=((RelativeLayout)view.getParent()).getId();
+        getParentFragment().startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)) {
+        if ((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)&& getId()==FRAGMENT_ID) {
             phoneNumberEditText.setText(getPhoneNumber(data.getData()));
         }
     }
