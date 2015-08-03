@@ -17,9 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.util.List;
-
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
@@ -33,6 +30,8 @@ import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
 import org.iilab.pb.model.SMSSettings;
+
+import java.util.List;
 
 /**
  * Created by aoe on 12/11/13.
@@ -145,7 +144,7 @@ public class SetupContactsFragment extends Fragment {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-            contactEditTexts = new ContactEditTexts(getFragmentManager(), bAction, activity);
+            contactEditTexts = new ContactEditTexts(getChildFragmentManager(), bAction, activity);
 
             SMSSettings currentSettings = SMSSettings.retrieve(activity);
             if(currentSettings.isConfigured()) {
@@ -199,4 +198,15 @@ public class SetupContactsFragment extends Fragment {
         List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
         return new SMSSettings(phoneNumbers);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, intent);
+            }
+        }
+    }
+
 }
