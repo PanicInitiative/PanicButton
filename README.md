@@ -1,9 +1,8 @@
-[![Stories in Ready](https://badge.waffle.io/PanicInitiative/PanicButton.png?label=ready&title=Ready)](https://waffle.io/PanicInitiative/PanicButton)
+ Master [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button)](https://ci.iilab.org/job/panic-button/) Dev [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button-dev)](https://ci.iilab.org/job/panic-button-dev/) [![Stories in Ready](https://badge.waffle.io/PanicInitiative/PanicButton.png?label=ready&title=Ready)](https://waffle.io/PanicInitiative/PanicButton)
+
 # Panic Button
 
 **Panic Button turns your mobile phone into a secret alarm for when you're in trouble**
-
-Master [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button)](https://ci.iilab.org/job/panic-button/) Dev [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button-dev)](https://ci.iilab.org/job/panic-button-dev/)
 
 ## How does Panic Button work?
 
