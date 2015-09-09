@@ -15,4 +15,4 @@ In the meantime you can contribute by:
 
 If you have software development skills then you can help us by streamlining how the translation process happens. One of the ideal outcomes would be to be able to manage translations via transifex. There were [some efforts towards this](https://github.com/iilab/PanicButton/issues/43). What complicates matters currently is that, as a product of our [previous API driven content loading approach](https://github.com/iilab/PanicButton/issues/40) there are other language files in the ```assets``` directory.  
 
-Let us know your ideas by submitting a github issue!
+Read more about this and let us know your ideas on the [dedicated github issue](https://github.com/iilab/PanicButton/issues/82)!
