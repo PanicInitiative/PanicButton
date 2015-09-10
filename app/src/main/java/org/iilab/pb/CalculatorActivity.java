@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import org.iilab.pb.calculator.CalculatorImpl;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
@@ -160,7 +160,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 
 
                     mHasPerformedLongPress = false;
-                    v.postDelayed(mPendingCheckForLongPress, 3000);
+                    v.postDelayed(mPendingCheckForLongPress, AppConstants.DISGUISE_UNLOCK_LONGPRESS_TIME);
 
                     break;
                 case MotionEvent.ACTION_MOVE:

@@ -61,4 +61,7 @@ public class AppConstants {
 
     public static final int IMAGE_FULL_WIDTH = 1;
     public static final int IMAGE_INLINE = 2;
+
+    //added a constant for changing the disguise screen unlock time from 5 sec to 3 sec
+    public static final int DISGUISE_UNLOCK_LONGPRESS_TIME = 1800;
 }

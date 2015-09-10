@@ -2,10 +2,10 @@ package org.iilab.pb.fragment;
 
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
+import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+
 
 
 /**
@@ -144,7 +146,7 @@ public class WizardTestDisguiseUnlockFragment extends Fragment {
 
 
                     mHasPerformedLongPress = false;
-                    v.postDelayed(mPendingCheckForLongPress, 3000);
+                    v.postDelayed(mPendingCheckForLongPress, AppConstants.DISGUISE_UNLOCK_LONGPRESS_TIME);
 
                     break;
                 case MotionEvent.ACTION_MOVE:
