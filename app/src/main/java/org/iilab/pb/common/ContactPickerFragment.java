@@ -16,8 +16,6 @@ import android.widget.RelativeLayout;
 import org.iilab.pb.R;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Intent.ACTION_GET_CONTENT;
-import static android.provider.ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE;
 import static android.view.View.OnClickListener;
 
 public class ContactPickerFragment extends Fragment {
@@ -38,19 +36,6 @@ public class ContactPickerFragment extends Fragment {
         return view;
     }
 
-//    private OnClickListener contactPickerListener = new OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            launchContactPicker(view);
-//        }
-//    };
-
-//    @Override
-//    public void onViewCreated(View view, Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        contactPickerButton.setOnClickListener(contactPickerListener);
-//    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -60,7 +45,6 @@ public class ContactPickerFragment extends Fragment {
             	 int wizardState = ApplicationSettings.getWizardState(getActivity());
 //            	 if(wizardState != AppConstants.WIZARD_FLAG_HOME_READY){
             		 AppConstants.IS_BACK_BUTTON_PRESSED = true;
-            		 AppConstants.IS_BACK_BUTTON_PRESSED = true;
 //            	 }
                 launchContactPicker(v);
             }
@@ -68,8 +52,7 @@ public class ContactPickerFragment extends Fragment {
     }
 
     public void launchContactPicker(View view) {
-        Intent contactPickerIntent = new Intent(ACTION_GET_CONTENT);
-        contactPickerIntent.setType(CONTENT_ITEM_TYPE);
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
         FRAGMENT_ID=((RelativeLayout)view.getParent()).getId();
         getParentFragment().startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
     }
@@ -83,12 +66,15 @@ public class ContactPickerFragment extends Fragment {
 
     private String getPhoneNumber(Uri contactData) {
         String[] projection = {ContactsContract.CommonDataKinds.Phone.NUMBER};
+        String phoneNumber = "";
         Cursor cursor = getCursor(contactData, projection);
-        cursor.moveToNext();
-        return cursor.getString(0);
+        if (cursor.moveToNext()) {
+            phoneNumber = cursor.getString(0);
+        }
+        return phoneNumber;
     }
 
     Cursor getCursor(Uri contactData, String[] projection) {
-        return getActivity().managedQuery(contactData, projection, null, null, null);
+        return getActivity().getContentResolver().query(contactData, projection, null, null, null);
     }
 }
