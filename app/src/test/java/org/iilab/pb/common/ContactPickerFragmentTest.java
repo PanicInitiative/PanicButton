@@ -62,8 +62,8 @@ public class ContactPickerFragmentTest {
         ShadowActivity.IntentForResult startedIntentForResult = shadowActivity.getNextStartedActivityForResult();
         Intent intent = startedIntentForResult.intent;
 
-        assertThat(intent.getAction(), equalTo(ACTION_GET_CONTENT));
-        assertThat(intent.getType(), equalTo(CONTENT_ITEM_TYPE));
+        assertThat(intent.getAction(), equalTo(ACTION_PICK));
+//        assertThat(intent.getType(), equalTo(CONTENT_ITEM_TYPE));
     }
 
     @Test
