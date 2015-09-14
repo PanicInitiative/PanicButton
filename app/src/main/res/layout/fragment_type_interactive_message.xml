@@ -6,7 +6,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 
-    <ScrollView xmlns:custom="http://schemas.android.com/apk/res/org.iilab.pb"
+    <ScrollView
         android:id="@+id/wizard_start_root"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent">
@@ -57,11 +57,8 @@
                 android:layout_below="@+id/ll_fragment_warning"
                 android:layout_weight="1">
 
-                <fragment
+                <FrameLayout
                     android:id="@+id/sms_message"
-                    android:name="org.iilab.pb.fragment.MessageTextFragment"
-                    custom:max_characters="85"
-                    custom:message_header="@string/emergency_message_header"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </LinearLayout>
@@ -84,9 +81,6 @@
                 android:layout_below="@+id/fragment_action"
                 style="@style/wizard_content_style" />
         </RelativeLayout>
-
-
-        <!--    </LinearLayout>-->
     </ScrollView>
 
     <ListView

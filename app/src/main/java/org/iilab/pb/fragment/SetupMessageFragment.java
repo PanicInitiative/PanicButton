@@ -4,16 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,12 +36,10 @@ import org.iilab.pb.model.SMSSettings;
  * Created by aoe on 12/12/13.
  */
 public class SetupMessageFragment extends Fragment {
-    private EditText smsEditText;
 
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
-
     DisplayMetrics metrics;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
@@ -59,7 +56,7 @@ public class SetupMessageFragment extends Fragment {
         args.putString(PAGE_ID, pageId);
         args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
 
@@ -72,23 +69,33 @@ public class SetupMessageFragment extends Fragment {
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 
+        MessageTextFragment childFragment = (MessageTextFragment) getChildFragmentManager().findFragmentById(R.id.sms_message);
+        if (childFragment == null) {
+            childFragment = new MessageTextFragment();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.sms_message, childFragment);
+            transaction.commit();
+        }
+
         bAction = (Button) view.findViewById(R.id.fragment_action);
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(">>>>", "action button pressed");
-                String msg =  getSMSSettingsFromView();
+
+                MessageTextFragment childFragment = (MessageTextFragment) getChildFragmentManager().findFragmentById(R.id.sms_message);
+                String msg = childFragment.getSMSSettingsFromView();
 
                 SMSSettings.saveMessage(activity, msg);
-                displaySettings(msg);
+                childFragment.displaySettings(msg);
 
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
-                } else{
+                } else {
 //                	AppUtil.showToast("Message saved.", 1000, activity);
                     String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
                             ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
@@ -97,20 +104,18 @@ public class SetupMessageFragment extends Fragment {
 
                     i = new Intent(activity, MainActivity.class);
                 }
-                i.putExtra("page_id", pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
-                if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
                     activity.finish();
                 }
             }
         });
-
-
         lvItems = (ListView) view.findViewById(R.id.fragment_item_list);
 
         llWarning = (LinearLayout) view.findViewById(R.id.ll_fragment_warning);
-        tvWarning  = (TextView) view.findViewById(R.id.fragment_warning);
+        tvWarning = (TextView) view.findViewById(R.id.fragment_warning);
 
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -122,12 +127,12 @@ public class SetupMessageFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
-                } else{
+                } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-                i.putExtra("page_id", pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
             }
@@ -146,17 +151,6 @@ public class SetupMessageFragment extends Fragment {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-            Fragment fragment = getChildFragmentManager().findFragmentById(R.id.sms_message);
-            ((MessageTextFragment)fragment).setActionButtonStateListener(bAction);
-            smsEditText = (EditText) fragment.getView().findViewById(R.id.message_edit_text);
-
-            String currentMsg = SMSSettings.retrieveMessage(activity);
-            if(currentMsg != null) {
-                displaySettings(currentMsg);
-            }
-            bAction.setEnabled(!smsEditText.getText().toString().trim().equals(""));
-            smsEditText.setImeOptions(EditorInfo.IME_FLAG_NAVIGATE_NEXT);
-            smsEditText.selectAll();
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
@@ -167,17 +161,17 @@ public class SetupMessageFragment extends Fragment {
 
             tvTitle.setText(currentPage.getTitle());
 
-            if(currentPage.getContent() == null)
+            if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
 
-            if(currentPage.getIntroduction() == null)
+            if (currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
             else
                 tvIntro.setText(currentPage.getIntroduction());
 
-            if(currentPage.getWarning() == null)
+            if (currentPage.getWarning() == null)
                 llWarning.setVisibility(View.GONE);
             else
                 tvWarning.setText(currentPage.getWarning());
@@ -193,14 +187,4 @@ public class SetupMessageFragment extends Fragment {
         }
     }
 
-
-    private void displaySettings(String msg) {
-        smsEditText.setText(msg);
-    }
-
-
-    private String getSMSSettingsFromView() {
-        String message = smsEditText.getText().toString().trim();
-        return message;
-    }
 }
