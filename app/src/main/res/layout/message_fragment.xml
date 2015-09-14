@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_height="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="10dp"
     android:windowSoftInputMode="stateVisible">
 
@@ -10,17 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <org.iilab.pb.common.MyTextView
             android:id="@+id/message_fragment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            custom:message_header="@string/emergency_message_header" />
 
-        <TextView
+        <org.iilab.pb.common.MyTextView
             android:id="@+id/characters_left_view"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            custom:max_characters="85" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -29,24 +33,24 @@
 
         <EditText
             android:id="@+id/message_edit_text"
-            android:layout_height="130dp"
+            style="@style/message_box"
             android:layout_width="fill_parent"
-            android:hint="@string/enter_message_hint"
-            android:text="@string/default_emergency_message"
-            android:inputType="textMultiLine"
-            android:textSize="18sp"
-            android:maxLines="4"
-            android:textColor="@android:color/black"
+            android:layout_height="130dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="@string/enter_message_hint"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
             android:selectAllOnFocus="true"
-            style="@style/message_box" />
+            android:text="@string/default_emergency_message"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
+            style="@style/i_am_at_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/i_am_at_url"
-            android:textColor="@android:color/black"
-            style="@style/i_am_at_text" />
+            android:textColor="@android:color/black" />
     </RelativeLayout>
 </LinearLayout>
