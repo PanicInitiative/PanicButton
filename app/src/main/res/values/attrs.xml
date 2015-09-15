@@ -3,5 +3,6 @@
     <declare-styleable name="MessageFragmentArguments">
         <attr name="max_characters" format="integer"/>
         <attr name="message_header" format="string"/>
+        <attr name="stop_alert_message_header" format="string"/>
     </declare-styleable>
 </resources>

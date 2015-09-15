@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import org.iilab.pb.R;
+import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.MessageLimitWatcher;
 import org.iilab.pb.common.MyTextView;
 import org.iilab.pb.model.SMSSettings;
@@ -19,13 +21,14 @@ import static java.lang.String.valueOf;
 
 public class MessageTextFragment extends Fragment {
 
-    private MyTextView charactersLeftView;
-    private MyTextView messageHeaderView;
-    private EditText messageEditText;
+    private MyTextView charactersLeftView, stopAlertCharView;
+    private MyTextView messageHeaderView,stopAlertMsgView;
+    private EditText messageEditText,stopAlertEditText;
+    private RelativeLayout rv_stopAlertMsgEditTextContainer,rv_stopAlertHeaderContainer;
 
-    private MessageLimitWatcher messageLimitWatcher;
+    private MessageLimitWatcher messageLimitWatcher,stopAlertmessageLimitWatcher;
     private Button bAction;
-
+    boolean isParentMainActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -39,6 +42,18 @@ public class MessageTextFragment extends Fragment {
         if (parentView != null) {
             bAction = (Button) parentView.findViewById(R.id.fragment_action);
         }
+
+        int parentActivity = getArguments().getInt(AppConstants.PARENT_ACTIVITY);
+        if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+            isParentMainActivity=true;
+            rv_stopAlertHeaderContainer =(RelativeLayout)view.findViewById(R.id.stop_message_header_container);
+            rv_stopAlertMsgEditTextContainer=(RelativeLayout)view.findViewById(R.id.stop_message_container);
+            rv_stopAlertHeaderContainer.setVisibility(View.VISIBLE);
+            rv_stopAlertMsgEditTextContainer.setVisibility(View.VISIBLE);
+            stopAlertCharView = (MyTextView) view.findViewById(R.id.stop_alert_characters_left_view);
+            stopAlertMsgView = (MyTextView) view.findViewById(R.id.stop_alert_message_fragment_header);
+            stopAlertEditText = (EditText) view.findViewById(R.id.stop_alert_message_edit_text);
+        }
         return view;
     }
 
@@ -47,12 +62,21 @@ public class MessageTextFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String currentEmergencyMsg = SMSSettings.retrieveMessage(getActivity());
         if (currentEmergencyMsg != null) {
-            displaySettings(currentEmergencyMsg);
+            displayEmergencyMsg(currentEmergencyMsg);
         }
         setActionButtonStateListener(bAction);
         bAction.setEnabled(!(messageEditText.getText().toString().trim().equals("")));
         messageEditText.setImeOptions(EditorInfo.IME_FLAG_NAVIGATE_NEXT);
         messageEditText.selectAll();
+        if(isParentMainActivity) {
+            String currentStopAlertMsg = SMSSettings.retrieveStopAlertMessage(getActivity());
+            if (currentStopAlertMsg != null) {
+                displayStopAlertMsg(currentStopAlertMsg);
+            }
+            bAction.setEnabled(!(stopAlertEditText.getText().toString().trim().equals("")));
+            stopAlertEditText.setImeOptions(EditorInfo.IME_FLAG_NAVIGATE_NEXT);
+            stopAlertEditText.selectAll();
+        }
 
     }
 
@@ -74,25 +98,33 @@ public class MessageTextFragment extends Fragment {
 
         charactersLeftView.setText(prefix + valueOf(maxCharacters - messageEditText.getText().length()));
         messageHeaderView.setText(messageHeaderView.getMessageHeader());
-    }
 
-    public String getMessage() {
-        return messageEditText.getText().toString();
-    }
-
-    public void setMessage(String message) {
-        if (message != null) {
-            messageEditText.setText(message);
+        if(isParentMainActivity) {
+            int stopAlertMaxCharacters = stopAlertCharView.getMaxCharacters();
+            stopAlertmessageLimitWatcher = new MessageLimitWatcher(stopAlertCharView, prefix, stopAlertMaxCharacters, bAction);
+            stopAlertEditText.addTextChangedListener(stopAlertmessageLimitWatcher);
+            InputFilter[] filterStopAlert = {new InputFilter.LengthFilter(maxCharacters)};
+            stopAlertEditText.setFilters(filterStopAlert);
+            stopAlertEditText.setSelection(stopAlertEditText.getText().length());
+            stopAlertCharView.setText(prefix + valueOf(maxCharacters - stopAlertEditText.getText().length()));
+            stopAlertMsgView.setText(stopAlertMsgView.getStopAlertMsgHeader());
         }
     }
 
-    public void displaySettings(String msg) {
-        messageEditText.setText(msg);
+    public void displayEmergencyMsg(String emergencyMessage) {
+        messageEditText.setText(emergencyMessage);
     }
 
-
-    public String getSMSSettingsFromView() {
+    public void displayStopAlertMsg(String stopAlertMessage) {
+            stopAlertEditText.setText(stopAlertMessage);
+    }
+    public String getEmergencyMsgFromView() {
         String message = messageEditText.getText().toString().trim();
+        return message;
+    }
+
+    public String getStopAlertMsgFromView() {
+        String message = stopAlertEditText.getText().toString().trim();
         return message;
     }
 }

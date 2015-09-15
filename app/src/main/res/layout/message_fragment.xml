@@ -53,4 +53,46 @@
             android:text="@string/i_am_at_url"
             android:textColor="@android:color/black" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/stop_message_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="10dp">
+
+        <org.iilab.pb.common.MyTextView
+            android:id="@+id/stop_alert_message_fragment_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            custom:stop_alert_message_header="@string/stop_alert_message_header"
+            android:layout_alignParentLeft="true" />
+
+        <org.iilab.pb.common.MyTextView
+            android:id="@+id/stop_alert_characters_left_view"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            custom:max_characters="85"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/stop_message_container"
+        android:layout_width="fill_parent"
+        android:layout_height="130dp"
+        android:visibility="gone">
+        <EditText
+            android:id="@+id/stop_alert_message_edit_text"
+            android:layout_height="90dp"
+            android:layout_width="fill_parent"
+            android:hint="@string/stop_alert_message_hint"
+            android:text="@string/stop_alert_message"
+            android:inputType="textMultiLine"
+            android:textSize="18sp"
+            android:maxLines="4"
+            android:textColor="@android:color/black"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:selectAllOnFocus="true"
+            style="@style/message_box" />
+
+    </RelativeLayout>
 </LinearLayout>

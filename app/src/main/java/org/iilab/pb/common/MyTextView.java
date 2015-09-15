@@ -36,6 +36,14 @@ public class MyTextView extends TextView {
         init(null, 0);
     }
 
+    public String getStopAlertMsgHeader() {
+        return mStopAlertHeader;
+    }
+
+    public void setStopAlertHeader(String stopAlertHeader) {
+        this.mStopAlertHeader = stopAlertHeader;
+    }
+
     public MyTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
@@ -47,13 +55,10 @@ public class MyTextView extends TextView {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        // Load attributes
-
         final TypedArray arr = getContext().obtainStyledAttributes(attrs, R.styleable.MessageFragmentArguments);
         mMessageHeader = arr.getString(R.styleable.MessageFragmentArguments_message_header);
         mMaxCharacters = arr.getInteger(R.styleable.MessageFragmentArguments_max_characters, 0);
-
-
+        mStopAlertHeader= arr.getString(R.styleable.MessageFragmentArguments_stop_alert_message_header);
         arr.recycle();
 
     }
