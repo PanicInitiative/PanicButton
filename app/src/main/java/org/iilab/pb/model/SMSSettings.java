@@ -13,20 +13,23 @@ import java.util.Map;
 public class SMSSettings {
     public static final String PHONE_NUMBER = "PHONE_NUMBER_";
     public static final String SMS_MESSAGE = "SMS_MESSAGE";
+    public static final String STOP_ALERT_MESSAGE = "STOP_ALERT_MESSAGE";
     private static final int MASK_LIMIT = 2;
     public static final String BLANK = "";
 
     private List<String> phoneNumbers = new ArrayList<String>();
     private String message;
+    private String stopAlertMessage;
 
     public SMSSettings(List<String> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
         this.message = null;
     }
 
-    public SMSSettings(List<String> phoneNumbers, String message) {
+    public SMSSettings(List<String> phoneNumbers, String message,String stopAlertMessage) {
         this.phoneNumbers = phoneNumbers;
         this.message = message;
+        this.stopAlertMessage=stopAlertMessage;
     }
 
     public static void saveContacts(Context context, SMSSettings smsSettings) {
@@ -51,7 +54,18 @@ public class SMSSettings {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         Map<String, String> allPreferences = (Map<String, String>) sharedPreferences.getAll();
         List<String> retrievedPhoneNumbers = retrievePhoneNumbers(allPreferences);
-        return new SMSSettings(retrievedPhoneNumbers, allPreferences.get(SMS_MESSAGE));
+        return new SMSSettings(retrievedPhoneNumbers, allPreferences.get(SMS_MESSAGE),allPreferences.get(STOP_ALERT_MESSAGE));
+    }
+    public static void saveStopAlertMessage(Context context, String stopAlertMessage){
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(STOP_ALERT_MESSAGE, stopAlertMessage);
+        editor.commit();
+    }
+    public static String retrieveStopAlertMessage(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        Map<String, String> allPreferences = (Map<String, String>) sharedPreferences.getAll();
+        return allPreferences.get(STOP_ALERT_MESSAGE);
     }
 
     private static List<String> retrievePhoneNumbers(Map<String, String> allPreferences) {

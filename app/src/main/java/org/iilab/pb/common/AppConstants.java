@@ -64,4 +64,8 @@ public class AppConstants {
 
     //added a constant for changing the disguise screen unlock time from 5 sec to 3 sec
     public static final int DISGUISE_UNLOCK_LONGPRESS_TIME = 1800;
+
+    public static final String PARENT_ACTIVITY = "parent_activity";
+
 }
+

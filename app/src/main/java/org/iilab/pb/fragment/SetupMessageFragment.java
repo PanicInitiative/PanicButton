@@ -41,12 +41,12 @@ public class SetupMessageFragment extends Fragment {
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
     DisplayMetrics metrics;
+    int parentActivity;
 
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
     ListView lvItems;
     LinearLayout llWarning;
-
     Page currentPage;
     PageItemAdapter pageItemAdapter;
 
@@ -68,10 +68,13 @@ public class SetupMessageFragment extends Fragment {
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
-
+        parentActivity = getArguments().getInt(PARENT_ACTIVITY);
         MessageTextFragment childFragment = (MessageTextFragment) getChildFragmentManager().findFragmentById(R.id.sms_message);
         if (childFragment == null) {
             childFragment = new MessageTextFragment();
+            Bundle args = new Bundle();
+            args.putInt(AppConstants.PARENT_ACTIVITY, parentActivity);
+            childFragment.setArguments(args);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(R.id.sms_message, childFragment);
             transaction.commit();
@@ -84,13 +87,17 @@ public class SetupMessageFragment extends Fragment {
                 Log.e(">>>>", "action button pressed");
 
                 MessageTextFragment childFragment = (MessageTextFragment) getChildFragmentManager().findFragmentById(R.id.sms_message);
-                String msg = childFragment.getSMSSettingsFromView();
-
-                SMSSettings.saveMessage(activity, msg);
-                childFragment.displaySettings(msg);
+                String emergencyMessage = childFragment.getEmergencyMsgFromView();
+                SMSSettings.saveMessage(activity, emergencyMessage);
+                childFragment.displayEmergencyMsg(emergencyMessage);
+                if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                    String stopAlertMessage=childFragment.getStopAlertMsgFromView();
+                    SMSSettings.saveStopAlertMessage(activity, stopAlertMessage);
+                    childFragment.displayStopAlertMsg(stopAlertMessage);
+                }
 
                 String pageId = currentPage.getAction().get(0).getLink();
-                int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
+//                 parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
                 if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
