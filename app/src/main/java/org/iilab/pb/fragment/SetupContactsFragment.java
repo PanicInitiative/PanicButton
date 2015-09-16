@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -25,12 +26,14 @@ import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.ContactEditTexts;
+import org.iilab.pb.common.ContactPickerFragment;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
 import org.iilab.pb.model.SMSSettings;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,16 +45,14 @@ public class SetupContactsFragment extends Fragment {
     private static final String PAGE_ID = "page_id";
     private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
-
     DisplayMetrics metrics;
-
     TextView tvTitle, tvContent, tvIntro, tvWarning;
     Button bAction;
     ListView lvItems;
     LinearLayout llWarning;
-
     Page currentPage;
     PageItemAdapter pageItemAdapter;
+    List<Integer> fragmentIds = Arrays.asList(R.id.first_contact, R.id.second_contact, R.id.third_contact);
 
     public static SetupContactsFragment newInstance(String pageId, int parentActivity) {
         SetupContactsFragment f = new SetupContactsFragment();
@@ -71,19 +72,27 @@ public class SetupContactsFragment extends Fragment {
         tvContent = (TextView) view.findViewById(R.id.fragment_contents);
 
         bAction = (Button) view.findViewById(R.id.fragment_action);
+        ContactPickerFragment contactPickerFragment=(ContactPickerFragment)getChildFragmentManager().findFragmentById(R.id.first_contact);
+        if(contactPickerFragment==null) {
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            for (Integer id : fragmentIds) {
+                contactPickerFragment = new ContactPickerFragment();
+                transaction.replace(id, contactPickerFragment);
+            }
+            transaction.commit();
+        }
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e(">>>>", "action button pressed");
-                SMSSettings newSMSSettings = getSMSSettingsFromView();
+                SMSSettings newSMSSettings = getContactNumbersFromView();
 
                 SMSSettings.saveContacts(activity, newSMSSettings);
-                displaySettings(newSMSSettings);
+                displayContactNumbers();
 
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
-
                 if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
@@ -94,7 +103,7 @@ public class SetupContactsFragment extends Fragment {
 
                     i = new Intent(activity, MainActivity.class);
                 }
-                i.putExtra("page_id", pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
                 if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
@@ -119,19 +128,16 @@ public class SetupContactsFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
-                } else{
+                } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-                i.putExtra("page_id", pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
             }
         });
-
-//        initializeViews(view);
-
         return view;
     }
 
@@ -143,15 +149,6 @@ public class SetupContactsFragment extends Fragment {
         if (activity != null) {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-            contactEditTexts = new ContactEditTexts(getChildFragmentManager(), bAction, activity);
-
-            SMSSettings currentSettings = SMSSettings.retrieve(activity);
-            if(currentSettings.isConfigured()) {
-                displaySettings(currentSettings);
-            }
-            bAction.setEnabled(contactEditTexts.hasAtleastOneValidPhoneNumber());
-
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
 
@@ -184,17 +181,23 @@ public class SetupContactsFragment extends Fragment {
             pageItemAdapter.setData(currentPage.getItems());
 
             AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
-
         }
     }
 
-
-    private void displaySettings(SMSSettings settings) {
+    public void initializeContactNumbers(){
+        contactEditTexts = new ContactEditTexts(getChildFragmentManager(), bAction, getActivity());
+        SMSSettings currentSettings = SMSSettings.retrieve(activity);
+        if(currentSettings.isConfigured()) {
+            displayContactNumbers();
+        }
+        bAction.setEnabled(contactEditTexts.hasAtleastOneValidPhoneNumber());
+    }
+    private void displayContactNumbers() {
         contactEditTexts.maskPhoneNumbers();
     }
 
 
-    private SMSSettings getSMSSettingsFromView() {
+    private SMSSettings getContactNumbersFromView() {
         List<String> phoneNumbers = contactEditTexts.getPhoneNumbers();
         return new SMSSettings(phoneNumbers);
     }

@@ -10,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import org.iilab.pb.R;
+import org.iilab.pb.fragment.SetupContactsFragment;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.OnClickListener;
@@ -23,16 +24,13 @@ public class ContactPickerFragment extends Fragment {
 
     private ImageButton contactPickerButton;
     private EditText phoneNumberEditText;
-    private static  int FRAGMENT_ID ;
+    private static int PICK_CONTACT_FRAGMENT_ID, FRAGMENT_ID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.contact_picker_fragment, container, false);
-
         contactPickerButton = (ImageButton) view.findViewById(R.id.contact_picker_button);
         phoneNumberEditText = (EditText) view.findViewById(R.id.contact_edit_text);
-
         return view;
     }
 
@@ -42,24 +40,28 @@ public class ContactPickerFragment extends Fragment {
         contactPickerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-            	 int wizardState = ApplicationSettings.getWizardState(getActivity());
+                int wizardState = ApplicationSettings.getWizardState(getActivity());
 //            	 if(wizardState != AppConstants.WIZARD_FLAG_HOME_READY){
-            		 AppConstants.IS_BACK_BUTTON_PRESSED = true;
+                AppConstants.IS_BACK_BUTTON_PRESSED = true;
 //            	 }
-                launchContactPicker(v);
+                launchContactPicker();
             }
         });
+        FRAGMENT_ID = ((FrameLayout) getView().getParent()).getId();
+        if (FRAGMENT_ID == R.id.third_contact) {
+            ((SetupContactsFragment) getParentFragment()).initializeContactNumbers();
+        }
     }
 
-    public void launchContactPicker(View view) {
+    private void launchContactPicker() {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-        FRAGMENT_ID=((RelativeLayout)view.getParent()).getId();
+        PICK_CONTACT_FRAGMENT_ID = ((FrameLayout) getView().getParent()).getId();
         getParentFragment().startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST_ID);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK)&& getId()==FRAGMENT_ID) {
+        if ((requestCode == PICK_CONTACT_REQUEST_ID) && (resultCode == RESULT_OK) && getId() == PICK_CONTACT_FRAGMENT_ID) {
             phoneNumberEditText.setText(getPhoneNumber(data.getData()));
         }
     }
