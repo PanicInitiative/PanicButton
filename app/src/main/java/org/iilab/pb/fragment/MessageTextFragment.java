@@ -14,15 +14,15 @@ import android.widget.RelativeLayout;
 import org.iilab.pb.R;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.MessageLimitWatcher;
-import org.iilab.pb.common.MyTextView;
+import org.iilab.pb.common.MessageTextView;
 import org.iilab.pb.model.SMSSettings;
 
 import static java.lang.String.valueOf;
 
 public class MessageTextFragment extends Fragment {
 
-    private MyTextView charactersLeftView, stopAlertCharView;
-    private MyTextView messageHeaderView,stopAlertMsgView;
+    private MessageTextView charactersLeftView, stopAlertCharView;
+    private MessageTextView messageHeaderView,stopAlertMsgView;
     private EditText messageEditText,stopAlertEditText;
     private RelativeLayout rv_stopAlertMsgEditTextContainer,rv_stopAlertHeaderContainer;
 
@@ -34,8 +34,8 @@ public class MessageTextFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.message_fragment, container, false);
 
-        charactersLeftView = (MyTextView) view.findViewById(R.id.characters_left_view);
-        messageHeaderView = (MyTextView) view.findViewById(R.id.message_fragment_header);
+        charactersLeftView = (MessageTextView) view.findViewById(R.id.characters_left_view);
+        messageHeaderView = (MessageTextView) view.findViewById(R.id.message_fragment_header);
         messageEditText = (EditText) view.findViewById(R.id.message_edit_text);
         messageEditText.requestFocus();
         View parentView = getParentFragment().getView();
@@ -50,8 +50,8 @@ public class MessageTextFragment extends Fragment {
             rv_stopAlertMsgEditTextContainer=(RelativeLayout)view.findViewById(R.id.stop_message_container);
             rv_stopAlertHeaderContainer.setVisibility(View.VISIBLE);
             rv_stopAlertMsgEditTextContainer.setVisibility(View.VISIBLE);
-            stopAlertCharView = (MyTextView) view.findViewById(R.id.stop_alert_characters_left_view);
-            stopAlertMsgView = (MyTextView) view.findViewById(R.id.stop_alert_message_fragment_header);
+            stopAlertCharView = (MessageTextView) view.findViewById(R.id.stop_alert_characters_left_view);
+            stopAlertMsgView = (MessageTextView) view.findViewById(R.id.stop_alert_message_fragment_header);
             stopAlertEditText = (EditText) view.findViewById(R.id.stop_alert_message_edit_text);
         }
         return view;
