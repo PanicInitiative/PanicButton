@@ -33,8 +33,7 @@ public class PanicMessage {
     }
 
     public void sendStopAlertMessage() {
-        String message = context.getResources().getString(R.string.stop_alert_message);
-
+        String message = SMSSettings.retrieveStopAlertMessage(context);
         sendMessage(message, getPhoneNumbers());
     }
 
