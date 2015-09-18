@@ -29,6 +29,12 @@ tmp/
 coverage.ec
 /test_servers/
 /*.png
+*.iws
+.idea/libraries
+.idea/tasks.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/gradle.xml
 
 # Gradle files
 .gradle
