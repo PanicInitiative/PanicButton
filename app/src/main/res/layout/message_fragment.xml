@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <org.iilab.pb.common.MyTextView
+        <org.iilab.pb.common.MessageTextView
             android:id="@+id/message_fragment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             custom:message_header="@string/emergency_message_header" />
 
-        <org.iilab.pb.common.MyTextView
+        <org.iilab.pb.common.MessageTextView
             android:id="@+id/characters_left_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,14 +60,14 @@
         android:visibility="gone"
         android:layout_marginTop="10dp">
 
-        <org.iilab.pb.common.MyTextView
+        <org.iilab.pb.common.MessageTextView
             android:id="@+id/stop_alert_message_fragment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             custom:stop_alert_message_header="@string/stop_alert_message_header"
             android:layout_alignParentLeft="true" />
 
-        <org.iilab.pb.common.MyTextView
+        <org.iilab.pb.common.MessageTextView
             android:id="@+id/stop_alert_characters_left_view"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
