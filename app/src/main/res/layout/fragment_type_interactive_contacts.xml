@@ -64,7 +64,6 @@
                     style="@style/contact_number" />
 
                 <FrameLayout
-                    android:name="org.iilab.pb.common.ContactPickerFragment"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:id="@+id/first_contact" />
@@ -84,7 +83,6 @@
                     style="@style/contact_number" />
 
                 <FrameLayout
-                    android:name="org.iilab.pb.common.ContactPickerFragment"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:id="@+id/second_contact" />
@@ -104,7 +102,6 @@
                     style="@style/contact_number" />
 
                 <FrameLayout
-                    android:name="org.iilab.pb.common.ContactPickerFragment"
                     android:layout_height="wrap_content"
                     android:layout_width="fill_parent"
                     android:id="@+id/third_contact" />
