@@ -49,9 +49,7 @@ Unreleased
 - Shortcut was created by Google Play #35
 
 
-[v.1.3.1-alpha] - 2015-09-21
-
-##  **[v.1.4.0 -alpha] (https://github.com/PanicInitiative/PanicButton/releases/tag/v1.3.1)- 2014-08-06**
+##  **[v.1.3.1-alpha] (https://github.com/PanicInitiative/PanicButton/releases/tag/v1.3.1)- 2014-08-06**
 
 ### **Fixed**
 
