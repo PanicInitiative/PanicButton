@@ -1,39 +1,39 @@
-Change Log
+# *Change Log*
 
 All notable changes to this project will be documented in this file. 
 Unreleased
 
 
- [v.1.4.1] - 2015-09-21
+##  *[v.1.4.1] - 2015-09-21*
 
-Added
+### *Added*
 
-ï	Added ìStop alert messageî box in message screen once the setup is done.#69
+-	Added ‚ÄúStop alert message‚Äù box in message screen once the setup is done.#69
 
-Changed
+### *Changed*
 
-ï	Handling the nested fragments for contact screen programatically. #81
-ï	Handling the nested fragments for message screen programatically. #98
-ï	Long press time is reduced from 5 seconds to 3 seconds in disguise screen.#90
+-	Handling the nested fragments for contact screen programatically. #81
+- Handling the nested fragments for message screen programatically. #98
+ -Long press time is reduced from 5 seconds to 3 seconds in disguise screen.#90
 
-Fixed
+### *Fixed*
 
-ï	On some devices, the contact selection screen was malfunctioning. #57
+- On some devices, the contact selection screen was malfunctioning. #57
 
-[v.1.4.0] - 2015-04-21
+## *[v.1.4.0] - 2015-04-21*
 
-Added
+### *Added*
 
-ï	Added ìStop alert messageî box in message screen once the setup is done.#69
+-	Added ‚ÄúStop alert message‚Äù box in message screen once the setup is done.#69
 
-Changed
+### *Changed*
 
-ï	The trigger mechanism has changed and now requires a confirmation press
-ï	When the alert is manually deactivated (after entering your PIN) your contacts will receive a message which says "The alert has been stopped"
-ï	The information text is clearer regarding what Panic Button does. When you trigger the alert, Panic Button will start sending a message with your location every 5 minutes.
-ï	German translation generously contributed by https://github.com/emdete
+- The trigger mechanism has changed and now requires a confirmation press
+-	When the alert is manually deactivated (after entering your PIN) your contacts will receive a message which says "The alert has been stopped"
+- The information text is clearer regarding what Panic Button does. When you trigger the alert, Panic Button will start sending a message with your location every 5 minutes.
+- 	German translation generously contributed by https://github.com/emdete
 
-Fixed
+### *Fixed*
 
-ï	One some devices, the alert activates by itself in the middle of phone calls (it activates without triggering it with the power button or the calc app) #38
-ï	Shortcut was created by Google Play. #35
+- One some devices, the alert activates by itself in the middle of phone calls (it activates without triggering it with the power button or the calc app) #38
+- Shortcut was created by Google Play. #35
