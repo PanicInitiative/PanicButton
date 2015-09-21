@@ -37,3 +37,41 @@ Unreleased
 
 - One some devices, the alert activates by itself in the middle of phone calls (it activates without triggering it with the power button or the calc app) #38
 - Shortcut was created by Google Play. #35
+
+##  **[v.1.4.0 -alpha] (https://github.com/PanicInitiative/PanicButton/releases/tag/1.4.0-alpha)- 2015-04-06**
+
+### **Changed**
+- The trigger mechanism has changed and now requires a confirmation press.
+- The information text is clearer regarding what Panic Button does. When you trigger the alert, Panic Button will start sending a message with your location every 5 minutes
+
+### **Fixed**
+- On some devices, the alert activates by itself in the middle of phone calls (it activates without triggering it with the power button or the calc app). #38
+- Shortcut was created by Google Play #35
+
+
+[v.1.3.1-alpha] - 2015-09-21
+
+##  **[v.1.4.0 -alpha] (https://github.com/PanicInitiative/PanicButton/releases/tag/v1.3.1)- 2014-08-06**
+
+### **Fixed**
+
+- On some devices, the alert activates by itself in the middle of phone calls (it activates without triggering it with the power button or the calc app). #38
+- Shortcut was created by Google Play #35
+
+
+##  **[v.1.3.0] (https://github.com/PanicInitiative/PanicButton/releases/tag/v1.3.0)- 2014-06-23**
+
+### **Changed**
+
+- The first message is now the customised message, while subsequent ones only contain the location or a location pending message #41
+- Clicking Done on the keyboard when entering the PIN automatically validates it. #27
+- Link to map is now using https: #28
+- Removed Content API to reduce the attack surface. #40
+- The help pages now contain more information about the risk of contact and message exposure #33
+
+### **Fixed**
+
+- Clicking on the Security Tips link in the checklist now links properly to the Help section. #30
+- Fixed bug where two SMS were sent when the alert was active & location was retrieved for the first time
+- Fixed problem where pushing the back button from the checklist exited to the calculator disguise.
+
