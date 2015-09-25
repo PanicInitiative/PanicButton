@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 
-
+import org.iilab.pb.BuildConfig;
 import org.iilab.pb.common.Intents;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
@@ -21,11 +22,12 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class AlarmReceiverTest {
     @Mock
     private PanicMessage mockPanicMessage;
-    private Context context = Robolectric.application;
+    private Context context = RuntimeEnvironment.application;
     private AlarmReceiver alarmReceiver;
 
     @Before
