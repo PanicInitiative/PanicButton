@@ -1,10 +1,7 @@
 
 language: android
 jdk: oraclejdk7
-env:
-  global:
-    - ANDROID_API_LEVEL=android-21
-    - ANDROID_ABI=armeabi-v7a
+
 android:
   components:
      - platform-tools
@@ -17,4 +14,4 @@ notifications:
   email: false
 
 script:
-  - ./gradlew test
+  - ./gradlew clean build
