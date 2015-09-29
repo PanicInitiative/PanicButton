@@ -81,7 +81,7 @@ public class CalculatorActivityTest {
 	}
 
 	@Test
-	public void shouldActivateAlertOnPressingButtonFifthTime() {
+	public void shouldActivateAlertOnPressingButtonSixthTime() {
         for (int i = 0; i < 5; i++) {
             equalsButton.performClick();
         }
@@ -92,13 +92,13 @@ public class CalculatorActivityTest {
         }
 
         equalsButton.performClick();
-		assertEquals(500, shadowVibrator.getMilliseconds());
+		assertEquals(2000, shadowVibrator.getMilliseconds());
 //        verify(mockPanicAlert).vibrate();
 //        verify(mockPanicAlert).activate();
 	}
 //
 	@Test
-	public void shouldVibrateOnPressingButtonRepeatedlyFourTimesAfterOtherButtons() {
+	public void shouldVibrateOnPressingButtonRepeatedlyFiveTimesAfterOtherButtons() {
 		zeroButton.performClick();
 		for (int i = 0; i < 5; i++) {
 			equalsButton.performClick();
