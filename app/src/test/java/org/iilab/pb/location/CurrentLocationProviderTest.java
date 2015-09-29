@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk=21)
 public class CurrentLocationProviderTest {
     @Mock
     private Location mockLocation;

@@ -3,21 +3,22 @@ package org.iilab.pb.trigger;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import org.iilab.pb.trigger.HardwareTriggerReceiver;
-import org.iilab.pb.trigger.HardwareTriggerService;
+import org.iilab.pb.BuildConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.robolectric.Robolectric.shadowOf;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class HardwareTriggerServiceTest {
     @Test
     public void shouldRegisterHardwareTriggerListener() {
@@ -25,7 +26,7 @@ public class HardwareTriggerServiceTest {
         hardwareTriggerService.onCreate();
         hardwareTriggerService.onBind(null);
 
-        ShadowApplication shadowApplication = shadowOf(Robolectric.application);
+        ShadowApplication shadowApplication = Shadows.shadowOf(RuntimeEnvironment.application);
         List<ShadowApplication.Wrapper> registeredReceivers = shadowApplication.getRegisteredReceivers();
 
         ShadowApplication.Wrapper hardwareReceiverWrapper = null;

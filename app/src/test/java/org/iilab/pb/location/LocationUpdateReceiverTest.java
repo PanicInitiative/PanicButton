@@ -21,7 +21,7 @@ import static org.iilab.pb.location.LocationTestUtil.location;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk=21)
 public class LocationUpdateReceiverTest {
     public static final float LESS_ACCURATE = 20.0f;
     public static final float ALMOST_SAME_AS_LESS_ACCURATE = 20.1f;

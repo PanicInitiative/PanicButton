@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk=21)
 public class SMSSettingsTest {
 
     @Test
@@ -30,9 +30,9 @@ public class SMSSettingsTest {
         expectedPhoneNumbers.add("123456789");
         expectedPhoneNumbers.add("987654321");
         String expectedMessage = "Test Message";
-        String stopAlertMessage = "Stop Alert";
+        String stopAlertMessage="Stop Alert";
 
-        SMSSettings smsSettings = new SMSSettings(expectedPhoneNumbers, expectedMessage, stopAlertMessage);
+        SMSSettings smsSettings = new SMSSettings(expectedPhoneNumbers, expectedMessage,stopAlertMessage);
 
         SMSSettings.saveContacts(context, smsSettings);
         SMSSettings.saveMessage(context, expectedMessage);
@@ -45,14 +45,14 @@ public class SMSSettingsTest {
 
     @Test
     public void shouldReturnEmptyPhoneNumberForNonExistentIndex() {
-        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "msg", "stopAlert");
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "msg","stopAlert");
         assertEquals("", smsSettings.phoneNumberAt(1));
     }
 
     @Test
     public void shouldMaskPhoneNumberExceptTheLastTwoChars() {
         List<String> phoneNumbers = Arrays.asList("111-222-2289", "123456789", "*******89", "1", "22", "", null);
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some message", "stop Alert");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some message","stop Alert");
 
         assertEquals("**********89", smsSettings.maskedPhoneNumberAt(0));
         assertEquals("*******89", smsSettings.maskedPhoneNumberAt(1));
@@ -68,7 +68,7 @@ public class SMSSettingsTest {
         List<String> phoneNumbers = new ArrayList<String>();
         phoneNumbers.add("123-123-1222");
         phoneNumbers.add("");
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message", "stop Alert");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message","stop Alert");
         assertTrue(smsSettings.isConfigured());
     }
 
@@ -77,7 +77,7 @@ public class SMSSettingsTest {
         List<String> phoneNumbers = new ArrayList<String>();
         phoneNumbers.add("");
         phoneNumbers.add("123-123-1222");
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, null, null);
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, null,null);
         assertTrue(smsSettings.isConfigured());
     }
 
@@ -85,26 +85,26 @@ public class SMSSettingsTest {
     public void shouldReturnFalseWhenPhoneNumbersAreEmpty() {
         List<String> phoneNumbers = new ArrayList<String>();
         phoneNumbers.add("");
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message", "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message","Stop Alert");
         assertFalse(smsSettings.isConfigured());
     }
 
     @Test
     public void shouldReturnFalseWhenPhoneNumbersAreNotPresent() {
-        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "some-message", "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), "some-message","Stop Alert");
         assertFalse(smsSettings.isConfigured());
     }
 
     @Test
     public void shouldReturnFalseWhenPhoneNumbersAreNull() {
-        SMSSettings smsSettings = new SMSSettings(null, "some-message", "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(null, "some-message","Stop Alert");
         assertFalse(smsSettings.isConfigured());
     }
 
     @Test
     public void shouldReturnValidPhoneNumbers() {
         List<String> phoneNumbers = Arrays.asList("1233244235", "", "154-345-345", null);
-        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message", "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(phoneNumbers, "some-message","Stop Alert");
 
         List<String> validPhoneNumbers = smsSettings.validPhoneNumbers();
 
@@ -119,27 +119,27 @@ public class SMSSettingsTest {
         String messageWithoutDot = "some message";
         String messageWithSpaceAtEnd = "some message ";
 
-        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), messageWithDot, "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), messageWithDot,"Stop Alert");
         assertEquals("some message", smsSettings.trimmedMessage());
 
-        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithoutDot, "Stop Alert");
+        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithoutDot,"Stop Alert");
         assertEquals("some message", smsSettings.trimmedMessage());
 
-        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithSpaceAtEnd, "Stop Alert");
+        smsSettings = new SMSSettings(new ArrayList<String>(), messageWithSpaceAtEnd,"Stop Alert");
         assertEquals("some message", smsSettings.trimmedMessage());
     }
 
     @Test
     public void shouldReturnEmptyStringWhenMessageIsNull() {
-        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), null, "Stop Alert");
+        SMSSettings smsSettings = new SMSSettings(new ArrayList<String>(), null,"Stop Alert");
         assertEquals("", smsSettings.message());
     }
 
     @Test
     public void shouldCheckEquality() {
-        SMSSettings settings1 = new SMSSettings(Arrays.asList("12345"), "some message", "Stop Alert");
-        SMSSettings settings2 = new SMSSettings(Arrays.asList("1234" + "5"), "some message", "Stop Alert");
-        SMSSettings settings3 = new SMSSettings(Arrays.asList("1234" + "5"), "some other message", "Stop Alert");
+        SMSSettings settings1 = new SMSSettings(Arrays.asList("12345"), "some message","Stop Alert");
+        SMSSettings settings2 = new SMSSettings(Arrays.asList("1234" + "5"), "some message","Stop Alert");
+        SMSSettings settings3 = new SMSSettings(Arrays.asList("1234" + "5"), "some other message","Stop Alert");
         assertTrue(settings1.equals(settings2));
         assertFalse(settings1.equals(null));
         assertFalse(settings1.equals(settings3));

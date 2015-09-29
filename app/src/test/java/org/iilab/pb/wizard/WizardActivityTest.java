@@ -3,18 +3,20 @@ package org.iilab.pb.wizard;
 import android.app.Application;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-
+import org.iilab.pb.BuildConfig;
 import org.iilab.pb.WizardActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class WizardActivityTest {
     private WizardActivity wizardActivity;
 
@@ -26,7 +28,7 @@ public class WizardActivityTest {
 
     @Before
     public void setUp() throws IllegalAccessException {
-        context = Robolectric.application;
+        context = RuntimeEnvironment.application;
         initMocks(this);
         wizardActivity = new WizardActivity() {
             FragmentStatePagerAdapter getWizardPagerAdapter() {
