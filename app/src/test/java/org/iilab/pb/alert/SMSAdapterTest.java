@@ -3,20 +3,23 @@ package org.iilab.pb.alert;
 import android.content.Context;
 import android.telephony.SmsManager;
 
+import org.iilab.pb.BuildConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSmsManager;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.robolectric.Robolectric.shadowOf;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class SMSAdapterTest {
     private SMSAdapter smsAdapter;
     private Context context;
@@ -25,7 +28,7 @@ public class SMSAdapterTest {
     public void setUp() {
 
         smsAdapter = new SMSAdapter();
-        context = Robolectric.application;
+        context = RuntimeEnvironment.application;
     }
 
     @Test
@@ -35,7 +38,7 @@ public class SMSAdapterTest {
 
         smsAdapter.sendSMS(context, phoneNumber, message);
 
-        ShadowSmsManager shadowSmsManager = shadowOf(SmsManager.getDefault());
+        ShadowSmsManager shadowSmsManager = Shadows.shadowOf(SmsManager.getDefault());
         ShadowSmsManager.TextSmsParams lastSentTextMessageParams = shadowSmsManager.getLastSentTextMessageParams();
 
         assertEquals(phoneNumber, lastSentTextMessageParams.getDestinationAddress());

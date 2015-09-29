@@ -3,23 +3,23 @@ package org.iilab.pb;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-
-import org.iilab.pb.HomeActivity;
 import org.iilab.pb.common.ApplicationSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
 import static org.junit.Assert.assertNotNull;
-import static org.robolectric.Robolectric.shadowOf;
 
 //import org.iilab.pb.HomeActivity;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class HomeActivityTest {
     private HomeActivity homeActivity;
     private ShadowActivity shadowActivity;
@@ -27,7 +27,7 @@ public class HomeActivityTest {
     @Before
     public void setUp() {
         homeActivity = new HomeActivity();
-        shadowActivity = shadowOf(homeActivity);
+        shadowActivity = Shadows.shadowOf(homeActivity);
     }
 
 
@@ -77,7 +77,7 @@ public class HomeActivityTest {
     }
 
     private void setFirstRun(boolean flag) {
-        SharedPreferences sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(Robolectric.application);
+        SharedPreferences sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("FIRST_RUN", flag);
         editor.commit();

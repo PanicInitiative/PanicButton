@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 
+import org.iilab.pb.BuildConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
@@ -18,7 +20,8 @@ import static org.iilab.pb.common.Intents.LOCATION_UPDATE_ACTION;
 import static org.iilab.pb.location.LocationTestUtil.location;
 import static org.junit.Assert.assertEquals;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class LocationUpdateReceiverTest {
     public static final float LESS_ACCURATE = 20.0f;
     public static final float ALMOST_SAME_AS_LESS_ACCURATE = 20.1f;
@@ -31,7 +34,7 @@ public class LocationUpdateReceiverTest {
 
     @Before
     public void setUp() throws InterruptedException {
-        context = Robolectric.application;
+        context = RuntimeEnvironment.application;
         locationUpdateReceiver = new LocationUpdateReceiver() {
             public Location location;
 

@@ -3,13 +3,13 @@ package org.iilab.pb;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-
 import org.iilab.pb.common.ApplicationSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowPreferenceManager;
 
 import static junit.framework.Assert.assertNull;
@@ -18,7 +18,8 @@ import static org.iilab.pb.common.ApplicationSettings.setFirstRun;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class ApplicationSettingsTest {
 
     private SharedPreferences sharedPreferences;
@@ -26,7 +27,7 @@ public class ApplicationSettingsTest {
 
     @Before
     public void setUp() {
-        context = Robolectric.application;
+        context = RuntimeEnvironment.application;
         sharedPreferences = ShadowPreferenceManager.getDefaultSharedPreferences(context);
     }
 

@@ -3,19 +3,18 @@ package org.iilab.pb;
 import android.widget.Button;
 import android.widget.EditText;
 
-
-import org.iilab.pb.LoginActivity;
 import org.iilab.pb.common.ApplicationSettings;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 
-import static org.robolectric.Robolectric.shadowOf;
-
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk=21)
 public class LoginActivityTest {
     private EditText pinEditText;
     private Button enterButton;
@@ -28,12 +27,12 @@ public class LoginActivityTest {
     @Before
     public void setUp() {
         loginActivity = new LoginActivity();
-        loginActivity.onCreate(null);
+//      loginActivity.onCreate(null);
 
         pin = "1234";
-        ApplicationSettings.savePassword(Robolectric.application, pin);
+        ApplicationSettings.savePassword(RuntimeEnvironment.application, pin);
 
-        shadowActivity = shadowOf(loginActivity);
+        shadowActivity = Shadows.shadowOf(loginActivity);
     }
 
     @Test
