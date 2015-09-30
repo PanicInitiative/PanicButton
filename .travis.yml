@@ -8,7 +8,7 @@ android:
      - tool
      - android-22
      - build-tools-22.0.1
-     - extra-android-m2repository
+    
 
 sudo: false
 notifications:
