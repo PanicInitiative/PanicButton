@@ -1,0 +1,16 @@
+
+language: android
+jdk: oraclejdk7
+
+android:
+  components:
+     - android-22
+     - build-tools-22.0.1
+     - extra-android-m2repository
+
+sudo: false
+notifications:
+  email: false
+
+script:
+  - ./gradlew clean build

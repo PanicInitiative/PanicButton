@@ -4,15 +4,15 @@ apply plugin: 'com.android.application'
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
-    lintOptions{
-        disable 'MissingTranslation'
-    }
+
     defaultConfig {
         applicationId "org.iilab.pb"
         minSdkVersion 10
         targetSdkVersion 22
     }
-
+        lintOptions {
+            abortOnError false
+        }
     buildTypes {
 
         release {
