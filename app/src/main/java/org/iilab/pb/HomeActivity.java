@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.crashlytics.android.Crashlytics;
+
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
@@ -18,6 +21,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class HomeActivity extends Activity {
 
@@ -36,7 +41,7 @@ public class HomeActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+		Fabric.with(this, new Crashlytics());
         setContentView(R.layout.welcome_screen);
 
         //deleteShortCut();
@@ -48,6 +53,7 @@ public class HomeActivity extends Activity {
             pageId = "home-ready";
         } else
         if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+
             pageId = "home-not-configured";
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = "home-not-configured-alarm";

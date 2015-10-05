@@ -70,7 +70,9 @@
                 <action android:name="org.iilab.pb.SEND_ALERT_ACTION_SINGLE"/>
             </intent-filter>
         </receiver>
-
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="99f288950f1ea9dded0f8d3f22e76844fa5a8a59" />
 
     </application>
 </manifest>
