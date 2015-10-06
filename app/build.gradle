@@ -1,9 +1,10 @@
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
     android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
 
     defaultConfig {
         applicationId "org.iilab.pb"
@@ -14,7 +15,6 @@ apply plugin: 'com.android.application'
             abortOnError false
         }
     buildTypes {
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
@@ -29,4 +29,7 @@ dependencies {
     testCompile "org.robolectric:shadows-support-v4:3.0"
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+        transitive = true;
+    }
 }
