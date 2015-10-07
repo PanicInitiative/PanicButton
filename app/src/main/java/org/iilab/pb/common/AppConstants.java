@@ -25,16 +25,10 @@ public class AppConstants {
 
     public static final int WARNING_TRAINING_MESSAGE_MINIMUM_CHARACTER = 30;
 
-//    public static final int HTTP_REQUEST_TYPE_GET = 1;
-//    public static final int HTTP_REQUEST_TYPE_POST = 2;
-//    public static final int HTTP_REQUEST_TYPE_PUT = 3;
-
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED = 601;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE = 603;
     public static final int WIZARD_FLAG_HOME_READY = 604;
-//    public static final int WIZARD_FLAG_COMPLETE = 605;
-
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
 //    public static boolean IS_ACTION_ITEM_PRESSED = false;
@@ -66,6 +60,11 @@ public class AppConstants {
     public static final int DISGUISE_UNLOCK_LONGPRESS_TIME = 1800;
 
     public static final String PARENT_ACTIVITY = "parent_activity";
+
+    public static final String PAGE_HOME_READY = "home-ready";
+    public static final String PAGE_HOME_NOT_CONFIGURED = "home-not-configured";
+    public static final String PAGE_HOME_NOT_CONFIGURED_ALARM = "home-not-configured-alarm";
+    public static final String PAGE_HOME_NOT_CONFIGURED_DISGUISE = "home-not-configured-disguise";
 
 }
 
