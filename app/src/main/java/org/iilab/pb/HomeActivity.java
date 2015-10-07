@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -13,6 +14,7 @@ import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
+import org.iilab.pb.model.PageAction;
 import org.iilab.pb.trigger.HardwareTriggerService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +22,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -38,6 +42,8 @@ public class HomeActivity extends Activity {
 //    int latestVersion;
 //    long lastRunTimeInMillis;
     int lastLocalDBVersion;
+	String supportedLangs ;
+	private static final String TAG = HomeActivity.class.getSimpleName();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +68,7 @@ public class HomeActivity extends Activity {
         } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
             pageId = "home-ready";
         }
-
+		ApplicationSettings.setSelectedLanguage(this, getDefaultOSLanguage());
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 //        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
 
@@ -114,8 +120,12 @@ public class HomeActivity extends Activity {
 //        System.gc();
     }
 
+	private String getDefaultOSLanguage() {
+	//	Default language of OS:
+		return Locale.getDefault().getLanguage();
+	}
 
-    private void deleteShortCut() {
+	private void deleteShortCut() {
 
         Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
         shortcutIntent.setClassName("org.iilab.pb", "HomeActivity");
@@ -132,31 +142,55 @@ public class HomeActivity extends Activity {
     }
 
 
-    private void startNextActivity(){
-        Log.e(">>>>>>>>>>>>", "starting next activity");
+	private void setsupportedlanguages(Page languagesPage) {
+		List<String> allowedLanguages = new ArrayList<>();
+		List<PageAction> actionLanguages = languagesPage.getAction();
+		for (PageAction actionLanguage : actionLanguages) {
+			allowedLanguages.add(actionLanguage.getLanguage());
+		}
+		supportedLangs = TextUtils.join(",", allowedLanguages);
+		ApplicationSettings.setSupportedLanguages(this,supportedLangs );
+	}
 
-        int wizardState = ApplicationSettings.getWizardState(this);
-        if (wizardState != AppConstants.WIZARD_FLAG_HOME_READY) {
-            Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
-            Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-            // Removing default homescreen shortcut when installed via Google Play.
-            /*i.setAction(Intent.ACTION_MAIN);
+    private void startNextActivity() {
+		Log.e(">>>>>>>>>>>>", "starting next activity");
+
+		int wizardState = ApplicationSettings.getWizardState(this);
+
+		supportedLangs = ApplicationSettings.getSupportedLanguages(this);
+		Log.d(TAG, "Checking supported languages "+supportedLangs);
+		if(null==supportedLangs) {
+			PBDatabase dbInstance = new PBDatabase(this);
+			dbInstance.open();
+			Page languagesPage = dbInstance.retrievePage("setup-language", "en");
+			setsupportedlanguages(languagesPage);
+			dbInstance.close();
+		}
+		String selectedLang = ApplicationSettings.getSelectedLanguage(this);
+		if ((supportedLangs==null) || !(supportedLangs.contains(selectedLang))) {
+			ApplicationSettings.setSelectedLanguage(this, "en");
+		}
+		if (wizardState != AppConstants.WIZARD_FLAG_HOME_READY) {
+			Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
+			Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+			// Removing default homescreen shortcut when installed via Google Play.
+			/*i.setAction(Intent.ACTION_MAIN);
             
             i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             i.putExtra(Intent.EXTRA_SHORTCUT_NAME, "HelloWorldShortcut");
          
             i.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
             getApplicationContext().sendBroadcast(i);*/
-            i.putExtra("page_id", pageId);
-            startActivity(i);
-        } else {
-            Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
-            Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
-            // Make sure the HardwareTriggerService is started
-    		startService(new Intent(this, HardwareTriggerService.class));
-            startActivity(i);
-        }
-    }
+			i.putExtra("page_id", pageId);
+			startActivity(i);
+		} else {
+			Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
+			Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+			// Make sure the HardwareTriggerService is started
+			startService(new Intent(this, HardwareTriggerService.class));
+			startActivity(i);
+		}
+	}
 
 
 //    private void startWizard() {
@@ -517,7 +551,6 @@ public class HomeActivity extends Activity {
         for (int i = 0; i < pageList.size(); i++) {
             dbInstance.insertOrUpdatePage(pageList.get(i));
         }
-        dbInstance.close();
     }
 
     public String loadJSONFromAsset(String jsonFileName) {
