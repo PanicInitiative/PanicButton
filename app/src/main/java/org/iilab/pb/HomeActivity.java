@@ -80,7 +80,7 @@ public class HomeActivity extends Activity {
 
         try {
             JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
-            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
             lastLocalContentVersion = mobileObj.getInt("version");
         } catch (JSONException jsonException) {
