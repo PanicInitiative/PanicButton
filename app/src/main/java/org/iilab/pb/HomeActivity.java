@@ -42,6 +42,8 @@ public class HomeActivity extends Activity {
 	public static final String JSON_OBJECT_MOBILE="mobile";
 	public static final String JSON_ARRAY_DATA="data";
 	public static final String JSON_OBJECT_HELP="help";
+	public static final String VERSION ="version";
+
 	private static final String TAG = HomeActivity.class.getName();
 	String supportedLangs ;
 
@@ -87,7 +89,7 @@ public class HomeActivity extends Activity {
             JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
             JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-            lastLocalContentVersion = mobileObj.getInt("version");
+            lastLocalContentVersion = mobileObj.getInt(VERSION);
         } catch (JSONException jsonException) {
 			Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
 			jsonException.printStackTrace();
@@ -155,13 +157,13 @@ public class HomeActivity extends Activity {
 		if (null == supportedLangs) {
 			PBDatabase dbInstance = new PBDatabase(this);
 			dbInstance.open();
-			Page languagesPage = dbInstance.retrievePage("setup-language", "en");
+			Page languagesPage = dbInstance.retrievePage(PAGE_SETUP_LANGUAGE, DEFAULT_LANGUAGE_ENG);
 			setsupportedlanguages(languagesPage);
 			dbInstance.close();
 		}
 		String selectedLang = ApplicationSettings.getSelectedLanguage(this);
 		if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
-			ApplicationSettings.setSelectedLanguage(this, "en");
+			ApplicationSettings.setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
 		}
 			if (wizardState != WIZARD_FLAG_HOME_READY) {
 				Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
@@ -174,7 +176,7 @@ public class HomeActivity extends Activity {
          
             i.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
             getApplicationContext().sendBroadcast(i);*/
-				i.putExtra("page_id", pageId);
+				i.putExtra(PAGE_ID, pageId);
 				startActivity(i);
 			} else {
 				Log.d(TAG, "first run FALSE, running CalculatorActivity");
@@ -214,7 +216,7 @@ public class HomeActivity extends Activity {
 					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
 					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-					lastUpdatedVersion = mobileObj.getInt("version");
+					lastUpdatedVersion = mobileObj.getInt(VERSION);
 					ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
 
 					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);

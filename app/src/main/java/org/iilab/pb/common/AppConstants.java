@@ -60,11 +60,15 @@ public class AppConstants {
     public static final int DISGUISE_UNLOCK_LONGPRESS_TIME = 1800;
 
     public static final String PARENT_ACTIVITY = "parent_activity";
+    public static final String PAGE_ID = "page_id";
 
     public static final String PAGE_HOME_READY = "home-ready";
     public static final String PAGE_HOME_NOT_CONFIGURED = "home-not-configured";
     public static final String PAGE_HOME_NOT_CONFIGURED_ALARM = "home-not-configured-alarm";
     public static final String PAGE_HOME_NOT_CONFIGURED_DISGUISE = "home-not-configured-disguise";
+
+    public static final String DEFAULT_LANGUAGE_ENG = "en";
+    public static final String PAGE_SETUP_LANGUAGE = "setup-language";
 
 }
 
