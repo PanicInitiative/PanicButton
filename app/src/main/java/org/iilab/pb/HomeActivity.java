@@ -5,14 +5,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 
-import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
+import org.iilab.pb.model.PageAction;
 import org.iilab.pb.trigger.HardwareTriggerService;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,9 +21,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
+
+import static org.iilab.pb.common.AppConstants.*;
+
 
 public class HomeActivity extends Activity {
 
@@ -30,42 +36,39 @@ public class HomeActivity extends Activity {
 
     String pageId;
     String selectedLang;
-//    String mobileDataUrl;
-//    String helpDataUrl;
-
     int currentLocalContentVersion;
     int lastLocalContentVersion;
-//    int latestVersion;
-//    long lastRunTimeInMillis;
     int lastLocalDBVersion;
+	public static final String JSON_OBJECT_MOBILE="mobile";
+	public static final String JSON_ARRAY_DATA="data";
+	public static final String JSON_OBJECT_HELP="help";
+	public static final String VERSION ="version";
+
+	private static final String TAG = HomeActivity.class.getName();
+	String supportedLangs ;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		Fabric.with(this, new Crashlytics());
         setContentView(R.layout.welcome_screen);
-
         //deleteShortCut();
-
-        //latestVersion = -1;
-
         int wizardState = ApplicationSettings.getWizardState(this);
-        if (AppConstants.SKIP_WIZARD) {
-            pageId = "home-ready";
+        if (SKIP_WIZARD) {
+            pageId = PAGE_HOME_READY;
         } else
-        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+        if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
 
-            pageId = "home-not-configured";
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
-            pageId = "home-not-configured-alarm";
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
-            pageId = "home-not-configured-disguise";
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
-            pageId = "home-ready";
+            pageId = PAGE_HOME_NOT_CONFIGURED;
+        } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
+            pageId = PAGE_HOME_NOT_CONFIGURED_ALARM;
+        } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
+            pageId = PAGE_HOME_NOT_CONFIGURED_DISGUISE;
+        } else if (wizardState == WIZARD_FLAG_HOME_READY) {
+            pageId = PAGE_HOME_READY;
         }
-
+		ApplicationSettings.setSelectedLanguage(this, getDefaultOSLanguage());
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 //        helpDataUrl = AppConstants.BASE_URL + AppConstants.HELP_DATA_URL;
-
 //        lastRunTimeInMillis = ApplicationSettings.getLastRunTimeInMillis(this);
 
         /*
@@ -74,8 +77,8 @@ public class HomeActivity extends Activity {
         from the remote database even if the data was retrieved within last 24-hours period.
          */
         lastLocalDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
-        if(lastLocalDBVersion < AppConstants.DATABASE_VERSION){
-            Log.e("<<<<<", "local db version changed. needs a force update");
+        if(lastLocalDBVersion < DATABASE_VERSION){
+            Log.d(TAG, "local db version changed. needs a force update");
             ApplicationSettings.setLocalDataInsertion(this, false);
 //            lastRunTimeInMillis = -1;
         }
@@ -84,17 +87,19 @@ public class HomeActivity extends Activity {
 
         try {
             JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
-            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+            JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-            lastLocalContentVersion = mobileObj.getInt("version");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        
-        // We update all the content if the english mobile_en.json version has increased.
+            lastLocalContentVersion = mobileObj.getInt(VERSION);
+        } catch (JSONException jsonException) {
+			Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
+			jsonException.printStackTrace();
+		}
+
+
+		// We update all the content if the english mobile_en.json version has increased.
         
 		if (lastLocalContentVersion > currentLocalContentVersion) {
-            Log.e("???????", "Update local data");
+            Log.d(TAG, "Update local data");
             new InitializeLocalData().execute();
         }
 //        else if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
@@ -102,7 +107,7 @@ public class HomeActivity extends Activity {
 //            new GetLatestVersion().execute();
 //        }
         else{
-            Log.e(">>>>>", "no update needed");
+            Log.d(TAG, "no update of local data needed");
             startNextActivity();
         }
     }
@@ -113,7 +118,10 @@ public class HomeActivity extends Activity {
 //    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
 //        System.gc();
     }
-
+	private String getDefaultOSLanguage() {
+		//	Default language of OS:
+		return Locale.getDefault().getLanguage();
+	}
 
     private void deleteShortCut() {
 
@@ -131,32 +139,53 @@ public class HomeActivity extends Activity {
         sendBroadcast(removeIntent);
     }
 
+	private void setsupportedlanguages(Page languagesPage) {
+		List<String> allowedLanguages = new ArrayList<>();
+		List<PageAction> actionLanguages = languagesPage.getAction();
+		for (PageAction actionLanguage : actionLanguages) {
+			allowedLanguages.add(actionLanguage.getLanguage());
+		}
+		supportedLangs = TextUtils.join(",", allowedLanguages);
+		ApplicationSettings.setSupportedLanguages(this, supportedLangs);
+	}
 
-    private void startNextActivity(){
-        Log.e(">>>>>>>>>>>>", "starting next activity");
-
-        int wizardState = ApplicationSettings.getWizardState(this);
-        if (wizardState != AppConstants.WIZARD_FLAG_HOME_READY) {
-            Log.e(">>>>>>", "first run TRUE, running WizardActivity with pageId = " + pageId);
-            Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-            // Removing default homescreen shortcut when installed via Google Play.
-            /*i.setAction(Intent.ACTION_MAIN);
+    private void startNextActivity() {
+		Log.d(TAG, "starting next activity");
+		int wizardState = ApplicationSettings.getWizardState(this);
+		supportedLangs = ApplicationSettings.getSupportedLanguages(this);
+		Log.d(TAG, "Checking supported languages " + supportedLangs);
+		if (null == supportedLangs) {
+			PBDatabase dbInstance = new PBDatabase(this);
+			dbInstance.open();
+			Page languagesPage = dbInstance.retrievePage(PAGE_SETUP_LANGUAGE, DEFAULT_LANGUAGE_ENG);
+			setsupportedlanguages(languagesPage);
+			dbInstance.close();
+		}
+		String selectedLang = ApplicationSettings.getSelectedLanguage(this);
+		if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
+			ApplicationSettings.setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
+		}
+			if (wizardState != WIZARD_FLAG_HOME_READY) {
+				Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
+				Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+				// Removing default homescreen shortcut when installed via Google Play.
+			/*i.setAction(Intent.ACTION_MAIN);
             
             i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             i.putExtra(Intent.EXTRA_SHORTCUT_NAME, "HelloWorldShortcut");
          
             i.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
             getApplicationContext().sendBroadcast(i);*/
-            i.putExtra("page_id", pageId);
-            startActivity(i);
-        } else {
-            Log.e(">>>>>>", "first run FALSE, running CalculatorActivity");
-            Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
-            // Make sure the HardwareTriggerService is started
-    		startService(new Intent(this, HardwareTriggerService.class));
-            startActivity(i);
-        }
-    }
+				i.putExtra(PAGE_ID, pageId);
+				startActivity(i);
+			} else {
+				Log.d(TAG, "first run FALSE, running CalculatorActivity");
+				Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+				// Make sure the HardwareTriggerService is started
+				startService(new Intent(this, HardwareTriggerService.class));
+				startActivity(i);
+			}
+		}
 
 
 //    private void startWizard() {
@@ -171,157 +200,171 @@ public class HomeActivity extends Activity {
 //        }, AppConstants.SPLASH_DELAY_TIME);
 //    }
 
-	private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
-		int lastUpdatedVersion;
-		
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Installing...", true, false);
-        }
-        
-        @Override
-        protected Boolean doInBackground(Void... params) {
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
+		private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
+			int lastUpdatedVersion;
 
-	            lastUpdatedVersion = mobileObj.getInt("version");
-	            ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Installing...", true, false);
+			}
 
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_fr.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_pt.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_de.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("mobile");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_fr.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_pt.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        try {
-	            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_de.json"));
-	            JSONObject mobileObj = jsonObj.getJSONObject("help");
-
-	            JSONArray dataArray = mobileObj.getJSONArray("data");
-	            insertMobileDataToLocalDB(dataArray);
-	        } catch (JSONException e) {
-	            e.printStackTrace();
-	        }
-
-	        return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean response) {
-            super.onPostExecute(response);
-            if (pDialog.isShowing())
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				Log.i(TAG, "starting loading of json files in background thread");
 				try {
-					pDialog.dismiss();
-				} catch (Exception e) {
-					e.printStackTrace();
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+
+					lastUpdatedVersion = mobileObj.getInt(VERSION);
+					ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
 				}
 
-            ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
-            ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, AppConstants.DATABASE_VERSION);
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_es.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-            startNextActivity();
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_es.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_ph.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_ph.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_fr.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_fr.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_pt.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_pt.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_de.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading mobile_de.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_en.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_en.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_es.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_es.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_ph.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_ph.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_fr.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_fr.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_pt.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_pt.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				try {
+					JSONObject jsonObj = new JSONObject(loadJSONFromAsset("help_de.json"));
+					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+
+					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+					insertMobileDataToLocalDB(dataArray);
+				} catch (JSONException jsonException) {
+					Log.e(TAG, "Exception in reading help_de.json from asset" + jsonException.getMessage());
+					jsonException.printStackTrace();
+				}
+
+				return true;
+			}
+
+			@Override
+			protected void onPostExecute(Boolean response) {
+				super.onPostExecute(response);
+				if (pDialog.isShowing())
+					try {
+						pDialog.dismiss();
+					} catch (Exception e) {
+						Log.e(TAG, "Exception while dismissing progress dialog " + e.getMessage());
+						e.printStackTrace();
+					}
+
+				ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
+				ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, DATABASE_VERSION);
+
+				startNextActivity();
 
 //            if (!AppUtil.isToday(lastRunTimeInMillis) && AppUtil.hasInternet(HomeActivity.this)) {
 //                Log.e(">>>>", "last run not today");
@@ -329,9 +372,9 @@ public class HomeActivity extends Activity {
 //            } else{
 //                startNextActivity();
 //            }
-        }
-    }
-    
+			}
+		}
+
 //    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
 //
 //        @Override
@@ -409,8 +452,8 @@ public class HomeActivity extends Activity {
 //                    Log.d(">>>><<<<", "success in retrieving server-response for url = " + mobileDataUrl);
 //                    try {
 //                        JSONObject responseObj = response.getjObj();
-//                        JSONObject mobObj = responseObj.getJSONObject("mobile");
-//                        JSONArray dataArray = mobObj.getJSONArray("data");
+//                        JSONObject mobObj = responseObj.getJSONObject(JSON_OBJECT_MOBILE);
+//                        JSONArray dataArray = mobObj.getJSONArray(JSON_ARRAY_DATA);
 //                        insertMobileDataToLocalDB(dataArray);
 //                    } catch (JSONException e) {
 //                        e.printStackTrace();
@@ -467,8 +510,8 @@ public class HomeActivity extends Activity {
 //                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
 //                try {
 //                    JSONObject responseObj = response.getjObj();
-//                    JSONObject mobObj = responseObj.getJSONObject("help");
-//                    JSONArray dataArray = mobObj.getJSONArray("data");
+//                    JSONObject mobObj = responseObj.getJSONObject(JSON_OBJECT_HELP);
+//                    JSONArray dataArray = mobObj.getJSONArray(JSON_ARRAY_DATA);
 //                    insertHelpDataToLocalDB(dataArray);
 //                    ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
 //                    return true;
@@ -509,31 +552,33 @@ public class HomeActivity extends Activity {
 
 
     private void insertMobileDataToLocalDB(JSONArray dataArray) {
+		Log.i(TAG,"inserying mobile data to local DB");
         List<Page> pageList = Page.parsePages(dataArray);
-
         PBDatabase dbInstance = new PBDatabase(HomeActivity.this);
         dbInstance.open();
 
-        for (int i = 0; i < pageList.size(); i++) {
-            dbInstance.insertOrUpdatePage(pageList.get(i));
+        for (int indexPage = 0; indexPage < pageList.size(); indexPage++) {
+            dbInstance.insertOrUpdatePage(pageList.get(indexPage));
         }
         dbInstance.close();
     }
 
     public String loadJSONFromAsset(String jsonFileName) {
-        String json = null;
-        try {
-            InputStream is = getAssets().open(jsonFileName);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
+		Log.i(TAG,"loading JSON from asset");
+		String json = null;
+		try {
+			InputStream is = getAssets().open(jsonFileName);
+			int size = is.available();
+			byte[] buffer = new byte[size];
+			is.read(buffer);
+			is.close();
+			json = new String(buffer, "UTF-8");
+		} catch (IOException ioException) {
+			Log.e(TAG, "Exception while loading json file" + ioException.getMessage());
+			ioException.printStackTrace();
+			return null;
+		}
+		return json;
+	}
 
 }

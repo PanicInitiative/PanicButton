@@ -25,6 +25,7 @@ public class ApplicationSettings extends Application{
     public static final String ALERT_DELAY = "ALERT_DELAY";
     public static final String IS_FIRST_MSG_WITH_LOCATION_TRIGGERED = "is_first_msg_with_location_triggered";
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
+    public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
 
     public static Context getAppContext(){
         return getAppContext();
@@ -142,6 +143,12 @@ public class ApplicationSettings extends Application{
         saveString(context, SELECTED_LANGUAGE , lang);
     }
 
+    public static void setSupportedLanguages(Context context, String lang) {
+        saveString(context, SUPPORTED_LANGUAGES , lang);
+    }
+    public static String getSupportedLanguages(Context context) {
+        return sharedPreferences(context).getString(SUPPORTED_LANGUAGES,null);
+    }
 
     public static int getLastUpdatedVersion(Context context) {
         return sharedPreferences(context).getInt(LAST_UPDATED_VERSION, -1);
