@@ -61,4 +61,5 @@
 
     <string name="stop_alert_message_header">Stop alert message</string>
     <string name="stop_alert_message_hint">Enter stop alert message</string>
+    <string name="confirm_pin">Confirm the code</string>
 </resources>
