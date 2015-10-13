@@ -59,4 +59,6 @@
     <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
     <string name="stop_alert_message_header">Stop alert message</string>
     <string name="stop_alert_message_hint">Enter stop alert message</string>
+
+    <string name="confirm_pin">Confirm the code</string>
 </resources>
