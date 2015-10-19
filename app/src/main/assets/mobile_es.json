@@ -269,7 +269,7 @@
                 "fail": {
                     "link": "setup-alarm-test-hardware-fail"
                 },
-                "content": "<p><img src=\"/media/mobile/panic_button_activation.png\" alt=\"\"></p>"
+                "content": "<p><img src=\"/media/mobile/panic_button_activation_360_es.gif\" alt=\"\"></p>"
             },
             {
                 "id": "setup-alarm-test-disguise-success",

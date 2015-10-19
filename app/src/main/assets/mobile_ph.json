@@ -150,8 +150,9 @@
       "component" : "alarm-test-hardware",
       "timers" : {"info":"0","inactive":"10","fail":"20"},
       "success" : {"link":"setup-alarm-test-hardware-success"},
-      "fail" : {"link":"setup-alarm-test-hardware-fail"}
-    },
+      "fail" : {"link":"setup-alarm-test-hardware-fail"},
+      "content": "<p><img src=\"/media/mobile/panic_button_activation_360_ph.gif\" alt=\"\"></p>"
+      },
     {
       "id" : "setup-alarm-test-disguise-success",
       "lang" : "ph",
