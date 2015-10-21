@@ -1,6 +1,6 @@
 {
     "mobile": {
-        "version": 9,
+        "version": "9",
         "data": [
             {
                 "id": "setup-warning",
