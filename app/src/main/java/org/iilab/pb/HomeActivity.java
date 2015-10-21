@@ -89,12 +89,11 @@ public class HomeActivity extends Activity {
             JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json"));
             JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-            lastLocalContentVersion = mobileObj.getInt(VERSION);
-        } catch (JSONException jsonException) {
-			Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
-			jsonException.printStackTrace();
+            lastLocalContentVersion = Integer.parseInt(mobileObj.getString(VERSION));
+        } catch (JSONException | NumberFormatException exception) {
+			Log.e(TAG, "Exception in reading mobile_en.json from asset" + exception.getMessage());
+			exception.printStackTrace();
 		}
-
 
 		// We update all the content if the english mobile_en.json version has increased.
         
@@ -135,7 +134,7 @@ public class HomeActivity extends Activity {
         removeIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "ShortcutName");
         removeIntent.putExtra("duplicate", false);
 
-        removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+		removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
         sendBroadcast(removeIntent);
     }
 
