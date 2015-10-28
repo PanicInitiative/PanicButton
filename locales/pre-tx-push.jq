@@ -1,6 +1,10 @@
-def process_key(f): ( [ ( .[f] | keys[] as $i 
+def process_key(k): 
+  if (.[k] | type == "string") then { ( k + "-" + $file ):.title } else {} end;
+def process_subkey(sk): 
+  if (.[sk]) 
+  then ( [ ( .[sk] | keys[] as $i 
     | if (.[$i].title ) 
-      then { key: ( f 
+      then { key: ( sk 
                   + "-" 
                   + if (.[$i].link) 
                     then .[$i].link
@@ -13,12 +17,14 @@ def process_key(f): ( [ ( .[f] | keys[] as $i
            , value: .[$i].title } 
       else {}
       end 
-    ) ] | from_entries ) ;
-[ if (.title) then { (.title|ascii_downcase):.title } else {} end
-, if (.introduction) then { (.introduction|ascii_downcase): .introduction } else {} end
-, if (.fail) then { (.fail|ascii_downcase): .fail } else {} end
-, if (.action) then process_key("action") else {} end
-, if (.checklist) then process_key("checklist") else {} end
-, if (.status) then process_key("status") else {} end
-, if (.items) then process_key("items") else {} end
+    ) ] | from_entries ) 
+  else {}
+  end ;
+[ process_key("title")
+, process_key("introduction")
+, process_key("fail")
+, process_subkey("action")
+, process_subkey("checklist")
+, process_subkey("status")
+, process_subkey("items")
 ] | add
