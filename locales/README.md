@@ -6,11 +6,14 @@ These are tools related to the build process.
  - [jq](https://stedolan.github.io/jq/download/)
  - [nodejs](https://nodejs.org/en/download/)
  - underscore-cli ```npm install -g underscore-cli```
+ - transifex client ```pip install transifex-client```
 
-## Run
-
+## Initialise
 
 ```
 git clone --depth=1 https://github.com/PanicInitiative/panicbutton.io
-yaml-front-matter  | jq -f pre-tx-push.jq | 
+./locales-push.sh
+tx init
+tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
+```
 

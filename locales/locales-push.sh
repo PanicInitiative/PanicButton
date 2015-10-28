@@ -17,7 +17,7 @@ do
     echo "./build/$res/en/`basename $f`.json file created."; 
   done
 
-  jq 'add' -s build/$res/en/*.json > ./build/$res.en.json
+  jq 'add' -s build/$res/en/*.json > ./$res.en.json
 
   for lang in "es" "pt" "de" "fr"
   do
@@ -36,6 +36,6 @@ do
       echo "./build/$res/$lang/`basename $f`.json file created."; 
     done
 
-    jq 'add' -s build/$res/$lang/*.json > ./build/$res.$lang.json
+    jq 'add' -s build/$res/$lang/*.json > ./$res.$lang.json
   done
 done
