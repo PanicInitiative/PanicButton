@@ -53,3 +53,7 @@ proguard/
 lint-report.html
 lint-report_files/
 lint_result.txt
+
+# Locale
+locales/panicbutton.io
+locales/build
