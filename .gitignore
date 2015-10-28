@@ -57,3 +57,4 @@ lint_result.txt
 # Locale
 locales/panicbutton.io
 locales/build
+locales/.tx
