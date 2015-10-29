@@ -22,6 +22,6 @@ notifications:
 
 script:
 ##  - ./locales/locales-push.sh
-  - ./locales/tx init
-  - ./locales/tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
+  - tx init
+  - tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
   - ./gradlew clean build
