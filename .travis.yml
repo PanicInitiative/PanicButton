@@ -4,14 +4,14 @@ jdk: oraclejdk7
 
 install:
   - npm install -g underscore-cli
-  - pip install transifex-client
+  - sudo pip install transifex-client
 android:
   components:
      - android-22
      - build-tools-22.0.1
      - extra-android-m2repository
 
-sudo: false
+
 notifications:
   email: false
 
