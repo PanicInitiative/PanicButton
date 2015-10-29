@@ -7,6 +7,7 @@ before_install:
 
 install:
   - npm install -g underscore-cli
+  - npm install -g yaml2json
   - sudo pip install transifex-client
   
 android:
@@ -20,7 +21,7 @@ notifications:
   email: false
 
 script:
-  - ./locales/locales-push.sh
+##  - ./locales/locales-push.sh
   - ./locales/tx init
   - ./locales/tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
   - ./gradlew clean build
