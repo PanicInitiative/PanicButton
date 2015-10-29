@@ -3,8 +3,8 @@ language: android
 jdk: oraclejdk7
 
 before_install:
-    -git clone --depth=1 https://github.com/PanicInitiative/panicbutton.io
-    
+- git clone --depth=1 https://github.com/PanicInitiative/panicbutton.io
+
 install:
   - npm install -g underscore-cli
   - sudo pip install transifex-client
