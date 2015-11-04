@@ -2,13 +2,13 @@
 language: android
 jdk: oraclejdk7
 
-before_install:
-- git clone --depth=1 https://github.com/PanicInitiative/panicbutton.io
+##before_install:
+##- git clone --depth=1 https://github.com/PanicInitiative/panicbutton.io
 
-install:
-  - npm install -g underscore-cli
-  - npm install -g yaml2json
-  - sudo pip install transifex-client
+##install:
+##  - npm install -g underscore-cli
+##  - npm install -g yaml2json
+##  - sudo pip install transifex-client
   
 android:
   components:
@@ -22,6 +22,6 @@ notifications:
 
 script:
 ##  - ./locales/locales-push.sh
-  - tx init
-  - tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
+##  - tx init
+##  - tx set --auto-local --type KEYVALUEJSON -r panicbutton.mobile 'mobile.<lang>.json' --source-lang en --execute
   - ./gradlew clean build
