@@ -77,6 +77,7 @@ public class AppConstants {
     public static final String VERSION = "version";
     public static final String PREFIX_MOBILE_DATA = "mobile_";
     public static final String PREFIX_HELP_DATA = "help_";
+    public static final String DELIMITER_COMMA=",";
 
 }
 

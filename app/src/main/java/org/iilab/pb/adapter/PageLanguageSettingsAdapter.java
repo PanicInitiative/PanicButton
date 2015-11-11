@@ -167,7 +167,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         if (!AppUtil.isLanguageDataExists(mContext, language)) {
             new LoadLanguageData().execute();
             ApplicationSettings.addDBLoadedLanguage(mContext, language);
-        } 
+        } else {
+            restartApp();
+        }
     }
 
     private class LoadLanguageData extends AsyncTask<Void, Void, Boolean> {
@@ -221,6 +223,8 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                     Log.e(TAG, "Exception while dismissing progress dialog " + e.getMessage());
                     e.printStackTrace();
                 }
+            restartApp();
+
         }
     }
 }
