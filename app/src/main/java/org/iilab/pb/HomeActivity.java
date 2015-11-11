@@ -81,10 +81,10 @@ public class HomeActivity extends Activity {
             JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset("mobile_en.json", getApplicationContext()));
             JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-            lastLocalContentVersion = mobileObj.getInt(VERSION);
-        } catch (JSONException jsonException) {
-			Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
-			jsonException.printStackTrace();
+            lastLocalContentVersion = Integer.parseInt(mobileObj.getString(VERSION));
+        } catch (JSONException  | NumberFormatException exception) {
+			Log.e(TAG, "Exception in reading mobile_en.json from asset" + exception.getMessage());
+			exception.printStackTrace();
 		}
 
 		/* We update the device language content if the english mobile_en.json version has increased or
