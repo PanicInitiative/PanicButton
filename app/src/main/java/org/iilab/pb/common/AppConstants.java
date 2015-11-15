@@ -69,6 +69,15 @@ public class AppConstants {
 
     public static final String DEFAULT_LANGUAGE_ENG = "en";
     public static final String PAGE_SETUP_LANGUAGE = "setup-language";
+    public static final String JSON_EXTENSION=".json";
+
+    public static final String JSON_OBJECT_MOBILE = "mobile";
+    public static final String JSON_ARRAY_DATA = "data";
+    public static final String JSON_OBJECT_HELP = "help";
+    public static final String VERSION = "version";
+    public static final String PREFIX_MOBILE_DATA = "mobile_";
+    public static final String PREFIX_HELP_DATA = "help_";
+    public static final String DELIMITER_COMMA=",";
 
 }
 

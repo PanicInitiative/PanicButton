@@ -15,13 +15,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.model.Page;
+import org.json.JSONArray;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 public class AppUtil {
-
+    private static final String TAG = AppUtil.class.getName();
     public static HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
 
     public static void setError(Context context, EditText editText, int messageId) {
@@ -102,7 +107,7 @@ public class AppUtil {
         Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
 		int width, height;
 		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
-		int originalHeightScaled = (int) (drawable.getIntrinsicHeight()* metrics.density * densityRatio);
+		int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * densityRatio);
         Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
 
         if (imageScaleFlag == AppConstants.IMAGE_FULL_WIDTH) {
@@ -249,5 +254,38 @@ public class AppUtil {
         tvContent.setText(spanned);
     }
 
+    public static void insertMobileDataToLocalDB(JSONArray dataArray,Context context) {
+        Log.d(TAG,"inserting mobile data to local DB");
+        List<Page> pageList = Page.parsePages(dataArray);
+        PBDatabase dbInstance = new PBDatabase(context);
+        dbInstance.open();
+
+        for (int indexPage = 0; indexPage < pageList.size(); indexPage++) {
+            dbInstance.insertOrUpdatePage(pageList.get(indexPage));
+        }
+        dbInstance.close();
+    }
+
+    public static String loadJSONFromAsset(String jsonFileName ,Context context) {
+        Log.d(TAG,"loading JSON from asset");
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(jsonFileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ioException) {
+            Log.e(TAG, "Exception while loading json file" + ioException.getMessage());
+            ioException.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    public static boolean isLanguageDataExists(Context context, String lang){
+        return (ApplicationSettings.getDBLoadedLanguages(context).contains(lang));
+    }
 
 }
