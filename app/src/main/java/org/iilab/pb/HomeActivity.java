@@ -39,19 +39,18 @@ public class HomeActivity extends Activity {
     int lastLocalContentVersion;
     int lastLocalDBVersion;
 
-	private static final String TAG = HomeActivity.class.getName();
-	String supportedLangs ;
+    private static final String TAG = HomeActivity.class.getName();
+    String supportedLangs;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.welcome_screen);
         //deleteShortCut();
         int wizardState = ApplicationSettings.getWizardState(this);
         if (SKIP_WIZARD) {
             pageId = PAGE_HOME_READY;
-        } else
-        if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+        } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
 
             pageId = PAGE_HOME_NOT_CONFIGURED;
         } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
@@ -61,7 +60,7 @@ public class HomeActivity extends Activity {
         } else if (wizardState == WIZARD_FLAG_HOME_READY) {
             pageId = PAGE_HOME_READY;
         }
-		ApplicationSettings.setSelectedLanguage(this, getDefaultOSLanguage());
+        ApplicationSettings.setSelectedLanguage(this, getDefaultOSLanguage());
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
         /*
         lastLocalDBVersion is used for local db version update. If local db version is changed, then all local data will be deleted,
@@ -69,8 +68,8 @@ public class HomeActivity extends Activity {
         from the remote database even if the data was retrieved within last 24-hours period.
          */
         lastLocalDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
-		Log.d(TAG, "lastLocalDBVersion  "+lastLocalDBVersion);
-        if(lastLocalDBVersion < DATABASE_VERSION){
+        Log.d(TAG, "lastLocalDBVersion  " + lastLocalDBVersion);
+        if (lastLocalDBVersion < DATABASE_VERSION) {
             Log.d(TAG, "local db version changed. needs a force update");
             ApplicationSettings.setLocalDataInsertion(this, false);
         }
@@ -82,43 +81,33 @@ public class HomeActivity extends Activity {
             JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
             lastLocalContentVersion = Integer.parseInt(mobileObj.getString(VERSION));
-<<<<<<< HEAD
         } catch (JSONException | NumberFormatException exception) {
-=======
-        } catch (JSONException  | NumberFormatException exception) {
->>>>>>> feature/PB-75
-			Log.e(TAG, "Exception in reading mobile_en.json from asset" + exception.getMessage());
-			exception.printStackTrace();
-		}
+            Log.e(TAG, "Exception in reading mobile_en.json from asset" + exception.getMessage());
+            exception.printStackTrace();
+        }
 
-<<<<<<< HEAD
-		// We update all the content if the english mobile_en.json version has increased.
-        
-		if (lastLocalContentVersion > currentLocalContentVersion) {
-=======
 		/* We update the device language content if the english mobile_en.json version has increased or
-		* if the language of the device OS was perviously not installed*/
+        * if the language of the device OS was perviously not installed*/
 
-		if ((lastLocalContentVersion > currentLocalContentVersion)||(!AppUtil.isLanguageDataExists(getApplicationContext(), selectedLang))) {
->>>>>>> feature/PB-75
+        if ((lastLocalContentVersion > currentLocalContentVersion) || (!AppUtil.isLanguageDataExists(getApplicationContext(), selectedLang))) {
             Log.d(TAG, "Update local data");
             new InitializeLocalData().execute();
-			ApplicationSettings.addDBLoadedLanguage(getApplicationContext(), selectedLang);
-        }
-        else{
+            ApplicationSettings.addDBLoadedLanguage(getApplicationContext(), selectedLang);
+        } else {
             Log.d(TAG, "no update of local data needed");
             startNextActivity();
         }
     }
-    
+
     @Override
     protected void onDestroy() {
-    	super.onDestroy();
+        super.onDestroy();
     }
-	private String getDefaultOSLanguage() {
-		//	Default language of OS:
-		return Locale.getDefault().getLanguage();
-	}
+
+    private String getDefaultOSLanguage() {
+        //	Default language of OS:
+        return Locale.getDefault().getLanguage();
+    }
 
     private void deleteShortCut() {
 
@@ -132,108 +121,108 @@ public class HomeActivity extends Activity {
         removeIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "ShortcutName");
         removeIntent.putExtra("duplicate", false);
 
-		removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+        removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
         sendBroadcast(removeIntent);
     }
 
-	private void setsupportedlanguages(Page languagesPage) {
-		List<String> allowedLanguages = new ArrayList<>();
-		List<PageAction> actionLanguages = languagesPage.getAction();
-		for (PageAction actionLanguage : actionLanguages) {
-			allowedLanguages.add(actionLanguage.getLanguage());
-		}
-		supportedLangs = TextUtils.join(DELIMITER_COMMA, allowedLanguages);
-		ApplicationSettings.setSupportedLanguages(this, supportedLangs);
-	}
+    private void setsupportedlanguages(Page languagesPage) {
+        List<String> allowedLanguages = new ArrayList<>();
+        List<PageAction> actionLanguages = languagesPage.getAction();
+        for (PageAction actionLanguage : actionLanguages) {
+            allowedLanguages.add(actionLanguage.getLanguage());
+        }
+        supportedLangs = TextUtils.join(DELIMITER_COMMA, allowedLanguages);
+        ApplicationSettings.setSupportedLanguages(this, supportedLangs);
+    }
 
     private void startNextActivity() {
-		Log.d(TAG, "starting next activity");
-		int wizardState = ApplicationSettings.getWizardState(this);
-		supportedLangs = ApplicationSettings.getSupportedLanguages(this);
-		Log.d(TAG, "Checking supported languages " + supportedLangs);
-		if (null == supportedLangs) {
-			PBDatabase dbInstance = new PBDatabase(this);
-			dbInstance.open();
-			Page languagesPage = dbInstance.retrievePage(PAGE_SETUP_LANGUAGE, DEFAULT_LANGUAGE_ENG);
-			setsupportedlanguages(languagesPage);
-			dbInstance.close();
-		}
-		if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
-			ApplicationSettings.setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
-		}
-			if (wizardState != WIZARD_FLAG_HOME_READY) {
-				Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
-				Intent i = new Intent(HomeActivity.this, WizardActivity.class);
-				i.putExtra(PAGE_ID, pageId);
-				startActivity(i);
-			} else {
-				Log.d(TAG, "First run FALSE, running CalculatorActivity");
-				Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
-				// Make sure the HardwareTriggerService is started
-				startService(new Intent(this, HardwareTriggerService.class));
-				startActivity(i);
-			}
-		}
+        Log.d(TAG, "starting next activity");
+        int wizardState = ApplicationSettings.getWizardState(this);
+        supportedLangs = ApplicationSettings.getSupportedLanguages(this);
+        Log.d(TAG, "Checking supported languages " + supportedLangs);
+        if (null == supportedLangs) {
+            PBDatabase dbInstance = new PBDatabase(this);
+            dbInstance.open();
+            Page languagesPage = dbInstance.retrievePage(PAGE_SETUP_LANGUAGE, DEFAULT_LANGUAGE_ENG);
+            setsupportedlanguages(languagesPage);
+            dbInstance.close();
+        }
+        if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
+            ApplicationSettings.setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
+        }
+        if (wizardState != WIZARD_FLAG_HOME_READY) {
+            Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
+            Intent i = new Intent(HomeActivity.this, WizardActivity.class);
+            i.putExtra(PAGE_ID, pageId);
+            startActivity(i);
+        } else {
+            Log.d(TAG, "First run FALSE, running CalculatorActivity");
+            Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
+            // Make sure the HardwareTriggerService is started
+            startService(new Intent(this, HardwareTriggerService.class));
+            startActivity(i);
+        }
+    }
 
-		private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
-			int lastUpdatedVersion;
+    private class InitializeLocalData extends AsyncTask<Void, Void, Boolean> {
+        int lastUpdatedVersion;
 
-			@Override
-			protected void onPreExecute() {
-				super.onPreExecute();
-				pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Installing...", true, false);
-			}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = ProgressDialog.show(HomeActivity.this, "Application", "Installing...", true, false);
+        }
 
-			@Override
-			protected Boolean doInBackground(Void... params) {
-				Log.d(TAG, "starting loading of json files in background thread");
-				String dataFileName = PREFIX_MOBILE_DATA + selectedLang + JSON_EXTENSION;
-				String helpFileName = PREFIX_HELP_DATA + selectedLang + JSON_EXTENSION;
-				try {
-					JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(dataFileName, getApplicationContext()));
-					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Log.d(TAG, "starting loading of json files in background thread");
+            String dataFileName = PREFIX_MOBILE_DATA + selectedLang + JSON_EXTENSION;
+            String helpFileName = PREFIX_HELP_DATA + selectedLang + JSON_EXTENSION;
+            try {
+                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(dataFileName, getApplicationContext()));
+                JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
-					lastUpdatedVersion = mobileObj.getInt(VERSION);
-					ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+                lastUpdatedVersion = mobileObj.getInt(VERSION);
+                ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
 
-					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-					AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
-				} catch (JSONException jsonException) {
-					Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
-					jsonException.printStackTrace();
-				}
+                JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+                AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
+            } catch (JSONException jsonException) {
+                Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
+                jsonException.printStackTrace();
+            }
 
-				try {
-					JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(helpFileName, getApplicationContext()));
-					JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
+            try {
+                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(helpFileName, getApplicationContext()));
+                JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
 
-					JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-					AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
-				} catch (JSONException jsonException) {
-					Log.e(TAG, "Exception in reading help_en.json from asset" + jsonException.getMessage());
-					jsonException.printStackTrace();
-				}
+                JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
+                AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
+            } catch (JSONException jsonException) {
+                Log.e(TAG, "Exception in reading help_en.json from asset" + jsonException.getMessage());
+                jsonException.printStackTrace();
+            }
 
-				return true;
-			}
+            return true;
+        }
 
-			@Override
-			protected void onPostExecute(Boolean response) {
-				super.onPostExecute(response);
-				if (pDialog.isShowing())
-					try {
-						pDialog.dismiss();
-					} catch (Exception e) {
-						Log.e(TAG, "Exception while dismissing progress dialog " + e.getMessage());
-						e.printStackTrace();
-					}
+        @Override
+        protected void onPostExecute(Boolean response) {
+            super.onPostExecute(response);
+            if (pDialog.isShowing())
+                try {
+                    pDialog.dismiss();
+                } catch (Exception e) {
+                    Log.e(TAG, "Exception while dismissing progress dialog " + e.getMessage());
+                    e.printStackTrace();
+                }
 
-				ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
-				ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, DATABASE_VERSION);
+            ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
+            ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, DATABASE_VERSION);
 
-				startNextActivity();
-			}
-		}
+            startNextActivity();
+        }
+    }
 
 //    private class GetLatestVersion extends AsyncTask<Void, Void, Boolean> {
 //
@@ -280,7 +269,6 @@ public class HomeActivity extends Activity {
 //            }
 //        }
 //    }
-
 
 
 //    private class GetMobileDataUpdate extends AsyncTask<Void, Void, Boolean> {
@@ -346,8 +334,6 @@ public class HomeActivity extends Activity {
 //    }
 
 
-
-
 //    private class GetHelpDataUpdate extends AsyncTask<Void, Void, Boolean> {
 //
 //        @Override
@@ -395,7 +381,6 @@ public class HomeActivity extends Activity {
 //            startNextActivity();
 //        }
 //    }
-
 
 
 //    private void insertHelpDataToLocalDB(JSONArray dataArray) {
