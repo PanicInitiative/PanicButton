@@ -61,4 +61,6 @@
     <string name="stop_alert_message_hint">Enter stop alert message</string>
 
     <string name="confirm_pin">Confirm the code</string>
+    <string name="disable_power_trigger">Disable Power Button Alarm Trigger</string>
+    <string name="enable_power_trigger">Enable Power Button Alarm Trigger</string>
 </resources>

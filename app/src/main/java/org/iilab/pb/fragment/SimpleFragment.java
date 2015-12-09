@@ -16,11 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-
-import java.util.HashMap;
 
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
@@ -39,14 +37,15 @@ import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
 
+import java.util.HashMap;
+
+import static org.iilab.pb.common.AppConstants.*;
 
 /**
  * Created by aoe on 1/3/14.
  */
 public class SimpleFragment extends Fragment {
 
-    private static final String PAGE_ID = "page_id";
-    private static final String PARENT_ACTIVITY = "parent_activity";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
@@ -56,12 +55,14 @@ public class SimpleFragment extends Fragment {
     NestedListView lvItems;
     NestedListView lvActions;
     LinearLayout llWarning, llStatus;
-    Button bAction;
+    Button bActionStopAlert;
 
     Page currentPage;
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
+    private CheckBox powerTriggerCheckBox;
+    private static final String TAG = SimpleFragment.class.getName();
 
     public static SimpleFragment newInstance(String pageId, int parentActivity) {
         SimpleFragment f = new SimpleFragment();
@@ -69,14 +70,14 @@ public class SimpleFragment extends Fragment {
         args.putString(PAGE_ID, pageId);
         args.putInt(PARENT_ACTIVITY, parentActivity);
         f.setArguments(args);
-        return(f);
+        return (f);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type_simple, container, false);
-        Log.e(">>>>>", "SimpleFragment.onCreateView");
+        Log.i(TAG, "onCreateView called");
 
         tvTitle = (TextView) view.findViewById(R.id.fragment_title);
         tvIntro = (TextView) view.findViewById(R.id.fragment_intro);
@@ -89,26 +90,25 @@ public class SimpleFragment extends Fragment {
         special case for page id = "home-alerting"
         This button will be visible only when we are in home-alerting page.
          */
-        bAction = (Button) view.findViewById(R.id.b_action);
-        bAction.setOnClickListener(new View.OnClickListener() {
+        bActionStopAlert = (Button) view.findViewById(R.id.b_actionStopAlert);
+        bActionStopAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "on click of \"Stop Alert\" button");
                 stopAlert();
                 String pageId = currentPage.getAction().get(0).getLink();
-
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
-
                 // This part needs to be changed.
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY || pageId.equalsIgnoreCase("home-not-configured")){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY || pageId.equalsIgnoreCase(PAGE_HOME_NOT_CONFIGURED)) {
+                    Log.e(TAG, "This case should never be reached as parent activity can not be WizardActivity");
                     i = new Intent(activity, WizardActivity.class);
                     i = AppUtil.clearBackStack(i);
-                } else{
+                } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
-                i.putExtra("page_id", pageId);
+                Log.d(TAG, "Target page-id is " + pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
                 activity.finish();
 
@@ -119,20 +119,17 @@ public class SimpleFragment extends Fragment {
         llStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
-
                 String pageId = currentPage.getStatus().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
-                } else{
+                } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-
-//                Intent i = new Intent(activity, WizardActivity.class);
-                i.putExtra("page_id", pageId);
+                Log.d(TAG, "Target page-id from status click "+pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
             }
         });
@@ -141,29 +138,32 @@ public class SimpleFragment extends Fragment {
         lvActions = (NestedListView) view.findViewById(R.id.fragment_action_list);
 
         llWarning = (LinearLayout) view.findViewById(R.id.ll_fragment_warning);
-        tvWarning  = (TextView) view.findViewById(R.id.fragment_warning);
+        tvWarning = (TextView) view.findViewById(R.id.fragment_warning);
 
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                AppConstants.IS_ACTION_ITEM_PRESSED = true;
-
                 PageItem selectedItem = (PageItem) parent.getItemAtPosition(position);
-
-//                AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
-
                 String pageId = selectedItem.getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
-                } else{
+                } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-                i.putExtra("page_id", pageId);
+                Log.d(TAG, "Target page-id from itemList is "+pageId);
+                i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
+            }
+        });
+        powerTriggerCheckBox = (CheckBox) view.findViewById(R.id.powerTrigger);
+        powerTriggerCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Add code to disable service
             }
         });
         return view;
@@ -172,7 +172,7 @@ public class SimpleFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.e(">>>>>", "SimpleFragment.onActivityCreated");
+        Log.i(TAG, "onActivityCreated called");
 
         activity = getActivity();
         if (activity != null) {
@@ -182,7 +182,8 @@ public class SimpleFragment extends Fragment {
             String pageId = getArguments().getString(PAGE_ID);
             String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
             int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
-
+            Log.d(TAG, "current page id is : "+pageId);
+            Log.d(TAG, "Parent activity is : 1=wizard, 2 = Main "+ parentActivity);
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
             currentPage = dbInstance.retrievePage(pageId, selectedLang);
@@ -190,43 +191,51 @@ public class SimpleFragment extends Fragment {
 
             tvTitle.setText(currentPage.getTitle());
 
-            if(currentPage.getStatus() == null || currentPage.getStatus().size() == 0){
+            if (currentPage.getStatus() == null || currentPage.getStatus().size() == 0) {
                 isPageStatusAvailable = false;
                 llStatus.setVisibility(View.GONE);
-            } else{
+            } else {
                 isPageStatusAvailable = true;
                 String color = currentPage.getStatus().get(0).getColor();
-                if(color.equals("red"))
+                if (color.equals(COLOR_RED))
                     tvStatus.setTextColor(Color.RED);
                 else
                     tvStatus.setTextColor(Color.GREEN);
                 tvStatus.setText(currentPage.getStatus().get(0).getTitle());
             }
 
-            if(currentPage.getContent() == null)
+            if (currentPage.getContent() == null)
                 tvContent.setVisibility(View.GONE);
             else {
                 tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
                 tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             }
 
-            if(currentPage.getIntroduction() == null)
+            if (currentPage.getIntroduction() == null)
                 tvIntro.setVisibility(View.GONE);
             else
                 tvIntro.setText(currentPage.getIntroduction());
 
-            if(currentPage.getWarning() == null)
+            if (currentPage.getWarning() == null)
                 llWarning.setVisibility(View.GONE);
             else
                 tvWarning.setText(currentPage.getWarning());
 
-            if(pageId.equals("home-ready") || pageId.equals("home-alerting")){
+            if (pageId.equals(PAGE_HOME_READY) || pageId.equals(PAGE_HOME_ALERTING)) {
                 isPageStatusAvailable = false;
             }
 
+            /**
+             * if page status is "Home-Ready", we can enable the checkbox to disable the Power button Alarm
+             */
+            if (pageId.equals(PAGE_HOME_READY)){
+                powerTriggerCheckBox.setVisibility(View.VISIBLE);
+            }else{
+                powerTriggerCheckBox.setVisibility(View.GONE);
+            }
             pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, parentActivity);
 
-            if (pageId.equals("setup-alarm-test-hardware-success") || pageId.equals("setup-alarm-test-disguise-success")) {
+            if (pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS) || pageId.equals(PAGE_SETUP_ALARM_TEST_DISGUISE_SUCCESS)) {
                 PageActionFakeAdapter pageActionFakeAdapter = new PageActionFakeAdapter(activity, null);
                 lvActions.setAdapter(pageActionFakeAdapter);
                 pageActionFakeAdapter.setData(currentPage.getAction());
@@ -239,14 +248,12 @@ public class SimpleFragment extends Fragment {
                         pageActionAdapter.setData(currentPage.getAction());
                     }
                 }, 1000);
-            }
-            else if(pageId.equals("home-alerting")){
+            } else if (pageId.equals(PAGE_HOME_ALERTING)) {
                 lvActions.setVisibility(View.INVISIBLE);
-                bAction.setVisibility(View.VISIBLE);
+                bActionStopAlert.setVisibility(View.VISIBLE);
 
-                bAction.setText(currentPage.getAction().get(0).getTitle());
-            }
-            else {
+                bActionStopAlert.setText(currentPage.getAction().get(0).getTitle());
+            } else {
                 lvActions.setAdapter(pageActionAdapter);
                 pageActionAdapter.setData(currentPage.getAction());
             }
@@ -278,25 +285,25 @@ public class SimpleFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("SimpleFragment.onPause", currentPage.getId());
+        Log.d(TAG, currentPage.getId());
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
-        Log.e("SimpleFragment.onStop", currentPage.getId());
+        Log.d(TAG, currentPage.getId());
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("SimpleFragment.onStart", currentPage.getId());
+        Log.d(TAG, currentPage.getId());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("SimpleFragment.onResume", currentPage.getId());
+        Log.d(TAG, currentPage.getId());
     }
 
 }
