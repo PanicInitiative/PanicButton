@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import org.iilab.pb.MainActivity;
@@ -36,10 +36,18 @@ import org.iilab.pb.common.NestedListView;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
+import org.iilab.pb.trigger.HardwareTriggerService;
 
 import java.util.HashMap;
 
-import static org.iilab.pb.common.AppConstants.*;
+import static org.iilab.pb.common.AppConstants.COLOR_RED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_ALERTING;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_DISGUISE_SUCCESS;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS;
+import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
 
 /**
  * Created by aoe on 1/3/14.
@@ -61,7 +69,8 @@ public class SimpleFragment extends Fragment {
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
-    private CheckBox powerTriggerCheckBox;
+    private RadioGroup powerTriggerRadioGroup;
+    private TextView configurePowerTriggerHeader;
     private static final String TAG = SimpleFragment.class.getName();
 
     public static SimpleFragment newInstance(String pageId, int parentActivity) {
@@ -128,7 +137,7 @@ public class SimpleFragment extends Fragment {
                 } else {
                     i = new Intent(activity, MainActivity.class);
                 }
-                Log.d(TAG, "Target page-id from status click "+pageId);
+                Log.d(TAG, "Target page-id from status click " + pageId);
                 i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
             }
@@ -159,11 +168,24 @@ public class SimpleFragment extends Fragment {
                 startActivity(i);
             }
         });
-        powerTriggerCheckBox = (CheckBox) view.findViewById(R.id.powerTrigger);
-        powerTriggerCheckBox.setOnClickListener(new View.OnClickListener() {
+        configurePowerTriggerHeader=(TextView)view.findViewById(R.id.configurePowerButtonTriggerText);
+        powerTriggerRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroupPowerTrigger);
+        powerTriggerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                //Add code to disable service
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+                switch (checkedId) {
+                    case R.id.radioEnable:
+                        Log.d(TAG, "Power button alarm trigger is enabled");
+                        ApplicationSettings.setHardwareTriggerServiceEnabled(getActivity(), true);
+                        getActivity().startService(new Intent(getActivity(), HardwareTriggerService.class));
+                        break;
+                    case R.id.radioDisable:
+                        Log.d(TAG, "Power button alarm trigger is disabled");
+                        ApplicationSettings.setHardwareTriggerServiceEnabled(getActivity(), false);
+                        getActivity().stopService(new Intent(getActivity(), HardwareTriggerService.class));
+                        break;
+                }
             }
         });
         return view;
@@ -229,9 +251,11 @@ public class SimpleFragment extends Fragment {
              * if page status is "Home-Ready", we can enable the checkbox to disable the Power button Alarm
              */
             if (pageId.equals(PAGE_HOME_READY)){
-                powerTriggerCheckBox.setVisibility(View.VISIBLE);
+                powerTriggerRadioGroup.setVisibility(View.VISIBLE);
+                configurePowerTriggerHeader.setVisibility(View.VISIBLE);
             }else{
-                powerTriggerCheckBox.setVisibility(View.GONE);
+                powerTriggerRadioGroup.setVisibility(View.GONE);
+                configurePowerTriggerHeader.setVisibility(View.GONE);
             }
             pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, parentActivity);
 
@@ -266,6 +290,11 @@ public class SimpleFragment extends Fragment {
 
             tvTitle.setFocusableInTouchMode(true);
             tvTitle.requestFocus();
+
+            if (ApplicationSettings.isHardwareTriggerServiceEnabled(getActivity()))
+                powerTriggerRadioGroup.check(R.id.radioEnable);
+            else
+                powerTriggerRadioGroup.check(R.id.radioDisable);
 
             AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }

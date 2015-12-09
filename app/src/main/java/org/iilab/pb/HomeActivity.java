@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 
 import static org.iilab.pb.common.AppConstants.*;
 
@@ -44,7 +44,7 @@ public class HomeActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+//        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.welcome_screen);
         //deleteShortCut();
         int wizardState = ApplicationSettings.getWizardState(this);
@@ -159,7 +159,8 @@ public class HomeActivity extends Activity {
             Log.d(TAG, "First run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
             // Make sure the HardwareTriggerService is started
-            startService(new Intent(this, HardwareTriggerService.class));
+            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this))
+                startService(new Intent(this, HardwareTriggerService.class));
             startActivity(i);
         }
     }

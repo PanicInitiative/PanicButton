@@ -27,6 +27,7 @@ public class ApplicationSettings extends Application{
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
+    public static final String POWER_BUTTON_TRIGGER_ENABLED = "POWER_BUTTON_TRIGGER_ENABLED";
 
     public static Context getAppContext(){
         return getAppContext();
@@ -141,7 +142,7 @@ public class ApplicationSettings extends Application{
     }
 
     public static void setSelectedLanguage(Context context, String lang) {
-        saveString(context, SELECTED_LANGUAGE , lang);
+        saveString(context, SELECTED_LANGUAGE, lang);
     }
 
     public static void setSupportedLanguages(Context context, String lang) {
@@ -183,7 +184,7 @@ public class ApplicationSettings extends Application{
 
 
     public static void setFirstMsgWithLocationTriggered(Context context, Boolean flag) {
-        saveBoolean(context, IS_FIRST_MSG_WITH_LOCATION_TRIGGERED , flag);
+        saveBoolean(context, IS_FIRST_MSG_WITH_LOCATION_TRIGGERED, flag);
     }
 
     public static Boolean isFirstMsgWithLocationTriggered(Context context) {
@@ -197,6 +198,12 @@ public class ApplicationSettings extends Application{
     public static Boolean isFirstMsgSent(Context context) {
         return sharedPreferences(context).getBoolean(IS_FIRST_MSG_SENT, false);
     }
-    
-    
+
+    public static void setHardwareTriggerServiceEnabled(Context context, boolean isEnabled) {
+        saveBoolean(context, POWER_BUTTON_TRIGGER_ENABLED, isEnabled);
+    }
+
+    public static Boolean isHardwareTriggerServiceEnabled(Context context) {
+        return sharedPreferences(context).getBoolean(POWER_BUTTON_TRIGGER_ENABLED, true);
+    }
 }

@@ -103,21 +103,46 @@
                 android:layout_below="@+id/b_actionStopAlert"
                 android:divider="@android:drawable/screen_background_light_transparent"
                 android:layout_width="match_parent" />
-            <CheckBox
-                android:id="@+id/powerTrigger"
+            <TextView
+                android:id="@+id/configurePowerButtonTriggerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:visibility="visible"
+                android:paddingLeft="20dp"
+                android:text="@string/configurePowerButtonTriggerText"
+                android:layout_below="@+id/fragment_contents"
+                android:layout_alignRight="@+id/fragment_title"
+                android:layout_alignEnd="@+id/fragment_title" />
+
+            <RadioGroup
+                android:id="@+id/radioGroupPowerTrigger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/configurePowerButtonTriggerText"
                 android:visibility="gone"
-                android:layout_below="@+id/fragment_action_list"
-                android:checked="true"
-                android:text="@string/disable_power_trigger" />
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioEnable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="@string/activate_power_button_trigger"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioDisable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="@string/deactivate_power_button_trigger" />
+            </RadioGroup>
 
             <org.iilab.pb.common.NestedListView
                 android:id="@+id/fragment_item_list"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/powerTrigger"
+                android:layout_below="@+id/radioGroupPowerTrigger"
                 android:layout_marginTop="10dp" />
         </RelativeLayout>
 
