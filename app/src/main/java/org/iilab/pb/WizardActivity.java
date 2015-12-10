@@ -91,9 +91,9 @@ public class WizardActivity extends BaseFragmentActivity {
         } else if (currentPage.getId().equals(PAGE_HOME_READY)) {
             ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
             changeAppIcontoCalculator();
-            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this))
+            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this)) {
                 startService(new Intent(this, HardwareTriggerService.class));
-
+            }
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
             i.putExtra(PAGE_ID, pageId);
             startActivity(i);
