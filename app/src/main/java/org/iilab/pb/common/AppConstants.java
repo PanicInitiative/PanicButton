@@ -62,10 +62,17 @@ public class AppConstants {
     public static final String PARENT_ACTIVITY = "parent_activity";
     public static final String PAGE_ID = "page_id";
 
+    public static final String COLOR_RED="red";
     public static final String PAGE_HOME_READY = "home-ready";
+    public static final String PAGE_HOME_ALERTING = "home-alerting";
+    public static final String PAGE_CLOSE = "close";
     public static final String PAGE_HOME_NOT_CONFIGURED = "home-not-configured";
     public static final String PAGE_HOME_NOT_CONFIGURED_ALARM = "home-not-configured-alarm";
     public static final String PAGE_HOME_NOT_CONFIGURED_DISGUISE = "home-not-configured-disguise";
+    public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS = "setup-alarm-test-hardware-success";
+    public static final String PAGE_SETUP_ALARM_TEST_DISGUISE_SUCCESS = "setup-alarm-test-disguise-success";
+
+    public static final String PAGE_STATUS_CHECKED = "checked";
 
     public static final String DEFAULT_LANGUAGE_ENG = "en";
     public static final String PAGE_SETUP_LANGUAGE = "setup-language";

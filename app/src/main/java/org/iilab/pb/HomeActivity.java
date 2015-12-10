@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
@@ -24,9 +22,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.iilab.pb.common.AppConstants.DATABASE_VERSION;
+import static org.iilab.pb.common.AppConstants.DEFAULT_LANGUAGE_ENG;
+import static org.iilab.pb.common.AppConstants.DELIMITER_COMMA;
+import static org.iilab.pb.common.AppConstants.JSON_ARRAY_DATA;
+import static org.iilab.pb.common.AppConstants.JSON_EXTENSION;
+import static org.iilab.pb.common.AppConstants.JSON_OBJECT_HELP;
+import static org.iilab.pb.common.AppConstants.JSON_OBJECT_MOBILE;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_LANGUAGE;
+import static org.iilab.pb.common.AppConstants.PREFIX_HELP_DATA;
+import static org.iilab.pb.common.AppConstants.PREFIX_MOBILE_DATA;
+import static org.iilab.pb.common.AppConstants.SKIP_WIZARD;
+import static org.iilab.pb.common.AppConstants.VERSION;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
+import com.crashlytics.android.Crashlytics;
 import io.fabric.sdk.android.Fabric;
-
-import static org.iilab.pb.common.AppConstants.*;
 
 
 public class HomeActivity extends Activity {
@@ -159,7 +177,9 @@ public class HomeActivity extends Activity {
             Log.d(TAG, "First run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
             // Make sure the HardwareTriggerService is started
-            startService(new Intent(this, HardwareTriggerService.class));
+            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this)) {
+                startService(new Intent(this, HardwareTriggerService.class));
+            }
             startActivity(i);
         }
     }
