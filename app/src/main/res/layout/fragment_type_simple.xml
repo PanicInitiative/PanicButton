@@ -107,10 +107,10 @@
                 android:id="@+id/configurePowerButtonTriggerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:paddingLeft="20dp"
                 android:text="@string/configurePowerButtonTriggerText"
-                android:layout_below="@+id/fragment_contents"
+                android:layout_below="@+id/fragment_action_list"
                 android:layout_alignRight="@+id/fragment_title"
                 android:layout_alignEnd="@+id/fragment_title" />
 

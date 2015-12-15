@@ -1,15 +1,12 @@
 package org.iilab.pb.alert;
 
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.AppUtil;
@@ -17,15 +14,13 @@ import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.Intents;
 import org.iilab.pb.location.CurrentLocationProvider;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static org.iilab.pb.common.Intents.locationPendingIntent;
-
+import static org.iilab.pb.common.AppConstants.*;
 public class PanicAlert {
     private static final String TAG = PanicAlert.class.getName();
     private LocationManager locationManager;
@@ -41,7 +36,7 @@ public class PanicAlert {
 
     public void activate() {
         AppUtil.close(context);
-        vibrateOnce();
+        vibrateOnceForConfirmationOfAlertTriggered();
 
         if (isActive()
 //                || ApplicationSettings.isRestartedSetup(context)
@@ -60,9 +55,18 @@ public class PanicAlert {
         );
     }
 
-    private void vibrateOnce() {
+    private void vibrateOnceForConfirmationOfAlertTriggered() {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION);
+
+        if(DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG.equals((ApplicationSettings.getConfirmationFeedbackVibrationPattern(context)))){
+            vibrateContinusly(vibrator,ONE_SECOND *Integer.parseInt(ALERT_CONFIRMATION_VIBRATION_DURATION));
+        }else  if(ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT.equals((ApplicationSettings.getConfirmationFeedbackVibrationPattern(context)))){
+            repeatedThreeShortVibrations(vibrator);
+        }else  if(ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT.equals((ApplicationSettings.getConfirmationFeedbackVibrationPattern(context)))){
+            vibrateThreeShortPauseThreeShort(vibrator);
+        }else  if(ALARM_SENDING_CONFIRMATION_PATTERN_SOS.equals((ApplicationSettings.getConfirmationFeedbackVibrationPattern(context)))){
+            vibrateSOS(vibrator);
+        }
     }
 
     private void activateAlert() {
@@ -73,7 +77,7 @@ public class PanicAlert {
     }
 
     public void deActivate() {
-        Log.e("", "Deactivating???");
+        Log.d(TAG, "Deactivating the triggered alert");
         ApplicationSettings.setAlertActive(context, false);
         locationManager.removeUpdates(locationPendingIntent(context));
         alarmManager2.cancel(Intents.alarmPendingIntent(context));
@@ -103,15 +107,15 @@ public class PanicAlert {
 
     private void scheduleFirstLocationAlert() {
         PendingIntent alarmPendingIntent = Intents.singleAlarmPendingIntent(context);
-        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * 1;             // we schedule this alarm after 1 minute
+        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + ONE_MINUTE * 1;             // we schedule this alarm after 1 minute
         alarmManager1.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, alarmPendingIntent);
 //        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, interval, alarmPendingIntent);
     }
 
     private void scheduleFutureAlert() {
         PendingIntent alarmPendingIntent = Intents.alarmPendingIntent(context);
-        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
-        long interval = AppConstants.ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        long interval = ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
         alarmManager2.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, interval, alarmPendingIntent);
     }
 
@@ -135,8 +139,12 @@ public class PanicAlert {
                     locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
                 if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
                     locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-                Log.e(">>>>>>>>", "threadRunCount = " + threadRunCount);
-            } catch (InterruptedException e) {
+                Log.d(TAG, "threadRunCount = " + threadRunCount);
+            } catch (SecurityException e ) {
+                Log.e(TAG,"SecurityException exception "+e.getMessage());
+                e.printStackTrace();
+            }catch (InterruptedException e ) {
+                Log.e(TAG,"SecurityException exception "+e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -144,11 +152,15 @@ public class PanicAlert {
         if (locationManager != null && locationPendingIntent(context) != null) {
             locationManager.removeUpdates(locationPendingIntent(context));
         }
+        try{
         if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
             locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
         if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
             locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
-
+        } catch (SecurityException e ) {
+            Log.e(TAG, "SecurityException exception " + e.getMessage());
+            e.printStackTrace();
+        }
 //        HomeActivity.runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -174,9 +186,56 @@ public class PanicAlert {
         return ApplicationSettings.isAlertActive(context);
     }
 
-    public void vibrate() {
+    public void vibrateForHapticFeedback() {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(AppConstants.HAPTIC_FEEDBACK_DURATION);
+        //Code to fetch the Haptic feedback pattern
+        if(DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY.equals(ApplicationSettings.getHapticFeedbackVibrationPattern(context))){
+            vibrateContinusly(vibrator,(ONE_SECOND *Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context))));
+        }else{
+            vibrateEverySecond(vibrator,Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context)));
+        }
+
+
+    }
+
+    private void vibrateContinusly(Vibrator vibrator, int feedbackDuration){
+        vibrator.vibrate(feedbackDuration);
+    }
+
+    private void vibrateEverySecond(Vibrator vibrator, int feedbackDuration){
+        Log.d(TAG,"vibrate every second pattern selected and feedback duration is "+ feedbackDuration );
+
+            vibrator.vibrate(getPattern(feedbackDuration), -1);
+    }
+
+    private long[] getPattern(int i) {
+        switch (i) {
+            case 1:
+                return new long[]{0, 600, 400};
+            case 2:
+                return new long[]{0, 600, 400,600, 400};
+            case 3:
+                return new long[]{0, 600, 400,600, 400,600, 400};
+            case 4:
+                return new long[]{0, 600, 400,600, 400,600, 400,600, 400};
+        }
+        return  new long[]{0, 600, 400};
+    }
+
+    private void repeatedThreeShortVibrations(Vibrator vibrator) {
+        long[] pattern = {0, 600, 400,600, 400,600, 400};
+                vibrator.vibrate(pattern,-1);
+    }
+
+    private void vibrateThreeShortPauseThreeShort(Vibrator vibrator){
+        long[] pattern = {0, 400,200,400,200,400,1000,400,200,400,200,400,500};
+            vibrator.vibrate(pattern,-1);
+
+    }
+    // SOS: Three short - Three long - Three short
+    private void vibrateSOS(Vibrator vibrator){
+        long[] pattern = {0, 400,200,400,200,400,200, 1000,400,1000,400,1000,400, 400,200,400,200,400,200};
+        vibrator.vibrate(pattern,-1);
     }
 
     private Location getLocation(CurrentLocationProvider currentLocationProvider) {

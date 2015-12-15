@@ -9,9 +9,10 @@ public class AppConstants {
     //public static final boolean SKIP_WIZARD = false;
     public static final int PHONE_NUMBER_LIMIT = 3;
     public static final long ONE_MINUTE = 1000 * 60;
+    public static final int ONE_SECOND = 1000 ;
 	
-    public static final int HAPTIC_FEEDBACK_DURATION = 2000;
-    public static final int ALERT_CONFIRMATION_VIBRATION_DURATION = 500;
+    public static final String DEFAULT_HAPTIC_FEEDBACK_DURATION = "2";
+    public static final String ALERT_CONFIRMATION_VIBRATION_DURATION = "500";
 
     public static final int DEFAULT_ALARM_INTERVAL = 5;             // in minute
 
@@ -85,6 +86,36 @@ public class AppConstants {
     public static final String PREFIX_MOBILE_DATA = "mobile_";
     public static final String PREFIX_HELP_DATA = "help_";
     public static final String DELIMITER_COMMA=",";
+
+    public static final int INITIAL_CLICKS_MAX_TIME_LIMIT = 6000;
+    public static final String DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER = "5";
+
+    public static final String PAGE_TYPE_SIMPLE = "simple";
+    public static final String PAGE_TYPE_WARNING = "warning";
+    public static final String PAGE_TYPE_MODAL = "modal";
+    public static final String PAGE_COMPONENT_CONTACTS = "contacts";
+    public static final String PAGE_COMPONENT_MESSAGE = "message";
+    public static final String PAGE_COMPONENT_CODE = "code";
+    public static final String PAGE_COMPONENT_ALERT = "alert";
+    public static final String PAGE_COMPONENT_LANGUAGE = "language";
+    public static final String PAGE_COMPONENT_ADVANCED_SETTINGS = "advanced";
+    public static final String PAGE_COMPONENT_ALARM_TEST_HARDWARE = "alarm-test-hardware";
+    public static final String PAGE_COMPONENT_ALARM_TEST_DISGUISE = "alarm-test-disguise";
+    public static final String PAGE_COMPONENT_DISGUISE_TEST_OPEN = "disguise-test-open";
+    public static final String PAGE_COMPONENT_DISGUISE_TEST_UNLOCK = "disguise-test-unlock";
+    public static final String PAGE_COMPONENT_DISGUISE_TEST_CODE = "disguise-test-code";
+
+    public static final String DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY = "1";
+    public static final String HAPTIC_FEEDBACK_PATTERN_VIBRATE_EVERY_SECOND = "2";
+    public static final String DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT = "2";
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT = "3";
+    //  Three short - Three long - Three short
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_SOS = "4";
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_NONE = "5";
+    public static final String DEFAULT_ALARM_NOT_CONFIRMED_NONE = "1";
+    public static final String ALARM_NOT_CONFIRMED_THREE_FAST = "2";
+
 
 }
 

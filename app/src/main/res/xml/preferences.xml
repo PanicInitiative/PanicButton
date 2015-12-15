@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Trigger Settings Pattern">
+        <ListPreference
+            android:defaultValue="5"
+            android:entries="@array/initialClickArray"
+            android:entryValues="@array/initialClickValues"
+            android:key="initialClicks"
+            android:summary="Number of presses needed to trigger the alarm"
+            android:title="Initial Presses" />
+        <ListPreference
+            android:defaultValue="2"
+            android:entries="@array/confirmationWaitArray"
+            android:entryValues="@array/confirmationWaitValues"
+            android:key="confirmationWaitTime"
+            android:summary="Time to wait until the confirmation press"
+            android:title="Confirmation Wait Time" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Vibration Settings ">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/hapticFeedbackPatternArray"
+            android:entryValues="@array/hapticFeedbackPatternValues"
+            android:key="hapticFeedbackVibrationPattern"
+            android:summary="Vibration pattern during the wait time until the confirmation press"
+            android:title="Confirmation Wait Vibration " />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/alertSendingConfirmationArray"
+            android:entryValues="@array/alertSendingConfirmationValues"
+            android:key="alertSendingConfirmationVibration"
+            android:summary="Vibration pattern to inform that the alarm has been activated"
+            android:title="Alarm Sending Confirmation " />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/alertNotConfirmedArray"
+            android:entryValues="@array/alertNotConfirmedValues"
+            android:key="alertNotConfirmed"
+            android:summary="Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm."
+            android:title="Alarm NOT Confirmed  " />
+    </PreferenceCategory>
+</PreferenceScreen>

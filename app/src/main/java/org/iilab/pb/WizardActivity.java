@@ -36,12 +36,23 @@ import org.iilab.pb.trigger.HardwareTriggerService;
 
 import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
 import static org.iilab.pb.common.AppConstants.IS_BACK_BUTTON_PRESSED;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_ALARM_TEST_DISGUISE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_ALARM_TEST_HARDWARE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CODE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CONTACTS;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_CODE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_OPEN;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_UNLOCK;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_LANGUAGE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_MESSAGE;
 import static org.iilab.pb.common.AppConstants.PAGE_FROM_NOT_IMPLEMENTED;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_DISGUISE;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_TYPE_SIMPLE;
+import static org.iilab.pb.common.AppConstants.PAGE_TYPE_WARNING;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
@@ -121,55 +132,60 @@ public class WizardActivity extends BaseFragmentActivity {
 
             Fragment fragment = null;
 
-            if (currentPage.getType().equals("simple")) {
+            if (currentPage.getType().equals(PAGE_TYPE_SIMPLE)) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new SimpleFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
-            } else if (currentPage.getType().equals("warning")) {
+            } else if (currentPage.getType().equals(PAGE_TYPE_WARNING)) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new WarningFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
             } else {          // type = interactive
-                if (currentPage.getComponent().equals("contacts"))
+                if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
                     fragment = new SetupContactsFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("message"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
                     fragment = new SetupMessageFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("code"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))
                     fragment = new SetupCodeFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("language"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_LANGUAGE))
                     fragment = new LanguageSettingsFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("alarm-test-hardware")) {
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_HARDWARE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardAlarmTestHardwareFragment().newInstance(pageId);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-                } else if (currentPage.getComponent().equals("alarm-test-disguise")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardAlarmTestDisguiseFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-open")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)) {
                     findViewById(R.id.wizard_layout_root).setBackgroundColor(Color.BLACK);
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardTestDisguiseOpenFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-unlock")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
 
                     fragment = new WizardTestDisguiseUnlockFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-code")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardTestDisguiseCodeFragment().newInstance(pageId);
-                } else
+                }
+//                //TODO remove this, just for testing
+//                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ADVANCED_SETTINGS)) {
+//                    fragment = new AdvancedSettingsFragment().newInstance(pageId, FROM_MAIN_ACTIVITY);
+//                }
+                else
                     fragment = new SimpleFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
@@ -207,7 +223,7 @@ public class WizardActivity extends BaseFragmentActivity {
         In short, we block this page - setup-alarm-test-hardware for pause-resume action
          */
         if (!pageId.equals("setup-alarm-test-hardware")) {
-            Log.e(">>>>>>", "assert flagRiseFromPause = " + true);
+            Log.d(TAG, "assert flagRiseFromPause = " + true);
             flagRiseFromPause = true;
         }
     }
@@ -310,11 +326,11 @@ public class WizardActivity extends BaseFragmentActivity {
         hideToastMessageInInteractiveFragment();
         if (currentPage != null && currentPage.getComponent() != null &&
                 (
-                        currentPage.getComponent().equals("alarm-test-hardware")
-                        || currentPage.getComponent().equals("alarm-test-disguise")
-                        || currentPage.getComponent().equals("disguise-test-open")
-                        || currentPage.getComponent().equals("disguise-test-unlock")
-                        || currentPage.getComponent().equals("disguise-test-code")
+                        currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_HARDWARE)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)
                 )
         ) {
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);

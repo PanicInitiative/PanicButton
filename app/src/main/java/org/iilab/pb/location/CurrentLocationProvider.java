@@ -16,24 +16,29 @@ public class CurrentLocationProvider extends LocationListenerAdapter {
     private Location currentLocation;
 
     public CurrentLocationProvider(Context context) {
-        Log.e(">>>>>>", "in CurrentLocationProvider CONSTRUCTOR - trying to retrieve location from getLastKnownLocation()");
-        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(ACCURACY_FINE);
-        String provider = manager.getBestProvider(criteria, true);
-        Location bestLocation;
-        if (provider != null)
-          bestLocation = manager.getLastKnownLocation(provider);
-        else
-          bestLocation = null;
+        try {
+            Log.e(">>>>>>", "in CurrentLocationProvider CONSTRUCTOR - trying to retrieve location from getLastKnownLocation()");
+            LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(ACCURACY_FINE);
+            String provider = manager.getBestProvider(criteria, true);
+            Location bestLocation;
+            if (provider != null)
+                bestLocation = manager.getLastKnownLocation(provider);
+            else
+                bestLocation = null;
 
-        Location latestLocation = getLatest(bestLocation, manager.getLastKnownLocation(GPS_PROVIDER));
-        latestLocation = getLatest(latestLocation, manager.getLastKnownLocation(NETWORK_PROVIDER));
+            Location latestLocation = getLatest(bestLocation, manager.getLastKnownLocation(GPS_PROVIDER));
+            latestLocation = getLatest(latestLocation, manager.getLastKnownLocation(NETWORK_PROVIDER));
 //        latestLocation = getLatest(latestLocation, manager.getLastKnownLocation(PASSIVE_PROVIDER));
-        currentLocation = latestLocation;
-        if (currentLocation != null) 
-        	ApplicationSettings.setCurrentBestLocation(context, currentLocation);
-        return;
+            currentLocation = latestLocation;
+            if (currentLocation != null)
+                ApplicationSettings.setCurrentBestLocation(context, currentLocation);
+            return;
+        }catch(SecurityException e){
+            Log.e(">>>>>>", "securityException" );
+            e.printStackTrace();
+            }
     }
 
     private static Location getLatest(final Location location1, final Location location2) {

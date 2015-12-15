@@ -250,13 +250,14 @@ public class SimpleFragment extends Fragment {
             /**
              * if page status is "Home-Ready", we can enable the checkbox to disable the Power button Alarm
              */
-            if (pageId.equals(PAGE_HOME_READY)){
-                powerTriggerRadioGroup.setVisibility(View.VISIBLE);
-                configurePowerTriggerHeader.setVisibility(View.VISIBLE);
-            }else{
-                powerTriggerRadioGroup.setVisibility(View.GONE);
-                configurePowerTriggerHeader.setVisibility(View.GONE);
-            }
+        //TODO-- commented for #80 need to put this in ApplicationSettings fragment
+//            if (pageId.equals(PAGE_HOME_READY)){
+//                powerTriggerRadioGroup.setVisibility(View.VISIBLE);
+//                configurePowerTriggerHeader.setVisibility(View.VISIBLE);
+//            }else{
+//                powerTriggerRadioGroup.setVisibility(View.GONE);
+//                configurePowerTriggerHeader.setVisibility(View.GONE);
+//            }
             pageActionAdapter = new PageActionAdapter(activity, null, isPageStatusAvailable, parentActivity);
 
             if (pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS) || pageId.equals(PAGE_SETUP_ALARM_TEST_DISGUISE_SUCCESS)) {

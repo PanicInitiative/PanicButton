@@ -448,6 +448,22 @@
                 ]
             },
             {
+                "id": "settings-advanced",
+                "lang": "en",
+                "type": "interactive",
+                "title": "Advanced Settings",
+                "introduction": "Advanced Settings",
+                "warning": "Be careful about your battery! Sending alerts too often might drain your battery.",
+                "component": "advanced",
+                "action": [
+                    {
+                        "title": "Save",
+                        "link": "home-ready",
+                        "confirmation": "New settings saved"
+                    }
+                ]
+            },
+            {
                 "id": "settings-alert",
                 "lang": "en",
                 "type": "interactive",
@@ -488,6 +504,10 @@
                     {
                         "title": "Code Settings",
                         "link": "settings-code"
+                    },
+                    {
+                        "title": "Advanced Settings",
+                        "link": "settings-advanced"
                     },
                     {
                         "title": "Restart the Installation",

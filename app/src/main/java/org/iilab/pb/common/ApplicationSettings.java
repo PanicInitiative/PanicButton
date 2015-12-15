@@ -5,14 +5,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
+
 import com.google.gson.Gson;
 
-public class ApplicationSettings extends Application{
+import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
+import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_NOT_CONFIRMED_NONE;
+import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
+import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
+import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY;
+import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
+
+public class ApplicationSettings extends Application {
 
     private static final int ALERT_FREQUENCY = 10 * 60000;           // 10 minute
 
     public static final String FIRST_RUN = "FIRST_RUN";
-//    public static final String RESTARTED_SETUP = "RESTARTED_SETUP";
     public static final String HARDCODE_INSERT = "HARDCODE_INSERT";
     public static final String LAST_RUN = "LAST_RUN";
     private static final String PASS_CODE = "PASS_CODE";
@@ -29,7 +37,14 @@ public class ApplicationSettings extends Application{
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
     public static final String POWER_BUTTON_TRIGGER_ENABLED = "POWER_BUTTON_TRIGGER_ENABLED";
 
-    public static Context getAppContext(){
+    private static final String INITIAL_CLICKS = "initialClicks";
+    private static final String HAPTIC_FEEDBACK_PATTERN ="hapticFeedbackVibrationPattern";
+    private static final String CONFIRMATION_WAIT_VIBRATION_DURATION = "confirmationWaitTime";
+    private static final String CONFIRMATION_WAIT_VIBRATION_PATTERN = "alertSendingConfirmationVibration";
+    private static final String ALARM_NOT_CONFIRMED = "alertNotConfirmed";
+
+
+    public static Context getAppContext() {
         return getAppContext();
     }
 
@@ -42,7 +57,7 @@ public class ApplicationSettings extends Application{
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
     }
 
-    
+
 //    public static void setRestartedSetup(Context context, boolean isRestartedSetup) {
 //        saveBoolean(context, RESTARTED_SETUP, isRestartedSetup);
 //    }
@@ -81,12 +96,12 @@ public class ApplicationSettings extends Application{
     }
 
     public static void setAlertActive(Context context, boolean isActive) {
-        saveBoolean(context, IS_ALERT_ACTIVE , isActive);
+        saveBoolean(context, IS_ALERT_ACTIVE, isActive);
     }
 
 
     public static int getWizardState(Context context) {
-        return sharedPreferences(context).getInt(WIZARD_STATE, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
+        return sharedPreferences(context).getInt(WIZARD_STATE, WIZARD_FLAG_HOME_NOT_CONFIGURED);
     }
 
     public static void setWizardState(Context context, int state) {
@@ -95,7 +110,7 @@ public class ApplicationSettings extends Application{
 
     public static Location getCurrentBestLocation(Context context) {
         String locationJson = sharedPreferences(context).getString(BEST_LOCATION, null);
-        return (locationJson == null ) ? null : constructLocation(locationJson);
+        return (locationJson == null) ? null : constructLocation(locationJson);
     }
 
     private static Location constructLocation(String locationJson) {
@@ -109,7 +124,7 @@ public class ApplicationSettings extends Application{
     }
 
     private static SharedPreferences sharedPreferences(Context context) {
-    	return PreferenceManager.getDefaultSharedPreferences(context);
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     private static void saveBoolean(Context context, String key, boolean value) {
@@ -146,24 +161,27 @@ public class ApplicationSettings extends Application{
     }
 
     public static void setSupportedLanguages(Context context, String lang) {
-        saveString(context, SUPPORTED_LANGUAGES , lang);
-    }
-    public static String getSupportedLanguages(Context context) {
-        return sharedPreferences(context).getString(SUPPORTED_LANGUAGES,null);
+        saveString(context, SUPPORTED_LANGUAGES, lang);
     }
 
-    public static void addDBLoadedLanguage(Context context, String language){
-        saveString(context, DB_LOADED_LANGUAGES , getDBLoadedLanguages(context).concat(","+language));
+    public static String getSupportedLanguages(Context context) {
+        return sharedPreferences(context).getString(SUPPORTED_LANGUAGES, null);
     }
-    public static String getDBLoadedLanguages(Context context){
-        return sharedPreferences(context).getString(DB_LOADED_LANGUAGES,"");
+
+    public static void addDBLoadedLanguage(Context context, String language) {
+        saveString(context, DB_LOADED_LANGUAGES, getDBLoadedLanguages(context).concat("," + language));
     }
+
+    public static String getDBLoadedLanguages(Context context) {
+        return sharedPreferences(context).getString(DB_LOADED_LANGUAGES, "");
+    }
+
     public static int getLastUpdatedVersion(Context context) {
         return sharedPreferences(context).getInt(LAST_UPDATED_VERSION, -1);
     }
 
     public static void setLastUpdatedVersion(Context context, int versionNumber) {
-        saveInt(context, LAST_UPDATED_VERSION , versionNumber);
+        saveInt(context, LAST_UPDATED_VERSION, versionNumber);
     }
 
     public static int getLastUpdatedDBVersion(Context context) {
@@ -171,17 +189,16 @@ public class ApplicationSettings extends Application{
     }
 
     public static void setLastUpdatedDBVersion(Context context, int versionNumber) {
-        saveInt(context, LAST_UPDATED_DB_VERSION , versionNumber);
+        saveInt(context, LAST_UPDATED_DB_VERSION, versionNumber);
     }
-    
+
     public static void setAlertDelay(Context context, int alertDelay) {
-        saveInt(context, ALERT_DELAY , alertDelay);
+        saveInt(context, ALERT_DELAY, alertDelay);
     }
 
     public static int getAlertDelay(Context context) {
-        return sharedPreferences(context).getInt(ALERT_DELAY, AppConstants.DEFAULT_ALARM_INTERVAL);
+        return sharedPreferences(context).getInt(ALERT_DELAY, DEFAULT_ALARM_INTERVAL);
     }
-
 
     public static void setFirstMsgWithLocationTriggered(Context context, Boolean flag) {
         saveBoolean(context, IS_FIRST_MSG_WITH_LOCATION_TRIGGERED, flag);
@@ -192,7 +209,7 @@ public class ApplicationSettings extends Application{
     }
 
     public static void setFirstMsgSent(Context context, Boolean flag) {
-        saveBoolean(context, IS_FIRST_MSG_SENT , flag);
+        saveBoolean(context, IS_FIRST_MSG_SENT, flag);
     }
 
     public static Boolean isFirstMsgSent(Context context) {
@@ -205,5 +222,26 @@ public class ApplicationSettings extends Application{
 
     public static Boolean isHardwareTriggerServiceEnabled(Context context) {
         return sharedPreferences(context).getBoolean(POWER_BUTTON_TRIGGER_ENABLED, true);
+    }
+
+
+    public static String getInitialClicksForAlertTrigger(Context context) {
+        return sharedPreferences(context).getString(INITIAL_CLICKS, DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
+    }
+
+
+    public static String getHapticFeedbackVibrationPattern(Context context) {
+        return sharedPreferences(context).getString(HAPTIC_FEEDBACK_PATTERN, DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
+    }
+
+    public static String getConfirmationWaitVibrationDuration(Context context) {
+        return sharedPreferences(context).getString(CONFIRMATION_WAIT_VIBRATION_DURATION, DEFAULT_HAPTIC_FEEDBACK_DURATION);
+    }
+    public static String getConfirmationFeedbackVibrationPattern(Context context) {
+        return sharedPreferences(context).getString(CONFIRMATION_WAIT_VIBRATION_PATTERN, DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
+    }
+
+    public static String getAlarmNotConfirmedVibration(Context context) {
+        return sharedPreferences(context).getString(ALARM_NOT_CONFIRMED, DEFAULT_ALARM_NOT_CONFIRMED_NONE);
     }
 }

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <!-- for action bar expandable menu items font -->
+        <!--android:theme="@android:style/Theme.Light.NoTitleBar"-->
+        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
+        <!--<item name="android:background">@color/deep_Purplr</item>-->
+
+        <!--<item name="android:background">@drawable/aa</item>-->
+    </style>
     <style name="alert_strip_display">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">5dp</item>

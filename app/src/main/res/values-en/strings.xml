@@ -65,4 +65,13 @@
     <string name="deactivate_power_button_trigger">Deactivated</string>
     <string name="activate_power_button_trigger">Activated </string>
     <string name="debug_mode">Debug Mode </string>
+
+    <string name="changeTriggerPattern">Change Trigger Pattern</string>
+    <string name="firstClicks">Number of first clicks</string>
+    <string name="timeGuard">Guard time duration</string>
+    <string name="confirmationWaitVibration">Number of confirmation clicks</string>
+    <string name="defaultInitialClicks">5</string>
+    <string name="defaultTimeGuard">3</string>
+    <string name="defaultConfirmationClicks">1</string>
+
 </resources>

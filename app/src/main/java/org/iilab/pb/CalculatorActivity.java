@@ -16,6 +16,7 @@ import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.trigger.MultiClickEvent;
 
 public class CalculatorActivity extends PanicButtonActivity {
+
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
@@ -26,7 +27,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 
     boolean mHasPerformedLongPress;
     Runnable mPendingCheckForLongPress;
-
+	private static final String TAG = CalculatorActivity.class.getName();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,7 +120,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 				return;
 			}
 			if(multiClickEvent.canStartVibration()){
-				getPanicAlert().vibrate();
+				getPanicAlert().vibrateForHapticFeedback();
 				CharSequence text = ((Button) view).getText();
 				//Toast.makeText(getApplicationContext(), "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
 			}
@@ -196,7 +197,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 //	};
 
 	private MultiClickEvent resetEvent(View view) {
-		MultiClickEvent multiClickEvent = new MultiClickEvent();
+		MultiClickEvent multiClickEvent = new MultiClickEvent(this);
 		view.setTag(multiClickEvent);
 		return multiClickEvent;
 	}
@@ -218,7 +219,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	public void onBackPressed() {
 //		super.onBackPressed();
 //		finish();
-		Log.d("CDA", "onBackPressed Called");
+		Log.d(TAG, "onBackPressed Called");
 		   startActivity(AppUtil.behaveAsHomeButton());
 	}
 }
