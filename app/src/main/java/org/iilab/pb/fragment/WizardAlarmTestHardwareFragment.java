@@ -16,9 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
-import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.GifDecoderView;
 import org.iilab.pb.common.MyTagHandler;
@@ -29,7 +29,9 @@ import org.iilab.pb.trigger.HardwareTriggerReceiver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import static org.iilab.pb.common.AppConstants.*;
+
+import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
 /**
  * Created by aoe on 1/9/14.
  */
@@ -166,9 +168,9 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         @Override
         protected void onActivation(Context context) {
             Log.d(TAG, "in onActivation of wizardHWReceiver");
-
+            //add vibration code in test fragments
             Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(Integer.parseInt(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION));
+            vibrator.vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
 
             String pageId = currentPage.getSuccessId();
 
@@ -177,6 +179,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             activity.startActivity(i);
             activity.finish();
         }
+
 
     };
 }

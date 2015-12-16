@@ -14,7 +14,10 @@ import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_SENDING_CONFIRMATIO
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY;
 import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER;
+import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
+
+
 
 public class ApplicationSettings extends Application {
 
@@ -41,8 +44,14 @@ public class ApplicationSettings extends Application {
     private static final String HAPTIC_FEEDBACK_PATTERN ="hapticFeedbackVibrationPattern";
     private static final String CONFIRMATION_WAIT_VIBRATION_DURATION = "confirmationWaitTime";
     private static final String CONFIRMATION_WAIT_VIBRATION_PATTERN = "alertSendingConfirmationVibration";
-    private static final String ALARM_NOT_CONFIRMED = "alertNotConfirmed";
+    private static final String ALARM_NOT_CONFIRMED_PATTERN = "alertNotConfirmed";
+    private static final String INITIAL_CLICKS_MAX_TIME_LIMIT = "initialTime";
 
+//TODO for testing vibrations--remove during release
+    public static final String VIBRATION_DURATION_SHORT = "shortVibration";
+    public static final String VIBRATION_PAUSE_SHORT = "shortPause";
+    public static final String VIBRATION_DURATION_LONG = "LongVibration";
+    public static final String VIBRATION_PAUSE_LONG = "longPause";
 
     public static Context getAppContext() {
         return getAppContext();
@@ -241,7 +250,22 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getString(CONFIRMATION_WAIT_VIBRATION_PATTERN, DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
     }
 
-    public static String getAlarmNotConfirmedVibration(Context context) {
-        return sharedPreferences(context).getString(ALARM_NOT_CONFIRMED, DEFAULT_ALARM_NOT_CONFIRMED_NONE);
+    public static String getAlarmNotConfirmedPattern(Context context) {
+        return sharedPreferences(context).getString(ALARM_NOT_CONFIRMED_PATTERN, DEFAULT_ALARM_NOT_CONFIRMED_NONE);
+    }
+    public static String getInitialClicksMaxTimeLimit(Context context) {
+        return sharedPreferences(context).getString(INITIAL_CLICKS_MAX_TIME_LIMIT, DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
+    }
+    public static String getShortVibration(Context context) {
+        return sharedPreferences(context).getString(VIBRATION_DURATION_SHORT, "400");
+    }
+    public static String getShortPause(Context context) {
+        return sharedPreferences(context).getString(VIBRATION_PAUSE_SHORT, "200");
+    }
+    public static String getLongVibration(Context context) {
+        return sharedPreferences(context).getString(VIBRATION_DURATION_LONG, "600");
+    }
+    public static String getLongPause(Context context) {
+        return sharedPreferences(context).getString(VIBRATION_PAUSE_LONG, "400");
     }
 }

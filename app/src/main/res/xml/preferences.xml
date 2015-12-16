@@ -9,6 +9,13 @@
             android:summary="Number of presses needed to trigger the alarm"
             android:title="Initial Presses" />
         <ListPreference
+            android:defaultValue="6"
+            android:entries="@array/initialTimeArray"
+            android:entryValues="@array/initialTimeValues"
+            android:key="initialTime"
+            android:summary="Time to complete the number of initial presses. Decreasing this number might create problems with detecting multiple presses with certain devices."
+            android:title="Initial Time" />
+        <ListPreference
             android:defaultValue="2"
             android:entries="@array/confirmationWaitArray"
             android:entryValues="@array/confirmationWaitValues"
@@ -38,5 +45,28 @@
             android:key="alertNotConfirmed"
             android:summary="Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm."
             android:title="Alarm NOT Confirmed  " />
+    </PreferenceCategory>
+ <!--TODO Below part needs to be removed-->
+    <PreferenceCategory android:title="Vibration Duration Settings ">
+        <EditTextPreference
+            android:defaultValue="400"
+            android:key="shortVibration"
+            android:summary="Enter the short vibration duration in ms, default is 400"
+            android:title="Short Vibration"></EditTextPreference>
+        <EditTextPreference
+            android:defaultValue="200"
+            android:key="shortPause"
+            android:summary="Enter the short pause duration between short vibrations in ms,default is 200"
+            android:title="Short Pause"></EditTextPreference>
+        <EditTextPreference
+            android:defaultValue="600"
+            android:key="LongVibration"
+            android:summary="Enter the long vibration duration in ms,default is 600"
+            android:title="Long Vibration"></EditTextPreference>
+        <EditTextPreference
+            android:defaultValue="400"
+            android:key="longPause"
+            android:summary="Enter the long pause duration between long vibrations in ms, default is 400"
+            android:title="Long Pause"></EditTextPreference>
     </PreferenceCategory>
 </PreferenceScreen>
