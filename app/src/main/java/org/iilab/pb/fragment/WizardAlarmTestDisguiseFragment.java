@@ -15,14 +15,12 @@ import android.widget.Toast;
 
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
+import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.trigger.MultiClickEvent;
 
-import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
-import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
-import static org.iilab.pb.common.AppConstants.ONE_SECOND;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
 
 /**
@@ -136,15 +134,15 @@ public class WizardAlarmTestDisguiseFragment extends Fragment {
                 return;
             }
             if(multiClickEvent.canStartVibration()) {
-                vibrate(ONE_SECOND*Integer.parseInt(DEFAULT_HAPTIC_FEEDBACK_DURATION));
-
+//                vibrate(ONE_SECOND*Integer.parseInt(DEFAULT_HAPTIC_FEEDBACK_DURATION));
+                AppUtil.vibrateForHapticFeedback(getActivity());
                 CharSequence text = ((Button) view).getText();
                 Toast.makeText(activity, "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
             }
             else if(multiClickEvent.isActivated()){
                 Log.d(TAG, "multiClickEvent isActivated");
-                vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
-
+//                vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
+                AppUtil.vibrateForConfirmationOfAlertTriggered(getActivity());
                 resetEvent(view);
                 //unregisterButtonEvents(activity);
 

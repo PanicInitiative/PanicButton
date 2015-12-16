@@ -14,6 +14,21 @@
         <item>6</item>
         <item>7</item>
     </string-array>
+    <string-array name="initialTimeArray">
+        <item>4 sec</item>
+        <item>5 sec</item>
+        <item>6 sec</item>
+        <item>7 sec</item>
+        <item>8 sec</item>
+    </string-array>
+
+    <string-array name="initialTimeValues">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
     <string-array name="confirmationWaitArray">
         <item>1 sec</item>
         <item>2 sec</item>

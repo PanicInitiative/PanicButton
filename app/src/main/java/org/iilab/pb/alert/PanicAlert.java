@@ -6,7 +6,6 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
-import android.os.Vibrator;
 import android.util.Log;
 
 import org.iilab.pb.common.AppConstants;
@@ -20,8 +19,8 @@ import java.util.concurrent.Executors;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
+import static org.iilab.pb.common.AppConstants.ONE_MINUTE;
 import static org.iilab.pb.common.Intents.locationPendingIntent;
-import static org.iilab.pb.common.AppConstants.*;
 
 public class PanicAlert {
     private static final String TAG = PanicAlert.class.getName();
@@ -46,13 +45,13 @@ public class PanicAlert {
         VIBRATION_DURATION_LONG = Integer.parseInt(ApplicationSettings.getLongVibration(context));
          VIBRATION_PAUSE_LONG = Integer.parseInt(ApplicationSettings.getLongPause(context));
 
-        Log.d("TAG","VIBRATION_DURATION_SHORT " + VIBRATION_DURATION_SHORT+ " VIBRATION_PAUSE_SHORT " +VIBRATION_PAUSE_SHORT + " VIBRATION_DURATION_LONG "+VIBRATION_DURATION_LONG +" VIBRATION_PAUSE_LONG " +VIBRATION_PAUSE_LONG );
+        Log.d("TAG", "VIBRATION_DURATION_SHORT " + VIBRATION_DURATION_SHORT + " VIBRATION_PAUSE_SHORT " + VIBRATION_PAUSE_SHORT + " VIBRATION_DURATION_LONG " + VIBRATION_DURATION_LONG + " VIBRATION_PAUSE_LONG " + VIBRATION_PAUSE_LONG);
     }
 
     public void activate() {
         AppUtil.close(context);
 
-        vibrateOnceForConfirmationOfAlertTriggered();
+        AppUtil.vibrateForConfirmationOfAlertTriggered(context);
 
         if (isActive()
 //                || ApplicationSettings.isRestartedSetup(context)
@@ -71,22 +70,7 @@ public class PanicAlert {
         );
     }
 
-    private void vibrateOnceForConfirmationOfAlertTriggered() {
-        String confirmationFeedbackPattern = ApplicationSettings.getConfirmationFeedbackVibrationPattern(context);
 
-        Log.d(TAG, "confirmation feedback pattern 1-Long, 2-Repeated short, 3-Three short pause three short, 4-SOS, 5-None " + confirmationFeedbackPattern);
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
-        if (DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG.equals(confirmationFeedbackPattern)) {
-            vibrateContinusly(vibrator, ALERT_CONFIRMATION_VIBRATION_DURATION);
-        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT.equals(confirmationFeedbackPattern)) {
-            repeatedThreeShortVibrations(vibrator);
-        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT.equals(confirmationFeedbackPattern)) {
-            vibrateThreeShortPauseThreeShort(vibrator);
-        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_SOS.equals(confirmationFeedbackPattern)) {
-            vibrateSOS(vibrator);
-        }
-    }
 
     private void activateAlert() {
         ApplicationSettings.setAlertActive(context, true);
@@ -205,69 +189,9 @@ public class PanicAlert {
         return ApplicationSettings.isAlertActive(context);
     }
 
-    public void vibrateForHapticFeedback() {
-        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        Log.d(TAG, "haptic feedback pattern 1-continues, 2-vibrate every second : " + ApplicationSettings.getHapticFeedbackVibrationPattern(context));
-        //Code to fetch the Haptic feedback pattern
-        if (DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY.equals(ApplicationSettings.getHapticFeedbackVibrationPattern(context))) {
-            vibrateContinusly(vibrator, (ONE_SECOND * Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context))));
-        } else {
-            vibrateEverySecond(vibrator, Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context)));
-        }
 
 
-    }
 
-    private void vibrateContinusly(Vibrator vibrator, int feedbackDuration) {
-        vibrator.vibrate(feedbackDuration);
-    }
-
-    private void vibrateEverySecond(Vibrator vibrator, int feedbackDuration) {
-        Log.d(TAG, "vibrate every second pattern selected and feedback duration is " + feedbackDuration);
-
-        vibrator.vibrate(getPattern(feedbackDuration), -1);
-    }
-
-    private long[] getPattern(int i) {
-        switch (i) {
-            case 1:
-                // pattern {0, 600, 400};
-                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
-            case 2:
-                // pattern {0, 600, 400,600, 400};
-                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
-
-            case 3:
-                // pattern {0, 600, 400,600, 400,600, 400}
-                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
-            case 4:
-                // pattern {0, 600, 400,600, 400,600, 400,600, 400}
-                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
-        }
-        return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
-    }
-
-    private void repeatedThreeShortVibrations(Vibrator vibrator) {
-        // pattern = {0, 400, 200,400, 200,400};
-        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};
-        vibrator.vibrate(pattern, -1);
-    }
-
-    private void vibrateThreeShortPauseThreeShort(Vibrator vibrator) {
-        //pattern = {0, 400,200,400,200,400,1000,400,200,400,200,400};
-        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_VERY_LONG, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};
-        vibrator.vibrate(pattern, -1);
-
-    }
-
-    // SOS: Three short - Three long - Three short
-    private void vibrateSOS(Vibrator vibrator) {
-        //pattern = {0, 400,200,400,200,400,1000,400,1000,400,1000,400, 400,200,400,200,400,200};
-        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_VERY_LONG,//three short
-                VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG,// Three long
-                VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};//three short
-        vibrator.vibrate(pattern, -1);
-    }
 
     private Location getLocation(CurrentLocationProvider currentLocationProvider) {
         Location location = null;

@@ -120,7 +120,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 				return;
 			}
 			if(multiClickEvent.canStartVibration()){
-				getPanicAlert().vibrateForHapticFeedback();
+				AppUtil.vibrateForHapticFeedback(CalculatorActivity.this);
 				CharSequence text = ((Button) view).getText();
 				//Toast.makeText(getApplicationContext(), "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
 			}

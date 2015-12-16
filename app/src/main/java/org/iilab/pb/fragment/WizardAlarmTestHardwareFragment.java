@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
+import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.GifDecoderView;
 import org.iilab.pb.common.MyTagHandler;
@@ -30,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
-import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
 /**
  * Created by aoe on 1/9/14.
@@ -170,7 +170,8 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             Log.d(TAG, "in onActivation of wizardHWReceiver");
             //add vibration code in test fragments
             Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
+            AppUtil.vibrateForConfirmationOfAlertTriggered(context);
+//            vibrator.vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
 
             String pageId = currentPage.getSuccessId();
 

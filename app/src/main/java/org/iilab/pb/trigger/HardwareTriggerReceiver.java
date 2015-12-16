@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.util.Log;
 import org.iilab.pb.alert.PanicAlert;
+import org.iilab.pb.common.AppUtil;
 
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_SCREEN_ON;
@@ -37,8 +38,8 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
             else if(multiClickEvent.canStartVibration()){
                 Log.d(TAG, "vibration started");
-                PanicAlert panicAlert = getPanicAlert(context);
-                panicAlert.vibrateForHapticFeedback();
+//                PanicAlert panicAlert = getPanicAlert(context);
+                AppUtil.vibrateForHapticFeedback(context);
             }
 
             else if (multiClickEvent.isActivated()) {
