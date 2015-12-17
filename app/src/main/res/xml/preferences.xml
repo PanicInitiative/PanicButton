@@ -46,6 +46,12 @@
             android:summary="Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm."
             android:title="Alarm NOT Confirmed  " />
     </PreferenceCategory>
+    <PreferenceCategory android:title="Redo training ">
+        <Preference
+            android:key="redoTraining"
+            android:summary="Offering the user to redo the training exercise "
+            android:title="Test Alert " />
+    </PreferenceCategory>
  <!--TODO Below part needs to be removed-->
     <PreferenceCategory android:title="Vibration Duration Settings ">
         <EditTextPreference
