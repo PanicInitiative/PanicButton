@@ -62,6 +62,7 @@
 
     <string name="confirm_pin">Confirm the code</string>
     <string name="configurePowerButtonTriggerText">Configure Power Button Trigger</string>
+    <string name="PowerButtonTitle">Power Button Trigger</string>
     <string name="deactivate_power_button_trigger">Deactivated</string>
     <string name="activate_power_button_trigger">Activated </string>
     <string name="debug_mode">Debug Mode </string>

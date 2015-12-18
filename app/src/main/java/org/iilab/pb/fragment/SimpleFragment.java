@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import org.iilab.pb.MainActivity;
@@ -36,7 +35,6 @@ import org.iilab.pb.common.NestedListView;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
-import org.iilab.pb.trigger.HardwareTriggerService;
 
 import java.util.HashMap;
 
@@ -69,8 +67,6 @@ public class SimpleFragment extends Fragment {
     PageItemAdapter pageItemAdapter;
     PageActionAdapter pageActionAdapter;
     boolean isPageStatusAvailable;
-    private RadioGroup powerTriggerRadioGroup;
-    private TextView configurePowerTriggerHeader;
     private static final String TAG = SimpleFragment.class.getName();
 
     public static SimpleFragment newInstance(String pageId, int parentActivity) {
@@ -166,26 +162,6 @@ public class SimpleFragment extends Fragment {
                 Log.d(TAG, "Target page-id from itemList is "+pageId);
                 i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
-            }
-        });
-        configurePowerTriggerHeader=(TextView)view.findViewById(R.id.configurePowerButtonTriggerText);
-        powerTriggerRadioGroup = (RadioGroup) view.findViewById(R.id.radioGroupPowerTrigger);
-        powerTriggerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // checkedId is the RadioButton selected
-                switch (checkedId) {
-                    case R.id.radioEnable:
-                        Log.d(TAG, "Power button alarm trigger is enabled");
-                        ApplicationSettings.setHardwareTriggerServiceEnabled(getActivity(), true);
-                        getActivity().startService(new Intent(getActivity(), HardwareTriggerService.class));
-                        break;
-                    case R.id.radioDisable:
-                        Log.d(TAG, "Power button alarm trigger is disabled");
-                        ApplicationSettings.setHardwareTriggerServiceEnabled(getActivity(), false);
-                        getActivity().stopService(new Intent(getActivity(), HardwareTriggerService.class));
-                        break;
-                }
             }
         });
         return view;
@@ -291,11 +267,6 @@ public class SimpleFragment extends Fragment {
 
             tvTitle.setFocusableInTouchMode(true);
             tvTitle.requestFocus();
-
-            if (ApplicationSettings.isHardwareTriggerServiceEnabled(getActivity()))
-                powerTriggerRadioGroup.check(R.id.radioEnable);
-            else
-                powerTriggerRadioGroup.check(R.id.radioDisable);
 
             AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
         }

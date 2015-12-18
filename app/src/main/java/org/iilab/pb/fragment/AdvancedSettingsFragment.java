@@ -7,6 +7,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
 import org.iilab.pb.R;
+import org.iilab.pb.trigger.HardwareTriggerService;
 
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
 import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
@@ -41,6 +42,24 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
 //                i = new Intent(getActivity(), WizardActivity.class);
 //                i.putExtra(PAGE_ID, "setup-alarm-reTraining");
 //                startActivity(i);
+                return true;
+            }
+        });
+        Preference powerButtonAlarmTrigger = (Preference) findPreference("powerButtonTriggerStatus");
+
+        powerButtonAlarmTrigger.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object selectedValue) {
+                Log.d(TAG, "Inside on preference change of power button trigger setting");
+
+                if(selectedValue.equals(getString(R.string.activate_power_button_trigger))) {
+                    getActivity().startService(new Intent(getActivity(), HardwareTriggerService.class));
+                    Log.d(TAG, "Power button alarm trigger is enabled");
+                }
+                else {
+                    getActivity().stopService(new Intent(getActivity(), HardwareTriggerService.class));
+                    Log.d(TAG, "Power button alarm trigger is disabled");
+                }
                 return true;
             }
         });

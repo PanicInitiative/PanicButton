@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 
+import org.iilab.pb.R;
+
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_NOT_CONFIRMED_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
@@ -38,7 +40,7 @@ public class ApplicationSettings extends Application {
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
-    public static final String POWER_BUTTON_TRIGGER_ENABLED = "POWER_BUTTON_TRIGGER_ENABLED";
+    public static final String POWER_BUTTON_TRIGGER_STATUS = "powerButtonTriggerStatus";
 
     private static final String INITIAL_CLICKS = "initialClicks";
     private static final String HAPTIC_FEEDBACK_PATTERN ="hapticFeedbackVibrationPattern";
@@ -225,12 +227,10 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getBoolean(IS_FIRST_MSG_SENT, false);
     }
 
-    public static void setHardwareTriggerServiceEnabled(Context context, boolean isEnabled) {
-        saveBoolean(context, POWER_BUTTON_TRIGGER_ENABLED, isEnabled);
-    }
 
-    public static Boolean isHardwareTriggerServiceEnabled(Context context) {
-        return sharedPreferences(context).getBoolean(POWER_BUTTON_TRIGGER_ENABLED, true);
+    public static boolean isHardwareTriggerServiceEnabled(Context context) {
+        String powerButtonTriggerStatus=sharedPreferences(context).getString(POWER_BUTTON_TRIGGER_STATUS, context.getString(R.string.activate_power_button_trigger));
+        return (context.getString(R.string.activate_power_button_trigger).equals(powerButtonTriggerStatus)?true:false);
     }
 
 

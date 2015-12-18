@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/configurePowerButtonTriggerText">
+        <ListPreference
+            android:defaultValue="@string/activate_power_button_trigger"
+            android:entries="@array/configurePowerTriggerDisableArray"
+            android:entryValues="@array/configurePowerTriggerDisableValues"
+            android:key="powerButtonTriggerStatus"
+            android:summary="Enable/Disable the power button alarm trigger"
+            android:title="@string/PowerButtonTitle" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Trigger Settings Pattern">
         <ListPreference
             android:defaultValue="5"

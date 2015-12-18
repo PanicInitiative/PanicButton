@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="configurePowerTriggerDisableArray">
+        <item>@string/activate_power_button_trigger</item>
+        <item>@string/deactivate_power_button_trigger</item>
+    </string-array>
+
+    <string-array name="configurePowerTriggerDisableValues">
+        <item>@string/activate_power_button_trigger</item>`
+        <item>@string/deactivate_power_button_trigger</item>
+    </string-array>
     <string-array name="initialClickArray">
         <item>4 Presses</item>
         <item>5 Presses</item>

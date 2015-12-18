@@ -15,7 +15,7 @@ import java.util.Map;
 import static android.content.Intent.ACTION_BOOT_COMPLETED;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
 public class BootReceiver extends BroadcastReceiver {
-
+    private static final String TAG = BootReceiver.class.getName();
     @Override
     public void onReceive(Context context, Intent intent) {
         Map<String, String> eventLog = new HashMap<String, String>();
@@ -23,15 +23,15 @@ public class BootReceiver extends BroadcastReceiver {
         if(intent.getAction().equals(ACTION_BOOT_COMPLETED)) {
 //        	new PanicAlert(context).deActivate();
         	if(ApplicationSettings.isAlertActive(context)){
-                Log.e("BootReceiver", "Alarm is active");
+                Log.e(TAG, "Alarm is active");
 	        	ApplicationSettings.setAlertActive(context, false);
 	        	new PanicAlert(context).activate();
         	}
 
             int wizardState = ApplicationSettings.getWizardState(context.getApplicationContext());
-            Log.e("BootReceiver", "wizardState = " + wizardState);
+            Log.e(TAG, "wizardState = " + wizardState);
             if (wizardState == WIZARD_FLAG_HOME_READY && ApplicationSettings.isHardwareTriggerServiceEnabled(context)) {
-                Log.e("BootReceiver", "BootReceiver in Panic Button");
+                Log.e(TAG, "BootReceiver in Panic Button");
                 context.startService(new Intent(context, HardwareTriggerService.class));
             }
         }
