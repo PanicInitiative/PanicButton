@@ -60,7 +60,7 @@
     <string name="stop_alert_message_header">Stop alert message</string>
     <string name="stop_alert_message_hint">Enter stop alert message</string>
 
-    <string name="confirm_pin">Confirm the code</string>
+    <string name="confirm_pin">Confirm the pin</string>
     <string name="configurePowerButtonTriggerText">Configure Power Button Trigger</string>
     <string name="PowerButtonTitle">Power Button Trigger</string>
     <string name="deactivate_power_button_trigger">Deactivated</string>
@@ -69,10 +69,8 @@
 
     <string name="changeTriggerPattern">Change Trigger Pattern</string>
     <string name="firstClicks">Number of first clicks</string>
-    <string name="timeGuard">Guard time duration</string>
     <string name="confirmationWaitVibration">Number of confirmation clicks</string>
     <string name="defaultInitialClicks">5</string>
-    <string name="defaultTimeGuard">3</string>
     <string name="defaultConfirmationClicks">1</string>
 
 </resources>
