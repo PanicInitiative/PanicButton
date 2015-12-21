@@ -32,7 +32,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
-        Preference button = (Preference) findPreference("redoTraining");
+        Preference button = (Preference) findPreference(getString(R.string.redoTraining_key));
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -45,7 +45,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
-        Preference powerButtonAlarmTrigger = (Preference) findPreference("powerButtonTriggerStatus");
+        Preference powerButtonAlarmTrigger = (Preference) findPreference(getString(R.string.powerButtonTriggerStatus_key));
 
         powerButtonAlarmTrigger.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

@@ -5,61 +5,61 @@
             android:defaultValue="@string/activate_power_button_trigger"
             android:entries="@array/configurePowerTriggerDisableArray"
             android:entryValues="@array/configurePowerTriggerDisableValues"
-            android:key="powerButtonTriggerStatus"
-            android:summary="Enable/Disable the power button alarm trigger"
+            android:key="@string/powerButtonTriggerStatus_key"
+            android:summary="@string/configure_power_button_trigger_summary"
             android:title="@string/PowerButtonTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Trigger Settings Pattern">
+    <PreferenceCategory android:title="@string/changeTriggerPattern_header">
         <ListPreference
             android:defaultValue="5"
             android:entries="@array/initialClickArray"
             android:entryValues="@array/initialClickValues"
-            android:key="initialClicks"
-            android:summary="Number of presses needed to trigger the alarm"
-            android:title="Initial Presses" />
+            android:key="@string/initialClicks_key"
+            android:summary="@string/initialClicks_summary"
+            android:title="@string/initialClicks_title" />
         <ListPreference
             android:defaultValue="6"
             android:entries="@array/initialTimeArray"
             android:entryValues="@array/initialTimeValues"
-            android:key="initialTime"
-            android:summary="Time to complete the number of initial presses. Decreasing this number might create problems with detecting multiple presses with certain devices."
-            android:title="Initial Time" />
+            android:key="@string/initialTime_key"
+            android:summary="@string/initialTime_summary"
+            android:title="@string/initialTime_title" />
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/confirmationWaitArray"
             android:entryValues="@array/confirmationWaitValues"
-            android:key="confirmationWaitTime"
-            android:summary="Time to wait until the confirmation press"
-            android:title="Confirmation Wait Time" />
+            android:key="@string/confirmationWaitTime_key"
+            android:summary="@string/confirmationWaitTime_summary"
+            android:title="@string/confirmationWaitTime_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Vibration Settings ">
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/hapticFeedbackPatternArray"
             android:entryValues="@array/hapticFeedbackPatternValues"
-            android:key="hapticFeedbackVibrationPattern"
-            android:summary="Vibration pattern during the wait time until the confirmation press"
-            android:title="Confirmation Wait Vibration " />
+            android:key="@string/hapticFeedbackVibrationPattern_key"
+            android:summary="@string/hapticFeedbackVibrationPattern_summary"
+            android:title="@string/hapticFeedbackVibrationPattern_title" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/alertSendingConfirmationArray"
             android:entryValues="@array/alertSendingConfirmationValues"
-            android:key="alertSendingConfirmationVibration"
-            android:summary="Vibration pattern to inform that the alarm has been activated"
-            android:title="Alarm Sending Confirmation " />
+            android:key="@string/alertSendingConfirmationVibration_key"
+            android:summary="@string/alertSendingConfirmationVibration_summary"
+            android:title="@string/alertSendingConfirmationVibration_title" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/alertNotConfirmedArray"
             android:entryValues="@array/alertNotConfirmedValues"
-            android:key="alertNotConfirmed"
-            android:summary="Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm."
-            android:title="Alarm NOT Confirmed  " />
+            android:key="@string/alertNotConfirmed_key"
+            android:summary="@string/alertNotConfirmed_summary"
+            android:title="@string/alertNotConfirmed_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Redo training ">
+    <PreferenceCategory android:title="@string/redoTraining_header">
         <Preference
-            android:key="redoTraining"
-            android:summary="Offering the user to redo the training exercise "
-            android:title="Test Alert " />
+            android:key="@string/redoTraining_key"
+            android:summary="@string/redoTraining_summary"
+            android:title="@string/redoTraining_title" />
     </PreferenceCategory>
  <!--TODO Below part needs to be removed-->
     <PreferenceCategory android:title="Vibration Duration Settings ">
