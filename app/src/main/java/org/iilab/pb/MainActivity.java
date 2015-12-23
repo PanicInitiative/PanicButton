@@ -20,6 +20,7 @@ import org.iilab.pb.fragment.AdvancedSettingsFragment;
 import org.iilab.pb.fragment.AdvancedSettingsSubScreenFragment;
 import org.iilab.pb.fragment.LanguageSettingsFragment;
 import org.iilab.pb.fragment.MainSetupAlertFragment;
+import org.iilab.pb.fragment.PanicRespondersFragment;
 import org.iilab.pb.fragment.SetupCodeFragment;
 import org.iilab.pb.fragment.SetupContactsFragment;
 import org.iilab.pb.fragment.SetupMessageFragment;
@@ -36,6 +37,7 @@ import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CODE;
 import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CONTACTS;
 import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_LANGUAGE;
 import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_MESSAGE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_PANIC_RESPONDERS;
 import static org.iilab.pb.common.AppConstants.PAGE_FROM_NOT_IMPLEMENTED;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
@@ -141,6 +143,8 @@ public class MainActivity extends BaseFragmentActivity implements PreferenceFrag
             } else {
                 if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
                     fragment = new SetupContactsFragment().newInstance(pageId, FROM_MAIN_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_PANIC_RESPONDERS))
+                    fragment = new PanicRespondersFragment().newInstance(pageId, FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
                     fragment = new SetupMessageFragment().newInstance(pageId, FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))
