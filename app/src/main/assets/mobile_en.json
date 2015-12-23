@@ -432,6 +432,14 @@
                 "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
             },
             {
+                "id": "settings-panic-responders",
+                "lang": "en",
+                "type": "interactive",
+                "title": "Panic Responders",
+                "introduction": "When you trigger Panic Button, your chosen apps react.  Tap EDIT to see and change that app's behaviors.",
+                "component": "panic-responders"
+            },
+            {
                 "id": "settings-code",
                 "lang": "en",
                 "type": "interactive",
@@ -488,6 +496,10 @@
                     {
                         "title": "Code Settings",
                         "link": "settings-code"
+                    },
+                    {
+                        "title": "Panic Responders",
+                        "link": "settings-panic-responders"
                     },
                     {
                         "title": "Restart the Installation",
