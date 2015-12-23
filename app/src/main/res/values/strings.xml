@@ -66,4 +66,7 @@
     <string name="deactivate_power_button_trigger">Deactivated</string>
     <string name="activate_power_button_trigger">Activated </string>
     <string name="debug_mode">Debug Mode </string>
+
+    <string name="edit">Edit</string>
+    <string name="app_hides">App hides when triggered</string>
 </resources>

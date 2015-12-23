@@ -3,4 +3,5 @@
     <color name="active_color">#fc2d2d</color>
     <color name="yellow">#fcc542</color>
     <color name="standby_color">#ff0000ff</color>
+    <color name="gray">#ffdddddd</color>
 </resources>

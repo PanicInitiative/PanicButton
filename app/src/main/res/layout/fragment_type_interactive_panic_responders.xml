@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/wizard_start_root"
+    <LinearLayout
+        style="@style/wizard_static_panel"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/fragment_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/wizard_static_panel">
+            android:gravity="center_horizontal"
+            android:paddingBottom="5dp"
+            android:text="@string/page_title_text"
+            android:textSize="32sp" />
 
-            <TextView
-                android:id="@+id/fragment_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/page_title_text"
-                android:textSize="32sp"
-                android:paddingBottom="5dp"
-                android:layout_centerHorizontal="true" />
+        <TextView
+            android:id="@+id/fragment_intro"
+            style="@style/wizard_intro_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/fragment_intro"
-                style="@style/wizard_intro_style"
-                android:layout_below="@+id/fragment_title" />
+    </LinearLayout>
 
-        </RelativeLayout>
-    </ScrollView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
