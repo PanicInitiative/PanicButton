@@ -106,4 +106,7 @@
     <string name="confirmationWaitVibration">Confirmation Wait Vibration</string>
     <string name="defaultInitialClicks">5</string>
     <string name="defaultConfirmationClicks">1</string>
+
+    <string name="edit">Edit</string>
+    <string name="app_hides">App hides when triggered</string>
 </resources>

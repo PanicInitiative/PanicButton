@@ -19,6 +19,7 @@ import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.fragment.AdvancedSettingsFragment;
 import org.iilab.pb.fragment.LanguageSettingsFragment;
 import org.iilab.pb.fragment.MainSetupAlertFragment;
+import org.iilab.pb.fragment.PanicRespondersFragment;
 import org.iilab.pb.fragment.SetupCodeFragment;
 import org.iilab.pb.fragment.SetupContactsFragment;
 import org.iilab.pb.fragment.SetupMessageFragment;
@@ -122,6 +123,8 @@ public class MainActivity extends BaseFragmentActivity {
             } else {
                 if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                else if (currentPage.getComponent().equals("panic-responders"))
+                    fragment = new PanicRespondersFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))

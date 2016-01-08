@@ -17,6 +17,8 @@ import org.iilab.pb.location.CurrentLocationProvider;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import info.guardianproject.panic.PanicTrigger;
+
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static org.iilab.pb.common.AppConstants.ONE_MINUTE;
@@ -74,6 +76,8 @@ public class PanicAlert {
 
     private void activateAlert() {
         ApplicationSettings.setAlertActive(context, true);
+        // send panic triggers to responder apps that support it
+        PanicTrigger.sendTrigger(context);
         sendFirstAlert();
         registerLocationUpdate();
         scheduleFutureAlert();

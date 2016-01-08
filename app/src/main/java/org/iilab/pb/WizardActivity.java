@@ -21,6 +21,7 @@ import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.fragment.LanguageSettingsFragment;
+import org.iilab.pb.fragment.PanicRespondersFragment;
 import org.iilab.pb.fragment.SetupCodeFragment;
 import org.iilab.pb.fragment.SetupContactsFragment;
 import org.iilab.pb.fragment.SetupMessageFragment;
@@ -141,6 +142,8 @@ public class WizardActivity extends BaseFragmentActivity {
             } else {          // type = interactive
                 if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
                     fragment = new SetupContactsFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals("panic-responders"))
+                    fragment = new PanicRespondersFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
                     fragment = new SetupMessageFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
                 else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))
