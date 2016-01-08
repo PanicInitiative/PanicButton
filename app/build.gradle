@@ -1,6 +1,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'witness'
 
     android {
     compileSdkVersion 23
@@ -35,4 +36,18 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
         transitive = true;
     }
+}
+
+// generate using: `gradle -q calculateChecksums | sort -V`
+dependencyVerification {
+    verify = [
+        'com.android.support:support-annotations:ab6b131ab0e1edd165d21fb4c3edadeacbee9539aa166f7f7cbae05b60dc207a',
+        'com.android.support:support-v4:355a11466727e8ba00e239416aec55ac3cd3fb4ffc9d20c4a33373085c050bd1',
+        'com.crashlytics.sdk.android:answers:5af101ef6b58a26dd32cfc13f53c63c33fb2fdcdf6990241eca22e7a8c842847',
+        'com.crashlytics.sdk.android:beta:6d7dce749fd70fa20adcf089aaed5d52f9e8e2a08f6666336e90a7555cee9718',
+        'com.crashlytics.sdk.android:crashlytics-core:2f35df62420723d4a8e58f58a376fb640d11e1660656a9aa2959bb041b5b1d15',
+        'com.crashlytics.sdk.android:crashlytics:5bbf76250f6349baf173e082b4f7d14e777aa5a7510f9bea267b445bc439247d',
+        'com.google.code.gson:gson:9466512cd8cf0bd66a8a3661685373f7b3deafded11096e044926ff5c82c7a4c',
+        'io.fabric.sdk.android:fabric:15465f60ee6a2bb53dcf84e8dd939ce92dffbffc73bfdd3432b63fa6ee2f7bae',
+    ]
 }
