@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[panicbutton.mobile]
+file_filter = mobile.<lang>.json
+source_file = mobile.en.json
+source_lang = en
+type = KEYVALUEJSON
+
