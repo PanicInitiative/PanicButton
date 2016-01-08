@@ -16,8 +16,8 @@ android:
     - tools
     - platform-tools
     - extra-android-m2repository
-    - build-tools-22.0.1
-    - android-22
+    - build-tools-23.0.2
+    - android-23
   licenses:
     # only approve the Android software licenses, they match sources
     # the Google licenses mean proprietary software with binary blobs
