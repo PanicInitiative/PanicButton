@@ -1,4 +1,4 @@
- Master [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button)](https://ci.iilab.org/job/panic-button/) Dev [![Build Status](https://travis-ci.org/PanicInitiative/PanicButton.svg?branch=dev)](https://travis-ci.org/PanicInitiative/PanicButton) [![Stories in Ready](https://badge.waffle.io/PanicInitiative/PanicButton.png?label=ready&title=Ready)](https://waffle.io/PanicInitiative/PanicButton)
+Master [![Build Status](https://ci.iilab.org/buildStatus/icon?job=panic-button)](https://ci.iilab.org/job/panic-button/) Dev [![Build Status](https://travis-ci.org/PanicInitiative/PanicButton.svg?branch=dev)](https://travis-ci.org/PanicInitiative/PanicButton) [![Stories in Ready](https://badge.waffle.io/PanicInitiative/PanicButton.png?label=ready&title=Ready)](https://waffle.io/PanicInitiative/PanicButton)
 
 # Panic Button
 
@@ -36,18 +36,22 @@ A huge thanks is also owed to the many programmers and designers who have donate
 
 ## Technology
 
+### Security
+
+Read [our security documentation](SECURITY.md) to understand our approach.
+
 ### Requirements
 
-You need an Android phone with a minimum version of 2.3.3 
-
-### Building
-
-See the [notes to build your own APK](./docs/BUILD.md)
+You need an Android phone with a minimum version of 2.3.3
 
 ### Contributing
 
 See the [issues tagged with "Help Wanted"](https://github.com/iilab/PanicButton/labels/help%20wanted).
 
-~~See the [notes to setup a development environment](./docs/DEVELOPMENT.md)~~ Outdated. Migration to Android Studio/Gradle in progress see #76.
+Migration to Android Studio/Gradle has been completed on the ```dev``` branch which will be merged with ```master``` on the next public release.
 
 Code contributions should be sent via github from [feature](http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/) [branches](https://guides.github.com/introduction/flow/) (named feature/__descriptive_name_of_feature__) as pull requests [as explained here](https://help.github.com/articles/using-pull-requests).
+
+### Translations
+
+We'e working on improving how translations are managed. Read more about this and let us know your ideas on the [dedicated github issue](https://github.com/iilab/PanicButton/issues/82)!
