@@ -10,9 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-
-import java.util.List;
-
 import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
@@ -20,6 +17,9 @@ import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.model.PageAction;
 
+import java.util.List;
+
+import static org.iilab.pb.common.AppConstants.*;
 
 /**
  * Created by aoe on 1/5/14.
@@ -30,6 +30,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
     private boolean isPageStatusAvailable;
     private LayoutInflater mInflater;
     private int parentActivity;
+    private static final String TAG = PageActionAdapter.class.getName();
 
     public PageActionAdapter(Context context, List<PageAction> actionList, boolean isPageStatusAvailable, int parentActivity) {
         super(context, R.layout.row_page_action);
@@ -67,10 +68,10 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
         PageAction item = getItem(position);
 
-        if(isPageStatusAvailable){
+        if (isPageStatusAvailable) {
             holder.bActionWithoutStatus.setVisibility(View.INVISIBLE);
             holder.bActionWithStatus.setVisibility(View.VISIBLE);
-        } else{
+        } else {
             holder.bActionWithoutStatus.setVisibility(View.VISIBLE);
             holder.bActionWithStatus.setVisibility(View.INVISIBLE);
         }
@@ -82,19 +83,19 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
             public void onClick(View v) {
                 String pageId = getItem(position).getLink();
 
-                if (pageId.equals("close")) {
+                if (pageId.equals(PAGE_CLOSE)) {
 //                    ApplicationSettings.setFirstRun(mContext, false);
                     Intent i = new Intent(mContext, CalculatorActivity.class);
 //                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mContext.startActivity(i);
-                    ((MainActivity)mContext).callFinishActivityReceiver();
+                    ((MainActivity) mContext).callFinishActivityReceiver();
 //                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 } else {
 
                     Intent i = new Intent(mContext, WizardActivity.class);
-                    if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                         i = new Intent(mContext, WizardActivity.class);
-                    } else{
+                    } else {
 //                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
 //                    	new PanicAlert(mContext).deActivate();
 //                    	if(pageId.equalsIgnoreCase("home-not-configured"))
@@ -104,16 +105,16 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     }
 
 //                    Intent i = new Intent(mContext, WizardActivity.class);
-                    i.putExtra("page_id", pageId);
+                    i.putExtra(PAGE_ID, pageId);
                     mContext.startActivity(i);
-                    
+
                 }
             }
         });
 
         if (item.getStatus() != null) {
             holder.bActionWithoutStatus.setEnabled(false);
-            if (item.getStatus().equals("checked")) {
+            if (item.getStatus().equals(PAGE_STATUS_CHECKED)) {
                 holder.ivTick.setVisibility(View.VISIBLE);
             } else {           // status = "disabled"
                 holder.ivTick.setVisibility(View.INVISIBLE);
@@ -124,7 +125,6 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
         }
 
 
-
         holder.bActionWithStatus.setText(item.getTitle());
         holder.bActionWithStatus.setOnClickListener(new View.OnClickListener() {
 
@@ -132,7 +132,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
             public void onClick(View v) {
                 String pageId = getItem(position).getLink();
 
-                if (pageId.equals("close")) {
+                if (pageId.equals(PAGE_CLOSE)) {
 //                    ApplicationSettings.setFirstRun(mContext, false);
                     Intent i = new Intent(mContext.getApplicationContext(), CalculatorActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -141,13 +141,13 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 } else {
 
                     Intent i;
-                    if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                    if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                         i = new Intent(mContext, WizardActivity.class);
-                    } else{
+                    } else {
                         i = new Intent(mContext, MainActivity.class);
                     }
 //                    Intent i = new Intent(mContext, WizardActivity.class);
-                    i.putExtra("page_id", pageId);
+                    i.putExtra(PAGE_ID, pageId);
                     mContext.startActivity(i);
                 }
             }
@@ -155,7 +155,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
         if (item.getStatus() != null) {
             holder.bActionWithStatus.setEnabled(false);
-            if (item.getStatus().equals("checked")) {
+            if (item.getStatus().equals(PAGE_STATUS_CHECKED)) {
                 holder.ivTick.setVisibility(View.VISIBLE);
             } else {           // status = "disabled"
                 holder.ivTick.setVisibility(View.INVISIBLE);

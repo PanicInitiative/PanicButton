@@ -16,6 +16,7 @@ import org.iilab.pb.alert.PanicAlert;
 import org.iilab.pb.common.AppConstants;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.fragment.AdvancedSettingsFragment;
 import org.iilab.pb.fragment.LanguageSettingsFragment;
 import org.iilab.pb.fragment.MainSetupAlertFragment;
 import org.iilab.pb.fragment.SetupCodeFragment;
@@ -25,7 +26,7 @@ import org.iilab.pb.fragment.SimpleFragment;
 import org.iilab.pb.fragment.WarningFragment;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.trigger.HardwareTriggerService;
-
+import static org.iilab.pb.common.AppConstants.*;
 
 /**
  * Created by aoe on 2/15/14.
@@ -39,6 +40,7 @@ public class MainActivity extends BaseFragmentActivity {
     String selectedLang;
 
     Boolean flagRiseFromPause = false;
+    private static final String TAG = MainActivity.class.getName();
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,17 +50,17 @@ public class MainActivity extends BaseFragmentActivity {
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
         try {
-            pageId = getIntent().getExtras().getString("page_id");
+            pageId = getIntent().getExtras().getString(PAGE_ID);
         } catch (Exception e) {
-            pageId = "home-not-configured";
+            pageId = PAGE_HOME_NOT_CONFIGURED;
             e.printStackTrace();
         }
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
-        Log.e("MainActivity.onCreate", "pageId = " + pageId);
+        Log.i(TAG, "pageId = " + pageId);
 
-        if(pageId.equals("home-not-configured")){
-            Log.e("??????????????", "Restarting the Wizard");
+        if(pageId.equals(PAGE_HOME_NOT_CONFIGURED)){
+            Log.d(TAG, "Restarting the Wizard");
 
             if((ApplicationSettings.isAlertActive(this))){
                 new PanicAlert(this).deActivate();
@@ -72,7 +74,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 
             Intent i = new Intent(MainActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
+            i.putExtra(PAGE_ID, pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
@@ -91,7 +93,7 @@ public class MainActivity extends BaseFragmentActivity {
         dbInstance.close();
 
         if (currentPage == null) {
-            Log.e(">>>>>>", "page = null");
+            Log.d(TAG, "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
@@ -102,32 +104,35 @@ public class MainActivity extends BaseFragmentActivity {
 
             Fragment fragment = null;
 
-            if (currentPage.getType().equals("simple")) {
+            if (currentPage.getType().equals(PAGE_TYPE_SIMPLE)) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
-            }else if (currentPage.getType().equals("warning")) {
+            }else if (currentPage.getType().equals(PAGE_TYPE_WARNING)) {
                     tvToastMessage.setVisibility(View.INVISIBLE);
                     fragment = new WarningFragment().newInstance(pageId,AppConstants.FROM_MAIN_ACTIVITY);
                 
-            } else if (currentPage.getType().equals("modal")){
+            } else if (currentPage.getType().equals(PAGE_TYPE_MODAL)){
                 tvToastMessage.setVisibility(View.INVISIBLE);
                 Intent i = new Intent(MainActivity.this, MainModalActivity.class);
-                i.putExtra("page_id", pageId);
+                i.putExtra(PAGE_ID, pageId);
 //                i.putExtra("parent_activity", AppConstants.FROM_MAIN_ACTIVITY);
                 startActivity(i);
                 finish();
                 return;
             } else {
-                if (currentPage.getComponent().equals("contacts"))
+                if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
                     fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
-                else if (currentPage.getComponent().equals("message"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
                     fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
-                else if (currentPage.getComponent().equals("code"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))
                     fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
-                else if (currentPage.getComponent().equals("alert"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ALERT))
                     fragment = new MainSetupAlertFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
-                else if (currentPage.getComponent().equals("language"))
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_LANGUAGE))
                     fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ADVANCED_SETTINGS)) {
+                    fragment = new AdvancedSettingsFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
+                }
                 else
                     fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_MAIN_ACTIVITY);
             }
@@ -138,10 +143,10 @@ public class MainActivity extends BaseFragmentActivity {
 
 
     private void changeAppIcontoPB() {
-    	Log.e("MainActivity.changeAppIcontoPB", "");
-    	getPackageManager().setComponentEnabledSetting(
-                new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        Log.d(TAG," changeAppIcontoPB");
+                getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
@@ -151,7 +156,7 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("MainActivity.onResume", "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
+        Log.d(TAG, "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
 
 
                 /*
@@ -160,7 +165,7 @@ public class MainActivity extends BaseFragmentActivity {
         If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
          */
         if (AppConstants.PAGE_FROM_NOT_IMPLEMENTED) {
-            Log.e("MainActivity.onResume", "returning from not-implemented page.");
+            Log.d(TAG, "returning from not-implemented page.");
             AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
             return;
         }
@@ -171,7 +176,7 @@ public class MainActivity extends BaseFragmentActivity {
         If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
          */
         if (AppConstants.IS_BACK_BUTTON_PRESSED) {
-            Log.e("MainActivity.onResume", "back button pressed");
+            Log.d(TAG, "back button pressed");
             AppConstants.IS_BACK_BUTTON_PRESSED = false;
             return;
         }
@@ -193,14 +198,13 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("MainActivity.onPause", ".");
-        Log.e("MainActivity.onPause", "flagRiseFromPause = " + true);
+        Log.d(TAG, "flagRiseFromPause = " + true);
         flagRiseFromPause = true;
     }
     
     protected void onStop(){
         super.onStop();
-        Log.e("MainActivity.onStop", ".");
+        Log.d(TAG,"onStop");
     }
 
     @Override
@@ -213,12 +217,12 @@ public class MainActivity extends BaseFragmentActivity {
 //        	i.putExtra("page_id", "home-not-configured");
 //        	startActivity(i);
 //        }
-        Log.e("MainActivity.onStart", ".");
+        Log.d(TAG,"onStart");
     }
 
     @Override
     public void onBackPressed() {
-        if(pageId.equals("home-ready")){
+        if(pageId.equals(PAGE_HOME_READY)){
             // don't go back
 //        	finish();
 //        	startActivity(AppUtil.behaveAsHomeButton());

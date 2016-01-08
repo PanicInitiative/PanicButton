@@ -16,13 +16,47 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.iilab.pb.common.AppConstants;
+
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
-import org.iilab.pb.fragment.*;
+import org.iilab.pb.fragment.LanguageSettingsFragment;
+import org.iilab.pb.fragment.SetupCodeFragment;
+import org.iilab.pb.fragment.SetupContactsFragment;
+import org.iilab.pb.fragment.SetupMessageFragment;
+import org.iilab.pb.fragment.SimpleFragment;
+import org.iilab.pb.fragment.WarningFragment;
+import org.iilab.pb.fragment.WizardAlarmTestDisguiseFragment;
+import org.iilab.pb.fragment.WizardAlarmTestHardwareFragment;
+import org.iilab.pb.fragment.WizardTestDisguiseCodeFragment;
+import org.iilab.pb.fragment.WizardTestDisguiseOpenFragment;
+import org.iilab.pb.fragment.WizardTestDisguiseUnlockFragment;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.trigger.HardwareTriggerService;
+
+import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.IS_BACK_BUTTON_PRESSED;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_ALARM_TEST_DISGUISE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_ALARM_TEST_HARDWARE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CODE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_CONTACTS;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_CODE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_OPEN;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_DISGUISE_TEST_UNLOCK;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_LANGUAGE;
+import static org.iilab.pb.common.AppConstants.PAGE_COMPONENT_MESSAGE;
+import static org.iilab.pb.common.AppConstants.PAGE_FROM_NOT_IMPLEMENTED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_TYPE_SIMPLE;
+import static org.iilab.pb.common.AppConstants.PAGE_TYPE_WARNING;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
 
 
 public class WizardActivity extends BaseFragmentActivity {
@@ -35,6 +69,7 @@ public class WizardActivity extends BaseFragmentActivity {
     Boolean flagRiseFromPause = false;
 
     private Handler inactiveHandler = new Handler();
+    private static final String TAG = WizardActivity.class.getName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,14 +79,14 @@ public class WizardActivity extends BaseFragmentActivity {
         tvToastMessage = (TextView) findViewById(R.id.tv_toast);
 
         try {
-            pageId = getIntent().getExtras().getString("page_id");
+            pageId = getIntent().getExtras().getString(PAGE_ID);
         } catch (Exception e) {
-            pageId = "home-not-configured";
+            pageId = PAGE_HOME_NOT_CONFIGURED;
             e.printStackTrace();
         }
         selectedLang = ApplicationSettings.getSelectedLanguage(this);
 
-        Log.e("WizardActivity.onCreate", "pageId = " + pageId);
+        Log.d(TAG, "pageId = " + pageId);
 
         PBDatabase dbInstance = new PBDatabase(this);
         dbInstance.open();
@@ -59,20 +94,19 @@ public class WizardActivity extends BaseFragmentActivity {
         dbInstance.close();
 
         if (currentPage == null) {
-            Log.e(">>>>>>", "page = null");
+            Log.d(TAG, "page = null");
             Toast.makeText(this, "Still to be implemented.", Toast.LENGTH_SHORT).show();
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = true;
+            PAGE_FROM_NOT_IMPLEMENTED = true;
             finish();
             return;
-        } else if (currentPage.getId().equals("home-ready")) {
-//            ApplicationSettings.setFirstRun(WizardActivity.this, false);
-            ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_READY);
+        } else if (currentPage.getId().equals(PAGE_HOME_READY)) {
+            ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
             changeAppIcontoCalculator();
-
-            startService(new Intent(this, HardwareTriggerService.class));
-
+            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this)) {
+                startService(new Intent(this, HardwareTriggerService.class));
+            }
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
-            i.putExtra("page_id", pageId);
+            i.putExtra(PAGE_ID, pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
@@ -85,12 +119,12 @@ public class WizardActivity extends BaseFragmentActivity {
             setup the milestone of the wizard state if the app flow reaches to THREE specific page,
             i.e. home-not-configured, home-not-configured-alarm and home-not-configured-disguise.
              */
-            if (currentPage.getId().equals("home-not-configured")) {
-                ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED);
-            } else if (currentPage.getId().equals("home-not-configured-alarm")) {
-                ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
-            } else if (currentPage.getId().equals("home-not-configured-disguise")) {
-                ApplicationSettings.setWizardState(WizardActivity.this, AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
+            if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED)) {
+                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED);
+            } else if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED_ALARM)) {
+                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
+            } else if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED_DISGUISE)) {
+                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
             }
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -98,56 +132,61 @@ public class WizardActivity extends BaseFragmentActivity {
 
             Fragment fragment = null;
 
-            if (currentPage.getType().equals("simple")) {
+            if (currentPage.getType().equals(PAGE_TYPE_SIMPLE)) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-            } else if (currentPage.getType().equals("warning")) {
+                fragment = new SimpleFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+            } else if (currentPage.getType().equals(PAGE_TYPE_WARNING)) {
                 tvToastMessage.setVisibility(View.INVISIBLE);
-                fragment = new WarningFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                fragment = new WarningFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
             } else {          // type = interactive
-                if (currentPage.getComponent().equals("contacts"))
-                    fragment = new SetupContactsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("message"))
-                    fragment = new SetupMessageFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("code"))
-                    fragment = new SetupCodeFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("language"))
-                    fragment = new LanguageSettingsFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
-                else if (currentPage.getComponent().equals("alarm-test-hardware")) {
+                if (currentPage.getComponent().equals(PAGE_COMPONENT_CONTACTS))
+                    fragment = new SetupContactsFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_MESSAGE))
+                    fragment = new SetupMessageFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_CODE))
+                    fragment = new SetupCodeFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_LANGUAGE))
+                    fragment = new LanguageSettingsFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
+                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_HARDWARE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardAlarmTestHardwareFragment().newInstance(pageId);
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-                } else if (currentPage.getComponent().equals("alarm-test-disguise")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardAlarmTestDisguiseFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-open")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)) {
                     findViewById(R.id.wizard_layout_root).setBackgroundColor(Color.BLACK);
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardTestDisguiseOpenFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-unlock")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
 
                     fragment = new WizardTestDisguiseUnlockFragment().newInstance(pageId);
-                } else if (currentPage.getComponent().equals("disguise-test-code")) {
+                } else if (currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)) {
                     tvToastMessage.setVisibility(View.VISIBLE);
                     if (currentPage.getIntroduction() != null) {
                         tvToastMessage.setText(Html.fromHtml(currentPage.getIntroduction(), null, new MyTagHandler()));
                     }
                     fragment = new WizardTestDisguiseCodeFragment().newInstance(pageId);
-                } else
-                    fragment = new SimpleFragment().newInstance(pageId, AppConstants.FROM_WIZARD_ACTIVITY);
+                }
+//                //TODO remove this, just for testing
+//                else if (currentPage.getComponent().equals(PAGE_COMPONENT_ADVANCED_SETTINGS)) {
+//                    fragment = new AdvancedSettingsFragment().newInstance(pageId, FROM_MAIN_ACTIVITY);
+//                }
+                else
+                    fragment = new SimpleFragment().newInstance(pageId, FROM_WIZARD_ACTIVITY);
             }
             fragmentTransaction.add(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
@@ -155,11 +194,11 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
     private void changeAppIcontoCalculator() {
-    	Log.e("WizardActivity.changeAppIcontoCalculator", "");
+    	Log.i(TAG ,"changeAppIcontoCalculator");
 
-        getPackageManager().setComponentEnabledSetting(
-                new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+                getPackageManager().setComponentEnabledSetting(
+                        new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
@@ -169,7 +208,7 @@ public class WizardActivity extends BaseFragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("WizardActivity.onPause", "page = " + pageId);
+        Log.i(TAG, "page = " + pageId);
 
 //        if (currentPage.getId().equals("home-ready") && ApplicationSettings.isRestartedSetup(WizardActivity.this)) {
 //            Log.e("WizardActivity.onPause", "false->RestartedSetup");
@@ -184,7 +223,7 @@ public class WizardActivity extends BaseFragmentActivity {
         In short, we block this page - setup-alarm-test-hardware for pause-resume action
          */
         if (!pageId.equals("setup-alarm-test-hardware")) {
-            Log.e(">>>>>>", "assert flagRiseFromPause = " + true);
+            Log.d(TAG, "assert flagRiseFromPause = " + true);
             flagRiseFromPause = true;
         }
     }
@@ -192,14 +231,14 @@ public class WizardActivity extends BaseFragmentActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("WizardActivity.onStop", "page = " + pageId);
+        Log.i(TAG, "page = " + pageId);
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("WizardActivity", "onDestroy");
+        Log.i(TAG, "onDestroy");
         inactiveHandler.removeCallbacks(runnableInteractive);
     }
 
@@ -208,13 +247,13 @@ public class WizardActivity extends BaseFragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("WizardActivity.onStart", "page = " + pageId);
+        Log.i(TAG, "page = " + pageId);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("WizardActivity.onResume", "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
+        Log.i(TAG, "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
 
         int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
 
@@ -223,9 +262,9 @@ public class WizardActivity extends BaseFragmentActivity {
         if this page is resumed from the page still not implemented, then we'll handle it here.
         If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
          */
-        if (AppConstants.PAGE_FROM_NOT_IMPLEMENTED) {
-            Log.e("WizardActivity.onResume", "returning from not-implemented page.");
-            AppConstants.PAGE_FROM_NOT_IMPLEMENTED = false;
+        if (PAGE_FROM_NOT_IMPLEMENTED) {
+            Log.d(TAG, "returning from not-implemented page.");
+            PAGE_FROM_NOT_IMPLEMENTED = false;
             return;
         }
 
@@ -234,9 +273,9 @@ public class WizardActivity extends BaseFragmentActivity {
         if this page is resumed by navigating-back from the next page, then we'll handle it here.
         If we don't do this check, then the resume procedure falls under Check-3 & execute that code snippet, which is not proper.
          */
-        if (AppConstants.IS_BACK_BUTTON_PRESSED) {
-            Log.e("WizardActivity.onResume", "back button pressed");
-            AppConstants.IS_BACK_BUTTON_PRESSED = false;
+        if (IS_BACK_BUTTON_PRESSED) {
+            Log.d(TAG, "back button pressed");
+            IS_BACK_BUTTON_PRESSED = false;
             return;
         }
 
@@ -261,14 +300,14 @@ public class WizardActivity extends BaseFragmentActivity {
         if (flagRiseFromPause && !pageId.equals("setup-alarm-test-hardware-success")) {
             flagRiseFromPause = false;
 
-            if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
-                pageId = "home-not-configured";
-            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
-                pageId = "home-not-configured-alarm";
-            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
-                pageId = "home-not-configured-disguise";
-            } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
-                pageId = "home-ready";
+            if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+                pageId = PAGE_HOME_NOT_CONFIGURED;
+            } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
+                pageId =PAGE_HOME_NOT_CONFIGURED_ALARM;
+            } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
+                pageId = PAGE_HOME_NOT_CONFIGURED_DISGUISE;
+            } else if (wizardState == WIZARD_FLAG_HOME_READY) {
+                pageId = PAGE_HOME_READY;
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
@@ -282,16 +321,16 @@ public class WizardActivity extends BaseFragmentActivity {
 
     @Override
     public void onUserInteraction() {
-        Log.e("WizardActivity", "onUserInteraction");
+        Log.i(TAG, "onUserInteraction");
         super.onUserInteraction();
         hideToastMessageInInteractiveFragment();
         if (currentPage != null && currentPage.getComponent() != null &&
                 (
-                        currentPage.getComponent().equals("alarm-test-hardware")
-                        || currentPage.getComponent().equals("alarm-test-disguise")
-                        || currentPage.getComponent().equals("disguise-test-open")
-                        || currentPage.getComponent().equals("disguise-test-unlock")
-                        || currentPage.getComponent().equals("disguise-test-code")
+                        currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_HARDWARE)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)
+                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)
                 )
         ) {
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
@@ -311,7 +350,7 @@ public class WizardActivity extends BaseFragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        AppConstants.IS_BACK_BUTTON_PRESSED = true;
+        IS_BACK_BUTTON_PRESSED = true;
     }
 
 
@@ -322,7 +361,7 @@ public class WizardActivity extends BaseFragmentActivity {
             String pageId = currentPage.getFailedId();
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
+            i.putExtra(PAGE_ID, pageId);
             startActivity(i);
             finish();
         }
