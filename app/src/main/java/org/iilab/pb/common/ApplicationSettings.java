@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 
 import org.iilab.pb.R;
-
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_NOT_CONFIRMED_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
@@ -40,14 +39,7 @@ public class ApplicationSettings extends Application {
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
-    public static final String POWER_BUTTON_TRIGGER_STATUS = "powerButtonTriggerStatus";
 
-    private static final String INITIAL_CLICKS = "initialClicks";
-    private static final String HAPTIC_FEEDBACK_PATTERN ="hapticFeedbackVibrationPattern";
-    private static final String CONFIRMATION_WAIT_VIBRATION_DURATION = "confirmationWaitTime";
-    private static final String CONFIRMATION_WAIT_VIBRATION_PATTERN = "alertSendingConfirmationVibration";
-    private static final String ALARM_NOT_CONFIRMED_PATTERN = "alertNotConfirmed";
-    private static final String INITIAL_CLICKS_MAX_TIME_LIMIT = "initialTime";
 
 //TODO for testing vibrations--remove during release
     public static final String VIBRATION_DURATION_SHORT = "shortVibration";
@@ -229,32 +221,32 @@ public class ApplicationSettings extends Application {
 
 
     public static boolean isHardwareTriggerServiceEnabled(Context context) {
-        String powerButtonTriggerStatus=sharedPreferences(context).getString(POWER_BUTTON_TRIGGER_STATUS, context.getString(R.string.activate_power_button_trigger));
-        return (context.getString(R.string.activate_power_button_trigger).equals(powerButtonTriggerStatus)?true:false);
+        String powerButtonTriggerStatus = sharedPreferences(context).getString(context.getString(R.string.powerButtonTriggerStatus_key), context.getString(R.string.activate_power_button_trigger));
+        return (context.getString(R.string.activate_power_button_trigger).equals(powerButtonTriggerStatus) ? true : false);
     }
 
 
     public static String getInitialClicksForAlertTrigger(Context context) {
-        return sharedPreferences(context).getString(INITIAL_CLICKS, DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
+        return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
     }
 
 
     public static String getHapticFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(HAPTIC_FEEDBACK_PATTERN, DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
+        return sharedPreferences(context).getString(context.getString(R.string.hapticFeedbackVibrationPatternKey), DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
     }
 
     public static String getConfirmationWaitVibrationDuration(Context context) {
-        return sharedPreferences(context).getString(CONFIRMATION_WAIT_VIBRATION_DURATION, DEFAULT_HAPTIC_FEEDBACK_DURATION);
+        return sharedPreferences(context).getString(context.getString(R.string.confirmationWaitTimeKey), DEFAULT_HAPTIC_FEEDBACK_DURATION);
     }
     public static String getConfirmationFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(CONFIRMATION_WAIT_VIBRATION_PATTERN, DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
+        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
     }
 
     public static String getAlarmNotConfirmedPattern(Context context) {
-        return sharedPreferences(context).getString(ALARM_NOT_CONFIRMED_PATTERN, DEFAULT_ALARM_NOT_CONFIRMED_NONE);
+        return sharedPreferences(context).getString(context.getString(R.string.alertNotConfirmedKey), DEFAULT_ALARM_NOT_CONFIRMED_NONE);
     }
     public static String getInitialClicksMaxTimeLimit(Context context) {
-        return sharedPreferences(context).getString(INITIAL_CLICKS_MAX_TIME_LIMIT, DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
+        return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
     }
     public static String getShortVibration(Context context) {
         return sharedPreferences(context).getString(VIBRATION_DURATION_SHORT, "400");

@@ -68,6 +68,8 @@
     <string name="configurePowerButtonTriggerSummary">Enable/Disable the power button alarm trigger</string>
     <string name="PowerButtonTriggerTitle">Power Button Trigger</string>
     <string name="deactivate_power_button_trigger">Deactivated</string>
+    <string name="powerButtonTriggerStatus_key">"powerButtonTriggerStatus" </string>
+    <string name="configure_power_button_trigger_summary">"Enable/Disable the power button alarm trigger" </string>
     <string name="activate_power_button_trigger">Activated </string>
     <string name="debug_mode">Debug Mode </string>
 

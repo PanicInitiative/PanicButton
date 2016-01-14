@@ -10,17 +10,21 @@
             android:title="@string/PowerButtonTriggerTitle" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/triggerPatternSettingsTitle">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle" >
         <ListPreference
             android:defaultValue="@string/initialPressesDefault"
             android:entries="@array/initialClickArray"
             android:entryValues="@array/initialClickValues"
             android:key="@string/initialPressesKey"
-            android:summary="@string/initialPressesTitleSummary"
+            android:summary="@string/initialPressesSummary"
             android:title="@string/initialPressesTitle" />
         <ListPreference
             android:defaultValue="@string/initialTimeDefault"
             android:entries="@array/initialTimeArray"
             android:entryValues="@array/initialTimeValues"
+
             android:key="@string/initialTimeKey"
             android:summary="@string/initialTimeSummary"
             android:title="@string/initialTimeTitle" />
@@ -37,6 +41,7 @@
             android:defaultValue="@string/hapticFeedbackDefaultPattern"
             android:entries="@array/hapticFeedbackPatternArray"
             android:entryValues="@array/hapticFeedbackPatternValues"
+
             android:key="@string/hapticFeedbackVibrationPatternKey"
             android:summary="@string/hapticFeedbackVibrationPatternSummary"
             android:title="@string/hapticFeedbackVibrationPatternTitle" />
@@ -55,6 +60,7 @@
             android:summary="@string/alertNotConfirmedSummary"
             android:title="@string/alertNotConfirmedTitle" />
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/redoTrainingTitle">
         <Preference
             android:key="@string/redoTrainingKey"
