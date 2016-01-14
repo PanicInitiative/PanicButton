@@ -1,18 +1,14 @@
 package org.iilab.pb.trigger;
 
-import org.iilab.pb.trigger.MultiClickEvent;
 import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.robolectric.RuntimeEnvironment;
 
 public class MultiClickEventTest {
     private MultiClickEvent multiClickEvent;
 
     @Before
     public void setUp() {
-        multiClickEvent = new MultiClickEvent();
+        multiClickEvent = new MultiClickEvent(RuntimeEnvironment.application );
     }
 /*
     @Test

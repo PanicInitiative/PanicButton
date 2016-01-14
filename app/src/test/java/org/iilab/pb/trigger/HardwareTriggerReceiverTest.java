@@ -55,7 +55,7 @@ public class HardwareTriggerReceiverTest {
     public void setUp() throws IllegalAccessException {
 
         context = RuntimeEnvironment.application;
-        spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver());
+        spyHardwareTriggerReceiver = spy(new HardwareTriggerReceiver(RuntimeEnvironment.application));
         initMocks(this);
         when(spyHardwareTriggerReceiver.getPanicAlert(context)).thenReturn(mockPanicAlert);
 
