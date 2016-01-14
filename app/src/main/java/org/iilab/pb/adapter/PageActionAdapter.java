@@ -3,6 +3,7 @@ package org.iilab.pb.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.model.PageAction;
+import org.iilab.pb.trigger.HardwareTriggerService;
 
 import java.util.List;
 
@@ -90,11 +93,26 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     mContext.startActivity(i);
                     ((MainActivity) mContext).callFinishActivityReceiver();
 //                    ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
-                } else {
+                }
+                else if (pageId.equals(PAGE_CLOSE_TRAINING)){
+                    Log.d(TAG,"inside close training ");
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    i.putExtra(PAGE_ID, PAGE_ADVANCED_SETTINGS);
+                    mContext.startActivity(i);
+                    int wizardState = ApplicationSettings.getWizardState(mContext.getApplicationContext());
+                    Log.e(TAG, "wizardState = " + wizardState);
+                    if (wizardState == WIZARD_FLAG_HOME_READY && ApplicationSettings.isHardwareTriggerServiceEnabled(mContext)) {
+                        //after the redo training excercise is done, we need to restrat the hardware trigger service.
+                        mContext.startService(new Intent(mContext, HardwareTriggerService.class));
+                    }
+                    ((WizardActivity) mContext).callFinishActivityReceiver();
+                }
+                else {
 
                     Intent i = new Intent(mContext, WizardActivity.class);
                     if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
                         i = new Intent(mContext, WizardActivity.class);
+
                     } else {
 //                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
 //                    	new PanicAlert(mContext).deActivate();

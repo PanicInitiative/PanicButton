@@ -72,6 +72,11 @@ public class AppConstants {
     public static final String PAGE_HOME_NOT_CONFIGURED_DISGUISE = "home-not-configured-disguise";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS = "setup-alarm-test-hardware-success";
     public static final String PAGE_SETUP_ALARM_TEST_DISGUISE_SUCCESS = "setup-alarm-test-disguise-success";
+    public static final String PAGE_SETUP_ALARM_RETRAINING = "setup-alarm-reTraining";
+    public static final String PAGE_CLOSE_TRAINING = "close-training";
+    public static final String PAGE_SETUP_ALARM_TEST_HARDWARE = "setup-alarm-test-hardware";
+    public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_RETRAINING = "setup-alarm-test-hardware-reTraining";
+    public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING = "setup-alarm-test-hardware-success-reTraining";
 
     public static final String PAGE_STATUS_CHECKED = "checked";
 
@@ -104,6 +109,7 @@ public class AppConstants {
     public static final String PAGE_COMPONENT_DISGUISE_TEST_OPEN = "disguise-test-open";
     public static final String PAGE_COMPONENT_DISGUISE_TEST_UNLOCK = "disguise-test-unlock";
     public static final String PAGE_COMPONENT_DISGUISE_TEST_CODE = "disguise-test-code";
+    public static final String PAGE_ADVANCED_SETTINGS = "settings-advanced";
 
     public static final String DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY = "1";
     public static final String HAPTIC_FEEDBACK_PATTERN_VIBRATE_EVERY_SECOND = "2";

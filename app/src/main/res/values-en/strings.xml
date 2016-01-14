@@ -60,9 +60,11 @@
     <string name="stop_alert_message_header">Stop alert message</string>
     <string name="stop_alert_message_hint">Enter stop alert message</string>
 
-    <string name="confirm_pin">Confirm the code</string>
-    <string name="configurePowerButtonTriggerText">Configure Power Button Trigger</string>
-    <string name="PowerButtonTitle">Power Button Trigger</string>
+    <string name="confirm_pin">Confirm the pin</string>
+    <string name="configurePowerButtonTriggerTitle">Configure Power Button Trigger</string>
+    <string name="configurePowerButtonTriggerKey">powerButtonTriggerStatus</string>
+    <string name="configurePowerButtonTriggerSummary">Enable/Disable the power button alarm trigger</string>
+    <string name="PowerButtonTriggerTitle">Power Button Trigger</string>
     <string name="deactivate_power_button_trigger">Deactivated</string>
     <string name="activate_power_button_trigger">Activated </string>
     <string name="debug_mode">Debug Mode </string>
@@ -71,8 +73,43 @@
     <string name="firstClicks">Number of first clicks</string>
     <string name="timeGuard">Guard time duration</string>
     <string name="confirmationWaitVibration">Number of confirmation clicks</string>
-    <string name="defaultInitialClicks">5</string>
     <string name="defaultTimeGuard">3</string>
     <string name="defaultConfirmationClicks">1</string>
 
+    <string name="triggerPatternSettingsTitle">Trigger Pattern Settings</string>
+    <string name="initialPressesTitle">Initial Presses</string>
+    <string name="initialPressesDefault">5</string>
+    <string name="initialPressesTitleSummary">Number of presses needed to trigger the alarm</string>
+    <string name="initialPressesKey">initialClicks</string>
+
+    <string name="initialTimeTitle">Initial Times</string>
+    <string name="initialTimeDefault">6</string>
+    <string name="initialTimeSummary">Time to complete the number of initial presses. Decreasing this number might create problems with detecting multiple presses with certain devices.</string>
+    <string name="initialTimeKey">initialTime</string>
+
+    <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
+    <string name="confirmationWaitTimeDefault">2</string>
+    <string name="confirmationWaitTimeSummary">Time to wait until the confirmation press</string>
+    <string name="confirmationWaitTimeKey">confirmationWaitTime</string>
+
+    <string name="VibrationSettingsTitle">Vibration Settings</string>
+    <string name="hapticFeedbackVibrationPatternTitle">Confirmation Wait Vibration </string>
+    <string name="hapticFeedbackDefaultPattern">1 </string>
+    <string name="hapticFeedbackVibrationPatternSummary">Vibration pattern during the wait time until the confirmation press</string>
+    <string name="hapticFeedbackVibrationPatternKey">hapticFeedbackVibrationPattern</string>
+
+    <string name="alertSendingConfirmationVibrationTitle">Alarm Sending Confirmation </string>
+    <string name="alertSendingConfirmationDefault">1</string>
+    <string name="alertSendingConfirmationVibrationSummary">Vibration pattern to inform that the alarm has been activated</string>
+    <string name="alertSendingConfirmationVibrationKey">alertSendingConfirmationVibration</string>
+
+    <string name="alertNotConfirmedTitle">Alarm NOT Confirmed </string>
+    <string name="alertNotConfirmedDefault">1</string>
+    <string name="alertNotConfirmedSummary">Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm.</string>
+    <string name="alertNotConfirmedKey">alertNotConfirmed</string>
+
+    <string name="redoTrainingTitle">Redo training</string>
+    <string name="testAlarmTitle">Test Alarm </string>
+    <string name="redoTrainingSummary">Offering the user to redo the training exercise</string>
+    <string name="redoTrainingKey">redoTraining</string>
 </resources>
