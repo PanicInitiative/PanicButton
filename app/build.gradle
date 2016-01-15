@@ -4,7 +4,7 @@ apply plugin: 'io.fabric'
 
     android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "org.iilab.pb"
