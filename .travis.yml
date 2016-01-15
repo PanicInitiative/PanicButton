@@ -24,6 +24,13 @@ android:
     - 'android-sdk-preview-license-52d11cd2'
     - 'android-sdk-license-.+'
 
+
+licenses:
+    # only approve the Android software licenses, they match sources
+    # the Google licenses mean proprietary software with binary blobs
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    
 sudo: false
 notifications:
   email: false
@@ -34,12 +41,14 @@ script:
   - ./gradlew clean build
   - gradle clean build
   # start the emulator after the build to conserve memory
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+
+  #- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  # - emulator -avd test -no-skin -no-audio -no-window &
+  #- android-wait-for-emulator
+  #- adb shell input keyevent 82 &
   # now run the tests that require a device/emulator
-  - gradle connectedCheck
+  #- gradle connectedCheck
+
 
 after_failure:
   - find * -name lint-results.xml | xargs cat

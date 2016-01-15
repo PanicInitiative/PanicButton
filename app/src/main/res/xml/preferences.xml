@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/configurePowerButtonTriggerText">
+    <PreferenceCategory android:title="@string/configurePowerButtonTriggerTitle">
         <ListPreference
             android:defaultValue="@string/activate_power_button_trigger"
             android:entries="@array/configurePowerTriggerDisableArray"
             android:entryValues="@array/configurePowerTriggerDisableValues"
-            android:key="@string/powerButtonTriggerStatus_key"
-            android:summary="@string/configure_power_button_trigger_summary"
-            android:title="@string/PowerButtonTitle" />
+            android:key="@string/configurePowerButtonTriggerKey"
+            android:summary="@string/configurePowerButtonTriggerSummary"
+            android:title="@string/PowerButtonTriggerTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/changeTriggerPattern_header">
+    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle" >
         <ListPreference
-            android:defaultValue="5"
+            android:defaultValue="@string/initialPressesDefault"
             android:entries="@array/initialClickArray"
             android:entryValues="@array/initialClickValues"
-            android:key="@string/initialClicks_key"
-            android:summary="@string/initialClicks_summary"
-            android:title="@string/initialClicks_title" />
+            android:key="@string/initialPressesKey"
+            android:summary="@string/initialPressesSummary"
+            android:title="@string/initialPressesTitle" />
         <ListPreference
-            android:defaultValue="6"
+            android:defaultValue="@string/initialTimeDefault"
             android:entries="@array/initialTimeArray"
             android:entryValues="@array/initialTimeValues"
-            android:key="@string/initialTime_key"
-            android:summary="@string/initialTime_summary"
-            android:title="@string/initialTime_title" />
+
+            android:key="@string/initialTimeKey"
+            android:summary="@string/initialTimeSummary"
+            android:title="@string/initialTimeTitle" />
         <ListPreference
-            android:defaultValue="2"
+            android:defaultValue="@string/confirmationWaitTimeDefault"
             android:entries="@array/confirmationWaitArray"
             android:entryValues="@array/confirmationWaitValues"
-            android:key="@string/confirmationWaitTime_key"
-            android:summary="@string/confirmationWaitTime_summary"
-            android:title="@string/confirmationWaitTime_title" />
+            android:key="@string/confirmationWaitTimeKey"
+            android:summary="@string/confirmationWaitTimeSummary"
+            android:title="@string/confirmationWaitTimeTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Vibration Settings ">
+    <PreferenceCategory android:title="@string/VibrationSettingsTitle">
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="@string/hapticFeedbackDefaultPattern"
             android:entries="@array/hapticFeedbackPatternArray"
             android:entryValues="@array/hapticFeedbackPatternValues"
-            android:key="@string/hapticFeedbackVibrationPattern_key"
-            android:summary="@string/hapticFeedbackVibrationPattern_summary"
-            android:title="@string/hapticFeedbackVibrationPattern_title" />
+
+            android:key="@string/hapticFeedbackVibrationPatternKey"
+            android:summary="@string/hapticFeedbackVibrationPatternSummary"
+            android:title="@string/hapticFeedbackVibrationPatternTitle" />
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="@string/alertSendingConfirmationDefault"
             android:entries="@array/alertSendingConfirmationArray"
             android:entryValues="@array/alertSendingConfirmationValues"
-            android:key="@string/alertSendingConfirmationVibration_key"
-            android:summary="@string/alertSendingConfirmationVibration_summary"
-            android:title="@string/alertSendingConfirmationVibration_title" />
+            android:key="@string/alertSendingConfirmationVibrationKey"
+            android:summary="@string/alertSendingConfirmationVibrationSummary"
+            android:title="@string/alertSendingConfirmationVibrationTitle" />
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="alertNotConfirmedDefault"
             android:entries="@array/alertNotConfirmedArray"
             android:entryValues="@array/alertNotConfirmedValues"
-            android:key="@string/alertNotConfirmed_key"
-            android:summary="@string/alertNotConfirmed_summary"
-            android:title="@string/alertNotConfirmed_title" />
+            android:key="@string/alertNotConfirmedKey"
+            android:summary="@string/alertNotConfirmedSummary"
+            android:title="@string/alertNotConfirmedTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/redoTraining_header">
+
+    <PreferenceCategory android:title="@string/redoTrainingTitle">
         <Preference
-            android:key="@string/redoTraining_key"
-            android:summary="@string/redoTraining_summary"
-            android:title="@string/redoTraining_title" />
+            android:key="@string/redoTrainingKey"
+            android:summary="@string/redoTrainingSummary"
+            android:title="@string/testAlarmTitle" />
     </PreferenceCategory>
  <!--TODO Below part needs to be removed-->
     <PreferenceCategory android:title="Vibration Duration Settings ">

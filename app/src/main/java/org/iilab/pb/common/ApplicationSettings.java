@@ -227,26 +227,26 @@ public class ApplicationSettings extends Application {
 
 
     public static String getInitialClicksForAlertTrigger(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.initialClicks_key), DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
+        return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
     }
 
 
     public static String getHapticFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.hapticFeedbackVibrationPattern_key), DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
+        return sharedPreferences(context).getString(context.getString(R.string.hapticFeedbackVibrationPatternKey), DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
     }
 
     public static String getConfirmationWaitVibrationDuration(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.confirmationWaitTime_key), DEFAULT_HAPTIC_FEEDBACK_DURATION);
+        return sharedPreferences(context).getString(context.getString(R.string.confirmationWaitTimeKey), DEFAULT_HAPTIC_FEEDBACK_DURATION);
     }
     public static String getConfirmationFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibration_key), DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
+        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
     }
 
     public static String getAlarmNotConfirmedPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.alertNotConfirmed_key), DEFAULT_ALARM_NOT_CONFIRMED_NONE);
+        return sharedPreferences(context).getString(context.getString(R.string.alertNotConfirmedKey), DEFAULT_ALARM_NOT_CONFIRMED_NONE);
     }
     public static String getInitialClicksMaxTimeLimit(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.initialTime_key), DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
+        return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
     }
     public static String getShortVibration(Context context) {
         return sharedPreferences(context).getString(VIBRATION_DURATION_SHORT, "400");

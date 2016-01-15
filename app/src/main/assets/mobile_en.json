@@ -740,7 +740,7 @@
                         "link": "setup-alarm-test-hardware-reTraining"
                     }
                 ],
-                "content": "<p>Now learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alert from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
+                "content": "<p>Test and learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alert from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
             },
             {
                 "id": "setup-alarm-test-hardware-reTraining",
@@ -839,7 +839,7 @@
                 "action": [
                     {
                         "title": "Finish",
-                        "link": "closee"
+                        "link": "close-training"
                     }
                 ],
                 "content": "<p>Congratulations the new vibration patterns are  tested !</p>"

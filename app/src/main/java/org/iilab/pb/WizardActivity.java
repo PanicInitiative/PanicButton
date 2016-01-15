@@ -51,6 +51,10 @@ import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_DISGUISE;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_RETRAINING;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_SIMPLE;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_WARNING;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
@@ -222,7 +226,7 @@ public class WizardActivity extends BaseFragmentActivity {
 
         In short, we block this page - setup-alarm-test-hardware for pause-resume action
          */
-        if (!pageId.equals("setup-alarm-test-hardware")) {
+        if (!(pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE)|| pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE_RETRAINING))) {
             Log.d(TAG, "assert flagRiseFromPause = " + true);
             flagRiseFromPause = true;
         }
@@ -297,7 +301,7 @@ public class WizardActivity extends BaseFragmentActivity {
         Side Effect - if we are in this page - setup-alarm-test-hardware-success & go to home & come back, still this page will be there as the
         opening page of the app.
          */
-        if (flagRiseFromPause && !pageId.equals("setup-alarm-test-hardware-success")) {
+        if (flagRiseFromPause && !(pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS) || pageId.equals(PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING))){
             flagRiseFromPause = false;
 
             if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
@@ -311,7 +315,7 @@ public class WizardActivity extends BaseFragmentActivity {
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
-            i.putExtra("page_id", pageId);
+            i.putExtra(PAGE_ID, pageId);
             startActivity(i);
 
             callFinishActivityReceiver();
