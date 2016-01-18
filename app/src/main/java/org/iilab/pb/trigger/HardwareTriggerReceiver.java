@@ -38,8 +38,9 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
 
             else if(multiClickEvent.canStartVibration()){
                 Log.d(TAG, "vibration started");
-//                PanicAlert panicAlert = getPanicAlert(context);
                 AppUtil.vibrateForHapticFeedback(context);
+
+
             }
 
             else if (multiClickEvent.isActivated()) {

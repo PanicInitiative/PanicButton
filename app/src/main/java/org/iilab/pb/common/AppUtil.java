@@ -1,5 +1,6 @@
 package org.iilab.pb.common;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.iilab.pb.common.AppConstants.*;
-
+import org.iilab.pb.R;
 public class AppUtil {
     private static final String TAG = AppUtil.class.getName();
     public static HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -298,7 +299,7 @@ public class AppUtil {
         Log.d(TAG, "confirmation feedback pattern 1-Long, 2-Repeated short, 3-Three short pause three short, 4-SOS, 5-None " + confirmationFeedbackPattern);
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-        if (DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG.equals(confirmationFeedbackPattern)) {
+        if (ALARM_SENDING_CONFIRMATION_PATTERN_LONG.equals(confirmationFeedbackPattern)) {
             vibrateContinusly(vibrator, ALERT_CONFIRMATION_VIBRATION_DURATION);
         } else if (ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT.equals(confirmationFeedbackPattern)) {
             repeatedThreeShortVibrations(vibrator);
@@ -363,7 +364,7 @@ public class AppUtil {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         Log.d(TAG, "haptic feedback pattern 1-continues, 2-vibrate every second : " + ApplicationSettings.getHapticFeedbackVibrationPattern(context));
         //Code to fetch the Haptic feedback pattern
-        if (DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY.equals(ApplicationSettings.getHapticFeedbackVibrationPattern(context))) {
+        if (context.getString(R.string.hapticFeedbackDefaultPattern).equals(ApplicationSettings.getHapticFeedbackVibrationPattern(context))) {
             vibrateContinusly(vibrator, (ONE_SECOND * Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context))));
         } else {
             vibrateEverySecond(vibrator, Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context)));

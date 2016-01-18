@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -13,12 +12,7 @@ import org.iilab.pb.R;
 
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
-import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_NOT_CONFIRMED_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
-import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY;
-import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER;
-import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER;
-import static org.iilab.pb.common.AppConstants.DEFAULT_NO_CONFIRMATION_CLICK_MODE;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 
 
@@ -214,12 +208,12 @@ public class ApplicationSettings extends Application {
 
 
     public static String getInitialClicksForAlertTrigger(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER);
+        return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), context.getString(R.string.initialPressesDefault));
     }
 
 
     public static String getHapticFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.hapticFeedbackVibrationPatternKey), DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY);
+        return sharedPreferences(context).getString(context.getString(R.string.hapticFeedbackVibrationPatternKey), context.getString(R.string.hapticFeedbackDefaultPattern));
     }
 
     public static String getConfirmationWaitVibrationDuration(Context context) {
@@ -235,20 +229,10 @@ public class ApplicationSettings extends Application {
     }
 
     public static String getAlarmNotConfirmedPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.alertNotConfirmedKey), DEFAULT_ALARM_NOT_CONFIRMED_NONE);
+        return sharedPreferences(context).getString(context.getString(R.string.alertNotConfirmedKey), context.getString(R.string.alertNotConfirmedDefault));
     }
     public static String getInitialClicksMaxTimeLimit(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
-    }
-
-    public static void setAlarmConfirmationMode(Context context, String alarmConfirmationMode) {
-        saveString(context, ALARM_CONFIRMATION_MODE, alarmConfirmationMode);
-    }
-
-    public static boolean isConfirmationClickRequired(Context context) {
-        String alarmConfirmationMode = sharedPreferences(context).getString(ALARM_CONFIRMATION_MODE, DEFAULT_NO_CONFIRMATION_CLICK_MODE);
-        Log.d("Nixxx",alarmConfirmationMode);
-        return (DEFAULT_NO_CONFIRMATION_CLICK_MODE.equals(alarmConfirmationMode) ? false : true);
+        return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), context.getString(R.string.initialTimeDefault));
     }
 
     public static String getShortVibration(Context context) {
