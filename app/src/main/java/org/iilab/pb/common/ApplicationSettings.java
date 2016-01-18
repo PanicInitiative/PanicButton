@@ -5,17 +5,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import org.iilab.pb.R;
+
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_NOT_CONFIRMED_NONE;
-import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY;
 import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER;
 import static org.iilab.pb.common.AppConstants.DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER;
+import static org.iilab.pb.common.AppConstants.DEFAULT_NO_CONFIRMATION_CLICK_MODE;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 
 
@@ -39,6 +42,7 @@ public class ApplicationSettings extends Application {
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
+    public static final String ALARM_CONFIRMATION_MODE= "ALARM_CONFIRMATION_MODE";
 
 
 //TODO for testing vibrations--remove during release
@@ -60,15 +64,6 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getBoolean(FIRST_RUN, true);
     }
 
-
-//    public static void setRestartedSetup(Context context, boolean isRestartedSetup) {
-//        saveBoolean(context, RESTARTED_SETUP, isRestartedSetup);
-//    }
-//
-//    public static boolean isRestartedSetup(Context context) {
-//        return sharedPreferences(context).getBoolean(RESTARTED_SETUP, false);
-//    }
-
     public static void setLocalDataInsertion(Context context, boolean flag) {
         saveBoolean(context, HARDCODE_INSERT, flag);
     }
@@ -76,14 +71,6 @@ public class ApplicationSettings extends Application {
     public static boolean getLocalDataInsertion(Context context) {
         return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
     }
-
-//    public static long getLastRunTimeInMillis(Context context) {
-//        return sharedPreferences(context).getLong(LAST_RUN, -1);
-//    }
-//
-//    public static void setLastRunTimeInMillis(Context context, Long time) {
-//        saveLong(context, LAST_RUN, time);
-//    }
 
     public static void savePassword(Context context, String password) {
         saveString(context, PASS_CODE, password);
@@ -238,8 +225,13 @@ public class ApplicationSettings extends Application {
     public static String getConfirmationWaitVibrationDuration(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.confirmationWaitTimeKey), DEFAULT_HAPTIC_FEEDBACK_DURATION);
     }
+
+//    public static void setConfirmationFeedbackVibrationPattern(Context context) {
+//        ALARM_SENDING_CONFIRMATION_PATTERN_NONE
+//        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
+//    }
     public static String getConfirmationFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
+        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
     }
 
     public static String getAlarmNotConfirmedPattern(Context context) {
@@ -248,6 +240,17 @@ public class ApplicationSettings extends Application {
     public static String getInitialClicksMaxTimeLimit(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER);
     }
+
+    public static void setAlarmConfirmationMode(Context context, String alarmConfirmationMode) {
+        saveString(context, ALARM_CONFIRMATION_MODE, alarmConfirmationMode);
+    }
+
+    public static boolean isConfirmationClickRequired(Context context) {
+        String alarmConfirmationMode = sharedPreferences(context).getString(ALARM_CONFIRMATION_MODE, DEFAULT_NO_CONFIRMATION_CLICK_MODE);
+        Log.d("Nixxx",alarmConfirmationMode);
+        return (DEFAULT_NO_CONFIRMATION_CLICK_MODE.equals(alarmConfirmationMode) ? false : true);
+    }
+
     public static String getShortVibration(Context context) {
         return sharedPreferences(context).getString(VIBRATION_DURATION_SHORT, "400");
     }

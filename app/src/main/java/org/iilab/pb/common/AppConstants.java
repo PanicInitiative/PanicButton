@@ -93,7 +93,7 @@ public class AppConstants {
     public static final String DELIMITER_COMMA=",";
 
 //    public static final int INITIAL_CLICKS_MAX_TIME_LIMIT = 6000;
-    public static final String DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER = "5";
+    public static final String DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER = "7";
 
     public static final String PAGE_TYPE_SIMPLE = "simple";
     public static final String PAGE_TYPE_WARNING = "warning";
@@ -113,7 +113,7 @@ public class AppConstants {
 
     public static final String DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY = "1";
     public static final String HAPTIC_FEEDBACK_PATTERN_VIBRATE_EVERY_SECOND = "2";
-    public static final String DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT = "2";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT = "3";
     //  Three short - Three long - Three short
@@ -122,6 +122,8 @@ public class AppConstants {
     public static final String DEFAULT_ALARM_NOT_CONFIRMED_NONE = "1";
     public static final String ALARM_NOT_CONFIRMED_THREE_FAST = "2";
     public static final String DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER = "6";
+    // mode 0= no confirmation click, mode 1= 1 confirmation click
+    public static final String DEFAULT_NO_CONFIRMATION_CLICK_MODE = "0";
 
     public static final int VIBRATION_DURATION_SHORT = 400;
     public static final int VIBRATION_PAUSE_SHORT = 200;
