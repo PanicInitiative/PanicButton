@@ -9,9 +9,6 @@
             android:summary="@string/configurePowerButtonTriggerSummary"
             android:title="@string/PowerButtonTriggerTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle">
-
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/triggerPatternSettingsTitle" >
         <ListPreference
             android:defaultValue="@string/initialPressesDefault"
@@ -53,7 +50,7 @@
             android:summary="@string/alertSendingConfirmationVibrationSummary"
             android:title="@string/alertSendingConfirmationVibrationTitle" />
         <ListPreference
-            android:defaultValue="alertNotConfirmedDefault"
+            android:defaultValue="@string/alertNotConfirmedDefault"
             android:entries="@array/alertNotConfirmedArray"
             android:entryValues="@array/alertNotConfirmedValues"
             android:key="@string/alertNotConfirmedKey"

@@ -32,7 +32,6 @@ public class AppConstants {
     public static final int WIZARD_FLAG_HOME_READY = 604;
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
-//    public static boolean IS_ACTION_ITEM_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
     
     public static final int FROM_WIZARD_ACTIVITY = 1;
@@ -92,8 +91,6 @@ public class AppConstants {
     public static final String PREFIX_HELP_DATA = "help_";
     public static final String DELIMITER_COMMA=",";
 
-//    public static final int INITIAL_CLICKS_MAX_TIME_LIMIT = 6000;
-    public static final String DEFAULT_INITIAL_CLICKS_ALERT_TRIGGER = "5";
 
     public static final String PAGE_TYPE_SIMPLE = "simple";
     public static final String PAGE_TYPE_WARNING = "warning";
@@ -111,17 +108,13 @@ public class AppConstants {
     public static final String PAGE_COMPONENT_DISGUISE_TEST_CODE = "disguise-test-code";
     public static final String PAGE_ADVANCED_SETTINGS = "settings-advanced";
 
-    public static final String DEFAULT_HAPTIC_FEEDBACK_PATTERN_CONTINUSLY = "1";
-    public static final String HAPTIC_FEEDBACK_PATTERN_VIBRATE_EVERY_SECOND = "2";
-    public static final String DEFAULT_ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
+    public static final String ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT = "2";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT = "3";
     //  Three short - Three long - Three short
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_SOS = "4";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_NONE = "5";
-    public static final String DEFAULT_ALARM_NOT_CONFIRMED_NONE = "1";
     public static final String ALARM_NOT_CONFIRMED_THREE_FAST = "2";
-    public static final String DEFAULT_INITIAL_TIME_FOR_ALARM_TRIGGER = "6";
 
     public static final int VIBRATION_DURATION_SHORT = 400;
     public static final int VIBRATION_PAUSE_SHORT = 200;

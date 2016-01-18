@@ -82,7 +82,7 @@
 
     <string name="triggerPatternSettingsTitle">Trigger Pattern Settings</string>
     <string name="initialPressesTitle">Initial Presses</string>
-    <string name="initialPressesDefault">5</string>
+    <string name="initialPressesDefault">7</string>
     <string name="initialPressesSummary">Number of presses needed to trigger the alarm</string>
     <string name="initialPressesKey">initialClicks</string>
 
@@ -103,7 +103,7 @@
     <string name="hapticFeedbackVibrationPatternKey">hapticFeedbackVibrationPattern</string>
 
     <string name="alertSendingConfirmationVibrationTitle">Alarm Sending Confirmation </string>
-    <string name="alertSendingConfirmationDefault">1</string>
+    <string name="alertSendingConfirmationDefault">5</string>
     <string name="alertSendingConfirmationVibrationSummary">Vibration pattern to inform that the alarm has been activated</string>
     <string name="alertSendingConfirmationVibrationKey">alertSendingConfirmationVibration</string>
 
