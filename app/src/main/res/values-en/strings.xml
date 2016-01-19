@@ -62,6 +62,7 @@
 
     <string name="confirm_pin">Confirm the pin</string>
     <string name="configurePowerButtonTriggerTitle">Configure Power Button Trigger</string>
+    <string name="configurePowerButtonPrefCatKey">powerTrigger</string>
     <string name="configurePowerButtonTriggerKey">powerButtonTriggerStatus</string>
     <string name="configurePowerButtonTriggerSummary">Enable/Disable the power button alarm trigger</string>
     <string name="PowerButtonTriggerTitle">Power Button Trigger</string>
@@ -80,6 +81,7 @@
     <string name="defaultConfirmationClicks">1</string>
 
     <string name="triggerPatternSettingsTitle">Trigger Pattern Settings</string>
+    <string name="triggerPatternSettingsKey">triggerPatternSettings</string>
     <string name="initialPressesTitle">Initial Presses</string>
     <string name="initialPressesDefault">7</string>
     <string name="initialPressesSummary">Number of presses needed to trigger the alarm</string>
@@ -96,6 +98,7 @@
     <string name="confirmationWaitTimeKey">confirmationWaitTime</string>
 
     <string name="VibrationSettingsTitle">Vibration Settings</string>
+    <string name="VibrationSettingsKey">vibrationSettings</string>
     <string name="hapticFeedbackVibrationPatternTitle">Confirmation Wait Vibration </string>
     <string name="hapticFeedbackDefaultPattern">1 </string>
     <string name="hapticFeedbackVibrationPatternSummary">Vibration pattern during the wait time until the confirmation press</string>
@@ -112,8 +115,23 @@
     <string name="alertNotConfirmedKey">alertNotConfirmed</string>
 
     <string name="redoTrainingTitle">Redo training</string>
+    <string name="redoTrainingPrefCatKey">redoTrainingKey</string>
     <string name="testAlarmTitle">Test Alarm </string>
     <string name="redoTrainingSummary">Offering the user to redo the training exercise</string>
     <string name="redoTrainingKey">redoTraining</string>
+
+    <string name="triggerSettingsHeaderTitle">Alarm Trigger Settings</string>
+    <string name="triggerSettingsTitle">Trigger Settings</string>
+    <string name="triggerSettingsSummary">Alarm Trigger Settings</string>
+    <string name="triggerSettingsKey">triggerSettings</string>
+
+    <string name="default7RepeatedPress">(Default) 7 repeated presses</string>
+    <string name="extraConfirmationPress">Extra confirmation press </string>
+    <string name="custom_mode">Custom</string>
+    <string name="default7RepeatedPressValue">1</string>
+    <string name="extraConfirmationPressValue">2</string>
+    <string name="custom_modeValue">3</string>
+
+
 
 </resources>

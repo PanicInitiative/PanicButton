@@ -220,10 +220,9 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getString(context.getString(R.string.confirmationWaitTimeKey), DEFAULT_HAPTIC_FEEDBACK_DURATION);
     }
 
-//    public static void setConfirmationFeedbackVibrationPattern(Context context) {
-//        ALARM_SENDING_CONFIRMATION_PATTERN_NONE
-//        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
-//    }
+    public static void setConfirmationFeedbackVibrationPattern(Context context, String confirmationFeedbackPattern) {
+        saveString(context,context.getString(R.string.alertSendingConfirmationVibrationKey),confirmationFeedbackPattern);
+    }
     public static String getConfirmationFeedbackVibrationPattern(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
     }
