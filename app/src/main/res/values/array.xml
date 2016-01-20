@@ -84,4 +84,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="TriggerSettingsOptionsArray">
+        <item>@string/default7RepeatedPress</item>
+        <item>@string/extraConfirmationPress</item>
+        <item>@string/custom_mode</item>
+    </string-array>
+
+    <string-array name="TriggerSettingsOptionsValues">
+        <item>@string/default7RepeatedPressValue</item>
+        <item>@string/extraConfirmationPressValue</item>
+        <item>@string/custom_modeValue</item>
+    </string-array>
 </resources>

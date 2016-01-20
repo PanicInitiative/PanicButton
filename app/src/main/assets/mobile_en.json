@@ -586,6 +586,7 @@
                         "title": "Help",
                         "link": "help"
                     },
+
                     {
                         "title": "Language Settings",
                         "link": "setup-language"

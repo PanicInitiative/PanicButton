@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/configurePowerButtonTriggerTitle">
-        <ListPreference
-            android:defaultValue="@string/activate_power_button_trigger"
-            android:entries="@array/configurePowerTriggerDisableArray"
-            android:entryValues="@array/configurePowerTriggerDisableValues"
-            android:key="@string/configurePowerButtonTriggerKey"
-            android:summary="@string/configurePowerButtonTriggerSummary"
-            android:title="@string/PowerButtonTriggerTitle" />
+    <PreferenceCategory android:title="@string/triggerSettingsHeaderTitle" >
+    <ListPreference
+        android:defaultValue="@string/default7RepeatedPressValue"
+        android:entries="@array/TriggerSettingsOptionsArray"
+        android:entryValues="@array/TriggerSettingsOptionsValues"
+        android:key="@string/triggerSettingsKey"
+        android:summary="@string/triggerSettingsSummary"
+        android:title="@string/triggerSettingsTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle" >
+    <PreferenceCategory android:title="@string/triggerPatternSettingsTitle"
+        android:key = "@string/triggerPatternSettingsKey">
         <ListPreference
             android:defaultValue="@string/initialPressesDefault"
             android:entries="@array/initialClickArray"
@@ -21,7 +22,6 @@
             android:defaultValue="@string/initialTimeDefault"
             android:entries="@array/initialTimeArray"
             android:entryValues="@array/initialTimeValues"
-
             android:key="@string/initialTimeKey"
             android:summary="@string/initialTimeSummary"
             android:title="@string/initialTimeTitle" />
@@ -33,12 +33,12 @@
             android:summary="@string/confirmationWaitTimeSummary"
             android:title="@string/confirmationWaitTimeTitle" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/VibrationSettingsTitle">
+    <PreferenceCategory android:title="@string/VibrationSettingsTitle"
+        android:key = "@string/VibrationSettingsKey">
         <ListPreference
             android:defaultValue="@string/hapticFeedbackDefaultPattern"
             android:entries="@array/hapticFeedbackPatternArray"
             android:entryValues="@array/hapticFeedbackPatternValues"
-
             android:key="@string/hapticFeedbackVibrationPatternKey"
             android:summary="@string/hapticFeedbackVibrationPatternSummary"
             android:title="@string/hapticFeedbackVibrationPatternTitle" />
@@ -58,14 +58,26 @@
             android:title="@string/alertNotConfirmedTitle" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/redoTrainingTitle">
+    <PreferenceCategory android:title="@string/redoTrainingTitle"
+        android:key = "@string/redoTrainingPrefCatKey">
         <Preference
             android:key="@string/redoTrainingKey"
             android:summary="@string/redoTrainingSummary"
             android:title="@string/testAlarmTitle" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/configurePowerButtonTriggerTitle"
+        android:key = "@string/configurePowerButtonPrefCatKey">
+        <ListPreference
+            android:defaultValue="@string/activate_power_button_trigger"
+            android:entries="@array/configurePowerTriggerDisableArray"
+            android:entryValues="@array/configurePowerTriggerDisableValues"
+            android:key="@string/configurePowerButtonTriggerKey"
+            android:summary="@string/configurePowerButtonTriggerSummary"
+            android:title="@string/PowerButtonTriggerTitle" />
+    </PreferenceCategory>
  <!--TODO Below part needs to be removed-->
-    <PreferenceCategory android:title="Vibration Duration Settings ">
+    <PreferenceCategory android:title="Vibration Duration Settings "
+        android:key = "vibrationDurationKey">
         <EditTextPreference
             android:defaultValue="400"
             android:key="shortVibration"
