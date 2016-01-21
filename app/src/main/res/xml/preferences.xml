@@ -75,28 +75,5 @@
             android:summary="@string/configurePowerButtonTriggerSummary"
             android:title="@string/PowerButtonTriggerTitle" />
     </PreferenceCategory>
- <!--TODO Below part needs to be removed-->
-    <PreferenceCategory android:title="Vibration Duration Settings "
-        android:key = "vibrationDurationKey">
-        <EditTextPreference
-            android:defaultValue="400"
-            android:key="shortVibration"
-            android:summary="Enter the short vibration duration in ms, default is 400"
-            android:title="Short Vibration"></EditTextPreference>
-        <EditTextPreference
-            android:defaultValue="200"
-            android:key="shortPause"
-            android:summary="Enter the short pause duration between short vibrations in ms,default is 200"
-            android:title="Short Pause"></EditTextPreference>
-        <EditTextPreference
-            android:defaultValue="600"
-            android:key="LongVibration"
-            android:summary="Enter the long vibration duration in ms,default is 600"
-            android:title="Long Vibration"></EditTextPreference>
-        <EditTextPreference
-            android:defaultValue="400"
-            android:key="longPause"
-            android:summary="Enter the long pause duration between long vibrations in ms, default is 400"
-            android:title="Long Pause"></EditTextPreference>
-    </PreferenceCategory>
+
 </PreferenceScreen>

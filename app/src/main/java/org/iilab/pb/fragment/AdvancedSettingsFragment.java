@@ -101,12 +101,10 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         PreferenceCategory prefCatTriggerVibrationSettings = (PreferenceCategory) findPreference(getString(R.string.VibrationSettingsKey));
         PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
         PreferenceCategory prefCatPowerButtonTriggerSettings = (PreferenceCategory) findPreference(getString(R.string.configurePowerButtonPrefCatKey));
-        PreferenceCategory prefCatvibrationDurationSettings = (PreferenceCategory) findPreference("vibrationDurationKey");
         prefCatTriggerPatternSettings.setEnabled(flag);
         prefCatTriggerVibrationSettings.setEnabled(flag);
         prefCatRedoTraining.setEnabled(flag);
         prefCatPowerButtonTriggerSettings.setEnabled(flag);
-        prefCatvibrationDurationSettings.setEnabled(flag);
     }
     private void enableRedoTraining(boolean flag){
         PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));

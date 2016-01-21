@@ -36,14 +36,6 @@ public class ApplicationSettings extends Application {
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
-    public static final String ALARM_CONFIRMATION_MODE= "ALARM_CONFIRMATION_MODE";
-
-
-//TODO for testing vibrations--remove during release
-    public static final String VIBRATION_DURATION_SHORT = "shortVibration";
-    public static final String VIBRATION_PAUSE_SHORT = "shortPause";
-    public static final String VIBRATION_DURATION_LONG = "LongVibration";
-    public static final String VIBRATION_PAUSE_LONG = "longPause";
 
     public static Context getAppContext() {
         return getAppContext();
@@ -234,16 +226,4 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), context.getString(R.string.initialTimeDefault));
     }
 
-    public static String getShortVibration(Context context) {
-        return sharedPreferences(context).getString(VIBRATION_DURATION_SHORT, "400");
-    }
-    public static String getShortPause(Context context) {
-        return sharedPreferences(context).getString(VIBRATION_PAUSE_SHORT, "200");
-    }
-    public static String getLongVibration(Context context) {
-        return sharedPreferences(context).getString(VIBRATION_DURATION_LONG, "600");
-    }
-    public static String getLongPause(Context context) {
-        return sharedPreferences(context).getString(VIBRATION_PAUSE_LONG, "400");
-    }
 }
