@@ -40,12 +40,6 @@ public class PanicAlert {
         alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-         VIBRATION_DURATION_SHORT = Integer.parseInt(ApplicationSettings.getShortVibration(context));
-        VIBRATION_PAUSE_SHORT = Integer.parseInt(ApplicationSettings.getShortPause(context));
-        VIBRATION_DURATION_LONG = Integer.parseInt(ApplicationSettings.getLongVibration(context));
-         VIBRATION_PAUSE_LONG = Integer.parseInt(ApplicationSettings.getLongPause(context));
-
-        Log.d("TAG", "VIBRATION_DURATION_SHORT " + VIBRATION_DURATION_SHORT + " VIBRATION_PAUSE_SHORT " + VIBRATION_PAUSE_SHORT + " VIBRATION_DURATION_LONG " + VIBRATION_DURATION_LONG + " VIBRATION_PAUSE_LONG " + VIBRATION_PAUSE_LONG);
     }
 
     public void activate() {
