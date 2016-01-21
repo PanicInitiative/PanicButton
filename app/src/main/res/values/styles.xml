@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <!-- for action bar expandable menu items font -->
+        <!--android:theme="@android:style/Theme.Light.NoTitleBar"-->
+        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
+        <!--<item name="android:background">@color/deep_Purplr</item>-->
+
+        <!--<item name="android:background">@drawable/aa</item>-->
+    </style>
+    <style name="alert_strip_display">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@color/standby_color</item>
+    </style>
+
+    <style name="calculator_display">
+        <item name="android:textSize">80sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <style name="calculator_btn_container">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="calculator_btn">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="custom_action_bar">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#eeeeee</item>
+    </style>
+
+    <style name="custom_action_bar_sep">
+        <item name="android:background">#767272</item>
+    </style>
+
+    <style name="back_button">
+        <item name="android:drawableLeft">@drawable/back</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingBottom">20dp</item>
+    </style>
+
+    <style name="save_button">
+        <item name="android:layout_weight">0</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+    <style name="page_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="message_box">
+        <item name="android:gravity">top|left</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="wizard_intro_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:text">@string/page_title_text</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="wizard_warning_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="wizard_content_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="wizard_static_panel">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:paddingTop">10dp</item>
+    </style>
+
+
+    <style name="wizard_page_title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+
+    <style name="wizard_text">
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:textColor">@android:color/secondary_text_light</item>
+    </style>
+
+
+    <style name="wizard_title_sep">
+        <item name="android:background">#666666</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="wizard_panic_button">
+        <item name="android:background">#ff0072bc</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_marginTop">80dp</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:textSize">60sp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="contact_number">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="contact_select_button">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="activate_disguise_button">
+        <item name="android:padding">15dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="i_am_at_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_gravity">left|center_vertical</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+</resources>

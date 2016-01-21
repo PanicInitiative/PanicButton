@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="configurePowerTriggerDisableArray">
+        <item>@string/activate_power_button_trigger</item>
+        <item>@string/deactivate_power_button_trigger</item>
+    </string-array>
+
+    <string-array name="configurePowerTriggerDisableValues">
+        <item>@string/activate_power_button_trigger</item>`
+        <item>@string/deactivate_power_button_trigger</item>
+    </string-array>
+    <string-array name="initialClickArray">
+        <item>4 Presses</item>
+        <item>5 Presses</item>
+        <item>6 Presses</item>
+        <item>7 Presses</item>
+    </string-array>
+
+    <string-array name="initialClickValues">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="initialTimeArray">
+        <item>4 sec</item>
+        <item>5 sec</item>
+        <item>6 sec</item>
+        <item>7 sec</item>
+        <item>8 sec</item>
+    </string-array>
+
+    <string-array name="initialTimeValues">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="confirmationWaitArray">
+        <item>1 sec</item>
+        <item>2 sec</item>
+        <item>3 sec</item>
+        <item>4 sec</item>
+    </string-array>
+
+    <string-array name="confirmationWaitValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="hapticFeedbackPatternArray">
+        <item>Vibrate Continuously</item>
+        <item>Vibrate Every Second</item>
+    </string-array>
+
+    <string-array name="hapticFeedbackPatternValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="alertSendingConfirmationArray">
+        <item>Long Vibration</item>
+        <item>Repeated Short Vibrations</item>
+        <item>Three short - pause - Three short</item>
+        <item>SOS: Three short - Three long - Three short</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="alertSendingConfirmationValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="alertNotConfirmedArray">
+        <item>None</item>
+        <item>Three Fast Short</item>
+    </string-array>
+
+    <string-array name="alertNotConfirmedValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="TriggerSettingsOptionsArray">
+        <item>@string/default7RepeatedPress</item>
+        <item>@string/extraConfirmationPress</item>
+        <item>@string/custom_mode</item>
+    </string-array>
+
+    <string-array name="TriggerSettingsOptionsValues">
+        <item>@string/default7RepeatedPressValue</item>
+        <item>@string/extraConfirmationPressValue</item>
+        <item>@string/custom_modeValue</item>
+    </string-array>
+</resources>

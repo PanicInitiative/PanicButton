@@ -1,0 +1,54 @@
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'witness'
+
+    android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "org.iilab.pb"
+        minSdkVersion 10
+        targetSdkVersion 23
+    }
+        lintOptions {
+            abortOnError false
+        }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.android.support:support-v4:23.1.+'
+    compile 'com.android.support:preference-v7:23.1.0'
+    testCompile "org.robolectric:robolectric:3.0"
+    testCompile "org.robolectric:shadows-support-v4:3.0"
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+        transitive = true;
+    }
+}
+
+// generate using: `gradle -q calculateChecksums | sort -V`
+dependencyVerification {
+    verify = [
+            'com.google.code.gson:gson:9466512cd8cf0bd66a8a3661685373f7b3deafded11096e044926ff5c82c7a4c',
+            'com.android.support:support-v4:5c7dceb6c824089fe80f502e5206264048ef8bffa4e8ddeab180b81723e79b7f',
+            'com.android.support:preference-v7:f6d15f2bf404321f6e820eaf2086b67aaa849afdda5c9a69ec7a282b3d76fdb8',
+            'com.crashlytics.sdk.android:crashlytics:5bbf76250f6349baf173e082b4f7d14e777aa5a7510f9bea267b445bc439247d',
+            'com.android.support:support-annotations:f347a35b9748a4103b39a6714a77e2100f488d623fd6268e259c177b200e9d82',
+            'com.android.support:appcompat-v7:b5783b390d1440769c9b8a7b42290523a4ff058ef2d3fb90c983973934ca115b',
+            'com.android.support:recyclerview-v7:464ec6e5004400a4fe0310f35343da9e5a2912386a3606db3585f7cf987c444a',
+            'com.crashlytics.sdk.android:answers:5af101ef6b58a26dd32cfc13f53c63c33fb2fdcdf6990241eca22e7a8c842847',
+            'io.fabric.sdk.android:fabric:15465f60ee6a2bb53dcf84e8dd939ce92dffbffc73bfdd3432b63fa6ee2f7bae',
+            'com.crashlytics.sdk.android:crashlytics-core:2f35df62420723d4a8e58f58a376fb640d11e1660656a9aa2959bb041b5b1d15',
+            'com.crashlytics.sdk.android:beta:6d7dce749fd70fa20adcf089aaed5d52f9e8e2a08f6666336e90a7555cee9718',
+    ]
+}

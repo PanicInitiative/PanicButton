@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_setup">Panic Button</string>
+    <string name="app_name">Calculate!</string>
+
+    <string name="characters_left">Characters:&#160;</string>
+    <string name="save_text">Save</string>
+
+    <string name="enter_message_hint">Enter Message</string>
+
+    <string name="i_am_at">I\'m at</string>
+    <string name="i_am_at_url">I\'m at https://maps.google.com/GPS-location</string>
+    <string name="location_not_found">Trying to identify location</string>
+    <string name="stop_alert_message">The alert has been stopped</string>
+    <string name="panic_button">Panic\nButton</string>
+    <string name="page_title_text">Title</string>
+
+    <string name="page_status_text">Status</string>
+    <string name="page_modal_button1_text">Button1</string>
+    <string name="page_modal_button2_text">Button2</string>
+
+    <string name="page_button_action_text">Action</string>
+    <string name="contact_hint_text">enter contact number</string>
+    <string name="default_emergency_message">Help me, I\'m in danger</string>
+    <string name="emergency_message_header">Emergency message</string>
+    <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
+    <string name="alert_status_standby">Alert is in standby</string>
+    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
+    <string name="stop_alert">&#160;&#160;Stop alert</string>
+    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
+
+    <string name="incorrect_pin">Please enter the correct pin</string>
+    <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="addition">+</string>
+    <string name="subtraction">&#8722;</string>
+    <string name="multiplication">&#215;</string>
+    <string name="division">&#247;</string>
+    <string name="equal_to">=</string>
+    <string name="decimal_point">.</string>
+    <string name="char_c">C</string>
+
+    <string name="first_contact">&#160;1.&#160;</string>
+    <string name="second_contact">&#160;2.&#160;</string>
+    <string name="third_contact">&#160;3.&#160;</string>
+
+    <string name="choose_contact">Choose your emergency contact</string>
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+
+    <string name="code_ok">Ok</string>
+
+    <string name="stop_alert_message_header">Stop alert message</string>
+    <string name="stop_alert_message_hint">Enter stop alert message</string>
+
+    <string name="confirm_pin">Confirm the pin</string>
+    <string name="configurePowerButtonTriggerTitle">Configure Power Button Trigger</string>
+    <string name="configurePowerButtonPrefCatKey">powerTrigger</string>
+    <string name="configurePowerButtonTriggerKey">powerButtonTriggerStatus</string>
+    <string name="configurePowerButtonTriggerSummary">Enable/Disable the power button alarm trigger</string>
+    <string name="PowerButtonTriggerTitle">Power Button Trigger</string>
+    <string name="deactivate_power_button_trigger">Deactivated</string>
+    <string name="powerButtonTriggerStatus_key">"powerButtonTriggerStatus" </string>
+    <string name="configure_power_button_trigger_summary">"Enable/Disable the power button alarm trigger" </string>
+    <string name="activate_power_button_trigger">Activated </string>
+    <string name="debug_mode">Debug Mode </string>
+
+    <string name="changeTriggerPattern">Change Trigger Pattern</string>
+    <string name="firstClicks">Number of first clicks</string>
+    <string name="timeGuard">Guard time duration</string>
+    <string name="confirmationWaitVibration">Number of confirmation clicks</string>
+    <string name="defaultTimeGuard">3</string>
+    <string name="defaultConfirmationClicks">1</string>
+
+    <string name="triggerPatternSettingsTitle">Trigger Pattern Settings</string>
+    <string name="triggerPatternSettingsKey">triggerPatternSettings</string>
+    <string name="initialPressesTitle">Initial Presses</string>
+    <string name="initialPressesDefault">7</string>
+    <string name="initialPressesSummary">Number of presses needed to trigger the alarm</string>
+    <string name="initialPressesKey">initialClicks</string>
+
+    <string name="initialTimeTitle">Initial Times</string>
+    <string name="initialTimeDefault">6</string>
+    <string name="initialTimeSummary">Time to complete the number of initial presses. Decreasing this number might create problems with detecting multiple presses with certain devices.</string>
+    <string name="initialTimeKey">initialTime</string>
+
+    <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
+    <string name="confirmationWaitTimeDefault">2</string>
+    <string name="confirmationWaitTimeSummary">Time to wait until the confirmation press</string>
+    <string name="confirmationWaitTimeKey">confirmationWaitTime</string>
+
+    <string name="VibrationSettingsTitle">Vibration Settings</string>
+    <string name="VibrationSettingsKey">vibrationSettings</string>
+    <string name="hapticFeedbackVibrationPatternTitle">Confirmation Wait Vibration </string>
+    <string name="hapticFeedbackDefaultPattern">1 </string>
+    <string name="hapticFeedbackVibrationPatternSummary">Vibration pattern during the wait time until the confirmation press</string>
+    <string name="hapticFeedbackVibrationPatternKey">hapticFeedbackVibrationPattern</string>
+
+    <string name="alertSendingConfirmationVibrationTitle">Alarm Sending Confirmation </string>
+    <string name="alertSendingConfirmationDefault">5</string>
+    <string name="alertSendingConfirmationVibrationSummary">Vibration pattern to inform that the alarm has been activated</string>
+    <string name="alertSendingConfirmationVibrationKey">alertSendingConfirmationVibration</string>
+
+    <string name="alertNotConfirmedTitle">Alarm NOT Confirmed </string>
+    <string name="alertNotConfirmedDefault">1</string>
+    <string name="alertNotConfirmedSummary">Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm.</string>
+    <string name="alertNotConfirmedKey">alertNotConfirmed</string>
+
+    <string name="redoTrainingTitle">Redo training</string>
+    <string name="redoTrainingPrefCatKey">redoTrainingKey</string>
+    <string name="testAlarmTitle">Test Alarm </string>
+    <string name="redoTrainingSummary">Offering the user to redo the training exercise</string>
+    <string name="redoTrainingKey">redoTraining</string>
+
+    <string name="triggerSettingsHeaderTitle">Alarm Trigger Settings</string>
+    <string name="triggerSettingsTitle">Trigger Settings</string>
+    <string name="triggerSettingsSummary">Alarm Trigger Settings</string>
+    <string name="triggerSettingsKey">triggerSettings</string>
+
+    <string name="default7RepeatedPress">(Default) 7 repeated presses</string>
+    <string name="extraConfirmationPress">Extra confirmation press </string>
+    <string name="custom_mode">Custom</string>
+    <string name="default7RepeatedPressValue">1</string>
+    <string name="extraConfirmationPressValue">2</string>
+    <string name="custom_modeValue">3</string>
+</resources>
