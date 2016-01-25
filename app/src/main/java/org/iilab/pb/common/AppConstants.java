@@ -107,6 +107,7 @@ public class AppConstants {
     public static final String PAGE_COMPONENT_DISGUISE_TEST_UNLOCK = "disguise-test-unlock";
     public static final String PAGE_COMPONENT_DISGUISE_TEST_CODE = "disguise-test-code";
     public static final String PAGE_ADVANCED_SETTINGS = "settings-advanced";
+    public static final String PAGE_SETTINGS = "settings";
 
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_LONG = "1";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT = "2";

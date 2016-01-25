@@ -225,5 +225,9 @@ public class ApplicationSettings extends Application {
     public static String getInitialClicksMaxTimeLimit(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), context.getString(R.string.initialTimeDefault));
     }
+    public static String getTriggerSettings(Context context) {
+        return sharedPreferences(context).getString(context.getString(R.string.triggerSettingsKey), context.getString(R.string.initialPressesDefault));
+    }
+
 
 }
