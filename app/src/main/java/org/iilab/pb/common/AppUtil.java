@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.iilab.pb.R;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.json.JSONArray;
@@ -27,8 +27,23 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.iilab.pb.common.AppConstants.*;
-import org.iilab.pb.R;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_SOS;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT;
+import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
+import static org.iilab.pb.common.AppConstants.APP_RELEASE_VERSION_1_5;
+import static org.iilab.pb.common.AppConstants.ONE_SECOND;
+import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_LONG;
+import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_SHORT;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_LONG;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_SHORT;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_VERY_LONG;
+import static org.iilab.pb.common.ApplicationSettings.getDBLoadedLanguages;
+import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.isFirstRun;
+import static org.iilab.pb.common.ApplicationSettings.isTrainingDoneRelease1_5;
+
 public class AppUtil {
     private static final String TAG = AppUtil.class.getName();
     public static HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
@@ -108,11 +123,11 @@ public class AppUtil {
 	public static Drawable setDownloadedImageMetrices(Drawable drawable,
 			DisplayMetrics metrics, double densityRatio, int imageScaleFlag) {
 
-        Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
+        Log.d(TAG," setDownloadedImageMetrices"+ "density ratio = " + densityRatio + " and metrics =" + metrics);
 		int width, height;
 		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
 		int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * densityRatio);
-        Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
+        Log.d(TAG," setDownloadedImageMetrices"+ "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
 
         if (imageScaleFlag == AppConstants.IMAGE_FULL_WIDTH) {
             height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
@@ -127,10 +142,10 @@ public class AppUtil {
                 width = originalWidthScaled;
             }
         }
-        Log.e("AppUtil -> setDownloadedImageMetrices", "final width = " + width + " and height = " + height);
+        Log.e(TAG," setDownloadedImageMetrices"+ "final width = " + width + " and height = " + height);
 		try {
 			drawable.setBounds(0, 0, width, height);
-			Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = "+ height);
+			Log.e(TAG, "image width = " + width + " & height = "+ height);
 		} catch (Exception ex) {
 		}
 
@@ -168,16 +183,6 @@ public class AppUtil {
 		   return i;
     }
     
-    /*-----This method show Toast.-----*/
-	public static void showToast(String message, int time,Context context) {
-		Toast.makeText(context, message, time).show();
-	}
-
-
-
-
-
-
     public static void updateImages(final boolean downloadImages, final String textHtml, final Context context, final DisplayMetrics metrics, final TextView tvContent, final int imageScaleFlag) {
 
         if (textHtml == null) return;
@@ -190,7 +195,7 @@ public class AppUtil {
 //                                !AppUtil.hasInternet(context) &&
                                         downloadImages){
                             try {
-                                Log.e(">>>>>>>>>>>", "Source = " + source);
+                                Log.d(TAG, "Source = " + source);
                                 Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
 
                                 drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
@@ -198,7 +203,7 @@ public class AppUtil {
                                 updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
                                 return drawable;
                             } catch (IOException e) {
-                                Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+                                Log.e(TAG,"Failed to load image from asset");
                                 e.printStackTrace();
                             }
                             return null;
@@ -289,7 +294,7 @@ public class AppUtil {
     }
 
     public static boolean isLanguageDataExists(Context context, String lang){
-        return (ApplicationSettings.getDBLoadedLanguages(context).contains(lang));
+        return (getDBLoadedLanguages(context).contains(lang));
     }
 
 
@@ -369,7 +374,17 @@ public class AppUtil {
         } else {
             vibrateEverySecond(vibrator, Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context)));
         }
+    }
 
-
+    public static boolean playTrainingForRelease1_5(Context context) {
+        //TODO for testing purpose only
+//        setFirstRun(context,false);
+        Log.d(TAG, "is App a fresh install " + isFirstRun(context));
+        Log.d(TAG, "is 1.5 update training played once "+ isTrainingDoneRelease1_5(context));
+        Log.d(TAG, "the version no of app installed in device. 10 corresponds to 1.5 release"+ getLastUpdatedVersion(context));
+        if (getLastUpdatedVersion(context) == APP_RELEASE_VERSION_1_5 && !isTrainingDoneRelease1_5(context) && !isFirstRun(context)) {
+            return true;
+        }
+        return false;
     }
 }

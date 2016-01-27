@@ -117,6 +117,9 @@ public class AppConstants {
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_NONE = "5";
     public static final String ALARM_NOT_CONFIRMED_THREE_FAST = "2";
 
+    public static final int FRESH_INSTALL_APP_RELEASE_NO = -1;
+    public static final int APP_RELEASE_VERSION_1_5 = 10;
+
     public static final int VIBRATION_DURATION_SHORT = 400;
     public static final int VIBRATION_PAUSE_SHORT = 200;
     public static final int VIBRATION_DURATION_LONG = 600;

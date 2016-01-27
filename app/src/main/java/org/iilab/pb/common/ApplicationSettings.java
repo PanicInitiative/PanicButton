@@ -13,6 +13,7 @@ import org.iilab.pb.R;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
+import static org.iilab.pb.common.AppConstants.FRESH_INSTALL_APP_RELEASE_NO;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 
 
@@ -36,27 +37,31 @@ public class ApplicationSettings extends Application {
     public static final String IS_FIRST_MSG_SENT = "is_first_msg_sent";
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
+    public static final String APP_UPDATED = "APP_UPDATED";
+    //fla specific to 1.5 release
+    public static final String TRAINING_DONE = "TRAINING_DONE";
 
     public static Context getAppContext() {
         return getAppContext();
     }
 
-    // these 2 methods with first time run won't be needed any more. I'll get rid of it after further analysis.
+    /*following methods are used to check whether the app is fresh install or an update.Its used to play explicitly 1.5 release major changes training sequence
+    if the app is not a fresh install*/
     public static void setFirstRun(Context context, boolean isFirstRun) {
         saveBoolean(context, FIRST_RUN, isFirstRun);
     }
 
     public static boolean isFirstRun(Context context) {
-        return sharedPreferences(context).getBoolean(FIRST_RUN, true);
+        return sharedPreferences(context).getBoolean(FIRST_RUN, false);
     }
 
-    public static void setLocalDataInsertion(Context context, boolean flag) {
-        saveBoolean(context, HARDCODE_INSERT, flag);
-    }
-
-    public static boolean getLocalDataInsertion(Context context) {
-        return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
-    }
+//    public static void setLocalDataInsertion(Context context, boolean flag) {
+//        saveBoolean(context, HARDCODE_INSERT, flag);
+//    }
+//
+//    public static boolean getLocalDataInsertion(Context context) {
+//        return sharedPreferences(context).getBoolean(HARDCODE_INSERT, false);
+//    }
 
     public static void savePassword(Context context, String password) {
         saveString(context, PASS_CODE, password);
@@ -136,7 +141,7 @@ public class ApplicationSettings extends Application {
         saveString(context, SELECTED_LANGUAGE, lang);
     }
 
-    public static void setSupportedLanguages(Context context, String lang) {
+    public static void setPBSupportedLanguages(Context context, String lang) {
         saveString(context, SUPPORTED_LANGUAGES, lang);
     }
 
@@ -145,7 +150,8 @@ public class ApplicationSettings extends Application {
     }
 
     public static void addDBLoadedLanguage(Context context, String language) {
-        saveString(context, DB_LOADED_LANGUAGES, getDBLoadedLanguages(context).concat("," + language));
+        if(!getDBLoadedLanguages(context).contains(language))
+            saveString(context, DB_LOADED_LANGUAGES, getDBLoadedLanguages(context).concat("," + language));
     }
 
     public static String getDBLoadedLanguages(Context context) {
@@ -153,20 +159,20 @@ public class ApplicationSettings extends Application {
     }
 
     public static int getLastUpdatedVersion(Context context) {
-        return sharedPreferences(context).getInt(LAST_UPDATED_VERSION, -1);
+        return sharedPreferences(context).getInt(LAST_UPDATED_VERSION, FRESH_INSTALL_APP_RELEASE_NO);
     }
 
     public static void setLastUpdatedVersion(Context context, int versionNumber) {
         saveInt(context, LAST_UPDATED_VERSION, versionNumber);
     }
 
-    public static int getLastUpdatedDBVersion(Context context) {
-        return sharedPreferences(context).getInt(LAST_UPDATED_DB_VERSION, -1);
-    }
-
-    public static void setLastUpdatedDBVersion(Context context, int versionNumber) {
-        saveInt(context, LAST_UPDATED_DB_VERSION, versionNumber);
-    }
+//    public static int getLastUpdatedDBVersion(Context context) {
+//        return sharedPreferences(context).getInt(LAST_UPDATED_DB_VERSION, -1);
+//    }
+//
+//    public static void setLastUpdatedDBVersion(Context context, int versionNumber) {
+//        saveInt(context, LAST_UPDATED_DB_VERSION, versionNumber);
+//    }
 
     public static void setAlertDelay(Context context, int alertDelay) {
         saveInt(context, ALERT_DELAY, alertDelay);
@@ -228,6 +234,20 @@ public class ApplicationSettings extends Application {
     public static String getTriggerSettings(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.triggerSettingsKey), context.getString(R.string.initialPressesDefault));
     }
+    public static void setTrainingDoneRelease1_5(Context context, Boolean flag) {
+        saveBoolean(context, TRAINING_DONE, flag);
+    }
 
+    public static Boolean isTrainingDoneRelease1_5(Context context) {
+        return sharedPreferences(context).getBoolean(TRAINING_DONE, false);
+    }
+
+    public static void setAppUpdated(Context context, boolean isAppUpdated) {
+        saveBoolean(context, APP_UPDATED, isAppUpdated);
+    }
+
+    public static boolean isAppUpdated(Context context) {
+        return sharedPreferences(context).getBoolean(APP_UPDATED, false);
+    }
 
 }

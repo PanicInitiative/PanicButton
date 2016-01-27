@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
+import com.crashlytics.android.Crashlytics;
+
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageAction;
@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static org.iilab.pb.common.AppConstants.DATABASE_VERSION;
+import io.fabric.sdk.android.Fabric;
+
 import static org.iilab.pb.common.AppConstants.DEFAULT_LANGUAGE_ENG;
 import static org.iilab.pb.common.AppConstants.DELIMITER_COMMA;
+import static org.iilab.pb.common.AppConstants.FRESH_INSTALL_APP_RELEASE_NO;
 import static org.iilab.pb.common.AppConstants.JSON_ARRAY_DATA;
 import static org.iilab.pb.common.AppConstants.JSON_EXTENSION;
 import static org.iilab.pb.common.AppConstants.JSON_OBJECT_HELP;
@@ -43,8 +45,20 @@ import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+import static org.iilab.pb.common.AppUtil.insertMobileDataToLocalDB;
+import static org.iilab.pb.common.AppUtil.isLanguageDataExists;
+import static org.iilab.pb.common.AppUtil.loadJSONFromAsset;
+import static org.iilab.pb.common.ApplicationSettings.addDBLoadedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getSupportedLanguages;
+import static org.iilab.pb.common.ApplicationSettings.getWizardState;
+import static org.iilab.pb.common.ApplicationSettings.isHardwareTriggerServiceEnabled;
+import static org.iilab.pb.common.ApplicationSettings.setAppUpdated;
+import static org.iilab.pb.common.ApplicationSettings.setFirstRun;
+import static org.iilab.pb.common.ApplicationSettings.setLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.setPBSupportedLanguages;
+import static org.iilab.pb.common.ApplicationSettings.setSelectedLanguage;
 
 
 public class HomeActivity extends Activity {
@@ -54,8 +68,7 @@ public class HomeActivity extends Activity {
     String pageId;
     String selectedLang;
     int currentLocalContentVersion;
-    int lastLocalContentVersion;
-    int lastLocalDBVersion;
+    int newLocalContentVersion;
 
     private static final String TAG = HomeActivity.class.getName();
     String supportedLangs;
@@ -65,7 +78,7 @@ public class HomeActivity extends Activity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.welcome_screen);
         //deleteShortCut();
-        int wizardState = ApplicationSettings.getWizardState(this);
+        int wizardState = getWizardState(this);
         if (SKIP_WIZARD) {
             pageId = PAGE_HOME_READY;
         } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
@@ -78,40 +91,44 @@ public class HomeActivity extends Activity {
         } else if (wizardState == WIZARD_FLAG_HOME_READY) {
             pageId = PAGE_HOME_READY;
         }
-        ApplicationSettings.setSelectedLanguage(this, getDefaultOSLanguage());
-        selectedLang = ApplicationSettings.getSelectedLanguage(this);
+        setSelectedLanguage(this, getDefaultOSLanguage());
+        selectedLang = getSelectedLanguage(this);
         /*
         lastLocalDBVersion is used for local db version update. If local db version is changed, then all local data will be deleted,
         tables will be reformed & database is blank. So at that point we will force local-data update from assets, then a retrieval-try
         from the remote database even if the data was retrieved within last 24-hours period.
          */
-        lastLocalDBVersion = ApplicationSettings.getLastUpdatedDBVersion(this);
-        Log.d(TAG, "lastLocalDBVersion  " + lastLocalDBVersion);
-        if (lastLocalDBVersion < DATABASE_VERSION) {
-            Log.d(TAG, "local db version changed. needs a force update");
-            ApplicationSettings.setLocalDataInsertion(this, false);
-        }
 
-        currentLocalContentVersion = ApplicationSettings.getLastUpdatedVersion(HomeActivity.this);
+        // this is the version number from installed mobile_en.json
+        currentLocalContentVersion = getLastUpdatedVersion(HomeActivity.this);
 
         try {
-            JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset("mobile_en.json", getApplicationContext()));
+            JSONObject jsonObj = new JSONObject(loadJSONFromAsset("mobile_en.json", getApplicationContext()));
             JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
-
-            lastLocalContentVersion = Integer.parseInt(mobileObj.getString(VERSION));
+            //this is from new assets folder
+            newLocalContentVersion = Integer.parseInt(mobileObj.getString(VERSION));
         } catch (JSONException | NumberFormatException exception) {
             Log.e(TAG, "Exception in reading mobile_en.json from asset" + exception.getMessage());
             exception.printStackTrace();
         }
 
 		/* We update the device language content if the english mobile_en.json version has increased or
-        * if the language of the device OS was perviously not installed*/
+        * if the language of the device OS was previously not installed*/
 
-        if ((lastLocalContentVersion > currentLocalContentVersion) || (!AppUtil.isLanguageDataExists(getApplicationContext(), selectedLang))) {
-            Log.d(TAG, "Update local data");
+        if ((newLocalContentVersion > currentLocalContentVersion) || (!isLanguageDataExists(getApplicationContext(), selectedLang))) {
+            Log.d(TAG, "Update local data as the english mobile_en.json version has increased");
+            // to check if the app is installed first time, -1 is the default value
+            if(currentLocalContentVersion== FRESH_INSTALL_APP_RELEASE_NO){
+                setFirstRun(getApplicationContext(),true);
+                setAppUpdated(getApplicationContext(), false);
+            }else {
+                setAppUpdated(getApplicationContext(), true);
+            }
             new InitializeLocalData().execute();
-            ApplicationSettings.addDBLoadedLanguage(getApplicationContext(), selectedLang);
-        } else {
+            addDBLoadedLanguage(getApplicationContext(), selectedLang);
+
+        }
+        else {
             Log.d(TAG, "no update of local data needed");
             startNextActivity();
         }
@@ -143,30 +160,30 @@ public class HomeActivity extends Activity {
         sendBroadcast(removeIntent);
     }
 
-    private void setsupportedlanguages(Page languagesPage) {
+    private void setSupportedLanguages(Page languagesPage) {
         List<String> allowedLanguages = new ArrayList<>();
         List<PageAction> actionLanguages = languagesPage.getAction();
         for (PageAction actionLanguage : actionLanguages) {
             allowedLanguages.add(actionLanguage.getLanguage());
         }
         supportedLangs = TextUtils.join(DELIMITER_COMMA, allowedLanguages);
-        ApplicationSettings.setSupportedLanguages(this, supportedLangs);
+        setPBSupportedLanguages(this, supportedLangs);
     }
 
     private void startNextActivity() {
         Log.d(TAG, "starting next activity");
-        int wizardState = ApplicationSettings.getWizardState(this);
-        supportedLangs = ApplicationSettings.getSupportedLanguages(this);
+        int wizardState = getWizardState(this);
+        supportedLangs = getSupportedLanguages(this);
         Log.d(TAG, "Checking supported languages " + supportedLangs);
         if (null == supportedLangs) {
             PBDatabase dbInstance = new PBDatabase(this);
             dbInstance.open();
             Page languagesPage = dbInstance.retrievePage(PAGE_SETUP_LANGUAGE, DEFAULT_LANGUAGE_ENG);
-            setsupportedlanguages(languagesPage);
+            setSupportedLanguages(languagesPage);
             dbInstance.close();
         }
         if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
-            ApplicationSettings.setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
+            setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
         }
         if (wizardState != WIZARD_FLAG_HOME_READY) {
             Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
@@ -177,7 +194,7 @@ public class HomeActivity extends Activity {
             Log.d(TAG, "First run FALSE, running CalculatorActivity");
             Intent i = new Intent(HomeActivity.this, CalculatorActivity.class);
             // Make sure the HardwareTriggerService is started
-            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this)) {
+            if(isHardwareTriggerServiceEnabled(this)) {
                 startService(new Intent(this, HardwareTriggerService.class));
             }
             startActivity(i);
@@ -199,25 +216,25 @@ public class HomeActivity extends Activity {
             String dataFileName = PREFIX_MOBILE_DATA + selectedLang + JSON_EXTENSION;
             String helpFileName = PREFIX_HELP_DATA + selectedLang + JSON_EXTENSION;
             try {
-                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(dataFileName, getApplicationContext()));
+                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(dataFileName, getApplicationContext()));
                 JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
 
                 lastUpdatedVersion = mobileObj.getInt(VERSION);
-                ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
+                setLastUpdatedVersion(HomeActivity.this, lastUpdatedVersion);
 
                 JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-                AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
+                insertMobileDataToLocalDB(dataArray, getApplicationContext());
             } catch (JSONException jsonException) {
                 Log.e(TAG, "Exception in reading mobile_en.json from asset" + jsonException.getMessage());
                 jsonException.printStackTrace();
             }
 
             try {
-                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(helpFileName, getApplicationContext()));
+                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(helpFileName, getApplicationContext()));
                 JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
 
                 JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-                AppUtil.insertMobileDataToLocalDB(dataArray, getApplicationContext());
+                insertMobileDataToLocalDB(dataArray, getApplicationContext());
             } catch (JSONException jsonException) {
                 Log.e(TAG, "Exception in reading help_en.json from asset" + jsonException.getMessage());
                 jsonException.printStackTrace();
@@ -237,8 +254,8 @@ public class HomeActivity extends Activity {
                     e.printStackTrace();
                 }
 
-            ApplicationSettings.setLocalDataInsertion(HomeActivity.this, true);
-            ApplicationSettings.setLastUpdatedDBVersion(HomeActivity.this, DATABASE_VERSION);
+//            setLocalDataInsertion(HomeActivity.this, true);
+//            setLastUpdatedDBVersion(HomeActivity.this, DATABASE_VERSION);
 
             startNextActivity();
         }
@@ -278,7 +295,7 @@ public class HomeActivity extends Activity {
 //            if (latestVersion > lastUpdatedVersion) {
 //                new GetMobileDataUpdate().execute();
 //            } else {
-//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
+//                setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());
 //                if (pDialog.isShowing())
 //					try {
 //						pDialog.dismiss();
@@ -373,13 +390,13 @@ public class HomeActivity extends Activity {
 //            ServerResponse response = jsonParser.retrieveServerData(AppConstants.HTTP_REQUEST_TYPE_GET, helpDataUrl, null, null, null);
 //            if (response.getStatus() == 200) {
 //                Log.d(">>>><<<<", "success in retrieving server-response for url = " + helpDataUrl);
-//                ApplicationSettings.setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
+//                setLastRunTimeInMillis(HomeActivity.this, System.currentTimeMillis());          // if we can retrieve a single data, we change it up-to-date
 //                try {
 //                    JSONObject responseObj = response.getjObj();
 //                    JSONObject mobObj = responseObj.getJSONObject(JSON_OBJECT_HELP);
 //                    JSONArray dataArray = mobObj.getJSONArray(JSON_ARRAY_DATA);
 //                    insertHelpDataToLocalDB(dataArray);
-//                    ApplicationSettings.setLastUpdatedVersion(HomeActivity.this, latestVersion);
+//                    setLastUpdatedVersion(HomeActivity.this, latestVersion);
 //                    return true;
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
