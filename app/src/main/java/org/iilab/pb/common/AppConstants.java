@@ -76,6 +76,7 @@ public class AppConstants {
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE = "setup-alarm-test-hardware";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_RETRAINING = "setup-alarm-test-hardware-reTraining";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING = "setup-alarm-test-hardware-success-reTraining";
+    public static final String PAGE_SETUP_TRAINING_1_5 = "setup-training_1.5";
 
     public static final String PAGE_STATUS_CHECKED = "checked";
 

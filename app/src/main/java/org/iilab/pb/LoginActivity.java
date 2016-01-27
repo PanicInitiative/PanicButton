@@ -13,6 +13,7 @@ import org.iilab.pb.trigger.HardwareTriggerService;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_ALERTING;
 import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_TRAINING_1_5;
 import static org.iilab.pb.common.AppUtil.playTrainingForRelease1_5;
 import static org.iilab.pb.common.AppUtil.setError;
 import static org.iilab.pb.common.ApplicationSettings.isAlertActive;
@@ -38,24 +39,7 @@ public class LoginActivity extends PanicButtonActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                     (keyCode == KeyEvent.KEYCODE_ENTER)) {
                   // Perform action on key press
-//                	String password = passwordEditText.getText().toString();
-//                    if (passwordMatches(getApplicationContext(), password)) {
-//
-//                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-////                        i = AppUtil.clearBackStack(i);
-//                        if (isAlertActive(LoginActivity.this)) {
-//                            i.putExtra(PAGE_ID, PAGE_HOME_ALERTING);
-//                        } else {
-//                            i.putExtra(PAGE_ID, PAGE_HOME_READY);
-//                        }
-//                        startActivity(i);
-//
-//                        finish();
-//                        return true;
-//                    }
-//                    setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
-//                    tryCount++;
-                    nextAction();
+                    actionOnKeyPress();
                 }
                 return false;
             }
@@ -65,12 +49,12 @@ public class LoginActivity extends PanicButtonActivity {
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextAction();
+                actionOnKeyPress();
             }
         });
 
     }
-    private void nextAction(){
+    private void actionOnKeyPress(){
         String password = passwordEditText.getText().toString();
         if (passwordMatches(getApplicationContext(), password)) {
             Intent i;
@@ -78,7 +62,7 @@ public class LoginActivity extends PanicButtonActivity {
             // check if db update version is 1.5 and play training
             if(playTrainingForRelease1_5(getApplicationContext())) {
                 i = new Intent(LoginActivity.this, WizardActivity.class);
-                i.putExtra(PAGE_ID, "setup-training");
+                i.putExtra(PAGE_ID, PAGE_SETUP_TRAINING_1_5);
                 setTrainingDoneRelease1_5(getApplicationContext(), true);
                 setFirstRun(getApplicationContext(),false);
                 //in training mode of alarm trigger, stop the send alert hardware service.
