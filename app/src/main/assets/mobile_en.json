@@ -1,6 +1,6 @@
 {
     "mobile": {
-        "version": "9",
+        "version": "10",
         "data": [
             {
                 "id": "setup-warning",
@@ -844,6 +844,23 @@
                     }
                 ],
                 "content": "<p>Congratulations the new vibration patterns are  tested !</p>"
+            },
+            {
+                "id": "setup-training_1.5",
+                "lang": "en",
+                "type": "simple",
+                "title": "Setup Alert",
+                "action": [
+                    {
+                        "title": "Learn",
+                        "link": "setup-alarm-test-hardware"
+                    },
+                    {
+                        "title": "Skip",
+                        "link": "home-ready"
+                    }
+                ],
+                "content": "<p>Panic Button has been updated and now uses a new default trigger mechanism. </p><p>Even better, you can now choose your own trigger mechanism to help prevent false triggers. Let's get started and get you up to speed with these new features. </p>"
             }
         ]
     }

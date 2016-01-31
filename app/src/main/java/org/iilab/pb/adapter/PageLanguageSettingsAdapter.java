@@ -14,20 +14,46 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
+
 import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.model.PageAction;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Locale;
 
-import static org.iilab.pb.common.AppConstants.*;
+import static org.iilab.pb.common.AppConstants.DEFAULT_CONFIRMATION_MESSAGE;
+import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.JSON_ARRAY_DATA;
+import static org.iilab.pb.common.AppConstants.JSON_EXTENSION;
+import static org.iilab.pb.common.AppConstants.JSON_OBJECT_HELP;
+import static org.iilab.pb.common.AppConstants.JSON_OBJECT_MOBILE;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.PAGE_HOME_READY;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PREFIX_HELP_DATA;
+import static org.iilab.pb.common.AppConstants.PREFIX_MOBILE_DATA;
+import static org.iilab.pb.common.AppConstants.VERSION;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
+import static org.iilab.pb.common.AppUtil.insertMobileDataToLocalDB;
+import static org.iilab.pb.common.AppUtil.isLanguageDataExists;
+import static org.iilab.pb.common.AppUtil.loadJSONFromAsset;
+import static org.iilab.pb.common.ApplicationSettings.addDBLoadedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getWizardState;
+import static org.iilab.pb.common.ApplicationSettings.isAppUpdated;
+import static org.iilab.pb.common.ApplicationSettings.setSelectedLanguage;
+
 
 /**
  * Created by aoe on 2/25/14.
@@ -50,9 +76,9 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
         super(context, R.layout.row_page_language_settings);
         this.mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.currentLang = ApplicationSettings.getSelectedLanguage(mContext);
+        this.currentLang = getSelectedLanguage(mContext);
         latestVersion = -1;
-        lastUpdatedVersion = ApplicationSettings.getLastUpdatedVersion(mContext);
+        lastUpdatedVersion = getLastUpdatedVersion(mContext);
         this.parentActivity = parentActivity;
     }
 
@@ -81,7 +107,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                 selectedLang = item.getLanguage();
 
                 if (currentLang.equals(selectedLang)) {
-                    AppUtil.showToast("Language already applied.", Toast.LENGTH_SHORT, mContext);
+                    Toast.makeText(mContext,"Language already applied.", Toast.LENGTH_SHORT);
 
                     /* why we need to restart app here?
                     we are finishing this fragment & activity just below, so it will go to previous activity's onResume.
@@ -94,11 +120,11 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
                     return;
                 }
 //                else if (!AppUtil.hasInternet(mContext)) {
-//                    changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
+//                    changeStaticLanguageSettings(((item.getConfirmation() == null) ? DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
 //                    return;
 //                }
-                changeStaticLanguageSettings(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
-//                new GetLatestVersion(((item.getConfirmation() == null) ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation())).execute();
+                changeStaticLanguageSettings(((item.getConfirmation() == null) ? DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation()));
+//                new GetLatestVersion(((item.getConfirmation() == null) ? DEFAULT_CONFIRMATION_MESSAGE : item.getConfirmation())).execute();
 
             }
         });
@@ -108,20 +134,20 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
     public void restartApp() {
 
-        int wizardState = ApplicationSettings.getWizardState(mContext);
+        int wizardState = getWizardState(mContext);
         String pageId = null;
-        if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED) {
+        if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
             pageId = PAGE_HOME_NOT_CONFIGURED;
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
+        } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
             pageId = PAGE_HOME_NOT_CONFIGURED_ALARM;
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
+        } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
             pageId = PAGE_HOME_NOT_CONFIGURED_DISGUISE;
-        } else if (wizardState == AppConstants.WIZARD_FLAG_HOME_READY) {
+        } else if (wizardState == WIZARD_FLAG_HOME_READY) {
             pageId = PAGE_HOME_READY;
         }
         Log.d(TAG, "restarting app with pageId = " + pageId);
 
-        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+        if (parentActivity == FROM_WIZARD_ACTIVITY) {
             Intent i = new Intent(mContext, WizardActivity.class);
             i.putExtra(PAGE_ID, pageId);
             mContext.startActivity(i);
@@ -149,7 +175,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
     private void changeStaticLanguageSettings(String confirmation) {
         Toast.makeText(mContext, confirmation, Toast.LENGTH_SHORT).show();
-        ApplicationSettings.setSelectedLanguage(mContext, selectedLang);
+        setSelectedLanguage(mContext, selectedLang);
 
         Resources res = mContext.getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
@@ -163,10 +189,10 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
 
     private void loadLanguageData(String language) {
-        //Only load languge data if it doenst exists locally
-        if (!AppUtil.isLanguageDataExists(mContext, language)) {
+        //Only load language data if it doesn't exists locally
+        if (!isLanguageDataExists(mContext, language)|| isAppUpdated(mContext) ) {
             new LoadLanguageData().execute();
-            ApplicationSettings.addDBLoadedLanguage(mContext, language);
+            addDBLoadedLanguage(mContext, language);
         } else {
             restartApp();
         }
@@ -177,7 +203,7 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+
             pDialog = ProgressDialog.show(mContext, "Application", "Loading...", true, false);
         }
 
@@ -186,14 +212,14 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
             Log.i(TAG, "starting loading of json files in background thread");
             String dataFileName = PREFIX_MOBILE_DATA + selectedLang + JSON_EXTENSION;
             String helpFileName = PREFIX_HELP_DATA + selectedLang + JSON_EXTENSION;
-            Log.d(TAG, "selected language is " + ApplicationSettings.getSelectedLanguage(mContext));
+            Log.d(TAG, "selected language is " + getSelectedLanguage(mContext));
             Log.d(TAG, "Loading mobile data ");
             try {
-                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(dataFileName, mContext));
+                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(dataFileName, mContext));
                 JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_MOBILE);
                 lastUpdatedVersion = mobileObj.getInt(VERSION);
                 JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-                AppUtil.insertMobileDataToLocalDB(dataArray, mContext);
+                insertMobileDataToLocalDB(dataArray, mContext);
             } catch (JSONException jsonException) {
                 Log.e(TAG, "Exception in reading" + dataFileName + " from asset" + jsonException.getMessage());
                 jsonException.printStackTrace();
@@ -201,11 +227,11 @@ public class PageLanguageSettingsAdapter extends ArrayAdapter<PageAction> {
 
             try {
                 Log.d(TAG, "Loading help data ");
-                JSONObject jsonObj = new JSONObject(AppUtil.loadJSONFromAsset(helpFileName, mContext));
+                JSONObject jsonObj = new JSONObject(loadJSONFromAsset(helpFileName, mContext));
                 JSONObject mobileObj = jsonObj.getJSONObject(JSON_OBJECT_HELP);
 
                 JSONArray dataArray = mobileObj.getJSONArray(JSON_ARRAY_DATA);
-                AppUtil.insertMobileDataToLocalDB(dataArray, mContext);
+                insertMobileDataToLocalDB(dataArray, mContext);
             } catch (JSONException jsonException) {
                 Log.e(TAG, "Exception in reading " + helpFileName + "  from asset" + jsonException.getMessage());
                 jsonException.printStackTrace();
