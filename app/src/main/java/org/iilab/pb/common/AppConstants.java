@@ -76,6 +76,7 @@ public class AppConstants {
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE = "setup-alarm-test-hardware";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_RETRAINING = "setup-alarm-test-hardware-reTraining";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING = "setup-alarm-test-hardware-success-reTraining";
+    public static final String PAGE_SETUP_TRAINING_1_5 = "setup-training_1.5";
 
     public static final String PAGE_STATUS_CHECKED = "checked";
 
@@ -116,6 +117,9 @@ public class AppConstants {
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_SOS = "4";
     public static final String ALARM_SENDING_CONFIRMATION_PATTERN_NONE = "5";
     public static final String ALARM_NOT_CONFIRMED_THREE_FAST = "2";
+
+    public static final int FRESH_INSTALL_APP_RELEASE_NO = -1;
+    public static final int APP_RELEASE_VERSION_1_5 = 10;
 
     public static final int VIBRATION_DURATION_SHORT = 400;
     public static final int VIBRATION_PAUSE_SHORT = 200;
