@@ -29,7 +29,7 @@
                         "link": "setup-code"
                     }
                 ],
-                "content": "<p>Security tips</p><ul><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all scenarios. </li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message. </li></ul>"
+                "content": "<p>Security tips</p><ul><li>Enable GPS tracking from your phone settings if you want your location to be included with the message.</li><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all scenarios. </li></ul>"
             },
             {
                 "id": "setup-language",
@@ -378,7 +378,7 @@
                         "confirmation": "Message saved"
                     }
                 ],
-                "content": "<p>Security tips</p><ul><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all situations. </li><li>Enable GPS tracking from your phone settings if you want your location to be included with the message<br></li></ul>"
+                "content": "<p>Security tips</p><ul><li>Enable GPS tracking from your phone settings if you want your location to be included with the message</li><li>Consider creating code words or phrases in your message that only your contacts will understand.</li><li>You won&#39;t have time to change a message in an emergency, so create something that will work in all situations. </li></ul>"
             },
             {
                 "id": "settings-language",
