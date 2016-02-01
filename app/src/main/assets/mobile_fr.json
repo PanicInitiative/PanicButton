@@ -598,6 +598,16 @@
             "link": "setup-warning"
           }
         ],
+        "items": [
+          {
+            "title": "A propos",
+            "link": "setup-about"
+          },
+          {
+            "title": "Paramètres de langues",
+            "link": "setup-language"
+          }
+        ],
         "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret pour alerter rapidement les membres de votre réseau lorsque vous êtes en danger. </p>"
       },
       {
