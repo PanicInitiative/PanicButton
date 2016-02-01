@@ -102,7 +102,7 @@
 
     <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
     <string name="confirmationWaitTimeDefault">2</string>
-    <string name="confirmationWaitTimeSummary">Time to wait until the confirmation press</string>
+    <string name="confirmationWaitTimeSummary">Length of the buzz following initial presses after which a further press is required to activate the alarm</string>
     <string name="confirmationWaitTimeKey">confirmationWaitTime</string>
 
     <string name="hapticFeedbackVibrationPatternTitle">Confirmation Wait Vibration </string>
