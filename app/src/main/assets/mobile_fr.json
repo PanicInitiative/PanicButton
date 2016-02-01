@@ -554,20 +554,6 @@
             "link": "setup-disguise"
           }
         ],
-        "items": [
-          {
-            "title": "À propos",
-            "link": "setup-about"
-          },
-          {
-            "title": "Aide",
-            "link": "help"
-          },
-          {
-            "title": "Language Settings",
-            "link": "Langue"
-          }
-        ],
         "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"
       },
       {
@@ -598,20 +584,6 @@
             "status": "disabled"
           }
         ],
-        "items": [
-          {
-            "title": "À propos",
-            "link": "setup-about"
-          },
-          {
-            "title": "Aide",
-            "link": "help"
-          },
-          {
-            "title": "Langue",
-            "link": "setup-language"
-          }
-        ],
         "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"
       },
       {
@@ -623,16 +595,6 @@
           {
             "title": "Installation",
             "link": "setup-warning"
-          }
-        ],
-        "items": [
-          {
-            "title": "A propos",
-            "link": "setup-about"
-          },
-          {
-            "title": "Paramètres de langues",
-            "link": "setup-language"
           }
         ],
         "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Le Bouton d&#39;urgence transforme votre téléphone mobile en système secret pour alerter rapidement les membres de votre réseau lorsque vous êtes en danger. </p>"

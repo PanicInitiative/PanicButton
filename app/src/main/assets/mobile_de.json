@@ -557,20 +557,6 @@
 						"link": "setup-disguise"
 					}
 				],
-				"items": [
-					{
-						"title": "Über diese App",
-						"link": "setup-about"
-					},
-					{
-						"title": "Hilfe",
-						"link": "help"
-					},
-					{
-						"title": "Sprach-Einstellung",
-						"link": "setup-language"
-					}
-				],
 				"content": "<p>Panik Knopf kann nicht benutzt werden, wenn die Einstellungen nicht vollständig sind.</p>"
 			},
 			{
@@ -601,20 +587,6 @@
 						"status": "disabled"
 					}
 				],
-				"items": [
-					{
-						"title": "Über",
-						"link": "setup-about"
-					},
-					{
-						"title": "Hilfe",
-						"link": "help"
-					},
-					{
-						"title": "Sprach-Einstellung",
-						"link": "setup-language"
-					}
-				],
 				"content": "<p>Panik Knopf kann nicht benutzt werden, wenn die Einstellungen nicht vollständig sind.</p>"
 			},
 			{
@@ -626,16 +598,6 @@
 					{
 						"title": "Einstellungen",
 						"link": "setup-warning"
-					}
-				],
-				"items": [
-					{
-						"title": "Über",
-						"link": "setup-about"
-					},
-					{
-						"title": "Sprach-Einstellung",
-						"link": "setup-language"
 					}
 				],
 				"content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panik Knopf ist eine Android App, die einen stillen Alarm ein deine Kontakte sendet, wenn du in Schwierigkeiten bist. Die App bleibt auf deinem Handy verborgen und sieht wir ein einfacher Rechner aus. </p>"

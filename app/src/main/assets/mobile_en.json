@@ -577,21 +577,6 @@
                         "link": "setup-disguise"
                     }
                 ],
-                "items": [
-                    {
-                        "title": "About",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Help",
-                        "link": "help"
-                    },
-
-                    {
-                        "title": "Language Settings",
-                        "link": "setup-language"
-                    }
-                ],
                 "content": "<p>You cannot use Panic Button until it is fully setup.</p>"
             },
             {
@@ -622,20 +607,6 @@
                         "status": "disabled"
                     }
                 ],
-                "items": [
-                    {
-                        "title": "About",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Help",
-                        "link": "help"
-                    },
-                    {
-                        "title": "Language Settings",
-                        "link": "setup-language"
-                    }
-                ],
                 "content": "<p>You cannot use Panic Button until it is fully setup.</p>"
             },
             {
@@ -647,16 +618,6 @@
                     {
                         "title": "Set-Up",
                         "link": "setup-warning"
-                    }
-                ],
-                "items": [
-                    {
-                        "title": "About",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Language Settings",
-                        "link": "setup-language"
                     }
                 ],
                 "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> Panic Button is an Android app that secretly alerts your contacts when you are in trouble. When triggered, it will send alerts every 5 minutes with your location. The app stays hidden on your phone by looking like a simple calculator.</p>"
