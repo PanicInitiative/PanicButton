@@ -208,7 +208,7 @@
                         "link": "setup-message"
                     }
                 ],
-                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they cannot help. </li><li>Make a plan with your chosen contacts so that they are prepared to act fast in an emergency”. </li><li>Be aware of the risks - how might your contact be put at risk? </li></ul>"
+                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they cannot help. </li><li>Make a plan with your chosen contacts so that they are prepared to act fast in an emergency.</li><li>Be aware of the risks - how might your contact be put at risk?</li></ul>"
             },
             {
                 "id": "setup-code",
