@@ -59,7 +59,7 @@
             android:title="@string/alertSendingConfirmationVibrationTitle" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/feedbackAlarmNonConfirmationTitle"
-        android:key = "@string/feedbackAlarmNonConfirmationTitleKey">
+        android:key = "@string/feedbackAlarmNonConfirmationKey">
         <ListPreference
             android:defaultValue="@string/alertNotConfirmedDefault"
             android:entries="@array/alertNotConfirmedArray"
