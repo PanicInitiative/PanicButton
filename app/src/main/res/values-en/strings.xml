@@ -82,23 +82,29 @@
 
     <string name="triggerPatternSettingsTitle">Trigger Pattern Settings</string>
     <string name="triggerPatternSettingsKey">triggerPatternSettings</string>
-    <string name="initialPressesTitle">Initial Presses</string>
+    <string name="initialPressesTitle">Number of Presses</string>
     <string name="initialPressesDefault">7</string>
     <string name="initialPressesSummary">Number of presses needed to trigger the alarm</string>
     <string name="initialPressesKey">initialClicks</string>
 
-    <string name="initialTimeTitle">Initial Times</string>
+    <string name="initialTimeTitle">Time to complete the presses</string>
     <string name="initialTimeDefault">6</string>
     <string name="initialTimeSummary">Time to complete the number of initial presses. Decreasing this number might create problems with detecting multiple presses with certain devices.</string>
     <string name="initialTimeKey">initialTime</string>
+
+    <string name="feedbackAlarmActivationTitle">Feedback on Alarm Activation</string>
+    <string name="feedbackAlarmActivationKey">feedbackAlarmActivation</string>
+    <string name="confirmationSettingsTitle">Confirmation Settings</string>
+    <string name="confirmationSettingsDefault">1</string>
+    <string name="confirmationSettingsSummary">Feedback on Alarm Activation</string>
+    <string name="confirmationSettingsKey">confirmationSettings</string>
+
 
     <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
     <string name="confirmationWaitTimeDefault">2</string>
     <string name="confirmationWaitTimeSummary">Time to wait until the confirmation press</string>
     <string name="confirmationWaitTimeKey">confirmationWaitTime</string>
 
-    <string name="VibrationSettingsTitle">Vibration Settings</string>
-    <string name="VibrationSettingsKey">vibrationSettings</string>
     <string name="hapticFeedbackVibrationPatternTitle">Confirmation Wait Vibration </string>
     <string name="hapticFeedbackDefaultPattern">1 </string>
     <string name="hapticFeedbackVibrationPatternSummary">Vibration pattern during the wait time until the confirmation press</string>
@@ -109,14 +115,16 @@
     <string name="alertSendingConfirmationVibrationSummary">Vibration pattern to inform that the alarm has been activated</string>
     <string name="alertSendingConfirmationVibrationKey">alertSendingConfirmationVibration</string>
 
-    <string name="alertNotConfirmedTitle">Alarm NOT Confirmed </string>
+    <string name="feedbackAlarmNonConfirmationTitle">Feedback on NON Confirmation Alarm</string>
+    <string name="feedbackAlarmNonConfirmationKey">feedbackAlarmActivation</string>
+    <string name="alertNotConfirmedTitle">Feedback on NON Confirmation Alarm </string>
     <string name="alertNotConfirmedDefault">1</string>
     <string name="alertNotConfirmedSummary">Vibration pattern to inform that the alarm has NOT been activated. This will happen if you make the correct number of initial presses but do NOT confirm.</string>
     <string name="alertNotConfirmedKey">alertNotConfirmed</string>
 
-    <string name="redoTrainingTitle">Redo training</string>
+    <string name="redoTrainingTitle">Configuration Training</string>
     <string name="redoTrainingPrefCatKey">redoTrainingKey</string>
-    <string name="testAlarmTitle">Test Alarm </string>
+    <string name="testAlarmTitle">Test your new configuration</string>
     <string name="redoTrainingSummary">Offering the user to redo the training exercise</string>
     <string name="redoTrainingKey">redoTraining</string>
 

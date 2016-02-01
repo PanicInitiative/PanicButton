@@ -38,6 +38,15 @@
         <item>7</item>
         <item>8</item>
     </string-array>
+    <string-array name="confirmationSettingsArray">
+        <item>(Default) Inactive</item>
+        <item>Active</item>
+    </string-array>
+
+    <string-array name="confirmationSettingsValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="confirmationWaitArray">
         <item>1 sec</item>
         <item>2 sec</item>
