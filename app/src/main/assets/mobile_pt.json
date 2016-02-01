@@ -233,7 +233,8 @@
         "action": [
           {
             "title": "Próximo",
-            "link": "setup-alarm-disguise"
+//            "link": "setup-alarm-disguise"
+            "link": "home-not-configured-disguise"
           }
         ],
         "content": "<p>Teste bem sucedido! Em caso de emergência real, o seu alerta seria enviado.</p>"
