@@ -600,6 +600,16 @@
                         "link": "setup-warning"
                     }
                 ],
+              "items": [
+                {
+                  "title": "Acerca de",
+                  "link": "setup-about"
+                },
+                {
+                  "title": "Configuraciones de lenguaje",
+                  "link": "setup-language"
+                }
+              ],
                 "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para que tus contactos mas confiables puedan actuar si te encuentras en riesgo.</p>"
             },
             {
