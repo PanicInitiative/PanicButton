@@ -233,7 +233,8 @@
                 "action": [
                     {
                         "title": "Next",
-                        "link": "setup-alarm-disguise"
+//                        "link": "setup-alarm-disguise"
+                        "link": "home-not-configured-disguise"
                     }
                 ],
                 "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
@@ -732,7 +733,8 @@
                 "action": [
                     {
                         "title": "Next",
-                        "link": "setup-alarm-disguise-reTraining"
+//                        "link": "setup-alarm-disguise-reTraining"
+                        "link":  "setup-alarm-test-disguise-success-reTraining"
                     }
                 ],
                 "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
