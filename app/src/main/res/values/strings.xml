@@ -11,7 +11,7 @@
     <string name="i_am_at">I\'m at</string>
     <string name="i_am_at_url">I\'m at https://maps.google.com/GPS-location</string>
     <string name="location_not_found">Trying to identify location</string>
-    <string name="stop_alert_message">The alert has been stopped</string>
+    <string name="stop_alert_message">The alarm has been stopped</string>
     <string name="panic_button">Panic\nButton</string>
     <string name="page_title_text">Title</string>
 
@@ -24,10 +24,10 @@
     <string name="default_emergency_message">Help me, I\'m in danger</string>
     <string name="emergency_message_header">Emergency message</string>
     <string name="sms_settings_subtitle">Add up to three emergency contacts</string>
-    <string name="alert_status_standby">Alert is in standby</string>
-    <string name="send_emergency_alert">&#160;&#160;Send emergency alert</string>
-    <string name="stop_alert">&#160;&#160;Stop alert</string>
-    <string name="alert_status_active">Alert is active and Sending every five minutes</string>
+    <string name="alert_status_standby">Alarm is in standby</string>
+    <string name="send_emergency_alert">&#160;&#160;Send emergency alarm</string>
+    <string name="stop_alert">&#160;&#160;Stop alarm</string>
+    <string name="alert_status_active">Alarm is active and Sending every five minutes</string>
 
     <string name="incorrect_pin">Please enter the correct pin</string>
     <string name="incorrect_pin_3_times">Please reinstall the application if you cannot remember your pin number</string>
@@ -59,8 +59,8 @@
 
     <string name="code_ok">Ok</string>
 
-    <string name="stop_alert_message_header">Stop alert message</string>
-    <string name="stop_alert_message_hint">Enter stop alert message</string>
+    <string name="stop_alert_message_header">Stop alarm message</string>
+    <string name="stop_alert_message_hint">Enter stop alarm message</string>
 
     <string name="confirm_pin">Confirm the pin</string>
     <string name="configurePowerButtonTriggerTitle">Configure Power Button Trigger</string>
