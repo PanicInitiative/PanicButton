@@ -237,7 +237,7 @@
                         "link": "home-not-configured-disguise"
                     }
                 ],
-                "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
+                "content": "<p>Your test was successful! In an emergency, you would have activated the alarm and an alert would now be sent out automatically every 5 minutes.</p>"
             },
             {
                 "id": "setup-alarm-test-hardware-fail",
@@ -283,7 +283,7 @@
                         "link": "home-not-configured-disguise"
                     }
                 ],
-                "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
+                "content": "<p>Your test was successful! In an emergency, you would have activated the alarm and an alert would now be sent out automatically every 5 minutes.</p>"
             },
             {
                 "id": "setup-alarm-test-disguise-fail",
@@ -737,7 +737,7 @@
                         "link":  "setup-alarm-test-disguise-success-reTraining"
                     }
                 ],
-                "content": "<p>Your test was successful! In an actual emergency, your alert will have started to be automatically sent every 5 minutes.</p>"
+                "content": "<p>Your test was successful! In an emergency, you would have activated the alarm and an alert would now be sent out automatically every 5 minutes.</p>"
             },{
                 "id": "setup-alarm-test-hardware-fail-reTraining",
                 "lang": "en",
