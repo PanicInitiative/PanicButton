@@ -233,7 +233,8 @@
 				"action": [
 					{
 						"title": "Weiter",
-						"link": "setup-alarm-disguise"
+//						"link": "setup-alarm-disguise"
+					  	"link": "home-not-configured-disguise"
 					}
 				],
 				"content": "<p> Dein Test was erfolgreich! In einem echten Notfall würde der Alarm nun zu deinen Kontakten gesendet. </p>"
