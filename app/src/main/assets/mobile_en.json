@@ -102,14 +102,14 @@
                 "id": "setup-disguise-test-success",
                 "lang": "en",
                 "type": "simple",
-                "title": "Well done",
+                "title": "Well done!",
                 "action": [
                     {
                         "title": "Finish",
                         "link": "home-ready"
                     }
                 ],
-                "content": "<p>Congratulations you have now successfully configured the Panic Button app!</p>"
+                "content": "<p>Congratulations, you have now successfully configured the Panic Button app!</p>"
             },
             {
                 "id": "setup-disguise-test-open-fail",
@@ -806,7 +806,7 @@
                         "link": "close-training"
                     }
                 ],
-                "content": "<p>Congratulations the new vibration patterns are  tested !</p>"
+                "content": "<p>Congratulations, the new vibration patterns are tested !</p>"
             },
             {
                 "id": "setup-training_1.5",
