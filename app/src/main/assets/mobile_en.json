@@ -70,7 +70,7 @@
                 "id": "setup-disguise-test-unlock-fail",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Disguise",
+                "title": "Set up disguise",
                 "action": [
                     {
                         "title": "Try Again",
@@ -83,7 +83,7 @@
                 "id": "setup-disguise-test-unlock",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Disguise",
+                "title": "Test disguise",
                 "introduction": "Try now! Hold down any button on the calculator.",
                 "component": "disguise-test-unlock",
                 "timers": {
@@ -115,7 +115,7 @@
                 "id": "setup-disguise-test-open-fail",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup the Disguise",
+                "title": "Set up disguise",
                 "action": [
                     {
                         "title": "Try Again",
@@ -128,7 +128,7 @@
                 "id": "setup-disguise-test-open",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Disguise",
+                "title": "Test disguise",
                 "introduction": "Try now! Open the app by clicking on the Calculate! icon.",
                 "component": "disguise-test-open",
                 "timers": {
@@ -147,7 +147,7 @@
                 "id": "setup-disguise-test-code-fail",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup the Disguise",
+                "title": "Set up disguise",
                 "action": [
                     {
                         "title": "Try Again",
@@ -160,7 +160,7 @@
                 "id": "setup-disguise-test-code",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Disguise",
+                "title": "Test disguise",
                 "introduction": "Well done! Now enter your pincode to access settings.",
                 "component": "disguise-test-code",
                 "timers": {
@@ -185,7 +185,7 @@
                 "id": "setup-disguise",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Disguise",
+                "title": "Set up disguise",
                 "action": [
                     {
                         "title": "Learn",
@@ -198,7 +198,7 @@
                 "id": "setup-contacts",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Setup contacts",
+                "title": "Set up contacts",
                 "introduction": "These people will receive the alert every 5 minutes if you activate it.",
                 "warning": "They should know you personally and be able to respond fast.",
                 "component": "contacts",
@@ -243,7 +243,7 @@
                 "id": "setup-alarm-test-hardware-fail",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup the Alarm",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Try Again",
@@ -256,7 +256,7 @@
                 "id": "setup-alarm-test-hardware",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Hardware Alarm",
+                "title": "Test hardware alarm",
                 "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Using the power button to activate the alarm may lock your screen. Just unlock your screen to continue setting up the app.",
                 "component": "alarm-test-hardware",
                 "timers": {
@@ -289,20 +289,20 @@
                 "id": "setup-alarm-test-disguise-fail",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Try Again",
                         "link": "setup-alarm-test-disguise"
                     }
                 ],
-                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration.</p>"
+                "content": "<p>It looks like you didn&#39;t succeed in triggering the alarm.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration.</p>"
             },
             {
                 "id": "setup-alarm-test-disguise",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Disguised Alarm",
+                "title": "Test disguise alarm",
                 "introduction": "Try Now! Repeatedly press a button on the calculator until you feel a vibration.",
                 "component": "alarm-test-disguise",
                 "timers": {
@@ -321,27 +321,27 @@
                 "id": "setup-alarm-disguise",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Learn",
                         "link": "setup-alarm-test-disguise"
                     }
                 ],
-                "content": "<p>Alternatively, you can trigger the alert directly from the app&#39;s disguise screen.</p>"
+                "content": "<p>Alternatively, you can trigger the alarm directly from the app&#39;s disguise screen.</p>"
             },
             {
                 "id": "setup-alarm",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Learn",
                         "link": "setup-alarm-test-hardware"
                     }
                 ],
-                "content": "<p>Now learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alert from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
+                "content": "<p>Now learn how to trigger the Panic Button in an emergency. </p><p>Panic Button is unique because you can trigger the alarm from the phone&#39;s power button. This means you can do it secretly - for example, from inside a jacket pocket. </p>"
             },
             {
                 "id": "setup-about",
@@ -361,13 +361,13 @@
                         "link": "home-not-configured"
                     }
                 ],
-                "content": "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alert will be deactivated until you complete the wizard</p>"
+                "content": "<p>Please confirm that you would like to restart the installation. If you restart the installation, the alarm will be deactivated until you complete the wizard</p>"
             },
             {
                 "id": "settings-message",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Setup alert message",
+                "title": "Set up alarm message",
                 "introduction": "This is the message that will be sent with your location.",
                 "warning": "Create a plan so your contacts know what to do when they receive this",
                 "component": "message",
@@ -419,8 +419,8 @@
                 "id": "settings-contacts",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Setup contacts",
-                "introduction": "These people will receive the alert every 5 minutes if you activate it.",
+                "title": "Set up contacts",
+                "introduction": "These people will receive the alarm every 5 minutes if you activate it.",
                 "warning": "They should know you personally and be able to respond fast.",
                 "component": "contacts",
                 "action": [
@@ -437,7 +437,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Create a pincode",
-                "introduction": "This pincode is needed to stop the app from sending the alert automatically and to access the app settings. It is not needed to alert contacts in an emergency.",
+                "introduction": "This pincode is needed to stop the app from sending the alarm automatically and to access the app settings. It is not needed to trigger alarm messages in an emergency.",
                 "warning": "Remember your pincode! If you forget it you will need to reinstall the app.",
                 "component": "code",
                 "action": [
@@ -452,8 +452,8 @@
                 "id": "settings-advanced",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Advanced Settings",
-                "introduction": "Advanced Settings",
+                "title": "Advanced settings",
+                "introduction": "Advanced settings",
                 "warning": "Be careful about your battery! Sending alerts too often might drain your battery.",
                 "component": "advanced",
                 "action": [
@@ -637,11 +637,11 @@
                 ],
                 "action": [
                     {
-                        "title": "Stop Alerting",
+                        "title": "Stop Alarm",
                         "link": "home-ready"
                     }
                 ],
-                "content": "<p>Panic Button is currently sending alert messages. Click Stop Alerting to cancel messages. </p>"
+                "content": "<p>Panic Button is currently sending alert messages. Click Stop Alarm to cancel messages. </p>"
             },
             {
                 "id": "code",
@@ -678,7 +678,7 @@
                         "title": "Review security plan and update contacts regularly"
                     },
                     {
-                        "title": "Test the alert to ensure it is working"
+                        "title": "Test the alarm to ensure it is working"
                     },
                     {
                         "title": "Ensure sufficient credit on the phone"
@@ -696,7 +696,7 @@
                 "id": "setup-alarm-reTraining",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Learn",
@@ -742,7 +742,7 @@
                 "id": "setup-alarm-test-hardware-fail-reTraining",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup the Alarm",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Try Again",
@@ -755,7 +755,7 @@
                 "id": "setup-alarm-disguise-reTraining",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Learn",
@@ -767,7 +767,7 @@
                 "id": "setup-alarm-test-disguise-reTraining",
                 "lang": "en",
                 "type": "interactive",
-                "title": "Test Disguised Alarm",
+                "title": "Test disguise alarm",
                 "introduction": "Try Now! Repeatedly press a button on the calculator until you feel a vibration.",
                 "component": "alarm-test-disguise",
                 "timers": {
@@ -786,7 +786,7 @@
                 "id": "setup-alarm-test-disguise-fail-reTraining",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Try Again",
@@ -812,7 +812,7 @@
                 "id": "setup-training_1.5",
                 "lang": "en",
                 "type": "simple",
-                "title": "Setup Alert",
+                "title": "Set up alarm",
                 "action": [
                     {
                         "title": "Learn",
