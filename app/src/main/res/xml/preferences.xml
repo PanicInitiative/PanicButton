@@ -25,6 +25,17 @@
             android:key="@string/initialTimeKey"
             android:summary="@string/initialTimeSummary"
             android:title="@string/initialTimeTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/feedbackAlarmActivationTitle"
+        android:key = "@string/feedbackAlarmActivationKey">
+        <ListPreference
+            android:defaultValue="@string/confirmationSettingsDefault"
+            android:entries="@array/confirmationSettingsArray"
+            android:entryValues="@array/confirmationSettingsValues"
+            android:key="@string/confirmationSettingsKey"
+            android:summary="@string/confirmationSettingsSummary"
+            android:title="@string/confirmationSettingsTitle" />
+
         <ListPreference
             android:defaultValue="@string/confirmationWaitTimeDefault"
             android:entries="@array/confirmationWaitArray"
@@ -32,9 +43,6 @@
             android:key="@string/confirmationWaitTimeKey"
             android:summary="@string/confirmationWaitTimeSummary"
             android:title="@string/confirmationWaitTimeTitle" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/VibrationSettingsTitle"
-        android:key = "@string/VibrationSettingsKey">
         <ListPreference
             android:defaultValue="@string/hapticFeedbackDefaultPattern"
             android:entries="@array/hapticFeedbackPatternArray"
@@ -49,6 +57,9 @@
             android:key="@string/alertSendingConfirmationVibrationKey"
             android:summary="@string/alertSendingConfirmationVibrationSummary"
             android:title="@string/alertSendingConfirmationVibrationTitle" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/feedbackAlarmNonConfirmationTitle"
+        android:key = "@string/feedbackAlarmNonConfirmationTitleKey">
         <ListPreference
             android:defaultValue="@string/alertNotConfirmedDefault"
             android:entries="@array/alertNotConfirmedArray"

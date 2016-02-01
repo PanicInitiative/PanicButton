@@ -52,11 +52,11 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
             enableAdvancedSettings(false);
         }
 
-        Preference button = (Preference) findPreference(getString(R.string.redoTrainingKey));
-        button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference redoTrainingButton = (Preference) findPreference(getString(R.string.redoTrainingKey));
+        redoTrainingButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.d(TAG, "Testing redo training button");
+                Log.d(TAG, "Testing redo training redoTrainingBtton");
                 // During redo exercise of alarm trigger, stop the send alert hardware service.
                 getActivity().stopService(new Intent(getActivity(), HardwareTriggerService.class));
                 Intent i = new Intent(getActivity(), WizardActivity.class);
@@ -71,20 +71,39 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         powerButtonAlarmTrigger.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside on preference change of power button trigger setting");
+                Log.d(TAG, "Inside on preference change of power redoTrainingBtton trigger setting");
 
                 if (selectedValue.equals(getString(R.string.activate_power_button_trigger))) {
                     getActivity().startService(new Intent(getActivity(), HardwareTriggerService.class));
-                    Log.d(TAG, "Power button alarm trigger is enabled");
+                    Log.d(TAG, "Power redoTrainingBtton alarm trigger is enabled");
                 } else {
                     getActivity().stopService(new Intent(getActivity(), HardwareTriggerService.class));
                     displayNotification();
-                    Log.d(TAG, "Power button alarm trigger is disabled");
+                    Log.d(TAG, "Power redoTrainingBtton alarm trigger is disabled");
                 }
                 return true;
             }
         });
 
+        Preference alertConfirmationSettings = (Preference) findPreference(getString(R.string.feedbackAlarmActivationKey));
+
+        alertConfirmationSettings.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object selectedValue) {
+                Log.d(TAG, "Inside of feedback for alarm activation settings");
+
+                if (selectedValue.equals(getString(R.string.confirmationSettingsDefault))) {
+                    // disable Confirmation Wait Time/ Confirmation Wait Vibration
+                    enableConfirmationFeedback(false);
+                    Log.d(TAG, "default confirmation press deactivated");
+                } else {
+                    // enable Confirmation Wait Time/ Confirmation Wait Vibration
+                    enableConfirmationFeedback(true);
+                    Log.d(TAG, "Confirmation press enabled");
+                }
+                return true;
+            }
+        });
         Preference triggerSettingsPef = (Preference) findPreference(getString(R.string.triggerSettingsKey));
 
         triggerSettingsPef.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -105,7 +124,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                 } else if (selectedValue.equals(getString(R.string.custom_modeValue))) {
                     enableAdvancedSettings(true);
                     // enable all the advanced settings
-                    Log.d(TAG, "Power button alarm trigger is disabled");
+                    Log.d(TAG, "Power redoTrainingButton alarm trigger is disabled");
                 }
                 return true;
             }
@@ -113,7 +132,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
     }
     private void enableAdvancedSettings(boolean flag){
         PreferenceCategory prefCatTriggerPatternSettings = (PreferenceCategory) findPreference(getString(R.string.triggerPatternSettingsKey));
-        PreferenceCategory prefCatTriggerVibrationSettings = (PreferenceCategory) findPreference(getString(R.string.VibrationSettingsKey));
+        PreferenceCategory prefCatTriggerVibrationSettings = (PreferenceCategory) findPreference(getString(R.string.feedbackAlarmActivationKey));
         PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
         PreferenceCategory prefCatPowerButtonTriggerSettings = (PreferenceCategory) findPreference(getString(R.string.configurePowerButtonPrefCatKey));
         prefCatTriggerPatternSettings.setEnabled(flag);
@@ -122,8 +141,15 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         prefCatPowerButtonTriggerSettings.setEnabled(flag);
     }
     private void enableRedoTraining(boolean flag){
-        PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
+        Preference prefCatRedoTraining = (Preference) findPreference(getString(R.string.redoTrainingPrefCatKey));
         prefCatRedoTraining.setEnabled(flag);
+    }
+    private void enableConfirmationFeedback(boolean flag){
+        PreferenceCategory confirmationWaitTime = (PreferenceCategory) findPreference(getString(R.string.confirmationWaitTimeKey));
+        confirmationWaitTime.setEnabled(flag);
+        PreferenceCategory confirmationWaitVibration = (PreferenceCategory) findPreference(getString(R.string.hapticFeedbackVibrationPatternKey));
+        confirmationWaitVibration.setEnabled(flag);
+
     }
 
     private void displayNotification() {
