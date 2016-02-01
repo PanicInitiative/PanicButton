@@ -97,8 +97,8 @@
     <string name="feedbackAlarmActivationKey">feedbackAlarmActivation</string>
     <string name="confirmationSettingsTitle">Confirmation Settings</string>
     <string name="confirmationSettingsDefault">1</string>
-    <string name="confirmationSettingsSummary">Time to wait until the confirmation press</string>
-    <string name="confirmationSettingsKey">confirmationWaitTime</string>
+    <string name="confirmationSettingsSummary">Feedback on Alarm Activation</string>
+    <string name="confirmationSettingsKey">confirmationSettings</string>
 
     <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
     <string name="confirmationWaitTimeDefault">2</string>
