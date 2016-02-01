@@ -257,7 +257,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Test Hardware Alarm",
-                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Once the vibration ends, press the power button one more time as a confirmation to trigger alerts.",
+                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Using the power button to activate the alarm may lock your screen. Just unlock your screen to continue setting up the app.",
                 "component": "alarm-test-hardware",
                 "timers": {
                     "info": "0",
@@ -710,7 +710,7 @@
                 "lang": "en",
                 "type": "interactive",
                 "title": "Test Hardware Alarm",
-                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Once the vibration ends, press the power button one more time as a confirmation to trigger alerts.",
+                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Using the power button to activate the alarm may lock your screen. Just unlock your screen to continue setting up the app.",
                 "component": "alarm-test-hardware",
                 "timers": {
                     "info": "0",
