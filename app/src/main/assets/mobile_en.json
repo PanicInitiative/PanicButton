@@ -13,7 +13,7 @@
                         "link": "setup-contacts"
                     }
                 ],
-                "content": "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Make a plan with your contacts so they are prepared to act fast. </p>"
+                "content": "<p>Panic Button is a useful tool to alert your network quickly when you need help. It can&#39;t guarantee your security! Make a plan with your contacts so they are prepared to act fast in an emergency”. </p>"
             },
             {
                 "id": "setup-message",
@@ -208,7 +208,7 @@
                         "link": "setup-message"
                     }
                 ],
-                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they cannot help. </li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your contact be put at risk? </li></ul>"
+                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you - there is no point someone knowing you are in trouble if they cannot help. </li><li>Make a plan with your chosen contacts so that they are prepared to act fast in an emergency”. </li><li>Be aware of the risks - how might your contact be put at risk? </li></ul>"
             },
             {
                 "id": "setup-code",
@@ -348,7 +348,7 @@
                 "lang": "en",
                 "type": "simple",
                 "title": "About",
-                "content": "<p>Panic Button turns your mobile phone into a secret alarm for when you&#39;re in trouble.</p><p><strong>How Does Panic Button Work?</strong></p><ul><li>TAKE TIME to set-up Panic Button somewhere safe and quiet</li><li>Create a plan with your contacts so that they are PREPARED to ACT</li><li>CHECK you are ready and that your mobile phone has credit and battery</li><li>ACTIVATE Panic Button in an emergency by rapidly pressing the phone&#39;s power button</li><li>Your network will receive an SMS and regular updates of your location helping them to ACT FAST</li></ul><p>The Panic Button project is an initiative of Amnesty International in collaboration with key advisors and partners including Frontline Defenders, iilab and the engine room.</p>"
+                "content": "<p>Panic Button turns your mobile phone into a secret alarm for when you&#39;re in trouble.</p><p><strong>How Does Panic Button Work?</strong></p><ul><li>TAKE TIME to set-up Panic Button somewhere safe and quiet</li><li>Create a plan with your contacts so that they are PREPARED to ACT</li><li>CHECK you are ready and that your mobile phone has credit and battery</li><li>ACTIVATE Panic Button in an emergency by rapidly pressing the phone&#39;s power button</li><li>Your network will receive an SMS and regular updates of your location helping them to ACT FAST in an emergency”</li></ul><p>The Panic Button project is an initiative of Amnesty International in collaboration with key advisors and partners including Frontline Defenders, iilab and the engine room.</p>"
             },
             {
                 "id": "settings-reset-confirm",
@@ -430,7 +430,7 @@
                         "confirmation": "Contacts saved"
                     }
                 ],
-                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Make a plan with your chosen contacts so that they are prepared to act fast. </li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
+                "content": "<p>Security Tips</p><ul><li>Think about who can practically assist you  - there is no point someone knowing you are in trouble if they are not in a position to help you</li><li>Make a plan with your chosen contacts so that they are prepared to act fast in an emergency”. </li><li>Be aware of the risks - how might your chosen contact be put at risk? </li></ul>"
             },
             {
                 "id": "settings-code",
