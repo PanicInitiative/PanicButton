@@ -25,10 +25,12 @@ import static org.iilab.pb.common.AppConstants.PAGE_ID;
 import static org.iilab.pb.common.AppConstants.PAGE_SETTINGS;
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_RETRAINING;
 import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
+import static org.iilab.pb.common.ApplicationSettings.getInitialClicksForAlertTrigger;
 import static org.iilab.pb.common.ApplicationSettings.getTriggerSettings;
 import static org.iilab.pb.common.ApplicationSettings.isConfirmationFeedback;
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedback;
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVibrationPattern;
+import static org.iilab.pb.common.ApplicationSettings.setInitialClicksForAlertTrigger;
 
 public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
 
@@ -127,10 +129,12 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     enableRedoTraining(true);
                     Log.d(TAG, "Extra confirmation click required to trigger alarm");
                 } else if (selectedValue.equals(getString(R.string.extraConfirmationPressValue))) {
+                    //make the press 5
+                    setInitialClicksForAlertTrigger(getActivity(),"5");
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
                     enableAdvancedSettings(false);
                     enableRedoTraining(true);
-                    Log.d(TAG, "Extra confirmation click required to trigger alarm");
+                    Log.d(TAG, "Extra confirmation click required to trigger alarm "+getInitialClicksForAlertTrigger(getActivity()));
                 } else if (selectedValue.equals(getString(R.string.custom_modeValue))) {
                     enableAdvancedSettings(true);
                     // enable all the advanced settings
