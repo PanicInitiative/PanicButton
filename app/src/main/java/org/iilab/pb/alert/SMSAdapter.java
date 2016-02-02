@@ -7,19 +7,20 @@ import android.util.Log;
 import org.iilab.pb.common.ApplicationSettings;
 
 public class SMSAdapter {
-    private static final String LOG_TAG = SMSAdapter.class.getName();
+    private static final String TAG = SMSAdapter.class.getName();
 
     public void sendSMS(Context context, String phoneNumber, String message) {
-//        Log.e("20140411", "sending fake SMS -> " + message);
         if(!ApplicationSettings.isFirstMsgSent(context)){
             ApplicationSettings.setFirstMsgSent(context, true);
         }
         SmsManager smsManager = getSmsManager();
+        Log.d(TAG, "Sms manager is : " +  getSmsManager());
         try {
             smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-            Log.i(LOG_TAG, "Sms sent: " + message);
+            Log.d(TAG, "Sms sent: " + message);
         } catch (Exception exception) {
-            Log.e(LOG_TAG, "Sending SMS failed " + exception.getMessage());
+            exception.printStackTrace();
+            Log.e(TAG, "Sending SMS failed " + exception.getMessage());
         }
     }
 

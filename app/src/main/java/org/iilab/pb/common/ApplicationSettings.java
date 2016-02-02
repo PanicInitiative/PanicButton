@@ -206,6 +206,9 @@ public class ApplicationSettings extends Application {
     }
 
 
+    public static void setInitialClicksForAlertTrigger(Context context, String initialPresses) {
+        saveString(context,context.getString(R.string.initialPressesKey),initialPresses);
+    }
     public static String getInitialClicksForAlertTrigger(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), context.getString(R.string.initialPressesDefault));
     }

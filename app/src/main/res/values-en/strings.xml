@@ -134,7 +134,7 @@
     <string name="triggerSettingsKey">triggerSettings</string>
 
     <string name="default7RepeatedPress">(Default) 7 repeated presses</string>
-    <string name="extraConfirmationPress">Extra confirmation press </string>
+    <string name="extraConfirmationPress">5 presses plus  confirmation </string>
     <string name="custom_mode">Custom</string>
     <string name="default7RepeatedPressValue">1</string>
     <string name="extraConfirmationPressValue">2</string>
