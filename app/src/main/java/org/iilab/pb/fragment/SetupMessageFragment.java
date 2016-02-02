@@ -22,14 +22,20 @@ import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.adapter.PageItemAdapter;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.model.PageItem;
 import org.iilab.pb.model.SMSSettings;
+
+import static org.iilab.pb.common.AppConstants.DEFAULT_CONFIRMATION_MESSAGE;
+import static org.iilab.pb.common.AppConstants.FROM_MAIN_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.IMAGE_INLINE;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
+import static org.iilab.pb.common.AppUtil.updateImages;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
 
 
 /**
@@ -37,8 +43,7 @@ import org.iilab.pb.model.SMSSettings;
  */
 public class SetupMessageFragment extends Fragment {
 
-    private static final String PAGE_ID = "page_id";
-    private static final String PARENT_ACTIVITY = "parent_activity";
+    private static final String TAG = SetupMessageFragment.class.getName();
     private Activity activity;
     DisplayMetrics metrics;
     int parentActivity;
@@ -73,7 +78,7 @@ public class SetupMessageFragment extends Fragment {
         if (childFragment == null) {
             childFragment = new MessageTextFragment();
             Bundle args = new Bundle();
-            args.putInt(AppConstants.PARENT_ACTIVITY, parentActivity);
+            args.putInt(PARENT_ACTIVITY, parentActivity);
             childFragment.setArguments(args);
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.replace(R.id.sms_message, childFragment);
@@ -84,28 +89,29 @@ public class SetupMessageFragment extends Fragment {
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(">>>>", "action button pressed");
+                Log.d(TAG, "action button pressed");
 
                 MessageTextFragment childFragment = (MessageTextFragment) getChildFragmentManager().findFragmentById(R.id.sms_message);
                 String emergencyMessage = childFragment.getEmergencyMsgFromView();
                 SMSSettings.saveMessage(activity, emergencyMessage);
                 childFragment.displayEmergencyMsg(emergencyMessage);
-                if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
-                    String stopAlertMessage=childFragment.getStopAlertMsgFromView();
-                    SMSSettings.saveStopAlertMessage(activity, stopAlertMessage);
+                String stopAlertMessage=getString(R.string.stop_alert_message);
+                if (parentActivity == FROM_MAIN_ACTIVITY) {
+                    stopAlertMessage=childFragment.getStopAlertMsgFromView();
+                    Log.d(TAG, "stop alert message is " + stopAlertMessage);
                     childFragment.displayStopAlertMsg(stopAlertMessage);
                 }
-
+                SMSSettings.saveStopAlertMessage(activity, stopAlertMessage);
                 String pageId = currentPage.getAction().get(0).getLink();
 //                 parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+                if (parentActivity == FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
                 } else {
-//                	AppUtil.showToast("Message saved.", 1000, activity);
+//                	showToast("Message saved.", 1000, activity);
                     String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
-                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            ? DEFAULT_CONFIRMATION_MESSAGE
                             : currentPage.getAction().get(0).getConfirmation();
                     Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
 
@@ -114,7 +120,7 @@ public class SetupMessageFragment extends Fragment {
                 i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
-                if (parentActivity == AppConstants.FROM_MAIN_ACTIVITY) {
+                if (parentActivity == FROM_MAIN_ACTIVITY) {
                     activity.finish();
                 }
             }
@@ -134,7 +140,7 @@ public class SetupMessageFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+                if (parentActivity == FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
                 } else {
                     i = new Intent(activity, MainActivity.class);
@@ -159,7 +165,7 @@ public class SetupMessageFragment extends Fragment {
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
             String pageId = getArguments().getString(PAGE_ID);
-            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
+            String selectedLang = getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
@@ -189,7 +195,7 @@ public class SetupMessageFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
+            updateImages(true, currentPage.getContent(), activity, metrics, tvContent, IMAGE_INLINE);
 
         }
     }
