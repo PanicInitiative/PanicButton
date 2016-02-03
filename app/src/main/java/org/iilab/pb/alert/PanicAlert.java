@@ -23,16 +23,12 @@ import static org.iilab.pb.common.AppConstants.ONE_MINUTE;
 import static org.iilab.pb.common.Intents.locationPendingIntent;
 
 public class PanicAlert {
+
     private static final String TAG = PanicAlert.class.getName();
     private LocationManager locationManager;
     private Context context;
     private AlarmManager alarmManager1, alarmManager2;
 
-    // TODO --for testing vibrations
-    public   int VIBRATION_DURATION_SHORT ;
-    public int VIBRATION_PAUSE_SHORT ;
-    public int VIBRATION_DURATION_LONG ;
-    public int VIBRATION_PAUSE_LONG ;
 
     public PanicAlert(Context context) {
         this.context = context;
@@ -83,8 +79,10 @@ public class PanicAlert {
     }
 
     private void sendFirstAlert() {
+        Log.d(TAG, "inside of sendFirstAlert");
         CurrentLocationProvider currentLocationProvider = getCurrentLocationProvider();
         Location loc = getLocation(currentLocationProvider);
+        Log.d(TAG, "Identified location is "+loc);
         if (loc != null) {
             ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
         } else {

@@ -233,7 +233,8 @@
         "action": [
           {
             "title": "Suivant",
-            "link": "setup-alarm-disguise"
+//            "link": "setup-alarm-disguise"
+            "link": "home-not-configured-disguise"
           }
         ],
         "content": "<p>Votre test a fonctionné! Dans une véritable situation d&#39;urgence, votre alerte aurait été envoyée.</p>"
@@ -554,20 +555,6 @@
             "link": "setup-disguise"
           }
         ],
-        "items": [
-          {
-            "title": "À propos",
-            "link": "setup-about"
-          },
-          {
-            "title": "Aide",
-            "link": "help"
-          },
-          {
-            "title": "Language Settings",
-            "link": "Langue"
-          }
-        ],
         "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"
       },
       {
@@ -596,20 +583,6 @@
             "title": "Configurer le camouflage",
             "link": "Setup Disguise",
             "status": "disabled"
-          }
-        ],
-        "items": [
-          {
-            "title": "À propos",
-            "link": "setup-about"
-          },
-          {
-            "title": "Aide",
-            "link": "help"
-          },
-          {
-            "title": "Langue",
-            "link": "setup-language"
           }
         ],
         "content": "<p>Vous ne pouvez pas utiliser le Bouton d&#39;urgence avant de l&#39;avoir entièrement configuré.</p>"

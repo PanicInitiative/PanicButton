@@ -38,6 +38,7 @@ public class ApplicationSettings extends Application {
     public static final String SUPPORTED_LANGUAGES = "SUPPORTED_LANGUAGES";
     public static final String DB_LOADED_LANGUAGES = "DB_LOADED_LANGUAGES";
     public static final String APP_UPDATED = "APP_UPDATED";
+    public static final String CONFIRMATION_FEEDBACK = "CONFIRMATION_FEEDBACK";
     //fla specific to 1.5 release
     public static final String TRAINING_DONE = "TRAINING_DONE";
 
@@ -205,6 +206,9 @@ public class ApplicationSettings extends Application {
     }
 
 
+    public static void setInitialClicksForAlertTrigger(Context context, String initialPresses) {
+        saveString(context,context.getString(R.string.initialPressesKey),initialPresses);
+    }
     public static String getInitialClicksForAlertTrigger(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.initialPressesKey), context.getString(R.string.initialPressesDefault));
     }
@@ -248,6 +252,12 @@ public class ApplicationSettings extends Application {
 
     public static boolean isAppUpdated(Context context) {
         return sharedPreferences(context).getBoolean(APP_UPDATED, false);
+    }
+    public static void setConfirmationFeedback(Context context, Boolean confirmationFeedback) {
+        saveBoolean(context, CONFIRMATION_FEEDBACK, confirmationFeedback);
+    }
+    public static boolean isConfirmationFeedback(Context context) {
+        return sharedPreferences(context).getBoolean(CONFIRMATION_FEEDBACK, false);
     }
 
 }
