@@ -114,7 +114,7 @@ public class HomeActivity extends Activity {
 
 		/* We update the device language content if the english mobile_en.json version has increased or
         * if the language of the device OS was previously not installed*/
-
+        Log.d(TAG, "currentLocalContentVersion is" +currentLocalContentVersion +"and  newLocalContentVersion is "+ newLocalContentVersion);
         if ((newLocalContentVersion > currentLocalContentVersion) || (!isLanguageDataExists(getApplicationContext(), selectedLang))) {
             Log.d(TAG, "Update local data as the english mobile_en.json version has increased");
             // to check if the app is installed first time, -1 is the default value
@@ -122,6 +122,7 @@ public class HomeActivity extends Activity {
                 setFirstRun(getApplicationContext(),true);
                 setAppUpdated(getApplicationContext(), false);
             }else {
+                setFirstRun(getApplicationContext(),false);
                 setAppUpdated(getApplicationContext(), true);
             }
             new InitializeLocalData().execute();
