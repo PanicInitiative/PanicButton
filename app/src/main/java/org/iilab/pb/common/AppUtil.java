@@ -377,8 +377,6 @@ public class AppUtil {
     }
 
     public static boolean playTrainingForRelease1_5(Context context) {
-        //TODO for testing purpose only
-//        setFirstRun(context,false);
         Log.d(TAG, "is App a fresh install " + isFirstRun(context));
         Log.d(TAG, "is 1.5 update training played once "+ isTrainingDoneRelease1_5(context));
         Log.d(TAG, "the version no of app installed in device. 10 corresponds to 1.5 release"+ getLastUpdatedVersion(context));

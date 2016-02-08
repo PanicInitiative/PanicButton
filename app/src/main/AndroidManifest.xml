@@ -71,6 +71,18 @@
                 <action android:name="org.iilab.pb.SEND_ALERT_ACTION_SINGLE"/>
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".receiver.UpdateReceiver$LegacyUpdateReceiver" android:enabled="@bool/is_at_most_api_11" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.UpdateReceiver" android:enabled="@bool/is_at_least_api_12" >
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="869571b41e0cb553a5cb99aa56d26a0f06ca7015" />
