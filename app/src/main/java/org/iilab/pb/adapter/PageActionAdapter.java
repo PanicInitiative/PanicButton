@@ -1,8 +1,14 @@
 package org.iilab.pb.adapter;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.MainActivity;
@@ -22,14 +29,20 @@ import org.iilab.pb.trigger.HardwareTriggerService;
 
 import java.util.List;
 
-import static org.iilab.pb.common.AppConstants.*;
-
+import static org.iilab.pb.common.AppConstants.PAGE_ADVANCED_SETTINGS;
+import static org.iilab.pb.common.AppConstants.PAGE_CLOSE;
+import static org.iilab.pb.common.AppConstants.PAGE_CLOSE_TRAINING;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_WARNING;
+import static org.iilab.pb.common.AppConstants.PAGE_STATUS_CHECKED;
+import static org.iilab.pb.common.AppConstants.REQUEST_ID_SEND_SMS;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
 /**
  * Created by aoe on 1/5/14.
  */
 public class PageActionAdapter extends ArrayAdapter<PageAction> {
 
-    private Context mContext;
+    private final Context mContext;
     private boolean isPageStatusAvailable;
     private LayoutInflater mInflater;
     private int parentActivity;
@@ -102,30 +115,17 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     int wizardState = ApplicationSettings.getWizardState(mContext.getApplicationContext());
                     Log.e(TAG, "wizardState = " + wizardState);
                     if (wizardState == WIZARD_FLAG_HOME_READY && ApplicationSettings.isHardwareTriggerServiceEnabled(mContext)) {
-                        //after the redo training excercise is done, we need to restrat the hardware trigger service.
+                        //after the redo training excercise is done, we need to restart the hardware trigger service.
                         mContext.startService(new Intent(mContext, HardwareTriggerService.class));
                     }
                     ((WizardActivity) mContext).callFinishActivityReceiver();
                 }
+                else if(pageId.equals(PAGE_SETUP_WARNING)){
+                    checkAndRequestSendSMSPermissions(mContext);
+
+                }
                 else {
-
-                    Intent i = new Intent(mContext, WizardActivity.class);
-                    if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                        i = new Intent(mContext, WizardActivity.class);
-
-                    } else {
-//                    	AppUtil.showToast("Real alert deactivated.", 1000, mContext);
-//                    	new PanicAlert(mContext).deActivate();
-//                    	if(pageId.equalsIgnoreCase("home-not-configured"))
-//                    		ApplicationSettings.setRestartedSetup(mContext, true);
-                        i = new Intent(mContext, MainActivity.class);
-//                        i = AppUtil.clearBackStack(i);
-                    }
-
-//                    Intent i = new Intent(mContext, WizardActivity.class);
-                    i.putExtra(PAGE_ID, pageId);
-                    mContext.startActivity(i);
-
+                    callNextActivity(pageId);
                 }
             }
         });
@@ -157,16 +157,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     mContext.startActivity(i);
                     ((Activity) mContext).overridePendingTransition(R.anim.show_from_bottom, R.anim.hide_to_top);
                 } else {
-
-                    Intent i;
-                    if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
-                        i = new Intent(mContext, WizardActivity.class);
-                    } else {
-                        i = new Intent(mContext, MainActivity.class);
-                    }
-//                    Intent i = new Intent(mContext, WizardActivity.class);
-                    i.putExtra(PAGE_ID, pageId);
-                    mContext.startActivity(i);
+                    callNextActivity(pageId);
                 }
             }
         });
@@ -186,7 +177,17 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
         return convertView;
     }
 
+    private void callNextActivity(String pageId) {
+        Intent i;
+        if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+            i = new Intent(mContext, WizardActivity.class);
 
+        } else {
+            i = new Intent(mContext, MainActivity.class);
+        }
+        i.putExtra(PAGE_ID, pageId);
+        mContext.startActivity(i);
+    }
     public void setData(List<PageAction> actionList) {
         clear();
         if (actionList != null) {
@@ -194,5 +195,37 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                 add(actionList.get(i));
             }
         }
+    }
+    private void checkAndRequestSendSMSPermissions(Context context ) {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.SEND_SMS);
+        Log.d(TAG, "permission sms value is " + permissionSendMessage + " " + PackageManager.PERMISSION_DENIED + " " + PackageManager.PERMISSION_GRANTED);
+        if(permissionSendMessage== PackageManager.PERMISSION_DENIED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale((WizardActivity) context,Manifest.permission.SEND_SMS)) {
+                Toast.makeText(mContext, "SMS permission is required to send the alert message in case of emergency", Toast.LENGTH_SHORT)
+                        .show();
+//                showMessageOKCancel("You need to allow access to Send SMS",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions((WizardActivity)mContext,new String[]{Manifest.permission.SEND_SMS},
+                                        REQUEST_ID_SEND_SMS);
+//                        });
+//                return;
+            }else{
+            ActivityCompat.requestPermissions((WizardActivity) context,
+                    new String[]{Manifest.permission.SEND_SMS},
+                    REQUEST_ID_SEND_SMS);}
+        }else{
+            callNextActivity(PAGE_SETUP_WARNING);
+        }
+    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(mContext)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 }

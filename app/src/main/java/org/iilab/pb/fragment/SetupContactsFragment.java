@@ -22,9 +22,6 @@ import org.iilab.pb.MainActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.adapter.PageItemAdapter;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.ContactEditTexts;
 import org.iilab.pb.common.ContactPickerFragment;
 import org.iilab.pb.common.MyTagHandler;
@@ -36,14 +33,21 @@ import org.iilab.pb.model.SMSSettings;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.iilab.pb.common.AppConstants.DEFAULT_CONFIRMATION_MESSAGE;
+import static org.iilab.pb.common.AppConstants.FROM_MAIN_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
+import static org.iilab.pb.common.AppConstants.IMAGE_INLINE;
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
+import static org.iilab.pb.common.AppUtil.updateImages;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
+
 /**
  * Created by aoe on 12/11/13.
  */
 public class SetupContactsFragment extends Fragment {
     private ContactEditTexts contactEditTexts;
 
-    private static final String PAGE_ID = "page_id";
-    private static final String PARENT_ACTIVITY = "parent_activity";
     private Activity activity;
     DisplayMetrics metrics;
     TextView tvTitle, tvContent, tvIntro, tvWarning;
@@ -52,6 +56,7 @@ public class SetupContactsFragment extends Fragment {
     LinearLayout llWarning;
     Page currentPage;
     PageItemAdapter pageItemAdapter;
+    private static final String TAG = SetupContactsFragment.class.getName();
     List<Integer> fragmentIds = Arrays.asList(R.id.first_contact, R.id.second_contact, R.id.third_contact);
 
     public static SetupContactsFragment newInstance(String pageId, int parentActivity) {
@@ -84,7 +89,7 @@ public class SetupContactsFragment extends Fragment {
         bAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(">>>>", "action button pressed");
+                Log.d(TAG, "action button pressed");
                 SMSSettings newSMSSettings = getContactNumbersFromView();
 
                 SMSSettings.saveContacts(activity, newSMSSettings);
@@ -93,11 +98,11 @@ public class SetupContactsFragment extends Fragment {
                 String pageId = currentPage.getAction().get(0).getLink();
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
-                if(parentActivity == AppConstants.FROM_WIZARD_ACTIVITY){
+                if(parentActivity == FROM_WIZARD_ACTIVITY){
                     i = new Intent(activity, WizardActivity.class);
                 } else{
                     String confirmation = (currentPage.getAction().get(0).getConfirmation() == null)
-                            ? AppConstants.DEFAULT_CONFIRMATION_MESSAGE
+                            ? DEFAULT_CONFIRMATION_MESSAGE
                             : currentPage.getAction().get(0).getConfirmation();
                     Toast.makeText(activity, confirmation, Toast.LENGTH_SHORT).show();
 
@@ -106,7 +111,7 @@ public class SetupContactsFragment extends Fragment {
                 i.putExtra(PAGE_ID, pageId);
                 startActivity(i);
 
-                if(parentActivity == AppConstants.FROM_MAIN_ACTIVITY){
+                if(parentActivity == FROM_MAIN_ACTIVITY){
                     activity.finish();
                 }
             }
@@ -128,7 +133,7 @@ public class SetupContactsFragment extends Fragment {
                 int parentActivity = getArguments().getInt(PARENT_ACTIVITY);
                 Intent i;
 
-                if (parentActivity == AppConstants.FROM_WIZARD_ACTIVITY) {
+                if (parentActivity == FROM_WIZARD_ACTIVITY) {
                     i = new Intent(activity, WizardActivity.class);
                 } else {
                     i = new Intent(activity, MainActivity.class);
@@ -150,7 +155,7 @@ public class SetupContactsFragment extends Fragment {
             metrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
             String pageId = getArguments().getString(PAGE_ID);
-            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
+            String selectedLang = getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
@@ -180,7 +185,41 @@ public class SetupContactsFragment extends Fragment {
             lvItems.setAdapter(pageItemAdapter);
             pageItemAdapter.setData(currentPage.getItems());
 
-            AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_INLINE);
+//
+//            if (ContextCompat.checkSelfPermission(getActivity(),
+//                    Manifest.permission.SEND_SMS)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//                Log.d(TAG, " permission earlier" + ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                        Manifest.permission.SEND_SMS));
+//                // Should we show an explanation?
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                        Manifest.permission.SEND_SMS)) {
+//
+//                    // Show an explanation to the user *asynchronously* -- don't block
+//                    // this thread waiting for the user's response! After the user
+//                    // sees the explanation, try again to request the permission.
+//                    Log.d(TAG, "ask again permission");
+//                    requestPermissions(
+//                            new String[]{Manifest.permission.SEND_SMS},
+//                            1);
+//                } else {
+//
+//                    // No explanation needed, we can request the permission.
+//                    Log.d(TAG, "else permission");
+//                    requestPermissions(
+//                            new String[]{Manifest.permission.SEND_SMS},
+//                            1);
+//
+//                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+//                    // app-defined int constant. The callback method gets the
+//                    // result of the request.
+//                }
+//            }
+
+
+
+
+            updateImages(true, currentPage.getContent(), activity, metrics, tvContent, IMAGE_INLINE);
         }
     }
 

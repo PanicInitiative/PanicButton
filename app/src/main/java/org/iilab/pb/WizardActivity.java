@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.fragment.LanguageSettingsFragment;
@@ -57,12 +56,19 @@ import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SU
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_RETRAINING;
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_TRAINING_1_5;
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_TRAINING_1_5;
+import static org.iilab.pb.common.AppConstants.PAGE_SETUP_WARNING;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_SIMPLE;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_WARNING;
+import static org.iilab.pb.common.AppConstants.REQUEST_ID_SEND_SMS;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_SETUP_WARNING;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getWizardState;
+import static org.iilab.pb.common.ApplicationSettings.isHardwareTriggerServiceEnabled;
+import static org.iilab.pb.common.ApplicationSettings.setWizardState;
 
 
 public class WizardActivity extends BaseFragmentActivity {
@@ -86,11 +92,15 @@ public class WizardActivity extends BaseFragmentActivity {
 
         try {
             pageId = getIntent().getExtras().getString(PAGE_ID);
+            Log.d(TAG, "pageId hereeee = " + pageId);
+            if(pageId==null)
+                pageId = PAGE_HOME_NOT_CONFIGURED;
+
         } catch (Exception e) {
             pageId = PAGE_HOME_NOT_CONFIGURED;
             e.printStackTrace();
         }
-        selectedLang = ApplicationSettings.getSelectedLanguage(this);
+        selectedLang = getSelectedLanguage(this);
 
         Log.d(TAG, "pageId = " + pageId);
 
@@ -106,9 +116,9 @@ public class WizardActivity extends BaseFragmentActivity {
             finish();
             return;
         } else if (currentPage.getId().equals(PAGE_HOME_READY)) {
-            ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
+            setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
             changeAppIcontoCalculator();
-            if(ApplicationSettings.isHardwareTriggerServiceEnabled(this)) {
+            if(isHardwareTriggerServiceEnabled(this)) {
                 startService(new Intent(this, HardwareTriggerService.class));
             }
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
@@ -126,11 +136,11 @@ public class WizardActivity extends BaseFragmentActivity {
             i.e. home-not-configured, home-not-configured-alarm and home-not-configured-disguise.
              */
             if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED)) {
-                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED);
+                setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED);
             } else if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED_ALARM)) {
-                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
+                setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM);
             } else if (currentPage.getId().equals(PAGE_HOME_NOT_CONFIGURED_DISGUISE)) {
-                ApplicationSettings.setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
+                setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE);
             }
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -200,7 +210,7 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
     private void changeAppIcontoCalculator() {
-    	Log.i(TAG ,"changeAppIcontoCalculator");
+    	Log.i(TAG, "changeAppIcontoCalculator");
 
                 getPackageManager().setComponentEnabledSetting(
                         new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
@@ -216,9 +226,9 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onPause();
         Log.i(TAG, "page = " + pageId);
 
-//        if (currentPage.getId().equals("home-ready") && ApplicationSettings.isRestartedSetup(WizardActivity.this)) {
+//        if (currentPage.getId().equals("home-ready") && isRestartedSetup(WizardActivity.this)) {
 //            Log.e("WizardActivity.onPause", "false->RestartedSetup");
-//            ApplicationSettings.setRestartedSetup(WizardActivity.this, false);
+//            setRestartedSetup(WizardActivity.this, false);
 //        }
 
         /*
@@ -261,7 +271,7 @@ public class WizardActivity extends BaseFragmentActivity {
         super.onResume();
         Log.i(TAG, "pageId = " + pageId + " and flagRiseFromPause = " + flagRiseFromPause);
 
-        int wizardState = ApplicationSettings.getWizardState(WizardActivity.this);
+        int wizardState = getWizardState(WizardActivity.this);
 
         /*
         Check-1
@@ -314,6 +324,9 @@ public class WizardActivity extends BaseFragmentActivity {
                 pageId = PAGE_HOME_NOT_CONFIGURED_DISGUISE;
             } else if (wizardState == WIZARD_FLAG_HOME_READY) {
                 pageId = PAGE_HOME_READY;
+            }
+            else if(wizardState==WIZARD_FLAG_SETUP_WARNING){
+               pageId = PAGE_SETUP_WARNING;
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
@@ -373,5 +386,28 @@ public class WizardActivity extends BaseFragmentActivity {
         }
     };
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        Log.d(TAG, "Permission callback called---------------------------------------");
+        switch (requestCode) {
+            case REQUEST_ID_SEND_SMS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                    Log.d(TAG, "sms permission granted");
+                    setWizardState(this, WIZARD_FLAG_SETUP_WARNING);
+
+                } else {
+                    Log.d(TAG, "sms permission not granted ask again with toast");
+                    Toast.makeText(this, "SMS Permission is Denied", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                return;
+            }
+
+        }
+
+    }
 }

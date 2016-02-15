@@ -11,8 +11,7 @@ import android.util.Log;
 import org.iilab.pb.CalculatorActivity;
 import org.iilab.pb.R;
 
-import static org.iilab.pb.common.AppConstants.APP_RELEASE_VERSION_1_5;
-import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.AppUtil.playTrainingForRelease1_5;
 
 public class UpdateReceiver extends BroadcastReceiver
 {
@@ -36,7 +35,7 @@ public class UpdateReceiver extends BroadcastReceiver
     public static void onUpdate(Context context)
     {
         Log.d(TAG, "PB app updated");
-        if (getLastUpdatedVersion(context) == APP_RELEASE_VERSION_1_5)
+        if (playTrainingForRelease1_5(context))
             displayNotification(context);
     }
 

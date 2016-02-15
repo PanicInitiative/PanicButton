@@ -30,6 +30,10 @@ public class AppConstants {
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM = 602;
     public static final int WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE = 603;
     public static final int WIZARD_FLAG_HOME_READY = 604;
+    public static final int WIZARD_FLAG_SETUP_WARNING = 605;
+
+    public static final int REQUEST_ID_SEND_SMS = 1;
+    public static final int REQUEST_ID_LOCATION_SERVICES = 2;
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
@@ -79,6 +83,7 @@ public class AppConstants {
     public static final String PAGE_SETUP_TRAINING_1_5 = "setup-training_1.5";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_TRAINING_1_5 = "setup-alarm-test-hardware-training_1_5";
     public static final String PAGE_SETUP_ALARM_TEST_HARDWARE_SUCCESS_TRAINING_1_5 = "setup-alarm-test-hardware-success-training_1_5";
+    public static final String PAGE_SETUP_WARNING = "setup-warning";
 
     public static final String PAGE_STATUS_CHECKED = "checked";
 

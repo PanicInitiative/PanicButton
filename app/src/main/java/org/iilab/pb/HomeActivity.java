@@ -186,6 +186,7 @@ public class HomeActivity extends Activity {
         if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
             setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
         }
+
         if (wizardState != WIZARD_FLAG_HOME_READY) {
             Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
