@@ -69,11 +69,11 @@ public class LoginActivity extends PanicButtonActivity {
                 getApplicationContext().stopService(new Intent(getApplicationContext(), HardwareTriggerService.class));
 
             }else {
-                //check permissions
                 i = new Intent(LoginActivity.this, MainActivity.class);
                 if (isAlertActive(LoginActivity.this)) {
                     i.putExtra(PAGE_ID, PAGE_HOME_ALERTING);
                 } else {
+                    //check permissions
                     i.putExtra(PAGE_ID, PAGE_HOME_READY);
                 }
             }

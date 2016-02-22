@@ -57,12 +57,11 @@ public class HardwareTriggerReceiver extends BroadcastReceiver {
     }
 
     void activateAlert(PanicAlert panicAlert) {
-//        panicAlert.start();
         panicAlert.activate();
     }
 
     protected void resetEvent() {
-        Log.d(TAG, "in resetevent of HWReceiver" +mContext);
+        Log.d(TAG, "in reset event of HWReceiver" +mContext);
         multiClickEvent = new MultiClickEvent(mContext);
     }
 

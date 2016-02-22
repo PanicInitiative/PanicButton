@@ -188,4 +188,9 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <!--Alert dialog with black background-->
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:background">@android:color/black</item>
+    </style>
 </resources>

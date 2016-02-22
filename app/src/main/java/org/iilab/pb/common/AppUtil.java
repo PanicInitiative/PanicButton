@@ -1,12 +1,15 @@
 package org.iilab.pb.common;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.iilab.pb.BaseFragmentActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
@@ -23,6 +27,7 @@ import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +39,7 @@ import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTER
 import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
 import static org.iilab.pb.common.AppConstants.APP_RELEASE_VERSION_1_5;
 import static org.iilab.pb.common.AppConstants.ONE_SECOND;
+import static org.iilab.pb.common.AppConstants.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_LONG;
 import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_SHORT;
 import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_LONG;
@@ -386,6 +392,27 @@ public class AppUtil {
         return false;
     }
 
+    public static  boolean checkAndRequestPermissions(BaseFragmentActivity activity) {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.SEND_SMS);
+        int locationPermission = ContextCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+
+        Log.d(TAG, "permission sms value is " + permissionSendMessage + " " + PackageManager.PERMISSION_DENIED + " " + PackageManager.PERMISSION_GRANTED);
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
 }

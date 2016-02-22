@@ -140,6 +140,11 @@
     <string name="extraConfirmationPressValue">2</string>
     <string name="custom_modeValue">3</string>
 
+    <string name="PermissionDenied">SMS or Location Services Permission is Denied ...Try again.</string>
+    <string name="OKButton">OK</string>
+    <string name="CancelButton">Cancel</string>
+    <string name="EnablePermissionsMessage">Go to settings and enable SMS/location services permissions.</string>
+
 
 
 </resources>

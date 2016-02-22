@@ -1,15 +1,19 @@
 package org.iilab.pb;
 
 
+import android.Manifest;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +36,9 @@ import org.iilab.pb.fragment.WizardTestDisguiseOpenFragment;
 import org.iilab.pb.fragment.WizardTestDisguiseUnlockFragment;
 import org.iilab.pb.model.Page;
 import org.iilab.pb.trigger.HardwareTriggerService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.iilab.pb.common.AppConstants.FROM_WIZARD_ACTIVITY;
 import static org.iilab.pb.common.AppConstants.IS_BACK_BUTTON_PRESSED;
@@ -59,12 +66,13 @@ import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_TEST_HARDWARE_TR
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_WARNING;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_SIMPLE;
 import static org.iilab.pb.common.AppConstants.PAGE_TYPE_WARNING;
-import static org.iilab.pb.common.AppConstants.REQUEST_ID_SEND_SMS;
+import static org.iilab.pb.common.AppConstants.REQUEST_ID_MULTIPLE_PERMISSIONS;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
 import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_SETUP_WARNING;
+import static org.iilab.pb.common.AppUtil.checkAndRequestPermissions;
 import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
 import static org.iilab.pb.common.ApplicationSettings.getWizardState;
 import static org.iilab.pb.common.ApplicationSettings.isHardwareTriggerServiceEnabled;
@@ -92,8 +100,8 @@ public class WizardActivity extends BaseFragmentActivity {
 
         try {
             pageId = getIntent().getExtras().getString(PAGE_ID);
-            Log.d(TAG, "pageId hereeee = " + pageId);
-            if(pageId==null)
+            Log.d(TAG, "pageId is = " + pageId);
+            if (pageId == null)
                 pageId = PAGE_HOME_NOT_CONFIGURED;
 
         } catch (Exception e) {
@@ -118,7 +126,7 @@ public class WizardActivity extends BaseFragmentActivity {
         } else if (currentPage.getId().equals(PAGE_HOME_READY)) {
             setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
             changeAppIcontoCalculator();
-            if(isHardwareTriggerServiceEnabled(this)) {
+            if (isHardwareTriggerServiceEnabled(this)) {
                 startService(new Intent(this, HardwareTriggerService.class));
             }
             Intent i = new Intent(WizardActivity.this, MainActivity.class);
@@ -210,11 +218,11 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
     private void changeAppIcontoCalculator() {
-    	Log.i(TAG, "changeAppIcontoCalculator");
+        Log.i(TAG, "changeAppIcontoCalculator");
 
-                getPackageManager().setComponentEnabledSetting(
-                        new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        getPackageManager().setComponentEnabledSetting(
+                new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
@@ -257,7 +265,6 @@ public class WizardActivity extends BaseFragmentActivity {
         Log.i(TAG, "onDestroy");
         inactiveHandler.removeCallbacks(runnableInteractive);
     }
-
 
 
     @Override
@@ -319,14 +326,13 @@ public class WizardActivity extends BaseFragmentActivity {
             if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED) {
                 pageId = PAGE_HOME_NOT_CONFIGURED;
             } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_ALARM) {
-                pageId =PAGE_HOME_NOT_CONFIGURED_ALARM;
+                pageId = PAGE_HOME_NOT_CONFIGURED_ALARM;
             } else if (wizardState == WIZARD_FLAG_HOME_NOT_CONFIGURED_DISGUISE) {
                 pageId = PAGE_HOME_NOT_CONFIGURED_DISGUISE;
             } else if (wizardState == WIZARD_FLAG_HOME_READY) {
                 pageId = PAGE_HOME_READY;
-            }
-            else if(wizardState==WIZARD_FLAG_SETUP_WARNING){
-               pageId = PAGE_SETUP_WARNING;
+            } else if (wizardState == WIZARD_FLAG_SETUP_WARNING) {
+                pageId = PAGE_SETUP_WARNING;
             }
 
             Intent i = new Intent(WizardActivity.this, WizardActivity.class);
@@ -346,12 +352,12 @@ public class WizardActivity extends BaseFragmentActivity {
         if (currentPage != null && currentPage.getComponent() != null &&
                 (
                         currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_HARDWARE)
-                        || currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)
-                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)
-                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)
-                        || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)
+                                || currentPage.getComponent().equals(PAGE_COMPONENT_ALARM_TEST_DISGUISE)
+                                || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_OPEN)
+                                || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_UNLOCK)
+                                || currentPage.getComponent().equals(PAGE_COMPONENT_DISGUISE_TEST_CODE)
                 )
-        ) {
+                ) {
             inactiveHandler.postDelayed(runnableInteractive, Integer.parseInt(currentPage.getTimers().getFail()) * 1000);
         }
     }
@@ -373,7 +379,6 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
 
-
     private Runnable runnableInteractive = new Runnable() {
         public void run() {
 
@@ -391,23 +396,65 @@ public class WizardActivity extends BaseFragmentActivity {
                                            String permissions[], int[] grantResults) {
         Log.d(TAG, "Permission callback called---------------------------------------");
         switch (requestCode) {
-            case REQUEST_ID_SEND_SMS: {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Log.d(TAG, "sms permission granted");
-                    setWizardState(this, WIZARD_FLAG_SETUP_WARNING);
+                Map<String, Integer> perms = new HashMap<>();
+                // Initialize
+                perms.put(Manifest.permission.SEND_SMS, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
+                // Fill with results
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < permissions.length; i++)
+                        perms.put(permissions[i], grantResults[i]);
+                    // Check for ACCESS_FINE_LOCATION
+                    if (perms.get(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        Log.d(TAG, "sms & location services permission granted");
+                        setWizardState(this, WIZARD_FLAG_SETUP_WARNING);
 
-                } else {
-                    Log.d(TAG, "sms permission not granted ask again with toast");
-                    Toast.makeText(this, "SMS Permission is Denied", Toast.LENGTH_SHORT)
-                            .show();
+                    } else {
+
+                        Log.d(TAG, "Some permissions are not granted ask again");
+                        //permission is denied (never ask again is not checked) so ask again
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS) || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            flagRiseFromPause = false;
+                            showRationaleForPermissions(getString(R.string.PermissionDenied),
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case DialogInterface.BUTTON_NEGATIVE:
+                                                    Toast.makeText(WizardActivity.this, R.string.EnablePermissionsMessage, Toast.LENGTH_LONG)
+                                                            .show();
+                                                    Intent i = new Intent(WizardActivity.this, WizardActivity.class);
+                                                    i.putExtra(PAGE_ID, PAGE_SETUP_WARNING);
+                                                    startActivity(i);
+                                                    break;
+                                                case DialogInterface.BUTTON_POSITIVE:
+                                                    checkAndRequestPermissions(WizardActivity.this);
+                                                    break;
+                                            }
+                                        }
+                                    });
+                        }
+                        //permission is denied  (never ask again is  checked), proceed with setup
+                        else {
+                            Toast.makeText(this, R.string.EnablePermissionsMessage, Toast.LENGTH_LONG)
+                                    .show();
+                            setWizardState(this, WIZARD_FLAG_SETUP_WARNING);
+                        }
+                    }
                 }
-                return;
             }
-
         }
-
+    }
+    private void showRationaleForPermissions(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton(R.string.OKButton, okListener)
+                .setNegativeButton(R.string.CancelButton, okListener)
+                .create()
+                .show();
     }
 }

@@ -32,8 +32,7 @@ public class AppConstants {
     public static final int WIZARD_FLAG_HOME_READY = 604;
     public static final int WIZARD_FLAG_SETUP_WARNING = 605;
 
-    public static final int REQUEST_ID_SEND_SMS = 1;
-    public static final int REQUEST_ID_LOCATION_SERVICES = 2;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     public static boolean IS_BACK_BUTTON_PRESSED = false;
     public static boolean PAGE_FROM_NOT_IMPLEMENTED = false;
