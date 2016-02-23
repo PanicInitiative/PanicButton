@@ -51,14 +51,14 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
-        if(getString(R.string.custom_modeValue).equals(getTriggerSettings(getActivity()))){
+        if (getString(R.string.custom_modeValue).equals(getTriggerSettings(getActivity()))) {
             enableAdvancedSettings(true);
-        }else{
+        } else {
             enableAdvancedSettings(false);
         }
-        if(isConfirmationFeedback(getActivity())){
+        if (isConfirmationFeedback(getActivity())) {
             enableConfirmationFeedback(true);
-        }else{
+        } else {
             enableConfirmationFeedback(false);
         }
 
@@ -105,7 +105,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                 if (selectedValue.equals(getString(R.string.confirmationSettingsDefault))) {
                     // disable Confirmation Wait Time/ Confirmation Wait Vibration
                     enableConfirmationFeedback(false);
-                    setConfirmationFeedback(getActivity(),false);
+                    setConfirmationFeedback(getActivity(), false);
                     Log.d(TAG, "default confirmation press deactivated");
                 } else {
                     // enable Confirmation Wait Time/ Confirmation Wait Vibration
@@ -130,11 +130,11 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     Log.d(TAG, "Extra confirmation click required to trigger alarm");
                 } else if (selectedValue.equals(getString(R.string.extraConfirmationPressValue))) {
                     //make the press 5
-                    setInitialClicksForAlertTrigger(getActivity(),"5");
+                    setInitialClicksForAlertTrigger(getActivity(), "5");
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
                     enableAdvancedSettings(false);
                     enableRedoTraining(true);
-                    Log.d(TAG, "Extra confirmation click required to trigger alarm "+getInitialClicksForAlertTrigger(getActivity()));
+                    Log.d(TAG, "Extra confirmation click required to trigger alarm " + getInitialClicksForAlertTrigger(getActivity()));
                 } else if (selectedValue.equals(getString(R.string.custom_modeValue))) {
                     enableAdvancedSettings(true);
                     // enable all the advanced settings
@@ -144,7 +144,8 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
             }
         });
     }
-    private void enableAdvancedSettings(boolean flag){
+
+    private void enableAdvancedSettings(boolean flag) {
         PreferenceCategory prefCatTriggerPatternSettings = (PreferenceCategory) findPreference(getString(R.string.triggerPatternSettingsKey));
         PreferenceCategory prefCatTriggerVibrationSettings = (PreferenceCategory) findPreference(getString(R.string.feedbackAlarmActivationKey));
         PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
@@ -154,11 +155,13 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         prefCatRedoTraining.setEnabled(flag);
         prefCatPowerButtonTriggerSettings.setEnabled(flag);
     }
-    private void enableRedoTraining(boolean flag){
+
+    private void enableRedoTraining(boolean flag) {
         PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
         prefCatRedoTraining.setEnabled(flag);
     }
-    private void enableConfirmationFeedback(boolean flag){
+
+    private void enableConfirmationFeedback(boolean flag) {
         Preference confirmationWaitTime = (Preference) findPreference(getString(R.string.confirmationWaitTimeKey));
         confirmationWaitTime.setEnabled(flag);
         Preference confirmationWaitVibration = (Preference) findPreference(getString(R.string.hapticFeedbackVibrationPatternKey));
@@ -181,8 +184,6 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         Context mContext = getActivity();
         Intent advancedSettingsIntent = new Intent(mContext, MainActivity.class);
         advancedSettingsIntent.putExtra(PAGE_ID, PAGE_ADVANCED_SETTINGS);
-        mContext.startActivity(advancedSettingsIntent);
-        ((MainActivity) mContext).callFinishActivityReceiver();
 
         Intent settingsIntent = new Intent(mContext, MainActivity.class);
         settingsIntent.putExtra(PAGE_ID, PAGE_SETTINGS);
@@ -190,7 +191,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         homePageIntent.putExtra(PAGE_ID, PAGE_HOME_READY);
         //This ensures that navigating backward from the Activity leads out of the app to Home page
         TaskStackBuilder stackBuilder = TaskStackBuilder.create((MainActivity) mContext);
-       // Adds the back stack for the Intent
+        // Adds the back stack for the Intent
         stackBuilder.addNextIntent(homePageIntent).addNextIntent(settingsIntent).addNextIntent(advancedSettingsIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(0,

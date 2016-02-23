@@ -826,14 +826,73 @@
                 "action": [
                     {
                         "title": "Learn",
-                        "link": "setup-alarm-test-hardware"
+                        "link": "setup-alarm-test-hardware-training_1_5"
                     },
                     {
                         "title": "Skip",
-                        "link": "home-ready"
+                        "link": "skip-training_1_5"
                     }
                 ],
                 "content": "<p>Panic Button has been updated and now uses a new default trigger mechanism. </p><p>Even better, you can now choose your own trigger mechanism to help prevent false triggers. Let's get started and get you up to speed with these new features. </p>"
+            },{
+                "id": "skip-training_1_5",
+                "lang": "en",
+                "type": "warning",
+                "title": "Warning",
+                "action": [
+                    {
+                        "title": "Yes",
+                        "link": "home-ready"
+                    },
+                    {
+                        "title": "Cancel",
+                        "link": "setup-alarm-test-hardware-training_1_5"
+                    }
+                ],
+                "content": "<p>The panic button activation trigger has changed and we recommend you to test these changes until you are familiar with them. Are you sure you want to skip this training?.  </p>"
+            },{
+                "id": "setup-alarm-test-hardware-training_1_5",
+                "lang": "en",
+                "type": "interactive",
+                "title": "Test hardware alarm",
+                "introduction": "Try Now! Repeatedly press the power button until you feel a vibration. Using the power button to activate the alarm may lock your screen. Just unlock your screen to continue setting up the app.",
+                "component": "alarm-test-hardware",
+                "timers": {
+                    "info": "0",
+                    "inactive": "10",
+                    "fail": "20"
+                },
+                "success": {
+                    "link": "setup-alarm-test-hardware-success-training_1_5"
+                },
+                "fail": {
+                    "link": "setup-alarm-test-hardware-fail-training_1_5"
+                },
+                "content": "<p><img src=\"/media/mobile/panic_button_activation_360.gif\" alt=\"\"></p>"
+            },
+            {
+                "id": "setup-alarm-test-hardware-fail-training_1_5",
+                "lang": "en",
+                "type": "simple",
+                "title": "Set up alarm",
+                "action": [
+                    {
+                        "title": "Try Again",
+                        "link": "setup-alarm-test-hardware-training_1_5"
+                    }
+                ],
+                "content": "<p>It looks like you didn&#39;t succeed in triggering the alert using the phone&#39;s power button.</p><p>Remember: repeatedly press a button on the calculator until you feel a vibration. On some phones, you might need to press the button more than 10 times, and then 2 more times to confirm.</p>"
+            },{
+                "id": "setup-alarm-test-hardware-success-training_1_5",
+                "lang": "en",
+                "type": "simple",
+                "title": "Well done!",
+                "action": [
+                    {
+                        "title": "Finish",
+                        "link": "home-ready"
+                    }],
+                "content": "<p>Your test was successful! In an emergency, you would have activated the alarm and an alert would now be sent out automatically every 5 minutes.</p>"
             }
         ]
     }
