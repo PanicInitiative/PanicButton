@@ -1,21 +1,21 @@
 package org.iilab.pb;
 
-import org.iilab.pb.alert.PanicAlert;
-import org.iilab.pb.common.ApplicationSettings;
-
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.iilab.pb.alert.PanicAlert;
+import org.iilab.pb.common.ApplicationSettings;
 
-public abstract class PanicButtonActivity extends Activity {
+
+public abstract class PanicButtonActivity extends AppCompatActivity {
     public static final int ADD_TO_TOP = 0;
 
     @Override

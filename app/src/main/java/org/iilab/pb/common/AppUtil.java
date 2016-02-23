@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -19,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.iilab.pb.BaseFragmentActivity;
 import org.iilab.pb.R;
 import org.iilab.pb.data.PBDatabase;
 import org.iilab.pb.model.Page;
@@ -392,7 +392,7 @@ public class AppUtil {
         return false;
     }
 
-    public static  boolean checkAndRequestPermissions(BaseFragmentActivity activity) {
+    public static  boolean checkAndRequestPermissions(AppCompatActivity activity) {
         int permissionSendMessage = ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.SEND_SMS);
         int locationPermission = ContextCompat.checkSelfPermission(activity,Manifest.permission.ACCESS_FINE_LOCATION);
@@ -404,7 +404,7 @@ public class AppUtil {
             listPermissionsNeeded.add(Manifest.permission.SEND_SMS);
         }
 
-        Log.d(TAG, "permission sms value is " + permissionSendMessage + " " + PackageManager.PERMISSION_DENIED + " " + PackageManager.PERMISSION_GRANTED);
+        Log.d(TAG, "permissions status for sms  is " + permissionSendMessage + " and location services is " + locationPermission);
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),
                     REQUEST_ID_MULTIPLE_PERMISSIONS);

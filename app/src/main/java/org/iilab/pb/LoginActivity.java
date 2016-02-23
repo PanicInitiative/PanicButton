@@ -73,7 +73,6 @@ public class LoginActivity extends PanicButtonActivity {
                 if (isAlertActive(LoginActivity.this)) {
                     i.putExtra(PAGE_ID, PAGE_HOME_ALERTING);
                 } else {
-                    //check permissions
                     i.putExtra(PAGE_ID, PAGE_HOME_READY);
                 }
             }
@@ -85,5 +84,4 @@ public class LoginActivity extends PanicButtonActivity {
         setError(LoginActivity.this, passwordEditText, ((tryCount < 2) ? R.string.incorrect_pin : R.string.incorrect_pin_3_times));
         tryCount++;
     }
-    
 }

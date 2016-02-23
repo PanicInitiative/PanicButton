@@ -125,7 +125,7 @@ public class WizardActivity extends BaseFragmentActivity {
             return;
         } else if (currentPage.getId().equals(PAGE_HOME_READY)) {
             setWizardState(WizardActivity.this, WIZARD_FLAG_HOME_READY);
-            changeAppIcontoCalculator();
+            changeAppIconToCalculator();
             if (isHardwareTriggerServiceEnabled(this)) {
                 startService(new Intent(this, HardwareTriggerService.class));
             }
@@ -217,8 +217,8 @@ public class WizardActivity extends BaseFragmentActivity {
         }
     }
 
-    private void changeAppIcontoCalculator() {
-        Log.i(TAG, "changeAppIcontoCalculator");
+    private void changeAppIconToCalculator() {
+        Log.i(TAG, "changeAppIconToCalculator");
 
         getPackageManager().setComponentEnabledSetting(
                 new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
