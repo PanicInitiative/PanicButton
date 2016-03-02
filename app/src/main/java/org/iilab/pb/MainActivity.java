@@ -239,7 +239,7 @@ public class MainActivity extends BaseFragmentActivity implements PreferenceFrag
     @Override
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat,
                                            PreferenceScreen preferenceScreen) {
-        Log.d(TAG,"g----------------------------------------------");
+        Log.d(TAG,"callback called to attach the preference sub screen");
         preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
         return true;
     }
