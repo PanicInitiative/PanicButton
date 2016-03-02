@@ -129,6 +129,7 @@ public class AppConstants {
     public static final int VIBRATION_PAUSE_LONG = 400;
     public static final int VIBRATION_PAUSE_VERY_LONG = 1000;
 
+    public static final String ALARM_5_CLICKS = "5";
 
 
 }

@@ -9,7 +9,6 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
@@ -18,6 +17,7 @@ import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.trigger.HardwareTriggerService;
 
+import static org.iilab.pb.common.AppConstants.ALARM_5_CLICKS;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.PAGE_ADVANCED_SETTINGS;
@@ -33,11 +33,7 @@ import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVib
 import static org.iilab.pb.common.ApplicationSettings.setInitialClicksForAlertTrigger;
 
 public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
-
-
     private static final String TAG = AdvancedSettingsFragment.class.getName();
-
-
 
     public static AdvancedSettingsFragment newInstance(String pageId, int parentActivity) {
         AdvancedSettingsFragment f = new AdvancedSettingsFragment();
@@ -48,17 +44,14 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         return (f);
     }
 
-
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
-
-
         final CheckBoxPreference default7RepeatedPress = (CheckBoxPreference) findPreference(getString(R.string.default7RepeatedPressKey));
         final CheckBoxPreference extraConfirmationClick = (CheckBoxPreference) findPreference(getString(R.string.extraConfirmationPressKey));
-        final  CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
-        final  Preference customSettings = (Preference) findPreference(getString(R.string.customSettingsKey));
+        final CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
+        final Preference customSettings = (Preference) findPreference(getString(R.string.customSettingsKey));
         if (getCustomSettings(getActivity())) {
             default7RepeatedPress.setChecked(false);
             extraConfirmationClick.setChecked(false);
@@ -89,11 +82,10 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         });
 
         Preference powerButtonAlarmTrigger = (Preference) findPreference(getString(R.string.configurePowerButtonTriggerKey));
-
         powerButtonAlarmTrigger.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside on preference change of power redoTrainingBtton trigger setting");
+                Log.d(TAG, "Inside on preference change of power redoTrainingButton trigger setting");
 
                 if (selectedValue.equals(getString(R.string.activate_power_button_trigger))) {
                     getActivity().startService(new Intent(getActivity(), HardwareTriggerService.class));
@@ -113,7 +105,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         alertConfirmationSettings.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside of feedback for alarm activation settings");
+                Log.d(TAG, "Inside of Alarm confirmation settings");
 
                 if (selectedValue.equals(getString(R.string.confirmationSequenceDefault))) {
                     // disable Confirmation Wait Time/ Confirmation Wait Vibration
@@ -134,7 +126,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         default7RepeatedPress.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside on preference change of main trigger setting " + selectedValue.getClass());
+                Log.d(TAG, "Inside on preference change of default 7 repeated press checkbox " + selectedValue.getClass());
 
                 if ((Boolean) selectedValue) {
                     extraConfirmationClick.setChecked(false);
@@ -149,16 +141,15 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         extraConfirmationClick.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside on preference change of main trigger setting " + selectedValue.getClass());
+                Log.d(TAG, "Inside on preference change of 5 presses and a confirmation click " + selectedValue.getClass());
 
                 if ((Boolean) selectedValue) {
                     default7RepeatedPress.setChecked(false);
                     customPreference.setChecked(false);
                     customSettings.setEnabled(false);
                     // make the press 5
-                    setInitialClicksForAlertTrigger(getActivity(), "5");
+                    setInitialClicksForAlertTrigger(getActivity(), ALARM_5_CLICKS);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
-
                     Log.d(TAG, "Default 5 presses to trigger alarm with confirmation click");
                 }
                 return true;
@@ -168,31 +159,18 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         customPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside on preference change of main trigger setting " + selectedValue.getClass());
+                Log.d(TAG, "Inside on preference change of custom checkbox selection " + selectedValue.getClass());
 
                 if ((Boolean) selectedValue) {
                     default7RepeatedPress.setChecked(false);
                     extraConfirmationClick.setChecked(false);
                     customSettings.setEnabled(true);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
-//                    enableAdvancedSettings(false);
-//                    enableRedoTraining(true);
-                    Log.d(TAG, "Default 7 presses to trigger alarm without confirmation click");
+                    Log.d(TAG, "Custom setting are enabled and confirmation click defaults to false");
                 }
                 return true;
             }
         });
-    }
-
-    private void enableAdvancedSettings(boolean flag) {
-        PreferenceCategory prefCatTriggerPatternSettings = (PreferenceCategory) findPreference(getString(R.string.triggerPatternSettingsKey));
-//        PreferenceCategory prefCatTriggerVibrationSettings = (PreferenceCategory) findPreference(getString(R.string.feedbackAlarmActivationKey));
-        PreferenceCategory prefCatRedoTraining = (PreferenceCategory) findPreference(getString(R.string.redoTrainingPrefCatKey));
-        PreferenceCategory prefCatPowerButtonTriggerSettings = (PreferenceCategory) findPreference(getString(R.string.configurePowerButtonPrefCatKey));
-        prefCatTriggerPatternSettings.setEnabled(flag);
-//        prefCatTriggerVibrationSettings.setEnabled(flag);
-        prefCatRedoTraining.setEnabled(flag);
-        prefCatPowerButtonTriggerSettings.setEnabled(flag);
     }
 
     private void enableConfirmationFeedback(boolean flag) {
@@ -234,21 +212,5 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         // pass the Notification object to the system
         myNotificationManager.notify(notifyID, mBuilder.build());
     }
-//
-//    @Override
-//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-//                                          String key) {
-//        Log.d(TAG, "callback called");
-//        if (key.equals(R.string.default7RepeatedPressKey)) {
-//            Log.d(TAG, "callback called");
-//
-//            Preference connectionPref = findPreference("customSettings");
-//            // Set summary to be the user-description for the selected value
-//            connectionPref.setSummary(sharedPreferences.getString(key, "trying to change this runtime"));
-//            connectionPref.setDefaultValue(false);
-//        }
-//    }
-
-
 }
 
