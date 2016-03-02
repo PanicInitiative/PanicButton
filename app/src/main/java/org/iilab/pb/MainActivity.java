@@ -235,7 +235,6 @@ public class MainActivity extends BaseFragmentActivity implements PreferenceFrag
         }
     }
 
-
     @Override
     public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat,
                                            PreferenceScreen preferenceScreen) {

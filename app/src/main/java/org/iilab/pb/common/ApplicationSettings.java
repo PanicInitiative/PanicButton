@@ -201,7 +201,7 @@ public class ApplicationSettings extends Application {
 
 
     public static boolean isHardwareTriggerServiceEnabled(Context context) {
-        String powerButtonTriggerStatus = sharedPreferences(context).getString(context.getString(R.string.powerButtonTriggerStatus_key), context.getString(R.string.activate_power_button_trigger));
+        String powerButtonTriggerStatus = sharedPreferences(context).getString(context.getString(R.string.configurePowerButtonTriggerKey), context.getString(R.string.activate_power_button_trigger));
         return (context.getString(R.string.activate_power_button_trigger).equals(powerButtonTriggerStatus) ? true : false);
     }
 

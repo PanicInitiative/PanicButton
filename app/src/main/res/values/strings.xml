@@ -68,11 +68,9 @@
     <string name="configurePowerButtonTriggerKey">powerButtonTriggerStatus</string>
     <string name="configurePowerButtonTriggerSummary">Enable/Disable the power button alarm trigger</string>
     <string name="PowerButtonTriggerTitle">Power Button Trigger</string>
+
     <string name="deactivate_power_button_trigger">Deactivated</string>
-    <string name="powerButtonTriggerStatus_key">"powerButtonTriggerStatus" </string>
-    <string name="configure_power_button_trigger_summary">"Enable/Disable the power button alarm trigger" </string>
     <string name="activate_power_button_trigger">Activated </string>
-    <string name="debug_mode">Debug Mode </string>
 
     <string name="changeTriggerPattern">Change Trigger Pattern</string>
     <string name="firstClicks">Number of first clicks</string>
@@ -103,7 +101,7 @@
     <string name="confirmationSequenceTitle"> Use Confirmation Sequence</string>
     <string name="confirmationSequenceKey">confirmationSettings</string>
     <string name="confirmationSequenceDefault">1</string>
-    <string name="confirmationSequenceSummary">Feedback on Alarm Activation</string>
+    <string name="confirmationSequenceSummary">Pattern to inform that the alarm confirmation is required or not </string>
 
     <string name="confirmationWaitTimeTitle">Confirmation Wait Time</string>
     <string name="confirmationWaitTimeDefault">2</string>
