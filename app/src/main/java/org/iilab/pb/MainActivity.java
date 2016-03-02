@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ import static org.iilab.pb.common.AppConstants.*;
 /**
  * Created by aoe on 2/15/14.
  */
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseFragmentActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback  {
 
     TextView tvToastMessage;
 
@@ -143,7 +145,7 @@ public class MainActivity extends BaseFragmentActivity {
 
 
     private void changeAppIcontoPB() {
-        Log.d(TAG," changeAppIcontoPB");
+        Log.d(TAG, " changeAppIcontoPB");
                 getPackageManager().setComponentEnabledSetting(
                         new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-setup"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
@@ -234,7 +236,13 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
 
-
+    @Override
+    public boolean onPreferenceStartScreen(PreferenceFragmentCompat preferenceFragmentCompat,
+                                           PreferenceScreen preferenceScreen) {
+        Log.d(TAG,"g----------------------------------------------");
+        preferenceFragmentCompat.setPreferenceScreen(preferenceScreen);
+        return true;
+    }
 
 
 }

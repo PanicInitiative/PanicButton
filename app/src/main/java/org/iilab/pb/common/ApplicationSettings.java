@@ -223,10 +223,10 @@ public class ApplicationSettings extends Application {
     }
 
     public static void setConfirmationFeedbackVibrationPattern(Context context, String confirmationFeedbackPattern) {
-        saveString(context,context.getString(R.string.alertSendingConfirmationVibrationKey),confirmationFeedbackPattern);
+        saveString(context,context.getString(R.string.feedbackAlarmActivationVibrationKey),confirmationFeedbackPattern);
     }
     public static String getConfirmationFeedbackVibrationPattern(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.alertSendingConfirmationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
+        return sharedPreferences(context).getString(context.getString(R.string.feedbackAlarmActivationVibrationKey), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
     }
 
     public static String getAlarmNotConfirmedPattern(Context context) {
@@ -235,8 +235,8 @@ public class ApplicationSettings extends Application {
     public static String getInitialClicksMaxTimeLimit(Context context) {
         return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), context.getString(R.string.initialTimeDefault));
     }
-    public static String getTriggerSettings(Context context) {
-        return sharedPreferences(context).getString(context.getString(R.string.triggerSettingsKey), context.getString(R.string.initialPressesDefault));
+    public static boolean getCustomSettings(Context context) {
+        return sharedPreferences(context).getBoolean(context.getString(R.string.customKey),false);
     }
     public static void setTrainingDoneRelease1_5(Context context, Boolean flag) {
         saveBoolean(context, TRAINING_DONE, flag);

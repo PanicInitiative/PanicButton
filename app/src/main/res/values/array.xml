@@ -38,12 +38,12 @@
         <item>7</item>
         <item>8</item>
     </string-array>
-    <string-array name="confirmationSettingsArray">
+    <string-array name="confirmationSequenceArray">
         <item>(Default) Inactive</item>
         <item>Active</item>
     </string-array>
 
-    <string-array name="confirmationSettingsValues">
+    <string-array name="confirmationSequenceValues">
         <item>1</item>
         <item>2</item>
     </string-array>
@@ -69,7 +69,7 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="alertSendingConfirmationArray">
+    <string-array name="feedbackAlarmActivationArray">
         <item>Long Vibration</item>
         <item>Repeated Short Vibrations</item>
         <item>Three short - pause - Three short</item>
@@ -77,7 +77,7 @@
         <item>None</item>
     </string-array>
 
-    <string-array name="alertSendingConfirmationValues">
+    <string-array name="feedbackAlarmActivationValues">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -93,15 +93,5 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="TriggerSettingsOptionsArray">
-        <item>@string/default7RepeatedPress</item>
-        <item>@string/extraConfirmationPress</item>
-        <item>@string/custom_mode</item>
-    </string-array>
 
-    <string-array name="TriggerSettingsOptionsValues">
-        <item>@string/default7RepeatedPressValue</item>
-        <item>@string/extraConfirmationPressValue</item>
-        <item>@string/custom_modeValue</item>
-    </string-array>
 </resources>
