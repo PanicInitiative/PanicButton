@@ -125,14 +125,16 @@
     <string name="redoTrainingKey">redoTraining</string>
 
     <string name="triggerSettingsHeaderTitle">Alarm Trigger Settings</string>
-
-    <string name="default7RepeatedPressTitle">(Default) 7 repeated presses</string>
+    <string name="default7RepeatedPressTitle">(Default)7 Repeated Presses</string>
+    <string name="default7RepeatedPressKey">default7Press</string>
     <string name="extraConfirmationPressTitle">5 presses plus  confirmation </string>
+    <string name="extraConfirmationPressKey">extraConfirmation </string>
+
     <string name="customKey">Custom</string>
     <string name="customTitle">Custom</string>
+
     <string name="default7RepeatedPressValue">1</string>
     <string name="extraConfirmationPressValue">2</string>
-    <string name="custom_modeValue">3</string>
 
     <string name="customSettingsKey">customSettings</string>
     <string name="customSettingsTitle">Custom settings</string>
