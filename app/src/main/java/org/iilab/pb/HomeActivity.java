@@ -1,10 +1,10 @@
 package org.iilab.pb;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -61,7 +61,7 @@ import static org.iilab.pb.common.ApplicationSettings.setPBSupportedLanguages;
 import static org.iilab.pb.common.ApplicationSettings.setSelectedLanguage;
 
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends AppCompatActivity {
 
     ProgressDialog pDialog;
 
@@ -186,6 +186,8 @@ public class HomeActivity extends Activity {
         if ((supportedLangs == null) || !(supportedLangs.contains(selectedLang))) {
             setSelectedLanguage(this, DEFAULT_LANGUAGE_ENG);
         }
+        //TODO remove after testing
+//        wizardState=WIZARD_FLAG_HOME_READY;
         if (wizardState != WIZARD_FLAG_HOME_READY) {
             Log.d(TAG, "First run TRUE, running WizardActivity with pageId = " + pageId);
             Intent i = new Intent(HomeActivity.this, WizardActivity.class);
