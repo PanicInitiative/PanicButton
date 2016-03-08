@@ -1,10 +1,12 @@
 package org.iilab.pb.common;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.os.Vibrator;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -13,15 +15,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.iilab.pb.R;
+import org.iilab.pb.data.PBDatabase;
+import org.iilab.pb.model.Page;
+import org.json.JSONArray;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-public class AppUtil {
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_SOS;
+import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT;
+import static org.iilab.pb.common.AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION;
+import static org.iilab.pb.common.AppConstants.APP_RELEASE_VERSION_1_5;
+import static org.iilab.pb.common.AppConstants.ONE_SECOND;
+import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_LONG;
+import static org.iilab.pb.common.AppConstants.VIBRATION_DURATION_SHORT;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_LONG;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_SHORT;
+import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_VERY_LONG;
+import static org.iilab.pb.common.ApplicationSettings.getDBLoadedLanguages;
+import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.isFirstRun;
+import static org.iilab.pb.common.ApplicationSettings.isTrainingDoneRelease1_5;
 
+public class AppUtil {
+    private static final String TAG = AppUtil.class.getName();
     public static HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
 
     public static void setError(Context context, EditText editText, int messageId) {
@@ -99,11 +123,11 @@ public class AppUtil {
 	public static Drawable setDownloadedImageMetrices(Drawable drawable,
 			DisplayMetrics metrics, double densityRatio, int imageScaleFlag) {
 
-        Log.e("AppUtil -> setDownloadedImageMetrices", "density ratio = " + densityRatio + " and metrics =" + metrics);
+        Log.d(TAG," setDownloadedImageMetrices"+ "density ratio = " + densityRatio + " and metrics =" + metrics);
 		int width, height;
 		int originalWidthScaled = (int) (drawable.getIntrinsicWidth()* metrics.density * densityRatio);
-		int originalHeightScaled = (int) (drawable.getIntrinsicHeight()* metrics.density * densityRatio);
-        Log.e("AppUtil -> setDownloadedImageMetrices", "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
+		int originalHeightScaled = (int) (drawable.getIntrinsicHeight() * metrics.density * densityRatio);
+        Log.d(TAG," setDownloadedImageMetrices"+ "originalWidthScaled = " + originalWidthScaled + " and originalHeightScaled = " + originalHeightScaled);
 
         if (imageScaleFlag == AppConstants.IMAGE_FULL_WIDTH) {
             height = drawable.getIntrinsicHeight() * metrics.widthPixels / drawable.getIntrinsicWidth();
@@ -118,10 +142,10 @@ public class AppUtil {
                 width = originalWidthScaled;
             }
         }
-        Log.e("AppUtil -> setDownloadedImageMetrices", "final width = " + width + " and height = " + height);
+        Log.e(TAG," setDownloadedImageMetrices"+ "final width = " + width + " and height = " + height);
 		try {
 			drawable.setBounds(0, 0, width, height);
-			Log.e(">>>>>>>>>>>>>>", "image width = " + width + " & height = "+ height);
+			Log.e(TAG, "image width = " + width + " & height = "+ height);
 		} catch (Exception ex) {
 		}
 
@@ -159,16 +183,6 @@ public class AppUtil {
 		   return i;
     }
     
-    /*-----This method show Toast.-----*/
-	public static void showToast(String message, int time,Context context) {
-		Toast.makeText(context, message, time).show();
-	}
-
-
-
-
-
-
     public static void updateImages(final boolean downloadImages, final String textHtml, final Context context, final DisplayMetrics metrics, final TextView tvContent, final int imageScaleFlag) {
 
         if (textHtml == null) return;
@@ -181,7 +195,7 @@ public class AppUtil {
 //                                !AppUtil.hasInternet(context) &&
                                         downloadImages){
                             try {
-                                Log.e(">>>>>>>>>>>", "Source = " + source);
+                                Log.d(TAG, "Source = " + source);
                                 Drawable drawable = Drawable.createFromStream(context.getAssets().open(source.substring(1, source.length())), null);
 
                                 drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
@@ -189,7 +203,7 @@ public class AppUtil {
                                 updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
                                 return drawable;
                             } catch (IOException e) {
-                                Log.e(">>>>>>>>>>>>>>","Failed to load image from asset");
+                                Log.e(TAG,"Failed to load image from asset");
                                 e.printStackTrace();
                             }
                             return null;
@@ -249,5 +263,126 @@ public class AppUtil {
         tvContent.setText(spanned);
     }
 
+    public static void insertMobileDataToLocalDB(JSONArray dataArray,Context context) {
+        Log.d(TAG,"inserting mobile data to local DB");
+        List<Page> pageList = Page.parsePages(dataArray);
+        PBDatabase dbInstance = new PBDatabase(context);
+        dbInstance.open();
 
+        for (int indexPage = 0; indexPage < pageList.size(); indexPage++) {
+            dbInstance.insertOrUpdatePage(pageList.get(indexPage));
+        }
+        dbInstance.close();
+    }
+
+    public static String loadJSONFromAsset(String jsonFileName ,Context context) {
+        Log.d(TAG,"loading JSON from asset");
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(jsonFileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ioException) {
+            Log.e(TAG, "Exception while loading json file" + ioException.getMessage());
+            ioException.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    public static boolean isLanguageDataExists(Context context, String lang){
+        return (getDBLoadedLanguages(context).contains(lang));
+    }
+
+
+    public static void vibrateForConfirmationOfAlertTriggered(Context context) {
+        String confirmationFeedbackPattern = ApplicationSettings.getConfirmationFeedbackVibrationPattern(context);
+
+        Log.d(TAG, "confirmation feedback pattern 1-Long, 2-Repeated short, 3-Three short pause three short, 4-SOS, 5-None " + confirmationFeedbackPattern);
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        if (ALARM_SENDING_CONFIRMATION_PATTERN_LONG.equals(confirmationFeedbackPattern)) {
+            vibrateContinusly(vibrator, ALERT_CONFIRMATION_VIBRATION_DURATION);
+        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_REPEATED_SHORT.equals(confirmationFeedbackPattern)) {
+            repeatedThreeShortVibrations(vibrator);
+        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_THREESHORT_PAUSE_THREESHORT.equals(confirmationFeedbackPattern)) {
+            vibrateThreeShortPauseThreeShort(vibrator);
+        } else if (ALARM_SENDING_CONFIRMATION_PATTERN_SOS.equals(confirmationFeedbackPattern)) {
+            vibrateSOS(vibrator);
+        }
+    }
+    private static void vibrateContinusly(Vibrator vibrator, int feedbackDuration) {
+        vibrator.vibrate(feedbackDuration);
+    }
+
+    private static void vibrateEverySecond(Vibrator vibrator, int feedbackDuration) {
+        Log.d(TAG, "vibrate every second pattern selected and feedback duration is " + feedbackDuration);
+
+        vibrator.vibrate(getPattern(feedbackDuration), -1);
+    }
+
+    private static long[] getPattern(int i) {
+        switch (i) {
+            case 1:
+                // pattern {0, 600, 400};
+                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
+            case 2:
+                // pattern {0, 600, 400,600, 400};
+                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
+
+            case 3:
+                // pattern {0, 600, 400,600, 400,600, 400}
+                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
+            case 4:
+                // pattern {0, 600, 400,600, 400,600, 400,600, 400}
+                return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
+        }
+        return new long[]{0, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG};
+    }
+
+    private static void repeatedThreeShortVibrations(Vibrator vibrator) {
+        // pattern = {0, 400, 200,400, 200,400};
+        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};
+        vibrator.vibrate(pattern, -1);
+    }
+
+    private static void vibrateThreeShortPauseThreeShort(Vibrator vibrator) {
+        //pattern = {0, 400,200,400,200,400,1000,400,200,400,200,400};
+        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_VERY_LONG, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};
+        vibrator.vibrate(pattern, -1);
+
+    }
+
+    // SOS: Three short - Three long - Three short
+    private static void vibrateSOS(Vibrator vibrator) {
+        //pattern = {0, 400,200,400,200,400,1000,400,1000,400,1000,400, 400,200,400,200,400,200};
+        long[] pattern = {0, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_VERY_LONG,//three short
+                VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG, VIBRATION_DURATION_LONG, VIBRATION_PAUSE_LONG,// Three long
+                VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT, VIBRATION_PAUSE_SHORT, VIBRATION_DURATION_SHORT};//three short
+        vibrator.vibrate(pattern, -1);
+    }
+
+    public static void vibrateForHapticFeedback(Context context) {
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        Log.d(TAG, "haptic feedback pattern 1-continues, 2-vibrate every second : " + ApplicationSettings.getHapticFeedbackVibrationPattern(context));
+        //Code to fetch the Haptic feedback pattern
+        if (context.getString(R.string.hapticFeedbackDefaultPattern).equals(ApplicationSettings.getHapticFeedbackVibrationPattern(context))) {
+            vibrateContinusly(vibrator, (ONE_SECOND * Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context))));
+        } else {
+            vibrateEverySecond(vibrator, Integer.parseInt(ApplicationSettings.getConfirmationWaitVibrationDuration(context)));
+        }
+    }
+
+    public static boolean playTrainingForRelease1_5(Context context) {
+        Log.d(TAG, "is App a fresh install " + isFirstRun(context));
+        Log.d(TAG, "is 1.5 update training played once "+ isTrainingDoneRelease1_5(context));
+        Log.d(TAG, "the version no of app installed in device. 10 corresponds to 1.5 release"+ getLastUpdatedVersion(context));
+        if (getLastUpdatedVersion(context) == APP_RELEASE_VERSION_1_5 && !isTrainingDoneRelease1_5(context) && !isFirstRun(context)) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -8,14 +8,21 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.iilab.pb.calculator.CalculatorImpl;
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.trigger.MultiClickEvent;
 
+import static org.iilab.pb.common.AppConstants.DISGUISE_UNLOCK_LONGPRESS_TIME;
+import static org.iilab.pb.common.AppConstants.WIZARD_FLAG_HOME_READY;
+import static org.iilab.pb.common.AppUtil.behaveAsHomeButton;
+import static org.iilab.pb.common.AppUtil.playTrainingForRelease1_5;
+import static org.iilab.pb.common.AppUtil.unbindDrawables;
+import static org.iilab.pb.common.AppUtil.vibrateForHapticFeedback;
+import static org.iilab.pb.common.ApplicationSettings.setWizardState;
+
 public class CalculatorActivity extends PanicButtonActivity {
+
 	private static final int[] buttons = {R.id.one, R.id.two, R.id.three,
 		R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine,
 		R.id.zero, R.id.equals_sign, R.id.plus, R.id.minus, R.id.multiply,
@@ -26,17 +33,16 @@ public class CalculatorActivity extends PanicButtonActivity {
 
     boolean mHasPerformedLongPress;
     Runnable mPendingCheckForLongPress;
-
+	private static final String TAG = CalculatorActivity.class.getName();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.calculator_layout);
 		registerButtonEvents();
-//		startService(new Intent(this, HardwareTriggerService.class));
-
 		calculator = new CalculatorImpl();
-		
-        ApplicationSettings.setWizardState(this, AppConstants.WIZARD_FLAG_HOME_READY);
+        setWizardState(this, WIZARD_FLAG_HOME_READY);
+		if(playTrainingForRelease1_5(getApplicationContext()) )
+			Toast.makeText(this, "Calculate! has been updated. Go to the settings to find out more!", Toast.LENGTH_LONG).show();
 	}
 
 	private void registerButtonEvents() {
@@ -119,7 +125,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 				return;
 			}
 			if(multiClickEvent.canStartVibration()){
-				getPanicAlert().vibrate();
+				vibrateForHapticFeedback(CalculatorActivity.this);
 				CharSequence text = ((Button) view).getText();
 				//Toast.makeText(getApplicationContext(), "Press the button '" + text + "' once the vibration ends to trigger alerts", Toast.LENGTH_LONG).show();
 			}
@@ -160,7 +166,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 
 
                     mHasPerformedLongPress = false;
-                    v.postDelayed(mPendingCheckForLongPress, AppConstants.DISGUISE_UNLOCK_LONGPRESS_TIME);
+                    v.postDelayed(mPendingCheckForLongPress, DISGUISE_UNLOCK_LONGPRESS_TIME);
 
                     break;
                 case MotionEvent.ACTION_MOVE:
@@ -196,7 +202,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 //	};
 
 	private MultiClickEvent resetEvent(View view) {
-		MultiClickEvent multiClickEvent = new MultiClickEvent();
+		MultiClickEvent multiClickEvent = new MultiClickEvent(this);
 		view.setTag(multiClickEvent);
 		return multiClickEvent;
 	}
@@ -210,7 +216,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	@Override
     protected void onDestroy() {
     	super.onDestroy();
-    	AppUtil.unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
+    	unbindDrawables(getWindow().getDecorView().findViewById(android.R.id.content));
         System.gc();
     }
 	
@@ -218,7 +224,7 @@ public class CalculatorActivity extends PanicButtonActivity {
 	public void onBackPressed() {
 //		super.onBackPressed();
 //		finish();
-		Log.d("CDA", "onBackPressed Called");
-		   startActivity(AppUtil.behaveAsHomeButton());
+		Log.d(TAG, "onBackPressed Called");
+		   startActivity(behaveAsHomeButton());
 	}
 }

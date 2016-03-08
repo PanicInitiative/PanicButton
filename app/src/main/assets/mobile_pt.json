@@ -1,6 +1,6 @@
 {
   "mobile": {
-    "version": 8,
+    "version": "8",
     "data": [
       {
         "id": "setup-warning",
@@ -233,7 +233,8 @@
         "action": [
           {
             "title": "Próximo",
-            "link": "setup-alarm-disguise"
+//            "link": "setup-alarm-disguise"
+            "link": "home-not-configured-disguise"
           }
         ],
         "content": "<p>Teste bem sucedido! Em caso de emergência real, o seu alerta seria enviado.</p>"
@@ -541,20 +542,6 @@
             "link": "setup-disguise"
           }
         ],
-        "items": [
-          {
-            "title": "Sobre",
-            "link": "setup-about"
-          },
-          {
-            "title": "Ajuda",
-            "link": "help"
-          },
-          {
-            "title": "Configurações de Idioma",
-            "link": "setup-language"
-          }
-        ],
         "content": "<p>O Botão de Pânico só poderá ser usado depois de estar totalmente configurado.</p>"
       },
       {
@@ -583,20 +570,6 @@
             "title": "Configure o Disfarce",
             "link": "setup-disguise",
             "status": "disabled"
-          }
-        ],
-        "items": [
-          {
-            "title": "Sobre",
-            "link": "setup-about"
-          },
-          {
-            "title": "Ajuda",
-            "link": "help"
-          },
-          {
-            "title": "Configurações de Idioma",
-            "link": "setup-language"
           }
         ],
         "content": "<p>O Botão de Pânico só poderá ser usado depois de estar totalmente configurado</p>"

@@ -1,6 +1,6 @@
 {
     "mobile": {
-        "version": 8,
+        "version": "8",
         "data": [
             {
                 "id": "setup-warning",
@@ -233,7 +233,8 @@
                 "action": [
                     {
                         "title": "Siguiente",
-                        "link": "setup-alarm-disguise"
+//                        "link": "setup-alarm-disguise"
+                         "link": "home-not-configured-disguise"
                     }
                 ],
                 "content": "<p>¡Tu prueba fue exitosa! En una emergencia real, tu alerta se enviará</p>"
@@ -556,20 +557,6 @@
                         "link": "setup-disguise"
                     }
                 ],
-                "items": [
-                    {
-                        "title": "Acerca de ",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Ayuda",
-                        "link": "help"
-                    },
-                    {
-                        "title": "Configuración de Lenguaje",
-                        "link": "setup-language"
-                    }
-                ],
                 "content": "<p>No puedes hacer uso del Botón de Pánico hasta que la instalación haya sido completada.</p>"
             },
             {
@@ -600,20 +587,6 @@
                         "status": "disabled"
                     }
                 ],
-                "items": [
-                    {
-                        "title": "Acerca de ",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Ayuda",
-                        "link": "help"
-                    },
-                    {
-                        "title": "Configuraciones de Lenguage",
-                        "link": "setup-language"
-                    }
-                ],
                 "content": "<p>No podrás hacer uso del Botón de Pánico hasta que el proceso de instalación haya sido completado.</p>"
             },
             {
@@ -627,16 +600,16 @@
                         "link": "setup-warning"
                     }
                 ],
-                "items": [
-                    {
-                        "title": "Acerca de",
-                        "link": "setup-about"
-                    },
-                    {
-                        "title": "Configuraciones de lenguaje",
-                        "link": "setup-language"
-                    }
-                ],
+              "items": [
+                {
+                  "title": "Acerca de",
+                  "link": "setup-about"
+                },
+                {
+                  "title": "Configuraciones de lenguaje",
+                  "link": "setup-language"
+                }
+              ],
                 "content": "<p><img src=\"/media/mobile/home-not-configured-small.png\" alt=\"Illustration\"> El Botón de Pánico convierte tu teléfono móvil en una alarma secreta para que tus contactos mas confiables puedan actuar si te encuentras en riesgo.</p>"
             },
             {

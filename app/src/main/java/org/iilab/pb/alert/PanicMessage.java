@@ -2,6 +2,7 @@ package org.iilab.pb.alert;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import org.iilab.pb.R;
 import org.iilab.pb.common.ApplicationSettings;
@@ -13,7 +14,7 @@ import java.util.List;
 import static android.telephony.SmsMessage.MAX_USER_DATA_SEPTETS;
 
 public class PanicMessage {
-//    public static final int TWITTER_MAX_LENGTH = 140;
+    private static final String TAG= PanicMessage.class.getName();
     private Context context;
     private Location location;
 
@@ -34,6 +35,7 @@ public class PanicMessage {
 
     public void sendStopAlertMessage() {
         String message = SMSSettings.retrieveStopAlertMessage(context);
+        Log.d(TAG, "Stop Alert message is " + message);
         sendMessage(message, getPhoneNumbers());
     }
 

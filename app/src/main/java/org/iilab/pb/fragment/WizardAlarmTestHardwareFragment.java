@@ -16,9 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
-import org.iilab.pb.common.AppConstants;
+import org.iilab.pb.common.AppUtil;
 import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.GifDecoderView;
 import org.iilab.pb.common.MyTagHandler;
@@ -30,23 +31,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+import static org.iilab.pb.common.AppConstants.PAGE_ID;
 /**
  * Created by aoe on 1/9/14.
  */
 public class WizardAlarmTestHardwareFragment extends Fragment {
 
-    private static final String PAGE_ID = "page_id";
     private HashMap<String, Drawable> mImageCache = new HashMap<String, Drawable>();
     private Activity activity;
 
     DisplayMetrics metrics;
     PowerManager.WakeLock wakeLock;
 
-//    TextView tvContent;
     private GifDecoderView gifView;
 
     Page currentPage;
-
+    private static final String TAG = SimpleFragment.class.getName();
     public static WizardAlarmTestHardwareFragment newInstance(String pageId) {
         WizardAlarmTestHardwareFragment f = new WizardAlarmTestHardwareFragment();
         Bundle args = new Bundle();
@@ -58,8 +58,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_type_interactive_test_hardware, container, false);
-
-//        tvContent = (TextView) view.findViewById(R.id.fragment_contents);
         gifView = (GifDecoderView) view.findViewById(R.id.gif_view);
 
         return view;
@@ -98,7 +96,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
                     @Override
                     public Drawable getDrawable(final String source) {
                         try {
-                            Log.e(">>>>>>>>>>>", "Source = " + source);
+                            Log.d(TAG, "Source = " + source);
                             Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
 
                             InputStream is = activity.getAssets().open(source.substring(1, source.length()));
@@ -109,14 +107,14 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
 //                            updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
                             return drawable;
                         } catch (IOException e) {
-                            Log.e(">>>>>>>>>>>>>>", "Failed to load gif image from asset");
+                            Log.e(TAG, "Failed to load gif image from asset");
                             e.printStackTrace();
                         }
                         return null;
                     }
                 }, new MyTagHandler());
 
-                Log.e(">>>>>", "content = " + currentPage.getContent());
+                Log.d(TAG, "content = " + currentPage.getContent());
 //                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
 //                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_FULL_WIDTH);
             }
@@ -127,19 +125,19 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     public void onPause() {
         super.onPause();
         gifView.stopGif();
-        Log.e(">>>>>", "onPause WizardAlarmTestHardwareFragment");
+        Log.d(TAG, "onPause WizardAlarmTestHardwareFragment");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(">>>>>", "onResume WizardAlarmTestHardwareFragment");
+        Log.d(TAG, "onResume WizardAlarmTestHardwareFragment");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("????", "onDestroy");
+        Log.d(TAG, "onDestroy");
         activity.unregisterReceiver(wizardHardwareReceiver);
     }
     
@@ -148,16 +146,16 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
     	gifView.clear();
     	gifView = null;
         super.onDestroyView();
-        Log.e("????", "onDestroyView");
+        Log.d(TAG, "onDestroyView");
     }
 
 
-    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver() {
+    private BroadcastReceiver wizardHardwareReceiver = new HardwareTriggerReceiver(activity) {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             super.onReceive(context, intent);
-            Log.e("????", "in onReceive in WizardAlarmTest");
+            Log.d(TAG, "in onReceive in WizardAlarmTest");
             ((WizardActivity) getActivity()).hideToastMessageInInteractiveFragment();
 
             getActivity().onUserInteraction();
@@ -169,18 +167,20 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
 
         @Override
         protected void onActivation(Context context) {
-            Log.e(">>>>>>>", "in onActivation of wizardHWReceiver");
-
+            Log.d(TAG, "in onActivation of wizardHWReceiver");
+            //add vibration code in test fragments
             Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(AppConstants.ALERT_CONFIRMATION_VIBRATION_DURATION);
+            AppUtil.vibrateForConfirmationOfAlertTriggered(context);
+//            vibrator.vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
 
             String pageId = currentPage.getSuccessId();
 
             Intent i = new Intent(activity, WizardActivity.class);
-            i.putExtra("page_id", pageId);
+            i.putExtra(PAGE_ID, pageId);
             activity.startActivity(i);
             activity.finish();
         }
+
 
     };
 }
