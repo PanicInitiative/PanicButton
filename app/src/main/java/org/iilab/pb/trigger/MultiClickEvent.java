@@ -16,13 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.iilab.pb.common.AppConstants.ALARM_NOT_CONFIRMED_THREE_FAST;
-import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.ONE_SECOND;
 import static org.iilab.pb.common.ApplicationSettings.getAlarmNotConfirmedPattern;
-import static org.iilab.pb.common.ApplicationSettings.getConfirmationFeedbackVibrationPattern;
 import static org.iilab.pb.common.ApplicationSettings.getConfirmationWaitVibrationDuration;
 import static org.iilab.pb.common.ApplicationSettings.getInitialClicksForAlertTrigger;
 import static org.iilab.pb.common.ApplicationSettings.getInitialClicksMaxTimeLimit;
+import static org.iilab.pb.common.ApplicationSettings.isAlarmConfirmationRequired;
 
 public class MultiClickEvent {
     //This is the guard time
@@ -97,14 +96,14 @@ public class MultiClickEvent {
             if (clickCount >= Integer.parseInt(getInitialClicksForAlertTrigger(mContext))) {
 
                 //if no confirmation click required, activate the alarm
-                if(ALARM_SENDING_CONFIRMATION_PATTERN_NONE.equals(getConfirmationFeedbackVibrationPattern(mContext))) {
+//                if(ALARM_SENDING_CONFIRMATION_PATTERN_NONE.equals(getConfirmationFeedbackVibrationPattern(mContext))) {
+                    if(!isAlarmConfirmationRequired(mContext)){
                     waitForConfirmation=false;
                     isActivated = true;
                     AppUtil.vibrateForHapticFeedback(mContext);
                 }else {
                     waitForConfirmation = true;
                 }
-
                 eventLog.put("Waiting for confirmation", new Date(timeWhenButtonClicked).toString());
                 hapticFeedbackVibrationStartTime = timeWhenButtonClicked;
                 return;

@@ -139,4 +139,8 @@
     <string name="customSettingsKey">customSettings</string>
     <string name="customSettingsTitle">Custom settings</string>
 
+    <string name="InitialPressesText">Repeated presses</string>
+    <string name="confirmationRequired">and then press for confirmation within 3 seconds</string>
+    <string name="resource5PressPlusConfirmation">&#60;img src=&#34;/media/mobile/panic_button_activation_5press_confirm_en.gif&#34; &#62;</string>
+    <string name="resourceCustomImage">&#60;img src=&#34;/media/mobile/panic_button_activation.png&#34; &#62;</string>
 </resources>

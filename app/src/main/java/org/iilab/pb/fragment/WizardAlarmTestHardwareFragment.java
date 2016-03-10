@@ -19,8 +19,6 @@ import android.view.ViewGroup;
 
 import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.GifDecoderView;
 import org.iilab.pb.common.MyTagHandler;
 import org.iilab.pb.data.PBDatabase;
@@ -31,7 +29,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
+import static org.iilab.pb.common.AppConstants.ALARM_5_PRESS_PLUS_CONFIRMATION;
+import static org.iilab.pb.common.AppConstants.ALARM_CUSTOM;
 import static org.iilab.pb.common.AppConstants.PAGE_ID;
+import static org.iilab.pb.common.AppUtil.getCustomTrainingToastMessage;
+import static org.iilab.pb.common.AppUtil.vibrateForConfirmationOfAlertTriggered;
+import static org.iilab.pb.common.ApplicationSettings.getSelectedLanguage;
+import static org.iilab.pb.common.ApplicationSettings.getTriggerPattern;
+
 /**
  * Created by aoe on 1/9/14.
  */
@@ -47,6 +52,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
 
     Page currentPage;
     private static final String TAG = SimpleFragment.class.getName();
+
     public static WizardAlarmTestHardwareFragment newInstance(String pageId) {
         WizardAlarmTestHardwareFragment f = new WizardAlarmTestHardwareFragment();
         Bundle args = new Bundle();
@@ -81,7 +87,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             activity.registerReceiver(wizardHardwareReceiver, filter);
 
             String pageId = getArguments().getString(PAGE_ID);
-            String selectedLang = ApplicationSettings.getSelectedLanguage(activity);
+            String selectedLang = getSelectedLanguage(activity);
 
             PBDatabase dbInstance = new PBDatabase(activity);
             dbInstance.open();
@@ -91,20 +97,34 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             if (currentPage.getContent() == null)
                 gifView.setVisibility(View.GONE);
             else {
-                Html.fromHtml(currentPage.getContent(), new Html.ImageGetter() {
+                Log.d("nixxx ", "" + getTriggerPattern(getActivity()));
+                Log.d(TAG, "nixxx comming in else case " + getTriggerPattern(getActivity()));
+
+                //check the trigger pattern and accordingly load image.7 repeated press set source is default picked from jsons
+                // 5 press + confirmation set source to new gif(locale specific)
+                //custom  gif view empty-- show static image with toast of no of clicks and confirmation
+                String sourceStr = currentPage.getContent();
+
+                if (ALARM_5_PRESS_PLUS_CONFIRMATION.equals(getTriggerPattern(getActivity()))) {
+                    sourceStr = getString(R.string.resource5PressPlusConfirmation);
+                }
+
+                if (ALARM_CUSTOM.equals(getTriggerPattern(getActivity()))) {
+                    sourceStr = getString(R.string.resourceCustomImage);
+                    ((WizardActivity) getActivity()).customAlarmToastMessage(getCustomTrainingToastMessage(getActivity()));
+                }
+                Log.d(TAG, "the .gif image source name is " + sourceStr);
+                Html.fromHtml(sourceStr, new Html.ImageGetter() {
                     @SuppressWarnings("unchecked")
                     @Override
                     public Drawable getDrawable(final String source) {
                         try {
-                            Log.d(TAG, "Source = " + source);
-                            Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
 
+                            Drawable drawable = Drawable.createFromStream(activity.getAssets().open(source.substring(1, source.length())), null);
                             InputStream is = activity.getAssets().open(source.substring(1, source.length()));
                             gifView.playGif(is, metrics);
 
-//                            drawable = AppUtil.setDownloadedImageMetrices(drawable, metrics, AppConstants.IMAGE_SCALABILITY_FACTOR * metrics.scaledDensity, imageScaleFlag);
                             mImageCache.put(source, drawable);
-//                            updateImages(false, textHtml, context, metrics, tvContent, imageScaleFlag);
                             return drawable;
                         } catch (IOException e) {
                             Log.e(TAG, "Failed to load gif image from asset");
@@ -115,8 +135,6 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
                 }, new MyTagHandler());
 
                 Log.d(TAG, "content = " + currentPage.getContent());
-//                tvContent.setText(Html.fromHtml(currentPage.getContent(), null, new MyTagHandler()));
-//                AppUtil.updateImages(true, currentPage.getContent(), activity, metrics, tvContent, AppConstants.IMAGE_FULL_WIDTH);
             }
         }
     }
@@ -140,11 +158,11 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
         Log.d(TAG, "onDestroy");
         activity.unregisterReceiver(wizardHardwareReceiver);
     }
-    
+
     @Override
     public void onDestroyView() {
-    	gifView.clear();
-    	gifView = null;
+        gifView.clear();
+        gifView = null;
         super.onDestroyView();
         Log.d(TAG, "onDestroyView");
     }
@@ -160,8 +178,10 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
 
             getActivity().onUserInteraction();
 
-            if(multiClickEvent.canStartVibration()){
-                ((WizardActivity) getActivity()).confirmationToastMessage();
+            if (multiClickEvent.canStartVibration()) {
+
+                //confirmation message needs to be changed
+                ((WizardActivity) getActivity()).confirmationPressToastMessage();
             }
         }
 
@@ -170,7 +190,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             Log.d(TAG, "in onActivation of wizardHWReceiver");
             //add vibration code in test fragments
             Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            AppUtil.vibrateForConfirmationOfAlertTriggered(context);
+            vibrateForConfirmationOfAlertTriggered(context);
 //            vibrator.vibrate(ALERT_CONFIRMATION_VIBRATION_DURATION);
 
             String pageId = currentPage.getSuccessId();

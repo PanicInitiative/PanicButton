@@ -17,7 +17,8 @@ import org.iilab.pb.R;
 import org.iilab.pb.WizardActivity;
 import org.iilab.pb.trigger.HardwareTriggerService;
 
-import static org.iilab.pb.common.AppConstants.ALARM_5_CLICKS;
+import static org.iilab.pb.common.AppConstants.ALARM_5_REPEATED_CLICKS;
+import static org.iilab.pb.common.AppConstants.ALARM_7_REPEATED_CLICKS;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_LONG;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
 import static org.iilab.pb.common.AppConstants.PAGE_ADVANCED_SETTINGS;
@@ -27,8 +28,8 @@ import static org.iilab.pb.common.AppConstants.PAGE_SETTINGS;
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_RETRAINING;
 import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
 import static org.iilab.pb.common.ApplicationSettings.getCustomSettings;
-import static org.iilab.pb.common.ApplicationSettings.isConfirmationFeedback;
-import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedback;
+import static org.iilab.pb.common.ApplicationSettings.isAlarmConfirmationRequired;
+import static org.iilab.pb.common.ApplicationSettings.setAlarmConfirmationRequired;
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVibrationPattern;
 import static org.iilab.pb.common.ApplicationSettings.setInitialClicksForAlertTrigger;
 
@@ -61,10 +62,10 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
             customPreference.setChecked(false);
             customSettings.setEnabled(false);
         }
-        if (isConfirmationFeedback(getActivity())) {
-            enableConfirmationFeedback(true);
+        if (isAlarmConfirmationRequired(getActivity())) {
+            enableConfirmationPatterns(true);
         } else {
-            enableConfirmationFeedback(false);
+            enableConfirmationPatterns(false);
         }
 
         Preference redoTrainingButton = (Preference) findPreference(getString(R.string.redoTrainingKey));
@@ -99,7 +100,6 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-
         Preference alertConfirmationSettings = (Preference) findPreference(getString(R.string.confirmationSequenceKey));
 
         alertConfirmationSettings.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -109,13 +109,15 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
 
                 if (selectedValue.equals(getString(R.string.confirmationSequenceDefault))) {
                     // disable Confirmation Wait Time/ Confirmation Wait Vibration
-                    enableConfirmationFeedback(false);
-                    setConfirmationFeedback(getActivity(), false);
+                    enableConfirmationPatterns(false);
+                    setAlarmConfirmationRequired(getActivity(), false);
+                    setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
                     Log.d(TAG, "default confirmation press deactivated");
                 } else {
                     // enable Confirmation Wait Time/ Confirmation Wait Vibration
-                    enableConfirmationFeedback(true);
-                    setConfirmationFeedback(getActivity(), true);
+                    enableConfirmationPatterns(true);
+                    setAlarmConfirmationRequired(getActivity(), true);
+                    setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
                     Log.d(TAG, "Confirmation press enabled");
                 }
                 return true;
@@ -132,6 +134,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     extraConfirmationClick.setChecked(false);
                     customPreference.setChecked(false);
                     customSettings.setEnabled(false);
+                    setInitialClicksForAlertTrigger(getActivity(), ALARM_7_REPEATED_CLICKS);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
                     Log.d(TAG, "Default 7 presses to trigger alarm without confirmation click");
                 }
@@ -147,8 +150,9 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     default7RepeatedPress.setChecked(false);
                     customPreference.setChecked(false);
                     customSettings.setEnabled(false);
-                    // make the press 5
-                    setInitialClicksForAlertTrigger(getActivity(), ALARM_5_CLICKS);
+                    // make the press 5 plus confirm
+                    setAlarmConfirmationRequired(getActivity(), true);
+                    setInitialClicksForAlertTrigger(getActivity(), ALARM_5_REPEATED_CLICKS);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
                     Log.d(TAG, "Default 5 presses to trigger alarm with confirmation click");
                 }
@@ -173,7 +177,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         });
     }
 
-    private void enableConfirmationFeedback(boolean flag) {
+    private void enableConfirmationPatterns(boolean flag) {
         Preference confirmationWaitTime = (Preference) findPreference(getString(R.string.confirmationWaitTimeKey));
         confirmationWaitTime.setEnabled(flag);
         Preference confirmationWaitVibration = (Preference) findPreference(getString(R.string.hapticFeedbackVibrationPatternKey));
