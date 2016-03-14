@@ -8,9 +8,6 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 import android.util.Log;
 
-import org.iilab.pb.common.AppConstants;
-import org.iilab.pb.common.AppUtil;
-import org.iilab.pb.common.ApplicationSettings;
 import org.iilab.pb.common.Intents;
 import org.iilab.pb.location.CurrentLocationProvider;
 
@@ -19,7 +16,21 @@ import java.util.concurrent.Executors;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
+import static org.iilab.pb.common.AppConstants.GPS_MIN_DISTANCE;
+import static org.iilab.pb.common.AppConstants.GPS_MIN_TIME;
+import static org.iilab.pb.common.AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE;
+import static org.iilab.pb.common.AppConstants.NETWORK_MIN_DISTANCE;
+import static org.iilab.pb.common.AppConstants.NETWORK_MIN_TIME;
+import static org.iilab.pb.common.AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE;
 import static org.iilab.pb.common.AppConstants.ONE_MINUTE;
+import static org.iilab.pb.common.AppUtil.close;
+import static org.iilab.pb.common.AppUtil.vibrateForConfirmationOfAlertTriggered;
+import static org.iilab.pb.common.ApplicationSettings.getAlertDelay;
+import static org.iilab.pb.common.ApplicationSettings.isAlertActive;
+import static org.iilab.pb.common.ApplicationSettings.isFirstMsgWithLocationTriggered;
+import static org.iilab.pb.common.ApplicationSettings.setAlertActive;
+import static org.iilab.pb.common.ApplicationSettings.setFirstMsgSent;
+import static org.iilab.pb.common.ApplicationSettings.setFirstMsgWithLocationTriggered;
 import static org.iilab.pb.common.Intents.locationPendingIntent;
 
 public class PanicAlert {
@@ -39,9 +50,9 @@ public class PanicAlert {
     }
 
     public void activate() {
-        AppUtil.close(context);
+        close(context);
 
-        AppUtil.vibrateForConfirmationOfAlertTriggered(context);
+        vibrateForConfirmationOfAlertTriggered(context);
 
         if (isActive()
 //                || ApplicationSettings.isRestartedSetup(context)
@@ -49,7 +60,7 @@ public class PanicAlert {
             return;
         }
 
-        ApplicationSettings.setAlertActive(context, true);
+        setAlertActive(context, true);
         getExecutorService().execute(
                 new Runnable() {
                     @Override
@@ -63,7 +74,7 @@ public class PanicAlert {
 
 
     private void activateAlert() {
-        ApplicationSettings.setAlertActive(context, true);
+        setAlertActive(context, true);
         sendFirstAlert();
         registerLocationUpdate();
         scheduleFutureAlert();
@@ -71,11 +82,11 @@ public class PanicAlert {
 
     public void deActivate() {
         Log.d(TAG, "Deactivating the triggered alert");
-        ApplicationSettings.setAlertActive(context, false);
+        setAlertActive(context, false);
         locationManager.removeUpdates(locationPendingIntent(context));
         alarmManager2.cancel(Intents.alarmPendingIntent(context));
-        ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
-        ApplicationSettings.setFirstMsgSent(context, false);
+        setFirstMsgWithLocationTriggered(context, false);
+        setFirstMsgSent(context, false);
     }
 
     private void sendFirstAlert() {
@@ -84,9 +95,9 @@ public class PanicAlert {
         Location loc = getLocation(currentLocationProvider);
         Log.d(TAG, "Identified location is "+loc);
         if (loc != null) {
-            ApplicationSettings.setFirstMsgWithLocationTriggered(context, true);
+            setFirstMsgWithLocationTriggered(context, true);
         } else {
-//            ApplicationSettings.setFirstMsgWithLocationTriggered(context, false);
+//            setFirstMsgWithLocationTriggered(context, false);
             scheduleFirstLocationAlert();
         }
         createPanicMessage().sendAlertMessage(loc);
@@ -109,20 +120,20 @@ public class PanicAlert {
 
     private void scheduleFutureAlert() {
         PendingIntent alarmPendingIntent = Intents.alarmPendingIntent(context);
-        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
-        long interval = ONE_MINUTE * ApplicationSettings.getAlertDelay(context);
+        long firstTimeTriggerAt = SystemClock.elapsedRealtime() + ONE_MINUTE * getAlertDelay(context);
+        long interval = ONE_MINUTE * getAlertDelay(context);
         alarmManager2.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTimeTriggerAt, interval, alarmPendingIntent);
     }
 
     private void registerLocationUpdate() {
 
 //        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-//            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+//            locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, GPS_MIN_DISTANCE, locationPendingIntent(context));
 //        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-//            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+//            locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, NETWORK_MIN_DISTANCE, locationPendingIntent(context));
 //
         int threadRunCount = 0;
-        while (!ApplicationSettings.isFirstMsgWithLocationTriggered(context) && threadRunCount < 4) {
+        while (!isFirstMsgWithLocationTriggered(context) && threadRunCount < 4) {
             try {
                 Thread.sleep(20000);
                 threadRunCount++;
@@ -131,9 +142,9 @@ public class PanicAlert {
                     locationManager.removeUpdates(locationPendingIntent(context));
                 }
                 if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-                    locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+                    locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME_IN_FIRST_ONE_MINUTE, GPS_MIN_DISTANCE, locationPendingIntent(context));
                 if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                    locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+                    locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME_IN_FIRST_ONE_MINUTE, NETWORK_MIN_DISTANCE, locationPendingIntent(context));
                 Log.d(TAG, "threadRunCount = " + threadRunCount);
             } catch (SecurityException e) {
                 Log.e(TAG, "SecurityException exception " + e.getMessage());
@@ -149,9 +160,9 @@ public class PanicAlert {
         }
         try {
             if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-                locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+                locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME, GPS_MIN_DISTANCE, locationPendingIntent(context));
             if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-                locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+                locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME, NETWORK_MIN_DISTANCE, locationPendingIntent(context));
         } catch (SecurityException e) {
             Log.e(TAG, "SecurityException exception " + e.getMessage());
             e.printStackTrace();
@@ -167,9 +178,9 @@ public class PanicAlert {
 //                            locationManager.removeUpdates(locationPendingIntent(context));
 //                        }
 //                        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
-//                            locationManager.requestLocationUpdates(GPS_PROVIDER, AppConstants.GPS_MIN_TIME, AppConstants.GPS_MIN_DISTANCE, locationPendingIntent(context));
+//                            locationManager.requestLocationUpdates(GPS_PROVIDER, GPS_MIN_TIME, GPS_MIN_DISTANCE, locationPendingIntent(context));
 //                        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
-//                            locationManager.requestLocationUpdates(NETWORK_PROVIDER, AppConstants.NETWORK_MIN_TIME, AppConstants.NETWORK_MIN_DISTANCE, locationPendingIntent(context));
+//                            locationManager.requestLocationUpdates(NETWORK_PROVIDER, NETWORK_MIN_TIME, NETWORK_MIN_DISTANCE, locationPendingIntent(context));
 //                    }
 //                }, 60 * 1000);          // after 1 minute
 //            }
@@ -178,7 +189,7 @@ public class PanicAlert {
     }
 
     public boolean isActive() {
-        return ApplicationSettings.isAlertActive(context);
+        return isAlertActive(context);
     }
 
 

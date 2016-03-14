@@ -58,5 +58,5 @@
     <string name="third_contact">&#160;3.&#160;</string>
 
     <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
-
+    <string name="resource5PressPlusConfirmation">&#60;img src=&#34;/media/mobile/panic_button_activation_5press_confirm_pt.gif&#34; &#62;</string>
 </resources>

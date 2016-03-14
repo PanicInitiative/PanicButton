@@ -40,7 +40,9 @@ import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_LONG;
 import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_SHORT;
 import static org.iilab.pb.common.AppConstants.VIBRATION_PAUSE_VERY_LONG;
 import static org.iilab.pb.common.ApplicationSettings.getDBLoadedLanguages;
+import static org.iilab.pb.common.ApplicationSettings.getInitialClicksForAlertTrigger;
 import static org.iilab.pb.common.ApplicationSettings.getLastUpdatedVersion;
+import static org.iilab.pb.common.ApplicationSettings.isAlarmConfirmationRequired;
 import static org.iilab.pb.common.ApplicationSettings.isFirstRun;
 import static org.iilab.pb.common.ApplicationSettings.isTrainingDoneRelease1_5;
 
@@ -384,5 +386,13 @@ public class AppUtil {
             return true;
         }
         return false;
+    }
+
+    public static String getCustomTrainingToastMessage(Context context){
+        String confirmationString="";
+        if(isAlarmConfirmationRequired(context))
+            confirmationString=context.getString(R.string.confirmationRequired);
+        return getInitialClicksForAlertTrigger(context)+" " +context.getString(R.string.InitialPressesText) +" "+ confirmationString;
+
     }
 }

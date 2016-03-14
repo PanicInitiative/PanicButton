@@ -200,7 +200,7 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
     private void changeAppIcontoCalculator() {
-    	Log.i(TAG ,"changeAppIcontoCalculator");
+    	Log.i(TAG, "changeAppIcontoCalculator");
 
                 getPackageManager().setComponentEnabledSetting(
                         new ComponentName("org.iilab.pb", "org.iilab.pb.HomeActivity-calculator"),
@@ -348,8 +348,12 @@ public class WizardActivity extends BaseFragmentActivity {
     }
 
 
-    public void confirmationToastMessage() {
+    public void confirmationPressToastMessage() {
         tvToastMessage.setText(Html.fromHtml(getApplication().getString(R.string.confirmation_message), null, new MyTagHandler()));
+        tvToastMessage.setVisibility(View.VISIBLE);
+    }
+    public void customAlarmToastMessage(String customToastMessage) {
+        tvToastMessage.setText(customToastMessage);
         tvToastMessage.setVisibility(View.VISIBLE);
     }
 
