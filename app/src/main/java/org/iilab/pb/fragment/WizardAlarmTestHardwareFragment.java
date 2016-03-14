@@ -97,8 +97,7 @@ public class WizardAlarmTestHardwareFragment extends Fragment {
             if (currentPage.getContent() == null)
                 gifView.setVisibility(View.GONE);
             else {
-                Log.d("nixxx ", "" + getTriggerPattern(getActivity()));
-                Log.d(TAG, "nixxx comming in else case " + getTriggerPattern(getActivity()));
+                Log.d(TAG,  getTriggerPattern(getActivity()));
 
                 //check the trigger pattern and accordingly load image.7 repeated press set source is default picked from jsons
                 // 5 press + confirmation set source to new gif(locale specific)
