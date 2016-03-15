@@ -10,7 +10,11 @@ import com.google.gson.Gson;
 
 import org.iilab.pb.R;
 
+import static org.iilab.pb.common.AppConstants.ALARM_5_PRESS_PLUS_CONFIRMATION;
+import static org.iilab.pb.common.AppConstants.ALARM_CONFIRMATION_REQUIRED;
+import static org.iilab.pb.common.AppConstants.ALARM_CUSTOM;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
+import static org.iilab.pb.common.AppConstants.DEFAULT_7_REPEATED_PRESS;
 import static org.iilab.pb.common.AppConstants.DEFAULT_ALARM_INTERVAL;
 import static org.iilab.pb.common.AppConstants.DEFAULT_HAPTIC_FEEDBACK_DURATION;
 import static org.iilab.pb.common.AppConstants.FRESH_INSTALL_APP_RELEASE_NO;
@@ -42,9 +46,6 @@ public class ApplicationSettings extends Application {
     //fla specific to 1.5 release
     public static final String TRAINING_DONE = "TRAINING_DONE";
 
-    public static Context getAppContext() {
-        return getAppContext();
-    }
 
     /*following methods are used to check whether the app is fresh install or an update.Its used to play explicitly 1.5 release major changes training sequence
     if the app is not a fresh install*/
@@ -236,7 +237,7 @@ public class ApplicationSettings extends Application {
         return sharedPreferences(context).getString(context.getString(R.string.initialTimeKey), context.getString(R.string.initialTimeDefault));
     }
     public static boolean getCustomSettings(Context context) {
-        return sharedPreferences(context).getBoolean(context.getString(R.string.customKey),false);
+        return sharedPreferences(context).getBoolean(context.getString(R.string.customKey), false);
     }
     public static void setTrainingDoneRelease1_5(Context context, Boolean flag) {
         saveBoolean(context, TRAINING_DONE, flag);
@@ -253,11 +254,23 @@ public class ApplicationSettings extends Application {
     public static boolean isAppUpdated(Context context) {
         return sharedPreferences(context).getBoolean(APP_UPDATED, false);
     }
-    public static void setConfirmationFeedback(Context context, Boolean confirmationFeedback) {
-        saveBoolean(context, CONFIRMATION_FEEDBACK, confirmationFeedback);
+    public static void setAlarmConfirmationRequired(Context context, Boolean isConfirmationRequired) {
+        saveBoolean(context, CONFIRMATION_FEEDBACK, isConfirmationRequired);
+        if(isConfirmationRequired)
+            saveString(context, context.getString(R.string.confirmationSequenceKey),ALARM_CONFIRMATION_REQUIRED);
     }
-    public static boolean isConfirmationFeedback(Context context) {
+    public static boolean isAlarmConfirmationRequired(Context context) {
         return sharedPreferences(context).getBoolean(CONFIRMATION_FEEDBACK, false);
     }
 
+    public static String getTriggerPattern(Context context) {
+        if (sharedPreferences(context).getBoolean(context.getString(R.string.default7RepeatedPressKey),false)) {
+            return DEFAULT_7_REPEATED_PRESS;
+        }else if (sharedPreferences(context).getBoolean(context.getString(R.string.extraConfirmationPressKey),false)) {
+            return ALARM_5_PRESS_PLUS_CONFIRMATION;
+        }else if (sharedPreferences(context).getBoolean(context.getString(R.string.customKey),false)) {
+            return ALARM_CUSTOM;
+        }
+        return DEFAULT_7_REPEATED_PRESS;
+    }
 }

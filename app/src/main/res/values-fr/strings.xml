@@ -58,5 +58,5 @@
     <string name="third_contact">&#160;3.&#160;</string>
 
     <string name="confirmation_message">Aprés la vibration, appuyer à nouveau sur le bouton marche-arrêt dans les 3 secondes pour confirmer.</string>
-
+    <string name="resource5PressPlusConfirmation">&#60;img src=&#34;/media/mobile/panic_button_activation_5press_confirm_fr.gif&#34; &#62;</string>
 </resources>
