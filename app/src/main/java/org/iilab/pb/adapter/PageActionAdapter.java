@@ -102,7 +102,7 @@ public class PageActionAdapter extends ArrayAdapter<PageAction> {
                     int wizardState = ApplicationSettings.getWizardState(mContext.getApplicationContext());
                     Log.e(TAG, "wizardState = " + wizardState);
                     if (wizardState == WIZARD_FLAG_HOME_READY && ApplicationSettings.isHardwareTriggerServiceEnabled(mContext)) {
-                        //after the redo training excercise is done, we need to restrat the hardware trigger service.
+                        //after the redo training exercise is done, we need to restart the hardware trigger service.
                         mContext.startService(new Intent(mContext, HardwareTriggerService.class));
                     }
                     ((WizardActivity) mContext).callFinishActivityReceiver();

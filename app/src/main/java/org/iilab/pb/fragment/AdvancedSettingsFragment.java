@@ -3,7 +3,6 @@ package org.iilab.pb.fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -35,9 +34,8 @@ import static org.iilab.pb.common.ApplicationSettings.setAlarmConfirmationRequir
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVibrationPattern;
 import static org.iilab.pb.common.ApplicationSettings.setInitialClicksForAlertTrigger;
 
-public class AdvancedSettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class AdvancedSettingsFragment extends PreferenceFragmentCompat  {
     private static final String TAG = AdvancedSettingsFragment.class.getName();
-//    CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
     public static AdvancedSettingsFragment newInstance(String pageId, int parentActivity) {
         AdvancedSettingsFragment f = new AdvancedSettingsFragment();
         Bundle args = new Bundle();
@@ -113,6 +111,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat implement
                     customPreference.setChecked(false);
                     customSettings.setEnabled(false);
                     setInitialClicksForAlertTrigger(getActivity(), ALARM_7_REPEATED_CLICKS);
+                    setAlarmConfirmationRequired(getActivity(),false);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
                     Log.d(TAG, "Default 7 presses to trigger alarm without confirmation click");
                 }
@@ -199,35 +198,19 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat implement
         myNotificationManager.notify(notifyID, mBuilder.build());
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG, "called for advanced settings");
-        if (key.equals(R.string.initialPressesKey)) {
-            Preference initialClicks = findPreference(key);
-            // Set summary to be the user-description for the selected value
-            //// x repeated press with confirmation
-            CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
-            customPreference.setSummary(sharedPreferences.getString(key, "")+"repeated press");
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
-        Log.d(TAG, "on Content changed called for main settings onResume");
+        Log.d(TAG, "on Resume for AdvancedSettingsFragment is called");
         CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
-        Log.d(TAG, "inside initial clicks " +customPreference);
             customPreference.setSummary(getCustomSummary());
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
-        Log.d(TAG, "on Content changed called for main settings onPause");
+        Log.d(TAG, "on Pause for AdvancedSettingsFragment is called");
     }
 
     private String getCustomSummary(){

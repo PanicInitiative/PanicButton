@@ -5,11 +5,13 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="@string/default7RepeatedPressKey"
-            android:title="@string/default7RepeatedPressTitle" />
+            android:title="@string/default7RepeatedPressTitle"
+            android:summary="@string/default7RepeatedPressSummary"/>
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/extraConfirmationPressKey"
-            android:title="@string/extraConfirmationPressTitle" />
+            android:title="@string/extraConfirmationPressTitle"
+            android:summary="@string/extraConfirmationPressSummary"/>
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="@string/customKey"

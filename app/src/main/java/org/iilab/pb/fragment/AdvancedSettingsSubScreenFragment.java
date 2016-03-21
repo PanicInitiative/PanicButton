@@ -1,8 +1,6 @@
 package org.iilab.pb.fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
@@ -17,22 +15,9 @@ import static org.iilab.pb.common.ApplicationSettings.isAlarmConfirmationRequire
 import static org.iilab.pb.common.ApplicationSettings.setAlarmConfirmationRequired;
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVibrationPattern;
 
-public class AdvancedSettingsSubScreenFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener{
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG,"called for advanced settings sub screen "+ key+"  "+R.string.initialPressesKey);
-        if (key.equals(getString(R.string.initialPressesKey))) {
-            Preference initialClicks = findPreference(key);
-            // Set summary to be the user-description for the selected value
-            //// x repeated press with confirmation
-            CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
-            Log.d(TAG, "inside initial clicks " +customPreference);
-//            customPreference.setSummary(sharedPreferences.getString(key, "")+"repeated press");
-        }
-    }
+public class AdvancedSettingsSubScreenFragment extends PreferenceFragmentCompat {
 
     private static final String TAG = AdvancedSettingsSubScreenFragment.class.getName();
-
     public static AdvancedSettingsSubScreenFragment newInstance(String pageId, int parentActivity) {
         AdvancedSettingsSubScreenFragment f = new AdvancedSettingsSubScreenFragment();
         Bundle args = new Bundle();
@@ -46,7 +31,7 @@ public class AdvancedSettingsSubScreenFragment extends PreferenceFragmentCompat 
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         // Load the preferences from an XML resource
         setPreferencesFromResource(R.xml.preferences, rootKey);
-        Log.d(TAG, "onCreatePreferences of the sub screen "+rootKey);
+        Log.d(TAG, "onCreatePreferences of the sub screen " + rootKey);
         Preference alertConfirmationSettings = (Preference) findPreference(getString(R.string.confirmationSequenceKey));
         if (isAlarmConfirmationRequired(getActivity())) {
             enableConfirmationPatterns(true);
@@ -84,18 +69,5 @@ public class AdvancedSettingsSubScreenFragment extends PreferenceFragmentCompat 
         confirmationWaitVibration.setEnabled(flag);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
-    }
 }
 
