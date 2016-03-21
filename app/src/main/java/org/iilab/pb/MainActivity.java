@@ -240,13 +240,12 @@ public class MainActivity extends BaseFragmentActivity implements PreferenceFrag
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "  outttt fragment back pressed in " + currentPage.getId());
+        Log.d(TAG, "   fragment back pressed in " + currentPage.getId());
         if (pageId.equals(PAGE_HOME_READY)) {
             // don't go back
 //        	finish();
 //        	startActivity(AppUtil.behaveAsHomeButton());
         } else if (currentPage.getComponent() != null && currentPage.getComponent().equals(PAGE_COMPONENT_ADVANCED_SETTINGS)) {
-            Log.d(TAG, "  handling fragment back pressed in " + pageId);
             if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStack();
             }

@@ -3,6 +3,7 @@ package org.iilab.pb.fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -28,14 +29,15 @@ import static org.iilab.pb.common.AppConstants.PAGE_SETTINGS;
 import static org.iilab.pb.common.AppConstants.PAGE_SETUP_ALARM_RETRAINING;
 import static org.iilab.pb.common.AppConstants.PARENT_ACTIVITY;
 import static org.iilab.pb.common.ApplicationSettings.getCustomSettings;
+import static org.iilab.pb.common.ApplicationSettings.getInitialClicksForAlertTrigger;
 import static org.iilab.pb.common.ApplicationSettings.isAlarmConfirmationRequired;
 import static org.iilab.pb.common.ApplicationSettings.setAlarmConfirmationRequired;
 import static org.iilab.pb.common.ApplicationSettings.setConfirmationFeedbackVibrationPattern;
 import static org.iilab.pb.common.ApplicationSettings.setInitialClicksForAlertTrigger;
 
-public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
+public class AdvancedSettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = AdvancedSettingsFragment.class.getName();
-
+//    CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
     public static AdvancedSettingsFragment newInstance(String pageId, int parentActivity) {
         AdvancedSettingsFragment f = new AdvancedSettingsFragment();
         Bundle args = new Bundle();
@@ -67,6 +69,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         } else {
             enableConfirmationPatterns(false);
         }
+        customPreference.setSummary(getCustomSummary());
 
         Preference redoTrainingButton = (Preference) findPreference(getString(R.string.redoTrainingKey));
         redoTrainingButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -100,31 +103,6 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
-        Preference alertConfirmationSettings = (Preference) findPreference(getString(R.string.confirmationSequenceKey));
-
-        alertConfirmationSettings.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object selectedValue) {
-                Log.d(TAG, "Inside of Alarm confirmation settings");
-
-                if (selectedValue.equals(getString(R.string.confirmationSequenceDefault))) {
-                    // disable Confirmation Wait Time/ Confirmation Wait Vibration
-                    enableConfirmationPatterns(false);
-                    setAlarmConfirmationRequired(getActivity(), false);
-                    setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
-                    Log.d(TAG, "default confirmation press deactivated");
-                } else {
-                    // enable Confirmation Wait Time/ Confirmation Wait Vibration
-                    enableConfirmationPatterns(true);
-                    setAlarmConfirmationRequired(getActivity(), true);
-                    setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
-                    Log.d(TAG, "Confirmation press enabled");
-                }
-                return true;
-            }
-        });
-
-
         default7RepeatedPress.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object selectedValue) {
@@ -138,6 +116,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
                     Log.d(TAG, "Default 7 presses to trigger alarm without confirmation click");
                 }
+                customPreference.setSummary(getCustomSummary());
                 return true;
             }
         });
@@ -156,6 +135,7 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_LONG);
                     Log.d(TAG, "Default 5 presses to trigger alarm with confirmation click");
                 }
+                customPreference.setSummary(getCustomSummary());
                 return true;
             }
         });
@@ -171,6 +151,8 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
                     customSettings.setEnabled(true);
                     setConfirmationFeedbackVibrationPattern(getActivity(), ALARM_SENDING_CONFIRMATION_PATTERN_NONE);
                     Log.d(TAG, "Custom setting are enabled and confirmation click defaults to false");
+                }else{
+                    customSettings.setEnabled(false);
                 }
                 return true;
             }
@@ -215,6 +197,44 @@ public class AdvancedSettingsFragment extends PreferenceFragmentCompat {
         NotificationManagerCompat myNotificationManager = NotificationManagerCompat.from(mContext);
         // pass the Notification object to the system
         myNotificationManager.notify(notifyID, mBuilder.build());
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(TAG, "called for advanced settings");
+        if (key.equals(R.string.initialPressesKey)) {
+            Preference initialClicks = findPreference(key);
+            // Set summary to be the user-description for the selected value
+            //// x repeated press with confirmation
+            CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
+            customPreference.setSummary(sharedPreferences.getString(key, "")+"repeated press");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences()
+                .registerOnSharedPreferenceChangeListener(this);
+        Log.d(TAG, "on Content changed called for main settings onResume");
+        CheckBoxPreference customPreference = (CheckBoxPreference) findPreference(getString(R.string.customKey));
+        Log.d(TAG, "inside initial clicks " +customPreference);
+            customPreference.setSummary(getCustomSummary());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences()
+                .unregisterOnSharedPreferenceChangeListener(this);
+        Log.d(TAG, "on Content changed called for main settings onPause");
+    }
+
+    private String getCustomSummary(){
+        String initialClicks=getInitialClicksForAlertTrigger(getActivity());
+        String confirmationString=(isAlarmConfirmationRequired(getActivity())? "with ":"with no ");
+
+        return (initialClicks + " Repeated press "+confirmationString+"confirmation");
     }
 }
 
