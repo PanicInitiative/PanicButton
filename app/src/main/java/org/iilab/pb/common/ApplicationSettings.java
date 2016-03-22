@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import org.iilab.pb.R;
 
 import static org.iilab.pb.common.AppConstants.ALARM_5_PRESS_PLUS_CONFIRMATION;
+import static org.iilab.pb.common.AppConstants.ALARM_CONFIRMATION_NOT_REQUIRED;
 import static org.iilab.pb.common.AppConstants.ALARM_CONFIRMATION_REQUIRED;
 import static org.iilab.pb.common.AppConstants.ALARM_CUSTOM;
 import static org.iilab.pb.common.AppConstants.ALARM_SENDING_CONFIRMATION_PATTERN_NONE;
@@ -256,8 +257,11 @@ public class ApplicationSettings extends Application {
     }
     public static void setAlarmConfirmationRequired(Context context, Boolean isConfirmationRequired) {
         saveBoolean(context, CONFIRMATION_FEEDBACK, isConfirmationRequired);
-        if(isConfirmationRequired)
-            saveString(context, context.getString(R.string.confirmationSequenceKey),ALARM_CONFIRMATION_REQUIRED);
+        if(isConfirmationRequired) {
+            saveString(context, context.getString(R.string.confirmationSequenceKey), ALARM_CONFIRMATION_REQUIRED);
+        }else{
+            saveString(context, context.getString(R.string.confirmationSequenceKey), ALARM_CONFIRMATION_NOT_REQUIRED);
+        }
     }
     public static boolean isAlarmConfirmationRequired(Context context) {
         return sharedPreferences(context).getBoolean(CONFIRMATION_FEEDBACK, false);

@@ -132,6 +132,7 @@ public class AppConstants {
     public static final String ALARM_5_REPEATED_CLICKS = "5";
     public static final String ALARM_7_REPEATED_CLICKS = "7";
     public static final String ALARM_CONFIRMATION_REQUIRED = "2";
+    public static final String ALARM_CONFIRMATION_NOT_REQUIRED = "1";
 
     public static final String DEFAULT_7_REPEATED_PRESS = "7PRESS";
     public static final String ALARM_5_PRESS_PLUS_CONFIRMATION = "5PRESS_PLUS_CONFIRMATION";
