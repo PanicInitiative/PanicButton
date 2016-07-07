@@ -103,6 +103,7 @@ public class AppConstants {
     public static final String PAGE_COMPONENT_CODE = "code";
     public static final String PAGE_COMPONENT_ALERT = "alert";
     public static final String PAGE_COMPONENT_LANGUAGE = "language";
+    public static final String PAGE_COMPONENT_PANIC_RESPONDERS = "panic-responders";
     public static final String PAGE_COMPONENT_ADVANCED_SETTINGS = "advanced";
     public static final String PAGE_COMPONENT_ALARM_TEST_HARDWARE = "alarm-test-hardware";
     public static final String PAGE_COMPONENT_ALARM_TEST_DISGUISE = "alarm-test-disguise";
