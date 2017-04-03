@@ -35,8 +35,8 @@
                 "id": "setup-language",
                 "lang": "es",
                 "type": "interactive",
-                "title": "Configuraciones de lenguage",
-                "introduction": "Selecciona un lenguaje para la aplicación.",
+                "title": "Configuraciones de idioma",
+                "introduction": "Selecciona un idioma para la aplicación.",
                 "component": "language",
                 "action": [
                     {
@@ -47,7 +47,7 @@
                     {
                         "title": "Español",
                         "language": "es",
-                        "confirmation": "Nuevo lenguaje seleccionado"
+                        "confirmation": "Nuevo idioma seleccionado"
                     },
                     {
                         "title": "Français",
