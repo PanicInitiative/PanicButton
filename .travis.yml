@@ -1,0 +1,54 @@
+
+language: android
+jdk: oraclejdk7
+
+env:
+  global:
+    # switch glibc to a memory conserving mode
+    - MALLOC_ARENA_MAX=2
+    # wait 5 minutes for adb to connect to emulator. Travis-ci cancels a
+    # stalled build after 10 minutes, so this should be shorter than that so
+    # there is time for the build to report the error.
+    - ADB_INSTALL_TIMEOUT=5
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - extra-android-m2repository
+    - build-tools-23.0.2
+    - android-23
+  licenses:
+    # only approve the Android software licenses, they match sources
+    # the Google licenses mean proprietary software with binary blobs
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+
+
+licenses:
+    # only approve the Android software licenses, they match sources
+    # the Google licenses mean proprietary software with binary blobs
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-.+'
+    
+sudo: false
+notifications:
+  email: false
+
+script:
+  # 'assemble' everything and run all checks that do not require a device/emulator
+  # first with the wrapper, then with the system gradle
+  - ./gradlew clean build
+  - gradle clean build
+  # start the emulator after the build to conserve memory
+
+  #- echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  # - emulator -avd test -no-skin -no-audio -no-window &
+  #- android-wait-for-emulator
+  #- adb shell input keyevent 82 &
+  # now run the tests that require a device/emulator
+  #- gradle connectedCheck
+
+
+after_failure:
+  - find * -name lint-results.xml | xargs cat

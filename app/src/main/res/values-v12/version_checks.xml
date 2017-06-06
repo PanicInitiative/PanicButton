@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="is_at_least_api_12" type="bool">true</item>
+    <item name="is_at_most_api_11" type="bool">false</item>
+
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_setup">Boton de Panico</string>
+    <string name="app_name">Calcula!</string>
+
+    <string name="characters_left">caracteres: &#160;</string>
+    <string name="save_text">Guardar</string>
+
+    <string name="enter_message_hint">Ingresa tu mensaje</string>
+
+    <string name="i_am_at">Estoy en</string>
+    <string name="i_am_at_url">Estoy en :  https://maps.google.com/GPS-ubicación </string>
+    <string name="location_not_found">Tratando de identificar la ubicación</string>
+    <string name="stop_alert_message">La alarma fue desactivada</string>
+    <string name="panic_button">Boton de Panico</string>
+    <string name="page_title_text">Titulo</string>
+
+    <string name="page_status_text">Estado</string>
+    <string name="page_modal_button1_text">Boton 1</string>
+    <string name="page_modal_button2_text">Boton 2</string>
+
+    <string name="page_button_action_text">Acción</string>
+    <string name="contact_hint_text">Ingresa el numero de tu contacto</string>
+    <string name="default_emergency_message">Ayudame</string>
+    <string name="emergency_message_header">Mensaje de emergencia</string>
+    <string name="sms_settings_subtitle">Agrega hasta tres contactos de emergencia</string>
+    <string name="alert_status_standby">La alerta se encuentra en pausa </string>
+    <string name="send_emergency_alert">&#160;&#160;Enviar alerta de emergencia</string>
+    <string name="stop_alert">&#160;&#160;Detener alerta</string>
+    <string name="alert_status_active">La alerta esta activada y se enviara cada cinco minutos </string>
+
+    <string name="choose_contact">Escoge a tus contactos de emergencia</string>
+
+    <string name="code_ok">Acceptar</string>
+    <string name="incorrect_pin">Por favor, introduce la clave correcta</string>
+    <string name="incorrect_pin_3_times">Por favor, re-instala la aplicacion si  no puedes recordar tu numero clave</string>
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="addition">+</string>
+    <string name="subtraction">&#8722;</string>
+    <string name="multiplication">&#215;</string>
+    <string name="division">&#247;</string>
+    <string name="equal_to">=</string>
+    <string name="decimal_point">.</string>
+    <string name="char_c">C</string>
+
+    <string name="first_contact">&#160;1.&#160;</string>
+    <string name="second_contact">&#160;2.&#160;</string>
+    <string name="third_contact">&#160;3.&#160;</string>
+
+    <string name="confirmation_message">After vibration, press power button once again for confirmation within 3 seconds.</string>
+    <string name="resource5PressPlusConfirmation">&#60;img src=&#34;/media/mobile/panic_button_activation_5press_confirm_es.gif&#34; &#62;</string>
+</resources>
